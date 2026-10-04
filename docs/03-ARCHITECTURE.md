@@ -35,8 +35,8 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (specified contract, pending on branch)
-  kit.lock                      Pinned Tier-0 versions plus pending list
+kit/                          PINNED KIT (36 components, 0 pending)
+  kit.lock                      Pinned Tier-0 versions (pending list empty)
 
 docs/                         THIS DOCUMENTATION SET plus provenance
   00-INDEX.md ... 15-DECISIONS.md

@@ -73,8 +73,8 @@ guessed. The verifier's install-command check (see
 | `extended` | Catalog depth beyond the conditional kit | After conditional |
 | null | Untiered: carried as authored, not yet placed | Last |
 
-32 records carry tier `core` today; the 2 pending Arsenal skills will join
-them. The 20 default-selected components are the provisioning set Vanguard
+34 records carry tier `core` today, including the 2 Arsenal skills.
+The 22 default-selected components are the provisioning set Vanguard
 installs automatically. Tier-0-only guarantees apply: only the core set gets
 install and verification promises (see [15-DECISIONS.md](15-DECISIONS.md)).
 

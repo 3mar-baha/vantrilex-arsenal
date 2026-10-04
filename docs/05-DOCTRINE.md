@@ -3,8 +3,9 @@
 Vantrilex Doctrine is the law skill: the law-book plus the drill manual. It
 says how the kit is used once Vanguard has equipped it — roles, gates,
 workflows, rituals. Its contract is Part B of
-`spec/VANTRILEX_SKILLS_SPEC.md`. The skill file itself is pending on this
-branch; this file states the contract it must enforce.
+`spec/VANTRILEX_SKILLS_SPEC.md`. The skill file itself is built under
+`.opencode/skills/vantrilex-doctrine/`; this file states the contract it
+enforces.
 
 Trigger phrases: any build, review, or release work; "doctrine".
 

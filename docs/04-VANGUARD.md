@@ -3,8 +3,9 @@
 Vantrilex Vanguard is the scout skill: it surveys the territory, detects the
 project state, selects the kit, installs it, verifies it, and reports. Then it
 builds the documentation foundation. Its contract is Part A of
-`spec/VANTRILEX_SKILLS_SPEC.md`. The skill file itself is pending on this
-branch; this file describes the contract it must implement. It does not paste
+`spec/VANTRILEX_SKILLS_SPEC.md`. The skill file itself is built under
+`.opencode/skills/vantrilex-vanguard/`; this file describes the contract it
+implements. It does not paste
 the skill file, and it does not enumerate the 28 target-project files — that
 list lives in section A.7 of the spec and is referenced here only.
 
@@ -89,8 +90,8 @@ The five-step selection algorithm:
    and record why.
 5. Present a shortlist table. The owner approves it. Then install.
 
-Tier 0 (36 specified components; 32 core records plus 2 pending skills in the
-catalog today) is pre-approved. Tier 1 is per-project and always needs owner
+Tier 0 (36 specified components; 32 core records plus 2 conditional hooks plus
+the 2 kit skills, all locked) is pre-approved. Tier 1 is per-project and always needs owner
 approval.
 
 ### Step 4 — Install, verify, report

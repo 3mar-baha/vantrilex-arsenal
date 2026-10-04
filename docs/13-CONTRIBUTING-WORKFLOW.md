@@ -43,8 +43,8 @@ changelog (see [14-CI-RELEASE.md](14-CI-RELEASE.md)).
    If it cannot be verified, set `install_cmd` to null with verification
    `unverified` (see [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md)).
 3. Fill `when_to_use`, `phase`, and `tier`. Tier `core` is Tier-0 only and
-   needs a slot in the 36-component budget (32 core records plus 2 pending
-   skills today).
+   needs a slot in the 36-component budget (32 core records plus 2 conditional
+   hooks plus the 2 kit skills, all locked).
 4. If the component overlaps an existing one, record `supersedes` or
    `pairs_with` in `registry/data/overlaps.yaml`.
 5. Update `CHANGELOG.md` in the same change.
