@@ -18,7 +18,7 @@ node scripts/verify-registry.mjs
 | Check | What it proves |
 |---|---|
 | `utf8-validity` | The catalog Markdown decodes as strict UTF-8 with no malformed sequence |
-| `schema-conformance` | All 2715 records satisfy `registry/schema/catalog-v2.schema.json` |
+| `schema-conformance` | All 2719 records satisfy `registry/schema/catalog-v2.schema.json` |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
 | `install-command-invariant` | No record claims `verified` with a null `install_cmd` |
 | `orphan-references` | All 48 id references in `registry/data/overlaps.yaml` resolve to catalog ids |
@@ -43,10 +43,9 @@ the exact repair command. Regeneration details are in
 ## Kit component check
 
 `CONTRIBUTING.md` and CI name `scripts/verify-kit.mjs` as the gate that
-proves each Tier-0 component resolves and loads. That script is pending on
-this branch: CI reports its absence as a notice and continues, which is an
-honest SKIP, not a pass. Per the unevaluated-gate rule below, the kit gate
-stays open until the manifest lands — see [09-KIT-LOCK.md](09-KIT-LOCK.md).
+proves each Tier-0 component resolves and loads. That script exists and
+passes 11/11 against `kit/kit.lock` (36 components, 0 pending) — see
+[09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## Shell scripts
 
@@ -104,6 +103,5 @@ If a check cannot run — missing tool, missing file, missing configuration —
 that is a failed check, not a skipped one. Say so in the change description
 rather than leaving the gate green-looking. CI models this by reporting
 SKIPPED with the reason spelled out (no `tsconfig.json`, no checkpoint
-document, kit verifier absent); a human reader treats every such line as an
-open item, and the release lane in [14-CI-RELEASE.md](14-CI-RELEASE.md)
+document); a human reader treats every such line as an open item, and the release lane in [14-CI-RELEASE.md](14-CI-RELEASE.md)
 refuses to ship over open guards.

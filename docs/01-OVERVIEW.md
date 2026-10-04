@@ -51,11 +51,13 @@ project:
 | Hooks | 6 | session-start, pre-compact, two session-persistence guards, TypeScript check, Prettier format |
 | Agents | 4 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer |
 
-The honest current count is 32 core records plus the 2 pending skills.
-`registry/catalog.json` today carries 2715 records in total, of which 32 carry
-tier `core`; the two Arsenal skills themselves (Vanguard and Doctrine) are
-specified but pending, which accounts for 34 of the 36 specified positions.
-The catalog recount stands at 20 default-selected components and 12 verified
+The honest current count is 32 core records plus the 2 conditional hooks =
+34 locked entries (36 with the two kit skills locked as built).
+`registry/catalog.json` today carries 2719 records in total, of which 34 carry
+tier `core`, including the two Arsenal skills themselves (Vanguard and
+Doctrine); with the 2 conditional hooks alongside, this accounts for the full
+36 specified positions.
+The catalog recount stands at 22 default-selected components and 12 verified
 install commands, enriched from 6 sidecars merged by the generator (skills,
 mcp, plugins, hooks, agents, formatting). Tier-1 components — Python, UI,
 team-flow, and design-system components — are added by Vanguard only when the
@@ -80,6 +82,5 @@ scripts are POSIX `bash`, checked by `shellcheck` in CI. See
 
 The foundation (license, lint config, registry schema, generator, verifier,
 sidecars, formatting vendor set) is implemented. The two skills, the kit lock
-manifest, and the release lane exist as specified contracts with pending
-materialization on this branch; each file below says exactly what is pending
-instead of pretending otherwise.
+manifest, and the release lane are implemented on main; each file below
+describes the built component instead of pretending otherwise.

@@ -45,7 +45,7 @@ An operator reads for running projects:
 
 1. [02-INSTALLATION.md](02-INSTALLATION.md) for prerequisites and setup.
 2. [04-VANGUARD.md](04-VANGUARD.md) for equipping a target project.
-3. [09-KIT-LOCK.md](09-KIT-LOCK.md) for what is pinned and what is pending.
+3. [09-KIT-LOCK.md](09-KIT-LOCK.md) for what is pinned and how the kit is scoped.
 4. [08-VERIFICATION.md](08-VERIFICATION.md) for proving the kit works.
 5. [11-WORKTREES.md](11-WORKTREES.md) for isolating parallel work.
 6. [14-CI-RELEASE.md](14-CI-RELEASE.md) for shipping a version.
@@ -62,9 +62,9 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2715 catalog records, 32 records with tier
-  `core` plus 2 pending skills, 20 default-selected components, 12 verified
-  install commands, 6 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
+- Counts are honest and checkable: 2719 catalog records, 34 records with tier
+  `core` including the 2 Arsenal skills, 22 default-selected components,
+  12 verified install commands, 6 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
 - Every relative link resolves to a file that exists. The `spec/` inputs are
