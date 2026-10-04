@@ -9,6 +9,23 @@ build/
 coverage/
 .nyc_output/
 
+# Root-level copies of the registry are never tracked. The canonical records
+# live under registry/; an external re-sync of the v1 input package dropped
+# duplicates at the repository root, which silently shadowed registry/ and
+# reintroduced the pre-repair catalog. Ignore them by exact path so a future
+# re-sync cannot commit a stale duplicate over the canonical tree.
+/agents/
+/hooks/
+/mcp/
+/plugins/
+/skills/
+/VANTRILEX_CATALOG.md
+
+# The v1 input package also drops specification copies at the root. The
+# canonical specs are tracked under docs/spec/.
+/VANTRILEX_KIT_SPEC.md
+/VANTRILEX_SKILLS_SPEC.md
+
 # Environment and secrets — never commit real values
 .env
 .env.*
