@@ -1,0 +1,12 @@
+# xcuitest-skill
+
+**Kind:** Skills
+
+**Description:** Generate XCUITest UI tests for iOS/iPadOS apps in Swift
+
+**Source:** VoltAgent/awesome-agent-skills
+
+**Tags:** volt, skill
+
+**Raw URL:** https://raw.githubusercontent.com/LambdaTest/agent-skills/main/README.md
+

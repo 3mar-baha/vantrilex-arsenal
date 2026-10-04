@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build / tooling output
+dist/
+build/
+*.tsbuildinfo
+coverage/
+.nyc_output/
+
+# Environment and secrets — never commit real values
+.env
+.env.*
+!.env.example
+
+# Git worktree pool created by scripts/dispatch-worktrees.sh
+.worktrees/
+worktrees/
+
+# Agent / editor scratch
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Python bytecode — the Arsenal toolchain is Node-only, but never commit these
+__pycache__/
+*.py[cod]
+
+# Local verification scratch
+.verify-cache/
+*.tmp

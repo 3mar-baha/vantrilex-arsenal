@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/.markdownlint.jsonc",
+
+  // Documentation is prose-first: long paragraphs and wide tables are
+  // deliberately not hard-wrapped.
+  "MD013": false,
+
+  // Table pipe spacing is a rendering-neutral stylistic preference.
+  "MD060": false,
+
+  // Bold lead-ins inside procedure steps are intentional, not missing headings.
+  "MD036": false,
+
+  // Architecture and flow diagrams are ASCII art in language-less fenced code
+  // blocks; Mermaid diagrams carry their own fenced language tag.
+  "MD040": false,
+
+  // Inline HTML (badges, <details> blocks) is deliberate content.
+  "MD033": false,
+
+  // Repeated subsection headings across sibling sections (per kind, per tier,
+  // per guard) mirror the Registry's uniform per-kind structure.
+  "MD024": { "siblings_only": true },
+
+  // Ordered lists restart numbering between independent groups.
+  "MD029": false,
+
+  // Every document opens with a single top-level heading.
+  "MD025": { "front_matter_title": "^\\s*#\\s" }
+}

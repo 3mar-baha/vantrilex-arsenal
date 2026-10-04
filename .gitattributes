@@ -1,0 +1,34 @@
+# Normalize line endings: commit and check out all text files as LF.
+# The working tree stays LF even on Windows, because this repository ships
+# shell scripts, githooks, and CI workflows that break under CRLF.
+* text=auto eol=lf
+
+# Force LF explicitly for everything the repo actually executes or lints.
+*.sh text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.mjs text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+
+# PowerShell scripts stay CRLF in the working tree (Windows-first tooling);
+# the repository copy is normalized to LF like every other text file.
+*.ps1 text eol=crlf
+
+# Git hooks carry no extension; pin them so they run unchanged on Unix runners.
+.githooks/* text eol=lf
+
+# Vendored design-system documents are third-party content: keep them LF too.
+registry/formatting/brands/** text eol=lf
+
+# Binary assets are never diffed or line-ending normalized.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary

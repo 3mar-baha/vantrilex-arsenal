@@ -1,0 +1,1493 @@
+# Skills
+
+Auto-generated index — 1485 items. ✅ = default-selected for provisioning.
+
+## Items
+
+- [a-share-skill](a-share-skill.md) — China A-share (Shanghai/Shenzhen) skills: real-time quotes, K-line history, technical indicators, events, capital flows, sector heatmaps, and paper trading. Works with Claude Code, Cursor, Codex, and Qoder
+- [aaron-marketing-skills](aaron-marketing-skills.md) — 69 marketing skills across SEO/GEO, influencer, paid ads, and email on one shared contract, with 5 benchmark-driven auditor gates (CORE-EEAT, CITE, C³, ROAS, SEND) and keyless data connectors
+- [ab-test-analysis](ab-test-analysis.md) — Analyze A/B test results with statistical significance and recommendations
+- [ab-testing](ab-testing.md) — Plan and implement A/B tests or experiments for any digital experience
+- [Abuse of Public-Facing API: Mobile API Abuse](Abuse of Public-Facing API_ Mobile API Abuse.md) — Detects and analyzes malicious behavior in mobile applications through
+- [abusing-dpapi-for-credential-access](abusing-dpapi-for-credential-access.md) — Extract and decrypt Windows DPAPI-protected secrets (Credential Manager, browser logins/cookies, Wi-Fi credentials, KeePass keys) online or offline using SharpDPAPI, SharpChrome, Mimikatz, or Impacket's dpapi.py, including domain-wide decr…
+- [abusing-shadow-credentials-for-privesc](abusing-shadow-credentials-for-privesc.md) — Take over Active Directory accounts by writing attacker-controlled public keys to msDS-KeyCredentialLink (Shadow Credentials) with pyWhisker, Whisker, or Certipy, then authenticate via PKINIT to recover the target's NT hash without a passw…
+- [academy-guide](academy-guide.md) — Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub.…
+- [Access with Stolen Session Cookie](Access with Stolen Session Cookie.md) — Configure SAML 2.0 identity federation between on-premises Active Directory (via AD FS or a third-party IdP) and Microsoft Entra ID, covering federation models (AD FS, password hash sync, pass-through auth, third-party IdP) and the SAML au…
+- [accessing-mlflow](accessing-mlflow.md) — Query and browse evaluation results stored in MLflow.
+- [Account Access Removal](Account Access Removal.md) — Auditing Kubernetes cluster RBAC configurations to identify overly permissive
+- [Account Manipulation](Account Manipulation.md) — Detect compromised cloud credentials across AWS, Azure, and GCP by analyzing
+- [Account Manipulation: Account Linking](Account Manipulation_ Account Linking.md) — Detect unusual API call patterns in AWS CloudTrail logs using boto3,
+- [Account Manipulation: Add Authorized User](Account Manipulation_ Add Authorized User.md) — Configure Microsoft Entra Privileged Identity Management (PIM) to convert
+- [Account Manipulation: Change Account Details](Account Manipulation_ Change Account Details.md) — Hardens AWS IAM configurations to enforce least-privilege access, covering
+- [Account Manipulation: Change of Payment Details](Account Manipulation_ Change of Payment Details.md) — Deploy and configure Proofpoint Email Protection as a secure email gateway
+- [Account Manipulation: Enable Account Features](Account Manipulation_ Enable Account Features.md) — Configure and execute access recertification campaigns in Saviynt Enterprise
+- [Account Takeover](Account Takeover.md) — Design identity governance and lifecycle (IGA) programs on platforms like SailPoint, Saviynt, or Entra ID Governance, covering joiner-mover-leaver (JML) automation, role mining, access requests, periodic recertification, and orphaned-accou…
+- [Account Takeover: Exposed API Key](Account Takeover_ Exposed API Key.md) — Extracts cached credentials, password hashes, Kerberos tickets, and
+- [Account Takeover: Exposed Login Credential](Account Takeover_ Exposed Login Credential.md) — Respond to phishing incidents by analyzing reported emails, extracting indicators, sandboxing URLs/attachments, assessing credential compromise, quarantining malicious messages organization-wide, and remediating affected accounts. Use when…
+- [Account Takeover: Password Reset](Account Takeover_ Password Reset.md) — Implement SAML 2.0 Single Sign-On using Okta as the Identity Provider,
+- [achieving-cmmc-level-2-compliance](achieving-cmmc-level-2-compliance.md) — >-
+- [acquiring-disk-image-with-dd-and-dcfldd](acquiring-disk-image-with-dd-and-dcfldd.md) — Create forensically sound bit-for-bit disk images with dd or dcfldd on a Linux forensic workstation, preserving evidence integrity through hash verification (MD5/SHA) during acquisition. Use when imaging a suspect drive, USB device, or mem…
+- [acquisition-channel-advisor](acquisition-channel-advisor.md) — Evaluate channels using unit economics and recommend scale/test/kill decisions
+- [ad-accuracy-debug](ad-accuracy-debug.md) — > Debug AutoDeploy accuracy regressions vs a reference score (PyTorch backend or published baseline).
+- [ad-add-fusion-transformation](ad-add-fusion-transformation.md) — > Claude Code skill (trtllm-agent-toolkit): implement or extend TensorRT-LLM AutoDeploy fusion transforms under transform/library/ in a TensorRT-LLM checkout.
+- [ad-angle-multiplier](ad-angle-multiplier.md) — Expand a core idea into multiple distinct ad angles for creative testing
+- [ad-conf-check](ad-conf-check.md) — > Check whether AutoDeploy YAML configs were actually applied by analyzing server logs and optionally graph dumps (AD_DUMP_GRAPHS_DIR).
+- [ad-creative](ad-creative.md) — Generate and iterate ad creative including headlines, descriptions, and primary text
+- [ad-graph-dump](ad-graph-dump.md) — > Enable and interpret TensorRT-LLM AutoDeploy FX graph text dumps via AD_DUMP_GRAPHS_DIR.
+- [ad-layer-visualizer](ad-layer-visualizer.md) — > Visualize a specific transformer decoder layer from an AutoDeploy FX graph text dump as a hierarchical DOT/PNG diagram.
+- [ad-model-onboard](ad-model-onboard.md) — > Translates a HuggingFace model into a prefill-only AutoDeploy custom model using reference custom ops, validates with hierarchical equivalence tests.
+- [add-benchmark](add-benchmark.md) — > Guide for adding a new benchmark or training environment to NeMo-Gym.
+- [adding-cutile-kernel](adding-cutile-kernel.md) — Add a new cuTile GPU kernel operator to TileGym.
+- [adding-model-support](adding-model-support.md) — Guide for adding support for new LLM or VLM models in Megatron-Bridge.
+- [ads](ads.md) — Create and optimize paid campaigns on Google, Meta, LinkedIn, and more
+- [Adversary-in-the-Browser: Malicious JavaScript Injection](Adversary-in-the-Browser_ Malicious JavaScript Injection.md) — Deploys remote browser isolation (RBI) as a core component of a Zero
+- [Adversary-in-the-Middle](Adversary-in-the-Middle.md) — Hardens LDAP directory services against credential harvesting, LDAP
+- [Aegis](Aegis.md) — Evidence-driven method pack for AI coding agents
+- [aeon](aeon.md) — 70+ Claude Code skills + autonomous GitHub Actions agent framework
+- [agent](agent.md) — Codex plugin, Agent Skill, CLI, and MCP server for publishing approved short-form videos to TikTok, Instagram Reels, YouTube Shorts, X, and Facebook through Taisly
+- [agent-email-inbox](agent-email-inbox.md) — AI agent email inbox management
+- [agent-knowledge](agent-knowledge.md) — Maintains portable, cited agent knowledge bases in plain Markdown
+- [agent-md-setup](agent-md-setup.md) — Use when a repository needs one canonical instruction file shared by coding agents, when AGENTS.md or CLAUDE.md is missing, or when their guidance has diverged.
+- [agent-platform-skill-registry](agent-platform-skill-registry.md) — Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills.
+- [Agent-Reach](Agent-Reach.md) — Multi-platform search CLI for 17 sites including Chinese platforms
+- [agent-skills](agent-skills.md) — TestMu AI (Formerly LambdaTest) Skills is a curated collection of Agent Skills that teach AI coding assistants how to write production-grade test automation.
+- [agentcall](agentcall.md) — Let your AI agents join Google Meet, Zoom, Teams calls and collaborate like a real team-mate.
+- [agents](agents.md) — Reusable standards and workflow skills for AI coding agents
+- [ai-marketing-claude-code-skills](ai-marketing-claude-code-skills.md) — 17 marketing frameworks for cold outreach, homepage audit, social cards, and more
+- [AI-Research-SKILLs](AI-Research-SKILLs.md) — 77 AI research skills for model training, inference, and MLOps
+- [ai-seo](ai-seo.md) — Optimize content to appear in AI-generated answers and LLM search results
+- [ai-shaped-readiness-advisor](ai-shaped-readiness-advisor.md) — Assess automation vs. redesign opportunities across five competencies
+- [alerts](alerts.md) — Manage and monitor VSS alerts after the alerts profile is deployed.
+- [algorithmic-art](algorithmic-art.md) — Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algo…
+- [alloydb-basics](alloydb-basics.md) — Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integrates with AlloyDB model context protocol (MCP) tools for automated database operations.
+- [alpha-insights](alpha-insights.md) — Harness-enforced business research for Claude Code and Codex
+- [altitude-horizon-framework](altitude-horizon-framework.md) — Navigate the PM→Director mindset shift covering scope, time horizons, and failure modes
+- [analytics](analytics.md) — Set up and audit analytics tracking and measurement pipelines
+- [analyze-feature-requests](analyze-feature-requests.md) — Prioritize feature requests by theme, impact, effort, and risk
+- [analyzing-active-directory-acl-abuse](analyzing-active-directory-acl-abuse.md) — Detect dangerous ACL misconfigurations in Active Directory using ldap3
+- [analyzing-android-malware-with-apktool](analyzing-android-malware-with-apktool.md) — Perform static analysis of Android APK malware using apktool for resource decompilation, jadx for Java source recovery, and androguard for manifest inspection, dangerous permission-combination detection, and identification of obfuscated co…
+- [analyzing-api-gateway-access-logs](analyzing-api-gateway-access-logs.md) — Parses API Gateway access logs (AWS API Gateway, Kong, Nginx) to detect
+- [analyzing-apt-group-with-mitre-navigator](analyzing-apt-group-with-mitre-navigator.md) — Query ATT&CK data with attackcti, mitreattack-python, and stix2, then build MITRE ATT&CK Navigator layers and multi-layer heatmap overlays mapping one or more APT groups' TTPs for detection-gap analysis. Use to compare threat-actor techniq…
+- [analyzing-azure-activity-logs-for-threats](analyzing-azure-activity-logs-for-threats.md) — Queries Azure Monitor activity logs and sign-in logs via azure-monitor-query
+- [analyzing-bootkit-and-rootkit-samples](analyzing-bootkit-and-rootkit-samples.md) — Analyzes bootkit and advanced rootkit malware infecting the Master
+- [analyzing-browser-forensics-with-hindsight](analyzing-browser-forensics-with-hindsight.md) — Parse Chromium-based browser databases with Hindsight to extract and correlate browsing history, downloads, cookies, cached content, autofill data, saved passwords, and extensions from Chrome, Edge, Brave, Opera, and Vivaldi into a unified…
+- [analyzing-campaign-attribution-evidence](analyzing-campaign-attribution-evidence.md) — Systematically evaluate cyber-campaign evidence to attribute an operation to a threat actor, using the Diamond Model and Analysis of Competing Hypotheses (ACH) to weigh infrastructure overlaps, TTP consistency, malware code similarity, and…
+- [analyzing-cloud-storage-access-patterns](analyzing-cloud-storage-access-patterns.md) — Detect abnormal access in AWS S3, GCS, and Azure Blob Storage by analyzing CloudTrail Data Events, GCS audit logs, and Azure Storage Analytics for after-hours bulk downloads, new-IP access, and API-call spikes (e.g. GetObject) via statisti…
+- [analyzing-cobalt-strike-beacon-configuration](analyzing-cobalt-strike-beacon-configuration.md) — Extract and analyze Cobalt Strike beacon configuration from PE files
+- [analyzing-cobaltstrike-malleable-c2-profiles](analyzing-cobaltstrike-malleable-c2-profiles.md) — Parse and analyze Cobalt Strike Malleable C2 profiles with dissect.cobaltstrike (profiles and beacon-payload configs) and pyMalleableC2 (AST parsing) to extract HTTP/DNS transforms, URIs, headers, sleep/jitter, and injection behavior, then…
+- [analyzing-command-and-control-communication](analyzing-command-and-control-communication.md) — Analyzes malware C2 communication over HTTP, HTTPS, DNS, and custom
+- [analyzing-cyber-kill-chain](analyzing-cyber-kill-chain.md) — Analyzes intrusion activity against the Lockheed Martin Cyber Kill Chain
+- [analyzing-disk-image-with-autopsy](analyzing-disk-image-with-autopsy.md) — Perform comprehensive forensic analysis of raw (dd), E01, or AFF disk images with Autopsy and The Sleuth Kit, recovering deleted files, examining metadata and embedded artifacts, keyword searching, and building investigation timelines with…
+- [analyzing-dns-logs-for-exfiltration](analyzing-dns-logs-for-exfiltration.md) — Analyzes DNS query logs to detect data exfiltration via DNS tunneling,
+- [analyzing-docker-container-forensics](analyzing-docker-container-forensics.md) — Investigate compromised Docker containers by analyzing images, layers,
+- [analyzing-ethereum-smart-contract-vulnerabilities](analyzing-ethereum-smart-contract-vulnerabilities.md) — Perform static and symbolic analysis of Solidity smart contracts using
+- [analyzing-golang-malware-with-ghidra](analyzing-golang-malware-with-ghidra.md) — Reverse engineer Go-compiled malware in Ghidra by parsing Go buildinfo
+- [analyzing-heap-spray-exploitation](analyzing-heap-spray-exploitation.md) — Detect and analyze heap spray attacks in memory dumps using Volatility3
+- [analyzing-ios-app-security-with-objection](analyzing-ios-app-security-with-objection.md) — >-
+- [analyzing-kubernetes-audit-logs](analyzing-kubernetes-audit-logs.md) — >-
+- [analyzing-linux-audit-logs-for-intrusion](analyzing-linux-audit-logs-for-intrusion.md) — Uses the Linux Audit framework (auditd) with ausearch and aureport utilities
+- [analyzing-linux-kernel-rootkits](analyzing-linux-kernel-rootkits.md) — Detect kernel-level rootkits in Linux memory dumps using Volatility3
+- [analyzing-linux-system-artifacts](analyzing-linux-system-artifacts.md) — Examine Linux system artifacts (auth logs, cron/systemd persistence,
+- [analyzing-lnk-file-and-jump-list-artifacts](analyzing-lnk-file-and-jump-list-artifacts.md) — Analyze Windows LNK shortcut files and Jump List artifacts with LECmd,
+- [analyzing-macro-malware-in-office-documents](analyzing-macro-malware-in-office-documents.md) — Analyzes malicious VBA macros embedded in Microsoft Office documents
+- [analyzing-malicious-pdf-with-peepdf](analyzing-malicious-pdf-with-peepdf.md) — Perform static analysis of malicious PDF documents using peepdf, pdfid,
+- [analyzing-malicious-url-with-urlscan](analyzing-malicious-url-with-urlscan.md) — URLScan.io is a free service for scanning and analyzing suspicious URLs.
+- [analyzing-malware-behavior-with-cuckoo-sandbox](analyzing-malware-behavior-with-cuckoo-sandbox.md) — Detonate malware samples in Cuckoo Sandbox to observe runtime behavior
+- [analyzing-malware-family-relationships-with-malpedia](analyzing-malware-family-relationships-with-malpedia.md) — Query the Malpedia API to look up malware family aliases and naming
+- [analyzing-malware-persistence-with-autoruns](analyzing-malware-persistence-with-autoruns.md) — Use Sysinternals Autoruns to systematically enumerate and analyze malware
+- [analyzing-malware-sandbox-evasion-techniques](analyzing-malware-sandbox-evasion-techniques.md) — Detect sandbox and VM evasion techniques in malware samples by analyzing
+- [analyzing-memory-dumps-with-volatility](analyzing-memory-dumps-with-volatility.md) — Analyzes RAM memory dumps from compromised systems using the Volatility framework to identify malicious processes,
+- [analyzing-memory-forensics-with-lime-and-volatility](analyzing-memory-forensics-with-lime-and-volatility.md) — Performs Linux memory acquisition using LiME (Linux Memory Extractor)
+- [analyzing-mft-for-deleted-file-recovery](analyzing-mft-for-deleted-file-recovery.md) — Analyze the NTFS Master File Table ($MFT) with MFTECmd, analyzeMFT,
+- [analyzing-network-covert-channels-in-malware](analyzing-network-covert-channels-in-malware.md) — Detect and analyze covert communication channels used by malware, including
+- [analyzing-network-flow-data-with-netflow](analyzing-network-flow-data-with-netflow.md) — Parse NetFlow v9 and IPFIX records to detect volumetric anomalies, port
+- [analyzing-network-packets-with-scapy](analyzing-network-packets-with-scapy.md) — Use Scapy to craft, send, sniff, and dissect TCP/UDP/ICMP/DNS packets, analyze pcap files, implement SYN scans, and detect anomalous traffic such as fragmented or malformed packets. Use when performing authorized network reconnaissance, pr…
+- [analyzing-network-traffic-for-incidents](analyzing-network-traffic-for-incidents.md) — Analyzes network traffic captures and flow data to identify adversary activity during security incidents, including
+- [analyzing-network-traffic-of-malware](analyzing-network-traffic-of-malware.md) — Analyzes network traffic generated by malware during sandbox execution
+- [analyzing-network-traffic-with-wireshark](analyzing-network-traffic-with-wireshark.md) — Captures and analyzes network packet data using Wireshark and tshark
+- [analyzing-office365-audit-logs-for-compromise](analyzing-office365-audit-logs-for-compromise.md) — Parse Office 365 Unified Audit Logs via Microsoft Graph API to detect
+- [analyzing-outlook-pst-for-email-forensics](analyzing-outlook-pst-for-email-forensics.md) — Parse Microsoft Outlook PST and OST files using libpff and pst-utils to extract message content, headers, attachments, deleted items, and MAPI metadata, including recovery of items from the Recoverable Items folder. Use when conducting ema…
+- [analyzing-packed-malware-with-upx-unpacker](analyzing-packed-malware-with-upx-unpacker.md) — Identifies and unpacks UPX-packed malware samples, including binaries with modified UPX magic bytes or headers that block automated decompression, to recover the original executable for static analysis. Use when a sample shows high entropy…
+- [analyzing-pdf-malware-with-pdfid](analyzing-pdf-malware-with-pdfid.md) — Analyzes malicious PDF files using PDFiD, pdf-parser, and peepdf to
+- [analyzing-persistence-mechanisms-in-linux](analyzing-persistence-mechanisms-in-linux.md) — Scan Linux systems for persistence mechanisms including crontab/systemd entries, LD_PRELOAD injection, shell profile modifications (.bashrc, .profile), and SSH authorized_keys backdoors, then correlate findings with auditd logs into an ins…
+- [analyzing-powershell-empire-artifacts](analyzing-powershell-empire-artifacts.md) — Detect PowerShell Empire post-exploitation framework artifacts in Windows Script Block Logging (Event ID 4104) and Module Logging (Event ID 4103), including the default launcher string, Base64-encoded WebClient/FromBase64String payloads, k…
+- [analyzing-powershell-script-block-logging](analyzing-powershell-script-block-logging.md) — Parse Windows PowerShell Script Block Logs (Event ID 4104) from EVTX
+- [analyzing-prefetch-files-for-execution-history](analyzing-prefetch-files-for-execution-history.md) — Parse Windows Prefetch files (versions 17, 23, 26, 30) with tools like PECmd, WinPrefetchView, or python-prefetch to determine program execution history, including run counts, execution timestamps, and referenced files/DLLs. Use when build…
+- [analyzing-sbom-for-supply-chain-vulnerabilities](analyzing-sbom-for-supply-chain-vulnerabilities.md) — Parses Software Bill of Materials (SBOM) in CycloneDX and SPDX JSON
+- [analyzing-security-logs-with-splunk](analyzing-security-logs-with-splunk.md) — Leverages Splunk Enterprise Security and SPL (Search Processing Language)
+- [analyzing-slack-space-and-file-system-artifacts](analyzing-slack-space-and-file-system-artifacts.md) — Examine NTFS slack space, MFT entries, the USN Change Journal, and Alternate Data Streams (ADS) to recover hidden or residual data, reconstruct deleted-file metadata, and reconstruct available file-system change activity from USN records. …
+- [analyzing-supply-chain-malware-artifacts](analyzing-supply-chain-malware-artifacts.md) — Investigate supply chain attack artifacts including trojanized software
+- [analyzing-threat-actor-ttps-with-mitre-attack](analyzing-threat-actor-ttps-with-mitre-attack.md) — Systematically map threat actor behavior and observed IOCs to the MITRE ATT&CK framework, build technique coverage heatmaps with the ATT&CK Navigator, identify detection gaps, and produce actionable threat intelligence reports across the E…
+- [analyzing-threat-actor-ttps-with-mitre-navigator](analyzing-threat-actor-ttps-with-mitre-navigator.md) — Map advanced persistent threat (APT) group TTPs to the MITRE ATT&CK framework using the attackcti Python library to query STIX/TAXII data for group-technique associations, then generate ATT&CK Navigator layer files to visualize and compare…
+- [analyzing-threat-intelligence-feeds](analyzing-threat-intelligence-feeds.md) — Analyzes structured and unstructured threat intelligence feeds to extract
+- [analyzing-threat-landscape-with-misp](analyzing-threat-landscape-with-misp.md) — Query a MISP (Malware Information Sharing Platform) instance via PyMISP
+- [analyzing-uefi-bootkit-persistence](analyzing-uefi-bootkit-persistence.md) — Analyzes UEFI bootkit persistence (SPI flash implants, ESP modifications,
+- [analyzing-usb-device-connection-history](analyzing-usb-device-connection-history.md) — Correlate Windows registry keys (USBSTOR, MountedDevices), Event Logs,
+- [analyzing-web-server-logs-for-intrusion](analyzing-web-server-logs-for-intrusion.md) — Parse Apache and Nginx access logs to detect SQL injection attempts,
+- [analyzing-windows-amcache-artifacts](analyzing-windows-amcache-artifacts.md) — Parses the Windows Amcache.hve registry hive with Eric Zimmerman''s
+- [analyzing-windows-event-logs-in-splunk](analyzing-windows-event-logs-in-splunk.md) — Analyzes Windows Security, System, and Sysmon event logs in Splunk to
+- [analyzing-windows-lnk-files-for-artifacts](analyzing-windows-lnk-files-for-artifacts.md) — Parse Windows LNK shortcut files to extract target paths, MAC timestamps,
+- [analyzing-windows-prefetch-with-python](analyzing-windows-prefetch-with-python.md) — Parse Windows Prefetch (.pf) files with the windowsprefetch Python
+- [analyzing-windows-registry-for-artifacts](analyzing-windows-registry-for-artifacts.md) — Extract and analyze Windows Registry hives with tools like RegRipper
+- [analyzing-windows-shellbag-artifacts](analyzing-windows-shellbag-artifacts.md) — Analyze Windows Shellbag (BagMRU) registry artifacts with SBECmd and
+- [angular-developer](angular-developer.md) — Generate Angular code and architectural guidance for components, services, reactivity
+- [angular-new-app](angular-new-app.md) — Create new Angular apps using CLI with modern best practices
+- [ansoff-matrix](ansoff-matrix.md) — Ansoff Matrix analysis across 4 growth strategy quadrants
+- [Anthropic-Cybersecurity-Skills](Anthropic-Cybersecurity-Skills.md) — 753 cybersecurity skills across 38 domains: cloud security, pentesting, red teaming, DFIR, malware analysis, threat intel, and more (MITRE ATT&CK mapped)
+- [anti-koshary](anti-koshary.md) — Two-pass audit and cleanup for a codebase that has started to congeal — spaghetti code, or "koshary code," where the layers have collapsed: business logic lives in the controller, the same validation sits in five files, and nobody wants …
+- [api-skill](api-skill.md) — Suite of API skills for designing, mocking, documenting, securing, and generating tests for REST/GraphQL/gRPC APIs
+- [app-store-connect-cli-skills](app-store-connect-cli-skills.md) — Automate App Store deployments and management using ASC CLI
+- [app-store-preflight-skills](app-store-preflight-skills.md) — Scan iOS/macOS projects to catch common mistakes that lead to App Store rejection before submission
+- [appium-skill](appium-skill.md) — Generate Appium mobile automation for Android and iOS in Java, Python, or JS
+- [apple-bridges](apple-bridges.md) — Native macOS app access — manage Apple Reminders, Calendar, Contacts, Notes, Mail, and tmux sessions via Swift CLI bridges
+- [archify](archify.md) — Generate validated interactive architecture diagrams from codebases or system descriptions
+- [ask-matt](ask-matt.md) ✅ — Ask which skill or flow fits your situation. A router over the skills in this repo.
+- [aso-skills](aso-skills.md) — 30+ App Store Optimization skills for keyword research, metadata optimization, competitor analysis, creative optimization, and mobile growth strategies via Appeeky API
+- [assessing-vector-and-embedding-weaknesses](assessing-vector-and-embedding-weaknesses.md) — Test RAG vector stores (Pinecone, Qdrant, Weaviate, Chroma, pgvector,
+- [assessment-validity-checker](assessment-validity-checker.md) — Audits assessments for validity, reliability, and learning alignment
+- [attacking-entra-id-with-roadtools](attacking-entra-id-with-roadtools.md) — Enumerate Microsoft Entra ID (Azure AD) tenants with ROADrecon and
+- [attacking-oauth-with-device-code-phishing](attacking-oauth-with-device-code-phishing.md) — Run OAuth 2.0 device-code and illicit-consent phishing attacks against
+- [auditing-aws-s3-bucket-permissions](auditing-aws-s3-bucket-permissions.md) — Systematically audit AWS S3 bucket permissions to identify publicly
+- [auditing-azure-active-directory-configuration](auditing-azure-active-directory-configuration.md) — Auditing Microsoft Entra ID (Azure Active Directory) configuration to
+- [auditing-cloud-with-cis-benchmarks](auditing-cloud-with-cis-benchmarks.md) — Audit AWS, Azure, and GCP environments against the CIS Foundations Benchmarks by running automated scans with tools like Prowler and ScoutSuite, interpreting failed controls, and tracking remediation for continuous compliance. Use when con…
+- [auditing-entra-id-with-aadinternals](auditing-entra-id-with-aadinternals.md) — Drive the AADInternals PowerShell toolkit to perform Microsoft Entra ID tenant reconnaissance, access-token acquisition across Microsoft APIs, and federation/AD FS backdoor testing (Golden SAML, T1606.002) for defensive validation. Use dur…
+- [auditing-foundry-smart-contract-security](auditing-foundry-smart-contract-security.md) — >-
+- [auditing-gcp-iam-permissions](auditing-gcp-iam-permissions.md) — Auditing Google Cloud Platform IAM permissions to identify overly permissive
+- [auditing-kubernetes-rbac-privilege-escalation](auditing-kubernetes-rbac-privilege-escalation.md) — >-
+- [auditing-mcp-servers-for-tool-poisoning](auditing-mcp-servers-for-tool-poisoning.md) — Audit MCP servers for tool poisoning, tool shadowing, rug pulls, SSRF, and unauthenticated exposure using Invariant Labs' mcp-scan for static/runtime scanning plus manual SSRF/auth checks and description pinning. Use before adding a new MC…
+- [auditing-terraform-infrastructure-for-security](auditing-terraform-infrastructure-for-security.md) — Auditing Terraform infrastructure-as-code for security misconfigurations
+- [auditing-tls-certificate-transparency-logs](auditing-tls-certificate-transparency-logs.md) — Monitors Certificate Transparency (CT) logs to detect unauthorized certificate
+- [auditing-uefi-firmware-with-chipsec](auditing-uefi-firmware-with-chipsec.md) — Use Intel CHIPSEC to assess platform firmware configuration, SPI flash write protection, BIOS lock, SMM/SMRR, and Secure Boot variable state, dump SPI flash, and triage UEFI variables for firmware-level threats.
+- [auteur](auteur.md) — Builds websites gated by an anti-slop linter and motion QA
+- [Auto-claude-code-research-in-sleep](Auto-claude-code-research-in-sleep.md) — Autonomous ML research with cross-model review loops and GPU deployment
+- [auto-research](auto-research.md) — Autonomous NeMo-RL research agent workflow for directed hypothesis testing and open-ended discovery.
+- [automate-whatsapp](automate-whatsapp.md) — Build WhatsApp automations with workflows and agents
+- [automating-ioc-enrichment](automating-ioc-enrichment.md) — Automates the enrichment of raw indicators of compromise with multi-source
+- [avatar-extraction](avatar-extraction.md) — Define exactly who the buyer is, what they want, what they've tried, and what's driving their decisions
+- [awesome-legal-skills](awesome-legal-skills.md) — Curated agent skills for automating legal workflows
+- [aws-skills](aws-skills.md) — AWS development with infrastructure automation and cloud architecture patterns
+- [backend-patterns](backend-patterns.md) — Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.
+- [beachhead-segment](beachhead-segment.md) — Identify the first beachhead market segment for product launch
+- [beautiful_prose](beautiful_prose.md) — Hard-edged writing style contract for timeless, forceful English prose without AI tics
+- [behat-skill](behat-skill.md) — Generate Behat BDD tests for PHP with Gherkin and Mink
+- [behave-skill](behave-skill.md) — Generate Behave BDD tests for Python with Gherkin and step implementations
+- [benchmarking-kubernetes-with-kube-bench](benchmarking-kubernetes-with-kube-bench.md) — >-
+- [bigquery-basics](bigquery-basics.md) — Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights.
+- [brainstorm-experiments-existing](brainstorm-experiments-existing.md) — Design experiments to test assumptions for existing products
+- [brainstorm-experiments-new](brainstorm-experiments-new.md) — Design lean pretotypes for new product validation
+- [brainstorm-ideas-existing](brainstorm-ideas-existing.md) — Brainstorm product ideas from PM, Designer, Engineer perspectives
+- [brainstorm-ideas-new](brainstorm-ideas-new.md) — Brainstorm feature ideas for new products in early discovery
+- [brainstorm-okrs](brainstorm-okrs.md) — Brainstorm team OKRs aligned with company objectives
+- [brainstorm-to-issue](brainstorm-to-issue.md) — Turns a completed brainstorming conversation about a problem into a GitHub issue using a fixed five-section intent template (Problem, Proposed outcome, Affected users and systems, Constraints, Open questions). Trigger this when the user sa…
+- [brainstorming](brainstorming.md) — Generate and explore ideas
+- [brand-guidelines](brand-guidelines.md) — Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+- [brandkit](brandkit.md) — Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gami…
+- [brev-etiquette](brev-etiquette.md) — Brev instance operating guidance for NeMo-RL agents working in /home/ubuntu/RL with limited workspace disk, a larger /ephemeral volume, and optional /home/ubuntu/RL/.env secrets.
+- [Browser Session Hijacking](Browser Session Hijacking.md) — Detect and respond to OAuth token theft and replay in Microsoft Entra ID (Azure AD), covering access token theft, refresh token replay, Primary Refresh Token (PRT) abuse, pass-the-cookie attacks, and Token Protection conditional access pol…
+- [browser-act](browser-act.md) — Automate authenticated browsers with extraction and human handoff
+- [browser-relay](browser-relay.md) — Control an existing logged-in Chrome without stealing focus
+- [Brute Force:  Credential Stuffing](Brute Force_  Credential Stuffing.md) — Monitors dark web forums, marketplaces, paste sites, and ransomware
+- [Brute Force: Password Cracking](Brute Force_ Password Cracking.md) — Detect LSASS credential dumping, SAM database extraction, and NTDS.dit theft (e.g. via Mimikatz) using Sysmon Event ID 10 process-access logging, Windows Security logs, and SIEM correlation rules. Use when hunting for credential-theft acti…
+- [build-and-dependency](build-and-dependency.md) — Dev environment setup for Megatron Bridge — container-based development, uv package management, lockfile regeneration, adding dependencies, Slurm container usage, and common build...
+- [building-adversary-infrastructure-tracking-system](building-adversary-infrastructure-tracking-system.md) — Build an automated adversary infrastructure tracking system in Python (dnspython, python-whois, shodan, networkx) that pivots across passive DNS, certificate transparency logs, WHOIS records, and IP enrichment to map threat-actor C2 networ…
+- [building-attack-pattern-library-from-cti-reports](building-attack-pattern-library-from-cti-reports.md) — Parse cyber threat intelligence reports (Mandiant, CrowdStrike, Talos, Microsoft) with stix2, mitreattack-python, and spaCy to extract adversary behaviors, map them to MITRE ATT&CK technique IDs, and build a searchable STIX 2.1 attack-patt…
+- [building-automated-malware-submission-pipeline](building-automated-malware-submission-pipeline.md) — Builds an automated malware submission and analysis pipeline that collects
+- [building-c2-infrastructure-with-sliver-framework](building-c2-infrastructure-with-sliver-framework.md) — Deploy and harden a Sliver C2 team server (BishopFox's Go-based adversary emulation framework) with multi-protocol listeners (mTLS, HTTP/S, DNS, WireGuard), redirectors, domain fronting, and multi-operator support for authorized red-team o…
+- [building-c2-redirector-infrastructure](building-c2-redirector-infrastructure.md) — Build dumb-pipe and traffic-filtering C2 redirectors with nginx (proxy_pass) and Apache (mod_rewrite), deriving filter rules from a Malleable C2 profile, layering Let's Encrypt TLS, and applying OPSEC controls like domain fronting and UA/g…
+- [building-cloud-siem-with-sentinel](building-cloud-siem-with-sentinel.md) — Deploy Microsoft Sentinel as a cloud-native SIEM/SOAR by configuring multi-cloud data connectors (AWS, Azure, GCP), writing KQL detection and hunting queries, and building automated Logic Apps response playbooks. Use when establishing a ce…
+- [building-detection-rule-with-splunk-spl](building-detection-rule-with-splunk-spl.md) — Build effective detection rules using Splunk Search Processing Language
+- [building-detection-rules-with-sigma](building-detection-rules-with-sigma.md) — Builds vendor-agnostic detection rules using the Sigma rule format for
+- [building-devsecops-pipeline-with-gitlab-ci](building-devsecops-pipeline-with-gitlab-ci.md) — Configure a GitLab CI/CD pipeline that embeds SAST (Semgrep, SpotBugs, Gosec, Bandit, NodeJsScan), DAST, container scanning, dependency scanning, and secret detection via GitLab's managed security templates. Use when building a shift-left …
+- [building-incident-response-dashboard](building-incident-response-dashboard.md) — Builds real-time incident response dashboards in Splunk, Elastic, or
+- [building-incident-response-playbook](building-incident-response-playbook.md) — Designs and documents structured incident response playbooks with step-by-step
+- [building-incident-timeline-with-timesketch](building-incident-timeline-with-timesketch.md) — Build collaborative forensic incident timelines using Timesketch to ingest,
+- [building-ioc-defanging-and-sharing-pipeline](building-ioc-defanging-and-sharing-pipeline.md) — Build an automated pipeline that ingests raw IOCs (URLs, IPs, domains,
+- [building-ioc-enrichment-pipeline-with-opencti](building-ioc-enrichment-pipeline-with-opencti.md) — Build an automated IOC enrichment pipeline on OpenCTI (STIX 2.1 native
+- [building-malware-incident-communication-template](building-malware-incident-communication-template.md) — Build structured communication templates for malware incidents (ransomware,
+- [building-patch-tuesday-response-process](building-patch-tuesday-response-process.md) — Establish a repeatable operational process for triaging, testing, and
+- [building-red-team-c2-infrastructure-with-havoc](building-red-team-c2-infrastructure-with-havoc.md) — Deploy and configure the Havoc C2 framework (teamserver, HTTPS/HTTP/SMB
+- [building-role-mining-for-rbac-optimization](building-role-mining-for-rbac-optimization.md) — Apply bottom-up and top-down role mining techniques, including clustering
+- [building-soc-escalation-matrix](building-soc-escalation-matrix.md) — Build a structured SOC escalation matrix defining severity tiers, response
+- [building-soc-metrics-and-kpi-tracking](building-soc-metrics-and-kpi-tracking.md) — Builds SOC performance metrics and KPI tracking dashboards measuring
+- [building-super-timelines-with-plaso](building-super-timelines-with-plaso.md) — Generate forensic super-timelines with Plaso's log2timeline.py, pinfo.py,
+- [building-threat-actor-profile-from-osint](building-threat-actor-profile-from-osint.md) — Build threat actor profiles by collecting OSINT from vendor reports, paste sites, dark web forums, social media, and code repos, correlating indicators, mapping adversary infrastructure with tools like Maltego and SpiderFoot, and producing…
+- [building-threat-feed-aggregation-with-misp](building-threat-feed-aggregation-with-misp.md) — Deploy MISP via Docker and configure feeds from sources like abuse.ch, AlienVault OTX, and CIRCL to aggregate, correlate, and distribute threat intelligence, including automated feed synchronization and STIX/TAXII-based integration with Sp…
+- [building-threat-hunt-hypothesis-framework](building-threat-hunt-hypothesis-framework.md) — Build a systematic threat-hunt workflow that turns threat intelligence and ATT&CK gap analysis into testable hypotheses, then executes and validates them via EDR/SIEM queries (CrowdStrike, Defender, Splunk, Elastic, Sysmon, Velociraptor, S…
+- [building-threat-intelligence-enrichment-in-splunk](building-threat-intelligence-enrichment-in-splunk.md) — Build automated IOC enrichment pipelines in Splunk Enterprise Security by ingesting threat feeds into KV Store collections and correlating them against security events via lookup tables, modular inputs, and the Threat Intelligence Framewor…
+- [building-threat-intelligence-feed-integration](building-threat-intelligence-feed-integration.md) — Builds automated threat intelligence feed integration pipelines connecting
+- [building-threat-intelligence-platform](building-threat-intelligence-platform.md) — Design and deploy a Threat Intelligence Platform (TIP) by integrating open-source CTI tools (MISP, OpenCTI, TheHive, Cortex) into a unified system with feed ingestion pipelines, enrichment workflows, STIX/TAXII interoperability, and analys…
+- [building-vulnerability-aging-and-sla-tracking](building-vulnerability-aging-and-sla-tracking.md) — Implement a vulnerability aging dashboard and SLA tracking system that measures time-to-remediation against severity-based deadlines (e.g. 14 days critical, 30 days high, 60 days medium, 90 days low), with automated escalations and complia…
+- [building-vulnerability-dashboard-with-defectdojo](building-vulnerability-dashboard-with-defectdojo.md) — Deploy DefectDojo as a centralized vulnerability management dashboard that ingests findings from 200+ security scanners, deduplicates results, tracks remediation metrics, and integrates with CI/CD, Jira ticketing, and Slack notifications v…
+- [building-vulnerability-exception-tracking-system](building-vulnerability-exception-tracking-system.md) — Build a vulnerability exception and risk acceptance tracking system covering approval workflows, compensating controls documentation, and automatic expiration for vulnerabilities that miss SLA remediation timelines. Use when standing up a …
+- [building-vulnerability-scanning-workflow](building-vulnerability-scanning-workflow.md) — Builds a structured vulnerability scanning workflow using tools like
+- [bump-base-image](bump-base-image.md) — Bump the NVIDIA PyTorch base image (`nvcr.io/nvidia/pytorch:<YY.MM>-py3`) used by Megatron-LM CI.
+- [bump-dependency](bump-dependency.md) — Bump a pinned dependency (TransformerEngine, Megatron-LM, NRX, etc.), regenerate the lockfile, open a PR, and drive it to green by attaching a watchdog to the "CICD NeMo" workflow...
+- [business-health-diagnostic](business-health-diagnostic.md) — Diagnose SaaS health, identify red flags, and prioritize recovery actions
+- [business-model](business-model.md) — Generate Business Model Canvas with all 9 building blocks
+- [byob](byob.md) — Create custom LLM evaluation benchmarks using the BYOB decorator framework.
+- [bypassing-authentication-with-forced-browsing](bypassing-authentication-with-forced-browsing.md) — Discovering and accessing unprotected pages, APIs, and administrative
+- [canvas-design](canvas-design.md) — Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying exi…
+- [capybara-skill](capybara-skill.md) — Generate Capybara E2E tests in Ruby with RSpec integration
+- [career-ops](career-ops.md) — 14-skill collection for AI-powered job search: JD evaluation with A-F scoring, ATS-optimized PDF generation, portal scanners (Greenhouse/Ashby/Lever), interview prep with STAR+R, batch processing, and a Go dashboard TUI
+- [cc-thinking-skills](cc-thinking-skills.md) — 28 eval-informed mental models for decisions, debugging, systems, and strategy
+- [charlie-cfo-skill](charlie-cfo-skill.md) — Bootstrapped CFO financial management inspired by Charlie Munger
+- [churn-prevention](churn-prevention.md) — Build cancellation flows, save offers, and recover failed payments
+- [cicd](cicd.md) — CI/CD reference for Megatron Bridge — pipeline structure, commit and PR workflow, CI failure investigation, and common failure patterns.
+- [cicd-pipeline-skill](cicd-pipeline-skill.md) — Generate CI/CD pipelines for tests on GitHub Actions, Jenkins, GitLab CI, and Azure DevOps
+- [citlyze-skills](citlyze-skills.md) — AI search visibility skills from the Citlyze team: window-over-window visibility reports, citation gap analysis, prompt audits, and action plans via the Citlyze MCP server, plus a standalone AEO page audit that grades any URL without an ac…
+- [clarity-gate](clarity-gate.md) — Epistemic quality verification for RAG systems
+- [claude-ai-music-skills](claude-ai-music-skills.md) — Full-lifecycle AI music album production
+- [claude-api](claude-api.md) — |-
+- [claude-code-startup-skills](claude-code-startup-skills.md) — Skills for building and running software startups, apps, and SaaS
+- [claude-ecom](claude-ecom.md) — Ecommerce CSV to business review with KPI decomposition
+- [claude-handoff](claude-handoff.md) — Hand the current conversation off to a fresh background agent that picks up the work immediately.
+- [claude-mem](claude-mem.md) — Compresses and persists agent memory across sessions
+- [claude-memory-kit](claude-memory-kit.md) — Persistent memory with hooks, wiki, and daily synthesis for multi-project workflows
+- [claude-memory-skill](claude-memory-skill.md) — Minimal, low-friction hierarchical memory system with background agents and filesystem-based persistence
+- [claude-real-video](claude-real-video.md) — Scene-aware keyframes plus transcripts so any LLM watches videos
+- [claude-seo](claude-seo.md) — Universal SEO skill for comprehensive website analysis and optimization
+- [claude-skill-homeassistant](claude-skill-homeassistant.md) — Supercharge and manage Home Assistant workflows
+- [claude-skills](claude-skills.md) — Swift Server development guidance with linting tool for best practices
+- [claude-speed-reader](claude-speed-reader.md) — Speed read Claude's responses at 600+ WPM using RSVP with Spritz-style ORP highlighting
+- [claude-win11-speckit-update-skill](claude-win11-speckit-update-skill.md) — Windows 11 system management
+- [clawsec](clawsec.md) — Security skill suite with drift detection, automated audits, and skill integrity verification
+- [clean-code-guard](clean-code-guard.md) — Review generated or changed production code before it ships, using Clean Code, SOLID, DRY, KISS, YAGNI, and LLM-specific failure-mode checks in any programming language. Best used reactively after an agent writes, edits, refactors, or fixe…
+- [clickhouse-io](clickhouse-io.md) — ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.
+- [cloud-run-basics](cloud-run-basics.md) — Manages Cloud Run services, jobs, and worker pools.
+- [cloud-sql-basics](cloud-sql-basics.md) — This file generates or explains Cloud SQL resources.
+- [code-review](code-review.md) ✅ — Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?)…
+- [codebase-design](codebase-design.md) — Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs t…
+- [codeception-skill](codeception-skill.md) — Generate Codeception acceptance, functional, and unit tests in PHP
+- [codex-collab](codex-collab.md) — Collaborate with Codex from Claude Code
+- [codex-fable5](codex-fable5.md) — Evidence-based workflow gates for Codex
+- [coding-standards](coding-standards.md) — Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.
+- [coercing-authentication-with-coercer-petitpotam](coercing-authentication-with-coercer-petitpotam.md) — Trigger machine account authentication with PetitPotam (MS-EFSR) and Coercer (MS-RPRN, MS-DFSNM, MS-FSRVP, MS-EVEN) via Coercer's scan/coerce/fuzz modes, feeding the coerced NTLM auth into a relay against AD CS Web Enrollment (ESC8), LDAP …
+- [cohort-analysis](cohort-analysis.md) — Cohort retention curves, feature adoption, and segment insights
+- [cold-email](cold-email.md) — Write B2B cold emails and follow-up sequences that convert
+- [collecting-indicators-of-compromise](collecting-indicators-of-compromise.md) — Systematically collects, categorizes, and distributes indicators of
+- [collecting-open-source-intelligence](collecting-open-source-intelligence.md) — Collects and synthesizes open-source intelligence (OSINT) about threat
+- [collecting-threat-intelligence-with-misp](collecting-threat-intelligence-with-misp.md) — Deploy MISP, configure threat feeds (MISP community, freetext, TAXII, CSV), and use the PyMISP API to programmatically fetch, add, and search events and IOCs, building automated collection pipelines that aggregate indicators from community…
+- [collecting-volatile-evidence-from-compromised-host](collecting-volatile-evidence-from-compromised-host.md) — Collect volatile forensic evidence from a compromised host by following the order of volatility, preserving memory, network connections, running processes, and system state with documented chain of custody before they are lost. Use before …
+- [company-research](company-research.md) — Deep-dive competitor or company analysis
+- [competency-unpacker](competency-unpacker.md) — Unpacks broad competencies into assessable sub-skills and success criteria
+- [competitive-battlecard](competitive-battlecard.md) — Create sales-ready battlecards against specific competitors
+- [competitor-analysis](competitor-analysis.md) — Analyze competitors with strengths, weaknesses, and differentiation
+- [competitors](competitors.md) — Build competitor comparison and alternative landing pages for SEO
+- [conducting-api-security-testing](conducting-api-security-testing.md) — Conducts security testing of REST, GraphQL, and gRPC APIs to identify
+- [conducting-cloud-incident-response](conducting-cloud-incident-response.md) — Respond to security incidents in AWS, Azure, and GCP via identity-based containment, cloud-native log analysis (CloudTrail, Azure Activity Logs, GCP Audit Logs), resource isolation, and forensic evidence acquisition adapted for ephemeral c…
+- [conducting-cloud-penetration-testing](conducting-cloud-penetration-testing.md) — This skill outlines methodologies for performing authorized penetration
+- [conducting-cyber-risk-assessment-with-nist-800-30](conducting-cyber-risk-assessment-with-nist-800-30.md) — >-
+- [conducting-domain-persistence-with-dcsync](conducting-domain-persistence-with-dcsync.md) — Perform DCSync attacks by abusing MS-DRSR replication rights (DS-Replication-Get-Changes/-All) to impersonate a Domain Controller and extract KRBTGT, Domain Admin, and service account hashes for Golden Ticket forging, typically with Mimika…
+- [conducting-external-reconnaissance-with-osint](conducting-external-reconnaissance-with-osint.md) — Conduct external recon using OSINT techniques to map an organization's external attack surface without touching target systems, gathering DNS records, certificate transparency logs, search results, social media, code repositories, and brea…
+- [conducting-full-scope-red-team-engagement](conducting-full-scope-red-team-engagement.md) — Plan and execute a comprehensive, MITRE ATT&CK-aligned red team engagement spanning threat modeling, reconnaissance, initial access, and post-exploitation to evaluate an organization's detection, prevention, and response against APT-style …
+- [conducting-gdpr-compliance-assessment](conducting-gdpr-compliance-assessment.md) — >-
+- [conducting-internal-network-penetration-test](conducting-internal-network-penetration-test.md) — Execute an internal network penetration test simulating an insider threat
+- [conducting-internal-reconnaissance-with-bloodhound-ce](conducting-internal-reconnaissance-with-bloodhound-ce.md) — Conduct internal Active Directory reconnaissance using BloodHound Community Edition's graph database with the SharpHound (AD) and AzureHound (Entra ID) collectors, mapping ACLs, sessions, and group memberships into attack paths from a low-…
+- [conducting-malware-incident-response](conducting-malware-incident-response.md) — Respond to malware infections across enterprise endpoints by identifying the malware family, determining infection vectors, assessing spread, and executing containment, analysis, eradication, and recovery procedures aligned to MITRE ATT&CK…
+- [conducting-man-in-the-middle-attack-simulation](conducting-man-in-the-middle-attack-simulation.md) — Simulates man-in-the-middle attacks using Ettercap, mitmproxy, and Bettercap
+- [conducting-memory-forensics-with-volatility](conducting-memory-forensics-with-volatility.md) — Performs memory forensics analysis using Volatility 3 to extract evidence
+- [conducting-mobile-app-penetration-test](conducting-mobile-app-penetration-test.md) — Conducts penetration testing of iOS and Android mobile applications
+- [conducting-network-penetration-test](conducting-network-penetration-test.md) — Conducts comprehensive network penetration tests against authorized
+- [conducting-pass-the-ticket-attack](conducting-pass-the-ticket-attack.md) — Perform Pass-the-Ticket (PtT) lateral movement by extracting Kerberos TGT/TGS tickets from LSASS memory on a compromised host and injecting them into another session to impersonate the ticket owner without knowing their password. Use durin…
+- [conducting-post-incident-lessons-learned](conducting-post-incident-lessons-learned.md) — Facilitate structured post-incident reviews to identify root causes,
+- [conducting-wireless-network-penetration-test](conducting-wireless-network-penetration-test.md) — Conducts authorized wireless network penetration tests to assess the
+- [config-conventions](config-conventions.md) — Configuration conventions for NeMo-RL.
+- [configure-issue-tracker](configure-issue-tracker.md) — Use when a repository needs to choose or change where issues and feature intents live, or when docs/agents/issue-tracker.md is missing or stale.
+- [configuring-active-directory-tiered-model](configuring-active-directory-tiered-model.md) — Implement Microsoft's Enhanced Security Admin Environment (ESAE) tiered
+- [configuring-aws-verified-access-for-ztna](configuring-aws-verified-access-for-ztna.md) — Configure AWS Verified Access to provide VPN-less zero trust network
+- [configuring-certificate-authority-with-openssl](configuring-certificate-authority-with-openssl.md) — Build a two-tier PKI Certificate Authority hierarchy (offline Root CA
+- [configuring-host-based-intrusion-detection](configuring-host-based-intrusion-detection.md) — Configures host-based intrusion detection systems (HIDS) to monitor
+- [configuring-hsm-for-key-storage](configuring-hsm-for-key-storage.md) — Configures Hardware Security Modules for cryptographic key storage
+- [configuring-microsegmentation-for-zero-trust](configuring-microsegmentation-for-zero-trust.md) — Configures microsegmentation policies to enforce least-privilege workload-to-workload
+- [configuring-multi-factor-authentication-with-duo](configuring-multi-factor-authentication-with-duo.md) — Deploys Cisco Duo multi-factor authentication across enterprise applications,
+- [configuring-network-segmentation-with-vlans](configuring-network-segmentation-with-vlans.md) — Designs and implements VLAN-based (802.1Q) network segmentation on
+- [configuring-pfsense-firewall-rules](configuring-pfsense-firewall-rules.md) — Configures pfSense firewall rules, NAT policies, IPsec/OpenVPN tunnels,
+- [configuring-snort-ids-for-intrusion-detection](configuring-snort-ids-for-intrusion-detection.md) — Installs, configures, and tunes Snort 3 to monitor network traffic
+- [configuring-suricata-for-network-monitoring](configuring-suricata-for-network-monitoring.md) — Deploys and configures Suricata IDS/IPS with Emerging Threats rulesets,
+- [configuring-tls-1-3-for-secure-communications](configuring-tls-1-3-for-secure-communications.md) — Configures TLS 1.3 (RFC 8446) on servers, covering cipher suite and
+- [configuring-windows-defender-advanced-settings](configuring-windows-defender-advanced-settings.md) — Configures Microsoft Defender for Endpoint (MDE) advanced protection
+- [configuring-windows-event-logging-for-detection](configuring-windows-event-logging-for-detection.md) — Configures Windows Event Logging with advanced audit policies to generate
+- [configuring-zscaler-private-access-for-ztna](configuring-zscaler-private-access-for-ztna.md) — Configures Zscaler Private Access (ZPA) to replace traditional VPN
+- [containing-active-breach](containing-active-breach.md) — Executes containment strategies to stop active adversary operations
+- [content-strategy](content-strategy.md) — Plan content strategy and decide what topics and formats to prioritize
+- [context-compression](context-compression.md) — Design and evaluate compression strategies for long-running sessions
+- [context-degradation](context-degradation.md) — Recognize patterns of context failure: lost-in-middle, poisoning, distraction, and clash
+- [context-doctor](context-doctor.md) — Generates .claudeignore and flags context bloat before it costs tokens
+- [context-engineering-advisor](context-engineering-advisor.md) — Diagnose context stuffing vs. engineering and guide memory and retrieval design
+- [context-fundamentals](context-fundamentals.md) — Understand what context is, why it matters, and the anatomy of context in agent systems
+- [context-optimization](context-optimization.md) — Apply compaction, masking, and caching strategies
+- [continuous-learning](continuous-learning.md) — Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.
+- [continuous-llm-red-teaming-with-promptfoo](continuous-llm-red-teaming-with-promptfoo.md) — Wires Promptfoo and DeepTeam into CI/CD for automated, repeatable red-teaming of LLM apps against OWASP LLM Top 10, OWASP Agentic, and MITRE ATLAS presets, failing the build when jailbreak or injection vulnerabilities regress. Use for cont…
+- [contributing](contributing.md) — Contribution conventions for NeMo-RL.
+- [Conversion to Physical Monetary Instruments: Cash](Conversion to Physical Monetary Instruments_ Cash.md) — Designs a ransomware-resilient backup strategy using the 3-2-1-1-0
+- [conversion-path-builder](conversion-path-builder.md) — Design the optimal funnel from click to conversion and booked calls
+- [Convert to Cryptocurrency](Convert to Cryptocurrency.md) — This skill teaches security teams how to detect and respond to unauthorized
+- [converting-cutile-to-julia](converting-cutile-to-julia.md) — Converts cuTile Python GPU kernels (@ct.kernel) to cuTile.jl Julia equivalents.
+- [converting-cutile-to-triton](converting-cutile-to-triton.md) — Converts cuTile GPU kernels (@ct.kernel) to Triton (@triton.jit).
+- [copy-editing](copy-editing.md) — Edit and improve existing marketing copy for clarity and impact
+- [copyright](copyright.md) — NVIDIA copyright header requirements for NeMo-RL.
+- [copywriting](copywriting.md) — Write and rewrite marketing copy for landing pages, homepages, and ads
+- [correlating-security-events-in-qradar](correlating-security-events-in-qradar.md) — Correlates security events in IBM QRadar SIEM using AQL (Ariel Query
+- [correlating-threat-campaigns](correlating-threat-campaigns.md) — Correlates disparate security incidents, IOCs, and adversary behaviors
+- [courier-skills](courier-skills.md) — Multi-channel notifications via email, SMS, push, and chat
+- [crawlbase-mcp](crawlbase-mcp.md) — The MCP server behind these skills (npm `@crawlbase/mcp`) with JS rendering, proxy rotation, and anti-bot protection
+- [Create Fake Materials: Fake Website](Create Fake Materials_ Fake Website.md) — Parse and analyze email headers (Received chain, Return-Path, Message-ID)
+- [create-issue](create-issue.md) — Investigate a failing GitHub Actions run or job and create a GitHub issue for the failure.
+- [create-prd](create-prd.md) — Create a PRD with 8-section template covering problem to release
+- [creative-director-skill](creative-director-skill.md) — AI creative director with recursive self-assessment: 20+ methodologies (SIT, TRIZ, Bisociation, SCAMPER, Synectics), 3-axis evaluation calibrated against Cannes/D&AD/HumanKind, 5-phase process from brief to presentation
+- [cro](cro.md) — Improve conversion rates on any marketing page or form, including homepages, landing pages, and contact forms
+- [cucumber-skill](cucumber-skill.md) — Generate Cucumber BDD tests with Gherkin and step definitions in Java, JS, or Ruby
+- [cudaq-guide](cudaq-guide.md) — CUDA-Q onboarding guide for installation, test programs, GPU simulation, QPU hardware, and quantum applications.
+- [cuopt-developer](cuopt-developer.md) — Modify, build, test, debug, and contribute to NVIDIA cuOpt (C++/CUDA, Python, server, CI).
+- [cuopt-install](cuopt-install.md) — Install cuOpt for Python, C, or as a server (pip, conda, Docker) — system requirements, install commands, and verification.
+- [cuopt-numerical-optimization-api-c](cuopt-numerical-optimization-api-c.md) — LP, MILP, and QP (beta) with cuOpt — C API only.
+- [cuopt-numerical-optimization-api-cli](cuopt-numerical-optimization-api-cli.md) — LP, MILP, and QP (beta) with cuOpt — CLI only (MPS files, cuopt_cli).
+- [cuopt-numerical-optimization-api-python](cuopt-numerical-optimization-api-python.md) — Solve Linear Programming (LP), Mixed-Integer Linear Programming (MILP), and Quadratic Programming (QP, beta) with the Python API.
+- [cuopt-routing-api-python](cuopt-routing-api-python.md) — Vehicle routing (VRP, TSP, PDP) with cuOpt — Python API only.
+- [cuopt-server-api-python](cuopt-server-api-python.md) — cuOpt REST server — start server, endpoints, Python/curl client examples.
+- [cuopt-server-common](cuopt-server-common.md) — cuOpt REST server — what it does and how requests flow.
+- [cuopt-user-rules](cuopt-user-rules.md) — Base rules for end users calling NVIDIA cuOpt (routing/LP/MILP/QP/install/server).
+- [customer-journey-map](customer-journey-map.md) — Map customer experience across touchpoints using the NNGroup framework
+- [customer-journey-mapping-workshop](customer-journey-mapping-workshop.md) — Guide journey mapping sessions with pain point identification
+- [cutile-autotuning](cutile-autotuning.md) — Use when adding, modifying, optimizing, or debugging CuTile autotuning code.
+- [cutile-python](cutile-python.md) — Expert cuTile programming assistant.
+- [cypress-author](cypress-author.md) — Creates, updates, and fixes Cypress E2E and component tests.
+- [cypress-docs](cypress-docs.md) — Search and extract Cypress information from official documentation.
+- [cypress-explain](cypress-explain.md) — Explains Cypress E2E and component tests, and answers questions about Cypress use and behavior.
+- [cypress-skill](cypress-skill.md) — Generate Cypress E2E and component tests in JavaScript or TypeScript
+- [d1v](d1v.md) — Deploy web projects with verified previews and confirmed production releases
+- [dali-dynamic-mode](dali-dynamic-mode.md) — Use when writing DALI data loading or preprocessing code with `nvidia.dali.experimental.dynamic` (ndd), or when converting DALI pipeline-mode code to dynamic mode, or when the user...
+- [dark-psychology-skills](dark-psychology-skills.md) — 13 sales and negotiation skills for agents distilled from 36 books (CIA psyop manuals, FBI behavioral research, propaganda science, persuasion classics); every tactic passes an honest-influence filter: it must still work when fully disclos…
+- [dashmotion](dashmotion.md) — Animated technical diagrams from plain English or Mermaid, self-contained HTML/SVG
+- [data-structure-protocol](data-structure-protocol.md) — Graph-based long-term memory skill for AI (LLM) coding agents — faster context, fewer tokens, safer refactors
+- [ddd](ddd.md) — Domain-driven development skills that also include Clean Architecture, SOLID principles, and design patterns.
+- [debug](debug.md) — Run commands inside a remote Docker container via the file-based command relay (tools/debugger).
+- [deep-research](deep-research.md) — Autonomous multi-step research using Gemini Deep Research Agent
+- [deepstream-dev](deepstream-dev.md) — NVIDIA DeepStream SDK 9.0 development with Python pyservicemaker API.
+- [deepstream-import-vision-model](deepstream-import-vision-model.md) — > Use this skill to bring any vision model from HuggingFace or NVIDIA NGC into an NVIDIA DeepStream pipeline with end-to-end automation: ONNX download, SafeTensors export, TRT engi...
+- [defending-llms-with-guardrails](defending-llms-with-guardrails.md) — Deploys Llama Guard 3 safety classification, NeMo Guardrails programmable dialogue rails, and LLM Guard input/output scanner pipelines as complementary runtime defenses that inspect and constrain LLM prompts and responses. Use when adding …
+- [deja-history](deja-history.md) — Searches your own past sessions across 20 coding agents
+- [Delete Relevant Emails](Delete Relevant Emails.md) — Detect Business Email Compromise (BEC) fraud, where attackers impersonate
+- [dembrandt-skills](dembrandt-skills.md) — UX and design system skills: hierarchy, typography, accessibility, interactions
+- [deobfuscating-javascript-malware](deobfuscating-javascript-malware.md) — Deobfuscates malicious JavaScript found in phishing pages, web skimmers, and dropper scripts by reversing encoding layers, eval chains, string manipulation, and control-flow obfuscation to reveal the original malicious logic. Use when inve…
+- [deobfuscating-powershell-obfuscated-malware](deobfuscating-powershell-obfuscated-malware.md) — Systematically deobfuscates multi-layer PowerShell malware using AST analysis, dynamic tracing, and tools like PSDecode and PowerDecode to reveal hidden payloads and C2 infrastructure. Use during incident response or malware analysis when …
+- [deploy](deploy.md) — Deploy, debug, or tear down any VSS profile using a compose-centric workflow — config (dry-run) with env overrides, review resolved compose, then compose up.
+- [deploying-active-directory-honeytokens](deploying-active-directory-honeytokens.md) — Deploys deception-based honeytokens in Active Directory including fake
+- [deploying-cloud-deception-with-decoy-resources](deploying-cloud-deception-with-decoy-resources.md) — >-
+- [deploying-cloudflare-access-for-zero-trust](deploying-cloudflare-access-for-zero-trust.md) — Deploys Cloudflare Access with Cloudflare Tunnel for zero trust access to self-hosted apps, configuring identity-aware policies, device posture checks, and WARP client enrollment as a VPN replacement. Use when replacing VPN with Cloudflare…
+- [deploying-edr-agent-with-crowdstrike](deploying-edr-agent-with-crowdstrike.md) — Deploys and configures CrowdStrike Falcon EDR agents across enterprise
+- [deploying-honeytokens-and-canarytokens](deploying-honeytokens-and-canarytokens.md) — Plants Canarytokens-based decoy artifacts (honey credentials, DNS tokens, web-bug URLs, AWS keys, documents, kubeconfigs) using Thinkst's open-source Canarytokens project and alerts via email or webhook when a token is touched. Use for hig…
+- [deploying-osquery-for-endpoint-monitoring](deploying-osquery-for-endpoint-monitoring.md) — Deploys and configures osquery for real-time endpoint monitoring using
+- [deploying-palo-alto-prisma-access-zero-trust](deploying-palo-alto-prisma-access-zero-trust.md) — Deploys Palo Alto Networks Prisma Access for SASE-based zero trust network access, configuring GlobalProtect agents, ZTNA Connectors, security policy enforcement, and Strata Cloud Manager integration for unified management. Use when implem…
+- [deploying-software-defined-perimeter](deploying-software-defined-perimeter.md) — Deploys a Software-Defined Perimeter per the CSA v2.0 specification, configuring Single Packet Authorization, mutual TLS, and SDP controller/gateway components to enforce zero trust network access. Use when building or hardening zero trust…
+- [deploying-tailscale-for-zero-trust-vpn](deploying-tailscale-for-zero-trust-vpn.md) — Deploys and configures Tailscale (or self-hosted Headscale) as a WireGuard-based zero trust mesh VPN, setting up identity-aware ACLs, exit nodes, subnet routers, and MagicDNS for encrypted peer-to-peer connectivity. Use when replacing trad…
+- [deployment](deployment.md) — Serve a quantized or unquantized LLM checkpoint as an OpenAI-compatible API endpoint using vLLM, SGLang, or TRT-LLM.
+- [design-taste-frontend](design-taste-frontend.md) — Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redes…
+- [design-taste-frontend-v1](design-taste-frontend-v1.md) — The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward…
+- [designing-adversary-engagement-with-mitre-engage](designing-adversary-engagement-with-mitre-engage.md) — >-
+- [detecting-ai-model-prompt-injection-attacks](detecting-ai-model-prompt-injection-attacks.md) — Detects prompt injection using regex signature matching, heuristic scoring for structural anomalies, and DeBERTa-based transformer classification, flagging direct injections (system-prompt overrides, role-play escapes) and indirect injecti…
+- [detecting-anomalies-in-industrial-control-systems](detecting-anomalies-in-industrial-control-systems.md) — Deploys anomaly detection for OT/ICS environments using machine learning on OT network baselines, physics-based process models, and Modbus/DNP3/OPC UA traffic analysis to flag deviations, rogue devices, and mismatches against historian dat…
+- [detecting-api-enumeration-attacks](detecting-api-enumeration-attacks.md) — Detect API enumeration attacks (BOLA/IDOR, OWASP API1:2023) by writing SIEM
+- [detecting-arp-poisoning-in-network-traffic](detecting-arp-poisoning-in-network-traffic.md) — Detect Layer 2 ARP poisoning/spoofing by deploying ARPWatch, Dynamic ARP
+- [detecting-attacks-on-historian-servers](detecting-attacks-on-historian-servers.md) — Detect cyber attacks on OT historian servers (OSIsoft PI, Ignition, GE
+- [detecting-attacks-on-scada-systems](detecting-attacks-on-scada-systems.md) — This skill covers detecting cyber attacks targeting Supervisory Control
+- [detecting-aws-guardduty-findings-automation](detecting-aws-guardduty-findings-automation.md) — Build automated AWS GuardDuty finding response pipelines using EventBridge
+- [detecting-aws-iam-privilege-escalation](detecting-aws-iam-privilege-escalation.md) — Detect AWS IAM privilege escalation paths using boto3 and Cloudsplaining
+- [detecting-azure-lateral-movement](detecting-azure-lateral-movement.md) — Detect lateral movement in Azure AD/Entra ID environments using Microsoft
+- [detecting-azure-service-principal-abuse](detecting-azure-service-principal-abuse.md) — Detect Azure service principal abuse in Microsoft Entra ID using KQL detection
+- [detecting-azure-storage-account-misconfigurations](detecting-azure-storage-account-misconfigurations.md) — Audit Azure Blob and ADLS storage accounts for public access exposure, weak
+- [detecting-beaconing-patterns-with-zeek](detecting-beaconing-patterns-with-zeek.md) — Performs statistical analysis of Zeek conn.log connection intervals
+- [detecting-bluetooth-low-energy-attacks](detecting-bluetooth-low-energy-attacks.md) — Detects and analyzes Bluetooth Low Energy (BLE) security attacks including
+- [detecting-broken-object-property-level-authorization](detecting-broken-object-property-level-authorization.md) — Detect and test for OWASP API3:2023 Broken Object Property Level Authorization
+- [detecting-cloud-threats-with-guardduty](detecting-cloud-threats-with-guardduty.md) — Deploy and operationalize Amazon GuardDuty, covering protection plans
+- [detecting-command-and-control-over-dns](detecting-command-and-control-over-dns.md) — Detect command-and-control (C2) traffic tunneled over DNS from tools like
+- [detecting-container-drift-at-runtime](detecting-container-drift-at-runtime.md) — >-
+- [detecting-container-escape-attempts](detecting-container-escape-attempts.md) — >-
+- [detecting-container-escape-with-falco-rules](detecting-container-escape-with-falco-rules.md) — >-
+- [detecting-container-runtime-threats-with-falco](detecting-container-runtime-threats-with-falco.md) — >-
+- [detecting-data-and-model-poisoning](detecting-data-and-model-poisoning.md) — Identify poisoned training data and backdoored ML models across the pipeline using IBM's Adversarial Robustness Toolbox (activation clustering, spectral signatures, trigger reconstruction), Cleanlab for label-quality issues, and supply-cha…
+- [detecting-dcsync-attack-in-active-directory](detecting-dcsync-attack-in-active-directory.md) — Detect DCSync attacks (MITRE T1003.006) where adversaries abuse Active Directory replication privileges to extract password hashes, by auditing Event ID 4662 for the DS-Replication-Get-Changes GUIDs and flagging non-domain-controller accou…
+- [detecting-dependency-confusion](detecting-dependency-confusion.md) — Detect and prevent dependency confusion (public-over-private package name resolution) in npm, PyPI, and Maven by enumerating claimable internal package names with tools like `confused` and OWASP `dep-scan`, then enforcing source restrictio…
+- [detecting-dll-sideloading-attacks](detecting-dll-sideloading-attacks.md) — Detect DLL side-loading and search-order hijacking (MITRE T1574) where adversaries plant malicious DLLs for legitimate signed applications to load, by analyzing Sysmon Event ID 7 DLL-load events, checking signatures/hashes against known-go…
+- [detecting-dnp3-protocol-anomalies](detecting-dnp3-protocol-anomalies.md) — Detect anomalies in DNP3 communications used in SCADA/ICS systems by monitoring unauthorized control commands, firmware update attempts, protocol violations, and deviations from baseline traffic using deep packet inspection and machine lea…
+- [detecting-dns-exfiltration-with-dns-query-analysis](detecting-dns-exfiltration-with-dns-query-analysis.md) — Detect data exfiltration via DNS tunneling (tools like iodine, dnscat2, dns2tcp) by analyzing query entropy, subdomain length, query volume to single domains, TXT/CNAME/NULL record abuse, and oversized response payloads using passive DNS m…
+- [detecting-email-account-compromise](detecting-email-account-compromise.md) — Detect compromised O365 and Google Workspace email accounts by analyzing Unified Audit Logs and Azure AD sign-in logs for impossible travel, inbox rule creation/deletion (Set-InboxRule, New-InboxRule), external mail forwarding rules, and u…
+- [detecting-email-forwarding-rules-attack](detecting-email-forwarding-rules-attack.md) — Detect malicious inbox/mail-flow forwarding rules that adversaries create to maintain
+- [detecting-entra-offensive-tools-in-graph-logs](detecting-entra-offensive-tools-in-graph-logs.md) — Hunt AADGraphActivityLogs and MicrosoftGraphActivityLogs in Microsoft Sentinel/Log Analytics using KQL to fingerprint offensive Entra ID enumeration tools such as ROADtools, AADInternals, and AzureHound, including User-Agent signatures, ro…
+- [detecting-evasion-techniques-in-endpoint-logs](detecting-evasion-techniques-in-endpoint-logs.md) — Detects defense evasion techniques used by adversaries in endpoint logs
+- [detecting-exfiltration-over-dns-with-zeek](detecting-exfiltration-over-dns-with-zeek.md) — Detect DNS-based data exfiltration by analyzing Zeek dns.log for high-entropy
+- [detecting-fileless-attacks-on-endpoints](detecting-fileless-attacks-on-endpoints.md) — Detects fileless malware and in-memory attacks that execute entirely
+- [detecting-fileless-malware-techniques](detecting-fileless-malware-techniques.md) — Detects and analyzes fileless malware that operates entirely in memory
+- [detecting-golden-ticket-attacks-in-kerberos-logs](detecting-golden-ticket-attacks-in-kerberos-logs.md) — Detect Golden Ticket attacks in Active Directory using Splunk and KQL queries
+- [detecting-golden-ticket-forgery](detecting-golden-ticket-forgery.md) — Detect Kerberos Golden Ticket forgery (e.g. Mimikatz-forged tickets) by analyzing
+- [detecting-indirect-prompt-injection](detecting-indirect-prompt-injection.md) — Detect and defend against indirect prompt injection hidden in web pages, documents,
+- [detecting-insider-data-exfiltration-via-dlp](detecting-insider-data-exfiltration-via-dlp.md) — Detects insider data exfiltration by analyzing DLP policy violations,
+- [detecting-insider-threat-behaviors](detecting-insider-threat-behaviors.md) — Detect insider threat behavioral indicators including unusual data access,
+- [detecting-insider-threat-with-ueba](detecting-insider-threat-with-ueba.md) — Implement User and Entity Behavior Analytics (UEBA) using Elasticsearch/OpenSearch
+- [detecting-kerberoasting-attacks](detecting-kerberoasting-attacks.md) — Detect Kerberoasting attacks by monitoring for anomalous Kerberos TGS
+- [detecting-lateral-movement-in-network](detecting-lateral-movement-in-network.md) — Identifies lateral movement techniques in enterprise networks by analyzing
+- [detecting-lateral-movement-with-splunk](detecting-lateral-movement-with-splunk.md) — Detect adversary lateral movement across networks using Splunk SPL queries
+- [detecting-lateral-movement-with-zeek](detecting-lateral-movement-with-zeek.md) — Detect lateral movement in network traffic using Zeek (formerly Bro)
+- [detecting-living-off-the-land-attacks](detecting-living-off-the-land-attacks.md) — Detect abuse of legitimate Windows binaries (LOLBins) used for living
+- [detecting-living-off-the-land-with-lolbas](detecting-living-off-the-land-with-lolbas.md) — Detect Living Off the Land Binaries (LOLBins/LOLBAS) abuse including
+- [detecting-malicious-npm-packages](detecting-malicious-npm-packages.md) — Triage npm packages and lockfiles for install-script malware, credential exfiltration, and worming behavior using GuardDog, manual tarball inspection, and dynamic detonation with network/filesystem monitoring. Use when vetting a new depend…
+- [detecting-malicious-scheduled-tasks-with-sysmon](detecting-malicious-scheduled-tasks-with-sysmon.md) — Detect malicious scheduled task creation and modification using Sysmon
+- [detecting-mimikatz-execution-patterns](detecting-mimikatz-execution-patterns.md) — Detect Mimikatz credential-dumping activity via command-line pattern matching, LSASS access signatures, binary/hash indicators, and in-memory detection of known Mimikatz modules. Use when threat hunting for T1003 credential access, triagin…
+- [detecting-misconfigured-azure-storage](detecting-misconfigured-azure-storage.md) — Audit Azure Storage accounts for public blob containers, missing encryption, overly permissive SAS tokens, disabled logging, and network access violations using Azure CLI, PowerShell, and Microsoft Defender for Storage. Use for storage sec…
+- [detecting-modbus-command-injection-attacks](detecting-modbus-command-injection-attacks.md) — Detect command injection against Modbus TCP/RTU in ICS/SCADA environments by monitoring unauthorized writes, anomalous function codes, malformed frames, and deviations from communication baselines using ICS-aware IDS and deep packet inspec…
+- [detecting-modbus-protocol-anomalies](detecting-modbus-protocol-anomalies.md) — Detect anomalies in Modbus/TCP and Modbus RTU industrial traffic via function code monitoring, register range validation, timing analysis, and deep packet inspection, using Zeek's Modbus analyzer, Suricata IDS with OT rules, and Python Mar…
+- [detecting-model-extraction-attacks](detecting-model-extraction-attacks.md) — Detect MITRE ATLAS AML.T0024 attacks (model stealing, inversion, membership inference) performed via inference-API abuse, by monitoring per-principal query volume/distribution, rate-limiting and perturbing outputs, and red-teaming your mod…
+- [detecting-network-anomalies-with-zeek](detecting-network-anomalies-with-zeek.md) — Deploy and configure Zeek (formerly Bro) to passively analyze network traffic, generate structured connection/DNS/HTTP/SSL/file logs, detect anomalous behavior, and write custom scripts for organization-specific threats. Use for passive mo…
+- [detecting-network-scanning-with-ids-signatures](detecting-network-scanning-with-ids-signatures.md) — Detect network reconnaissance and port scanning using Suricata and Snort
+- [detecting-ntlm-relay-with-event-correlation](detecting-ntlm-relay-with-event-correlation.md) — Detect NTLM relay attacks (T1557.001) by correlating Windows Event 4624 LogonType 3 for IP-to-hostname mismatches, identifying Responder/LLMNR poisoning artifacts, auditing SMB/LDAP signing, and flagging NTLMv2-to-NTLMv1 downgrades. Use fo…
+- [detecting-pass-the-hash-attacks](detecting-pass-the-hash-attacks.md) — Detect Pass-the-Hash (T1550.002) attacks by analyzing NTLM authentication patterns, flagging Type 3 logons using NTLM where Kerberos would be expected, and correlating with credential-dumping indicators. Use when threat hunting for lateral…
+- [detecting-pass-the-ticket-attacks](detecting-pass-the-ticket-attacks.md) — Detect Kerberos Pass-the-Ticket (PtT) attacks by analyzing Windows Event IDs 4768, 4769, and 4771 for anomalous ticket usage patterns, with detection queries for Splunk and Elastic SIEM. Use when investigating incidents involving stolen or…
+- [detecting-port-scanning-with-fail2ban](detecting-port-scanning-with-fail2ban.md) — Configures Fail2ban with custom filters and actions to detect port scanning
+- [detecting-privilege-escalation-attempts](detecting-privilege-escalation-attempts.md) — Detect privilege escalation attempts across Windows and Linux, including access token manipulation, UAC bypass, unquoted service path abuse, kernel exploits, and sudo/doas abuse. Use when threat hunting for T1068-style privilege escalation…
+- [detecting-privilege-escalation-in-kubernetes-pods](detecting-privilege-escalation-in-kubernetes-pods.md) — >-
+- [detecting-process-hollowing-technique](detecting-process-hollowing-technique.md) — Detect process hollowing (MITRE T1055.012) by analyzing memory-mapped
+- [detecting-process-injection-techniques](detecting-process-injection-techniques.md) — Detects and analyzes process injection techniques used by malware including
+- [detecting-rdp-brute-force-attacks](detecting-rdp-brute-force-attacks.md) — Detect RDP brute force attacks by parsing Windows Security Event Logs
+- [detecting-rootkit-activity](detecting-rootkit-activity.md) — Detects rootkit presence on compromised systems by identifying hidden
+- [detecting-s3-data-exfiltration-attempts](detecting-s3-data-exfiltration-attempts.md) — Detecting data exfiltration attempts from AWS S3 buckets by analyzing
+- [detecting-secure-boot-bypass](detecting-secure-boot-bypass.md) — Detect UEFI Secure Boot bypasses and bootkits such as BlackLotus and
+- [detecting-serverless-function-injection](detecting-serverless-function-injection.md) — Detects and prevents code injection attacks targeting serverless functions
+- [detecting-service-account-abuse](detecting-service-account-abuse.md) — Detect abuse of service accounts by hunting for anomalous interactive
+- [detecting-shadow-api-endpoints](detecting-shadow-api-endpoints.md) — Discover and inventory shadow API endpoints that operate outside
+- [detecting-shadow-it-cloud-usage](detecting-shadow-it-cloud-usage.md) — Detect unauthorized SaaS and cloud service usage (shadow IT) by parsing
+- [detecting-sql-injection-via-waf-logs](detecting-sql-injection-via-waf-logs.md) — Analyze WAF (ModSecurity/AWS WAF/Cloudflare) logs to detect SQL injection
+- [detecting-stuxnet-style-attacks](detecting-stuxnet-style-attacks.md) — Detects sophisticated cyber-physical attacks that follow the Stuxnet
+- [detecting-supply-chain-attacks-in-ci-cd](detecting-supply-chain-attacks-in-ci-cd.md) — Scans GitHub Actions workflows and CI/CD pipeline configurations for
+- [detecting-suspicious-oauth-application-consent](detecting-suspicious-oauth-application-consent.md) — Detect risky OAuth application consent grants in Azure AD / Microsoft
+- [detecting-suspicious-powershell-execution](detecting-suspicious-powershell-execution.md) — Hunt for suspicious PowerShell execution (T1059.001) such as encoded commands,
+- [detecting-t1055-process-injection-with-sysmon](detecting-t1055-process-injection-with-sysmon.md) — Detect process injection techniques (T1055) - including DLL injection, process
+- [detecting-t1548-abuse-elevation-control-mechanism](detecting-t1548-abuse-elevation-control-mechanism.md) — Detect abuse of elevation control mechanisms (T1548), including Windows UAC
+- [detecting-typosquatting-packages](detecting-typosquatting-packages.md) — Flag misspelled, brandjacked, and typosquatted package names across npm, PyPI, and crates.io before installation, using edit-distance, keyboard-proximity, and known-target corpus matching with typomania, Microsoft OSSGadget's oss-find-squa…
+- [detecting-typosquatting-packages-in-npm-pypi](detecting-typosquatting-packages-in-npm-pypi.md) — Detects typosquatting attacks in npm and PyPI package registries by
+- [detecting-wmi-persistence](detecting-wmi-persistence.md) — Detect WMI event subscription persistence (MITRE T1546.003) by analyzing Sysmon
+- [detox-skill](detox-skill.md) — Generate Detox gray-box E2E tests for React Native apps in JavaScript
+- [dev-agent-skills](dev-agent-skills.md) — Git and GitHub workflow skills for commits, PRs, and code reviews
+- [Device Fingerprint Spoofing](Device Fingerprint Spoofing.md) — Performs OAuth 2.0 scope minimization review to identify over-permissioned
+- [diagnosing-bugs](diagnosing-bugs.md) — Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
+- [digital-marketing-pro](digital-marketing-pro.md) — 150-skill engagement methodology — 12-Part Strategy Flow, 25 specialist agents, EU AI Act Article 50 ready (C2PA signing), 6-platform AEO/GEO incl. Google AI Mode
+- [director-readiness-advisor](director-readiness-advisor.md) — Coach the PM→Director transition across four key situations
+- [discernment-nudge](discernment-nudge.md) — After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factu…
+- [discovery-interview-prep](discovery-interview-prep.md) — Plan customer interviews using Mom Test style based on research goals
+- [discovery-process](discovery-process.md) — Full discovery cycle: frame problem → research → synthesize → validate (3-4 weeks)
+- [dispatching-parallel-agents](dispatching-parallel-agents.md) — Coordinate multiple simultaneous agents
+- [distribb-skill](distribb-skill.md) — SEO articles, keyword research, CMS publishing, high-DR backlink exchange
+- [doc-coauthoring](doc-coauthoring.md) — Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer …
+- [docs](docs.md) — Documentation conventions for NeMo-RL.
+- [docs-guard](docs-guard.md) — Review generated or changed documentation before it ships — READMEs, API references, docstrings, PHPDoc/JSDoc, changelogs, tutorials, and doc sites. Best used reactively after an agent writes or edits docs, after code changes documented …
+- [docx](docx.md) — Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produc…
+- [domain-modeling](domain-modeling.md) — Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.
+- [Dorothy](Dorothy.md) — Orchestrate multiple AI CLI agents with automations and MCP servers
+- [draft-nda](draft-nda.md) — Draft NDAs covering information types, jurisdiction, and clauses
+- [dummy-dataset](dummy-dataset.md) — Generate realistic dummy datasets in CSV, JSON, or SQL
+- [Electronic Funds Transfer: Wire Transfer](Electronic Funds Transfer_ Wire Transfer.md) — Safely monitor ransomware group Tor-hosted data leak sites (DLS) to collect and extract structured victim posting data, track group activity trends over time, and produce sector- and geography-specific ransomware risk assessments. Use when…
+- [Email Spoofing](Email Spoofing.md) — Monitor for brand impersonation attacks across domains, social media,
+- [email-best-practices](email-best-practices.md) — Email deliverability and design best practices
+- [email-marketing-bible](email-marketing-bible.md) — 55K-word email marketing guide as an AI skill
+- [emails](emails.md) — Build email sequences, drip campaigns, and lifecycle email flows
+- [emulating-cloud-attacks-with-stratus-red-team](emulating-cloud-attacks-with-stratus-red-team.md) — Install and run Stratus Red Team to detonate granular, MITRE ATT&CK-mapped
+- [emulo](emulo.md) — Mines AI coding logs into personal agent profiles
+- [enumerating-cloud-with-cloudfox](enumerating-cloud-with-cloudfox.md) — Run CloudFox's read-only Describe/List/Get enumeration (all-checks,
+- [eol-message](eol-message.md) — Communicate product or feature deprecation gracefully
+- [epic-breakdown-advisor](epic-breakdown-advisor.md) — Split epics into stories using Richard Lawrence's 9 splitting patterns
+- [epic-hypothesis](epic-hypothesis.md) — Turn initiatives into testable hypotheses with measurable success metrics
+- [eradicating-malware-from-infected-systems](eradicating-malware-from-infected-systems.md) — Systematically map and remove malware, backdoors, and attacker persistence
+- [error-handling](error-handling.md) — Error handling guidelines for NeMo-RL.
+- [escaping-containers-to-host](escaping-containers-to-host.md) — >-
+- [eskill](eskill.md) — Meta-skill to build top-tier Agent Skills: spec-compliant SKILL.md, eval loop, validator, market research, numbered-file pipeline
+- [espresso-skill](espresso-skill.md) — Generate Espresso UI tests for Android apps in Kotlin or Java
+- [eval-harness](eval-harness.md) — Eval Harness Skill
+- [evaluating-threat-intelligence-platforms](evaluating-threat-intelligence-platforms.md) — Evaluates and selects Threat Intelligence Platform (TIP) products based
+- [evaluation](evaluation.md) — Evaluates accuracy of quantized or unquantized LLMs using NeMo Evaluator Launcher (NEL).
+- [exec-local-compile](exec-local-compile.md) — Compile TensorRT-LLM on a compute node inside a Docker container.
+- [exec-slurm-compile](exec-slurm-compile.md) — Compile TensorRT-LLM on a SLURM cluster.
+- [executing-active-directory-attack-simulation](executing-active-directory-attack-simulation.md) — Executes authorized attack simulations against Active Directory environments
+- [executing-nist-rmf-authorization-to-operate](executing-nist-rmf-authorization-to-operate.md) — >-
+- [executing-plans](executing-plans.md) — Implement and run strategic plans
+- [executing-red-team-engagement-planning](executing-red-team-engagement-planning.md) — Build the foundational red team engagement plan - scope definition, Rules
+- [executing-red-team-exercise](executing-red-team-exercise.md) — Run a stealthy, MITRE ATT&CK-mapped adversary emulation against an organization''s
+- [executive-onboarding-playbook](executive-onboarding-playbook.md) — 30-60-90 day diagnostic playbook for VP/CPO onboarding transitions
+- [exploiting-active-directory-certificate-services-esc1](exploiting-active-directory-certificate-services-esc1.md) — Exploit misconfigured Active Directory Certificate Services (AD CS) ESC1
+- [exploiting-active-directory-with-bloodhound](exploiting-active-directory-with-bloodhound.md) — BloodHound is a graph-based Active Directory reconnaissance tool that
+- [exploiting-adcs-with-certipy](exploiting-adcs-with-certipy.md) — Use Certipy to enumerate AD CS certificate authorities and templates over LDAP/RPC, then exploit ESC1-ESC16 misconfigurations - SAN abuse, NTLM relay to web enrollment (ESC8), Shadow Credentials, golden certificate forgery, and PKINIT/Scha…
+- [exploiting-api-injection-vulnerabilities](exploiting-api-injection-vulnerabilities.md) — >-
+- [exploiting-aws-with-pacu](exploiting-aws-with-pacu.md) — >-
+- [exploiting-bgp-hijacking-vulnerabilities](exploiting-bgp-hijacking-vulnerabilities.md) — Analyzes and simulates BGP hijacking scenarios in authorized lab environments
+- [exploiting-broken-function-level-authorization](exploiting-broken-function-level-authorization.md) — >-
+- [exploiting-broken-link-hijacking](exploiting-broken-link-hijacking.md) — >-
+- [exploiting-constrained-delegation-abuse](exploiting-constrained-delegation-abuse.md) — >-
+- [exploiting-deeplink-vulnerabilities](exploiting-deeplink-vulnerabilities.md) — Tests and exploits deep link (URL scheme and App Link) vulnerabilities
+- [exploiting-excessive-data-exposure-in-api](exploiting-excessive-data-exposure-in-api.md) — >-
+- [exploiting-http-request-smuggling](exploiting-http-request-smuggling.md) — >-
+- [exploiting-idor-vulnerabilities](exploiting-idor-vulnerabilities.md) — >-
+- [exploiting-insecure-data-storage-in-mobile](exploiting-insecure-data-storage-in-mobile.md) — Identifies and exploits insecure local data storage vulnerabilities
+- [exploiting-insecure-deserialization](exploiting-insecure-deserialization.md) — Identifying and exploiting insecure deserialization vulnerabilities in
+- [exploiting-ipv6-vulnerabilities](exploiting-ipv6-vulnerabilities.md) — Identifies and exploits IPv6-specific vulnerabilities including SLAAC
+- [exploiting-jwt-algorithm-confusion-attack](exploiting-jwt-algorithm-confusion-attack.md) — >-
+- [exploiting-kerberoasting-with-impacket](exploiting-kerberoasting-with-impacket.md) — >-
+- [exploiting-mass-assignment-in-rest-apis](exploiting-mass-assignment-in-rest-apis.md) — >-
+- [exploiting-ms17-010-eternalblue-vulnerability](exploiting-ms17-010-eternalblue-vulnerability.md) — >-
+- [exploiting-nopac-cve-2021-42278-42287](exploiting-nopac-cve-2021-42278-42287.md) — Exploits the noPac Active Directory privilege-escalation chain (CVE-2021-42278
+- [exploiting-nosql-injection-vulnerabilities](exploiting-nosql-injection-vulnerabilities.md) — Detects and exploits NoSQL injection vulnerabilities in MongoDB, CouchDB,
+- [exploiting-oauth-misconfiguration](exploiting-oauth-misconfiguration.md) — Identifying and exploiting OAuth 2.0 and OpenID Connect misconfigurations
+- [exploiting-prototype-pollution-in-javascript](exploiting-prototype-pollution-in-javascript.md) — Detects and exploits JavaScript prototype pollution vulnerabilities
+- [exploiting-race-condition-vulnerabilities](exploiting-race-condition-vulnerabilities.md) — Detects and exploits race condition (TOCTOU) vulnerabilities in web
+- [exploiting-server-side-request-forgery](exploiting-server-side-request-forgery.md) — Identifying and exploiting SSRF vulnerabilities to access internal services,
+- [exploiting-smb-vulnerabilities-with-metasploit](exploiting-smb-vulnerabilities-with-metasploit.md) — Identifies and exploits SMB protocol vulnerabilities using Metasploit
+- [exploiting-sql-injection-vulnerabilities](exploiting-sql-injection-vulnerabilities.md) — Identifies and exploits SQL injection vulnerabilities in web applications
+- [exploiting-sql-injection-with-sqlmap](exploiting-sql-injection-with-sqlmap.md) — Detecting and exploiting SQL injection vulnerabilities using sqlmap to
+- [exploiting-template-injection-vulnerabilities](exploiting-template-injection-vulnerabilities.md) — Detects and exploits Server-Side Template Injection (SSTI) vulnerabilities
+- [exploiting-type-juggling-vulnerabilities](exploiting-type-juggling-vulnerabilities.md) — Exploits PHP type juggling vulnerabilities caused by loose (==) comparison
+- [exploiting-vulnerabilities-with-metasploit-framework](exploiting-vulnerabilities-with-metasploit-framework.md) — Uses the Metasploit Framework (msfconsole and its exploit, auxiliary,
+- [exploiting-websocket-vulnerabilities](exploiting-websocket-vulnerabilities.md) — Testing WebSocket implementations for authentication bypass, cross-site
+- [exploiting-zerologon-vulnerability-cve-2020-1472](exploiting-zerologon-vulnerability-cve-2020-1472.md) — Exploits the Zerologon vulnerability (CVE-2020-1472) in the Netlogon
+- [extracting-browser-history-artifacts](extracting-browser-history-artifacts.md) — Extracts and analyzes browser history, cookies, cache, downloads, and
+- [extracting-config-from-agent-tesla-rat](extracting-config-from-agent-tesla-rat.md) — Extracts embedded configuration from Agent Tesla RAT samples, including
+- [extracting-iocs-from-malware-samples](extracting-iocs-from-malware-samples.md) — Extracts indicators of compromise (IOCs) from malware samples, including
+- [extracting-memory-artifacts-with-rekall](extracting-memory-artifacts-with-rekall.md) — Uses Rekall memory forensics framework to analyze memory dumps for process
+- [extracting-windows-event-logs-artifacts](extracting-windows-event-logs-artifacts.md) — Extract, parse, and analyze Windows Event Logs (EVTX) using Chainsaw,
+- [feature-investment-advisor](feature-investment-advisor.md) — Evaluate features using ROI and strategic value scoring
+- [fetch-github-issues](fetch-github-issues.md) — Fetch and display open GitHub issues, including their complete bodies and metadata, from the repository recorded in docs/agents/issue-tracker.md or from a repository the user names explicitly. Use when the user asks to list, show, or revie…
+- [ffuf-claude-skill](ffuf-claude-skill.md) — Web fuzzing with ffuf
+- [finance-based-pricing-advisor](finance-based-pricing-advisor.md) — Evaluate pricing changes using financial impact analysis
+- [finance-metrics-quickref](finance-metrics-quickref.md) — Reference guide for 32+ SaaS finance metrics with formulas and benchmarks
+- [find-skills](find-skills.md) ✅ — Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is loo…
+- [finding-unknowns-skills](finding-unknowns-skills.md) — 8 meta-skills that make a coding agent surface your unknowns before they get expensive: blindspot pass, interview, reference hunt, implementation plan/notes, pitch packager, and a pre-merge change quiz. Works in Claude Code, Codex, and Cur…
+- [finishing-a-development-branch](finishing-a-development-branch.md) — Complete Git code branches
+- [firebase-basics](firebase-basics.md) — Use this skill whenever you are working on a project that uses Firebase products or services, especially for mobile or web apps.
+- [fleet-hunting-with-velociraptor](fleet-hunting-with-velociraptor.md) — Deploy a Velociraptor server and agents, then author VQL (Velociraptor Query Language) artifacts and run them as fleet-wide hunts, on-demand forensic collections, or standalone offline collectors. Use when hunting a TTP across hundreds or …
+- [flutter-testing-skill](flutter-testing-skill.md) — Generate Flutter widget, integration, and golden tests in Dart
+- [founder-skills](founder-skills.md) — Claude skills for founders with packaged startup workflows
+- [fractal](fractal.md) — Bounded hierarchical agent loops in isolated git worktrees
+- [free-tools](free-tools.md) — Plan and build free tools for lead generation and SEO value
+- [frontend-design](frontend-design.md) — Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
+- [frontend-patterns](frontend-patterns.md) — Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.
+- [frontend-slides](frontend-slides.md) — Generate animation-rich HTML presentations with visual style previews
+- [full-funnel-campaign-orchestrator](full-funnel-campaign-orchestrator.md) — Coordinate all skills to build a complete ads + funnel campaign end-to-end
+- [full-output-enforcement](full-output-enforcement.md) — Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
+- [Gather Customer Information](Gather Customer Information.md) — Monitor paste sites like Pastebin and GitHub Gists for leaked credentials,
+- [gauge-skill](gauge-skill.md) — Generate Gauge specs in Markdown with steps in Java, Python, JS, or Ruby
+- [geb-skill](geb-skill.md) — Generate Geb browser automation in Groovy with Spock and page objects
+- [gemini-agents-api](gemini-agents-api.md) — Manages custom Agent resources on Gemini Enterprise Agent Platform.
+- [gemini-api](gemini-api.md) — Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK.
+- [gemini-interactions-api](gemini-interactions-api.md) — Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform.
+- [generating-and-analyzing-sboms](generating-and-analyzing-sboms.md) — Generate CycloneDX and SPDX SBOMs from container images and filesystems with Syft, correlate them to CVEs with Grype, and sign/attest them with Cosign. Use when you need a machine-readable dependency inventory for supply-chain risk, want t…
+- [generating-forensic-timelines-with-hayabusa](generating-forensic-timelines-with-hayabusa.md) — Run Hayabusa against collected Windows EVTX files to apply Sigma detection rules and produce a prioritized, chronological CSV/JSON timeline with severity levels, MITRE ATT&CK mappings, and per-host/per-Event-ID metrics. Use during DFIR tri…
+- [generating-threat-intelligence-reports](generating-threat-intelligence-reports.md) — Generates structured cyber threat intelligence reports at strategic,
+- [generic-language-killer](generic-language-killer.md) — Remove vague, corporate, or AI-sounding language and replace it with clear, specific, human wording
+- [git-guardrails-claude-code](git-guardrails-claude-code.md) — Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D, etc.) before they execute. Use when user wants to prevent destructive git operations, add git safety hooks, or block git push/reset in Claude C…
+- [github-image-upload](github-image-upload.md) — Attach screenshots, PDFs, logs, zips, and videos to GitHub PRs, issues, and comments, returning canonical user-attachments URLs. GitHub has no public attachment-upload API. Works with Claude Code, Codex, Cursor, and Gemini CLI
+- [gke-basics](gke-basics.md) — Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration.
+- [go-agent-skills](go-agent-skills.md) — Curated Go skills for code review, concurrency, testing, and architecture
+- [google-cloud-networking-observability](google-cloud-networking-observability.md) — Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics.
+- [google-cloud-recipe-auth](google-cloud-recipe-auth.md) — Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and b...
+- [google-cloud-recipe-onboarding](google-cloud-recipe-onboarding.md) — Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.
+- [google-cloud-waf-cost-optimization](google-cloud-waf-cost-optimization.md) — Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF).
+- [google-cloud-waf-operational-excellence](google-cloud-waf-operational-excellence.md) — Generates operations-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Operational Excellence pillar of the Google Cloud Well-Ar...
+- [google-cloud-waf-performance-optimization](google-cloud-waf-performance-optimization.md) — Generates performance-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Performance Optimization pillar of the Google Cloud Well...
+- [google-cloud-waf-reliability](google-cloud-waf-reliability.md) — Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework.
+- [google-cloud-waf-security](google-cloud-waf-security.md) — Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF).
+- [google-cloud-waf-sustainability](google-cloud-waf-sustainability.md) — Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF).
+- [goose-skills](goose-skills.md) — 125 growth and GTM skills: ads, content, lead gen, SEO
+- [gpt-taste](gpt-taste.md) — Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning…
+- [grammar-check](grammar-check.md) — Identify grammar and flow errors with targeted fix suggestions
+- [grill-me](grill-me.md) — A relentless interview to sharpen a plan or design.
+- [grill-with-docs](grill-with-docs.md) — A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.
+- [grilling](grilling.md) — Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
+- [growth-loops](growth-loops.md) — Identify growth loops across 5 flywheel types for traction
+- [gtm-cofounder](gtm-cofounder.md) — 18 go-to-market skills for solo technical founders: positioning, first users, launch, pricing, and founder-led sales; grounded in Adam Frankl and Jakub Czakon
+- [gtm-motions](gtm-motions.md) — Identify best GTM motions across 7 types including PLG and ABM
+- [gtm-strategy](gtm-strategy.md) — Create GTM strategy with channels, messaging, and launch timeline
+- [hand-drawn-diagrams](hand-drawn-diagrams.md) — Generate hand-drawn Excalidraw diagrams from a prompt — animated SVG, hosted edit link, and PNG export. Works with Claude Code, Codex, Gemini CLI, and any agent supporting standard skill paths
+- [handoff](handoff.md) — Compact the current conversation into a handoff document for another agent to pick up.
+- [hardening-docker-containers-for-production](hardening-docker-containers-for-production.md) — >-
+- [hardening-docker-daemon-configuration](hardening-docker-daemon-configuration.md) — >-
+- [hardening-linux-endpoint-with-cis-benchmark](hardening-linux-endpoint-with-cis-benchmark.md) — Hardens Linux endpoints using CIS Benchmark recommendations for Ubuntu,
+- [hardening-windows-endpoint-with-cis-benchmark](hardening-windows-endpoint-with-cis-benchmark.md) — Hardens Windows endpoints using CIS (Center for Internet Security) Benchmark
+- [headline-matrix](headline-matrix.md) — Generate high-performing headline variations across different angles
+- [helius-skills](helius-skills.md) — Ship Solana apps end-to-end; transaction sending, asset queries, real-time streaming, token swaps, prediction markets, browser wallets, and deep research into protocol internals all powered by Helius APIs, DFlow trading, and Phantom wallet…
+- [hig-doctor](hig-doctor.md) — Apple Human Interface Guidelines as 14 agent skills covering platforms, foundations, components, patterns, inputs, and technologies for iOS, macOS, visionOS, watchOS, and tvOS
+- [high-end-visual-design](high-end-visual-design.md) — Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+- [honeydew-ai-coding-agents-plugins](honeydew-ai-coding-agents-plugins.md) — 11 skills for the Honeydew semantic layer over Snowflake, Databricks, and BigQuery: model exploration, entity/relation/attribute/metric/context/domain creation, validation, query, filtering, and workspace branching
+- [humanize-chinese](humanize-chinese.md) — Detect and rewrite AI-generated Chinese text, fully offline, no LLM
+- [humanizer](humanizer.md) — Remove signs of AI-generated writing from text, making it sound more natural and human
+- [humanizer-ru](humanizer-ru.md) — Removes AI-writing markers from Russian text
+- [hunting-advanced-persistent-threats](hunting-advanced-persistent-threats.md) — Proactively hunts for Advanced Persistent Threat (APT) activity within
+- [hunting-bootkits-in-efi-system-partition](hunting-bootkits-in-efi-system-partition.md) — Baseline the EFI System Partition and hunt malicious EFI binaries such as ESPecter, BlackLotus, Bootkitty, and Glupteba by mounting the ESP, hashing and verifying boot loaders, scanning with YARA, and flagging anomalous non-EFI files or ou…
+- [hunting-evtx-with-chainsaw](hunting-evtx-with-chainsaw.md) — Run Chainsaw against collected Windows EVTX files to hunt with the SigmaHQ rule corpus, built-in detection rules, and high-speed keyword/regex search, plus analyze shimcache, SRUM, and event-log gaps, outputting colorized tables, CSV, or J…
+- [hunting-for-anomalous-powershell-execution](hunting-for-anomalous-powershell-execution.md) — Hunt for malicious PowerShell activity by analyzing Script Block Logging
+- [hunting-for-beaconing-with-frequency-analysis](hunting-for-beaconing-with-frequency-analysis.md) — Identify command-and-control beaconing patterns in network traffic by
+- [hunting-for-cobalt-strike-beacons](hunting-for-cobalt-strike-beacons.md) — Detect Cobalt Strike beacon command-and-control traffic using default TLS certificate signatures (serial 8BB00EE), JA3/JA3S/JARM fingerprints, HTTP malleable C2 profile pattern matching, and beacon jitter/interval analysis, built with Zeek…
+- [hunting-for-command-and-control-beaconing](hunting-for-command-and-control-beaconing.md) — Detect C2 beaconing patterns in network traffic using frequency analysis,
+- [hunting-for-data-exfiltration-indicators](hunting-for-data-exfiltration-indicators.md) — Hunt for data exfiltration by analyzing Zeek and Suricata network telemetry for unusual data flows, DNS tunneling via large/frequent TXT queries, uploads to personal cloud storage, and encrypted-channel abuse, correlated against threat int…
+- [hunting-for-data-staging-before-exfiltration](hunting-for-data-staging-before-exfiltration.md) — Detect data-staging activity (MITRE ATT&CK T1074) by analyzing EDR/Sysmon process-creation and file-system telemetry (Event ID 4688, Sysmon 1/11) for 7-Zip/RAR/tar archive creation, unusual temp or hidden folder access, and anomalous conso…
+- [hunting-for-dcom-lateral-movement](hunting-for-dcom-lateral-movement.md) — Hunt for DCOM-based lateral movement (MITRE ATT&CK T1021.003) by detecting
+- [hunting-for-dcsync-attacks](hunting-for-dcsync-attacks.md) — Detect DCSync attacks (MITRE ATT&CK T1003.006) by analyzing Windows Event ID 4662 (AccessMask 0x100) for DS-Replication-Get-Changes and DS-Replication-Get-Changes-All requests issued by non-domain-controller accounts. Use when hunting for …
+- [hunting-for-defense-evasion-via-timestomping](hunting-for-defense-evasion-via-timestomping.md) — Detect NTFS timestamp manipulation (MITRE T1070.006) by comparing $STANDARD_INFORMATION
+- [hunting-for-dns-based-persistence](hunting-for-dns-based-persistence.md) — Hunts for DNS-based persistence mechanisms such as DNS hijacking, dangling
+- [hunting-for-dns-tunneling-with-zeek](hunting-for-dns-tunneling-with-zeek.md) — Detects DNS tunneling and covert-channel data exfiltration by analyzing
+- [hunting-for-domain-fronting-c2-traffic](hunting-for-domain-fronting-c2-traffic.md) — Detects domain fronting C2 traffic by analyzing SNI-vs-HTTP-Host-header
+- [hunting-for-lateral-movement-via-wmi](hunting-for-lateral-movement-via-wmi.md) — Detects WMI-based lateral movement (e.g. wmic process call create,
+- [hunting-for-living-off-the-cloud-techniques](hunting-for-living-off-the-cloud-techniques.md) — Hunts for adversary abuse of legitimate cloud services (Azure, AWS, GCP,
+- [hunting-for-living-off-the-land-binaries](hunting-for-living-off-the-land-binaries.md) — Proactively hunts for adversary abuse of legitimate, signed system binaries
+- [hunting-for-lolbins-execution-in-endpoint-logs](hunting-for-lolbins-execution-in-endpoint-logs.md) — Hunts for LOLBins (Living Off the Land Binaries) abuse, mapped to MITRE
+- [hunting-for-ntlm-relay-attacks](hunting-for-ntlm-relay-attacks.md) — Detects NTLM relay attacks (MITRE T1557.001) by analyzing Windows Event
+- [hunting-for-persistence-mechanisms-in-windows](hunting-for-persistence-mechanisms-in-windows.md) — Systematically hunts for adversary persistence mechanisms across Windows
+- [hunting-for-persistence-via-wmi-subscriptions](hunting-for-persistence-via-wmi-subscriptions.md) — Hunts for adversary persistence via WMI event subscriptions (MITRE T1546.003)
+- [hunting-for-process-injection-techniques](hunting-for-process-injection-techniques.md) — Detects process injection techniques (MITRE T1055) — including
+- [hunting-for-registry-persistence-mechanisms](hunting-for-registry-persistence-mechanisms.md) — Hunts for registry-based persistence mechanisms (MITRE T1547) in Windows
+- [hunting-for-registry-run-key-persistence](hunting-for-registry-run-key-persistence.md) — Detect MITRE ATT&CK T1547.001 registry Run key persistence by analyzing
+- [hunting-for-scheduled-task-persistence](hunting-for-scheduled-task-persistence.md) — Runs a hypothesis-driven threat hunt for Windows Scheduled Task persistence (T1053), guiding SIEM/EDR queries against task creation events (e.g. Event ID 4698), suspicious task actions, and unusual scheduling patterns. Use when hunting for…
+- [hunting-for-shadow-copy-deletion](hunting-for-shadow-copy-deletion.md) — Runs a hypothesis-driven threat hunt for Volume Shadow Copy deletion (T1490) by querying SIEM/EDR telemetry for vssadmin, wmic shadowcopy, and PowerShell shadow-copy-deletion commands. Use when hunting for ransomware preparation or anti-fo…
+- [hunting-for-startup-folder-persistence](hunting-for-startup-folder-persistence.md) — Detects T1547.001 startup folder persistence by monitoring Windows startup directories for suspicious file creation, cross-referencing Autoruns entries, and running a Python watchdog script for real-time filesystem monitoring. Use when hun…
+- [hunting-for-supply-chain-compromise](hunting-for-supply-chain-compromise.md) — Runs a hypothesis-driven threat hunt for supply-chain compromise (T1195) by querying SIEM/EDR logs for trojanized software updates, compromised dependencies, unauthorized code modifications, and tampered build artifacts. Use when hunting a…
+- [hunting-for-suspicious-scheduled-tasks](hunting-for-suspicious-scheduled-tasks.md) — Hunts for adversary persistence and execution via Windows scheduled tasks (T1053.005) by analyzing Security Event ID 4698 task-creation events, suspicious task properties, and unusual execution patterns from schtasks.exe/at.exe. Use after …
+- [hunting-for-t1098-account-manipulation](hunting-for-t1098-account-manipulation.md) — Hunts for MITRE ATT&CK T1098 account manipulation - shadow admin creation, SID history injection, group membership changes, and credential modifications - by analyzing Windows Security Event Log IDs 4738, 4728, 4732, 4756, 4670, and 5136. …
+- [hunting-for-unusual-network-connections](hunting-for-unusual-network-connections.md) — Runs a hypothesis-driven threat hunt for command-and-control activity (T1071) by querying SIEM/EDR network telemetry for anomalous outbound traffic, rare destinations, non-standard ports, and unusual connection frequencies from endpoints. …
+- [hunting-for-unusual-service-installations](hunting-for-unusual-service-installations.md) — Detects suspicious Windows service installations (MITRE ATT&CK T1543.003) by parsing System event log Event ID 7045, analyzing service binary paths, and flagging indicators of persistence mechanisms via Sysmon/EDR telemetry. Use when hunti…
+- [hunting-for-webshell-activity](hunting-for-webshell-activity.md) — Runs a hypothesis-driven threat hunt for web shell deployment (T1505.003) on internet-facing servers by analyzing file creation in web directories, suspicious child-process spawning from web server processes, and anomalous HTTP request pat…
+- [hunting-saas-sso-token-abuse](hunting-saas-sso-token-abuse.md) — Hunts for stolen-session and OAuth/PRT token replay (T1550.001) by correlating Microsoft Entra ID SigninLogs SessionId/UniqueTokenIdentifier fields and Okta System Log sso/session events to spot impossible travel, refresh-token reuse, and …
+- [hyperexecute-skill](hyperexecute-skill.md) — Operate TestMu AI HyperExecute end-to-end: YAML, CLI runs, debugging, and CI wiring
+- [ideal-customer-profile](ideal-customer-profile.md) — Identify ICP with demographics, behaviors, and JTBD
+- [identify-assumptions-existing](identify-assumptions-existing.md) — Identify risky assumptions across Value, Usability, Viability, Feasibility
+- [identify-assumptions-new](identify-assumptions-new.md) — Identify risky assumptions for new products across 8 risk categories
+- [image-to-code](image-to-code.md) — Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefe…
+- [imagegen-frontend-mobile](imagegen-frontend-mobile.md) — Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen …
+- [imagegen-frontend-web](imagegen-frontend-web.md) — Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. N…
+- [imagen](imagen.md) — Generate images using Google Gemini's API
+- [Impersonate Account Holder](Impersonate Account Holder.md) — Guides designing, deploying, and measuring an anti-phishing security awareness program - baseline phishing simulations, interactive training modules, just-in-time learning, and metric tracking - using platforms like KnowBe4, Proofpoint Sec…
+- [Impersonate Official](Impersonate Official.md) — Automates phishing incident response by calling the Splunk SOAR (Phantom)
+- [implement](implement.md) — Implement a piece of work based on a spec or set of tickets.
+- [implement-spec](implement-spec.md) — Implement a specification in code.
+- [implementing-aes-encryption-for-data-at-rest](implementing-aes-encryption-for-data-at-rest.md) — Guides implementing AES-256 encryption in GCM mode (FIPS 197) for files and data stores at rest, covering key derivation, IV/nonce management, and authenticated encryption. Use when deploying or configuring encryption for data at rest, est…
+- [implementing-alert-fatigue-reduction](implementing-alert-fatigue-reduction.md) — Implements strategies to reduce SOC alert fatigue by tuning detection
+- [implementing-api-abuse-detection-with-rate-limiting](implementing-api-abuse-detection-with-rate-limiting.md) — Implements API abuse detection using token bucket, sliding window, and
+- [implementing-api-gateway-security-controls](implementing-api-gateway-security-controls.md) — Configures API gateways such as Kong, AWS API Gateway, Azure APIM,
+- [implementing-api-key-security-controls](implementing-api-key-security-controls.md) — Implements secure API key generation with sufficient entropy, server-side
+- [implementing-api-rate-limiting-and-throttling](implementing-api-rate-limiting-and-throttling.md) — Implements API rate limiting and throttling with token bucket, sliding
+- [implementing-api-schema-validation-security](implementing-api-schema-validation-security.md) — Implements API schema validation using OpenAPI Specification and JSON
+- [implementing-api-security-posture-management](implementing-api-security-posture-management.md) — Implements API Security Posture Management (API-SPM) to continuously
+- [implementing-api-security-testing-with-42crunch](implementing-api-security-testing-with-42crunch.md) — Implements API security testing on the 42Crunch platform, combining
+- [implementing-api-threat-protection-with-apigee](implementing-api-threat-protection-with-apigee.md) — Implements API threat protection using Google Apigee reverse-proxy
+- [implementing-application-whitelisting-with-applocker](implementing-application-whitelisting-with-applocker.md) — Implements application whitelisting using Windows AppLocker to restrict
+- [implementing-aqua-security-for-container-scanning](implementing-aqua-security-for-container-scanning.md) — Deploy Aqua Security's Trivy scanner to detect vulnerabilities, misconfigurations,
+- [implementing-attack-path-analysis-with-xm-cyber](implementing-attack-path-analysis-with-xm-cyber.md) — Deploys XM Cyber's continuous exposure management platform to build
+- [implementing-attack-surface-management](implementing-attack-surface-management.md) — Implements external attack surface management (EASM) using Shodan, Censys,
+- [implementing-aws-config-rules-for-compliance](implementing-aws-config-rules-for-compliance.md) — Implements AWS Config managed and custom rules for continuous compliance
+- [implementing-aws-iam-permission-boundaries](implementing-aws-iam-permission-boundaries.md) — Configures AWS IAM permission boundaries that cap the maximum permissions
+- [implementing-aws-macie-for-data-classification](implementing-aws-macie-for-data-classification.md) — Enable and configure Amazon Macie via AWS CLI/Terraform to discover, classify, and protect sensitive data (PII, financial data, credentials) in S3 using ML and pattern matching, including discovery jobs, custom data identifiers, allow list…
+- [implementing-aws-nitro-enclave-security](implementing-aws-nitro-enclave-security.md) — Build AWS Nitro Enclave confidential computing environments using nitro-cli
+- [implementing-aws-security-hub](implementing-aws-security-hub.md) — Deploy AWS Security Hub as a centralized CSPM platform, backed by AWS
+- [implementing-aws-security-hub-compliance](implementing-aws-security-hub-compliance.md) — Deploy AWS Security Hub, backed by AWS Config, to aggregate findings
+- [implementing-azure-defender-for-cloud](implementing-azure-defender-for-cloud.md) — Enable Microsoft Defender for Cloud (CSPM + CWPP) across VMs, containers,
+- [implementing-beyondcorp-zero-trust-access-model](implementing-beyondcorp-zero-trust-access-model.md) — Implement Google''s BeyondCorp zero trust access model using Cloud
+- [implementing-bgp-security-with-rpki](implementing-bgp-security-with-rpki.md) — Implement RPKI-based BGP route origin validation by creating Route Origin
+- [implementing-canary-tokens-for-network-intrusion](implementing-canary-tokens-for-network-intrusion.md) — Deploys DNS, HTTP, and AWS API key canary tokens across network infrastructure
+- [implementing-cisa-zero-trust-maturity-model](implementing-cisa-zero-trust-maturity-model.md) — Assess, gap-analyze, and progressively implement the CISA Zero Trust
+- [implementing-cloud-dlp-for-data-protection](implementing-cloud-dlp-for-data-protection.md) — Implement cloud DLP using Amazon Macie, Google Cloud DLP API, Microsoft
+- [implementing-cloud-security-posture-management](implementing-cloud-security-posture-management.md) — Continuously monitor multi-cloud environments (AWS, Azure, GCP) for
+- [implementing-cloud-trail-log-analysis](implementing-cloud-trail-log-analysis.md) — Implementing AWS CloudTrail log analysis for security monitoring, threat
+- [implementing-cloud-vulnerability-posture-management](implementing-cloud-vulnerability-posture-management.md) — Implement multi-cloud CSPM to detect cloud-native misconfigurations
+- [implementing-cloud-waf-rules](implementing-cloud-waf-rules.md) — Deploys and tunes Web Application Firewall rules on AWS WAF, Azure WAF,
+- [implementing-cloud-workload-protection](implementing-cloud-workload-protection.md) — Implements cloud workload protection using boto3 and google-cloud APIs
+- [implementing-code-signing-for-artifacts](implementing-code-signing-for-artifacts.md) — Implements code signing for build artifacts (binaries, packages, containers)
+- [implementing-conditional-access-policies-azure-ad](implementing-conditional-access-policies-azure-ad.md) — Configures Microsoft Entra ID (Azure AD) Conditional Access policies for
+- [implementing-conduit-security-for-ot-remote-access](implementing-conduit-security-for-ot-remote-access.md) — Implements secure conduit architecture for OT remote access under the
+- [implementing-container-image-minimal-base-with-distroless](implementing-container-image-minimal-base-with-distroless.md) — >-
+- [implementing-container-network-policies-with-calico](implementing-container-network-policies-with-calico.md) — >-
+- [implementing-continuous-security-validation-with-bas](implementing-continuous-security-validation-with-bas.md) — Deploys Breach and Attack Simulation (BAS) platforms such as SafeBreach,
+- [implementing-data-loss-prevention-with-microsoft-purview](implementing-data-loss-prevention-with-microsoft-purview.md) — Implements DLP policies using Microsoft Purview PowerShell cmdlets and
+- [implementing-ddos-mitigation-with-cloudflare](implementing-ddos-mitigation-with-cloudflare.md) — Configure Cloudflare DDoS protection with managed rulesets, rate limiting,
+- [implementing-deception-based-detection-with-canarytoken](implementing-deception-based-detection-with-canarytoken.md) — Deploys and monitors Canary Tokens via the Thinkst Canary REST API for
+- [implementing-device-posture-assessment-in-zero-trust](implementing-device-posture-assessment-in-zero-trust.md) — Implements device posture assessment as a zero trust access control
+- [implementing-devsecops-security-scanning](implementing-devsecops-security-scanning.md) — Integrates SAST, DAST, and SCA into CI/CD pipelines using Semgrep for
+- [implementing-diamond-model-analysis](implementing-diamond-model-analysis.md) — The Diamond Model of Intrusion Analysis provides a structured framework
+- [implementing-digital-signatures-with-ed25519](implementing-digital-signatures-with-ed25519.md) — Implements digital signatures using the Ed25519 algorithm (Curve25519), covering key-pair generation, signing, signature verification, and security tradeoffs versus RSA and ECDSA. Use when adding message or artifact signing and authenticat…
+- [implementing-disk-encryption-with-bitlocker](implementing-disk-encryption-with-bitlocker.md) — Implements full disk encryption using Microsoft BitLocker on Windows
+- [implementing-dmarc-dkim-spf-email-security](implementing-dmarc-dkim-spf-email-security.md) — Configures SPF, DKIM, and DMARC DNS TXT records to authenticate outbound email, prevent domain spoofing, and enforce a rejection/quarantine policy on unauthenticated mail, including auditing a domain's current DNS state. Use when hardening…
+- [implementing-dragos-platform-for-ot-monitoring](implementing-dragos-platform-for-ot-monitoring.md) — Deploys and configures Dragos Platform sensors and detection analytics for OT/ICS network monitoring, using industrial protocol parsers and threat-intel packs to detect groups like VOLTZITE, CHERNOVITE, and KAMACITE. Use when standing up O…
+- [implementing-ebpf-security-monitoring](implementing-ebpf-security-monitoring.md) — Implements eBPF-based security monitoring using Cilium Tetragon for
+- [implementing-email-sandboxing-with-proofpoint](implementing-email-sandboxing-with-proofpoint.md) — Email sandboxing detonates suspicious attachments and URLs in isolated
+- [implementing-end-to-end-encryption-for-messaging](implementing-end-to-end-encryption-for-messaging.md) — Implements a simplified Signal Protocol-style end-to-end encryption scheme for messaging, covering key exchange, forward secrecy, and the core cryptographic components so no server or intermediary can decrypt messages. Use when designing o…
+- [implementing-endpoint-detection-with-wazuh](implementing-endpoint-detection-with-wazuh.md) — Deploys and configures Wazuh SIEM/XDR for endpoint detection, covering agent authentication and management, custom decoder and rule XML creation, alert querying via the Wazuh REST API, rule testing with wazuh-logtest, and automated active-…
+- [implementing-endpoint-dlp-controls](implementing-endpoint-dlp-controls.md) — Implements endpoint Data Loss Prevention (DLP) controls to detect and
+- [implementing-envelope-encryption-with-aws-kms](implementing-envelope-encryption-with-aws-kms.md) — Implements envelope encryption with AWS KMS, encrypting data locally with a data encryption key (DEK) and protecting that DEK with a KMS-managed key (KEK), covering the encrypt/decrypt flow, KMS key types, and security validation criteria.…
+- [implementing-epss-score-for-vulnerability-prioritization](implementing-epss-score-for-vulnerability-prioritization.md) — Queries FIRST's Exploit Prediction Scoring System (EPSS) API to fetch exploitation-probability and percentile scores for CVEs, then uses those scores to prioritize vulnerability remediation. Use when triaging or ranking a vulnerability bac…
+- [implementing-file-integrity-monitoring-with-aide](implementing-file-integrity-monitoring-with-aide.md) — Configures AIDE (Advanced Intrusion Detection Environment) for file integrity monitoring on Linux, covering baseline database creation, scheduled integrity checks via cron, change detection, and alerting on unauthorized modifications. Use …
+- [implementing-fuzz-testing-in-cicd-with-aflplusplus](implementing-fuzz-testing-in-cicd-with-aflplusplus.md) — Integrates AFL++ coverage-guided fuzzing into CI/CD pipelines, covering harness construction, AFL++/AddressSanitizer/CmpLog instrumentation builds, and persistent-mode fuzzing to discover memory-corruption and input-handling vulnerabilitie…
+- [implementing-gcp-binary-authorization](implementing-gcp-binary-authorization.md) — Implements GCP Binary Authorization end to end, including creating KMS-backed attestors, Container Analysis notes, deploy-time policies, and signing image attestations, so that only trusted, verified images deploy to GKE and Cloud Run. Use…
+- [implementing-gcp-organization-policy-constraints](implementing-gcp-organization-policy-constraints.md) — Implements GCP Organization Policy constraints via gcloud and Terraform, such as restricting external IPs, resource locations, default service accounts, and service account keys, plus dry-run testing of policy impact before enforcement. Us…
+- [implementing-gcp-vpc-firewall-rules](implementing-gcp-vpc-firewall-rules.md) — Implements and audits GCP VPC firewall rules using gcloud, covering auditing overly permissive rules, creating restrictive ingress/egress rules, hierarchical firewall policies, and monitoring rule effectiveness with VPC Flow Logs. Use when…
+- [implementing-gdpr-data-protection-controls](implementing-gdpr-data-protection-controls.md) — Implements GDPR (EU 2016/679) technical and organizational measures — privacy by design/default, DPIAs, data subject rights management, 72-hour breach notification, and cross-border transfer mechanisms (SCCs, BCRs, adequacy). Use when de…
+- [implementing-gdpr-data-subject-access-request](implementing-gdpr-data-subject-access-request.md) — Automates GDPR Data Subject Access Request (DSAR) workflows including
+- [implementing-github-advanced-security-for-code-scanning](implementing-github-advanced-security-for-code-scanning.md) — Configures GitHub Advanced Security (code scanning with CodeQL, secret scanning, dependency review, and Dependabot alerts) to perform automated static analysis and vulnerability detection across repositories at enterprise scale, including …
+- [implementing-hardware-security-key-authentication](implementing-hardware-security-key-authentication.md) — Builds a FIDO2/WebAuthn relying party server with the python-fido2
+- [implementing-hipaa-security-rule-safeguards](implementing-hipaa-security-rule-safeguards.md) — >-
+- [implementing-honeytokens-for-breach-detection](implementing-honeytokens-for-breach-detection.md) — Deploys canary tokens and honeytokens (fake AWS credentials, DNS canaries,
+- [implementing-ics-firewall-with-tofino](implementing-ics-firewall-with-tofino.md) — Deploys and configures Tofino industrial firewalls (Belden/Hirschmann)
+- [implementing-iec-62443-security-zones](implementing-iec-62443-security-zones.md) — Designs security zones and conduits for industrial control systems
+- [implementing-image-provenance-verification-with-cosign](implementing-image-provenance-verification-with-cosign.md) — >-
+- [implementing-immutable-backup-with-restic](implementing-immutable-backup-with-restic.md) — Implements ransomware-resistant backups using restic with S3-compatible
+- [implementing-infrastructure-as-code-security-scanning](implementing-infrastructure-as-code-security-scanning.md) — Implements automated security scanning for Infrastructure as Code using
+- [implementing-iso-27001-information-security-management](implementing-iso-27001-information-security-management.md) — >-
+- [implementing-just-in-time-access-provisioning](implementing-just-in-time-access-provisioning.md) — >-
+- [implementing-jwt-signing-and-verification](implementing-jwt-signing-and-verification.md) — >-
+- [implementing-kubernetes-network-policy-with-calico](implementing-kubernetes-network-policy-with-calico.md) — >-
+- [implementing-kubernetes-pod-security-standards](implementing-kubernetes-pod-security-standards.md) — >-
+- [implementing-llm-guardrails-for-security](implementing-llm-guardrails-for-security.md) — Implements input/output validation guardrails for LLM applications using
+- [implementing-log-forwarding-with-fluentd](implementing-log-forwarding-with-fluentd.md) — >-
+- [implementing-log-integrity-with-blockchain](implementing-log-integrity-with-blockchain.md) — >-
+- [implementing-memory-protection-with-dep-aslr](implementing-memory-protection-with-dep-aslr.md) — Implements memory protection mechanisms including DEP (Data Execution
+- [implementing-microsegmentation-with-guardicore](implementing-microsegmentation-with-guardicore.md) — Implements microsegmentation with Akamai Guardicore Segmentation to map
+- [implementing-mitre-attack-coverage-mapping](implementing-mitre-attack-coverage-mapping.md) — Implement MITRE ATT&CK coverage mapping to identify detection gaps, prioritize
+- [implementing-mobile-application-management](implementing-mobile-application-management.md) — Implements Mobile Application Management (MAM) policies to protect enterprise
+- [implementing-mtls-for-zero-trust-services](implementing-mtls-for-zero-trust-services.md) — Configures mutual TLS (mTLS) authentication between microservices using
+- [implementing-nerc-cip-compliance-controls](implementing-nerc-cip-compliance-controls.md) — Implements NERC CIP controls for Bulk Electric System (BES) cyber systems: asset
+- [implementing-network-access-control](implementing-network-access-control.md) — Implements 802.1X port-based network access control using RADIUS authentication,
+- [implementing-network-access-control-with-cisco-ise](implementing-network-access-control-with-cisco-ise.md) — Deploys Cisco Identity Services Engine (ISE) as a RADIUS policy server for 802.1X
+- [implementing-network-deception-with-honeypots](implementing-network-deception-with-honeypots.md) — Deploy and manage network honeypots using OpenCanary, T-Pot, or Cowrie
+- [implementing-network-intrusion-prevention-with-suricata](implementing-network-intrusion-prevention-with-suricata.md) — Deploys and configures Suricata as an inline network intrusion prevention system,
+- [implementing-network-policies-for-kubernetes](implementing-network-policies-for-kubernetes.md) — >-
+- [implementing-network-segmentation-for-ot](implementing-network-segmentation-for-ot.md) — Implements OT network segmentation using VLANs, OT-aware firewalls, data diodes,
+- [implementing-network-segmentation-with-firewall-zones](implementing-network-segmentation-with-firewall-zones.md) — Designs and implements network segmentation using firewall security zones, VLANs,
+- [implementing-network-traffic-analysis-with-arkime](implementing-network-traffic-analysis-with-arkime.md) — Queries Arkime (formerly Moloch) full packet capture via its API to search sessions,
+- [implementing-network-traffic-baselining](implementing-network-traffic-baselining.md) — Builds network traffic baselines from NetFlow/IPFIX CSV or JSON exports using Python
+- [implementing-next-generation-firewall-with-palo-alto](implementing-next-generation-firewall-with-palo-alto.md) — Configures and deploys Palo Alto Networks next-generation firewalls end-to-end,
+- [implementing-opa-gatekeeper-for-policy-enforcement](implementing-opa-gatekeeper-for-policy-enforcement.md) — >-
+- [implementing-ot-incident-response-playbook](implementing-ot-incident-response-playbook.md) — Develops OT-specific incident response playbooks using a SANS PICERL-based Python
+- [implementing-ot-network-traffic-analysis-with-nozomi](implementing-ot-network-traffic-analysis-with-nozomi.md) — Deploy Nozomi Networks Guardian sensors for passive OT network traffic
+- [implementing-passwordless-authentication-with-fido2](implementing-passwordless-authentication-with-fido2.md) — Deploy FIDO2/WebAuthn passwordless authentication using security keys
+- [implementing-patch-management-for-ot-systems](implementing-patch-management-for-ot-systems.md) — Implements a structured patch management program for OT/ICS environments
+- [implementing-patch-management-workflow](implementing-patch-management-workflow.md) — Patch management is the systematic process of identifying, testing, deploying,
+- [implementing-pci-dss-compliance-controls](implementing-pci-dss-compliance-controls.md) — Implements PCI DSS 4.0.1's 12 requirements across 6 control objectives
+- [implementing-pod-security-admission-controller](implementing-pod-security-admission-controller.md) — >-
+- [implementing-policy-as-code-with-open-policy-agent](implementing-policy-as-code-with-open-policy-agent.md) — Implements policy-as-code enforcement with Open Policy Agent (OPA)
+- [implementing-privileged-access-workstation](implementing-privileged-access-workstation.md) — Design and implement Privileged Access Workstations (PAWs) using the
+- [implementing-privileged-session-monitoring](implementing-privileged-session-monitoring.md) — Implements privileged session monitoring and recording using PAM
+- [implementing-purdue-model-network-segmentation](implementing-purdue-model-network-segmentation.md) — Implement network segmentation based on the Purdue Enterprise Reference
+- [implementing-rapid7-insightvm-for-scanning](implementing-rapid7-insightvm-for-scanning.md) — Deploy and configure Rapid7 InsightVM Security Console and Scan Engines,
+- [implementing-rbac-hardening-for-kubernetes](implementing-rbac-hardening-for-kubernetes.md) — >-
+- [implementing-rsa-key-pair-management](implementing-rsa-key-pair-management.md) — Generates, stores, rotates, and manages RSA key pairs following NIST
+- [implementing-runtime-application-self-protection](implementing-runtime-application-self-protection.md) — Deploy Runtime Application Self-Protection (RASP) agents to detect and
+- [implementing-runtime-security-with-tetragon](implementing-runtime-security-with-tetragon.md) — >-
+- [implementing-secret-scanning-with-gitleaks](implementing-secret-scanning-with-gitleaks.md) — This skill covers implementing Gitleaks for detecting and preventing
+- [implementing-secrets-management-with-vault](implementing-secrets-management-with-vault.md) — Deploy HashiCorp Vault for centralized secrets management, covering dynamic
+- [implementing-secrets-scanning-in-ci-cd](implementing-secrets-scanning-in-ci-cd.md) — Integrate gitleaks and trufflehog into CI/CD pipelines to detect leaked
+- [implementing-security-chaos-engineering](implementing-security-chaos-engineering.md) — Implements security chaos engineering experiments that deliberately
+- [implementing-security-information-sharing-with-stix2](implementing-security-information-sharing-with-stix2.md) — Create, validate, and share STIX 2.1 threat intelligence objects (indicators,
+- [implementing-security-monitoring-with-datadog](implementing-security-monitoring-with-datadog.md) — Implements security monitoring using Datadog Cloud SIEM, Cloud Security
+- [implementing-semgrep-for-custom-sast-rules](implementing-semgrep-for-custom-sast-rules.md) — Write custom Semgrep SAST rules in YAML to detect application-specific
+- [implementing-siem-correlation-rules-for-apt](implementing-siem-correlation-rules-for-apt.md) — Write multi-event correlation rules in Splunk SPL and Sigma format that
+- [implementing-siem-use-case-tuning](implementing-siem-use-case-tuning.md) — Tune SIEM detection rules in Splunk and Elastic to reduce false positives
+- [implementing-siem-use-cases-for-detection](implementing-siem-use-cases-for-detection.md) — Implements SIEM detection use cases by designing correlation rules,
+- [implementing-soar-automation-with-phantom](implementing-soar-automation-with-phantom.md) — Implements Security Orchestration, Automation, and Response (SOAR) workflows
+- [implementing-soar-playbook-with-palo-alto-xsoar](implementing-soar-playbook-with-palo-alto-xsoar.md) — Build automated incident response playbooks in Cortex XSOAR (Demisto)
+- [implementing-stix-taxii-feed-integration](implementing-stix-taxii-feed-integration.md) — Implements a STIX 2.1/TAXII 2.1 threat-intelligence feed consumer and
+- [implementing-supply-chain-security-with-in-toto](implementing-supply-chain-security-with-in-toto.md) — >-
+- [implementing-syslog-centralization-with-rsyslog](implementing-syslog-centralization-with-rsyslog.md) — Configure rsyslog for centralized log collection with TLS encryption,
+- [implementing-taxii-server-with-opentaxii](implementing-taxii-server-with-opentaxii.md) — Deploy and configure a TAXII 2.1 server (Medallion) with Docker, publish
+- [implementing-threat-intelligence-lifecycle-management](implementing-threat-intelligence-lifecycle-management.md) — Build out a full CTI program around the six-phase threat intelligence
+- [implementing-threat-modeling-with-mitre-attack](implementing-threat-modeling-with-mitre-attack.md) — Implements threat modeling using the MITRE ATT&CK framework to map adversary
+- [implementing-ticketing-system-for-incidents](implementing-ticketing-system-for-incidents.md) — Implements an integrated incident ticketing system connecting SIEM alerts
+- [implementing-usb-device-control-policy](implementing-usb-device-control-policy.md) — Implements USB device control policies to restrict unauthorized removable
+- [implementing-velociraptor-for-ir-collection](implementing-velociraptor-for-ir-collection.md) — Deploy and configure Velociraptor for scalable endpoint forensic artifact
+- [implementing-vulnerability-management-with-greenbone](implementing-vulnerability-management-with-greenbone.md) — Deploy and operate Greenbone/OpenVAS vulnerability management using the
+- [implementing-vulnerability-remediation-sla](implementing-vulnerability-remediation-sla.md) — Design a vulnerability remediation SLA program covering asset tiering,
+- [implementing-vulnerability-sla-breach-alerting](implementing-vulnerability-sla-breach-alerting.md) — Build an automated SLA breach alerting system for vulnerability remediation,
+- [implementing-web-application-logging-with-modsecurity](implementing-web-application-logging-with-modsecurity.md) — Configure ModSecurity WAF with the OWASP Core Rule Set (CRS) for web
+- [implementing-zero-knowledge-proof-for-authentication](implementing-zero-knowledge-proof-for-authentication.md) — Implements the Schnorr identification protocol and a simplified Zero-Knowledge Password Proof (ZKPP) over the discrete logarithm problem, letting a prover authenticate by demonstrating knowledge of a secret without ever revealing it to the…
+- [implementing-zero-standing-privilege-with-cyberark](implementing-zero-standing-privilege-with-cyberark.md) — Deploy CyberArk Secure Cloud Access (SCA) to eliminate standing privileges in AWS, Azure, and GCP by provisioning ephemeral, scoped roles on a just-in-time basis governed by the TEA framework (Time, Entitlements, Approvals). Use when desig…
+- [implementing-zero-trust-dns-with-nextdns](implementing-zero-trust-dns-with-nextdns.md) — Configure NextDNS as an encrypted (DoH/DoT) zero trust DNS resolver that blocks malicious, phishing, and cryptojacking domains via real-time threat intelligence, detects DNS rebinding and CNAME cloaking, and enforces organizational DNS pol…
+- [implementing-zero-trust-for-saas-applications](implementing-zero-trust-for-saas-applications.md) — Secures SaaS apps (Microsoft 365, Google Workspace, Salesforce, Slack) via CASB/SSPM deployment, conditional access policies, OAuth app governance, and session-level DLP controls enforcing identity verification and device compliance. Use w…
+- [implementing-zero-trust-in-cloud](implementing-zero-trust-in-cloud.md) — Guides zero trust implementation across AWS, Azure, and GCP per NIST SP 800-207 and BeyondCorp principles, covering identity-centric access, micro-segmentation, continuous verification, device trust assessment, and Identity-Aware Proxy dep…
+- [implementing-zero-trust-network-access](implementing-zero-trust-network-access.md) — Configures Zero Trust Network Access (ZTNA) in AWS, Azure, and GCP using identity-aware proxies, micro-segmentation, and continuous verification with conditional access policies, replacing VPN-based access with BeyondCorp-style architectur…
+- [implementing-zero-trust-network-access-with-zscaler](implementing-zero-trust-network-access-with-zscaler.md) — Configures Zero Trust Network Access using Zscaler Private Access (ZPA) to broker identity-based, context-aware connections between authenticated users and internal applications through the Zscaler Zero Trust Exchange, without placing user…
+- [implementing-zero-trust-with-beyondcorp](implementing-zero-trust-with-beyondcorp.md) — Configures Google BeyondCorp Enterprise Identity-Aware Proxy (IAP) as the access enforcement point for web applications, defining Access Context Manager access levels from device trust and network attributes, and auditing the resulting pol…
+- [improve-codebase-architecture](improve-codebase-architecture.md) — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
+- [improve-cutile-kernel-perf](improve-cutile-kernel-perf.md) — Iteratively optimize cuTile kernel performance through systematic profiling, bottleneck analysis, IR comparison, and targeted tuning.
+- [Indicator Removal](Indicator Removal.md) — Deploys canary files (honeytokens) across file systems to detect ransomware
+- [industrial-brutalist-ui](industrial-brutalist-ui.md) — Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites …
+- [Insider Access Abuse](Insider Access Abuse.md) — Configures HashiCorp Vault dynamic secrets engines for database credentials,
+- [integrate-whatsapp](integrate-whatsapp.md) — Connect WhatsApp, set up webhooks, and send messages
+- [integrating-dast-with-owasp-zap-in-pipeline](integrating-dast-with-owasp-zap-in-pipeline.md) — Integrates OWASP ZAP (Zed Attack Proxy) into GitHub Actions and GitLab CI pipelines, covering baseline, full, and API scan configuration against running applications, ZAP finding interpretation, scan policy tuning, and DAST quality gates. …
+- [integrating-sast-into-github-actions-pipeline](integrating-sast-into-github-actions-pipeline.md) — Integrates CodeQL and Semgrep SAST scanning into GitHub Actions, covering scans on pull requests/pushes, rule tuning to cut false positives, SARIF upload to GitHub Advanced Security, and merge-blocking quality gates for high-severity findi…
+- [intercepting-mobile-traffic-with-burpsuite](intercepting-mobile-traffic-with-burpsuite.md) — Intercepts and analyzes HTTP/HTTPS traffic from mobile applications
+- [internal-comms](internal-comms.md) — A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership…
+- [interview-script](interview-script.md) — Create structured customer interview scripts with JTBD probing
+- [investigating-insider-threat-indicators](investigating-insider-threat-indicators.md) — Investigates insider threat indicators including data exfiltration attempts,
+- [iOS-Accessibility-Audit-Skill](iOS-Accessibility-Audit-Skill.md) — Audit iOS App against Accessibility norms
+- [ios-simulator-skill](ios-simulator-skill.md) — Control iOS Simulator
+- [jasmine-skill](jasmine-skill.md) — Generate Jasmine BDD tests in JavaScript with spies and async support
+- [jest-skill](jest-skill.md) — Generate Jest unit and integration tests in JS/TS with mocking and snapshots
+- [job-application-agent](job-application-agent.md) — Privacy-first job discovery and tracking
+- [job-stories](job-stories.md) — Create job stories with acceptance criteria in JTBD format
+- [jobs-to-be-done](jobs-to-be-done.md) — Understand customer objectives using the JTBD framework
+- [junit-5-skill](junit-5-skill.md) — Generate JUnit 5 unit and integration tests in Java with Mockito
+- [kaizen](kaizen.md) — Applies continuous improvement methodology with multiple analytical approaches, based on Japanese Kaizen philosophy and Lean methodology.
+- [karma-skill](karma-skill.md) — Generate Karma test-runner configs for browser-based JS testing
+- [keep-the-why](keep-the-why.md) — Preserves the reasoning behind a codebase — decisions, workarounds, rejected alternatives
+- [kernel-cute-writing](kernel-cute-writing.md) — > Write and implement GPU kernels using NVIDIA CuTe DSL (CUTLASS 4.x Python API) — NOT for Triton, CUDA C++, or conceptual explanations.
+- [kernel-tileir-optimization](kernel-tileir-optimization.md) — > Optimize existing Triton kernels for NVIDIA TileIR backend on Blackwell GPUs (sm_100+).
+- [kernel-triton-writing](kernel-triton-writing.md) — > ONLY for OpenAI Triton (@triton.jit) kernel development.
+- [kicad-happy](kicad-happy.md) — AI-powered KiCad electronics design review and analysis
+- [kilo-kit-mcp](kilo-kit-mcp.md) — Comprehensive library of 177 curated skills paired with an MCP runtime enforcing protocol-level C4 workflow gates, hard-gated command execution with security guardrails, and 5 cognitive reasoning engines (Tree of Thoughts DAG, Adversarial …
+- [langchain-crawlbase](langchain-crawlbase.md) — LangChain document loader, tool, and retriever backed by the Crawling API
+- [laravel-dusk-skill](laravel-dusk-skill.md) — Generate Laravel Dusk Chrome-based browser tests in PHP
+- [last30days-skill](last30days-skill.md) — Research any topic across Reddit, X, YouTube, HN, Polymarket, and the web, ranked by upvotes, likes, and real money instead of editors
+- [launch](launch.md) — Plan product launches, feature announcements, and go-to-market strategies
+- [launch-nemo-rl](launch-nemo-rl.md) — Playbook for launching, monitoring, stopping, and debugging NeMo-RL recipes on a Kubernetes cluster via the nrl-k8s CLI.
+- [launching-evals](launching-evals.md) — Run, monitor, analyze, and debug LLM evaluations via nemo-evaluator-launcher.
+- [lean-canvas](lean-canvas.md) — Generate Lean Canvas with problem, solution, UVP, and metrics
+- [lean-ux-canvas](lean-ux-canvas.md) — Set up hypothesis-driven planning using Jeff Gothelf's Lean UX Canvas v2
+- [learning-target-authoring-guide](learning-target-authoring-guide.md) — Authors observable competency learning targets across developmental bands
+- [lettuce-skill](lettuce-skill.md) — Generate Lettuce BDD tests for Python (legacy; prefer Behave)
+- [linear-claude-skill](linear-claude-skill.md) — Manage Linear issues, projects, and teams
+- [linkedin](linkedin.md) — Fetch LinkedIn profiles, search people and companies, send messages, manage connections, create posts, react, comment, and run custom LinkedIn workflows from Claude Code, Codex, Cursor, and Windsurf.
+- [linkedin-skills](linkedin-skills.md) — LinkedIn marketing skills: viral hooks, comment drafting, algorithm audit, humanizer
+- [linting-and-formatting](linting-and-formatting.md) — Code style and quality rules for Megatron Bridge — ruff configuration, naming conventions, type hints, mypy rules, docstrings, copyright headers, logging, and the code review check...
+- [llm-wiki-manager](llm-wiki-manager.md) — Persistent LLM-managed personal wiki — the model writes, cross-references, and maintains the knowledge base while you curate sources. Implements Karpathy's LLM Wiki pattern with 8 operating modes.
+- [loop-me](loop-me.md) — Grill me about specs for the workflows I want to build, within this workspace.
+- [maggy](maggy.md) — Opinionated project initialization with security-first guardrails, spec-driven atomic todos, LLM testing patterns, and CLI tool orchestration (gh, vercel, supabase)
+- [mailtrap-skills](mailtrap-skills.md) — Send emails via API/SMTP with sandbox testing
+- [makepad-skills](makepad-skills.md) — Makepad UI development skills for Rust apps: setup, patterns, shaders, packaging, and troubleshooting.
+- [managing-intelligence-lifecycle](managing-intelligence-lifecycle.md) — Manages the end-to-end cyber threat intelligence lifecycle from planning
+- [managing-third-party-vendor-risk](managing-third-party-vendor-risk.md) — >-
+- [mapping-attack-paths-with-bloodhound-ce](mapping-attack-paths-with-bloodhound-ce.md) — Collect Active Directory data with SharpHound and Entra ID data with AzureHound, ingest into BloodHound Community Edition, and analyze on-prem, cloud, and hybrid attack paths using built-in queries and custom Cypher. Use during authorized …
+- [mapping-mitre-attack-techniques](mapping-mitre-attack-techniques.md) — Maps observed adversary behaviors, security alerts, and detection rules
+- [market-segments](market-segments.md) — Identify 3-5 customer segments with JTBD and product fit
+- [market-sizing](market-sizing.md) — Estimate TAM, SAM, SOM with top-down and bottom-up approaches
+- [marketing-ideas](marketing-ideas.md) — Generate marketing strategies and campaign ideas for SaaS products
+- [marketing-mindset](marketing-mindset.md) — Marketing OS for AI agents — think like a marketer first, get tactics as the output
+- [marketing-psychology](marketing-psychology.md) — Apply psychological principles and behavioral science to copy and design
+- [markstream-install](markstream-install.md) — Install streaming Markdown renderers across five frontend frameworks
+- [materials-simulation-skills](materials-simulation-skills.md) — Agent skills for computational materials science: numerical stability, time-stepping, linear solvers, mesh generation, simulation validation, parameter optimization, and post-processing
+- [mcp-builder](mcp-builder.md) — Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (…
+- [mechanical-engineering-research-skill](mechanical-engineering-research-skill.md) — Thermal-fluid research writing, proposals, DOE, and presentation feedback
+- [mechanism-builder](mechanism-builder.md) — Explain why your solution works and others failed with a unique mechanism
+- [memory-systems](memory-systems.md) — Design short-term, long-term, and graph-based memory architectures
+- [metrics-dashboard](metrics-dashboard.md) — Define product metrics dashboard with sources and alert thresholds
+- [mfs](mfs.md) — `mfs-find` / `mfs-ingest` skills that search, grep and read across your code, docs, chat (Slack/Gmail/Jira), databases and object stores as one file-like, searchable namespace; self-hosted with local ONNX embeddings
+- [migrate-to-shoehorn](migrate-to-shoehorn.md) — Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.
+- [migrating-to-post-quantum-cryptography](migrating-to-post-quantum-cryptography.md) — Build a cryptographic inventory/CBOM with OpenSSL 3.5+, deploy hybrid post-quantum key exchange (X25519MLKEM768) on TLS/VPN/SSH endpoints, generate ML-KEM/ML-DSA keys and PQC/hybrid certificates, and prioritize migration by harvest-now-dec…
+- [minimalist-ui](minimalist-ui.md) — Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
+- [mlm-bridge-training](mlm-bridge-training.md) — Run Megatron-LM (MLM) and Megatron Bridge training with mock or real data.
+- [mocha-skill](mocha-skill.md) — Generate Mocha tests in JavaScript with Chai and Sinon
+- [model-hierarchy-skill](model-hierarchy-skill.md) — Cost-optimized model routing based on task complexity
+- [modeling-threats-with-opencti](modeling-threats-with-opencti.md) — Deploy OpenCTI (Filigran) via Docker Compose and use the pycti Python client to model threat actors, intrusion sets, campaigns, and indicators as a STIX 2.1 knowledge graph with relationships (uses, attributed-to, targets). Use when buildi…
+- [monetization-strategy](monetization-strategy.md) — Brainstorm 3-5 monetization strategies with validation experiments
+- [monitor](monitor.md) — Monitor submitted jobs (PTQ, evaluation, deployment) on SLURM clusters.
+- [monitoring-scada-modbus-traffic-anomalies](monitoring-scada-modbus-traffic-anomalies.md) — Monitors Modbus TCP traffic on SCADA and ICS networks to detect anomalous
+- [monkey-patch-kernels-to-transformers](monkey-patch-kernels-to-transformers.md) — Integrate TileGym kernels into Hugging Face `transformers` models by replacing the library's submodule(s) and certain class(es)' implementations, and patching certain class(es)' in...
+- [motion-lexicon](motion-lexicon.md) — Build and review product motion with installable React components
+- [moving-laterally-with-netexec](moving-laterally-with-netexec.md) — Use NetExec (nxc) to validate credentials, enumerate SMB shares/users/policy, password-spray safely across lockout thresholds, execute commands, and dump SAM/LSA/NTDS credentials across SMB, WinRM, LDAP, MSSQL, SSH, and other protocol modu…
+- [moyu](moyu.md) — Anti-over-engineering skill with 5 variants and 10 platforms
+- [mstest-skill](mstest-skill.md) — Generate MSTest tests in C# for .NET
+- [multi-agent-patterns](multi-agent-patterns.md) — Master orchestrator, peer-to-peer, and hierarchical multi-agent architectures
+- [multi-node-slurm](multi-node-slurm.md) — Convert single-node scripts to multi-node Slurm sbatch jobs and debug common multi-node failures.
+- [multi-source-search](multi-source-search.md) — Evidence-led multi-source research with offline validation
+- [n8n-code-javascript](n8n-code-javascript.md) — JavaScript in n8n Code nodes with data access patterns
+- [n8n-code-python](n8n-code-python.md) — Python coding in n8n Code nodes with limitations
+- [n8n-expression-syntax](n8n-expression-syntax.md) — n8n expression syntax with {{}} and $json/$node variables
+- [n8n-mcp-tools-expert](n8n-mcp-tools-expert.md) — MCP tools guide with tool selection and node formats
+- [n8n-node-configuration](n8n-node-configuration.md) — Node configuration with dependency rules and AI connections
+- [n8n-nodes-crawlbase](n8n-nodes-crawlbase.md) — Native Crawlbase node for n8n with credentials and Crawling API options
+- [n8n-validation-expert](n8n-validation-expert.md) — Fix n8n validation errors with error catalog
+- [n8n-workflow-patterns](n8n-workflow-patterns.md) — Workflow patterns for webhook, HTTP, database, and AI tasks
+- [NanoBanana-PPT-Skills](NanoBanana-PPT-Skills.md) — AI-powered PPT generation with document analysis and styled images
+- [nel-assistant](nel-assistant.md) — Interactive config wizard for NeMo Evaluator Launcher (NEL).
+- [nemo-gym-debugging](nemo-gym-debugging.md) — >- Use when debugging a Nemo Gym run or reward profiling job.
+- [nemo-gym-docs](nemo-gym-docs.md) — > Maintain the NeMo Gym Fern docs site — add, update, move, or remove pages under fern/.
+- [nemo-gym-pivot-datasets](nemo-gym-pivot-datasets.md) — >- Use when creating, validating, or documenting Nemo Gym pivot datasets from rollout, trajectory, chat-completion, Responses API, or tool-call artifacts.
+- [nemo-gym-reward-profiling](nemo-gym-reward-profiling.md) — >- Use to help users get started with Nemo Gym reward profiling.
+- [nemo-rl-e2e-testing](nemo-rl-e2e-testing.md) — External NeMo-RL end-to-end validation workflow for Megatron-Bridge model/provider changes, including downstream compatibility checks, external RL lifecycle behavior, Megatron poli...
+- [nemoclaw-contributor-create-pr](nemoclaw-contributor-create-pr.md) — Create GitHub pull requests that follow the NemoClaw PR template.
+- [nemoclaw-contributor-update-docs](nemoclaw-contributor-update-docs.md) — Scan recent git commits for changes that affect user-facing behavior, then draft or update the corresponding documentation pages and refresh generated user skills for release prep.
+- [nemoclaw-maintainer-cross-issue-sweep](nemoclaw-maintainer-cross-issue-sweep.md) — Scans other open issues to find ones a given PR may also fix or accidentally break.
+- [nemoclaw-maintainer-cut-release-tag](nemoclaw-maintainer-cut-release-tag.md) — Cut a new semver release — bump all version strings via bump-version.ts, open a release PR, and after merge tag main and push.
+- [nemoclaw-maintainer-day](nemoclaw-maintainer-day.md) — Runs the daytime maintainer loop for NemoClaw, prioritizing items labeled with the current version target.
+- [nemoclaw-maintainer-evening](nemoclaw-maintainer-evening.md) — Runs the end-of-day maintainer handoff for NemoClaw.
+- [nemoclaw-maintainer-find-review-pr](nemoclaw-maintainer-find-review-pr.md) — Finds open GitHub PRs with security and priority-high labels, links each to its issue, detects duplicates (multiple PRs fixing the same issue), and presents a table of review candi...
+- [nemoclaw-maintainer-morning](nemoclaw-maintainer-morning.md) — Runs the morning maintainer standup for NemoClaw.
+- [nemoclaw-maintainer-normalize-title-tags](nemoclaw-maintainer-normalize-title-tags.md) — Normalizes GitHub issue and PR titles by removing any bracketed [NemoClaw] tag case-insensitively, even when the tag appears later in the title.
+- [nemoclaw-maintainer-pr-comparator](nemoclaw-maintainer-pr-comparator.md) — Compares competing PRs that target the same issue and recommends which one to merge.
+- [nemoclaw-maintainer-security-code-review](nemoclaw-maintainer-security-code-review.md) — Performs a comprehensive security review of code changes in a GitHub PR or issue.
+- [nemoclaw-maintainer-triage](nemoclaw-maintainer-triage.md) — AI-assisted label triage for NVIDIA/NemoClaw issues and PRs.
+- [nemoclaw-skills-guide](nemoclaw-skills-guide.md) — Start here.
+- [nemoclaw-user-agent-skills](nemoclaw-user-agent-skills.md) — Describes the agent skills shipped with NemoClaw and how to access them by cloning the repository.
+- [nemoclaw-user-configure-inference](nemoclaw-user-configure-inference.md) — Connects NemoClaw to a local inference server.
+- [nemoclaw-user-configure-security](nemoclaw-user-configure-security.md) — Presents a risk framework for every configurable security control in NemoClaw.
+- [nemoclaw-user-deploy-remote](nemoclaw-user-deploy-remote.md) — Explains how to run NemoClaw on a remote GPU instance, including the deprecated Brev compatibility path and the preferred installer plus onboard flow.
+- [nemoclaw-user-get-started](nemoclaw-user-get-started.md) — Installs NemoClaw, launches a sandbox, and runs the first agent prompt.
+- [nemoclaw-user-manage-policy](nemoclaw-user-manage-policy.md) — Adds, removes, or modifies allowed endpoints in the sandbox policy.
+- [nemoclaw-user-manage-sandboxes](nemoclaw-user-manage-sandboxes.md) — Explains operational tasks after the quickstart: listing sandboxes, status and health checks, logs, diagnostics, port forwards, multiple sandboxes, credential reset, rebuilds, netw...
+- [nemoclaw-user-monitor-sandbox](nemoclaw-user-monitor-sandbox.md) — Inspects sandbox health, traces agent behavior, and diagnoses problems.
+- [nemoclaw-user-overview](nemoclaw-user-overview.md) — Explains how OpenClaw, OpenShell, and NemoClaw form the ecosystem, NemoClaw's position in the stack, what NemoClaw adds beyond the community sandbox, and when to prefer NemoClaw ve...
+- [nemoclaw-user-reference](nemoclaw-user-reference.md) — Describes the NemoClaw plugin and blueprint architecture and how they orchestrate the OpenClaw sandbox.
+- [nemojs-skill](nemojs-skill.md) — Generate Nemo.js Selenium-based tests for Node.js
+- [nemotron-voice-agent-deploy](nemotron-voice-agent-deploy.md) — Deploy Nemotron Voice Agent on Workstation (x86), Jetson Thor, or Cloud NIMs.
+- [news-api-skills](news-api-skills.md) — Search worldwide news by keyword, entity, sentiment, source, date
+- [nightly-sync](nightly-sync.md) — Domain knowledge for the nightly main-to-dev sync workflow.
+- [nightwatchjs-skill](nightwatchjs-skill.md) — Generate NightwatchJS E2E tests in JavaScript with Selenium WebDriver
+- [north-star-metric](north-star-metric.md) — Define North Star Metric and input metrics constellation
+- [notebooklm-skill](notebooklm-skill.md) — Interact with NotebookLM for document-based conversations
+- [notfair-plugin](notfair-plugin.md) — SEO, GEO, Google Ads, and Meta Ads skills with live data
+- [numerical-optimization-formulation](numerical-optimization-formulation.md) — Numerical optimization (LP, MILP, QP) — concepts, problem-text parsing, and formulation patterns.
+- [nunit-skill](nunit-skill.md) — Generate NUnit 3 tests in C# with the constraint model and Moq
+- [nutrient-agent-skill](nutrient-agent-skill.md) — Document processing with Nutrient DWS API: convert (PDF/DOCX/XLSX/PPTX/HTML/images), extract text/tables, OCR (20+ languages), redact PII (pattern + AI), watermark, digital signatures, form filling. [MCP server](https://www.npmjs.com/packa…
+- [objection-crusher](objection-crusher.md) — Identify and neutralize buyer objections and hesitation
+- [observe-whatsapp](observe-whatsapp.md) — Debug WhatsApp delivery issues and run health checks
+- [obsidian-knowledge-brain](obsidian-knowledge-brain.md) — Cross-session knowledge memory and rule evolution for AI coding agents
+- [odai](odai.md) — Govern evidence, responsibility routing, safety boundaries, and verified delivery
+- [offer-extraction](offer-extraction.md) — Turn a product or service into a compelling, high-converting offer
+- [onboard-gb200-1node-tests](onboard-gb200-1node-tests.md) — Onboard 1-node GitHub MR functional tests for GB200 from existing mr-scoped 2-node tests.
+- [onboarding](onboarding.md) — Optimize post-signup onboarding and user activation to improve time-to-value
+- [opc-skills](opc-skills.md) — Agent skills for solopreneurs with SEO, geo, and LLM tools
+- [open-web-bridge](open-web-bridge.md) — Drive your real, logged-in Chrome via CDP from Claude Code, Codex, or Gemini CLI: semantic snapshots, real mouse clicks, human handoff for captchas and logins, HAR capture and replay
+- [openaccountants](openaccountants.md) — 371 tax classification skills across 134 countries
+- [operating-havoc-c2](operating-havoc-c2.md) — Deploy a Havoc C2 team server with Yaotl malleable profiles, generate evasive Demon agents using indirect syscalls and sleep obfuscation, and run post-exploitation and pivoting operations. Use during authorized, rules-of-engagement-bound r…
+- [operating-sliver-c2](operating-sliver-c2.md) — Stand up a Sliver C2 server and mTLS listeners, generate cross-platform implants and beacons, and run post-exploitation, pivoting, and BOF/.NET tooling via the Armory for adversary emulation. Use during authorized, rules-of-engagement-boun…
+- [operationalizing-misp-threat-feeds](operationalizing-misp-threat-feeds.md) — Stand up MISP, enable and cache curated threat feeds (CIRCL, abuse.ch, Feodo Tracker), apply warninglists to suppress false positives, query indicators with PyMISP, and export attributes as auto-generated Suricata/Sigma/Wazuh detection rul…
+- [opportunity-solution-tree](opportunity-solution-tree.md) — Generate opportunities and solutions and recommend proof-of-concept tests
+- [optim-agent](optim-agent.md) — Agent-guided optimization for measurable system tuning.
+- [orchestrating-llm-attacks-with-pyrit](orchestrating-llm-attacks-with-pyrit.md) — Build automated multi-turn adversarial attacks against conversational LLM targets using Microsoft PyRIT's RedTeamingOrchestrator, CrescendoOrchestrator (gradual escalation), and TreeOfAttacksWithPruningOrchestrator (adaptive branching), wi…
+- [outcome-roadmap](outcome-roadmap.md) — Transform output roadmaps into outcome-focused strategic plans
+- [parity-testing](parity-testing.md) — Structured framework for verifying numerical parity of HF<->MCore weight conversions.
+- [parsing-artifacts-with-eric-zimmerman-tools](parsing-artifacts-with-eric-zimmerman-tools.md) — Parse Windows forensic artifacts—$MFT/$J (MFTECmd), Prefetch (PECmd), registry hives (RECmd), shellbags, and Amcache—into normalized CSV/JSON with Eric Zimmerman's EZ Tools, then load results into Timeline Explorer for analysis. Use du…
+- [paywalls](paywalls.md) — Design and optimize upgrade screens, paywalls, and upsell modals
+- [pdf](pdf.md) — Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating…
+- [perf-activation-recompute](perf-activation-recompute.md) — Validate and use selective and full activation recompute in Megatron Bridge to reduce GPU memory usage at the cost of extra compute.
+- [perf-analysis](perf-analysis.md) — > Performance analysis coordination workflow.
+- [perf-cpu-offloading](perf-cpu-offloading.md) — Validate and use CPU offloading in Megatron Bridge, including layer-level activation offloading and fractional optimizer state offloading with HybridDeviceOptimizer.
+- [perf-cuda-graphs](perf-cuda-graphs.md) — Validate and use CUDA graph capture in Megatron Bridge, including local full-iteration graphs and Transformer Engine scoped graphs for attention, MLP, and MoE modules.
+- [perf-expert-parallel-overlap](perf-expert-parallel-overlap.md) — Validate and use MoE expert-parallel communication overlap in Megatron-Bridge, including overlap_moe_expert_parallel_comm, delay_wgrad_compute, and flex dispatcher backends such as...
+- [perf-hierarchical-context-parallel](perf-hierarchical-context-parallel.md) — Operational guide for enabling hierarchical context parallelism in Megatron-Bridge, including config knobs, code anchors, pitfalls, and verification.
+- [perf-host-analysis](perf-host-analysis.md) — > Analyze host/CPU overhead in TensorRT-LLM inference from nsys traces.
+- [perf-host-optimization](perf-host-optimization.md) — Profiles and optimizes TensorRT-LLM host/CPU overhead using line_profiler (with nsys support planned).
+- [perf-megatron-fsdp](perf-megatron-fsdp.md) — Operational guide for enabling Megatron FSDP in Megatron-Bridge, including config knobs, code anchors, pitfalls, and verification.
+- [perf-memory-tuning](perf-memory-tuning.md) — Techniques for reducing peak GPU memory in Megatron Bridge — expandable segments, parallelism resizing, activation recompute, CPU offloading constraints, and common OOM fixes.
+- [perf-moe-comm-overlap](perf-moe-comm-overlap.md) — MoE expert-parallel communication overlap in Megatron Bridge.
+- [perf-moe-dispatcher-selection](perf-moe-dispatcher-selection.md) — Choose the right MoE token dispatcher (`alltoall`, DeepEP, or HybridEP) for the hardware, EP degree, and optimization stage.
+- [perf-moe-hardware-configs](perf-moe-hardware-configs.md) — Representative MoE training playbooks by hardware platform and model family.
+- [perf-moe-long-context](perf-moe-long-context.md) — Long-context MoE training guidance for Megatron Bridge.
+- [perf-moe-optimization-workflow](perf-moe-optimization-workflow.md) — Systematic workflow for MoE training optimization in Megatron Bridge, based on the Megatron-Core MoE paper.
+- [perf-moe-vlm-training](perf-moe-vlm-training.md) — Practical guidance for training MoE VLMs in Megatron Bridge.
+- [perf-nsight-compute-analysis](perf-nsight-compute-analysis.md) — > Analyze ncu (NVIDIA Nsight Compute) profiling output: SOL% bottleneck classification, roofline analysis, occupancy diagnosis, memory hierarchy analysis, warp stall analysis, metr...
+- [perf-nsight-systems](perf-nsight-systems.md) — >- Nsight Systems (nsys) CLI for system-level timeline profiling.
+- [perf-optimization](perf-optimization.md) — > Performance optimization coordination playbook.
+- [perf-parallelism-strategies](perf-parallelism-strategies.md) — Operational guide for choosing and combining parallelism strategies in Megatron Bridge, including sizing rules, hardware topology mapping, and combined parallelism configuration.
+- [perf-sequence-packing](perf-sequence-packing.md) — Validate and use packed sequences and long-context training in Megatron-Bridge, distinguishing offline packed SFT for LLMs from in-batch packing for VLMs, and applying the right CP...
+- [perf-torch-cuda-graphs](perf-torch-cuda-graphs.md) — >- Apply CUDA Graphs to PyTorch workloads — API selection (torch.compile, PyTorch make_graphed_callables, TE make_graphed_callables, MCore CudaGraphManager, FullCudaGraphWrapper, m...
+- [perf-torch-sync-free](perf-torch-sync-free.md) — >- Identify and eliminate host-device synchronizations in PyTorch code.
+- [perf-tp-dp-comm-overlap](perf-tp-dp-comm-overlap.md) — Operational guide for enabling TP, DP, and PP communication overlap in Megatron-Bridge, including config knobs, code anchors, pitfalls, and verification.
+- [perf-workload-profiling](perf-workload-profiling.md) — > Code instrumentation for timing workloads.
+- [perfectify](perfectify.md) — Self-improving control kernel (DAGx AGI Kernel): hard approval stops for irreversible actions, evidence-gated completion, and a self-learning playbook with drift governance. Behaviorally evaluated; works across Claude Code, Codex, Hermes, …
+- [performance-diagnosis](performance-diagnosis.md) — Diagnose why campaigns are underperforming — low conversion, high CPL, bad ads
+- [performing-access-review-and-certification](performing-access-review-and-certification.md) — Designs and runs access review and certification campaigns-scoping,
+- [performing-active-directory-bloodhound-analysis](performing-active-directory-bloodhound-analysis.md) — Use BloodHound and SharpHound (or AzureHound) to enumerate Active Directory
+- [performing-active-directory-compromise-investigation](performing-active-directory-compromise-investigation.md) — Investigate Active Directory compromise by analyzing authentication logs,
+- [performing-active-directory-forest-trust-attack](performing-active-directory-forest-trust-attack.md) — Enumerate and audit Active Directory forest trust relationships using
+- [performing-active-directory-penetration-test](performing-active-directory-penetration-test.md) — Conduct a focused Active Directory penetration test using BloodHound,
+- [performing-active-directory-vulnerability-assessment](performing-active-directory-vulnerability-assessment.md) — Assess Active Directory security posture using PingCastle, BloodHound,
+- [performing-agentless-vulnerability-scanning](performing-agentless-vulnerability-scanning.md) — Configure and execute agentless vulnerability scanning using network
+- [performing-ai-driven-osint-correlation](performing-ai-driven-osint-correlation.md) — Use AI/LLM-based reasoning with Sherlock, theHarvester, and SpiderFoot
+- [performing-alert-triage-with-elastic-siem](performing-alert-triage-with-elastic-siem.md) — Perform systematic alert triage in Elastic Security SIEM—classifying,
+- [performing-android-app-static-analysis-with-mobsf](performing-android-app-static-analysis-with-mobsf.md) — Performs automated static analysis of Android applications using Mobile
+- [performing-api-fuzzing-with-restler](performing-api-fuzzing-with-restler.md) — Uses Microsoft RESTler to perform stateful REST API fuzzing: compiles
+- [performing-api-inventory-and-discovery](performing-api-inventory-and-discovery.md) — Performs API inventory and discovery to identify all API endpoints in
+- [performing-api-rate-limiting-bypass](performing-api-rate-limiting-bypass.md) — Tests API rate limiting for bypass vulnerabilities using Python (requests/aiohttp)
+- [performing-api-security-testing-with-postman](performing-api-security-testing-with-postman.md) — Uses Postman to build structured API security test collections covering
+- [performing-arp-spoofing-attack-simulation](performing-arp-spoofing-attack-simulation.md) — Simulates ARP spoofing/cache-poisoning attacks in authorized lab or
+- [performing-asset-criticality-scoring-for-vulns](performing-asset-criticality-scoring-for-vulns.md) — Build a multi-factor asset criticality scoring model—incorporating data
+- [performing-authenticated-scan-with-openvas](performing-authenticated-scan-with-openvas.md) — Configure and execute authenticated (credentialed) vulnerability scans using OpenVAS/Greenbone
+- [performing-authenticated-vulnerability-scan](performing-authenticated-vulnerability-scan.md) — Plan and run authenticated (credentialed) vulnerability scans with scanners such as
+- [performing-automated-malware-analysis-with-cape](performing-automated-malware-analysis-with-cape.md) — Deploy and operate the CAPEv2 malware sandbox (a Cuckoo derivative) to run samples in a
+- [performing-aws-account-enumeration-with-scout-suite](performing-aws-account-enumeration-with-scout-suite.md) — Run the agentless, open-source ScoutSuite tool (via pip install and the `scout` CLI)
+- [performing-aws-privilege-escalation-assessment](performing-aws-privilege-escalation-assessment.md) — Performing authorized privilege escalation assessments in AWS environments
+- [performing-bandwidth-throttling-attack-simulation](performing-bandwidth-throttling-attack-simulation.md) — Simulate bandwidth throttling and network degradation attacks using tc,
+- [performing-binary-exploitation-analysis](performing-binary-exploitation-analysis.md) — Analyze ELF binaries for memory-corruption vulnerabilities and build proof-of-concept
+- [performing-blind-ssrf-exploitation](performing-blind-ssrf-exploitation.md) — Detect and exploit blind Server-Side Request Forgery (SSRF) using out-of-band
+- [performing-bluetooth-security-assessment](performing-bluetooth-security-assessment.md) — Assess Bluetooth Low Energy (BLE) device security using Python's bleak asyncio
+- [performing-clickjacking-attack-test](performing-clickjacking-attack-test.md) — Testing web applications for clickjacking vulnerabilities by assessing
+- [performing-cloud-asset-inventory-with-cartography](performing-cloud-asset-inventory-with-cartography.md) — Run Cartography to sync AWS, GCP, or Azure resources into a Neo4j graph database,
+- [performing-cloud-forensics-investigation](performing-cloud-forensics-investigation.md) — Collect and analyze cloud forensic evidence using AWS CLI, Azure CLI, or gcloud
+- [performing-cloud-forensics-with-aws-cloudtrail](performing-cloud-forensics-with-aws-cloudtrail.md) — Investigate AWS account compromise by querying CloudTrail with boto3's LookupEvents
+- [performing-cloud-incident-containment-procedures](performing-cloud-incident-containment-procedures.md) — Execute cloud-native incident containment across AWS, Azure, and GCP using platform
+- [performing-cloud-log-forensics-with-athena](performing-cloud-log-forensics-with-athena.md) — Uses AWS Athena to query CloudTrail, VPC Flow Logs, S3 access logs,
+- [performing-cloud-native-forensics-with-falco](performing-cloud-native-forensics-with-falco.md) — Uses Falco YAML rules for runtime threat detection in containers and
+- [performing-cloud-native-threat-hunting-with-aws-detective](performing-cloud-native-threat-hunting-with-aws-detective.md) — Investigate AWS security incidents using Amazon Detective's behavior graphs,
+- [performing-cloud-penetration-testing-with-pacu](performing-cloud-penetration-testing-with-pacu.md) — Run authorized AWS penetration tests with Pacu, the open-source AWS exploitation
+- [performing-cloud-storage-forensic-acquisition](performing-cloud-storage-forensic-acquisition.md) — Perform forensic acquisition of cloud storage services including Google
+- [performing-container-escape-detection](performing-container-escape-detection.md) — >-
+- [performing-container-image-hardening](performing-container-image-hardening.md) — Harden container images by minimizing attack surface, stripping unnecessary
+- [performing-container-security-scanning-with-trivy](performing-container-security-scanning-with-trivy.md) — >-
+- [performing-content-security-policy-bypass](performing-content-security-policy-bypass.md) — Analyze Content-Security-Policy headers and bypass them to achieve cross-site
+- [performing-csrf-attack-simulation](performing-csrf-attack-simulation.md) — Testing web applications for Cross-Site Request Forgery vulnerabilities
+- [performing-cve-prioritization-with-kev-catalog](performing-cve-prioritization-with-kev-catalog.md) — Fetch and parse the CISA Known Exploited Vulnerabilities (KEV) catalog,
+- [performing-dark-web-monitoring-for-threats](performing-dark-web-monitoring-for-threats.md) — Dark web monitoring involves systematically scanning Tor hidden services,
+- [performing-deception-technology-deployment](performing-deception-technology-deployment.md) — Deploys deception technology including honeypots, honeytokens, and decoy
+- [performing-directory-traversal-testing](performing-directory-traversal-testing.md) — Test web applications for path traversal and Local/Remote File Inclusion
+- [performing-disk-forensics-investigation](performing-disk-forensics-investigation.md) — Conduct disk forensics investigations using forensic imaging, file system
+- [performing-dmarc-policy-enforcement-rollout](performing-dmarc-policy-enforcement-rollout.md) — Execute a phased DMARC rollout by inventorying sending sources, configuring
+- [performing-dns-enumeration-and-zone-transfer](performing-dns-enumeration-and-zone-transfer.md) — Enumerates DNS records, attempts zone transfers, brute-forces subdomains,
+- [performing-dns-tunneling-detection](performing-dns-tunneling-detection.md) — Detects DNS tunneling by computing Shannon entropy of DNS query names,
+- [performing-docker-bench-security-assessment](performing-docker-bench-security-assessment.md) — >-
+- [performing-dynamic-analysis-of-android-app](performing-dynamic-analysis-of-android-app.md) — Performs runtime dynamic analysis of Android applications using Frida,
+- [performing-dynamic-analysis-with-any-run](performing-dynamic-analysis-with-any-run.md) — Perform interactive dynamic malware analysis using the ANY.RUN cloud sandbox
+- [performing-endpoint-forensics-investigation](performing-endpoint-forensics-investigation.md) — Performs digital forensics investigation on compromised endpoints including
+- [performing-endpoint-vulnerability-remediation](performing-endpoint-vulnerability-remediation.md) — Performs vulnerability remediation on endpoints by prioritizing CVEs
+- [performing-external-network-penetration-test](performing-external-network-penetration-test.md) — Conduct a comprehensive external network penetration test to identify
+- [performing-false-positive-reduction-in-siem](performing-false-positive-reduction-in-siem.md) — Reduces SIEM false positives through systematic rule tuning, threshold
+- [performing-file-carving-with-foremost](performing-file-carving-with-foremost.md) — Recovers files from disk images and unallocated space using Foremost's
+- [performing-firmware-malware-analysis](performing-firmware-malware-analysis.md) — Analyzes firmware images for embedded malware, backdoors, and unauthorized
+- [performing-fuzzing-with-aflplusplus](performing-fuzzing-with-aflplusplus.md) — Performs coverage-guided fuzzing of compiled binaries with AFL++, instrumenting
+- [performing-gcp-penetration-testing-with-gcpbucketbrute](performing-gcp-penetration-testing-with-gcpbucketbrute.md) — Performs authorized GCP security testing using GCPBucketBrute to enumerate
+- [performing-gcp-security-assessment-with-forseti](performing-gcp-security-assessment-with-forseti.md) — Performing comprehensive security assessments of Google Cloud Platform
+- [performing-graphql-depth-limit-attack](performing-graphql-depth-limit-attack.md) — Execute and test GraphQL depth limit attacks using deeply nested recursive
+- [performing-graphql-introspection-attack](performing-graphql-introspection-attack.md) — Performs GraphQL introspection attacks that extract the full API schema
+- [performing-graphql-security-assessment](performing-graphql-security-assessment.md) — Assessing GraphQL API endpoints for introspection leaks, injection attacks,
+- [performing-hardware-security-module-integration](performing-hardware-security-module-integration.md) — Integrates Hardware Security Modules (HSMs) via the PKCS#11 interface
+- [performing-hash-cracking-with-hashcat](performing-hash-cracking-with-hashcat.md) — Cracks password hashes with Hashcat, covering hash-type identification,
+- [performing-http-parameter-pollution-attack](performing-http-parameter-pollution-attack.md) — Executes HTTP Parameter Pollution attacks that inject duplicate request
+- [performing-ics-asset-discovery-with-claroty](performing-ics-asset-discovery-with-claroty.md) — Performs ICS/OT asset discovery with Claroty xDome, combining passive
+- [performing-indicator-lifecycle-management](performing-indicator-lifecycle-management.md) — Tracks IOCs through discovery, enrichment/validation (VirusTotal, Shodan,
+- [performing-insider-threat-investigation](performing-insider-threat-investigation.md) — Investigates insider threat incidents involving employees, contractors,
+- [performing-ioc-enrichment-automation](performing-ioc-enrichment-automation.md) — Automates Indicator of Compromise (IOC) enrichment by orchestrating
+- [performing-ios-app-security-assessment](performing-ios-app-security-assessment.md) — Performs comprehensive iOS application security assessments using Frida
+- [performing-iot-security-assessment](performing-iot-security-assessment.md) — Performs comprehensive security assessments of IoT devices and their
+- [performing-ip-reputation-analysis-with-shodan](performing-ip-reputation-analysis-with-shodan.md) — Analyze IP address reputation using the Shodan API to identify open ports,
+- [performing-jwt-none-algorithm-attack](performing-jwt-none-algorithm-attack.md) — Execute and test the JWT none algorithm attack, crafting tokens with
+- [performing-kerberoasting-attack](performing-kerberoasting-attack.md) — Perform Kerberoasting, a post-exploitation technique that enumerates
+- [performing-kubernetes-cis-benchmark-with-kube-bench](performing-kubernetes-cis-benchmark-with-kube-bench.md) — >-
+- [performing-kubernetes-etcd-security-assessment](performing-kubernetes-etcd-security-assessment.md) — >-
+- [performing-kubernetes-penetration-testing](performing-kubernetes-penetration-testing.md) — >-
+- [performing-lateral-movement-detection](performing-lateral-movement-detection.md) — Detects lateral movement techniques including Pass-the-Hash, PsExec,
+- [performing-lateral-movement-with-wmiexec](performing-lateral-movement-with-wmiexec.md) — Perform lateral movement across Windows networks using WMI-based remote
+- [performing-linux-log-forensics-investigation](performing-linux-log-forensics-investigation.md) — Perform forensic investigation of Linux system logs including syslog,
+- [performing-log-analysis-for-forensic-investigation](performing-log-analysis-for-forensic-investigation.md) — Collect, parse, and correlate system, application, and security logs
+- [performing-log-source-onboarding-in-siem](performing-log-source-onboarding-in-siem.md) — Perform structured log source onboarding into SIEM platforms (Splunk,
+- [performing-malware-hash-enrichment-with-virustotal](performing-malware-hash-enrichment-with-virustotal.md) — Enrich malware file hashes (MD5, SHA-1, SHA-256) using the VirusTotal
+- [performing-malware-ioc-extraction](performing-malware-ioc-extraction.md) — Malware IOC extraction is the process of analyzing malicious software
+- [performing-malware-persistence-investigation](performing-malware-persistence-investigation.md) — Systematically investigate all persistence mechanisms on Windows and
+- [performing-malware-triage-with-yara](performing-malware-triage-with-yara.md) — Performs rapid malware triage and classification using YARA rules that
+- [performing-memory-forensics-with-volatility3](performing-memory-forensics-with-volatility3.md) — Analyze volatile memory (RAM) dumps using the Volatility 3 framework
+- [performing-memory-forensics-with-volatility3-plugins](performing-memory-forensics-with-volatility3-plugins.md) — Analyze memory dumps using Volatility3 plugins to detect injected code,
+- [performing-mobile-app-certificate-pinning-bypass](performing-mobile-app-certificate-pinning-bypass.md) — Bypasses SSL/TLS certificate pinning implementations in Android and
+- [performing-mobile-device-forensics-with-cellebrite](performing-mobile-device-forensics-with-cellebrite.md) — Acquire and analyze mobile device data using Cellebrite UFED Touch/4PC, UFED Physical Analyzer, and open-source alternatives (ALEAPP, iLEAPP, MEAT, libimobiledevice) to extract communications, call logs, location data, and application arti…
+- [performing-network-forensics-with-wireshark](performing-network-forensics-with-wireshark.md) — Capture and analyze network traffic using Wireshark and tshark to reconstruct network events from PCAP/PCAPNG files, extract transferred files and credentials, and identify command-and-control communications. Use when analyzing captured tr…
+- [performing-network-packet-capture-analysis](performing-network-packet-capture-analysis.md) — Perform forensic analysis of network packet captures (PCAP/PCAPNG) using Wireshark, tshark, and tcpdump to reconstruct network communications, extract transferred files, identify malicious traffic, and establish evidence of data exfiltrati…
+- [performing-network-traffic-analysis-with-tshark](performing-network-traffic-analysis-with-tshark.md) — Automate network traffic analysis using tshark (Wireshark CLI) and pyshark to compute protocol distribution statistics, detect suspicious flows such as port scans and beaconing, extract IOCs (IPs, domains, URLs), and identify DNS tunneling…
+- [performing-network-traffic-analysis-with-zeek](performing-network-traffic-analysis-with-zeek.md) — Deploy Zeek (formerly Bro) as a passive network security monitor to generate structured logs of protocol metadata (HTTP, DNS, TLS, SSH, SMTP, FTP, and more), write custom detection scripts, and integrate outputs with SIEM platforms. Use wh…
+- [performing-nist-csf-maturity-assessment](performing-nist-csf-maturity-assessment.md) — Conduct a NIST Cybersecurity Framework (CSF) 2.0 maturity assessment across the six core Functions (Govern, Identify, Protect, Detect, Respond, Recover), scoring organizational posture against the four Implementation Tiers (Partial, Risk-I…
+- [performing-oil-gas-cybersecurity-assessment](performing-oil-gas-cybersecurity-assessment.md) — Conduct cybersecurity assessments of upstream, midstream, and downstream oil and gas operations, covering pipeline SCADA, refinery DCS, safety instrumented systems, and remote wellhead RTUs, and evaluate compliance with API 1164, TSA Pipel…
+- [performing-open-source-intelligence-gathering](performing-open-source-intelligence-gathering.md) — Open Source Intelligence (OSINT) gathering is the first active phase
+- [performing-osint-with-spiderfoot](performing-osint-with-spiderfoot.md) — Automate OSINT collection with the SpiderFoot REST API and CLI (sf.py/spiderfoot-cli) across 200+ modules, selecting scan modes (footprint, investigate, passive) and parsing results for domains, IPs, emails, leaked credentials, and DNS rec…
+- [performing-ot-network-security-assessment](performing-ot-network-security-assessment.md) — This skill covers conducting comprehensive security assessments of Operational
+- [performing-ot-vulnerability-assessment-with-claroty](performing-ot-vulnerability-assessment-with-claroty.md) — Perform OT vulnerability assessments using the Claroty xDome platform for asset discovery, risk scoring, and vulnerability correlation, combining passive traffic-based identification and active safe device querying with CVE/ICS-CERT adviso…
+- [performing-ot-vulnerability-scanning-safely](performing-ot-vulnerability-scanning-safely.md) — Perform vulnerability scanning in OT/ICS environments safely using passive
+- [performing-packet-injection-attack](performing-packet-injection-attack.md) — Crafts and injects custom network packets using Scapy, hping3, and Nemesis
+- [performing-physical-intrusion-assessment](performing-physical-intrusion-assessment.md) — Conduct authorized physical penetration testing against facilities, server rooms, and restricted areas using tailgating, RFID badge cloning, lock bypassing, rogue network device deployment, and security-guard procedure testing. Use as part…
+- [performing-plc-firmware-security-analysis](performing-plc-firmware-security-analysis.md) — This skill covers analyzing Programmable Logic Controller (PLC) firmware
+- [performing-post-quantum-cryptography-migration](performing-post-quantum-cryptography-migration.md) — Assesses organizational readiness for post-quantum cryptography migration
+- [performing-power-grid-cybersecurity-assessment](performing-power-grid-cybersecurity-assessment.md) — Conduct cybersecurity assessments of power grid infrastructure spanning generation, transmission substations, distribution, and EMS control centers, covering NERC CIP compliance verification, IEC 61850 (GOOSE/MMS) substation protocol analy…
+- [performing-privacy-impact-assessment](performing-privacy-impact-assessment.md) — Automates the Privacy Impact Assessment (PIA) workflow including data
+- [performing-privilege-escalation-assessment](performing-privilege-escalation-assessment.md) — Performs privilege escalation assessments on compromised Linux and Windows
+- [performing-privilege-escalation-on-linux](performing-privilege-escalation-on-linux.md) — Guides manual enumeration and automated tooling to escalate from a low-privilege
+- [performing-privileged-account-access-review](performing-privileged-account-access-review.md) — Conducts systematic reviews of privileged accounts to validate access
+- [performing-privileged-account-discovery](performing-privileged-account-discovery.md) — Discovers and inventories privileged accounts across enterprise infrastructure,
+- [performing-purple-team-atomic-testing](performing-purple-team-atomic-testing.md) — Executes Atomic Red Team tests mapped to MITRE ATT&CK via Invoke-AtomicRedTeam
+- [performing-purple-team-exercise](performing-purple-team-exercise.md) — Performs purple team exercises by coordinating red team adversary emulation
+- [performing-red-team-with-covenant](performing-red-team-with-covenant.md) — Conducts red team operations using the Covenant C2 framework for authorized
+- [performing-s7comm-protocol-security-analysis](performing-s7comm-protocol-security-analysis.md) — Perform security analysis of Siemens S7comm and S7CommPlus protocols
+- [performing-sca-dependency-scanning-with-snyk](performing-sca-dependency-scanning-with-snyk.md) — This skill covers implementing Software Composition Analysis (SCA) using
+- [performing-scada-hmi-security-assessment](performing-scada-hmi-security-assessment.md) — Perform security assessments of SCADA Human-Machine Interface (HMI)
+- [performing-second-order-sql-injection](performing-second-order-sql-injection.md) — Detect and exploit second-order SQL injection vulnerabilities where malicious
+- [performing-security-headers-audit](performing-security-headers-audit.md) — Auditing HTTP security headers including CSP, HSTS, X-Frame-Options,
+- [performing-serverless-function-security-review](performing-serverless-function-security-review.md) — Performing security reviews of serverless functions across AWS Lambda,
+- [performing-service-account-audit](performing-service-account-audit.md) — Audit service accounts across enterprise infrastructure to identify orphaned,
+- [performing-soap-web-service-security-testing](performing-soap-web-service-security-testing.md) — Performs security testing of SOAP web services by analyzing WSDL definitions
+- [performing-soc-tabletop-exercise](performing-soc-tabletop-exercise.md) — Performs tabletop exercises for SOC teams simulating security incidents
+- [performing-soc2-type2-audit-preparation](performing-soc2-type2-audit-preparation.md) — Automates SOC 2 Type II audit preparation including gap assessment against
+- [performing-sqlite-database-forensics](performing-sqlite-database-forensics.md) — Performs forensic analysis of SQLite databases by examining B-tree page
+- [performing-ssl-certificate-lifecycle-management](performing-ssl-certificate-lifecycle-management.md) — Automates the full SSL/TLS certificate lifecycle, including generating
+- [performing-ssl-stripping-attack](performing-ssl-stripping-attack.md) — >-
+- [performing-ssl-tls-inspection-configuration](performing-ssl-tls-inspection-configuration.md) — >-
+- [performing-ssl-tls-security-assessment](performing-ssl-tls-security-assessment.md) — >-
+- [performing-ssrf-vulnerability-exploitation](performing-ssrf-vulnerability-exploitation.md) — >-
+- [performing-static-malware-analysis-with-pe-studio](performing-static-malware-analysis-with-pe-studio.md) — >-
+- [performing-steganography-detection](performing-steganography-detection.md) — >-
+- [performing-subdomain-enumeration-with-subfinder](performing-subdomain-enumeration-with-subfinder.md) — Enumerate subdomains of target domains using ProjectDiscovery's Subfinder
+- [performing-supply-chain-attack-simulation](performing-supply-chain-attack-simulation.md) — >-
+- [performing-thick-client-application-penetration-test](performing-thick-client-application-penetration-test.md) — Conduct a thick client application penetration test to identify insecure
+- [performing-threat-emulation-with-atomic-red-team](performing-threat-emulation-with-atomic-red-team.md) — Executes Atomic Red Team tests for MITRE ATT&CK technique validation
+- [performing-threat-hunting-with-elastic-siem](performing-threat-hunting-with-elastic-siem.md) — Performs proactive threat hunting in Elastic Security SIEM using KQL/EQL
+- [performing-threat-hunting-with-yara-rules](performing-threat-hunting-with-yara-rules.md) — Use YARA pattern-matching rules to hunt for malware, suspicious files,
+- [performing-threat-intelligence-sharing-with-misp](performing-threat-intelligence-sharing-with-misp.md) — >-
+- [performing-threat-landscape-assessment-for-sector](performing-threat-landscape-assessment-for-sector.md) — >-
+- [performing-threat-modeling-with-owasp-threat-dragon](performing-threat-modeling-with-owasp-threat-dragon.md) — >-
+- [performing-timeline-reconstruction-with-plaso](performing-timeline-reconstruction-with-plaso.md) — >-
+- [performing-user-behavior-analytics](performing-user-behavior-analytics.md) — Performs User and Entity Behavior Analytics (UEBA) to detect anomalous
+- [performing-vlan-hopping-attack](performing-vlan-hopping-attack.md) — >-
+- [performing-vulnerability-scanning-with-nessus](performing-vulnerability-scanning-with-nessus.md) — Performs authenticated and unauthenticated vulnerability scanning using
+- [performing-web-application-firewall-bypass](performing-web-application-firewall-bypass.md) — Bypasses Web Application Firewall protections using encoding tricks,
+- [performing-web-application-penetration-test](performing-web-application-penetration-test.md) — Performs systematic security testing of web applications following the
+- [performing-web-application-scanning-with-nikto](performing-web-application-scanning-with-nikto.md) — Runs Nikto, an open-source web server and web application scanner,
+- [performing-web-application-vulnerability-triage](performing-web-application-vulnerability-triage.md) — Triages web application vulnerability findings from DAST/SAST scanners
+- [performing-web-cache-deception-attack](performing-web-cache-deception-attack.md) — Executes web cache deception attacks by exploiting path normalization
+- [performing-web-cache-poisoning-attack](performing-web-cache-poisoning-attack.md) — Exploiting web cache mechanisms to serve malicious content to other users
+- [performing-wifi-password-cracking-with-aircrack](performing-wifi-password-cracking-with-aircrack.md) — Captures WPA/WPA2 handshakes and performs offline password cracking
+- [performing-windows-artifact-analysis-with-eric-zimmerman-tools](performing-windows-artifact-analysis-with-eric-zimmerman-tools.md) — Performs comprehensive Windows forensic artifact analysis using Eric
+- [performing-wireless-network-penetration-test](performing-wireless-network-penetration-test.md) — Execute a wireless network penetration test to assess WiFi security by
+- [performing-wireless-security-assessment-with-kismet](performing-wireless-security-assessment-with-kismet.md) — Conduct wireless network security assessments using Kismet to detect
+- [performing-yara-rule-development-for-detection](performing-yara-rule-development-for-detection.md) — Develops precise YARA and YARA-X rules for malware detection by identifying
+- [perso-dubbing](perso-dubbing.md) — Video translator: dubbing, lip-sync, subtitles, and short clips
+- [pestel-analysis](pestel-analysis.md) — Analyze external factors across Political, Economic, Social, Tech, Environmental, and Legal dimensions
+- [pestle-analysis](pestle-analysis.md) — PESTLE analysis across Political, Economic, Social, Tech, Legal, Environmental
+- [Phishing](Phishing.md) — Monitor Certificate Transparency logs using crt.sh and Certstream to
+- [Phishing for Information](Phishing for Information.md) — Implements continuous, risk-adaptive identity verification for zero trust
+- [Phone Number Spoofing: Official Phone Number Spoofing](Phone Number Spoofing_ Official Phone Number Spoofing.md) — Plan and execute authorized vishing (voice phishing) pretext calls to
+- [phpunit-skill](phpunit-skill.md) — Generate PHPUnit tests in PHP with data providers and mocking
+- [platform-design-skills](platform-design-skills.md) — 300+ design rules from Apple HIG, Material Design 3, and WCAG 2.2 for cross-platform apps
+- [playwright-skill](playwright-skill.md) — Generate Playwright E2E tests in TS, JS, Python, Java, or C#
+- [poka-yoke](poka-yoke.md) — Make misuse unrepresentable: audit, design, and enforce mistake-proofing devices
+- [pol-probe](pol-probe.md) — Define lightweight validation experiments to test hypotheses
+- [pol-probe-advisor](pol-probe-advisor.md) — Recommend prototype type: Feasibility, Task-Focused, Narrative, Synthetic, or Vibe
+- [ponytail](ponytail.md) ✅ — Lazy senior dev mode for any coding task (write, refactor, fix, review): YAGNI, stdlib first, no unrequested abstractions. Not for non-coding requests.
+- [ponytail-audit](ponytail-audit.md) — Audit the whole repo for over-engineering. A ranked list of what to delete, simplify, or replace with stdlib or native features.
+- [ponytail-debt](ponytail-debt.md) — Harvest every ponytail: shortcut comment into one debt ledger, so deferrals get tracked instead of forgotten. One-shot report.
+- [ponytail-gain](ponytail-gain.md) — Show ponytail measured impact as a scoreboard: less code, less cost, more speed, from the benchmark medians. One-shot display.
+- [ponytail-help](ponytail-help.md) — Quick reference for ponytail's modes, skills, and commands. One-shot display.
+- [ponytail-review](ponytail-review.md) — Review a diff for over-engineering. Finds what to delete: reinvented stdlib, needless deps, speculative abstractions. One line per finding.
+- [popups](popups.md) — Create and optimize popups, modals, and slide-ins for conversions
+- [porters-five-forces](porters-five-forces.md) — Porter's Five Forces competitive analysis with strategic insights
+- [positioning-ideas](positioning-ideas.md) — Brainstorm positioning ideas differentiated from competitors
+- [positioning-statement](positioning-statement.md) — Define target audience, problem solved, and differentiation using Geoffrey Moore's framework
+- [positioning-workshop](positioning-workshop.md) — Guide positioning definition with adaptive discovery questions
+- [post-exploiting-microsoft-graph-with-graphrunner](post-exploiting-microsoft-graph-with-graphrunner.md) — Runs GraphRunner, a PowerShell post-exploitation toolset built on
+- [postgres](postgres.md) — Execute safe read-only SQL queries against PostgreSQL databases
+- [postiz-agent](postiz-agent.md) — Schedule social media posts across 28+ platforms programmatically
+- [pptx](pptx.md) — Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even…
+- [prd-development](prd-development.md) — Structured PRD process: problem → personas → solution → metrics → stories (2-4 days)
+- [pre-mortem](pre-mortem.md) — Run pre-mortem risk analysis on PRDs and launch plans
+- [press-release](press-release.md) — Clarify product vision with a future press release using Amazon's Working Backwards method
+- [pricing](pricing.md) — Define pricing, packaging, and monetization strategy for SaaS products
+- [pricing-strategy](pricing-strategy.md) — Design pricing strategies with competitive analysis and WTP estimation
+- [prioritization-advisor](prioritization-advisor.md) — Recommend the right prioritization framework (RICE, ICE, Kano, etc.) for your situation
+- [prioritization-frameworks](prioritization-frameworks.md) — Reference guide to 9 prioritization frameworks with templates
+- [prioritize-assumptions](prioritize-assumptions.md) — Prioritize assumptions with Impact × Risk matrix and experiments
+- [prioritize-features](prioritize-features.md) — Prioritize backlog by impact, effort, risk, and strategic alignment
+- [prioritizing-vulnerabilities-with-cvss-scoring](prioritizing-vulnerabilities-with-cvss-scoring.md) — The Common Vulnerability Scoring System (CVSS) is the industry standard
+- [privacy-policy](privacy-policy.md) — Draft privacy policies with GDPR compliance considerations
+- [problem-framing-canvas](problem-framing-canvas.md) — Lead through MITRE Problem Framing: Look Inward, Outward, and Reframe
+- [problem-statement](problem-statement.md) — Frame customer problems with evidence before jumping to solutions
+- [processing-stix-taxii-feeds](processing-stix-taxii-feeds.md) — Processes STIX 2.1 threat intelligence bundles delivered via TAXII 2.1
+- [product-manager-skills](product-manager-skills.md) — Senior PM agent with 30+ frameworks and SaaS metrics
+- [product-marketing](product-marketing.md) — Create and maintain a product marketing context document for consistent messaging
+- [product-name](product-name.md) — Brainstorm 5 memorable product names aligned to brand values
+- [product-strategy](product-strategy.md) — Create product strategy using 9-section Product Strategy Canvas
+- [product-strategy-session](product-strategy-session.md) — Full strategy session: positioning → framing → exploration → roadmap (2-4 weeks)
+- [product-vision](product-vision.md) — Brainstorm inspiring, achievable product vision statements
+- [profiling-threat-actor-groups](profiling-threat-actor-groups.md) — Develops comprehensive threat actor profiles for APT groups, criminal
+- [programmatic-seo](programmatic-seo.md) — Build SEO-driven page templates for large-scale content generation
+- [progressive-hint-ladder](progressive-hint-ladder.md) — Provides graduated hints while preserving learner thinking and agency
+- [project-guidelines-example](project-guidelines-example.md) — Project Guidelines Skill (Example)
+- [prompt-engineering](prompt-engineering.md) — Widely used prompt engineering techniques and patterns, including Anthropic best practices and agent persuasion principles.
+- [proto-persona](proto-persona.md) — Create hypothesis-driven personas before conducting full research
+- [prototype](prototype.md) — Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.
+- [protractor-skill](protractor-skill.md) — Generate Protractor E2E tests for Angular in JS/TS (deprecated; prefer Playwright/Cypress)
+- [ptq](ptq.md) — This skill should be used when the user asks to "quantize a model", "run PTQ", "post-training quantization", "NVFP4 quantization", "FP8 quantization", "INT8 quantization", "INT4 AW...
+- [puppeteer-skill](puppeteer-skill.md) — Generate Puppeteer scripts for browser automation, scraping, and PDF generation
+- [pypict-skill](pypict-skill.md) — Pairwise test generation
+- [pytest-skill](pytest-skill.md) — Generate pytest tests in Python with fixtures, parametrize, and mocking
+- [rag-blueprint](rag-blueprint.md) — "NVIDIA RAG Blueprint — deploy, configure, troubleshoot, and manage.
+- [rails-conventions](rails-conventions.md) — Rails 8 conventions for consistent production code changes
+- [rea](rea.md) — Reverse-engineer binaries, applications, and runtimes with REA
+- [react-email](react-email.md) — Build emails with React Email components
+- [receiving-code-review](receiving-code-review.md) — Process and incorporate code feedback
+- [recipe-recommender](recipe-recommender.md) — Recommend and customize Megatron Bridge recipes for a user's model, GPU count, and training goal.
+- [recommendation-canvas](recommendation-canvas.md) — Document AI-powered product recommendations
+- [recovering-deleted-files-with-photorec](recovering-deleted-files-with-photorec.md) — Recovers deleted files from disk images and storage media using PhotoRec's
+- [recursive-decomposition-skill](recursive-decomposition-skill.md) — Handle long-context tasks (100+ files, 50k+ tokens) through recursive decomposition strategies based on RLM research
+- [red-teaming-llms-with-garak](red-teaming-llms-with-garak.md) — Runs NVIDIA garak probe suites (jailbreak, prompt injection, data
+- [redesign-existing-projects](redesign-existing-projects.md) — Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
+- [redis-core](redis-core.md) — Redis development best practices — data structures, query engine, vector search, caching, and performance optimization.
+- [referrals](referrals.md) — Design and optimize referral, affiliate, and word-of-mouth programs
+- [reflexion](reflexion.md) — Self-refinement loop that forces the LLM to reflect on previous output and correct itself.
+- [regenerative-project-design-orchestrator](regenerative-project-design-orchestrator.md) — Orchestrates proportionate regenerative learning projects with safeguards and stewardship
+- [reimagine-it](reimagine-it.md) — Content-Derived Design CLI and agent skill: reads existing HTML and writes a stronger standalone page from nouns, dates, numbers, and colors already in the file
+- [relaying-ntlm-for-adcs-esc8](relaying-ntlm-for-adcs-esc8.md) — Uses Impacket's ntlmrelayx.py with a coercion tool (PetitPotam, Coercer,
+- [release-cherry-pick](release-cherry-pick.md) — Cherry-pick merged PRs labeled for a release branch into that branch, then open a PR and apply the cherry-pick-done label.
+- [release-notes](release-notes.md) — Generate user-facing release notes from tickets or changelogs
+- [remediating-s3-bucket-misconfiguration](remediating-s3-bucket-misconfiguration.md) — Provides step-by-step procedures for remediating Amazon S3 bucket
+- [Remote Access Tools](Remote Access Tools.md) — Analyzes encryption algorithms, key management, and file encryption
+- [report](report.md) — Produce video analysis reports by discovering the deployed VSS agent, querying POST /generate for a timestamped captioned summary of the clip, then formatting the agent reply as th...
+- [reqnroll-skill](reqnroll-skill.md) — Generate Reqnroll BDD tests for web and mobile in C#
+- [requesting-code-review](requesting-code-review.md) — Initiate code review processes
+- [research](research.md) — Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.
+- [resend](resend.md) — Send and manage emails via the Resend API
+- [resend-cli](resend-cli.md) — Resend CLI commands and workflows
+- [resiliency](resiliency.md) — Resiliency features in Megatron Bridge including fault tolerance, straggler detection, in-process restart, preemption, and re-run state machine.
+- [resolving-merge-conflicts](resolving-merge-conflicts.md) — Use when you need to resolve an in-progress git merge/rebase conflict.
+- [respond-to-issue](respond-to-issue.md) — Research and draft a response to a GitHub issue or question from an external contributor.
+- [ResumeSkills](ResumeSkills.md) — 20 specialized skills for resume optimization, ATS analysis, interview prep, and career transitions
+- [retro](retro.md) — Conduct a retrospective on a coding session.
+- [reverse-engineering-android-malware-with-jadx](reverse-engineering-android-malware-with-jadx.md) — Reverse engineers malicious Android APK files using the JADX decompiler
+- [reverse-engineering-dotnet-malware-with-dnspy](reverse-engineering-dotnet-malware-with-dnspy.md) — Reverse engineers .NET malware samples using the dnSpy decompiler and
+- [reverse-engineering-ios-app-with-frida](reverse-engineering-ios-app-with-frida.md) — Reverse engineers iOS applications using Frida dynamic instrumentation
+- [reverse-engineering-malware-with-ghidra](reverse-engineering-malware-with-ghidra.md) — Reverse engineers malware binaries using NSA''s Ghidra disassembler and
+- [reverse-engineering-rust-malware](reverse-engineering-rust-malware.md) — Reverse engineers Rust-compiled malware using IDA Pro and Ghidra, covering
+- [review](review.md) — Comprehensive PR code review using specialized agents: bug-hunter, security-auditor, code-quality-reviewer, contracts-reviewer, historical-context-reviewer, test-coverage-reviewer
+- [review-pr](review-pr.md) — Interactive code review for NVIDIA-NeMo/RL pull requests.
+- [review-resume](review-resume.md) — PM resume review against 10 best practices including XYZ+S formula
+- [revops](revops.md) — Streamline revenue operations, lead lifecycle, and marketing-to-sales handoff
+- [roadmap-planning](roadmap-planning.md) — Strategic roadmap process: inputs → epics → prioritize → sequence → communicate (1-2 weeks)
+- [robot-framework-skill](robot-framework-skill.md) — Generate Robot Framework keyword-driven tests in Python
+- [rootly-incident-responder](rootly-incident-responder.md) — AI-powered incident response with ML similarity matching, solution suggestions, and on-call coordination. Requires [Rootly MCP Server](https://github.com/rootlyhq/rootly-mcp-server)
+- [routing-formulation](routing-formulation.md) — Vehicle routing (VRP, TSP, PDP) — problem types and data requirements.
+- [rspec-skill](rspec-skill.md) — Generate RSpec tests in Ruby with matchers, hooks, and mocking
+- [rt-vlm](rt-vlm.md) — > Use this skill when working with the RTVI VLM or RT-VLM microservice API on VSS 3.1.
+- [ru-text](ru-text.md) — Russian text quality: ~1,040 rules for typography, info-style, editorial, UX writing, business correspondence. Cross-platform: Claude Code, Codex CLI, Gemini CLI, Cursor.
+- [run-on-slurm](run-on-slurm.md) — How to launch distributed Megatron-LM training jobs on a SLURM cluster.
+- [saas-economics-efficiency-metrics](saas-economics-efficiency-metrics.md) — Calculate unit economics and capital efficiency including CAC, LTV, payback, and Rule of 40
+- [saas-revenue-growth-metrics](saas-revenue-growth-metrics.md) — Track revenue, retention, and growth metrics including MRR/ARR, churn, NRR, and expansion
+- [sadd](sadd.md) — Dispatches independent subagents for individual tasks with code review checkpoints between iterations for rapid, controlled development.
+- [sales-enablement](sales-enablement.md) — Create pitch decks, one-pagers, objection handling docs, and demo scripts
+- [scaffold-exercises](scaffold-exercises.md) — Create exercise directory structures with sections, problems, solutions, and explainers that pass linting. Use when user wants to scaffold exercises, create exercise stubs, or set up a new course section.
+- [scanning-container-images-with-grype](scanning-container-images-with-grype.md) — >-
+- [scanning-containers-with-trivy-in-cicd](scanning-containers-with-trivy-in-cicd.md) — Integrates Aqua Security''s Trivy scanner into CI/CD pipelines to detect
+- [scanning-docker-images-with-trivy](scanning-docker-images-with-trivy.md) — >-
+- [scanning-iac-and-images-with-trivy](scanning-iac-and-images-with-trivy.md) — Scans container images, Infrastructure-as-Code (Terraform, CloudFormation,
+- [scanning-infrastructure-with-nessus](scanning-infrastructure-with-nessus.md) — Tenable Nessus is the industry-leading vulnerability scanner used to
+- [scanning-kubernetes-manifests-with-kubesec](scanning-kubernetes-manifests-with-kubesec.md) — >-
+- [scanning-network-with-nmap-advanced](scanning-network-with-nmap-advanced.md) — Performs advanced network recon using Nmap''s Scripting Engine (NSE),
+- [schema](schema.md) — Add and optimize schema markup and structured data for better SEO
+- [schwartz-awareness-mapper](schwartz-awareness-mapper.md) — Determine audience awareness level and the correct messaging approach
+- [scientific-agent-skills](scientific-agent-skills.md) — Scientific research and analysis skills
+- [scroll-stopping-creative](scroll-stopping-creative.md) — Create ad concepts that stop attention in the first 3 seconds
+- [sdd](sdd.md) — Spec-driven development workflow that transforms prompts into production-ready implementations through structured planning, architecture design, and LLM-as-a-Judge based quality gates.
+- [securing-agentic-ai-tool-invocation](securing-agentic-ai-tool-invocation.md) — Implements defense-in-depth controls at an AI agent's tool-invocation
+- [securing-api-gateway-with-aws-waf](securing-api-gateway-with-aws-waf.md) — Secures AWS API Gateway endpoints with AWS WAF by configuring managed
+- [securing-aws-lambda-execution-roles](securing-aws-lambda-execution-roles.md) — Hardens AWS Lambda execution roles by writing least-privilege IAM policies,
+- [securing-azure-with-microsoft-defender](securing-azure-with-microsoft-defender.md) — Deploys and configures Microsoft Defender for Cloud as a CNAPP for
+- [securing-container-registry-images](securing-container-registry-images.md) — Secures container registry images (ECR, ACR, GCR, Docker Hub) by scanning
+- [securing-container-registry-with-harbor](securing-container-registry-with-harbor.md) — >-
+- [securing-github-actions-workflows](securing-github-actions-workflows.md) — Hardens GitHub Actions workflows against supply chain attacks, credential
+- [securing-helm-chart-deployments](securing-helm-chart-deployments.md) — >-
+- [securing-historian-server-in-ot-environment](securing-historian-server-in-ot-environment.md) — Audits and hardens process historian servers (OSIsoft PI, Honeywell PHD,
+- [securing-kubernetes-on-cloud](securing-kubernetes-on-cloud.md) — Hardens managed Kubernetes clusters on EKS, AKS, and GKE by implementing
+- [securing-remote-access-to-ot-environment](securing-remote-access-to-ot-environment.md) — Designs and configures secure remote access to OT/ICS environments for
+- [securing-serverless-functions](securing-serverless-functions.md) — Hardens serverless compute platforms (AWS Lambda, Azure Functions, Google
+- [security-bluebook-builder](security-bluebook-builder.md) — Build security Blue Books for sensitive apps
+- [security-review](security-review.md) — Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.
+- [selenide-skill](selenide-skill.md) — Generate Selenide UI tests in Java with auto-waits and a fluent API
+- [selenium-skill](selenium-skill.md) — Generate Selenium WebDriver tests in Java, Python, JS, C#, Ruby, or PHP
+- [sentiment-analysis](sentiment-analysis.md) — Analyze user feedback with sentiment scores and JTBD insights
+- [seo-audit](seo-audit.md) — Audit and diagnose technical and on-page SEO issues on a site
+- [sepia](sepia.md) — De-AI writing skill fixing narrative structure before word choice
+- [serenity-bdd-skill](serenity-bdd-skill.md) — Generate Serenity BDD tests in Java with the Screenplay pattern and reporting
+- [serpapi-cli](serpapi-cli.md) — SerpApi client for the command line, covering all 130+ engines
+- [serpapi-search-tools-python](serpapi-search-tools-python.md) — Real-time search tools for Python agents with native support for popular agent SDKs
+- [session-memory](session-memory.md) — Manage durable working-session memory for coding agents.
+- [setup-matt-pocock-skills](setup-matt-pocock-skills.md) — Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.
+- [setup-pre-commit](setup-pre-commit.md) — Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing.
+- [setup-ts-deep-modules](setup-ts-deep-modules.md) — Wire dependency-cruiser into a TypeScript repo so each package is a deep module, with implementation hidden in subfolders and reachable only through its entry-point files. User-invoked.
+- [signup](signup.md) — Optimize signup, registration, and trial activation flows for higher conversion
+- [simple-man](simple-man.md) — Strips praise, recaps and filler from agent answers while keeping every fact you act on: findings carry location and fix, refusals carry the safe procedure, tutorials stay long-form. Benchmarked on 1,793 preregistered live calls with raw r…
+- [site-architecture](site-architecture.md) — Plan and restructure page hierarchy, navigation, and URL structure
+- [skill-authoring-workflow](skill-authoring-workflow.md) — Meta workflow for authoring skills: choose path → validate → update docs → package
+- [skill-creator](skill-creator.md) ✅ — Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with vari…
+- [skill-evolution](skill-evolution.md) — After solving a non-trivial problem, detect generalizable learnings and propose skill updates so future interactions benefit automatically.
+- [skill-optimizer](skill-optimizer.md) — Diagnose and optimize Agent Skills (SKILL.md) with real session data and research-backed static analysis. Works with Claude Code, Codex, and any Agent Skills-compatible agent
+- [skill-rails-upgrade](skill-rails-upgrade.md) — Analyze Rails apps and provide upgrade assessments
+- [skill.color-expert](skill.color-expert.md) — Color science expert skill with 286K words of reference material covering OKLCH/OKLAB, palette generation, accessibility/contrast, color naming, pigment mixing, and historical color theory
+- [Skill_Seekers](Skill_Seekers.md) — Automatically convert documentation websites, GitHub repositories, and PDFs into Claude AI skills in minutes
+- [skillreaper](skillreaper.md) — Prunes unused skills, MCP servers, and subagents from transcript evidence
+- [skills](skills.md) — Agent skills from [Modem](https://modem.dev/go/awesome-agent-skills), starting with write-discoverable-code
+- [skills-janitor](skills-janitor.md) — Token audit, usage tracking, and swipe-to-delete skill pruning.
+- [skills-library](skills-library.md) — Guided discovery skill for Claude Code: runs an interview to recommend from a catalog of 100+ AI skills; records session feedback that validates candidates over time
+- [slack-gif-creator](slack-gif-creator.md) — Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack.
+- [smartui-skill](smartui-skill.md) — Generate SmartUI visual regression configs for screenshot comparison
+- [social](social.md) — Create and schedule social media content for LinkedIn, Twitter/X, and Instagram
+- [social-media-research-skills](social-media-research-skills.md) — Research social outliers, comments, competitors, ads, and trends
+- [spec-writer](spec-writer.md) — Turns vague requests into spec, plan, and tasks
+- [specflow-skill](specflow-skill.md) — Generate SpecFlow BDD tests for C#/.NET with Gherkin and step bindings
+- [split-pr](split-pr.md) — Split a PR into multiple PRs to reduce the number of required CODEOWNERS reviewer groups.
+- [sprint-plan](sprint-plan.md) — Plan sprints with capacity, story selection, and risk mapping
+- [sql-queries](sql-queries.md) — Generate SQL queries from natural language across major dialects
+- [squirrelscan](squirrelscan.md) — Audits websites for SEO, performance, security, accessibility and returns fixes
+- [Stage Capabilities: SEO Poisoning](Stage Capabilities_ SEO Poisoning.md) — Discovers and maps adversary-controlled infrastructure (C2 servers,
+- [stakeholder-map](stakeholder-map.md) — Build stakeholder maps with power/interest grid and comms plan
+- [startup-canvas](startup-canvas.md) — Generate Startup Canvas combining Product Strategy and Business Model
+- [Steal Web Session Cookie](Steal Web Session Cookie.md) — Configures Google Cloud Identity-Aware Proxy (IAP) via gcloud to enforce
+- [stitch-design-taste](stitch-design-taste.md) — Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-acce…
+- [storyboard](storyboard.md) — Visualize user journeys with 6-frame narrative storyboards
+- [strategic-compact](strategic-compact.md) — Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.
+- [strategy-consulting-visualization](strategy-consulting-visualization.md) — McKinsey-style charts and consulting slide decks
+- [Structuring](Structuring.md) — Traces ransomware cryptocurrency payment flows using blockchain analysis tools such as Chainalysis Reactor, WalletExplorer, and blockchain.com APIs, identifying wallet clusters and tracking fund movement through mixers and exchanges to sup…
+- [subagent-driven-development](subagent-driven-development.md) — Development using multiple sub-agents
+- [suede-creator-skills](suede-creator-skills.md) — Design, UI polish, code review grading, AI evals, SEO audits.
+- [summarize-interview](summarize-interview.md) — Summarize interview transcripts with JTBD and action items
+- [summarize-meeting](summarize-meeting.md) — Summarize meeting transcripts into structured notes and actions
+- [superCMO-skills](superCMO-skills.md) — Open-source skills + local MCP server for marketing video & image production: UGC videos, ad videos, product photography, and image ads from a product photo and a brief; casts AI actors, picks the best image/video models, edits any-length …
+- [superdesign-skill](superdesign-skill.md) — Creates design systems from existing codebases and iterates UI drafts
+- [superpowers-issue-bridge](superpowers-issue-bridge.md) — Connects a GitHub issue (created by brainstorm-to-issue) to Superpowers' brainstorming, writing-plans, and PR-creation stages, so the intent captured in the issue seeds the spec instead of being re-derived from scratch, and every downstrea…
+- [superpowers-lab](superpowers-lab.md) — Lab environment for Claude superpowers
+- [swift-patterns-skill](swift-patterns-skill.md) — Modern Swift/SwiftUI best practices
+- [swiftui-expert-skill](swiftui-expert-skill.md) — Modern SwiftUI best practices and iOS 26+ Liquid Glass adoption
+- [swot-analysis](swot-analysis.md) — SWOT analysis with actionable recommendations per quadrant
+- [systematic-debugging](systematic-debugging.md) — Methodical problem-solving in code
+- [tam-sam-som-calculator](tam-sam-som-calculator.md) — Project market size with real-world data and citations
+- [task-observer](task-observer.md) — Meta-skill for continuous skill improvement & automatic skill creation.
+- [taste-skill](taste-skill.md) — High-agency frontend skill that gives AI good taste with tunable design variance, motion intensity, and visual density to stop generic UI slop
+- [tdd](tdd.md) — Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
+- [tdd-workflow](tdd-workflow.md) — Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.
+- [teach](teach.md) — Teach the user a new skill or concept, within this workspace.
+- [template-skill](template-skill.md) — Replace with description of the skill and when Claude should use it.
+- [terraform-skill](terraform-skill.md) — Terraform and OpenTofu patterns: testing, modules, state, CI/CD.
+- [test-driven-development](test-driven-development.md) — Write tests before implementing code
+- [test-framework-migration-skill](test-framework-migration-skill.md) — Migrate tests between Selenium, Playwright, Puppeteer, and Cypress
+- [test-guard](test-guard.md) — Review generated or changed test code against universal testing rules before it ships. Best used reactively after an agent writes, edits, generates, or refactors tests, before presenting, committing, or merging them. Use for pytest (test_*…
+- [test-scenarios](test-scenarios.md) — Create comprehensive test scenarios from user stories
+- [testcafe-skill](testcafe-skill.md) — Generate TestCafe automation tests in JavaScript or TypeScript
+- [testing](testing.md) — Testing reference for Megatron Bridge — unit and functional test layout, tier semantics (L0/L1/L2/flaky), script conventions, running tests locally, adding/moving/disabling tests,...
+- [testing-android-intents-for-vulnerabilities](testing-android-intents-for-vulnerabilities.md) — Tests Android inter-process communication (IPC) through intents for
+- [testing-api-authentication-weaknesses](testing-api-authentication-weaknesses.md) — Tests API authentication mechanisms for weaknesses including broken
+- [testing-api-for-broken-object-level-authorization](testing-api-for-broken-object-level-authorization.md) — Tests REST and GraphQL APIs for Broken Object Level Authorization (BOLA/IDOR,
+- [testing-api-for-mass-assignment-vulnerability](testing-api-for-mass-assignment-vulnerability.md) — Tests APIs for mass assignment (auto-binding), OWASP API3:2023, by identifying
+- [testing-api-security-with-owasp-top-10](testing-api-security-with-owasp-top-10.md) — Systematically assesses REST, GraphQL, and gRPC API endpoints against the OWASP
+- [testing-cors-misconfiguration](testing-cors-misconfiguration.md) — Identifying and exploiting Cross-Origin Resource Sharing misconfigurations
+- [testing-for-broken-access-control](testing-for-broken-access-control.md) — Systematically tests web applications and APIs for broken access control
+- [testing-for-business-logic-vulnerabilities](testing-for-business-logic-vulnerabilities.md) — Manually identifies flaws in application business logic - price manipulation,
+- [testing-for-email-header-injection](testing-for-email-header-injection.md) — Tests web application email functionality (contact forms, password reset,
+- [testing-for-host-header-injection](testing-for-host-header-injection.md) — Test web applications for HTTP Host header injection vulnerabilities
+- [testing-for-json-web-token-vulnerabilities](testing-for-json-web-token-vulnerabilities.md) — Tests JWT implementations for algorithm confusion, "none" algorithm bypass,
+- [testing-for-open-redirect-vulnerabilities](testing-for-open-redirect-vulnerabilities.md) — Identifies and exploits open redirect vulnerabilities by analyzing URL
+- [testing-for-sensitive-data-exposure](testing-for-sensitive-data-exposure.md) — Identifying sensitive data exposure vulnerabilities including API key
+- [testing-for-system-prompt-leakage](testing-for-system-prompt-leakage.md) — Extracts LLM system prompts using direct requests, jailbreak/instruction-override
+- [testing-for-xml-injection-vulnerabilities](testing-for-xml-injection-vulnerabilities.md) — Test web applications for XML injection vulnerabilities including XXE,
+- [testing-for-xss-vulnerabilities](testing-for-xss-vulnerabilities.md) — Tests web applications for reflected, stored, and DOM-based Cross-Site
+- [testing-for-xss-vulnerabilities-with-burpsuite](testing-for-xss-vulnerabilities-with-burpsuite.md) — Identifying and validating cross-site scripting vulnerabilities using
+- [testing-for-xxe-injection-vulnerabilities](testing-for-xxe-injection-vulnerabilities.md) — Discovering and exploiting XML External Entity injection vulnerabilities
+- [testing-jwt-token-security](testing-jwt-token-security.md) — Assessing JSON Web Token implementations for cryptographic weaknesses,
+- [testing-mobile-api-authentication](testing-mobile-api-authentication.md) — Tests authentication and authorization mechanisms in mobile application
+- [testing-oauth2-implementation-flaws](testing-oauth2-implementation-flaws.md) — Tests OAuth 2.0 and OpenID Connect implementations for authorization code
+- [testing-prompt-injection-in-rag-pipelines](testing-prompt-injection-in-rag-pipelines.md) — Probes Retrieval-Augmented Generation pipelines for indirect prompt injection
+- [testing-websocket-api-security](testing-websocket-api-security.md) — Tests WebSocket API implementations for missing upgrade-handshake authentication,
+- [testng-skill](testng-skill.md) — Generate TestNG tests in Java with data providers and parallel execution
+- [testunit-skill](testunit-skill.md) — Generate Test::Unit xUnit-style tests in Ruby
+- [theme-factory](theme-factory.md) — Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate …
+- [threejs-skills](threejs-skills.md) — Three.js skills for creating 3D elements and interactive experiences
+- [to-questionnaire](to-questionnaire.md) — Turn a decision you can't fully answer into a questionnaire for someone else to fill in.
+- [to-spec](to-spec.md) — Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.
+- [to-tickets](to-tickets.md) — Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker (edges as text in one file per ticket locally, or native blocking links on a real t…
+- [tool-design](tool-design.md) — Build tools that agents can use effectively, including architectural reduction patterns
+- [Transfer of funds](Transfer of funds.md) — Analyze malicious Linux ELF binaries — botnets, cryptominers, ransomware,
+- [translate-book](translate-book.md) — Translate books (PDF/DOCX/EPUB) via parallel sub-agents with resume
+- [triage](triage.md) — Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
+- [triaging-security-alerts-in-splunk](triaging-security-alerts-in-splunk.md) — Triages security alerts in Splunk Enterprise Security by classifying
+- [triaging-security-incident](triaging-security-incident.md) — Performs initial triage of security incidents using the NIST SP
+- [triaging-security-incident-with-ir-playbook](triaging-security-incident-with-ir-playbook.md) — Classifies and prioritizes security incidents using structured IR
+- [triaging-vulnerabilities-with-ssvc-framework](triaging-vulnerabilities-with-ssvc-framework.md) — Triages and prioritizes vulnerabilities with CISA's Stakeholder-Specific
+- [triaging-windows-with-kape](triaging-windows-with-kape.md) — Runs KAPE (Kroll Artifact Parser and Extractor) to collect targeted
+- [trtllm-code-contribution](trtllm-code-contribution.md) — > Best practices for contributing code to TensorRT-LLM.
+- [trtllm-codebase-exploration](trtllm-codebase-exploration.md) — > Systematic approach to exploring the TensorRT-LLM codebase before implementing new features or optimizations.
+- [trtllm-flashinfer-upgrade](trtllm-flashinfer-upgrade.md) — >- Upgrade flashinfer-python version in TensorRT-LLM.
+- [trtllm-moe-develop](trtllm-moe-develop.md) — >- Review, design, and refactor TensorRT-LLM PyTorch MoE code for architecture fit, clean code, maintainability, and testability.
+- [trtllm-serve-config-guide](trtllm-serve-config-guide.md) — Generate a source-backed starting `trtllm-serve --config` YAML for basic aggregate single-node PyTorch serving, aligned with checked-in TensorRT-LLM configs and deployment docs.
+- [tutor-skills](tutor-skills.md) — Transform docs or codebases into Obsidian StudyVaults with interactive quizzes
+- [tweetclaw](tweetclaw.md) — Post tweets, replies, DMs; search, monitor, run giveaways
+- [ui-skills](ui-skills.md) — Opinionated, evolving constraints to guide agents when building interfaces
+- [ui-ux-pro-max-skill](ui-ux-pro-max-skill.md) — UI/UX design patterns and best practices
+- [understand-anything](understand-anything.md) — Interactive codebase knowledge graphs via multi-agent LLM analysis
+- [unittest-skill](unittest-skill.md) — Generate Python unittest tests with TestCase and setUp/tearDown
+- [universal-checkout](universal-checkout.md) — Official Zinc API (zinc.com) checkout across 50+ US retailers
+- [unslop](unslop.md) — Removes named AI writing tells (tricolons, em-dash pileups, hedging stacks, sycophancy openers, stock vocab like "delve"/"crucial"). Split lint/rewrite modes for auditing your own text without auto-rewriting. Five intensity levels, MIT
+- [update-golden-values](update-golden-values.md) — Refresh golden values from a GitHub Actions workflow run (failing-only or all jobs), score the change with average normalized relative differences, and produce a PR-ready summary.
+- [Use Alternate Authentication Material: Application Access Token](Use Alternate Authentication Material_ Application Access Token.md) — Scan source code repositories, CI/CD pipelines, and configuration files
+- [user-personas](user-personas.md) — Create 3 user personas with JTBD, pains, and gains
+- [user-segmentation](user-segmentation.md) — Segment users by behavior, JTBD, and needs from feedback data
+- [user-stories](user-stories.md) — Create INVEST-compliant user stories with 3 C's structure
+- [user-story](user-story.md) — Write user stories with acceptance criteria using Mike Cohn and Gherkin formats
+- [user-story-mapping](user-story-mapping.md) — Organize stories by user workflow using Jeff Patton's story mapping approach
+- [user-story-mapping-workshop](user-story-mapping-workshop.md) — Walk through creating story maps with backbone and release slices
+- [user-story-splitting](user-story-splitting.md) — Break down large stories using 8 proven splitting patterns
+- [using-git-worktrees](using-git-worktrees.md) — Manage multiple Git working trees
+- [using-superpowers](using-superpowers.md) — Leverage core platform capabilities
+- [validating-tpm-measured-boot-attestation](validating-tpm-measured-boot-attestation.md) — Verifies TPM 2.0 measured-boot integrity and remote attestation with
+- [value-prop-statements](value-prop-statements.md) — Generate value prop statements for marketing, sales, and onboarding
+- [value-proposition](value-proposition.md) — Design value propositions using 6-part JTBD template
+- [varlock-claude-skill](varlock-claude-skill.md) — Secure environment variable management ensuring secrets are never exposed in Claude sessions, terminals, logs, or git commits
+- [venice-api-keys](venice-api-keys.md) — API key CRUD, rate limits, and Web3 keys
+- [venice-api-overview](venice-api-overview.md) — API basics, auth modes, pricing, and versioning
+- [venice-audio-music](venice-audio-music.md) — Music generation queueing, retrieval, and completion endpoints
+- [venice-audio-speech](venice-audio-speech.md) — Text-to-speech models, voices, formats, and streaming
+- [venice-audio-transcription](venice-audio-transcription.md) — Audio transcription models and speech-to-text options
+- [venice-augment](venice-augment.md) — Search, scraping, and text parsing endpoints
+- [venice-auth](venice-auth.md) — API keys and wallet-based Venice authentication
+- [venice-billing](venice-billing.md) — Balance, usage, and billing analytics endpoints
+- [venice-characters](venice-characters.md) — Character endpoints and `character_slug` usage
+- [venice-chat](venice-chat.md) — Chat completions, multimodal inputs, tools, and streaming
+- [venice-crypto-rpc](venice-crypto-rpc.md) — JSON-RPC proxying for supported crypto networks
+- [venice-embeddings](venice-embeddings.md) — Embeddings models, dimensions, and encoding formats
+- [venice-errors](venice-errors.md) — Error handling, retries, and API status codes
+- [venice-image-edit](venice-image-edit.md) — Image edits, upscaling, and background removal
+- [venice-image-generate](venice-image-generate.md) — Image generation endpoints and available styles
+- [venice-models](venice-models.md) — Model catalog, traits, and compatibility mappings
+- [venice-responses](venice-responses.md) — OpenAI-compatible Responses API for Venice
+- [venice-video](venice-video.md) — Video generation and transcription workflows
+- [venice-x402](venice-x402.md) — Wallet credits and x402 payments on Base
+- [verification-before-completion](verification-before-completion.md) — Validate work before finalizing
+- [verification-loop](verification-loop.md) — Verification Loop Skill
+- [verifying-build-provenance-with-slsa-sigstore](verifying-build-provenance-with-slsa-sigstore.md) — Verifies artifact signatures and SLSA provenance using Sigstore's
+- [verl-e2e-testing](verl-e2e-testing.md) — External verl end-to-end validation workflow for Megatron-Bridge model/provider changes.
+- [vexor](vexor.md) — Vector-powered CLI for semantic file search with a Claude/Codex skill
+- [vibe-coding-prompt-template](vibe-coding-prompt-template.md) — Plan MVPs into PRD, tech design, and AGENTS.md
+- [vibe-creating-skill](vibe-creating-skill.md) — Rewrites a rough idea or shot script into text-to-video prompts
+- [Vibe-Skills](Vibe-Skills.md) — A skills governed plug-and-play harness for staged, test-driven skill orchestration
+- [vibesec](vibesec.md) — Helps write secure code by preventing common vulnerabilities including IDOR, XSS, SQL injection, SSRF, and weak authentication, approaching code from a bug hunter's perspective
+- [video-analytics](video-analytics.md) — Query video analytics data and metrics from Elastic search via the VA-MCP server (port 9901).
+- [video-router](video-router.md) — Route video requests through deterministic agent production stages
+- [video-search](video-search.md) — Search video archives using natural language — find events, objects, actions, and people across recorded video using fusion search (Cosmos Embed1 semantic search + CV attribute sea...
+- [video-summarization](video-summarization.md) — Summarize a video by calling the VLM NIM or the Long Video Summarization (LVS) microservice directly.
+- [video-understanding](video-understanding.md) — Call the vss agent to run video understanding on video to answer a text question.
+- [vios](vios.md) — Query VIOS REST APIs: sensor list, recording timelines, video clip extraction, snapshot capture, add/delete sensors and streams
+- [vitest-skill](vitest-skill.md) — Generate Vitest tests in JS/TS with a Jest-compatible API and ESM
+- [VMware-AIops](VMware-AIops.md) — AI-powered VMware vCenter/ESXi monitoring and operations: inventory queries, health/alarms, VM lifecycle (create, delete, snapshot, clone, migrate), vSAN management, Aria Operations analytics, and scheduled log scanning. Supports Claude Co…
+- [vp-cpo-readiness-advisor](vp-cpo-readiness-advisor.md) — Coach the Director→VP/CPO transition including a CEO interview framework
+- [vss-frag](vss-frag.md) — Generate video summary reports using the VSS video_search_frag extension with Long Video Summarization (LVS), Enterprise RAG knowledge retrieval, and human-in-the-loop parameter co...
+- [wait-what](wait-what.md) — Stop. That last message did not land: re-pitch it.
+- [wayfinder](wayfinder.md) — Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear.
+- [web-artifacts-builder](web-artifacts-builder.md) — Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components…
+- [webapp-testing](webapp-testing.md) — Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.
+- [webdriverio-skill](webdriverio-skill.md) — Generate WebdriverIO (WDIO) automation tests in JavaScript or TypeScript
+- [WellAlly-health](WellAlly-health.md) — A health assistant skill for medical information analysis, symptom tracking, and wellness guidance.
+- [wizard](wizard.md) — Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migra…
+- [wonda](wonda.md) — AI content creation: images, video, music, audio, editing, publishing
+- [woo-guard](woo-guard.md) — Review generated or changed WooCommerce code — extensions, payment and shipping integrations, checkout customizations, and order/product logic — before it ships. Best used reactively after an agent writes, edits, or reviews code touchi…
+- [workshop-facilitation](workshop-facilitation.md) — Add step-by-step facilitation with numbered recommendations to any workshop
+- [wp-guard](wp-guard.md) — Review generated or changed WordPress code — plugins, themes, and blocks — before it ships. Best used reactively after an agent writes, edits, or reviews code touching WordPress APIs: add_action/add_filter, shortcodes, meta boxes, AJAX…
+- [write-concisely](write-concisely.md) — Applies the famous *The Elements of Style* book principles to make documentation and writing clearer and more professional by eliminating wordiness and improving structure.
+- [writing-beats](writing-beats.md) — Writing, exploit; assemble raw material into a journey of beats, grounding each term before a beat leans on it.
+- [writing-for-agents](writing-for-agents.md) — Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.
+- [writing-fragments](writing-fragments.md) — Writing, explore: mine raw fragments, no structure yet.
+- [writing-plans](writing-plans.md) — Create strategic documentation
+- [writing-shape](writing-shape.md) — Writing, exploit: shape raw material into an article, paragraph by paragraph.
+- [writing-skills](writing-skills.md) — Develop and document capabilities
+- [wwas](wwas.md) — Create backlog items in Why-What-Acceptance format
+- [x-article-publisher-skill](x-article-publisher-skill.md) — Publish articles to X/Twitter
+- [x-twitter-scraper](x-twitter-scraper.md) — Tweet search, profile tweets, follower export, media, posting, replies, MCP
+- [xberg](xberg.md) — Extract text, tables, and metadata from 101+ document formats
+- [xcuitest-skill](xcuitest-skill.md) — Generate XCUITest UI tests for iOS/iPadOS apps in Swift
+- [xlsx](xlsx.md) — Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas,…
+- [xunit-skill](xunit-skill.md) — Generate xUnit.net tests in C# with Fact/Theory and FluentAssertions
+- [Youtube-clipper-skill](Youtube-clipper-skill.md) — YouTube clip generation and editing with automated workflows
+- [youtube-fetcher](youtube-fetcher.md) — Create Obsidian-ready Markdown notes from YouTube videos
+- [youtube-skills](youtube-skills.md) — Agent skills for YouTube: pull video transcripts and discover videos (search, channel and playlist listings) via TranscriptAPI.
+- [zapier-mcp](zapier-mcp.md) — Official plugin distribution for the hosted Zapier MCP server. Connects Claude to thousands of apps — send messages, pull data, trigger workflows.
+- [zero](zero.md) — Discover and call external paid tools for Claude Code agents instead of stopping to ask the user to sign up or fetch an API key
+- [zero-gemini](zero-gemini.md) — Same Zero tool-discovery and payment layer packaged as a Gemini CLI extension
+
+---
