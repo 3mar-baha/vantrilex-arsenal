@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#
+# commit-msg — zero AI attribution gate for commit messages.
+#
+# Companion to .githooks/pre-commit: that hook scans staged content, this one
+# scans the message itself. Rejects trailers and footers such as
+# "Co-authored-by: Claude" or "Generated with Claude Code".
+#
+# Activate with:  bash scripts/setup-git-hooks.sh
+
+set -u
+
+# Built from byte escapes so this hook's own source never contains the literal,
+# which pre-commit's scan of staged content would otherwise match.
+ROBOT_EMOJI="$(printf '\xF0\x9F\xA4\x96')"
+
+if [ "$#" -lt 1 ] || [ -z "${1:-}" ]; then
+    printf 'COMMIT-MSG REJECTED: no message file was passed to the hook.\n' >&2
+    exit 1
+fi
+
+MSG_FILE="$1"
+
+if [ ! -f "$MSG_FILE" ]; then
+    printf 'COMMIT-MSG REJECTED: message file %s not found.\n' "$MSG_FILE" >&2
+    exit 1
+fi
+
+if grep -iqE "co-authored-by:.*(claude|anthropic)|generated (with|by|using).*(claude|anthropic)|${ROBOT_EMOJI}" "$MSG_FILE"; then
+    cat >&2 <<'EOF'
+COMMIT-MSG REJECTED: the commit message contains AI attribution.
+This repository enforces zero AI attribution in its history.
+EOF
+    exit 1
+fi
+
+exit 0

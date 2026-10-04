@@ -1,0 +1,175 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Check shell syntax
+        run: |
+          set -euo pipefail
+          for f in scripts/*.sh .githooks/*; do
+            echo "bash -n $f"
+            bash -n "$f"
+          done
+
+      - name: Lint shell scripts
+        run: |
+          set -euo pipefail
+          shellcheck scripts/*.sh .githooks/*
+
+      - name: Check Node syntax
+        run: |
+          set -euo pipefail
+          count=0
+          while IFS= read -r f; do
+            echo "node --check $f"
+            node --check "$f"
+            count=$((count + 1))
+          done < <(find . -name '*.mjs' -not -path './node_modules/*' -not -path './.worktrees/*' | sort)
+          echo "checked ${count} module(s)"
+          test "$count" -gt 0
+
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+
+      - name: Catalog mirror is current
+        run: node scripts/generate-catalog-json.mjs --check
+
+      - name: Registry is internally consistent
+        run: node scripts/verify-registry.mjs
+
+      - name: Kit components load
+        run: |
+          set -euo pipefail
+          if [ ! -f scripts/verify-kit.mjs ]; then
+            echo "NOTICE: scripts/verify-kit.mjs is absent from this branch."
+            echo "The kit gate lands with the kit manifest; it is not counted as a pass."
+            exit 0
+          fi
+          node scripts/verify-kit.mjs
+
+  types:
+    name: Types
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+
+      - name: Type check the plugin
+        # Runs unconditionally so the step is reported even when the project
+        # carries no TypeScript. A project without a tsconfig is SKIPPED, never
+        # PASS: a check that did not run must not read as one that passed.
+        run: |
+          set -euo pipefail
+          if [ ! -f tsconfig.json ]; then
+            echo "SKIPPED: no tsconfig.json in this project; no TypeScript to check."
+            exit 0
+          fi
+          echo "installing the pinned type checker"
+          npm --yes install --no-save --no-audit --no-fund typescript@5
+          npx --yes tsc --noEmit -p tsconfig.json
+          echo "TypeScript check clean"
+
+  build:
+    name: Build
+    needs: [lint, verify, types]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Orchestration scripts are bash
+        run: |
+          set -euo pipefail
+          for f in scripts/dispatch-worktrees.sh scripts/merge-worktrees.sh \
+                   scripts/orchestrate-stage.sh scripts/teardown-stage.sh \
+                   scripts/setup-git-hooks.sh scripts/release.sh \
+                   scripts/record-decision.sh; do
+            head -n 1 "$f" | grep -q '^#!/usr/bin/env bash'
+          done
+          echo "all seven orchestration scripts carry a bash shebang"
+
+      - name: Orchestration scripts carry the executable bit
+        run: |
+          set -euo pipefail
+          git ls-files -s scripts/dispatch-worktrees.sh scripts/merge-worktrees.sh \
+            scripts/orchestrate-stage.sh scripts/teardown-stage.sh \
+            scripts/setup-git-hooks.sh scripts/release.sh scripts/record-decision.sh \
+            | awk '{ if ($1 != "100755") { print "not executable: " $4; bad = 1 } }
+                   END { exit bad }'
+          echo "all seven orchestration scripts are mode 100755"
+
+      - name: Checkpoint exposes the labeled state fields
+        # Runs unconditionally so the contract is reported even before the
+        # checkpoint document lands. An absent document is SKIPPED, never PASS.
+        run: |
+          set -euo pipefail
+          if [ ! -f docs/17-CHECKPOINT.md ]; then
+            echo "SKIPPED: docs/17-CHECKPOINT.md is absent from this branch; the checkpoint contract is unchecked."
+            exit 0
+          fi
+          grep -qE '^[[:space:]]*[-*]?[[:space:]]*(\*\*)?(Status|Phase|Concern)(\*\*)?:' \
+            docs/17-CHECKPOINT.md
+          echo "docs/17-CHECKPOINT.md exposes the labeled state fields the scripts read"
+
+      - name: Package release artifact
+        # Smoke-test artifact only; paths that have not landed on this branch
+        # are reported and skipped. release.yml is the strict packaging gate.
+        run: |
+          set -euo pipefail
+          tarfile="vantrilex-arsenal-${GITHUB_SHA::7}.tar.gz"
+          paths=()
+          for candidate in AGENTS.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md \
+            SECURITY.md registry scripts docs .opencode kit \
+            .editorconfig .gitattributes .gitignore .markdownlint.jsonc; do
+            if [ -e "$candidate" ]; then
+              paths+=("$candidate")
+            else
+              echo "absent on this branch, not packaged: $candidate"
+            fi
+          done
+          test "${#paths[@]}" -gt 0
+          printf 'packaging %s\n' "${paths[*]}"
+          tar -czf "$tarfile" "${paths[@]}"
+          echo "ARTIFACT=$tarfile" >> "$GITHUB_ENV"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vantrilex-arsenal-${{ github.sha }}
+          path: vantrilex-arsenal-*.tar.gz
+          retention-days: 14

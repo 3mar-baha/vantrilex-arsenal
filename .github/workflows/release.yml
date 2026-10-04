@@ -1,0 +1,43 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    name: Attach release artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Package release tarball
+        # Strict on purpose: a tag is a published promise, so a shipped path
+        # that is missing fails the job rather than producing a thinner
+        # archive than the release notes describe.
+        run: |
+          set -euo pipefail
+          tarfile="vantrilex-arsenal-${GITHUB_REF_NAME}.tar.gz"
+          tar -czf "$tarfile" \
+            AGENTS.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md SECURITY.md \
+            registry .opencode scripts kit docs \
+            .editorconfig .gitattributes .gitignore .markdownlint.jsonc
+          echo "packaged ${tarfile}"
+
+      - name: Upload artifact onto the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Self-healing: if the tag landed before its release was created,
+          # create it first so the upload always has a target.
+          gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1 || \
+            gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" \
+              --notes "See CHANGELOG.md for this version's change set."
+          gh release upload "$GITHUB_REF_NAME" \
+            "vantrilex-arsenal-${GITHUB_REF_NAME}.tar.gz" --clobber
+          echo "artifact attached to ${GITHUB_REF_NAME}"
