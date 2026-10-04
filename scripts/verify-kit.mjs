@@ -309,6 +309,12 @@ function main() {
     }
 
     const upstream = skills.filter((c) => typeof c.source === "string" && c.source !== SELF_SOURCE);
+    // Without gh credentials owner/repo resolution cannot be evaluated; a
+    // logged-out machine is an environment condition, not a kit defect.
+    const ghAuth = runCapture("gh", ["auth", "status"]);
+    if (ghAuth.ok === false) {
+      record("per-kind/skills-upstream", "SKIPPED", "gh not authenticated — upstream resolution not evaluated");
+    } else {
     const shapeFailures = [];
     const ghFailures = [];
     const ghSkipped = [];
@@ -359,6 +365,7 @@ function main() {
         "PASS",
         upstream.length + " install_cmd shapes hold and gh resolves every owner/repo (" + ghPassed + " resolved)"
       );
+    }
     }
 
     const npmMcps = components.filter((c) => c.kind === "mcp" && c.version_pin !== null && c.version_pin !== undefined);
