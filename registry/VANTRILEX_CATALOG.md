@@ -1503,7 +1503,7 @@ Consolidated reference of every system component with its folder path.
 | 3 | 0xDegenMo/lighter-mcp | MCP server for [Lighter](https://lighter.xyz) — a zero-fee zk-rollup perpetual… |  | `` |
 | 4 | 0xMassi/webclaw | Web content extraction for AI agents. 10 tools: scrape, crawl, map, batch, extra… |  | `` |
 | 5 | 27dream/mcp-eastmoney | China A-share stock market MCP server — real-time quotes, main capital flow ra… |  | `` |
-| 6 | 2nd1st/open-mcp-apps | MCP Apps engine where the AI builds, persists, and reuses interactive UI apps �… |  | `` |
+| 6 | 2nd1st/open-mcp-apps |  MCP Apps engine where the AI builds, persists, and reuses interactive UI apps — … |  | `` |
 | 7 | 2ools/mcp-server | Turn what your assistant just built into a durable, versioned project. One free … |  | `` |
 | 8 | 2s-io/sdk | Unified API for AI agents — 180+ tools across geocoding, weather (NWS), climat… |  | `` |
 | 9 | 930m310n/geomelon-mcp | Cities, countries, regions, and languages with multilingual names (50 languages)… |  | `` |
@@ -1703,7 +1703,7 @@ Consolidated reference of every system component with its folder path.
 | 203 | dengyier/OpenWorkProof | Verifiable execution protocol for AI agent tool calls. Ed25519-signed PolicyDeci… |  | `` |
 | 204 | Departi/mcp-server | Travel compliance and curated booking for digital nomads — visa requirements, … |  | `` |
 | 205 | deslay1/amendor-mcp | Lets the non-technical people you build for request UI changes directly on your … |  | `` |
-| 206 | DeusData/codebase-memory-mcp | Code-intelligence engine that indexes a repo into a persistent knowledge graph �… |  | `` |
+| 206 | DeusData/codebase-memory-mcp |  Code-intelligence engine that indexes a repo into a persistent knowledge graph —… |  | `` |
 | 207 | devag7/linkedin-mcp | LinkedIn for AI assistants over an authenticated browser session — profiles, p… |  | `` |
 | 208 | Developyn/laver-mcp | MCP server for [Laver](https://laver.app) project management: kanban boards, spr… |  | `` |
 | 209 | devemberx/mcp-server-polarion | Polarion ALM integration with 24 read/write tools for documents, work items, tra… |  | `` |
@@ -1967,7 +1967,7 @@ Consolidated reference of every system component with its folder path.
 | 467 | laszlopere/mcp-bytesmith | Local byte-wrangling toolbox: encoding (hex/Base64/Base32/Base58/Base45…), cry… |  | `` |
 | 468 | laszlopere/mcp-gnu-units | Unit conversion and dimensional analysis backed by the bundled GNU units databas… |  | `` |
 | 469 | laszlopere/mcp-molecules | Chemistry toolbox computed from authoritative data: molecular weight / molar mas… |  | `` |
-| 470 | laszlopere/mcp-tmux | Universal tmux driver: sessions, windows, panes, keystrokes, and pane capture �… |  | `` |
+| 470 | laszlopere/mcp-tmux |  Universal tmux driver: sessions, windows, panes, keystrokes, and pane capture — … |  | `` |
 | 471 | legolev/mediamcp | Image generation and editing plus video generation (Veo, Sora, Seedance) via Ope… |  | `` |
 | 472 | lennney/agent-search-mcp | Free multi-engine MCP search server — 8 free engines (DDG, Sogou, Bing, Baidu,… |  | `` |
 | 473 | leonardoca1/aesthetics-wiki-mcp | Search, read, and discover thousands of visual aesthetics (cottagecore, dark aca… |  | `` |
@@ -2300,7 +2300,7 @@ Consolidated reference of every system component with its folder path.
 | 800 | TheBestCo/bestprice-mcp | Read-only Greek price comparison: product search, offer comparison, and price hi… |  | `` |
 | 801 | theserverlessdev/wsc | Prose linter + AI-slop detector: weasel words, passive voice, hedging, and 190+ … |  | `` |
 | 802 | TheWhiteWater/tube-bridge | Self-hosted YouTube research MCP with 17 tools for video and channel search, tra… |  | `` |
-| 803 | Thezenmonster/agentmem | Governed memory for coding agents with trust lifecycle (hypothesis → active �… |  | `` |
+| 803 | Thezenmonster/agentmem |  Governed memory for coding agents with trust lifecycle (hypothesis → active → va… |  | `` |
 | 804 | thomasjumper/agentbay | StremAI: shared memory for AI coding agents. What one agent learns, every agent … |  | `` |
 | 805 | threadctx-dev/threadctx-mcp | Shared team memory for AI coding agents. Decisions, fixes, and gotchas persist p… |  | `` |
 | 806 | tickerdb/tickerdb-mcp | Pre-computed market data for AI agents — 10,000+ US stocks, ETFs, and crypto w… |  | `` |
@@ -2384,7 +2384,7 @@ Consolidated reference of every system component with its folder path.
 | 884 | Yarmoluk/ckg-mcp | Compressed Knowledge Graphs (pre-structured dependency DAGs) as MCP context — … |  | `` |
 | 885 | yenchieh/diagramzu-mcp | Let your AI author Mermaid diagrams (flowchart, sequence, ER, mindmap) in a shar… |  | `` |
 | 886 | YGao2005/scholar-feed-mcp | Semantic search over 600k+ CS/AI papers with citation-graph traversal, full-text… |  | `` |
-| 887 | Yocoolab/mcp-server | Pin visual feedback on any live web page — localhost, staging or production �… |  | `` |
+| 887 | Yocoolab/mcp-server |  Pin visual feedback on any live web page — localhost, staging or production — an… |  | `` |
 | 888 | yolfinance/yolfi-agent | Yolfi Payments MCP lets AI coding agents register Yolfi workspaces, create crypt… |  | `` |
 | 889 | yonlandwu/chinese-almanac-mcp | Chinese almanac (Tung Shing / 通勝) MCP server with NASA JPL solar-term precis… |  | `` |
 | 890 | yonro/memory-os-cli | XMemo is user-owned memory for AI agents over a hosted Streamable HTTP MCP endpo… |  | `` |
@@ -2481,7 +2481,7 @@ Consolidated reference of every system component with its folder path.
 | 34 | build-error-resolver | Build and TypeScript error resolution specialist. Use PROACTIVELY when build fai… |  | `` |
 | 35 | Business Strategist | Senior management consulting specialist for competitive analysis, market entry s… |  | `` |
 | 36 | Carousel Growth Engine | Autonomous TikTok and Instagram carousel generation specialist. Analyzes any web… |  | `` |
-| 37 | Cartography Designer | Map aesthetics specialist who designs beautiful, readable, and effective maps �… |  | `` |
+| 37 | Cartography Designer |  Map aesthetics specialist who designs beautiful, readable, and effective maps — … |  | `` |
 | 38 | Change Management Consultant | Expert change management specialist using ADKAR, Kotter, and Prosci frameworks t… |  | `` |
 | 39 | Chief Financial Officer | Strategic finance executive who governs capital allocation, treasury operations,… |  | `` |
 | 40 | Chief of Staff | Master coordinator for founders and executives — filters noise, owns processes… |  | `` |
@@ -2531,7 +2531,7 @@ Consolidated reference of every system component with its folder path.
 | 84 | Experiment Tracker | Expert project manager specializing in experiment design, execution tracking, an… |  | `` |
 | 85 | FedRAMP & RMF Compliance Engineer | Expert FedRAMP and NIST Risk Management Framework compliance engineer specializi… |  | `` |
 | 86 | Feedback Synthesizer | Expert in collecting, analyzing, and synthesizing user feedback from multiple ch… |  | `` |
-| 87 | Feishu Integration Developer | Full-stack integration expert specializing in the Feishu (Lark) Open Platform �… |  | `` |
+| 87 | Feishu Integration Developer |  Full-stack integration expert specializing in the Feishu (Lark) Open Platform — … |  | `` |
 | 88 | Filament Optimization Specialist | Expert in restructuring and optimizing Filament PHP admin interfaces for maximum… |  | `` |
 | 89 | Finance Tracker | Expert financial analyst and controller specializing in financial planning, budg… |  | `` |
 | 90 | Financial Analyst | Expert financial analyst specializing in financial modeling, forecasting, scenar… |  | `` |
