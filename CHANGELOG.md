@@ -33,16 +33,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `session-context-primer` (CONTEXT ANCHOR, read-only, ~10s budget),
   `github-release-packager` (Clean Code / Test / Docs guards, semver, annotated tag,
   `gh release`, fresh-clone verify).
-- **Vantrilex Vanguard scout skill** (merge pending owner release): six-step procedure
+- **Vantrilex Vanguard scout skill** (merged to main): six-step procedure
   (preflight, four-state detection, Arabic chatbot-relay prompt, source surveying,
   five-step selection, install-plus-verify-plus-report), the 28-file documentation
   contract with its 8-folder grouping, and per-kind verification protocols.
-  (Committed on its branch; merge pending owner release.)
-- **Vantrilex Doctrine law skill** (merge pending owner release): seven constitutional
+- **Vantrilex Doctrine law skill** (merged to main): seven constitutional
   laws, Leader/Guide/Implementer decision rights with escalation ladder, mandatory
   phase map, five workflows with the three second-pass guards given substance, three
-  session rituals, and §33B parallelism mechanics. (Committed on its branch; merge
-  pending owner release.)
+  session rituals, and §33B parallelism mechanics.
 - **Arsenal plugin `.opencode/plugin/arsenal.ts`** (on main via Round 2a): the six
   logical Tier-0 hooks as plugin callbacks (session-start, pre-compact, session-end,
   platform-neutral long-running-process guard, conditional TypeScript check,
@@ -53,20 +51,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Worktree orchestration** (on main via Round 2a): seven adapted shell scripts, two
   git hooks, and rebuilt CI (registry verifiers plus shellcheck plus tsc) and release
   workflows.
-- **`kit/kit.lock`** (merge pending owner release): 34 pinned Tier-0 entries plus
-  2 pending for the unmerged skills, its JSON schema, and `scripts/verify-kit.mjs`
-  (11 per-kind checks).
-- **`scripts/verify-skills.mjs`** (merge pending owner release): 10 skill-format
+- **`kit/kit.lock`** (merged to main): 36 pinned Tier-0 entries with an empty pending
+  list, its JSON schema, and `scripts/verify-kit.mjs` (11 per-kind checks).
+- **`scripts/verify-skills.mjs`** (merged to main): 10 skill-format
   checks including the mechanism single-home rule and the phase-map cross-check.
-- **The 16-file Arsenal documentation set under `docs/`**
-  (merge pending owner release).
-- **Four kit skills registered in the catalog** (merge pending owner release):
+- **The 16-file Arsenal documentation set under `docs/`** (merged to main).
+- **Four kit skills registered in the catalog** (merged to main):
   Vanguard and Doctrine as Tier-0 default-selected, session-context-primer and
   preflight-system-doctor as conditional; the catalog now carries 2,719 records with
   22 default-selected.
 
-  Round 2a (mechanism skills, plugin, roles, orchestration) is on main; every other
-  Round-2 entry above is branch-only until its owner release.
+  Round 2a (mechanism skills, plugin, roles, orchestration) is on main, as is every
+  other Round-2 entry above.
 
 ### Changed
 
@@ -79,13 +75,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ids are now disambiguated deterministically when two rows in a kind slugify
   identically — the first keeps the plain slug, later collisions take a `-row-<N>`
   suffix. This separates `Code Reviewer` (row 47) from `code-reviewer` (row 48).
-- Catalog sidecar corrections (merge pending owner release): the `github`
+- Catalog sidecar corrections (merged to main): the `github`
   default-selected flag set true (markdown said selected, sidecar said false),
   `ponytail-debt` phase set to operate per the mandatory phase map, and ten Tier-0
   skill phases/tiers corrected to that map with on-demand admitted as a phase.
 - The Doctrine session-start ritual now delegates anchor mechanics to
-  session-context-primer instead of duplicating its template (single-home rule)
-  (merge pending owner release).
+  session-context-primer instead of duplicating its template (single-home rule).
 - **Tier-0 census note (ratified 2026-10-04):** Ratified counting: 32 core records + 2 conditional hooks = 34 locked entries (36 with the two kit skills now locked as built). The two conditional hooks (typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits) are kept: they are part of the six hooks per kit spec §2.4 and explicitly conditional, and removing them would lose function. Ratified by owner 2026-10-04; no component was changed to resolve it.
 
 ### Fixed
@@ -102,12 +97,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   unquote scalars, so it read 60 overlap entries and resolved none of them. It now reads
   `supersedes:` and `pairs_with:` and resolves all 48 id references.
 - The generator rejected the new `formatting` section as an unknown heading.
-- Generator `--markdown` is now idempotent (merge pending owner release): it was
+- Generator `--markdown` is now idempotent (merged to main): it was
   re-sorting rows case-sensitively and rewriting Install cells, producing output its
   own parser rejected.
 - Generator `--indexes` now writes the plural kind directories and preserves
-  the hand-authored formatting index instead of overwriting it
-  (merge pending owner release).
+  the hand-authored formatting index instead of overwriting it.
 - The seven malformed UTF-8 sequences repaired in the catalog were already released
   in Round 1 (see the entry above); referenced here for traceability, not re-claimed.
 - Leader/Guide agent files: removed the inert `write: deny` permission keys
