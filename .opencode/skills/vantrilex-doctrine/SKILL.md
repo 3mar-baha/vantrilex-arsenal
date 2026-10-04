@@ -113,7 +113,7 @@ The phase map is mandatory. The `phase` field in `registry/catalog.json` is the 
 
 `preflight-system-doctor` is step 0 of the build phase: it verifies the machine and session ground truth before any build dispatch. `on-demand` is outside any phase: `find-skills` and `skill-creator` are never injected by phase and stay available to every phase. At each phase transition: prune, then inject — never stack two phases of kit.
 
-Catalog status, reported and never silent: `session-context-primer` and `preflight-system-doctor` are kit-local skills absent from `registry/catalog.json`; `ponytail-debt` is catalogued with a null `phase` while this map assigns it to operate. The map above governs regardless; the catalog backfill follows.
+Catalog status, reported and never silent: `session-context-primer` (tier `conditional`, phase `docs`) and `preflight-system-doctor` (tier `conditional`, phase `build`) are catalogued and their phases match this map; `ponytail-debt` is catalogued with phase `operate`, also matching this map, but carries a null `tier` where its peers carry `core` or `conditional`. The map above governs regardless; the tier backfill follows.
 
 ### B.4 — Workflows
 
