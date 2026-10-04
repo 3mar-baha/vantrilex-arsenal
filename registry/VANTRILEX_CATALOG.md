@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1489 — 7 default-selected)
+## Skills (1501 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1497,8 +1497,20 @@ Consolidated reference of every system component with its folder path.
 | 1487 | vantrilex-doctrine ✅ | Use when review and release work needs doctrine: states what are the rules, whic… | 3mar-baha/vantrilex-arsenal | `` |
 | 1488 | session-context-primer | Use when a session starts or context is lost to compaction — rebuilds the workin… | 3mar-baha/vantrilex-arsenal | `` |
 | 1489 | preflight-system-doctor | Use when entering the build phase or before any mutating or long-running work — … | 3mar-baha/vantrilex-arsenal | `` |
+| 1490 | lenis | Use when a page needs weighted inertial smooth scrolling — installing Lenis, wir… | 3mar-baha/vantrilex-arsenal | `` |
+| 1491 | og-image | Use when designing or generating Open Graph social preview cards with Satori or … | 3mar-baha/vantrilex-arsenal | `` |
+| 1492 | open-graph-image | Use when adding, editing, or reviewing a Next App Router opengraph-image or twit… | 3mar-baha/vantrilex-arsenal | `` |
+| 1493 | pre-mortem | Use when a change is about to be implemented or released and its failure modes s… | 3mar-baha/vantrilex-arsenal | `` |
+| 1494 | time-capsule-test | Use when code reads the clock, checks an expiry, compares a date, or stores when… | 3mar-baha/vantrilex-arsenal | `` |
+| 1495 | kit-evaluation-journal | Use when a kit component is being tried, adopted, kept, or dropped, so the attem… | 3mar-baha/vantrilex-arsenal | `` |
+| 1496 | red-team | Use when a plan, design, or diff needs an adversarial attack before it ships, so… | 3mar-baha/vantrilex-arsenal | `` |
+| 1497 | skill-shadow | Use when a component's procedure is about to be adopted or trusted but has never… | 3mar-baha/vantrilex-arsenal | `` |
+| 1498 | documentation-as-tests | Use when a documented command, snippet, path, or configuration key is about to b… | 3mar-baha/vantrilex-arsenal | `` |
+| 1499 | kit-evolution-log | Use when a kit component is added, changed, retired, or re-scoped, so the reason… | 3mar-baha/vantrilex-arsenal | `` |
+| 1500 | kill-switch-document | Use when a change could be stopped, paused, or rolled back unsafely, so the halt… | 3mar-baha/vantrilex-arsenal | `` |
+| 1501 | babel-bridge | Use when intent crosses a vocabulary boundary such as business language to imple… | 3mar-baha/vantrilex-arsenal | `` |
 
-## MCP Servers (904 — 8 default-selected)
+## MCP Servers (905 — 8 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2406,6 +2418,7 @@ Consolidated reference of every system component with its folder path.
 | 902 | zxhwolfe-dev/aiworkstation-open-source-intelligence | Evidence-backed open-source AI project intelligence for agents. Nine read-only t… |  | `` |
 | 903 | context7 ✅ | Live library and framework documentation lookup by package and version | upstash/context7 | `` |
 | 904 | firecrawl ✅ | Deep web scrape, crawl and extract with LLM-powered content analysis | firecrawl/firecrawl-mcp | `` |
+| 905 | lenis-mcp-server | Lenis smooth-scroll MCP server. The npm package is NOT published as of 2026-10-0… |  | `` |
 
 ## Plugins (12 — 3 default-selected)
 
@@ -2448,7 +2461,7 @@ Consolidated reference of every system component with its folder path.
 | 18 | warn-about-console-log-statements-after-edits | Warn about console.log statements after edits |  | `` |
 | 19 | long-running-process-guard ✅ | Guard long-running dev servers and watchers so their logs stay reachable |  | `` |
 
-## Agents (282 — 1 default-selected)
+## Agents (284 — 1 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2734,6 +2747,8 @@ Consolidated reference of every system component with its folder path.
 | 280 | XR Interface Architect | Spatial interaction designer and interface strategist for immersive AR/VR/XR env… |  | `` |
 | 281 | Zhihu Strategist | Expert Zhihu marketing specialist focused on thought leadership, community credi… |  | `` |
 | 282 | ZK Steward | Knowledge-base steward in the spirit of Niklas Luhmann's Zettelkasten. Default p… |  | `` |
+| 283 | red-team | Adversarial attacker that tries to break a plan, design, or diff before it ships… | 3mar-baha/vantrilex-arsenal | `` |
+| 284 | a11y-audit | Accessibility auditing agent from rksekar5/a11y-audit (MIT, 1 star, last push 20… | rksekar5/a11y-audit | `` |
 
 ## Formatting (13 — 0 default-selected)
 
@@ -2755,7 +2770,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2719
+- **Total components:** 2734
 - **Default-selected:** 22
 
 ---

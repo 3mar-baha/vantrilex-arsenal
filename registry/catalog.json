@@ -3,13 +3,13 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 2,
   "counts": {
-    "skill": 1489,
-    "mcp": 904,
+    "skill": 1501,
+    "mcp": 905,
     "plugin": 12,
     "hook": 19,
-    "agent": 282,
+    "agent": 284,
     "formatting": 13,
-    "total": 2719
+    "total": 2734
   },
   "components": [
     {
@@ -4277,6 +4277,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "babel-bridge",
+      "name": "babel-bridge",
+      "kind": "skill",
+      "description": "Use when intent crosses a vocabulary boundary such as business language to imple…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "planning",
+        "communication"
+      ],
+      "when_to_use": "When intent crosses a vocabulary boundary such as business language to implementation terms, so the translation is written down and reversible",
+      "phase": "plan",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -10987,6 +11010,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "documentation-as-tests",
+      "name": "documentation-as-tests",
+      "kind": "skill",
+      "description": "Use when a documented command, snippet, path, or configuration key is about to b…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "docs",
+        "testing"
+      ],
+      "when_to_use": "When a documented command, snippet, path or configuration key will be relied on, so the example is executed rather than trusted",
+      "phase": "docs",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -18625,6 +18671,29 @@
       "default_selected": false
     },
     {
+      "id": "kill-switch-document",
+      "name": "kill-switch-document",
+      "kind": "skill",
+      "description": "Use when a change could be stopped, paused, or rolled back unsafely, so the halt…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "safety",
+        "rollback"
+      ],
+      "when_to_use": "Before work that could be stopped, paused or rolled back unsafely begins, to write down the halt steps, their authority and their verification",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "kilo-kit-mcp",
       "name": "kilo-kit-mcp",
       "kind": "skill",
@@ -18643,6 +18712,52 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "kit-evaluation-journal",
+      "name": "kit-evaluation-journal",
+      "kind": "skill",
+      "description": "Use when a kit component is being tried, adopted, kept, or dropped, so the attem…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "kit",
+        "evaluation"
+      ],
+      "when_to_use": "Before a kit component is tried, adopted, kept or dropped, to record the attempt and its score in the evaluation journal",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "kit-evolution-log",
+      "name": "kit-evolution-log",
+      "kind": "skill",
+      "description": "Use when a kit component is added, changed, retired, or re-scoped, so the reason…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "kit",
+        "governance"
+      ],
+      "when_to_use": "When a kit component is added, changed, retired or re-scoped, to append the reason once and never rewrite it",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -18841,6 +18956,30 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "lenis",
+      "name": "lenis",
+      "kind": "skill",
+      "description": "Use when a page needs weighted inertial smooth scrolling — installing Lenis, wir…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": "jumagu/skills",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "frontend",
+        "scroll",
+        "motion"
+      ],
+      "when_to_use": "When a page needs weighted inertial smooth scrolling, or Lenis scroll janks, drifts, desyncs from a canvas or ScrollTrigger, or stops",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -21001,6 +21140,30 @@
       "default_selected": false
     },
     {
+      "id": "og-image",
+      "name": "og-image",
+      "kind": "skill",
+      "description": "Use when designing or generating Open Graph social preview cards with Satori or …",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": "RL22/my-agent-skills",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "frontend",
+        "design",
+        "social"
+      ],
+      "when_to_use": "When an Open Graph social preview card must be designed and rendered, or one renders blank, unstyled or differently on each run",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "onboard-gb200-1node-tests",
       "name": "onboard-gb200-1node-tests",
       "kind": "skill",
@@ -21063,6 +21226,30 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "open-graph-image",
+      "name": "open-graph-image",
+      "kind": "skill",
+      "description": "Use when adding, editing, or reviewing a Next App Router opengraph-image or twit…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": "soilmass/gelato",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "frontend",
+        "nextjs",
+        "review"
+      ],
+      "when_to_use": "When adding, editing or reviewing a Next App Router opengraph-image or twitter-image file, before the route fails at runtime",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -25973,6 +26160,29 @@
       "default_selected": false
     },
     {
+      "id": "pre-mortem-row-1493",
+      "name": "pre-mortem",
+      "kind": "skill",
+      "description": "Use when a change is about to be implemented or released and its failure modes s…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "planning",
+        "risk"
+      ],
+      "when_to_use": "Before a scoped change enters implementation, to name its failure modes and convert each into a cheap guard",
+      "phase": "plan",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "preflight-system-doctor",
       "name": "preflight-system-doctor",
       "kind": "skill",
@@ -26850,6 +27060,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "red-team",
+      "name": "red-team",
+      "kind": "skill",
+      "description": "Use when a plan, design, or diff needs an adversarial attack before it ships, so…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "review",
+        "adversarial"
+      ],
+      "when_to_use": "Before a plan, design or diff ships, to attack it deliberately and rank the holes by damage rather than by list order",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -28835,6 +29068,29 @@
       "default_selected": false
     },
     {
+      "id": "skill-shadow",
+      "name": "skill-shadow",
+      "kind": "skill",
+      "description": "Use when a component's procedure is about to be adopted or trusted but has never…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "evaluation",
+        "rehearsal"
+      ],
+      "when_to_use": "Before an untried procedure is adopted or trusted with consequences, to rehearse it in shadow mode against real inputs",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "skill-color-expert",
       "name": "skill.color-expert",
       "kind": "skill",
@@ -30459,6 +30715,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "time-capsule-test",
+      "name": "time-capsule-test",
+      "kind": "skill",
+      "description": "Use when code reads the clock, checks an expiry, compares a date, or stores when…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "testing",
+        "time"
+      ],
+      "when_to_use": "When code reads the clock, checks an expiry, compares a date or stores a timestamp, so the test still passes years from now",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -45553,6 +45832,29 @@
       "default_selected": false
     },
     {
+      "id": "lenis-mcp-server",
+      "name": "lenis-mcp-server",
+      "kind": "mcp",
+      "description": "Lenis smooth-scroll MCP server. The npm package is NOT published as of 2026-10-0…",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "mcp",
+        "scroll",
+        "frontend"
+      ],
+      "when_to_use": "Not installable: no Lenis MCP server is published on npm as of 2026-10-04, so this row exists as a parked idea rather than a component to provision",
+      "phase": null,
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "lennney-agent-search-mcp",
       "name": "lennney/agent-search-mcp",
       "kind": "mcp",
@@ -58942,6 +59244,29 @@
       "default_selected": false
     },
     {
+      "id": "a11y-audit",
+      "name": "a11y-audit",
+      "kind": "agent",
+      "description": "Accessibility auditing agent from rksekar5/a11y-audit (MIT, 1 star, last push 20…",
+      "source": "rksekar5/a11y-audit",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "agent",
+        "accessibility",
+        "review"
+      ],
+      "when_to_use": "When an interface needs an accessibility pass; the upstream project is young (1 star, last push 2026-06-01), so verify each finding against WCAG rather than trusting it",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "architect",
       "name": "architect",
       "kind": "agent",
@@ -59085,6 +59410,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "red-team",
+      "name": "red-team",
+      "kind": "agent",
+      "description": "Adversarial attacker that tries to break a plan, design, or diff before it ships…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "agent",
+        "review",
+        "adversarial"
+      ],
+      "when_to_use": "When a plan, design or diff needs an independent attacker before it ships, holding no edit permission and returning ranked findings only",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
