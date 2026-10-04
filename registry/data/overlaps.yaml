@@ -1,0 +1,217 @@
+# Registry overlap map for Vantrilex Vanguard: the relations that stop two colliding components being installed together.
+# supersedes means the members are alternatives and exactly one is chosen; pairs_with means the members are complementary and are installed together when both apply.
+# Id resolution rule used throughout this file: the first catalog row holding a slug keeps the plain id, and a later row with the same slug is addressed as slug-row-N. Only one id in the whole catalog needs that form, code-reviewer-row-48.
+# Four slugs are reused across two different kinds (code-review, frontend-design, mcp-builder, postgres), so every member below also carries an explicit kind and the kind decides which row the id resolves to.
+schema_version: 1
+generated_for: "vantrilex-arsenal"
+
+supersedes:
+  - group: "ponytail-review-vs-code-review"
+    note: "Both review a pending change set, so installing both puts two review doctrines in the same phase and they return contradictory verdicts on the same diff. A project standardises on one review lane."
+    winner: "ponytail-review"
+    members:
+      - id: "ponytail-review"
+        kind: "skill"
+        reason: "Deletion-first review that names what to remove: reinvented stdlib, needless abstraction, premature generality."
+      - id: "code-review"
+        kind: "skill"
+        reason: "Two-axis review of everything since a fixed point, judged against standards and against the spec."
+
+  - group: "ponytail-review-vs-ponytail-audit"
+    note: "Both hunt over-engineering and will report the same findings, so running both on one change set doubles the report for no extra coverage. Scope, not quality, is the difference: one diff, one repository."
+    winner: "ponytail-review"
+    members:
+      - id: "ponytail-review"
+        kind: "skill"
+        reason: "Per-diff scope, which is what a pre-merge review gate needs."
+      - id: "ponytail-audit"
+        kind: "skill"
+        reason: "Whole-repository scope producing a ranked list of what to delete; it belongs on a schedule, not on a diff."
+
+  - group: "code-review-skill-vs-code-review-plugin"
+    note: "These two records share the id code-review and are both default-selected, so a selector that resolves the id without reading the kind silently gets one of them twice. They carry different context cost, so a human picks the surface."
+    members:
+      - id: "code-review"
+        kind: "skill"
+        reason: "Default-selected skill (catalog row 252) holding the two-axis review doctrine as prose."
+      - id: "code-review"
+        kind: "plugin"
+        reason: "Default-selected plugin (catalog row 1) exposing code review as a command surface."
+
+  - group: "frontend-design-skill-vs-frontend-design-plugin"
+    note: "Same id, same subject area, and both feed the UI phase, so installing both duplicates guidance about visual design. One supplies the design doctrine, the other the pattern reference."
+    members:
+      - id: "frontend-design"
+        kind: "skill"
+        reason: "Skill (catalog row 561, anthropics/skills) giving guidance for distinctive, intentional visual design."
+      - id: "frontend-design"
+        kind: "plugin"
+        reason: "Plugin (catalog row 6) supplying UI patterns as a callable reference."
+
+  - group: "mcp-builder-skill-vs-mcp-builder-agent"
+    note: "Both exist to produce MCP servers and they share the id mcp-builder, so the id alone cannot say whether the project gets doctrine or hands. Whether the main agent is told how to build a server or a specialist agent builds it is a kit-constitution decision."
+    members:
+      - id: "mcp-builder"
+        kind: "skill"
+        reason: "Skill (catalog row 862) teaching the design and quality bar for a new MCP server."
+      - id: "mcp-builder"
+        kind: "agent"
+        reason: "Agent (catalog row 147) that designs, builds and tests the server end to end."
+
+  - group: "code-review-skill-vs-review-skill"
+    note: "Two general-purpose pull-request reviewers that both fan out over the same changed lines, so a project that installs both reviews every change twice for the same findings. The narrower one is the cheaper default."
+    winner: "code-review"
+    members:
+      - id: "code-review"
+        kind: "skill"
+        reason: "Default-selected, bounded to a fixed point, no subagent fan-out, so its context cost is predictable."
+      - id: "review"
+        kind: "skill"
+        reason: "Broader sweep that runs dedicated bug-hunter and security-auditor agents; worth it on large changes, wasteful on small ones."
+
+  - group: "skill-authoring-cluster"
+    note: "Three records create or improve SKILL.md files, and a selection agent that installs two of them ends up with conflicting advice on how a skill should be written. At most one belongs in a project."
+    winner: "skill-creator"
+    members:
+      - id: "skill-creator"
+        kind: "skill"
+        reason: "Default-selected and its scope already spans creating, modifying and measuring skills, so it covers the other two."
+      - id: "skill-authoring-workflow"
+        kind: "skill"
+        reason: "Meta workflow for authoring skills: choose a path, validate, then update docs."
+      - id: "skill-optimizer"
+        kind: "skill"
+        reason: "Diagnoses and optimises existing SKILL.md files against real session data."
+
+  - group: "grill-with-docs-supersedes-grill-me"
+    note: "grill-with-docs is the same relentless interview as grill-me and additionally writes ADRs, so installing both runs two interviews over one plan. Where the docs variant is available it is the only one needed."
+    winner: "grill-with-docs"
+    members:
+      - id: "grill-with-docs"
+        kind: "skill"
+        reason: "Same interrogation loop plus ADR emission, so it subsumes the plain variant."
+      - id: "grill-me"
+        kind: "skill"
+        reason: "Interrogation without artefacts; only worth keeping when a project refuses the ADR output."
+
+  - group: "code-reviewer-duplicate-row-48"
+    note: "The catalog carries two agents whose names differ only by case and therefore slugify to one id. Provenance shows they are two components from two different upstreams, not one component listed twice, so a human must confirm the merge before either is provisioned."
+    winner: "code-reviewer"
+    members:
+      - id: "code-reviewer"
+        kind: "agent"
+        reason: "Catalog row 47, spelled Code Reviewer, from msitarzewski/agency-agents; its description excludes style preferences, which is the narrower contract, and the kit spec promotes this row to the review lane."
+      - id: "code-reviewer-row-48"
+        kind: "agent"
+        reason: "Catalog row 48, spelled code-reviewer, from worldflowai/everything-claude-code; it demands a review after every code change, which overlaps the whole review phase."
+
+  - group: "pre-compact-vs-save-state-before-context-compaction"
+    note: "Both hooks fire on PreCompact and save session state, so installing both writes the state file twice on every compaction and the second write can clobber the first. Exactly one PreCompact hook belongs in a project."
+    winner: "pre-compact"
+    members:
+      - id: "pre-compact"
+        kind: "hook"
+        reason: "Default-selected PreCompact hook; the catalog and the kit spec both keep this row."
+      - id: "save-state-before-context-compaction"
+        kind: "hook"
+        reason: "Same trigger described in plain words, with no default selection and no extra behaviour."
+
+  - group: "session-end-vs-persist-session-state-on-end"
+    note: "Both hooks fire on SessionEnd and persist learnings, so installing both runs the persistence routine twice at teardown and risks duplicate or interleaved writes to the same state."
+    winner: "persist-session-state-on-end"
+    members:
+      - id: "persist-session-state-on-end"
+        kind: "hook"
+        reason: "The row the kit spec promotes to Tier 0 because it closes the loop with the session-start hook."
+      - id: "session-end"
+        kind: "hook"
+        reason: "Stop hook doing the same persistence; only wins where the Stop event is the one the harness actually emits."
+
+  - group: "suggest-compact-vs-suggest-manual-compaction-at-logical-intervals"
+    note: "Both implement the strategic-compact trigger and both prompt the operator to compact at a phase boundary, so running both double-prompts and trains the operator to ignore the prompt. There is no evidence in the catalog that either is the maintained one."
+    members:
+      - id: "suggest-compact"
+        kind: "hook"
+        reason: "Named after the strategic-compact skill it belongs to, so it is the hook that skill expects."
+      - id: "suggest-manual-compaction-at-logical-intervals"
+        kind: "hook"
+        reason: "Generic re-implementation of the same suggestion with no owner skill attached in the catalog."
+
+  - group: "design-system-choice"
+    note: "Design-system documents are alternatives by nature, so a project selects exactly one design system and never several; two installed at once produce conflicting tokens and components. No winner is declared because no design system dominates every project, and this template currently holds only the curated set entry point."
+    members:
+      - id: "formatting-design-md-set"
+        kind: "formatting"
+        reason: "Curated vendor set of design-system documents, recorded as the single entry point for the choice."
+      # The individual brand ids are added as members of this group once the curated twelve are chosen.
+
+pairs_with:
+  - group: "ponytail-debt-and-ponytail-gain"
+    note: "The ledger records every shortcut that was deferred and the scoreboard reports what those deferrals bought. Installed apart, one is a list nobody reads and the other reports numbers with no provenance."
+    members:
+      - id: "ponytail-debt"
+        kind: "skill"
+        role: "ledger writer, harvests ponytail shortcut comments into one debt list"
+      - id: "ponytail-gain"
+        kind: "skill"
+        role: "scoreboard, reports less code, less cost and more speed from the same shortcuts"
+
+  - group: "ponytail-mode-and-diff-gate"
+    note: "ponytail is the always-on lazy-senior mode for any coding task and ponytail-review is the deletion pass over the finished diff. The mode shapes the code as it is written and the gate catches what survived, so the kit spec keeps both."
+    members:
+      - id: "ponytail"
+        kind: "skill"
+        role: "default-selected working mode applied while code is written"
+      - id: "ponytail-review"
+        kind: "skill"
+        role: "diff gate run after the change, before merge"
+
+  - group: "grill-interview-family"
+    note: "Both skills run the same pre-docs interrogation, so a project can install either or both and the questions do not change. The docs variant additionally emits ADRs, so pairing them covers the interview and its artefacts."
+    members:
+      - id: "grill-me"
+        kind: "skill"
+        role: "default, interrogation with no written output"
+      - id: "grill-with-docs"
+        kind: "skill"
+        role: "docs-emitting variant, same interrogation plus ADR creation"
+
+  - group: "skill-authoring-loop"
+    note: "One component discovers an existing skill and the other forges a new one, so a project needs both to answer any authoring question: look before you build, then build when the catalog has no fit."
+    members:
+      - id: "find-skills"
+        kind: "skill"
+        role: "discovery, finds an existing skill before anything is written"
+      - id: "skill-creator"
+        kind: "skill"
+        role: "forging, creates and improves a skill when discovery comes up empty"
+
+  - group: "postgres-skill-and-mcp"
+    note: "The skill and the MCP server share the id postgres and cover the same read-only SQL capability from two sides. The server is the connection and the skill is the safety discipline that keeps the queries read-only, so neither is useful alone."
+    members:
+      - id: "postgres"
+        kind: "mcp"
+        role: "transport, the server that actually runs the queries"
+      - id: "postgres"
+        kind: "skill"
+        role: "discipline, enforces safe read-only SQL against that server"
+
+  - group: "review-doctrine-and-agent-lane"
+    note: "The skill states the review doctrine the main agent follows and the agent is the delegated lane that executes it. They occupy the same review phase but do not duplicate each other, because one is read and the other is dispatched."
+    members:
+      - id: "code-review"
+        kind: "skill"
+        role: "doctrine, the two-axis standard the review must meet"
+      - id: "code-reviewer"
+        kind: "agent"
+        role: "delegated lane, the agent that reviews against that standard"
+
+  - group: "security-doctrine-and-auditor"
+    note: "Both records come from the same upstream and cover one security review from two sides: the skill is the checklist consulted while writing, the agent is the specialist dispatched after. Pointing both at the same change set only duplicates findings."
+    members:
+      - id: "security-review"
+        kind: "skill"
+        role: "doctrine, consulted while adding auth, input handling, secrets or endpoints"
+      - id: "security-reviewer"
+        kind: "agent"
+        role: "delegated auditor, dispatched once the change exists"
