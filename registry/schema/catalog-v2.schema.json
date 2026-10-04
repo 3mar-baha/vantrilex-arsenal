@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vantrilex.dev/schema/catalog-v2.schema.json",
+  "title": "Vantrilex Catalog v2 Record",
+  "description": "One component record in the Vantrilex Registry. A record starts as a row parsed out of registry/VANTRILEX_CATALOG.md and becomes authoritative once registry/data/<kind>.jsonl enriches it. INVARIANT: a null install_cmd MUST carry verification 'unverified'. A record claiming verification 'verified' while install_cmd is null is invalid, because 'verified' asserts the install command was run against a real registry. A bare repository slug is not an install command, so it never populates install_cmd on its own.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "verification"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Stable lowercase-hyphenated slug derived from the display name, and the merge key against registry/data/<kind>.jsonl. An MCP row whose display name is already 'owner/repo' slugs by joining both segments, so '06ketan/slideshot' becomes '06ketan-slideshot'. Must be unique within its kind."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name exactly as authored in the catalog, with the trailing default-selection marker removed. Not required to be a slug and not required to be unique; id carries identity."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["skill", "mcp", "plugin", "hook", "agent", "formatting"],
+      "description": "Component family. Decides which registry subdirectory holds the component files and which registry/data/<kind>.jsonl sidecar may enrich it."
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line human summary of what the component does. May be the empty string when the source row carried none, but never null. Many rows are truncated by the authoring tool with a trailing U+2026; that truncation is source data and is preserved rather than expanded."
+    },
+    "source": {
+      "type": ["string", "null"],
+      "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+      "description": "The 'owner/repo' aggregator or collection the component is installed FROM. Null when the component ships inside Vantrilex itself and has no external origin."
+    },
+    "origin": {
+      "type": ["string", "null"],
+      "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+      "description": "The TRUE upstream author repository when it differs from source. Catalog v1 conflated aggregator with author, so a component redistributed by an awesome-list lost its real home: source 'VoltAgent/awesome-agent-skills' with origin 'shouldnotappearcalm/a-share-skill'. Null when source is already the author."
+    },
+    "install_cmd": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "A REAL, runnable shell command that installs this component, or null when no verified command is known. Never a bare repository slug, never a guess: a plausible-looking wrong command is worse than an admission of ignorance, because an agent will run it. Null forces verification to be 'unverified'."
+    },
+    "version_pin": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Exact version or tag the component is pinned to, such as 'v1.4.2'. Null means floating, which is the state of every record until backfill pins it."
+    },
+    "category": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Human-facing grouping label used by the generated per-kind index, such as 'security', 'research', or 'developer-tools'. Null when unclassified."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Lowercase, hyphenated search keywords. Always present in generated output; an unclassified record carries an empty array rather than null."
+    },
+    "when_to_use": {
+      "type": ["string", "null"],
+      "description": "One-line trigger describing the situation that should load this component. This is the text a model reads when deciding whether to invoke it. Null when the trigger is not yet authored."
+    },
+    "phase": {
+      "type": ["string", "null"],
+      "enum": ["scout", "docs", "plan", "build", "review", "operate", null],
+      "description": "Lifecycle phase this component belongs to. Null when the component spans phases or has not been placed yet."
+    },
+    "tier": {
+      "type": ["string", "null"],
+      "enum": ["core", "conditional", "extended", null],
+      "description": "Provisioning tier. 'core' leads the generated index, 'conditional' follows, 'extended' after that, and untiered entries last. Null means untiered."
+    },
+    "verify_cmd": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Command that proves the component works after installation, distinct from the command that installs it. Null when no verification procedure is known."
+    },
+    "cost_note": {
+      "type": ["string", "null"],
+      "enum": ["light", "heavy", null],
+      "description": "Relative cost of loading this component, so a model does not pull 'heavy' machinery into a trivial task. Null when the cost has not been measured."
+    },
+    "verification": {
+      "type": "string",
+      "enum": ["verified", "unverified"],
+      "description": "Provenance of this record's claims. 'verified' means install_cmd and origin were checked against a real registry or repository. 'unverified' means the record is carried as authored and its commands are not trusted. Any record with a null install_cmd MUST be 'unverified'."
+    },
+    "default_selected": {
+      "type": "boolean",
+      "description": "True when the component is included in Vantrilex provisioning automatically. Carried in the source catalog as a trailing U+2705 marker after the name."
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "The install-command invariant: a null install_cmd must be declared unverified.",
+      "if": {
+        "required": ["install_cmd"],
+        "properties": { "install_cmd": { "type": "null" } }
+      },
+      "then": {
+        "required": ["verification"],
+        "properties": { "verification": { "const": "unverified" } }
+      }
+    }
+  ]
+}
