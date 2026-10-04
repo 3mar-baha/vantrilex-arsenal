@@ -104,6 +104,14 @@ Tier 1: DevOps Automator (#68), researcher/scout agents for state-2 codebase rec
 
 **Default totals: 12 skills + 8 MCP + 6 plugins + 6 hooks + 4 agents = 36 core components** (up from 17).
 
+### 2.7 Formatting / design files — NEW Registry kind (`formatting/`)
+
+- Source: https://github.com/voltagent/awesome-design-md — fetched and vendored into the repo.
+- Contents: design tokens + component conventions (one file per concern).
+- Registry: registered as `kind: formatting` with real install/copy commands.
+- Tier: Tier-1 CONDITIONAL — injected for UI-frontend projects, not in Tier 0 core.
+- Vanguard rule: when a project is UI-heavy, the design-tokens doc is mandatory kit.
+
 ---
 
 ## 3. Catalog v2 — making it AI-consumable
@@ -169,3 +177,80 @@ cost_note: light               # light | heavy (context weight)
 2. Approve Tier 0 default set (§2) — esp. the 3 MCP additions and the 8-server cap.
 3. `block-creation-of-random-md-files` → Tier 0? (protects the 28-file docs discipline)
 4. Proceed to build Vanguard + Doctrine skill files from this spec?
+
+---
+
+## 6. Harvested from universal-agentic-os (owner's prior repo, reviewed 2026-10-04)
+
+Source: https://github.com/3mar-baha/universal-agentic-os — a production-grade agentic OS
+(Leader/Guide/Implementer tripartite model, 4-phase lifecycle, 16-file scaffold, 7 skills).
+Adopted below: only mechanisms that fill REAL gaps in the Vanguard/Doctrine design.
+
+### 6.1 Circuit breaker — 3 strikes (NEW constitutional law + skill)
+**Gap:** our bugfix workflow has NO halt condition — an agent can loop forever on one defect.
+**Adopt:** `circuit-breaker-guard` pattern. Same defect fingerprint surviving 3 consecutive failed
+fix attempts → HALT everything, emit a Diagnostic Incident Report (DIR) with the full hypothesis
+log, resume only on Guide-approved changed hypothesis (strikes reset) or Leader re-scope.
+One hypothesis stated BEFORE each attempt; one fix per attempt; ledger scoped per defect id.
+→ Add skill to Tier 0; add law to Doctrine constitution.
+
+### 6.2 Preflight system doctor (Vanguard step 0)
+**Gap:** our verify protocol checks components AFTER install; nothing verifies the machine/session
+ground truth BEFORE starting (runtimes, gh auth, git hygiene, disk, dirty workspace).
+**Adopt:** `preflight-system-doctor` pattern — PASS/FAIL/SKIPPED table with remediation commands,
+blocks on critical failures. Runs before Vanguard does anything else.
+→ Add as Tier-0 skill (or Vanguard built-in step).
+
+### 6.3 Git worktrees as the parallel-isolation mechanism
+**Gap:** §33B says "fan out parallel subagents" but never says HOW they avoid trampling each
+other's files.
+**Adopt:** one concern per git worktree; Implementers work in isolated worktrees; merges return
+through reviewed, signed-off integrations. Concrete, proven.
+→ Add to Doctrine workflow mechanics (the HOW of §33B fan-out).
+
+### 6.4 Phase-scoped kit injection + pruning (toolkit economy)
+**Gap:** our Tier-0 keeps all 36 components hot in every session — context burn.
+**Adopt:** install once centrally; INJECT per phase, PRUNE after. Context spend tracks the work:
+grill-me/wayfinder live only in docs/plan phases; tdd only in build; review skills only in review.
+This replaces the static 8-MCP cap with a dynamic budget (cap stays as a backstop).
+→ Add to Doctrine as the kit lifecycle rule.
+
+### 6.5 Release workflow (was missing entirely)
+**Gap:** we defined feature/review/security/bugfix workflows — but NO release lane.
+**Adopt:** phase-4 pattern — three second-pass guards (Clean Code / Test / Docs), changelog-driven,
+tagged release via release packager skill.
+→ Add `WORKFLOW-RELEASE` to the Doctrine workflow set (new docs file in the 28).
+
+### 6.6 Named roles with decision rights (Leader / Guide / Implementer)
+**Gap:** "the agent directs subagents" is vague on WHO decides WHAT.
+**Adopt:** Leader = routing/sequencing/abort, owns outcome. Guide = spec/gates/phase-exit sign-off,
+owns quality (incl. circuit-breaker invocation). Implementer = TDD micro-cycles in worktree,
+owns technical approach WITHIN spec — explicitly NOT scope or acceptance criteria.
+→ Add to Doctrine as the role model. (Maps: coding agent = Leader+Guide; subagents = Implementers.)
+
+### 6.7 Skill authoring format standard
+**Adopt:** every SKILL.md Vanguard writes follows the proven template —
+frontmatter (name + description) → Purpose → When to Use / Do NOT use → Inputs → Procedure.
+→ Add to spec as the skill-file standard.
+
+### Deliberately NOT adopted
+- 16-file scaffold (theirs) vs 28-file docs (ours) — theirs shipped and worked; flag for owner:
+  confirm 28 is substance, not documentation-theater. Calibration point, not a mandate.
+- Devcontainer/markdownlint/.env.example — repo hygiene, owner's call at build time.
+
+## 7. Transplant manifest (old repo → new repo)
+
+Source (read-only, clone to temp): https://github.com/3mar-baha/universal-agentic-os
+Rule: ADAPT from Claude Code → OpenCode plugin format. Never copy blindly, never modify source.
+
+**TRANSPLANT — skills:** `circuit-breaker-guard.md`, `preflight-system-doctor.md`,
+`session-context-primer.md`, `github-release-packager.md`
+**TRANSPLANT — scripts:** `dispatch-worktrees.sh`, `merge-worktrees.sh`, `orchestrate-stage.sh`,
+`teardown-stage.sh`, `setup-git-hooks.sh`, `release.sh`, `record-decision.sh`
+**TRANSPLANT — CI/hooks:** `.github/workflows/ci.yml`, `.github/workflows/release.yml`, `.githooks/`
+**REFERENCE for Doctrine:** `docs/04-QUALITY-GATES-AND-SAFETY.md`,
+`docs/03-ORCA-WORKTREES-AND-PARALLEL-AGENTS.md`, `docs/03-DECISIONS.md`
+**BUILD NEW:** Vantrilex Vanguard SKILL.md, Vantrilex Doctrine SKILL.md, Registry v2
+(catalog.json generator, per-folder _index.md, overlap map, dedupe pass),
+Tier-0 provisioning (incl. NEW context7 + firecrawl MCP entries, verified install cmds),
+kit.lock schema, per-kind verification protocol, repo scaffolding + README + docs.
