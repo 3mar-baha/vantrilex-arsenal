@@ -36,10 +36,9 @@
     { "id": "architect", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "plan", "tier": "core", "verification": "unverified" },
     { "id": "code-reviewer", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "review", "tier": "core", "verification": "unverified" },
     { "id": "ai-generated-code-security-auditor", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "review", "tier": "core", "verification": "unverified" },
-    { "id": "technical-writer", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "docs", "tier": "core", "verification": "unverified" }
+    { "id": "technical-writer", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "docs", "tier": "core", "verification": "unverified" },
+    { "id": "vantrilex-vanguard", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "scout", "tier": "core", "verification": "unverified" },
+    { "id": "vantrilex-doctrine", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "core", "verification": "unverified" }
   ],
-  "pending": [
-    { "id": "vantrilex-vanguard", "kind": "skill", "reason": "skill under construction; catalog row and lock entry land with the skill" },
-    { "id": "vantrilex-doctrine", "kind": "skill", "reason": "skill under construction; catalog row and lock entry land with the skill" }
-  ]
+  "pending": []
 }

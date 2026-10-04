@@ -86,6 +86,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The Doctrine session-start ritual now delegates anchor mechanics to
   session-context-primer instead of duplicating its template (single-home rule)
   (merge pending owner release).
+- **Tier-0 census note (pending owner ratification):** the owner-ratified Tier-0
+  census is 32 core records while the lock pins 34 entries because it also locks
+  the 2 conditional hooks per kit spec §2.4 (36 entries now that the two kit
+  skills are locked as built). This counting treatment awaits owner ratification;
+  no component was changed to resolve it.
 
 ### Fixed
 

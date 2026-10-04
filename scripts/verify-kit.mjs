@@ -25,7 +25,8 @@ const CATALOG_PATH = path.join(ROOT, "registry", "catalog.json");
 const ARSENAL_PATH = path.join(ROOT, ".opencode", "plugin", "arsenal.ts");
 const SKILLS_DIR = path.join(ROOT, ".opencode", "skills");
 
-const EXPECTED_PENDING = ["vantrilex-vanguard", "vantrilex-doctrine"];
+const EXPECTED_PENDING = [];
+const EXPECTED_LOCKED_SKILLS = ["vantrilex-vanguard", "vantrilex-doctrine"];
 
 const HOOK_FUNCTIONS = {
   "session-start": "sessionStart",
@@ -279,12 +280,13 @@ function main() {
     record("per-kind/agents", "FAIL", "cannot be evaluated: lockfile components unreadable");
   } else {
     const skills = components.filter((c) => c.kind === "skill");
-    const inRepo = skills.filter((c) => c.source === null || c.source === undefined);
+    const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
+    const inRepo = skills.filter((c) => c.source === null || c.source === undefined || c.source === SELF_SOURCE);
     if (inRepo.length === 0) {
       record(
         "per-kind/skills-in-repo",
         "PASS",
-        "0 in-repo skills locked; the two kit skills (vantrilex-vanguard, vantrilex-doctrine) are pending, not locked"
+        "0 in-repo skills locked; pending is empty"
       );
     } else {
       const failures = [];
@@ -306,7 +308,7 @@ function main() {
       }
     }
 
-    const upstream = skills.filter((c) => typeof c.source === "string");
+    const upstream = skills.filter((c) => typeof c.source === "string" && c.source !== SELF_SOURCE);
     const shapeFailures = [];
     const ghFailures = [];
     const ghSkipped = [];
@@ -566,11 +568,11 @@ function main() {
     const pendingIds = lock.pending.map((p) => p.id);
     const componentIds = new Set(components.map((c) => c.id));
     const problems = [];
-    for (const id of EXPECTED_PENDING) {
-      if (pendingIds.includes(id) === false) problems.push("expected pending id missing: " + id);
+    if (pendingIds.length > 0) problems.push("expected empty pending list, found: " + pendingIds.join(", "));
+    for (const id of EXPECTED_LOCKED_SKILLS) {
+      if (componentIds.has(id) === false) problems.push("expected locked component missing: " + id);
     }
     for (const id of pendingIds) {
-      if (EXPECTED_PENDING.includes(id) === false) problems.push("unexpected pending id: " + id);
       if (componentIds.has(id)) problems.push("pending id is also locked as a component: " + id);
     }
     if (problems.length > 0) {
@@ -579,7 +581,7 @@ function main() {
       record(
         "pending-integrity",
         "PASS",
-        "pending holds exactly " + EXPECTED_PENDING.join(", ") + "; both are absent from components"
+        "pending is empty; " + EXPECTED_LOCKED_SKILLS.join(", ") + " are locked as components (catalog-matching fields proven by the catalog-agreement check)"
       );
     }
   }
