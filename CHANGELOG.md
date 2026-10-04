@@ -81,7 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   skill phases/tiers corrected to that map with on-demand admitted as a phase.
 - The Doctrine session-start ritual now delegates anchor mechanics to
   session-context-primer instead of duplicating its template (single-home rule).
-- **Tier-0 census note (ratified 2026-10-04):** Ratified counting: 32 core records + 2 conditional hooks = 34 locked entries (36 with the two kit skills now locked as built). The two conditional hooks (typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits) are kept: they are part of the six hooks per kit spec §2.4 and explicitly conditional, and removing them would lose function. Ratified by owner 2026-10-04; no component was changed to resolve it.
+- **Tier-0 census note (ratified 2026-10-04):** The owner decision is final: 32 core records + 2 conditional hooks = 34 locked entries (36 total with vantrilex-vanguard and vantrilex-doctrine). The two conditional hooks (typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits) are KEPT: they are part of the six hooks per kit spec §2.4 and explicitly conditional, and removing them would lose function. Ratified by owner 2026-10-04; no component was changed to resolve it.
 
 ### Fixed
 
