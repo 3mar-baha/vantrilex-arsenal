@@ -74,8 +74,39 @@ Tier 0 (36 components) is pre-approved; Tier 1 is per-project.
   Proceed only after owner sign-off on failures.
 
 ### A.7 Step 5 — Documentation phase (28 files, `docs/`)
-Generate the numbered docs in 8 folders (see kit spec §2.7 for the canonical list
-00–27). Rules: English, detailed without stinginess, fixed numbers.
+Generate the numbered docs in 8 folders. Canonical list 00–27 (fixed numbers,
+fixed filenames — this list is authoritative; the "kit spec §2.7" pointer in
+earlier drafts was a stale reference and is superseded by this list):
+- `00-PROJECT-SUMMARY.md` — Project Summary
+- `01-VISION.md` — Vision
+- `02-GLOSSARY.md` — Glossary
+- `03-FUNCTIONAL-REQUIREMENTS.md` — Functional Requirements
+- `04-NON-FUNCTIONAL-REQUIREMENTS.md` — Non-Functional Requirements
+- `05-PERSONAS.md` — Personas
+- `06-SCOPE.md` — Scope
+- `07-SUCCESS-CRITERIA.md` — Success Criteria
+- `08-ARCHITECTURE-OVERVIEW.md` — Architecture Overview
+- `09-TECHNOLOGY-STACK.md` — Technology Stack
+- `10-DATA-MODEL.md` — Data Model
+- `11-API-CONTRACTS.md` — API Contracts
+- `12-SECURITY-MODEL.md` — Security Model
+- `13-ARCHITECTURE-DECISION-RECORD.md` — Architecture Decision Record
+- `14-KIT-INVENTORY.md` — Kit Inventory
+- `15-kit.lock` — kit.lock (lockfile, not Markdown)
+- `16-AGENT-REGISTRY.md` — Agent Registry
+- `17-CHECKPOINT.md` — Checkpoint (living state file, updated every session)
+- `18-WORKFLOW.md` — Main Workflow (left EMPTY for Doctrine to fill)
+- `19-FEATURE-WORKFLOW.md` — Feature Workflow
+- `20-REVIEW-WORKFLOW.md` — Review Workflow
+- `21-SECURITY-AUDIT-WORKFLOW.md` — Security Audit Workflow
+- `22-BUGFIX-WORKFLOW.md` — Bugfix Workflow
+- `23-ROADMAP.md` — Roadmap
+- `24-RISKS.md` — Risks
+- `25-AI-CONSTITUTION.md` — AI Constitution (immutable laws, see Doctrine Part B)
+- `26-AI-ANTIPATTERNS.md` — AI Antipatterns (what the agent must never do)
+- `27-PROBLEMS.md` — Problems
+Archive location for superseded docs: `docs/99-archive/` with a manifest (never delete).
+Rules: English, detailed without stinginess, fixed numbers.
 - `25-AI-CONSTITUTION.md` — immutable laws (see Doctrine Part B).
 - `26-AI-ANTIPATTERNS.md` — what the agent must never do.
 - `00-PROJECT-SUMMARY.md` — the comprehensive "if I forgot the project" reference.
