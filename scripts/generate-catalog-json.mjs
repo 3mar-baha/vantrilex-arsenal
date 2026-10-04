@@ -21,6 +21,7 @@ const SECTION_KINDS = new Map([
   ['Plugins', 'plugin'],
   ['Hooks', 'hook'],
   ['Agents', 'agent'],
+  ['Formatting', 'formatting'],
 ]);
 
 const SECTION_LABELS = new Map([
@@ -273,6 +274,30 @@ export function parseCatalogMarkdown(text, { path = CATALOG_MD } = {}) {
     }
 
     const tableEndLine = cursor;
+
+    /*
+      Ids must be unique within a kind, but two distinct rows can slugify
+      identically (the catalog has "Code Reviewer" at row 47 and "code-reviewer"
+      at row 48). The first occurrence keeps the plain slug; every later
+      collision is suffixed with its own catalog row number, which is derived
+      from the source data rather than invented. Registry/data/*.jsonl follows
+      the same rule, so sidecar entries line up with these ids.
+    */
+    const seenIds = new Set();
+    for (const [index_, record] of sectionRecords.entries()) {
+      if (!seenIds.has(record.id)) {
+        seenIds.add(record.id);
+        continue;
+      }
+      const rowNumber = index_ + 1;
+      const disambiguated = `${record.id}-row-${rowNumber}`;
+      if (seenIds.has(disambiguated)) {
+        fail(`${path}: section "${heading[1]}" has three or more rows slugifying to "${record.id}" — the row-number suffix cannot disambiguate them`);
+      }
+      seenIds.add(disambiguated);
+      record.id = disambiguated;
+    }
+
     const parsedDefaultCount = sectionRecords.filter((r) => r.default_selected).length;
     sections.push({
       kind,
@@ -300,8 +325,18 @@ export function parseCatalogMarkdown(text, { path = CATALOG_MD } = {}) {
 
 /* ---------- sidecars ---------- */
 
+const SIDECAR_FILES = new Map([
+  ['skill', 'skills.jsonl'],
+  ['mcp', 'mcp.jsonl'],
+  ['plugin', 'plugins.jsonl'],
+  ['hook', 'hooks.jsonl'],
+  ['agent', 'agents.jsonl'],
+  ['formatting', 'formatting.jsonl'],
+]);
+
 export function loadSidecar(kind, dataDir = DATA_DIR) {
-  const path = join(dataDir, `${kind}.jsonl`);
+  const fileName = SIDECAR_FILES.get(kind) ?? `${kind}.jsonl`;
+  const path = join(dataDir, fileName);
   if (!existsSync(path)) return { path, present: false, entries: [] };
 
   const entries = [];

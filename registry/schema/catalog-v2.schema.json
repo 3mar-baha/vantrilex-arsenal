@@ -64,7 +64,7 @@
     },
     "phase": {
       "type": ["string", "null"],
-      "enum": ["scout", "docs", "plan", "build", "review", "operate", null],
+      "enum": ["scout", "docs", "plan", "build", "review", "operate", "on-demand", null],
       "description": "Lifecycle phase this component belongs to. Null when the component spans phases or has not been placed yet."
     },
     "tier": {

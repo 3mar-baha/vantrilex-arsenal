@@ -1494,7 +1494,7 @@ Consolidated reference of every system component with its folder path.
 | 1484 | zero | Discover and call external paid tools for Claude Code agents instead of stopping… | VoltAgent/awesome-agent-skills | `VoltAgent/awesome-agent-skills` |
 | 1485 | zero-gemini | Same Zero tool-discovery and payment layer packaged as a Gemini CLI extension | VoltAgent/awesome-agent-skills | `VoltAgent/awesome-agent-skills` |
 
-## MCP Servers (902 — 5 default-selected)
+## MCP Servers (904 — 8 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1805,7 +1805,7 @@ Consolidated reference of every system component with its folder path.
 | 305 | getanyapi-com/mcp | AnyAPI: hundreds of scraping and data APIs (social media, search results, Google… |  | `` |
 | 306 | getpoststack/mcp | EU-hosted email API exposed as MCP tools — send transactional and marketing em… |  | `` |
 | 307 | gingugu/gingugu | Persistent memory for AI coding assistants. Local SQLite, no cloud. 16 MCP tools… |  | `` |
-| 308 | github | GitHub repos, issues, PRs. |  | `` |
+| 308 | github ✅ | GitHub repos, issues, PRs. |  | `` |
 | 309 | githunt-agent/githunt-mcp | Search, rank, and analyze GitHub developers for tech recruiting. Location/role/s… |  | `` |
 | 310 | gitlab | GitLab projects and pipelines. |  | `` |
 | 311 | glasswarp/mcp-server | See and control a real Windows PC you own from any MCP client, locally or remote… |  | `` |
@@ -2400,6 +2400,8 @@ Consolidated reference of every system component with its folder path.
 | 900 | Zsadigzade/trainbud | Talk to your Garmin Connect training data — activities, sleep, heart rate, rec… |  | `` |
 | 901 | zsxh1990/pr-genius | Evidence-backed PR contribution advisor. 550+ case studies from 33 repos, 8 tool… |  | `` |
 | 902 | zxhwolfe-dev/aiworkstation-open-source-intelligence | Evidence-backed open-source AI project intelligence for agents. Nine read-only t… |  | `` |
+| 903 | context7 ✅ | Live library and framework documentation lookup by package and version | upstash/context7 | `` |
+| 904 | firecrawl ✅ | Deep web scrape, crawl and extract with LLM-powered content analysis | firecrawl/firecrawl-mcp | `` |
 
 ## Plugins (12 — 3 default-selected)
 
@@ -2418,13 +2420,13 @@ Consolidated reference of every system component with its folder path.
 | 11 | security-guidance | Security checks |  | `` |
 | 12 | typescript-lsp ✅ | TypeScript intelligence |  | `` |
 
-## Hooks (18 — 3 default-selected)
+## Hooks (19 — 3 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
 | 1 | auto-format-js-ts-files-with-prettier-after-edits | Auto-format JS/TS files with Prettier after edits |  | `` |
 | 2 | block-creation-of-random-md-files-keeps-docs-consolidated | Block creation of random .md files - keeps docs consolidated |  | `` |
-| 3 | block-dev-servers-outside-tmux-ensures-you-can-access-logs ✅ | Block dev servers outside tmux - ensures you can access logs |  | `` |
+| 3 | block-dev-servers-outside-tmux-ensures-you-can-access-logs | Superseded by long-running-process-guard; tmux is unavailable on the target platform |  | `` |
 | 4 | check-for-console-log-in-modified-files-after-each-response | Check for console.log in modified files after each response |  | `` |
 | 5 | evaluate-session-for-extractable-patterns | Evaluate session for extractable patterns |  | `` |
 | 6 | load-previous-context-and-detect-package-manager-on-new-session | Load previous context and detect package manager on new session |  | `` |
@@ -2440,6 +2442,7 @@ Consolidated reference of every system component with its folder path.
 | 16 | suggest-manual-compaction-at-logical-intervals | Suggest manual compaction at logical intervals |  | `` |
 | 17 | typescript-check-after-editing-ts-tsx-files | TypeScript check after editing .ts/.tsx files |  | `` |
 | 18 | warn-about-console-log-statements-after-edits | Warn about console.log statements after edits |  | `` |
+| 19 | long-running-process-guard ✅ | Guard long-running dev servers and watchers so their logs stay reachable |  | `` |
 
 ## Agents (282 — 1 default-selected)
 
@@ -2728,16 +2731,36 @@ Consolidated reference of every system component with its folder path.
 | 281 | Zhihu Strategist | Expert Zhihu marketing specialist focused on thought leadership, community credi… |  | `` |
 | 282 | ZK Steward | Knowledge-base steward in the spirit of Niklas Luhmann's Zettelkasten. Default p… |  | `` |
 
+## Formatting (13 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | formatting-design-md-set | Curated design-system reference documents for UI-heavy projects | 3mar-baha/vantrilex-arsenal | `registry/formatting/` |
+| 2 | vercel | Minimal, technical, AI-native product interface system | voltagent/awesome-design-md | `registry/formatting/brands/vercel/` |
+| 3 | linear.app | Dense, keyboard-driven product interface system | voltagent/awesome-design-md | `registry/formatting/brands/linear.app/` |
+| 4 | notion | Content-first, document-centric product interface system | voltagent/awesome-design-md | `registry/formatting/brands/notion/` |
+| 5 | stripe | Developer documentation and enterprise billing surfaces | voltagent/awesome-design-md | `registry/formatting/brands/stripe/` |
+| 6 | figma | Collaborative design-tool interface system | voltagent/awesome-design-md | `registry/formatting/brands/figma/` |
+| 7 | slack | Realtime, dense, notification-heavy team interface system | voltagent/awesome-design-md | `registry/formatting/brands/slack/` |
+| 8 | supabase | Developer platform console and documentation system | voltagent/awesome-design-md | `registry/formatting/brands/supabase/` |
+| 9 | shopify | Commerce admin and storefront interface system | voltagent/awesome-design-md | `registry/formatting/brands/shopify/` |
+| 10 | airbnb | Consumer marketplace and booking interface system | voltagent/awesome-design-md | `registry/formatting/brands/airbnb/` |
+| 11 | raycast | Launcher and command-palette productivity system | voltagent/awesome-design-md | `registry/formatting/brands/raycast/` |
+| 12 | opencode.ai | Terminal-agent developer tool interface system | voltagent/awesome-design-md | `registry/formatting/brands/opencode.ai/` |
+| 13 | claude | Conversational AI assistant interface system | voltagent/awesome-design-md | `registry/formatting/brands/claude/` |
+
 ## Summary
 
-- **Total components:** 2699
-- **Default-selected:** 17
+- **Total components:** 2715
+- **Default-selected:** 20
 
 ---
 
 **Folder paths:**
-- Skills → `skills/`
-- MCP Servers → `mcp/`
-- Plugins → `plugins/`
-- Hooks → `hooks/`
-- Agents → `agents/`
+- Skills → `registry/skills/`
+- MCP Servers → `registry/mcp/`
+- Plugins → `registry/plugins/`
+- Hooks → `registry/hooks/`
+- Agents → `registry/agents/`
+- Formatting → `registry/formatting/`
+- Machine mirror → `registry/catalog.json`
