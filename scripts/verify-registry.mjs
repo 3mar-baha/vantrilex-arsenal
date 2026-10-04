@@ -163,16 +163,15 @@ function checkInstallInvariant(records) {
 /*
   Recognised registry/data/overlaps.yaml shape:
 
-    overlaps:
-      - <id>
-      - ids: <id>, <id>
-        canonical: <id>
-      - ids:
-          - <id>
-          - <id>
+    supersedes:            (or pairs_with:, or overlaps:)
+      - group: <label>
+        winner: <id>
+        members:
+          - id: <id>
+            kind: <kind>
 
-  Only scalars under a reference field (ids, canonical, keep, drop, ...) and bare
-  list items are treated as id references; free-text fields such as `topic` are not.
+  Only scalars under a reference field (id, ids, winner, canonical, keep, drop, ...)
+  are treated as id references; free-text fields such as group, note and reason are not.
 */
 function readSimpleYaml(text) {
   const entries = [];
@@ -188,7 +187,7 @@ function readSimpleYaml(text) {
     const body = withoutComment.trim();
 
     if (indent === 0) {
-      inOverlaps = /^overlaps\s*:/.test(body);
+      inOverlaps = /^(overlaps|supersedes|pairs_with)\s*:/.test(body);
       current = null;
       pendingKey = null;
       continue;
@@ -229,8 +228,11 @@ function readSimpleYaml(text) {
 }
 
 function pushField(entry, key, value) {
-  const text = value.trim().replace(/^\[(.*)\]$/u, '$1');
-  const values = text === '' ? [] : text.split(',').map((part) => part.trim()).filter((part) => part !== '');
+  const unquoted = value
+    .trim()
+    .replace(/^\[(.*)\]$/u, '$1')
+    .replace(/^(['"])(.*)\1$/u, '$2');
+  const values = unquoted === '' ? [] : unquoted.split(',').map((part) => part.trim().replace(/^(['"])(.*)\1$/u, '$2')).filter((part) => part !== '');
   entry.fields.set(key, [...(entry.fields.get(key) ?? []), ...values]);
 }
 
@@ -263,7 +265,7 @@ function checkOrphans(records) {
   if (entries.length === 0) {
     return {
       status: 'FAIL',
-      detail: 'registry/data/overlaps.yaml has no entries under an "overlaps:" key, so the check evaluated nothing',
+      detail: 'registry/data/overlaps.yaml has no entries under a "supersedes:", "pairs_with:" or "overlaps:" key, so the check evaluated nothing',
     };
   }
 
