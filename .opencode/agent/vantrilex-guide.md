@@ -4,7 +4,6 @@ description: "Owns the specification, the quality gates and phase-exit sign-off,
 mode: subagent
 permission:
   edit: deny
-  write: deny
   bash: ask
 ---
 

@@ -4,7 +4,6 @@ description: "Routes, sequences and dispatches Vantrilex workstreams across Impl
 mode: subagent
 permission:
   edit: deny
-  write: deny
   bash: ask
 ---
 
