@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1485 — 5 default-selected)
+## Skills (1489 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1493,6 +1493,10 @@ Consolidated reference of every system component with its folder path.
 | 1483 | zapier-mcp | Official plugin distribution for the hosted Zapier MCP server. Connects Claude t… | VoltAgent/awesome-agent-skills | `VoltAgent/awesome-agent-skills` |
 | 1484 | zero | Discover and call external paid tools for Claude Code agents instead of stopping… | VoltAgent/awesome-agent-skills | `VoltAgent/awesome-agent-skills` |
 | 1485 | zero-gemini | Same Zero tool-discovery and payment layer packaged as a Gemini CLI extension | VoltAgent/awesome-agent-skills | `VoltAgent/awesome-agent-skills` |
+| 1486 | vantrilex-vanguard ✅ | Equips a project on demand — use when the owner says equip this project or set u… | 3mar-baha/vantrilex-arsenal | `` |
+| 1487 | vantrilex-doctrine ✅ | Use when review and release work needs doctrine: states what are the rules, whic… | 3mar-baha/vantrilex-arsenal | `` |
+| 1488 | session-context-primer | Use when a session starts or context is lost to compaction — rebuilds the workin… | 3mar-baha/vantrilex-arsenal | `` |
+| 1489 | preflight-system-doctor | Use when entering the build phase or before any mutating or long-running work — … | 3mar-baha/vantrilex-arsenal | `` |
 
 ## MCP Servers (904 — 8 default-selected)
 
@@ -2751,8 +2755,8 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2715
-- **Default-selected:** 20
+- **Total components:** 2719
+- **Default-selected:** 22
 
 ---
 

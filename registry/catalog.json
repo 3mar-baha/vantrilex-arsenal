@@ -3,13 +3,13 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 2,
   "counts": {
-    "skill": 1485,
+    "skill": 1489,
     "mcp": 904,
     "plugin": 12,
     "hook": 19,
     "agent": 282,
     "formatting": 13,
-    "total": 2715
+    "total": 2719
   },
   "components": [
     {
@@ -25657,7 +25657,7 @@
         "skill"
       ],
       "when_to_use": null,
-      "phase": null,
+      "phase": "operate",
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
@@ -25969,6 +25969,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "preflight-system-doctor",
+      "name": "preflight-system-doctor",
+      "kind": "skill",
+      "description": "Use when entering the build phase or before any mutating or long-running work — …",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "preflight",
+        "verification"
+      ],
+      "when_to_use": "Before any execution, to verify the machine and block on critical failures",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -28521,6 +28544,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "session-context-primer",
+      "name": "session-context-primer",
+      "kind": "skill",
+      "description": "Use when a session starts or context is lost to compaction — rebuilds the workin…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "session",
+        "context"
+      ],
+      "when_to_use": "At session start or after context loss, to rebuild the working anchor",
+      "phase": "docs",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -31229,6 +31275,52 @@
       "cost_note": null,
       "verification": "unverified",
       "default_selected": false
+    },
+    {
+      "id": "vantrilex-doctrine",
+      "name": "vantrilex-doctrine",
+      "kind": "skill",
+      "description": "Use when review and release work needs doctrine: states what are the rules, whic…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "governance",
+        "workflows"
+      ],
+      "when_to_use": "Whenever work needs roles, gates, and workflow law enforced",
+      "phase": "operate",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": true
+    },
+    {
+      "id": "vantrilex-vanguard",
+      "name": "vantrilex-vanguard",
+      "kind": "skill",
+      "description": "Equips a project on demand — use when the owner says equip this project or set u…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "scout",
+        "provisioning"
+      ],
+      "when_to_use": "At project start, to detect project state and equip the correct kit",
+      "phase": "scout",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": true
     },
     {
       "id": "varlock-claude-skill",
@@ -42752,7 +42844,7 @@
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
-      "default_selected": false
+      "default_selected": true
     },
     {
       "id": "githunt-agent-githunt-mcp",
