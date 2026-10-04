@@ -163,20 +163,7 @@ Each workflow states its trigger, required kit, steps, gates, and done-definitio
 
 #### Ritual 1 — Start
 
-Read `docs/25-AI-CONSTITUTION.md` and `docs/00-PROJECT-SUMMARY.md`, then emit exactly one CONTEXT ANCHOR block (~10s budget; delegate the mechanics to session-context-primer; an approximate anchor now beats a perfect anchor late):
-
-```text
-CONTEXT ANCHOR
-----------------------------------------------------------
-  Mission  : <one-liner from docs/00-PROJECT-SUMMARY.md>
-  Phase    : <docs | plan | build | review | operate>
-  Branch   : <branch> (<clean | N files changed>)
-  Worktrees : <active worktrees, or "none">
-  Next     : <top roadmap item id and title>
-  Guards   : Clean Code <pending | passed> | Test <pending | passed> | Docs <pending | passed>
-  Circuit  : <n strike(s) or DIR open>
-----------------------------------------------------------
-```
+Read `docs/25-AI-CONSTITUTION.md` and `docs/00-PROJECT-SUMMARY.md`, then delegate the anchor mechanics to `session-context-primer` and consume the single anchor block it emits (~10s budget; an approximate anchor now beats a perfect anchor late). The anchor format has its single home in `session-context-primer`, which defines the seven fields the anchor carries — mission, phase, branch, worktrees, next item, guards, and circuit state — and Doctrine consumes the anchor rather than defining it.
 
 #### Ritual 2 — End
 
