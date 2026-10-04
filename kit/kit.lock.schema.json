@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vantrilex.dev/schema/kit-lock.schema.json",
+  "title": "Vantrilex Kit Lockfile",
+  "description": "Pinned Tier-0 kit (Vantrilex Core) plus the pending list. Compatible with registry/schema/catalog-v2.schema.json: a verified entry MUST carry a non-null install_cmd, and a null install_cmd MUST be recorded unverified.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["lockfileVersion", "kit", "mcp_cap", "components", "pending"],
+  "properties": {
+    "lockfileVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Lockfile format version. Version 1 is the only version this schema accepts."
+    },
+    "kit": {
+      "type": "string",
+      "const": "vantrilex-core",
+      "description": "Kit selector. The Tier-0 set is always named vantrilex-core."
+    },
+    "mcp_cap": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Maximum number of tier-core MCP entries allowed in components. Mirrors the Tier-0 context-budget cap."
+    },
+    "components": {
+      "type": "array",
+      "description": "Pinned kit entries, one per locked (id, kind) pair.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "source", "install_cmd", "version_pin", "phase", "tier", "verification"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["skill", "mcp", "plugin", "hook", "agent"]
+          },
+          "source": {
+            "type": ["string", "null"],
+            "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$"
+          },
+          "install_cmd": {
+            "type": ["string", "null"],
+            "minLength": 1
+          },
+          "version_pin": {
+            "type": ["string", "null"],
+            "minLength": 1
+          },
+          "phase": {
+            "type": "string",
+            "enum": ["scout", "docs", "plan", "build", "review", "operate", "on-demand"]
+          },
+          "tier": {
+            "type": "string",
+            "enum": ["core", "conditional", "extended"]
+          },
+          "verification": {
+            "type": "string",
+            "enum": ["verified", "unverified"]
+          }
+        },
+        "allOf": [
+          {
+            "$comment": "A verified entry MUST carry a runnable install command; a null install_cmd is recorded unverified.",
+            "if": {
+              "properties": { "verification": { "const": "verified" } }
+            },
+            "then": {
+              "required": ["install_cmd"],
+              "properties": { "install_cmd": { "type": "string", "minLength": 1 } }
+            }
+          }
+        ]
+      }
+    },
+    "pending": {
+      "type": "array",
+      "description": "Kit members that are not yet built. Every pending id MUST be absent from components.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "reason"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["skill", "mcp", "plugin", "hook", "agent"]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
