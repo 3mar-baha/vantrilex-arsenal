@@ -38,7 +38,20 @@
     { "id": "ai-generated-code-security-auditor", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "review", "tier": "core", "verification": "unverified" },
     { "id": "technical-writer", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "docs", "tier": "core", "verification": "unverified" },
     { "id": "vantrilex-vanguard", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "scout", "tier": "core", "verification": "unverified" },
-    { "id": "vantrilex-doctrine", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "core", "verification": "unverified" }
+    { "id": "vantrilex-doctrine", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "core", "verification": "unverified" },
+    { "id": "lenis", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "build", "tier": "conditional", "verification": "unverified" },
+    { "id": "og-image", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "build", "tier": "conditional", "verification": "unverified" },
+    { "id": "open-graph-image", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "build", "tier": "conditional", "verification": "unverified" },
+    { "id": "time-capsule-test", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "build", "tier": "conditional", "verification": "unverified" },
+    { "id": "kit-evaluation-journal", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" },
+    { "id": "red-team", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "review", "tier": "conditional", "verification": "unverified" },
+    { "id": "skill-shadow", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "review", "tier": "conditional", "verification": "unverified" },
+    { "id": "documentation-as-tests", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "docs", "tier": "conditional", "verification": "unverified" },
+    { "id": "kit-evolution-log", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" },
+    { "id": "kill-switch-document", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" },
+    { "id": "babel-bridge", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "plan", "tier": "conditional", "verification": "unverified" },
+    { "id": "red-team", "kind": "agent", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "review", "tier": "conditional", "verification": "unverified" },
+    { "id": "a11y-audit", "kind": "agent", "source": "rksekar5/a11y-audit", "install_cmd": null, "version_pin": null, "phase": "review", "tier": "conditional", "verification": "unverified" }
   ],
   "pending": []
 }

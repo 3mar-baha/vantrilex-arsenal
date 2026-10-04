@@ -60,6 +60,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Vanguard and Doctrine as Tier-0 default-selected, session-context-primer and
   preflight-system-doctor as conditional; the catalog now carries 2,719 records with
   22 default-selected.
+- **Fifteen components registered and thirteen locked**, taking the catalog to
+  **2,734 records with 22 default-selected**: twelve in-repo skills (`lenis`,
+  `og-image`, `open-graph-image`, `pre-mortem`, `time-capsule-test`,
+  `kit-evaluation-journal`, `red-team`, `skill-shadow`, `documentation-as-tests`,
+  `kit-evolution-log`, `kill-switch-document`, `babel-bridge`), the in-repo
+  `red-team` agent, the upstream `a11y-audit` agent (`rksekar5/a11y-audit`, MIT,
+  1 star, last push 2026-06-01 — a young project, so its findings are recorded
+  unverified), and the `lenis-mcp-server` MCP. Every new record is `tier
+  conditional` and `verification unverified` with a null `install_cmd`; none is
+  default-selected, and the Tier-0 core count stays at 34. `lenis-mcp-server` is
+  recorded unverified because **no such package is published on npm as of
+  2026-10-04** (`lenis-mcp-server`, `@lenis/mcp-server`, `lenis-mcp`,
+  `mcp-server-lenis` and `lenis-mcp-servers` all return E404), so it carries no
+  invented install command and is deliberately absent from `kit.lock`. The
+  in-repo `pre-mortem` is catalogued under the derived id `pre-mortem-row-1493`
+  because row 1168 already holds the `pre-mortem` slug, and it is likewise not
+  locked: its catalog id matches no `.opencode/skills/` folder, so a lock entry
+  naming it would be a pin to nothing.
 
   Round 2a (mechanism skills, plugin, roles, orchestration) is on main, as is every
   other Round-2 entry above.
@@ -81,7 +99,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   skill phases/tiers corrected to that map with on-demand admitted as a phase.
 - The Doctrine session-start ritual now delegates anchor mechanics to
   session-context-primer instead of duplicating its template (single-home rule).
-- **Tier-0 census note (ratified 2026-10-04):** Ratified counting: 32 core records + 2 conditional hooks = 34 locked entries (36 with the two kit skills now locked as built). The two conditional hooks (typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits) are kept: they are part of the six hooks per kit spec §2.4 and explicitly conditional, and removing them would lose function. Ratified by owner 2026-10-04; no component was changed to resolve it.
+- **Tier-0 census note (ratified 2026-10-04):** The owner decision is final: 32 core records + 2 conditional hooks = 34 locked entries (36 total with vantrilex-vanguard and vantrilex-doctrine). The two conditional hooks (typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits) are KEPT: they are part of the six hooks per kit spec §2.4 and explicitly conditional, and removing them would lose function. Ratified by owner 2026-10-04; no component was changed to resolve it.
 
 ### Fixed
 

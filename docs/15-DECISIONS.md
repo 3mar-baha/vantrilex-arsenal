@@ -160,3 +160,22 @@ the ratified list and are left vacant rather than filled.
 - **Consequences:** Overlap entries always carry a kind; exactly one id in
   the catalog carries the suffixed form; the verifier fails on any
   within-kind collision the rule cannot separate.
+
+## Tier-0 census ratified, both conditional hooks kept
+
+- **Date:** 2026-10-04
+- **Context:** The census recorded above reported 32 core records plus two
+  still-pending skills and left the two conditional hooks unadjudicated. Both
+  are named in kit spec §2.4 as part of the six hooks and are explicitly
+  conditional, so deleting them to make a count tidy would drop function the
+  specification requires.
+- **Decision:** Ratified by the owner — keep both conditional hooks
+  (`typescript-check-after-editing-ts-tsx-files` and
+  `auto-format-js-ts-files-with-prettier-after-edits`). The final count is 32
+  core records + 2 conditional hooks = 34 locked entries, 36 total with
+  vantrilex-vanguard and vantrilex-doctrine.
+- **Consequences:** No component, sidecar, or lock entry changed to resolve
+  it; [CHANGELOG.md](../CHANGELOG.md) states the same counting decision, and
+  [01-OVERVIEW.md](01-OVERVIEW.md), [04-VANGUARD.md](04-VANGUARD.md), and
+  [13-CONTRIBUTING-WORKFLOW.md](13-CONTRIBUTING-WORKFLOW.md) carry the same
+  figures as settled rather than provisional.
