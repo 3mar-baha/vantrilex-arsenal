@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing merged yet.
+
+---
+
+## [0.2.0] — 2026-10-04
+
 ### Added
 
 - **Vantrilex Registry v2.** Catalog schema, generator, and verifier under `scripts/`,
@@ -144,5 +150,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.1.0
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.2.0
+[0.1.0]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.1.0...v0.2.0
