@@ -33,6 +33,15 @@ const SECTION_LABELS = new Map([
   ['formatting', 'Formatting'],
 ]);
 
+const INDEX_DIRS = new Map([
+  ['skill', 'skills'],
+  ['mcp', 'mcp'],
+  ['plugin', 'plugins'],
+  ['hook', 'hooks'],
+  ['agent', 'agents'],
+  ['formatting', 'formatting'],
+]);
+
 export const RECORD_FIELDS = [
   'id',
   'name',
@@ -647,13 +656,7 @@ export function renderHeading(kind, records) {
   return `## ${SECTION_LABELS.get(kind)} (${records.length} — ${defaults} default-selected)`;
 }
 
-export function renderMarkdownDocument(parsed, records) {
-  const byKind = new Map();
-  for (const record of records) {
-    if (!byKind.has(record.kind)) byKind.set(record.kind, []);
-    byKind.get(record.kind).push(record);
-  }
-
+export function renderMarkdownDocument(parsed) {
   const out = [];
   const { lines, sections } = parsed;
   let i = 0;
@@ -664,10 +667,11 @@ export function renderMarkdownDocument(parsed, records) {
       i += 1;
       continue;
     }
-    const sectionRecords = sortRecords(byKind.get(section.kind) ?? []);
-    out.push(renderHeading(section.kind, sectionRecords));
+    // Row order and cell text stay exactly as hand-maintained: re-sorting
+    // would renumber rows cited by downstream references.
+    out.push(renderHeading(section.kind, section.records));
     out.push('');
-    out.push(...renderSectionTable(sectionRecords));
+    out.push(...lines.slice(section.tableStartLine - 3, section.tableEndLine));
     i = section.tableEndLine;
   }
   return `${out.join('\n').replace(/\n+$/u, '')}\n`;
@@ -785,17 +789,24 @@ function run(argv, { stdout, log }) {
   const targets = [[CATALOG_JSON, json]];
 
   if (flags.has('--markdown')) {
-    targets.push([CATALOG_MD, renderMarkdownDocument(parsed, records)]);
+    targets.push([CATALOG_MD, renderMarkdownDocument(parsed)]);
   }
 
   if (flags.has('--indexes')) {
     for (const kind of KINDS) {
-      const kindRecords = sortRecords(records.filter((r) => r.kind === kind));
-      if (kindRecords.length === 0) {
-        log(`skip: registry/${kind}/_index.md — no ${kind} components to index`);
+      const dir = INDEX_DIRS.get(kind) ?? kind;
+      // The formatting index is a hand-authored essay that catalog records
+      // cannot regenerate, so it is never overwritten.
+      if (kind === 'formatting') {
+        log(`skip: registry/${dir}/_index.md — hand-authored content is preserved, never generated`);
         continue;
       }
-      targets.push([join(ROOT, 'registry', kind, '_index.md'), renderIndex(kind, kindRecords)]);
+      const kindRecords = sortRecords(records.filter((r) => r.kind === kind));
+      if (kindRecords.length === 0) {
+        log(`skip: registry/${dir}/_index.md — no ${kind} components to index`);
+        continue;
+      }
+      targets.push([join(ROOT, 'registry', dir, '_index.md'), renderIndex(kind, kindRecords)]);
     }
   }
 
