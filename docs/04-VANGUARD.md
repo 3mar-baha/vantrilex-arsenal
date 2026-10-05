@@ -90,8 +90,8 @@ The five-step selection algorithm:
    and record why.
 5. Present a shortlist table. The owner approves it. Then install.
 
-Tier 0 (36 specified components; 32 core records plus 2 conditional hooks plus
-the 2 kit skills, all locked) is pre-approved. Tier 1 is per-project and always needs owner
+Tier 0 (49 locked components: 34 tier core plus 15 tier conditional, 0
+pending) is pre-approved. Tier 1 is per-project and always needs owner
 approval.
 
 ### Step 4 — Install, verify, report

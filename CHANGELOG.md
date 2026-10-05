@@ -9,7 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing merged yet.
+### Changed
+
+- **Tier-0 census re-ratified at 49 locked components.** The owner-authorized
+  figure for `kit/kit.lock` is now **49 = 34 tier core + 15 tier conditional,
+  0 pending**. The earlier 36-component figure was ratified 2026-10-04 and is
+  superseded by the 13 conditional components added by the digest-candidate and
+  parked-idea work: twelve in-repo conditional skills (`lenis`, `og-image`,
+  `open-graph-image`, `time-capsule-test`, `kit-evaluation-journal`, `red-team`,
+  `skill-shadow`, `documentation-as-tests`, `kit-evolution-log`,
+  `kill-switch-document`, `babel-bridge`), the in-repo `red-team` agent, and the
+  upstream `a11y-audit` agent. All 13 are `tier conditional` and
+  `verification unverified` with a null `install_cmd`, so none of them raises
+  the Tier-0 core count. The 8-MCP cap is unchanged, and the decision to keep
+  both conditional hooks stands.
+- Every current-state documentation site that asserted 36 components now reads
+  49: `README.md`, `docs/03-ARCHITECTURE.md`, `docs/04-VANGUARD.md`,
+  `docs/08-VERIFICATION.md`, `docs/09-KIT-LOCK.md`,
+  `docs/13-CONTRIBUTING-WORKFLOW.md`, `CONTRIBUTING.md`, and both
+  `VANTRILEX_SKILLS_SPEC.md` copies. Released changelog history and the
+  decision log in `docs/15-DECISIONS.md` are left as written; the design-time
+  arithmetic in `docs/spec/VANTRILEX_KIT_SPEC.md` stays as the original
+  specification's own record.
 
 ---
 
@@ -105,7 +126,7 @@ Nothing merged yet.
   skill phases/tiers corrected to that map with on-demand admitted as a phase.
 - The Doctrine session-start ritual now delegates anchor mechanics to
   session-context-primer instead of duplicating its template (single-home rule).
-- **Tier-0 census note (ratified 2026-10-04):** The owner decision is final: 32 core records + 2 conditional hooks = 34 locked entries (36 total with vantrilex-vanguard and vantrilex-doctrine). The two conditional hooks (typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits) are KEPT: they are part of the six hooks per kit spec §2.4 and explicitly conditional, and removing them would lose function. Ratified by owner 2026-10-04; no component was changed to resolve it.
+- **Tier-0 census note (RATIFIED AT 49):** The owner-authorized figure is 49 locked components = 34 tier core + 15 tier conditional, 0 pending. The earlier 36-component figure (32 core records + 2 conditional hooks + the 2 kit skills) was ratified 2026-10-04 and is superseded by the 13 conditional components added by the digest-candidate and parked-idea work — twelve in-repo conditional skills plus the in-repo `red-team` agent and the upstream `a11y-audit` agent, each `tier conditional` and `verification unverified` with a null `install_cmd`, so the Tier-0 core count is unchanged. The two conditional hooks (typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits) remain KEPT: they are part of the six hooks per kit spec §2.4 and explicitly conditional, and removing them would lose function. No component was changed to resolve either count.
 
 ### Fixed
 
