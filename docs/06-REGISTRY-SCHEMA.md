@@ -41,7 +41,7 @@ the collection the component installs from; `origin` names the true upstream
 author repository when it differs, and stays null when `source` is already
 the author. A record that claims `verified` must have had both its install
 command and its origin checked against a real registry or repository. The
-12 verified install commands in the 2736-record catalog carry that provenance;
+12 verified install commands in the 2737-record catalog carry that provenance;
 everything else is `unverified`.
 
 ## The `on-demand` phase
@@ -73,7 +73,7 @@ guessed. The verifier's install-command check (see
 | `extended` | Catalog depth beyond the conditional kit | After conditional |
 | null | Untiered: carried as authored, not yet placed | Last |
 
-35 records carry tier `core` today, including the 3 Arsenal skills.
+36 records carry tier `core` today, including the 3 Arsenal skills.
 The 22 default-selected components are the provisioning set Vanguard
 installs automatically. Tier-0-only guarantees apply: only the core set gets
 install and verification promises (see [15-DECISIONS.md](15-DECISIONS.md)).

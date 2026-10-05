@@ -2439,7 +2439,7 @@ Consolidated reference of every system component with its folder path.
 | 11 | security-guidance | Security checks |  | `` |
 | 12 | typescript-lsp ✅ | TypeScript intelligence |  | `` |
 
-## Hooks (19 — 3 default-selected)
+## Hooks (20 — 3 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2462,6 +2462,7 @@ Consolidated reference of every system component with its folder path.
 | 17 | typescript-check-after-editing-ts-tsx-files | TypeScript check after editing .ts/.tsx files |  | `` |
 | 18 | warn-about-console-log-statements-after-edits | Warn about console.log statements after edits |  | `` |
 | 19 | long-running-process-guard ✅ | Guard long-running dev servers and watchers so their logs stay reachable |  | `` |
+| 20 | task-dispatcher | Classify each user message into one of the five Vanguard task scenarios |  | `` |
 
 ## Agents (284 — 1 default-selected)
 
@@ -2772,7 +2773,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2736
+- **Total components:** 2737
 - **Default-selected:** 22
 
 ---

@@ -33,6 +33,7 @@
     { "id": "long-running-process-guard", "kind": "hook", "source": null, "install_cmd": null, "version_pin": null, "phase": "build", "tier": "core", "verification": "unverified" },
     { "id": "typescript-check-after-editing-ts-tsx-files", "kind": "hook", "source": null, "install_cmd": null, "version_pin": null, "phase": "build", "tier": "conditional", "verification": "unverified" },
     { "id": "auto-format-js-ts-files-with-prettier-after-edits", "kind": "hook", "source": null, "install_cmd": null, "version_pin": null, "phase": "build", "tier": "conditional", "verification": "unverified" },
+    { "id": "task-dispatcher", "kind": "hook", "source": null, "install_cmd": null, "version_pin": null, "phase": "scout", "tier": "core", "verification": "unverified" },
     { "id": "architect", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "plan", "tier": "core", "verification": "unverified" },
     { "id": "code-reviewer", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "review", "tier": "core", "verification": "unverified" },
     { "id": "ai-generated-code-security-auditor", "kind": "agent", "source": null, "install_cmd": null, "version_pin": null, "phase": "review", "tier": "core", "verification": "unverified" },

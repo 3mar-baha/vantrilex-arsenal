@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="740" height="331" viewBox="0 0 740 331" role="img" aria-labelledby="figTitle figDesc" direction="rtl">
 <title id="figTitle">Vantrilex Arsenal — the kit, three skills, one catalog (Arabic)</title>
-<desc id="figDesc">Table converted from README.ar.md. Five right-to-left rows: the kit, the three top-level skills, and the Vantrilex Registry catalog of 2,736 components.</desc>
+<desc id="figDesc">Table converted from README.ar.md. Five right-to-left rows: the kit, the three top-level skills, and the Vantrilex Registry catalog of 2,737 components.</desc>
 <rect x="0" y="0" width="740" height="331" fill="#FFFFFF"/>
 <rect x="18" y="58" width="704" height="44" fill="#FFFFFF"/>
 <rect x="18" y="102" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
@@ -36,6 +36,6 @@
 <text x="403" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">القانون: الأدوار والبوابات وسير العمل والطقوس</text>
 <text x="707" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">الفهرس</text>
 <text x="579" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">Vantrilex Registry</tspan></text>
-<text x="403" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">2,736 مكوّنًا، بصيغة قابلة للقراءة آليًا، وأوامر تثبيت موسومة بأمانة</text>
+<text x="403" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">2,737 مكوّنًا، بصيغة قابلة للقراءة آليًا، وأوامر تثبيت موسومة بأمانة</text>
 <text x="722" y="308.5" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" direction="rtl" unicode-bidi="embed" xml:space="preserve">محوَّل من الجدول في README.ar.md عند ef487dec. الأرقام مطابقة للجدول الأصلي.</text>
 </svg>

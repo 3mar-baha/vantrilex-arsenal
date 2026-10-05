@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="349" viewBox="0 0 760 349" role="img" aria-labelledby="figTitle figDesc">
-<title id="figTitle">What the 51 locked components actually are</title>
-<desc id="figDesc">Table converted from README.md. Five rows by locked count: 25 skills, 8 MCP servers, 6 plugins, 6 hooks, 6 agents, with the contents of each.</desc>
+<title id="figTitle">What the 52 locked components actually are</title>
+<desc id="figDesc">Table converted from README.md. Five rows by locked count: 25 skills, 8 MCP servers, 6 plugins, 7 hooks, 6 agents, with the contents of each.</desc>
 <rect x="0" y="0" width="760" height="349" fill="#FFFFFF"/>
 <rect x="18" y="58" width="724" height="44" fill="#FFFFFF"/>
 <rect x="18" y="102" width="724" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
@@ -26,8 +26,8 @@
 <text x="181" y="125.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter</text>
 <text x="33" y="169.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 plugins</text>
 <text x="181" y="169.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance</text>
-<text x="33" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 hooks</text>
-<text x="181" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">4 core session hooks, plus 2 conditional: TypeScript check and Prettier format</text>
+<text x="33" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">7 hooks</text>
+<text x="181" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">5 core hooks, plus 2 conditional: TypeScript check and Prettier format</text>
 <text x="33" y="257.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 agents</text>
 <text x="181" y="257.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer, plus red-team</text>
 <text x="181" y="275.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">and a11y-audit</text>

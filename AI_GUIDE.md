@@ -15,13 +15,13 @@ before you quote them.
 
 | Fact | Value |
 |---|---|
-| Locked kit components | 51, with 0 pending |
-| Kit by tier | 35 `core`, 16 `conditional` |
-| Kit by kind | 25 skill, 8 mcp, 6 plugin, 6 hook, 6 agent |
-| Kit verification | 12 `verified`, 39 `unverified` |
+| Locked kit components | 52, with 0 pending |
+| Kit by tier | 36 `core`, 16 `conditional` |
+| Kit by kind | 25 skill, 8 mcp, 6 plugin, 7 hook, 6 agent |
+| Kit verification | 12 `verified`, 40 `unverified` |
 | MCP cap (`kit/kit.lock` `mcp_cap`) | 8 |
-| Catalog records | 2,736 |
-| Catalog by kind | 1,503 skill, 905 mcp, 284 agent, 19 hook, 13 formatting, 12 plugin |
+| Catalog records | 2,737 |
+| Catalog by kind | 1,503 skill, 905 mcp, 284 agent, 20 hook, 13 formatting, 12 plugin |
 | Catalog default-selected | 22 |
 | Catalog verified install commands | 12 |
 | Folders under `.opencode/skills/` | 20 |
@@ -210,7 +210,7 @@ green-looking.
 |---|---|---|
 | `.opencode/skills/` | Every skill folder, one `SKILL.md` each: 3 top-level skills plus the component folders | No |
 | `.opencode/agent/` | Role files: Leader, Guide, Implementer, red-team | No |
-| `.opencode/plugin/arsenal.ts` | The plugin source that installs the Arsenal into a target project; it also carries the docs-discipline guard | No |
+| `.opencode/plugin/arsenal.ts` | The plugin source that installs the Arsenal into a target project; it also carries the docs-discipline guard and the `task-dispatcher` hook | No |
 | `.opencode/command/` | Operator entry points, including prime, equip, doctor, and release | No |
 | `registry/VANTRILEX_CATALOG.md` | The catalog. **The source of truth.** | Yes — edit the generator or the sidecar |
 | `registry/catalog.json` | The machine mirror of the catalog, read by tooling | Yes — regenerate, never hand-edit |
@@ -220,15 +220,38 @@ green-looking.
 | `brand/` | The visual identity assets: five static logo files in `logo/`, nine static icons in `icons/`, nine animated icons in `animated/` | No |
 | `brand/IDENTITY.md` | The visual identity: concept, palette, asset list, and usage rules | No |
 | `scripts/` | The verification scripts (`verify-registry.mjs`, `generate-catalog-json.mjs`, `verify-kit.mjs`, `verify-skills.mjs`) and the seven orchestration shell scripts | No |
-| `docs/` | This repository's documentation series, numbered `00` through `15`, plus `spec/` | No |
+| `docs/` | This repository's documentation series, numbered `00` through `16`, plus `spec/` | No |
 | `AGENTS.md` | The repository constitution for any coding agent | No |
 | `CHANGELOG.md` | The release notes, extracted verbatim at release | No |
 
 Never hand-edit the generated catalog table in `registry/VANTRILEX_CATALOG.md` or the mirror at
 `registry/catalog.json`. Edit the generator or the JSONL sidecar, then regenerate.
 
-The `docs/` series in this repository runs `00` through `15`. It is not the target-project series,
+The `docs/` series in this repository runs `00` through `16`. It is not the target-project series,
 which runs `00` through `27` and is written by Vanguard into the equipped project.
+
+### The seven hooks
+
+OpenCode has no hooks directory: every hook is a callback in `.opencode/plugin/arsenal.ts`.
+Seven locked hook ids must each resolve to an exported function in that file, and
+`node scripts/verify-kit.mjs` fails the change when one does not.
+
+| Locked hook id | Exported function | Binds to | Tier |
+|---|---|---|---|
+| `session-start` | `sessionStart` | `experimental.chat.system.transform` | core |
+| `pre-compact` | `preCompact` | `experimental.session.compacting` | core |
+| `persist-session-state-on-end` | `sessionEnd` | session event | core |
+| `long-running-process-guard` | `longRunningProcessGuard` | `tool.execute.before` | core |
+| `typescript-check-after-editing-ts-tsx-files` | `typescriptCheck` | `tool.execute.after` | conditional |
+| `auto-format-js-ts-files-with-prettier-after-edits` | `prettierFormat` | `tool.execute.after` | conditional |
+| `task-dispatcher` | `taskDispatcher` | `chat.message` | core |
+
+`task-dispatcher` fires on every user message and injects a five-line instruction that
+classifies the turn into one of five Vanguard task scenarios. It is behavioural, not a
+guard: it blocks nothing. Its kill switch is `taskDispatcher.enabled` in
+`.opencode/arsenal.json`, default `true`, and it is documented in
+[`docs/16-TASK-DISPATCH.md`](docs/16-TASK-DISPATCH.md). A hook id here is never prefixed
+with `vantrilex-`; that prefix belongs to the three top-level skills.
 
 ### The visual identity
 

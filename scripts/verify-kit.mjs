@@ -34,7 +34,8 @@ const HOOK_FUNCTIONS = {
   "persist-session-state-on-end": "sessionEnd",
   "long-running-process-guard": "longRunningProcessGuard",
   "typescript-check-after-editing-ts-tsx-files": "typescriptCheck",
-  "auto-format-js-ts-files-with-prettier-after-edits": "prettierFormat"
+  "auto-format-js-ts-files-with-prettier-after-edits": "prettierFormat",
+  "task-dispatcher": "taskDispatcher"
 };
 
 const SKILL_CMD = /^npx skills add (\S+) --skill (\S+) -a opencode( -y)?$/;

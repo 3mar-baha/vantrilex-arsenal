@@ -272,3 +272,39 @@ the ratified list and are left vacant rather than filled.
   `random-notes.md` outside those locations still fails. The phase map in
   [05-DOCTRINE.md](05-DOCTRINE.md) and in the Doctrine skill is unchanged, so the
   `phase-map-cross-check` name count is untouched.
+
+## Task dispatcher is a seventh hook, census re-ratified at 52
+
+- **Date:** 2026-10-05
+- **Context:** `task-dispatcher` landed as a plugin callback in
+  `.opencode/plugin/arsenal.ts` bound to `chat.message`, so it fires once per
+  user message. Two questions had no recorded answer: whether a hook that fires
+  on every single message is `core` or `conditional`, and whether its id takes
+  the `vantrilex-` prefix the brief proposed.
+- **Decision:** The hook is `core` and `phase scout`, locked with a null
+  `source`, a null `install_cmd`, and `verification unverified`. Tier in this
+  repository records universality of provisioning, not firing frequency: the kit
+  spec defines Tier 0 as provisioned on every project with no questions and
+  Tier 1 as added per stack, and the only two `conditional` hooks are conditional
+  because they are TypeScript and JS/TS projects. `task-dispatcher` is
+  stack-agnostic. Frequency does not decide it either — `long-running-process-guard`
+  is `core` and fires before every tool call, while the conditional pair fires
+  less often than that. The id is `task-dispatcher`, unprefixed: all six existing
+  hook ids are unprefixed, the `vantrilex-` prefix is reserved for the three
+  top-level skills, and `scripts/verify-kit.mjs` joins the lock id against its
+  `HOOK_FUNCTIONS` key, which is already `task-dispatcher`. The owner-authorized
+  figure is 52 locked components = 36 tier core + 16 tier conditional, 0
+  pending, of which 25 are skills and 7 are hooks; the catalog recount is 2737
+  records, 1503 of them skill records and 20 of them hook records. The 51-entry
+  census stays on the record as superseded, not rewritten.
+- **Consequences:** [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) documents the hook
+  and points at the Vanguard skill's Task dispatch section for the procedure,
+  which is that skill's single home. The repository's own documentation set moves
+  from 16 files to 17, and `AI_GUIDE.md` now carries the seven-hook table. The
+  verification split is 12 verified and 40 unverified; the 22 default-selected
+  components, the 8-MCP cap, the 20 skill folders, and the 15 locked in-repo
+  skills are unchanged. The kit-census numeric labels inside the existing SVGs
+  under `docs/assets/tables/` moved with the census, with no SVG added, resized,
+  or re-laid-out. The root-level `VANTRILEX_SKILLS_SPEC.md` copy carries 49 and is
+  owned by another branch, so `docs/spec/VANTRILEX_SKILLS_SPEC.md` is the copy
+  this change moves.

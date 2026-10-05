@@ -4,7 +4,7 @@ The kit lock is the pinned record of what a project actually received: every
 provisioned component at an exact version, plus the approved-but-not-yet-fit
 remainder. Its contract comes from Vanguard Step 4 in
 [04-VANGUARD.md](04-VANGUARD.md). The lock manifest (`kit/kit.lock`) holds
-51 components (35 tier core plus 16 tier conditional) with an empty pending
+52 components (36 tier core plus 16 tier conditional) with an empty pending
 list; this file states what it pins and the rules that govern it.
 
 ## What the lock pins

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="349" viewBox="0 0 760 349" role="img" aria-labelledby="figTitle figDesc" direction="rtl">
-<title id="figTitle">What the 51 locked components actually are (Arabic)</title>
-<desc id="figDesc">Table converted from README.ar.md. Five right-to-left rows by locked count: 25 skills, 8 MCP servers, 6 plugins, 6 hooks, 6 agents.</desc>
+<title id="figTitle">What the 52 locked components actually are (Arabic)</title>
+<desc id="figDesc">Table converted from README.ar.md. Five right-to-left rows by locked count: 25 skills, 8 MCP servers, 6 plugins, 7 hooks, 6 agents.</desc>
 <rect x="0" y="0" width="760" height="349" fill="#FFFFFF"/>
 <rect x="18" y="58" width="724" height="44" fill="#FFFFFF"/>
 <rect x="18" y="102" width="724" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
@@ -26,8 +26,8 @@
 <text x="579" y="125.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">filesystem، fetch، memory، sequential-thinking، github، context7، firecrawl، openrouter</text>
 <text x="727" y="169.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">6 إضافات</text>
 <text x="579" y="169.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">code-review، commit-commands، typescript-lsp، context7، feature-dev، security-guidance</text>
-<text x="727" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">6 خطافات</text>
-<text x="579" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">4 خطافات جلسة أساسية، إضافةً إلى 2 شرطيَّين: فحص TypeScript وتنسيق Prettier</text>
+<text x="727" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">7 خطافات</text>
+<text x="579" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">5 خطافات أساسية، إضافةً إلى 2 شرطيَّين: فحص TypeScript وتنسيق Prettier</text>
 <text x="727" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">6 وكلاء</text>
 <text x="579" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">architect، Code Reviewer، AI-Generated Code Security Auditor، Technical Writer، إضافةً إلى</text>
 <text x="579" y="275.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">red-team وa11y-audit</text>

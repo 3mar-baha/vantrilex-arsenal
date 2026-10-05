@@ -11,6 +11,11 @@ list lives in section A.7 of the spec and is referenced here only.
 
 Trigger phrases: equipping a project, new project setup, "vanguard".
 
+Per-turn dispatch into this skill is the `task-dispatcher` hook, which
+classifies every user message into one of five task scenarios and points here;
+see [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md). Equipping is what that skill
+does once per target project; dispatch decides which turn reads it.
+
 ## The six steps
 
 Vanguard runs six numbered steps, 0 through 5. The concept-phase chatbot relay
@@ -90,7 +95,7 @@ The five-step selection algorithm:
    and record why.
 5. Present a shortlist table. The owner approves it. Then install.
 
-Tier 0 (51 locked components: 35 tier core plus 16 tier conditional, 0
+Tier 0 (52 locked components: 36 tier core plus 16 tier conditional, 0
 pending) is pre-approved. Tier 1 is per-project and always needs owner
 approval.
 

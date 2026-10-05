@@ -36,11 +36,11 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (51 components, 0 pending)
+kit/                          PINNED KIT (52 components, 0 pending)
   kit.lock                      Pinned Tier-0 versions (pending list empty)
 
 docs/                         THIS DOCUMENTATION SET plus provenance
-  00-INDEX.md ... 15-DECISIONS.md
+  00-INDEX.md ... 16-TASK-DISPATCH.md
   spec/                         The two authoritative input specs (read-only)
 ```
 
@@ -66,6 +66,8 @@ docs/                         THIS DOCUMENTATION SET plus provenance
   time (the single-writer law). Two branches never write one sidecar.
 - The plugin file carries the hooks because OpenCode has no standalone hooks
   directory: the six specified Tier-0 hooks plus the docs-discipline guard
-  live as callbacks in the single module `.opencode/plugin/arsenal.ts`.
+  live as callbacks in the single module `.opencode/plugin/arsenal.ts`. The
+  seventh hook, `task-dispatcher`, is a later in-repo addition and lives there
+  too — see [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 - Target-project documentation (the 28-file system) is generated at runtime
   by Vanguard and is not part of this repository's layout.
