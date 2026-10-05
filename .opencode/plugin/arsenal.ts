@@ -352,7 +352,15 @@ export type DocsGuardConfig = {
 export const DEFAULT_DOCS_GUARD: DocsGuardConfig = {
   mode: "block",
   allowedDirs: ["docs/99-archive", "docs/spec", "registry", ".opencode"],
-  allowedFiles: ["README.md", "AGENTS.md", "CHANGELOG.md", "CONTRIBUTING.md", "SECURITY.md"],
+  allowedFiles: [
+    "README.md",
+    "README.ar.md",
+    "AI_GUIDE.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+  ],
   series: [{ dir: "docs", from: 0, to: 27 }],
 }
 
