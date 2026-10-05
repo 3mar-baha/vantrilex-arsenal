@@ -96,7 +96,8 @@ in fenced blocks, and each document opens with a single top-level heading.
 
 The docs-discipline guard in `.opencode/plugin/arsenal.ts` keeps
 documentation inside the canonical set: the numbered `docs/` series, the
-archive and spec directories, the registry, `.opencode`, and the seven named
+archive and spec directories, the registry, `.opencode`, `brand` (allowed
+because the visual identity specification lives there), and the seven named
 root files. A Markdown write outside that allow-list is BLOCKED (or WARNed in
 warn mode), with a message naming the allowed set and how to widen it. The
 numbered target-project series runs `00` through `27`; this Arsenal set's own

@@ -21,8 +21,9 @@ Trigger phrases: any build, review, or release work; "doctrine".
 5. Dispatch is confirmed only when the result lands, never on a subagent's word.
 6. Ledger principle: the owner decision is the authoritative entry.
 7. Docs discipline: no Markdown files outside the numbered documentation set
-   (hook-gated; random-file creation stays blocked unless the owner approves
-   widening the allow-list).
+   or an allow-listed directory (hook-gated; `brand/` is allow-listed because
+   it holds the visual identity specification, and random-file creation stays
+   blocked unless the owner approves widening the allow-list).
 
 ## The three roles
 

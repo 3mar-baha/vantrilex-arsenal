@@ -162,7 +162,8 @@ Your obligations:
   every session. `18-WORKFLOW.md` is the main workflow. `19`, `20`, `21` and `22` are the feature,
   review, security-audit and bugfix workflows. `23-ROADMAP.md` carries priorities, `24-RISKS.md` the
   known risks, `25-AI-CONSTITUTION.md` the immutable laws, `26-AI-ANTIPATTERNS.md` what the agent must
-  never do, `27-PROBLEMS.md` the open problems. Superseded documents move to `docs/99-archive/` with a
+  never do, `27-PROBLEMS.md` the open problems. `brand/` is also a canonical Markdown location: it
+  holds the visual identity specification. Superseded documents move to `docs/99-archive/` with a
   manifest and are never deleted; never implement against an archived document.
 - **Release workflow**, in order: three second-pass guards (Clean Code, Test, Docs) must pass, then
   `CHANGELOG.md` must carry an entry for the pending version in the same change, then the semver check,

@@ -340,6 +340,11 @@ const LOG_REDIRECT_PATTERNS: readonly RegExp[] = [
  * Docs-discipline allow-list. Extending it needs no code change: add a path to
  * `docsGuard.allowedDirs` or `docsGuard.allowedFiles`, or widen the numbered
  * series, in `.opencode/arsenal.json`.
+ *
+ * Allowed directories are prefix-matched against the repo-relative path after
+ * the entry's trailing slashes are stripped and a single `/` is appended, so
+ * `"brand"` admits `brand/IDENTITY.md`. An entry never admits itself and never
+ * matches a same-named sibling such as `branding/notes.md`.
  */
 export type DocsGuardConfig = {
   mode: "block" | "warn" | "off"
@@ -351,7 +356,7 @@ export type DocsGuardConfig = {
 
 export const DEFAULT_DOCS_GUARD: DocsGuardConfig = {
   mode: "block",
-  allowedDirs: ["docs/99-archive", "docs/spec", "registry", ".opencode"],
+  allowedDirs: ["docs/99-archive", "docs/spec", "registry", ".opencode", "brand"],
   allowedFiles: [
     "README.md",
     "README.ar.md",
@@ -1185,7 +1190,8 @@ const guardDocsMessage = (violations: readonly { path: string; reason: string }[
     "",
     ...violations.map((entry) => `  - ${entry.path}: ${entry.reason}`),
     "",
-    "Documentation lives in the canonical numbered set. Do the following instead:",
+    "Documentation lives in the canonical numbered set or an allow-listed directory",
+    "(for example brand/, which owns the visual identity specification). Do the following instead:",
     "  - fold the content into the existing document that already owns the topic;",
     "  - extend the numbered series in the project summary and update the index;",
     "  - or move a superseded document to the archive directory.",

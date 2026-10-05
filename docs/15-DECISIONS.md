@@ -250,3 +250,25 @@ the ratified list and are left vacant rather than filled.
   `preflight-system-doctor`, `session-context-primer`). The verification split is
   12 verified and 39 unverified, and the 22 default-selected components and the
   8-MCP cap are unchanged.
+
+## Law 7 approved with `brand/` allow-listed
+
+- **Date:** 2026-10-05
+- **Context:** `brand/IDENTITY.md` is the authoritative visual identity
+  specification, but it sat outside the docs-discipline guard's allow-list and
+  was therefore an accidental exception. Constitutional law 7 was marked
+  `pending owner approval` in the Doctrine skill while the guard already
+  enforced it, so the rule and its recorded status disagreed.
+- **Decision:** The owner approves law 7 as written, with `brand/` added to
+  `docsGuard.allowedDirs` in `.opencode/plugin/arsenal.ts` so the identity
+  specification is a first-class allowed location under the guard rather than
+  beside it. The entry is the plain form `brand`, which the guard
+  prefix-matches after appending a single `/`, so it admits `brand/IDENTITY.md`
+  and never a same-named sibling such as `branding/`. Every other document
+  states the same set.
+- **Consequences:** The numbered `docs/` series, `docs/99-archive`, `docs/spec`,
+  `registry`, `.opencode`, `brand`, and the seven named root files are the whole
+  allowed set; a Markdown write anywhere else is still BLOCKED, and
+  `random-notes.md` outside those locations still fails. The phase map in
+  [05-DOCTRINE.md](05-DOCTRINE.md) and in the Doctrine skill is unchanged, so the
+  `phase-map-cross-check` name count is untouched.

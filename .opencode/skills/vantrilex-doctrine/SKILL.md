@@ -169,7 +169,7 @@ honest, the ledger keeps decisions authoritative, and docs discipline keeps the 
 | 4 | Cost guard: prefer Skill or CLI over MCP on ties. | A heavier transport chosen without a capability reason is sent back for substitution. |
 | 5 | Dispatch confirmed only when its result lands on disk or on the remote — never on a subagent's word; the agent verifies it itself. | Reported-but-unlanded work counts as not done and is redispatched. |
 | 6 | Ledger principle: the owner's decision is the authoritative entry, recorded per item. | Any action contradicting a recorded owner decision is reversed. |
-| 7 | Docs discipline: no Markdown outside the numbered set (hook-gated, pending owner approval). | Stray files are folded into the document that already owns the topic, or removed. |
+| 7 | Docs discipline: no Markdown outside the numbered set or an allow-listed directory — `brand/` is allowed because it holds the visual identity specification (hook-gated). | Stray files are folded into the document that already owns the topic, or removed. |
 
 **Law 1 — The agent never works directly.**
 The agent plans, dispatches, verifies, and merges; only Implementers write. Direct edits bypass the
@@ -204,7 +204,8 @@ The owner's decision is the authoritative entry; the ledger records it per item.
 action contradicting a recorded owner decision is reversed.
 
 **Law 7 — Docs discipline.**
-No Markdown outside the numbered set (hook-gated, pending owner approval). Scattered notes rot
+No Markdown outside the numbered set or an allow-listed directory (hook-gated). `brand/` is
+allow-listed because the visual identity specification lives there. Scattered notes rot
 because nobody knows which one is current; one numbered home per topic stays findable.
 **Consequence:** stray files are folded into the document that already owns the topic, or removed.
 
