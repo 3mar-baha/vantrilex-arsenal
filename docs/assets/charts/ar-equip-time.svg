@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="470" viewBox="0 0 720 470" role="img" aria-labelledby="equip-time-title equip-time-desc" direction="rtl" unicode-bidi="embed" font-family="'Noto Naskh Arabic','Segoe UI',Tahoma,'Geeza Pro','Noto Kufi Arabic',Arial,sans-serif">
+  <title id="equip-time-title">الزمن التقريبي لتجهيز مشروع جديد، مع الترسانة وبدونها</title>
+  <desc id="equip-time-desc">مخطط أعمدة أفقية مُجمَّعة. التوجيه يستغرق نحو <tspan direction="ltr" unicode-bidi="isolate">10</tspan> دقائق مع الترسانة ونحو <tspan direction="ltr" unicode-bidi="isolate">40</tspan> دقيقة بدونها. انتقاء المكوّنات يستغرق نحو <tspan direction="ltr" unicode-bidi="isolate">20</tspan> دقيقة مع ونحو <tspan direction="ltr" unicode-bidi="isolate">60</tspan> دقيقة بدون. إعداد البوابات يستغرق نحو <tspan direction="ltr" unicode-bidi="isolate">15</tspan> دقيقة مع ونحو <tspan direction="ltr" unicode-bidi="isolate">45</tspan> دقيقة بدون. كل الأرقام تقديرات توضيحية تقريبية — ليست قياسات معيارية.</desc>
+  <rect x="0" y="0" width="720" height="470" fill="#FFFFFF"/>
+
+  <text x="680" y="48" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="20" font-weight="700" fill="#000000">زمن تجهيز مشروع جديد، مع الترسانة وبدونها</text>
+  <text x="680" y="74" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="13" fill="#000000" fill-opacity="0.7">ثلاث مراحل تجهيز، مشروع واحد، تقريبًا</text>
+
+  <g>
+    <rect x="40" y="38" width="16" height="14" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+    <text x="62" y="50" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000">بدون الترسانة</text>
+    <rect x="150" y="38" width="16" height="14" fill="#4169E1"/>
+    <text x="172" y="50" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000">مع الترسانة</text>
+  </g>
+
+  <g stroke="#000000" stroke-opacity="0.14" stroke-width="1">
+    <line x1="210" y1="120" x2="210" y2="374"/>
+    <line x1="270" y1="120" x2="270" y2="374"/>
+    <line x1="330" y1="120" x2="330" y2="374"/>
+    <line x1="390" y1="120" x2="390" y2="374"/>
+    <line x1="450" y1="120" x2="450" y2="374"/>
+    <line x1="510" y1="120" x2="510" y2="374"/>
+    <line x1="570" y1="120" x2="570" y2="374"/>
+    <line x1="630" y1="120" x2="630" y2="374"/>
+  </g>
+
+  <text x="40" y="120" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="13" font-weight="600" fill="#000000">التوجيه</text>
+  <rect x="210" y="136" width="60" height="24" fill="#4169E1"/>
+  <text x="278" y="153" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~10</tspan> د</text>
+  <rect x="210" y="166" width="240" height="24" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="458" y="183" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~40</tspan> د</text>
+
+  <text x="40" y="210" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="13" font-weight="600" fill="#000000">انتقاء المكوّنات</text>
+  <rect x="210" y="226" width="120" height="24" fill="#4169E1"/>
+  <text x="338" y="243" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~20</tspan> د</text>
+  <rect x="210" y="256" width="360" height="24" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="578" y="273" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~60</tspan> د</text>
+
+  <text x="40" y="300" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="13" font-weight="600" fill="#000000">إعداد البوابات</text>
+  <rect x="210" y="316" width="90" height="24" fill="#4169E1"/>
+  <text x="308" y="333" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~15</tspan> د</text>
+  <rect x="210" y="346" width="270" height="24" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="488" y="363" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~45</tspan> د</text>
+
+  <line x1="210" y1="374" x2="630" y2="374" stroke="#000000" stroke-width="1.5"/>
+  <g stroke="#000000" stroke-width="1.5">
+    <line x1="210" y1="374" x2="210" y2="381"/>
+    <line x1="330" y1="374" x2="330" y2="381"/>
+    <line x1="450" y1="374" x2="450" y2="381"/>
+    <line x1="570" y1="374" x2="570" y2="381"/>
+  </g>
+  <g font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle">
+    <text x="210" y="397" direction="ltr" unicode-bidi="isolate">~0</text>
+    <text x="330" y="397" direction="ltr" unicode-bidi="isolate">~20</text>
+    <text x="450" y="397" direction="ltr" unicode-bidi="isolate">~40</text>
+    <text x="570" y="397" direction="ltr" unicode-bidi="isolate">~60</text>
+  </g>
+  <text x="420" y="420" font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle" direction="rtl" unicode-bidi="embed">دقائق، تقريبًا</text>
+
+  <text x="680" y="452" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" font-style="italic" fill="#000000">تقديرات توضيحية — ليست قياسات معيارية.</text>
+</svg>

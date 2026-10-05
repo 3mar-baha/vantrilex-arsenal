@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="450" viewBox="0 0 720 450" role="img" aria-labelledby="rework-title rework-desc" direction="rtl" unicode-bidi="embed" font-family="'Noto Naskh Arabic','Segoe UI',Tahoma,'Geeza Pro','Noto Kufi Arabic',Arial,sans-serif">
+  <title id="rework-title">معدّلات إعادة العمل وإعادة الاكتشاف، مع الترسانة وبدونها</title>
+  <desc id="rework-desc">مخطط أعمدة أفقية مُجمَّعة. التغييرات التي أُعيد العمل فيها بعد أول مرور مراجعة: نحو <tspan direction="ltr" unicode-bidi="isolate">10</tspan> بالمئة مع الترسانة، ونحو <tspan direction="ltr" unicode-bidi="isolate">30</tspan> بالمئة بدونها. القرارات التي تُستنتج من جديد في كل جلسة: نحو <tspan direction="ltr" unicode-bidi="isolate">20</tspan> بالمئة مع، ونحو <tspan direction="ltr" unicode-bidi="isolate">50</tspan> بالمئة بدون. كل الأرقام تقديرات توضيحية تقريبية — ليست قياسات معيارية.</desc>
+  <rect x="0" y="0" width="720" height="450" fill="#FFFFFF"/>
+
+  <text x="680" y="48" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="20" font-weight="700" fill="#000000">إعادة العمل وإعادة الاكتشاف</text>
+  <text x="680" y="74" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="13" fill="#000000" fill-opacity="0.7">ما تكلّفته جلسة حين لا ينتقل شيء</text>
+
+  <g>
+    <rect x="40" y="38" width="16" height="14" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+    <text x="62" y="50" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000">بدون الترسانة</text>
+    <rect x="158" y="38" width="16" height="14" fill="#4169E1"/>
+    <text x="180" y="50" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000">مع الترسانة</text>
+  </g>
+
+  <g stroke="#000000" stroke-opacity="0.14" stroke-width="1">
+    <line x1="200" y1="120" x2="200" y2="354"/>
+    <line x1="294" y1="120" x2="294" y2="354"/>
+    <line x1="388" y1="120" x2="388" y2="354"/>
+    <line x1="482" y1="120" x2="482" y2="354"/>
+    <line x1="576" y1="120" x2="576" y2="354"/>
+    <line x1="670" y1="120" x2="670" y2="354"/>
+  </g>
+
+  <text x="40" y="134" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="13" font-weight="600" fill="#000000">إعادة العمل بعد أول مراجعة</text>
+  <rect x="200" y="148" width="78" height="26" fill="#4169E1"/>
+  <text x="286" y="166" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="13" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~10%</tspan></text>
+  <rect x="200" y="182" width="235" height="26" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="443" y="200" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="13" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~30%</tspan></text>
+
+  <text x="40" y="248" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="13" font-weight="600" fill="#000000">القرارات تُستنتج من جديد</text>
+  <text x="40" y="266" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="13" font-weight="600" fill="#000000">في كل جلسة</text>
+  <rect x="200" y="278" width="157" height="26" fill="#4169E1"/>
+  <text x="365" y="296" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="13" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~20%</tspan></text>
+  <rect x="200" y="312" width="392" height="26" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="600" y="330" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="13" fill="#000000"><tspan direction="ltr" unicode-bidi="isolate">~50%</tspan></text>
+
+  <line x1="200" y1="354" x2="670" y2="354" stroke="#000000" stroke-width="1.5"/>
+  <g stroke="#000000" stroke-width="1.5">
+    <line x1="200" y1="354" x2="200" y2="361"/>
+    <line x1="294" y1="354" x2="294" y2="361"/>
+    <line x1="388" y1="354" x2="388" y2="361"/>
+    <line x1="482" y1="354" x2="482" y2="361"/>
+    <line x1="576" y1="354" x2="576" y2="361"/>
+  </g>
+  <g font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle">
+    <text x="200" y="377" direction="ltr" unicode-bidi="isolate">~0</text>
+    <text x="294" y="377" direction="ltr" unicode-bidi="isolate">~15</text>
+    <text x="388" y="377" direction="ltr" unicode-bidi="isolate">~30</text>
+    <text x="482" y="377" direction="ltr" unicode-bidi="isolate">~45</text>
+    <text x="576" y="377" direction="ltr" unicode-bidi="isolate">~60</text>
+  </g>
+  <text x="435" y="400" font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle" direction="rtl" unicode-bidi="embed">بالمئة، تقريبًا</text>
+
+  <text x="680" y="430" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" font-style="italic" fill="#000000">تقديرات توضيحية — ليست قياسات معيارية.</text>
+</svg>
