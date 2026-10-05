@@ -41,7 +41,7 @@ the collection the component installs from; `origin` names the true upstream
 author repository when it differs, and stays null when `source` is already
 the author. A record that claims `verified` must have had both its install
 command and its origin checked against a real registry or repository. The
-12 verified install commands in the 2715-record catalog carry that provenance;
+12 verified install commands in the 2734-record catalog carry that provenance;
 everything else is `unverified`.
 
 ## The `on-demand` phase

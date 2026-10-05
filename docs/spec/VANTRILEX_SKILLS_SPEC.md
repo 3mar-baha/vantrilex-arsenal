@@ -59,7 +59,7 @@ have its docs reachable via Context7 — if not, it is rejected or flagged.
 4. Apply overlap rules (`supersedes`/`pairs_with`): never install both sides of `supersedes`
    (e.g. `ponytail-review` vs `code-review` → pick by recency/scope, record why).
 5. Present a shortlist table → **owner approves** → install.
-Tier 0 (36 components) is pre-approved; Tier 1 is per-project.
+Tier 0 (49 components) is pre-approved; Tier 1 is per-project.
 
 ### A.6 Step 4 — Install + verify + report
 - Install with REAL commands only (`npx skills add <repo> --skill <name> -a opencode`,

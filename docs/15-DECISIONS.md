@@ -179,3 +179,21 @@ the ratified list and are left vacant rather than filled.
   [01-OVERVIEW.md](01-OVERVIEW.md), [04-VANGUARD.md](04-VANGUARD.md), and
   [13-CONTRIBUTING-WORKFLOW.md](13-CONTRIBUTING-WORKFLOW.md) carry the same
   figures as settled rather than provisional.
+
+## Tier-0 census re-ratified at 49 locked components
+
+- **Date:** 2026-10-05
+- **Context:** The census ratified above counted 36 locked components. The
+  digest-candidate and parked-idea work then locked 13 further entries, every
+  one of them `tier conditional` with `verification unverified` and a null
+  `install_cmd`, so the figure went stale with nothing removed or promoted.
+- **Decision:** The owner-authorized figure is 49 locked components = 34 tier
+  core + 15 tier conditional, 0 pending. The 36-component census stays on the
+  record as its own 2026-10-04 ratification and is superseded, not rewritten;
+  the decision to keep both conditional hooks is unaffected, and the 8-MCP cap
+  is unchanged.
+- **Consequences:** [CHANGELOG.md](../CHANGELOG.md) records the re-ratification
+  under `## [Unreleased]` and restates the 0.2.0 census note at 49, and every
+  current-state document now carries 49 rather than 36. The design-time
+  arithmetic in `docs/spec/VANTRILEX_KIT_SPEC.md` is untouched, because it
+  records the original specification's own set rather than the lock.

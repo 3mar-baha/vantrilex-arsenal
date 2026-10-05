@@ -49,7 +49,8 @@ Each kind also has a generated `_index.md` listing Tier-0 first.
 
 ## Tier-0 default kit
 
-36 components provisioned on every project without questions:
+49 components provisioned on every project without questions — 34 tier core plus 15 tier
+conditional, 0 pending:
 
 | Kind | Count | Contents |
 |---|---|---|
@@ -58,6 +59,11 @@ Each kind also has a generated `_index.md` listing Tier-0 first.
 | Plugins | 6 | code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance |
 | Hooks | 6 | session-start, pre-compact, session-end, long-running-process guard, TypeScript check, Prettier format |
 | Agents | 4 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer |
+
+The table enumerates the 34 tier-core entries plus the two conditional hooks of the Tier-0
+set. The other 13 locked components are conditional: twelve in-repo skills, the in-repo
+`red-team` agent, and the upstream `a11y-audit` agent, every one of them
+`verification: unverified` with no install command.
 
 The MCP set is capped at 8 as a context-budget backstop; on ties a Skill or CLI wins over
 an MCP server. Tier-1 components (Python, UI, team-flow, and design-system components)

@@ -13,7 +13,7 @@ contradicts them.
 | Part | Location | Role |
 |---|---|---|
 | Plugin | `.opencode/` | Shipped hooks-as-plugin callbacks, role agents, operator commands, transplanted skills |
-| Registry | `registry/` | The 2715-component catalog: human-readable source plus machine mirror |
+| Registry | `registry/` | The 2734-component catalog: human-readable source plus machine mirror |
 | Default kit | Tier-0 set in the catalog | What every project receives without questions asked |
 
 The kit specification is `spec/VANTRILEX_KIT_SPEC.md` (naming, the Tier-0 set
@@ -40,23 +40,22 @@ law.
 
 ## Tier-0 census, stated honestly
 
-The specified Tier-0 default kit is 36 components, provisioned on every
-project:
+The default kit as locked in `kit/kit.lock` is 49 components, provisioned on
+every project:
 
-| Kind | Specified count | Contents |
+| Kind | Locked count | Contents |
 |---|---|---|
-| Skills | 12 | Vanguard, Doctrine, plus 10 upstream skills |
+| Skills | 23 | Vanguard, Doctrine, plus 10 upstream skills, plus 11 conditional Arsenal skills |
 | MCP servers | 8 | filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter |
 | Plugins | 6 | code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance |
-| Hooks | 6 | session-start, pre-compact, two session-persistence guards, TypeScript check, Prettier format |
-| Agents | 4 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer |
+| Hooks | 6 | 4 core session hooks, plus the 2 conditional TypeScript-check and Prettier-format hooks |
+| Agents | 6 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer, plus red-team and a11y-audit |
 
-The honest current count is 32 core records plus the 2 conditional hooks =
-34 locked entries (36 with the two kit skills locked as built).
-`registry/catalog.json` today carries 2719 records in total, of which 34 carry
-tier `core`, including the two Arsenal skills themselves (Vanguard and
-Doctrine); with the 2 conditional hooks alongside, this accounts for the full
-36 specified positions.
+The honest current count is 34 tier `core` records plus 15 tier `conditional`
+records, which is 49 locked components with an empty `pending` list. The two
+conditional hooks stay locked because `.opencode/plugin/arsenal.ts` already
+implements them, so a separate install would be a second path to the same
+guard. `registry/catalog.json` today carries 2734 records in total.
 The catalog recount stands at 22 default-selected components and 12 verified
 install commands, enriched from 6 sidecars merged by the generator (skills,
 mcp, plugins, hooks, agents, formatting). Tier-1 components — Python, UI,

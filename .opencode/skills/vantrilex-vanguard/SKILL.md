@@ -196,7 +196,7 @@ catalog. Then score each candidate on installs and stars with preference for pro
 adoption at or above one thousand, on activity within the last six months, on a
 clear licence, and on non-overlap with stronger candidates. Then apply the overlap
 rules. Then present the shortlist, wait for owner approval, and only then install.
-Tier 0, the core set of thirty-six components, is pre-approved for every project;
+Tier 0, the core set of forty-nine components, is pre-approved for every project;
 Tier 1 is selected per project and needs explicit approval.
 
 Vanguard reads catalog records by their real field names, exactly these fields, and Vanguard reads them by these names:
