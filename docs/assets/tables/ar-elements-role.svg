@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="331" viewBox="0 0 740 331" role="img" aria-labelledby="figTitle figDesc" direction="rtl">
+<title id="figTitle">Vantrilex Arsenal — the kit, three skills, one catalog (Arabic)</title>
+<desc id="figDesc">Table converted from README.ar.md. Five right-to-left rows: the kit, the three top-level skills, and the Vantrilex Registry catalog of 2,736 components.</desc>
+<rect x="0" y="0" width="740" height="331" fill="#FFFFFF"/>
+<rect x="18" y="58" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="102" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="146" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="190" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="234" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="18" width="704" height="36" fill="#4169E1"/>
+<rect x="18" y="54" width="704" height="4" fill="#ADD8E6"/>
+<line x1="18" y1="278" x2="722" y2="278" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="18" y2="278" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="722" y1="18" x2="722" y2="278" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="722" y2="18" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="418" y1="58" x2="418" y2="278" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="58" x2="18" y2="278" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="102" x2="722" y2="102" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="146" x2="722" y2="146" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="190" x2="722" y2="190" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="234" x2="722" y2="234" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<text x="658" y="40.2" text-anchor="middle" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">العنصر</tspan></text>
+<text x="506" y="40.2" text-anchor="middle" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">الاسم</tspan></text>
+<text x="218" y="40.2" text-anchor="middle" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">الدور</tspan></text>
+<text x="707" y="81.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">الطقم</text>
+<text x="579" y="81.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">Vantrilex Arsenal</tspan></text>
+<text x="403" y="81.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">كل ما يُجهَّز على المشروع</text>
+<text x="707" y="125.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">المهارة 1</text>
+<text x="579" y="125.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">Vantrilex Prime</tspan></text>
+<text x="403" y="125.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">التوجيه: أين تقع الترسانة وكيف تُثبَّت بإصدار محدَّد</text>
+<text x="707" y="169.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">المهارة 2</text>
+<text x="579" y="169.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">Vantrilex Vanguard</tspan></text>
+<text x="403" y="169.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">الاستطلاع: اكشف المشروع، وانتقِ الطقم وجهّزه، وتحقّق من عمله</text>
+<text x="707" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">المهارة 3</text>
+<text x="579" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">Vantrilex Doctrine</tspan></text>
+<text x="403" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">القانون: الأدوار والبوابات وسير العمل والطقوس</text>
+<text x="707" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">الفهرس</text>
+<text x="579" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">Vantrilex Registry</tspan></text>
+<text x="403" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">2,736 مكوّنًا، بصيغة قابلة للقراءة آليًا، وأوامر تثبيت موسومة بأمانة</text>
+<text x="722" y="308.5" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" direction="rtl" unicode-bidi="embed" xml:space="preserve">محوَّل من الجدول في README.ar.md عند ef487dec. الأرقام مطابقة للجدول الأصلي.</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="507" viewBox="0 0 740 507" role="img" aria-labelledby="figTitle figDesc" direction="rtl">
+<title id="figTitle">The nine static icons of the Vantrilex identity (Arabic)</title>
+<desc id="figDesc">Table converted from README.ar.md. Nine right-to-left rows, one per static icon in brand/icons, with the Arabic purpose of each.</desc>
+<rect x="0" y="0" width="740" height="507" fill="#FFFFFF"/>
+<rect x="18" y="58" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="102" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="146" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="190" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="234" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="278" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="322" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="366" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="410" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="18" width="704" height="36" fill="#4169E1"/>
+<rect x="18" y="54" width="704" height="4" fill="#ADD8E6"/>
+<line x1="18" y1="454" x2="722" y2="454" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="18" y2="454" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="722" y1="18" x2="722" y2="454" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="722" y2="18" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="58" x2="18" y2="454" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="102" x2="722" y2="102" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="146" x2="722" y2="146" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="190" x2="722" y2="190" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="234" x2="722" y2="234" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="278" x2="722" y2="278" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="322" x2="722" y2="322" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="366" x2="722" y2="366" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="410" x2="722" y2="410" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<text x="585" y="40.2" text-anchor="middle" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">الأيقونة</tspan></text>
+<text x="233" y="40.2" text-anchor="middle" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan font-weight="700">الغرض</tspan></text>
+<text x="707" y="81.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/tier-prime.svg</tspan></text>
+<text x="433" y="81.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan>التوجيه — Prime تجيب عن </tspan><tspan font-style="italic">أين تقع الترسانة</tspan></text>
+<text x="707" y="125.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/tier-vanguard.svg</tspan></text>
+<text x="433" y="125.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan>الاستطلاع — Vanguard تجيب عن </tspan><tspan font-style="italic">عمّا يحتاجه هذا المشروع</tspan></text>
+<text x="707" y="169.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/tier-doctrine.svg</tspan></text>
+<text x="433" y="169.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve"><tspan>الحوكمة — Doctrine تجيب عن </tspan><tspan font-style="italic">كيف يُستخدم الطقم</tspan></text>
+<text x="707" y="213.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/three-tier.svg</tspan></text>
+<text x="433" y="213.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">الطبقات الثلاث مكدَّسة: توجيه، ثم انتقاء، ثم سلوك</text>
+<text x="707" y="257.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/registry-grid.svg</tspan></text>
+<text x="433" y="257.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">مجموعة المكوّنات المثبَّتة بإصدار محدَّد</text>
+<text x="707" y="301.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/verification-gate.svg</tspan></text>
+<text x="433" y="301.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">بوابات التحقّق الست كحاجز واحد</text>
+<text x="707" y="345.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/component.svg</tspan></text>
+<text x="433" y="345.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">مكوّن واحد من الطقم — الوحدة التي يحصيها السجلّ</text>
+<text x="707" y="389.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/workflow-dag.svg</tspan></text>
+<text x="433" y="389.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">سير العمل اللا دوري الموجَّه</text>
+<text x="707" y="433.14" text-anchor="end" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" direction="ltr" unicode-bidi="isolate" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/armed-kit.svg</tspan></text>
+<text x="433" y="433.14" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" direction="rtl" unicode-bidi="embed" xml:space="preserve">الطقم بعد تجهيزه كاملًا</text>
+<text x="722" y="484.5" text-anchor="start" font-family="Tahoma,'Segoe UI','Noto Sans Arabic','Geeza Pro',Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" direction="rtl" unicode-bidi="embed" xml:space="preserve">محوَّل من جدول الهوية البصرية في README.ar.md عند ef487dec. تسعة صفوف.</text>
+</svg>

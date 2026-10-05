@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="434" viewBox="0 0 740 434" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">Vantrilex Registry — 2,736 records across six kinds</title>
+<desc id="figDesc">Table converted from README.md and README.ar.md, which carry identical figures. Records by kind: skill 1,503; mcp 905; agent 284; hook 19; formatting 13; plugin 12; total 2,736.</desc>
+<rect x="0" y="0" width="740" height="434" fill="#FFFFFF"/>
+<rect x="18" y="58" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="102" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="146" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="190" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="234" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="278" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="322" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="18" width="704" height="36" fill="#4169E1"/>
+<rect x="18" y="54" width="704" height="4" fill="#ADD8E6"/>
+<line x1="18" y1="366" x2="722" y2="366" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="18" y2="366" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="722" y1="18" x2="722" y2="366" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="722" y2="18" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="398" y1="58" x2="398" y2="366" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="102" x2="722" y2="102" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="146" x2="722" y2="146" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="190" x2="722" y2="190" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="234" x2="722" y2="234" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="278" x2="722" y2="278" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="322" x2="722" y2="322" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<text x="33" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Kind</tspan></text>
+<text x="707" y="40.2" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Records</tspan></text>
+<text x="33" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">skill</text>
+<text x="707" y="81.14" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">1,503</text>
+<text x="33" y="125.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">mcp</text>
+<text x="707" y="125.14" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">905</text>
+<text x="33" y="169.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">agent</text>
+<text x="707" y="169.14" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">284</text>
+<text x="33" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">hook</text>
+<text x="707" y="213.14" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">19</text>
+<text x="33" y="257.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">formatting</text>
+<text x="707" y="257.14" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">13</text>
+<text x="33" y="301.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">plugin</text>
+<text x="707" y="301.14" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">12</text>
+<text x="33" y="345.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Total</text>
+<text x="707" y="345.14" text-anchor="end" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">2,736</text>
+<text x="18" y="396.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" xml:space="preserve">Converted from the table in README.md (The Registry) and the matching table in README.ar.md at ef487dec. Both carry the same figures, so</text>
+<text x="18" y="411.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" xml:space="preserve">one shared SVG serves both READMEs.</text>
+</svg>

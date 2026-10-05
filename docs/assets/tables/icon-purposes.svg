@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="525" viewBox="0 0 740 525" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">The nine static icons of the Vantrilex identity</title>
+<desc id="figDesc">Table converted from README.md. Nine rows, one per static icon in brand/icons, with the purpose of each.</desc>
+<rect x="0" y="0" width="740" height="525" fill="#FFFFFF"/>
+<rect x="18" y="58" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="102" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="146" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="190" width="704" height="62" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="252" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="296" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="340" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="384" width="704" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="428" width="704" height="44" fill="#FFFFFF"/>
+<rect x="18" y="18" width="704" height="36" fill="#4169E1"/>
+<rect x="18" y="54" width="704" height="4" fill="#ADD8E6"/>
+<line x1="18" y1="472" x2="722" y2="472" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="18" y2="472" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="722" y1="18" x2="722" y2="472" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="722" y2="18" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="292" y1="58" x2="292" y2="472" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="102" x2="722" y2="102" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="146" x2="722" y2="146" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="190" x2="722" y2="190" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="252" x2="722" y2="252" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="296" x2="722" y2="296" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="340" x2="722" y2="340" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="384" x2="722" y2="384" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="428" x2="722" y2="428" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<text x="33" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Icon</tspan></text>
+<text x="307" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Purpose</tspan></text>
+<text x="33" y="81.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/tier-prime.svg</tspan></text>
+<text x="307" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve"><tspan>Orientation — Prime answers </tspan><tspan font-style="italic">where the Arsenal is</tspan></text>
+<text x="33" y="125.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/tier-vanguard.svg</tspan></text>
+<text x="307" y="125.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve"><tspan>Scouting — Vanguard answers </tspan><tspan font-style="italic">what this project needs</tspan></text>
+<text x="33" y="169.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/tier-doctrine.svg</tspan></text>
+<text x="307" y="169.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve"><tspan>Governance — Doctrine answers </tspan><tspan font-style="italic">how the kit is used</tspan></text>
+<text x="33" y="213.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/three-tier.svg</tspan></text>
+<text x="307" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">The three tiers as stacked plates: orientation, then selection, then</text>
+<text x="307" y="231.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">conduct</text>
+<text x="33" y="275.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/registry-grid.svg</tspan></text>
+<text x="307" y="275.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">The pinned component set</text>
+<text x="33" y="319.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/verification-gate.svg</tspan></text>
+<text x="307" y="319.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">The six verification gates as one barrier</text>
+<text x="33" y="363.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/component.svg</tspan></text>
+<text x="307" y="363.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">One kit component — the unit the Registry enumerates</text>
+<text x="33" y="407.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/workflow-dag.svg</tspan></text>
+<text x="307" y="407.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">The directed acyclic workflow</text>
+<text x="33" y="451.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="12" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11">brand/icons/armed-kit.svg</tspan></text>
+<text x="307" y="451.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">The provisioned kit in full</text>
+<text x="18" y="502.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" xml:space="preserve">Converted from the Visual identity table in README.md at ef487dec. Nine rows, no figure in this table.</text>
+</svg>

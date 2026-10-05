@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="349" viewBox="0 0 760 349" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">What the 51 locked components actually are</title>
+<desc id="figDesc">Table converted from README.md. Five rows by locked count: 25 skills, 8 MCP servers, 6 plugins, 6 hooks, 6 agents, with the contents of each.</desc>
+<rect x="0" y="0" width="760" height="349" fill="#FFFFFF"/>
+<rect x="18" y="58" width="724" height="44" fill="#FFFFFF"/>
+<rect x="18" y="102" width="724" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="146" width="724" height="44" fill="#FFFFFF"/>
+<rect x="18" y="190" width="724" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="234" width="724" height="62" fill="#FFFFFF"/>
+<rect x="18" y="18" width="724" height="36" fill="#4169E1"/>
+<rect x="18" y="54" width="724" height="4" fill="#ADD8E6"/>
+<line x1="18" y1="296" x2="742" y2="296" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="18" y2="296" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="742" y1="18" x2="742" y2="296" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="742" y2="18" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="166" y1="58" x2="166" y2="296" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="102" x2="742" y2="102" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="146" x2="742" y2="146" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="190" x2="742" y2="190" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="234" x2="742" y2="234" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<text x="33" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Locked</tspan></text>
+<text x="181" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Contents</tspan></text>
+<text x="33" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">25 skills</text>
+<text x="181" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Prime, Vanguard, Doctrine, 10 upstream skills, 12 conditional in-repo skills</text>
+<text x="33" y="125.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">8 MCP servers</text>
+<text x="181" y="125.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter</text>
+<text x="33" y="169.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 plugins</text>
+<text x="181" y="169.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance</text>
+<text x="33" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 hooks</text>
+<text x="181" y="213.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">4 core session hooks, plus 2 conditional: TypeScript check and Prettier format</text>
+<text x="33" y="257.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 agents</text>
+<text x="181" y="257.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer, plus red-team</text>
+<text x="181" y="275.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">and a11y-audit</text>
+<text x="18" y="326.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" xml:space="preserve">Converted from the table in README.md (Kit census) at ef487dec. Locked counts verified identical.</text>
+</svg>
