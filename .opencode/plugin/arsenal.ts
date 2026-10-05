@@ -1,7 +1,7 @@
 /**
  * Vantrilex Arsenal - Tier-0 guards for OpenCode.
  *
- * OpenCode has no hooks directory. Hooks are plugin callbacks, so all six
+ * OpenCode has no hooks directory. Hooks are plugin callbacks, so all eight
  * logical Tier-0 hooks live in this single module and are registered on the
  * callbacks that actually fire for them:
  *
@@ -12,6 +12,7 @@
  *   5. typescriptCheck           -> tool.execute.after   (conditional)
  *   6. prettierFormat            -> tool.execute.after   (conditional)
  *   +  docsDisciplineGuard       -> tool.execute.before   (docs discipline)
+ *   +  taskDispatcher            -> chat.message          (per user message)
  *
  * Rules this module obeys without exception:
  *
@@ -297,6 +298,24 @@ const MAX_DIAGNOSTIC_LINES = 40
 const MAX_ANCHOR_VALUE_CHARS = 400
 const MAX_CAPTURED_INTENT_CHARS = 600
 
+/**
+ * The task-dispatch instruction injected ahead of every user message.
+ *
+ * `chat.message` is the only per-turn write surface in this hook API, so the
+ * instruction is re-sent on every single prompt and its cost is paid again each
+ * time. The budget is therefore five lines, not five paragraphs: the five
+ * scenarios are named, each with its one-clause obligation, and the procedure
+ * itself is deferred to the vanguard skill that already owns it. A longer
+ * injection would not add behaviour, it would only add tokens per prompt.
+ */
+const TASK_DISPATCH_INSTRUCTION = [
+  "[arsenal] task-dispatcher: classify this prompt into exactly one scenario and run that scenario's playbook in the vantrilex-vanguard skill; if the prompt is genuinely ambiguous, ask the user one short clarifying question before proceeding.",
+  "1 NEW TASK (no task in flight): Vanguard task-dispatch from scratch. 2 CONTINUATION (same task, unchanged): silent no-op; keep the existing phase-kit plan.",
+  "3 TASK MODIFICATION (same task, changed): Vanguard re-dispatch on the modified task and state what changed.",
+  "4 CONTINUATION WITH MODIFICATION: completed phases stay locked; re-plan the remaining phases only.",
+  "5 CONTINUATION WITH NEW TASK: checkpoint and park the current task, fresh Vanguard dispatch for the new one; keep the lanes separate and always state which lane you are working.",
+].join("\n")
+
 const WRITE_TOOLS = new Set(["write", "edit", "patch", "multiedit", "create", "apply_patch"])
 
 const SESSION_BEGIN_EVENTS = new Set([
@@ -371,6 +390,21 @@ export const DEFAULT_DOCS_GUARD: DocsGuardConfig = {
 
 const MARKDOWN_EXTENSIONS = new Set([".md", ".markdown", ".mdx"])
 
+/**
+ * Task-dispatcher kill switch.
+ *
+ * The flag defaults to enabled and is honoured only on an explicit boolean
+ * `false`, for the same reason the docs guard defaults to blocking: a missing
+ * file, malformed JSON or a half-written config must never quietly disarm a
+ * guard. It also means a config that cannot be parsed fails towards the
+ * documented default in both directions instead of guessing.
+ */
+export type TaskDispatcherConfig = {
+  enabled: boolean
+}
+
+export const DEFAULT_TASK_DISPATCHER: TaskDispatcherConfig = { enabled: true }
+
 /* ===========================================================================
  * 4. Result plumbing
  * ========================================================================= */
@@ -415,6 +449,7 @@ type ArsenalContext = {
 
 type ArsenalConfig = {
   docsGuard: DocsGuardConfig
+  taskDispatcher: TaskDispatcherConfig
 }
 
 type ContextAnchor = {
@@ -797,17 +832,21 @@ const firstSentence = (markdown: string): string => {
 const readConfig = (rt: Runtime, root: string): ArsenalConfig => {
   const join = rt.path?.join ?? EMPTY_PATH.join
   const attempt = readTextFile(rt, join(root, CONFIG_PATH), 64 * 1024)
-  if (attempt.status !== "ok") return { docsGuard: DEFAULT_DOCS_GUARD }
-  let parsed: unknown
-  try {
-    parsed = JSON.parse(attempt.value)
-  } catch {
-    return { docsGuard: DEFAULT_DOCS_GUARD }
+  let parsed: unknown = null
+  if (attempt.status === "ok") {
+    try {
+      parsed = JSON.parse(attempt.value)
+    } catch {
+      parsed = null
+    }
   }
-  if (!parsed || typeof parsed !== "object") return { docsGuard: DEFAULT_DOCS_GUARD }
+  // Every section is resolved independently, so a config that sets only one of
+  // them still honours the other. A single combined early return would drop the
+  // task-dispatcher kill switch whenever the docs-guard section happened to be
+  // absent, which is precisely the file a user edits to disable one hook.
+  if (!parsed || typeof parsed !== "object") parsed = {}
   const raw = (parsed as { docsGuard?: unknown }).docsGuard
-  if (!raw || typeof raw !== "object") return { docsGuard: DEFAULT_DOCS_GUARD }
-  const guard = raw as Partial<DocsGuardConfig>
+  const guard = raw && typeof raw === "object" ? (raw as Partial<DocsGuardConfig>) : {}
   const stringList = (value: unknown, fallback: string[]): string[] =>
     Array.isArray(value)
       ? value.filter((entry): entry is string => typeof entry === "string").map((entry) => toPosix(entry).replace(/^\/+|\/+$/g, ""))
@@ -823,6 +862,10 @@ const readConfig = (rt: Runtime, root: string): ArsenalConfig => {
         return [{ dir: toPosix(candidate.dir).replace(/^\/+|\/+$/g, ""), from: candidate.from, to: candidate.to }]
       })
     : DEFAULT_DOCS_GUARD.series
+  const dispatcher = (parsed as { taskDispatcher?: unknown }).taskDispatcher
+  const declared =
+    dispatcher && typeof dispatcher === "object" ? (dispatcher as { enabled?: unknown }).enabled : undefined
+  const enabled = typeof declared === "boolean" ? declared : DEFAULT_TASK_DISPATCHER.enabled
   return {
     docsGuard: {
       mode,
@@ -830,6 +873,7 @@ const readConfig = (rt: Runtime, root: string): ArsenalConfig => {
       allowedFiles: stringList(guard.allowedFiles, DEFAULT_DOCS_GUARD.allowedFiles),
       series: series.length > 0 ? series : DEFAULT_DOCS_GUARD.series,
     },
+    taskDispatcher: { enabled },
   }
 }
 
@@ -1538,6 +1582,45 @@ export const prettierFormat = async (
   state.guardOutcomes.push(line)
 }
 
+/**
+ * HOOK 8 - task dispatcher. Injects the scenario-classification instruction
+ * ahead of every user message so the turn starts by deciding which of the five
+ * task scenarios it is, instead of by improvising.
+ *
+ * ONCE PER TASK IS THE EVENT, NOT A GUARD. `chat.message` fires when a user
+ * message is admitted, and the runtime re-reads `output.parts` afterwards, so a
+ * part pushed here genuinely reaches the model. Nothing inside a task can
+ * re-trigger it: phase transitions are assistant replies and tool calls, and
+ * those are `message.updated` / `tool.execute.*`, not user-message admission.
+ * The event granularity and the task boundary are the same boundary.
+ *
+ * No per-session "already dispatched" flag is kept, deliberately. Every user
+ * message may be a new task, a continuation, or a modification, so the
+ * classification has to be present on each of them; a once-per-session latch
+ * would suppress the instruction on exactly the messages that need it. The one
+ * guard that is kept is idempotence within a single parts array, because the
+ * runtime may re-present the same output object.
+ */
+export const taskDispatcher = async (
+  ctx: ArsenalContext,
+  input: ChatMessageInput,
+  output: ChatMessageOutput,
+): Promise<void> => {
+  if (ctx.config.taskDispatcher.enabled !== true) return
+  const parts = output?.parts
+  if (!Array.isArray(parts)) return
+  const alreadyPresent = parts.some(
+    (entry) => asRecord(entry).type === "text" && asRecord(entry).text === TASK_DISPATCH_INSTRUCTION,
+  )
+  if (alreadyPresent) return
+
+  // The minimal `{ type, text }` shape is deliberate: the runtime owns message
+  // identity and timestamps and fills them in when it re-reads the array, and a
+  // synthetic marker would misreport this text as something the user typed.
+  parts.push({ type: "text", text: TASK_DISPATCH_INSTRUCTION })
+  log(ctx, "debug", `task-dispatcher: instruction injected for ${input?.sessionID ?? "anonymous"}`)
+}
+
 /* ===========================================================================
  * 21. Wiring
  * ========================================================================= */
@@ -1619,6 +1702,9 @@ export default (async (input: PluginInput): Promise<Hooks> => {
       if (text.length === 0) return
       const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
       state.lastIntent = clip(text, MAX_CAPTURED_INTENT_CHARS)
+      // After the intent is captured, so `lastIntent` stays the user's own words
+      // and never the instruction this hook adds.
+      await taskDispatcher(ctx, msgInput, msgOutput)
     },
 
     "experimental.chat.system.transform": async (
