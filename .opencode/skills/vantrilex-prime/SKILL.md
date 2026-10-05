@@ -132,9 +132,11 @@ Report these component homes, each with its observed presence:
 ```
 
 Skills and kit components share the `.opencode/skills/` tree, which is why a folder count there is
-not a component count. The tree holds nineteen folders: three are the top-level orchestration skills
-and the rest are kit components. Name the supporting paths beside them, because a fresh instance
-looks for them next:
+not a component count. The tree holds twenty folders: three are the top-level orchestration skills,
+twelve more are locked kit components, and five sit on disk unlocked. Read that split from
+`.opencode/skills/` and `kit/kit.lock` rather than from this file, because a folder can land on disk
+before or after the lock catches up with it. Name the supporting paths beside them, because a fresh
+instance looks for them next:
 
 ```text
 | Path                 | Holds                                             |
@@ -144,10 +146,11 @@ looks for them next:
 | `AGENTS.md`          | The repository constitution for any coding agent |
 ```
 
-The pinned kit is locked at fifty components with an empty pending list — thirty-five core, fifteen
-conditional — and the lockfile caps MCP transports at eight. Read both numbers from `kit/kit.lock`
-and report them as read; when the file is absent or unreadable, report that as a deviation and never
-fill it in from memory, because a remembered number that no longer matches the tree is a silent lie.
+The pinned kit is locked at fifty-one components with an empty pending list — thirty-five core,
+sixteen conditional — and the lockfile caps MCP transports at eight. Read the total, the tier split,
+the pending length, and the cap from `kit/kit.lock` and report them as read; when the file is absent or
+unreadable, report that as a deviation and never fill it in from memory, because a remembered number
+that no longer matches the tree is a silent lie.
 
 ### P.5 — Verify the three top-level skills
 
