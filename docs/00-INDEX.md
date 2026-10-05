@@ -62,7 +62,7 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2719 catalog records, 34 records with tier
+- Counts are honest and checkable: 2734 catalog records, 34 records with tier
   `core` including the 2 Arsenal skills, 22 default-selected components,
   12 verified install commands, 6 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
