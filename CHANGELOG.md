@@ -26,18 +26,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   at `tier conditional`, `phase build`, a null `install_cmd`, and
   `verification unverified`, matching every other in-repo conditional skill.
 - **Kit component `task-dispatcher`, the seventh hook.** A plugin callback in
-  `.opencode/plugin/arsenal.ts` bound to `chat.message`, so it fires once per
-  user message — the event granularity and the task boundary are the same
-  boundary, and nothing inside a task can re-trigger it. It injects a five-line
-  instruction that classifies the turn into exactly one of five Vanguard task
-  scenarios (new task, continuation, task modification, continuation with
-  modification, continuation with new task) and points at the Vanguard skill,
-  which owns what to do about each. It injects no component and carries no plan
-  of its own. Locked at `phase scout`, `tier core`, a null `install_cmd`, and
-  `verification unverified`, matching every other in-repo hook. Its kill switch
-  is `taskDispatcher.enabled` in `.opencode/arsenal.json`, default `true`, so the
-  policy can be turned off without unpacking the plugin. Documented in
-  `docs/16-TASK-DISPATCH.md`.
+  `.opencode/plugin/arsenal.ts` bound to the OpenCode V2 session `prompt` hook,
+  so it fires once per user prompt — the event granularity and the task
+  boundary are the same boundary, and nothing inside a task can re-trigger it.
+  It appends a five-line instruction that classifies the turn into exactly one
+  of five Vanguard task scenarios (new task, continuation, task modification,
+  continuation with modification, continuation with new task) and points at the
+  Vanguard skill, which owns what to do about each. It injects no component and
+  carries no plan of its own. Locked at `phase scout`, `tier core`, a null
+  `install_cmd`, and `verification unverified`, matching every other in-repo
+  hook. Its kill switch is `taskDispatcher.enabled` in `.opencode/arsenal.json`,
+  default `true`, so the policy can be turned off without unpacking the plugin.
+  Documented in `docs/16-TASK-DISPATCH.md`.
 - `README.ar.md`, the full Arabic counterpart to `README.md`, agreeing with it on
   every figure and fact.
 - `AI_GUIDE.md`, an AI-facing operating manual: the three skills and their fixed
@@ -125,6 +125,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   no SVG was added, removed, resized, restyled, or re-laid-out, the provenance and
   honesty lines are intact, every figure carrying a `~` is untouched, and the
   four-value brand palette is unchanged.
+- **`task-dispatcher` migrated to the OpenCode V2 plugin surface.** The hook now
+  registers from the plugin module's `setup()` — the V2 contract the plugin file
+  mirrors from `@opencode/plugin` 2.0.22 — against the session `prompt` hook, and
+  appends its instruction to `event.prompt.text` instead of pushing a
+  `{ type, text }` part onto V1's `output.parts`. Behaviour is unchanged: the
+  same five scenarios, the same five-line instruction, the same
+  `taskDispatcher.enabled` kill switch defaulting to `true`, and the same
+  once-per-task semantics, because prompt admission is the same task boundary
+  `chat.message` was. Two differences are deliberate: an empty prompt is not
+  annotated, since there is no intent to classify from it, and the captured
+  `lastIntent` is read before the rewrite so it stays the user's own words. The
+  config root resolves from `ctx.location.directory` with the working directory
+  as the fallback, reading `.opencode/arsenal.json`.
+- **The other six hooks and the docs-discipline guard remain V1-only, and are
+  inert under OpenCode V2.** They are still registered from the `server()`
+  surface, which a V2 runtime never dispatches, so on V2 those seven callbacks do
+  not fire at all. This is a deliberate, unfinished gap rather than a completed
+  port: V2 has no equivalent of `experimental.chat.system.transform`, no
+  `experimental.session.compacting`, and no mutable `tool.execute.*` output, so
+  porting those guards means reworking what each one writes and how it reads a
+  verdict — a separate concern, deliberately not bundled into the user-message
+  migration. The module default-exports one object carrying both surfaces,
+  because V2 reads `id` plus `setup()` and ignores `server()`, while OpenCode V1
+  `>= 1.18.29` reads `server()` and ignores `setup()`.
+- The kit census is unchanged by that migration: 52 locked components, 36 tier
+  `core` plus 16 tier `conditional`, 0 pending, 7 of them hooks. A guard moving
+  to a different runtime surface is not a new component.
 
 ---
 

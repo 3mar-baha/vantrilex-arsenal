@@ -210,7 +210,7 @@ green-looking.
 |---|---|---|
 | `.opencode/skills/` | Every skill folder, one `SKILL.md` each: 3 top-level skills plus the component folders | No |
 | `.opencode/agent/` | Role files: Leader, Guide, Implementer, red-team | No |
-| `.opencode/plugin/arsenal.ts` | The plugin source that installs the Arsenal into a target project; it also carries the docs-discipline guard and the `task-dispatcher` hook | No |
+| `.opencode/plugin/arsenal.ts` | The plugin source that installs the Arsenal into a target project; it also carries the docs-discipline guard and the `task-dispatcher` hook, and default-exports both the OpenCode V2 `setup()` surface and the V1 `server()` surface | No |
 | `.opencode/command/` | Operator entry points, including prime, equip, doctor, and release | No |
 | `registry/VANTRILEX_CATALOG.md` | The catalog. **The source of truth.** | Yes — edit the generator or the sidecar |
 | `registry/catalog.json` | The machine mirror of the catalog, read by tooling | Yes — regenerate, never hand-edit |
@@ -238,20 +238,30 @@ Seven locked hook ids must each resolve to an exported function in that file, an
 
 | Locked hook id | Exported function | Binds to | Tier |
 |---|---|---|---|
-| `session-start` | `sessionStart` | `experimental.chat.system.transform` | core |
-| `pre-compact` | `preCompact` | `experimental.session.compacting` | core |
-| `persist-session-state-on-end` | `sessionEnd` | session event | core |
-| `long-running-process-guard` | `longRunningProcessGuard` | `tool.execute.before` | core |
-| `typescript-check-after-editing-ts-tsx-files` | `typescriptCheck` | `tool.execute.after` | conditional |
-| `auto-format-js-ts-files-with-prettier-after-edits` | `prettierFormat` | `tool.execute.after` | conditional |
-| `task-dispatcher` | `taskDispatcher` | `chat.message` | core |
+| `session-start` | `sessionStart` | V1 `experimental.chat.system.transform` | core |
+| `pre-compact` | `preCompact` | V1 `experimental.session.compacting` | core |
+| `persist-session-state-on-end` | `sessionEnd` | V1 session event | core |
+| `long-running-process-guard` | `longRunningProcessGuard` | V1 `tool.execute.before` | core |
+| `typescript-check-after-editing-ts-tsx-files` | `typescriptCheck` | V1 `tool.execute.after` | conditional |
+| `auto-format-js-ts-files-with-prettier-after-edits` | `prettierFormat` | V1 `tool.execute.after` | conditional |
+| `task-dispatcher` | `taskDispatcher` | **V2** session `prompt` hook | core |
 
-`task-dispatcher` fires on every user message and injects a five-line instruction that
-classifies the turn into one of five Vanguard task scenarios. It is behavioural, not a
-guard: it blocks nothing. Its kill switch is `taskDispatcher.enabled` in
+`task-dispatcher` is the only hook on the OpenCode V2 surface: it is registered from `setup()` with
+`ctx.session.hook("prompt", …)` and appends its instruction to `event.prompt.text`, so it fires on
+every user prompt and classifies the turn into one of five Vanguard task scenarios. It is
+behavioural, not a guard: it blocks nothing. Its kill switch is `taskDispatcher.enabled` in
 `.opencode/arsenal.json`, default `true`, and it is documented in
 [`docs/16-TASK-DISPATCH.md`](docs/16-TASK-DISPATCH.md). A hook id here is never prefixed
 with `vantrilex-`; that prefix belongs to the three top-level skills.
+
+**The six other hooks and the docs-discipline guard are still V1-only and are inert under V2.** They
+are registered from the `server()` surface, which a V2 runtime never dispatches, so on OpenCode V2
+those seven callbacks never fire. That gap is deliberate and unfinished, not a completed port: V2
+has no `experimental.chat.system.transform`, no `experimental.session.compacting`, and no mutable
+`tool.execute.*` output for a guard to append a verdict to. The module default-exports one object
+carrying both surfaces, because V2 reads `id` plus `setup()` and ignores `server()`, while V1
+(`>= 1.18.29`) reads `server()` and ignores `setup()`. Do not report the kit's guards as running
+under V2 on the strength of this table; only `task-dispatcher` does.
 
 ### The visual identity
 

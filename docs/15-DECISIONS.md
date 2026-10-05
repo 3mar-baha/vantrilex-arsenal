@@ -308,3 +308,45 @@ the ratified list and are left vacant rather than filled.
   or re-laid-out. The root-level `VANTRILEX_SKILLS_SPEC.md` copy carries 49 and is
   owned by another branch, so `docs/spec/VANTRILEX_SKILLS_SPEC.md` is the copy
   this change moves.
+
+## Task dispatcher migrates to the OpenCode V2 `setup()` surface
+
+- **Date:** 2026-10-05
+- **Context:** `task-dispatcher` was bound to V1's `chat.message` event, which
+  pushed a `{ type, text }` part onto `output.parts`. The other six hooks and the
+  docs-discipline guard are written against three V1 surfaces that V2 does not
+  have: `experimental.chat.system.transform`,
+  `experimental.session.compacting`, and a mutable `tool.execute.*` output whose
+  `{ title, output, metadata }` the guards append a verdict to. Under V2,
+  `execute.after` reports a discriminated `{ status, result | error }` union and
+  the `context` hook takes a `SystemPart[]`. The plugin therefore had one hook
+  that could move and six that could not, and leaving all seven on V1 would have
+  meant the task dispatcher did not run at all on a V2 runtime.
+- **Decision:** `task-dispatcher` registers from the V2 `setup()` surface against
+  the session `prompt` hook, with `ctx.session.hook("prompt", handler)`, and
+  appends its instruction to `event.prompt.text` behind the user's own text,
+  because V2 states that edits to the prompt become the canonical persisted user
+  input. The append goes at the end and never the front: V2 requires attachment
+  `mention` offsets to be updated or removed when prompt text is rewritten, and
+  appending shifts none. An empty prompt is not annotated, because there is no
+  intent to classify from it, and `lastIntent` is captured before the rewrite so
+  it stays the user's own words. The other six hooks and the docs-discipline
+  guard stay on the V1 `server()` surface and are recorded as inert under V2 — a
+  deliberate, unfinished gap, not a completed port. The module default-exports
+  one object carrying both surfaces, because V2 reads `id` and `setup()` and
+  ignores `server()`, while OpenCode V1 `>= 1.18.29` reads `server()` and ignores
+  `setup()`; a function export would be loadable by V1 only.
+- **Consequences:** The V2 surface this hook targets is the contract the plugin
+  file mirrors from `@opencode/plugin` 2.0.22, and the V1 floor of `>= 1.18.29`
+  now applies only to the hooks that stayed behind. Behaviour is unchanged: the
+  five scenarios, the five-line instruction, the `taskDispatcher.enabled` kill
+  switch defaulting to `true`, and once-per-task semantics, because prompt
+  admission is the same task boundary `chat.message` was. The config root
+  resolves from `ctx.location.directory` with the working directory as the
+  fallback, reading `.opencode/arsenal.json`. The kit census is untouched — 52
+  locked components, 36 tier `core` plus 16 tier `conditional`, 0 pending, 7 of
+  them hooks — because a guard changing runtime surface is not a new component.
+  The same gap is now stated in `AI_GUIDE.md`, `README.md`, `README.ar.md`,
+  `docs/00-INDEX.md`, `docs/01-OVERVIEW.md`, `docs/03-ARCHITECTURE.md`,
+  `docs/04-VANGUARD.md`, and the Task dispatch section of the Vanguard skill,
+  and the seven-hook table in `AI_GUIDE.md` marks the six V1 bindings as V1.

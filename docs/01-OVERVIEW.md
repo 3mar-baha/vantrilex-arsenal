@@ -71,8 +71,12 @@ kit affordable are documented in [09-KIT-LOCK.md](09-KIT-LOCK.md).
 OpenCode has no standalone hooks directory, so hooks are plugin callbacks: the
 7 logical Tier-0 hooks are implemented inside the single plugin file
 `.opencode/plugin/arsenal.ts` rather than as 7 separate files. The seventh,
-`task-dispatcher`, is documented in
-[16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
+`task-dispatcher`, runs on the OpenCode V2 surface — registered from `setup()`
+against the session `prompt` hook — while the other six hooks and the
+docs-discipline guard remain on the V1 `server()` surface and are **inert under
+V2**. That gap is deliberate and unfinished, not a completed port, and it does
+not move the census: 52 locked components, 7 of them hooks. The seventh hook is
+documented in [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 
 ## The Node-only toolchain
 

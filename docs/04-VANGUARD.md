@@ -11,10 +11,13 @@ list lives in section A.7 of the spec and is referenced here only.
 
 Trigger phrases: equipping a project, new project setup, "vanguard".
 
-Per-turn dispatch into this skill is the `task-dispatcher` hook, which
-classifies every user message into one of five task scenarios and points here;
-see [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md). Equipping is what that skill
-does once per target project; dispatch decides which turn reads it.
+Per-turn dispatch into this skill is the `task-dispatcher` hook, bound to the
+OpenCode V2 session `prompt` hook, which classifies every user message into one
+of five task scenarios and points here; see
+[16-TASK-DISPATCH.md](16-TASK-DISPATCH.md). Equipping is what that skill does
+once per target project; dispatch decides which turn reads it. The other six
+hooks and the docs-discipline guard are still V1-only and do not fire under V2,
+so a target project on V2 has dispatch and no guard verdicts.
 
 ## The six steps
 

@@ -250,6 +250,17 @@ mechanisms: present on disk, not locked into the default kit.
 > same guard. The seventh, `task-dispatcher`, classifies every user message
 > into one of five Vanguard task scenarios; see
 > [`docs/16-TASK-DISPATCH.md`](docs/16-TASK-DISPATCH.md).
+>
+> **OpenCode V2 status.** `task-dispatcher` now runs on the V2 surface — the
+> contract the plugin mirrors from `@opencode/plugin` 2.0.22. It is registered
+> from the plugin's `setup()` against the session `prompt` hook and appends its
+> five-line instruction to `event.prompt.text`. The other six hooks and the
+> docs-discipline guard are still registered from the V1 `server()` surface and
+> are **inert under V2** — they never fire, and that gap is deliberate and
+> unfinished, not a completed port. The module default-exports both surfaces in
+> one object, because V2 reads `id` plus `setup()` and ignores `server()`, while
+> V1 (`>= 1.18.29`) reads `server()` and ignores `setup()`. Details in
+> [`docs/16-TASK-DISPATCH.md`](docs/16-TASK-DISPATCH.md).
 
 ---
 
