@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="477" viewBox="0 0 760 477" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">Rough effort per phase, with and without the Arsenal — estimates only</title>
+<desc id="figDesc">New comparison table of rough per-phase effort. Seven phases from orientation to release, each with an unassisted estimate and an Arsenal-assisted estimate. Every time figure is a rough illustrative estimate in minutes, not a measured benchmark.</desc>
+<rect x="0" y="0" width="760" height="477" fill="#FFFFFF"/>
+<rect x="18" y="58" width="724" height="62" fill="#FFFFFF"/>
+<rect x="18" y="120" width="724" height="62" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="182" width="724" height="44" fill="#FFFFFF"/>
+<rect x="18" y="226" width="724" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="270" width="724" height="44" fill="#FFFFFF"/>
+<rect x="18" y="314" width="724" height="44" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="358" width="724" height="44" fill="#FFFFFF"/>
+<rect x="18" y="18" width="724" height="36" fill="#4169E1"/>
+<rect x="18" y="54" width="724" height="4" fill="#ADD8E6"/>
+<rect x="487" y="18" width="3" height="384" fill="#ADD8E6"/>
+<line x1="18" y1="402" x2="742" y2="402" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="18" y2="402" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="742" y1="18" x2="742" y2="402" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="742" y2="18" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="190" y1="58" x2="190" y2="402" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="340" y1="58" x2="340" y2="402" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="490" y1="58" x2="490" y2="402" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="120" x2="742" y2="120" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="182" x2="742" y2="182" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="226" x2="742" y2="226" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="270" x2="742" y2="270" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="314" x2="742" y2="314" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="358" x2="742" y2="358" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<text x="33" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Phase</tspan></text>
+<text x="205" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Without Arsenal</tspan></text>
+<text x="355" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">With Arsenal</tspan></text>
+<text x="505" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">What actually changes</tspan></text>
+<text x="33" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Orientation</text>
+<text x="205" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~20 min of reading</text>
+<text x="355" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~5 min running</text>
+<text x="355" y="99.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Prime</text>
+<text x="505" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Once per machine, not per project</text>
+<text x="33" y="143.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Equip</text>
+<text x="205" y="143.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~45 min installing</text>
+<text x="355" y="143.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~15 min running</text>
+<text x="355" y="161.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Vanguard</text>
+<text x="505" y="143.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Installs verified, docs generated</text>
+<text x="33" y="205.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Feature work</text>
+<text x="205" y="205.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~60 min per feature</text>
+<text x="355" y="205.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~40 min per feature</text>
+<text x="505" y="205.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Doctrine workflow, named roles</text>
+<text x="33" y="249.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Review</text>
+<text x="205" y="249.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~30 min per review</text>
+<text x="355" y="249.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~20 min per review</text>
+<text x="505" y="249.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Second-pass guards before sign-off</text>
+<text x="33" y="293.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Security audit</text>
+<text x="205" y="293.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~60 min per audit</text>
+<text x="355" y="293.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~30 min per audit</text>
+<text x="505" y="293.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">A dedicated auditor agent</text>
+<text x="33" y="337.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Bug fix</text>
+<text x="205" y="337.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~45 min per fix</text>
+<text x="355" y="337.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~25 min per fix</text>
+<text x="505" y="337.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">3-strike breaker halts a bad fix</text>
+<text x="33" y="381.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Release</text>
+<text x="205" y="381.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~40 min per release</text>
+<text x="355" y="381.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">~20 min per release</text>
+<text x="505" y="381.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Changelog and docs gates block it</text>
+<rect x="18" y="416" width="3" height="13" fill="#ADD8E6"/>
+<text x="30" y="424.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#4169E1" xml:space="preserve"><tspan font-weight="700">Illustrative estimates — not measured benchmarks.</tspan></text>
+<text x="18" y="439.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" xml:space="preserve">Every time figure here is a rough order-of-magnitude guess for one small change. No timing in this repository has ever been measured; read these</text>
+<text x="18" y="454.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" xml:space="preserve">as intuition, not data.</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="609" viewBox="0 0 760 609" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">The six verification gates</title>
+<desc id="figDesc">Table converted from README.md. Six gates with their exact commands and what each proves: registry data (6 checks), catalog mirror, kit (11 checks), skills (10 checks), plugin typecheck, shell lint.</desc>
+<rect x="0" y="0" width="760" height="609" fill="#FFFFFF"/>
+<rect x="18" y="58" width="724" height="98" fill="#FFFFFF"/>
+<rect x="18" y="156" width="724" height="80" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="236" width="724" height="98" fill="#FFFFFF"/>
+<rect x="18" y="334" width="724" height="98" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="432" width="724" height="62" fill="#FFFFFF"/>
+<rect x="18" y="494" width="724" height="62" fill="#ADD8E6" fill-opacity="0.24"/>
+<rect x="18" y="18" width="724" height="36" fill="#4169E1"/>
+<rect x="18" y="54" width="724" height="4" fill="#ADD8E6"/>
+<line x1="18" y1="556" x2="742" y2="556" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="18" y2="556" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="742" y1="18" x2="742" y2="556" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="18" y1="18" x2="742" y2="18" stroke="#000000" stroke-opacity="1" stroke-width="1.4"/>
+<line x1="156" y1="58" x2="156" y2="556" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="444" y1="58" x2="444" y2="556" stroke="#000000" stroke-opacity="0.14" stroke-width="1"/>
+<line x1="18" y1="156" x2="742" y2="156" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="236" x2="742" y2="236" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="334" x2="742" y2="334" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="432" x2="742" y2="432" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<line x1="18" y1="494" x2="742" y2="494" stroke="#000000" stroke-opacity="0.24" stroke-width="1"/>
+<text x="33" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Gate</tspan></text>
+<text x="171" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">Command</tspan></text>
+<text x="459" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">What it proves</tspan></text>
+<text x="33" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Registry data</text>
+<text x="171" y="81.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">node scripts/verify-registry.mjs</tspan></text>
+<text x="459" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 checks: strict UTF-8, schema conformance,</text>
+<text x="459" y="99.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">row-count integrity against the generated</text>
+<text x="459" y="117.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">tables, the install-command invariant, orphan</text>
+<text x="459" y="135.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">references, duplicate ids</text>
+<text x="33" y="179.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Catalog mirror</text>
+<text x="171" y="179.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">node scripts/generate-catalog-json.mjs</tspan></text>
+<text x="171" y="197.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">--check</tspan></text>
+<text x="459" y="179.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">the generated machine mirror</text>
+<text x="459" y="197.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="13">registry/catalog.json</tspan><tspan> matches the</tspan></text>
+<text x="459" y="215.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Markdown source of truth</text>
+<text x="33" y="259.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Kit</text>
+<text x="171" y="259.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">node scripts/verify-kit.mjs</tspan></text>
+<text x="459" y="259.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">11 checks: the lockfile validates against its</text>
+<text x="459" y="277.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">schema, each component kind is honest,</text>
+<text x="459" y="295.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">catalog agreement between lock and mirror,</text>
+<text x="459" y="313.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">the MCP cap, pending integrity</text>
+<text x="33" y="357.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Skills</text>
+<text x="171" y="357.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">node scripts/verify-skills.mjs</tspan></text>
+<text x="459" y="357.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">10 checks: the skill-file format contract —</text>
+<text x="459" y="375.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">frontmatter, the seven required headings, no</text>
+<text x="459" y="393.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">placeholders, no excluded toolchains, file</text>
+<text x="459" y="411.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">hygiene, single-home mechanisms</text>
+<text x="33" y="455.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Plugin typecheck</text>
+<text x="171" y="455.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">npx tsc --noEmit -p tsconfig.json</tspan></text>
+<text x="459" y="455.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="13" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="13">.opencode/plugin/arsenal.ts</tspan></text>
+<text x="459" y="473.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve"><tspan>typechecks under </tspan><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="13">strict</tspan></text>
+<text x="33" y="517.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Shell lint</text>
+<text x="171" y="517.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">shellcheck scripts/*.sh .githooks/*</tspan></text>
+<text x="459" y="517.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">the orchestration scripts and git hooks are</text>
+<text x="459" y="535.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">lint-clean</text>
+<text x="18" y="586.5" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#000000" fill-opacity="0.72" xml:space="preserve">Converted from the table in README.md (Verification gates) at ef487dec. Six gates; check counts verified identical.</text>
+</svg>

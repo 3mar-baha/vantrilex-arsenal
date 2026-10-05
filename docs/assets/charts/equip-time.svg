@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="470" viewBox="0 0 720 470" role="img" aria-labelledby="equip-time-title equip-time-desc" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <title id="equip-time-title">Approximate time to equip a new project, with and without the Arsenal</title>
+  <desc id="equip-time-desc">Grouped horizontal bar chart. Orientation takes about 10 minutes with the Arsenal and about 40 minutes without. Component selection takes about 20 minutes with and about 60 minutes without. Gate setup takes about 15 minutes with and about 45 minutes without. All figures are rough illustrative estimates, not measured benchmarks.</desc>
+  <rect x="0" y="0" width="720" height="470" fill="#FFFFFF"/>
+
+  <text x="40" y="48" font-size="20" font-weight="700" fill="#000000">Time to equip a new project</text>
+  <text x="40" y="74" font-size="13" fill="#000000" fill-opacity="0.7">Three equip stages, one project, roughly</text>
+
+  <g>
+    <rect x="430" y="38" width="16" height="14" fill="#4169E1"/>
+    <text x="452" y="50" font-size="12" fill="#000000">With Arsenal</text>
+    <rect x="548" y="38" width="16" height="14" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+    <text x="570" y="50" font-size="12" fill="#000000">Without Arsenal</text>
+  </g>
+
+  <g stroke="#000000" stroke-opacity="0.14" stroke-width="1">
+    <line x1="210" y1="120" x2="210" y2="374"/>
+    <line x1="270" y1="120" x2="270" y2="374"/>
+    <line x1="330" y1="120" x2="330" y2="374"/>
+    <line x1="390" y1="120" x2="390" y2="374"/>
+    <line x1="450" y1="120" x2="450" y2="374"/>
+    <line x1="510" y1="120" x2="510" y2="374"/>
+    <line x1="570" y1="120" x2="570" y2="374"/>
+    <line x1="630" y1="120" x2="630" y2="374"/>
+  </g>
+
+  <text x="40" y="120" font-size="13" font-weight="600" fill="#000000">Orientation</text>
+  <rect x="210" y="136" width="60" height="24" fill="#4169E1"/>
+  <text x="278" y="153" font-size="12" fill="#000000">~10 min</text>
+  <rect x="210" y="166" width="240" height="24" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="458" y="183" font-size="12" fill="#000000">~40 min</text>
+
+  <text x="40" y="210" font-size="13" font-weight="600" fill="#000000">Component selection</text>
+  <rect x="210" y="226" width="120" height="24" fill="#4169E1"/>
+  <text x="338" y="243" font-size="12" fill="#000000">~20 min</text>
+  <rect x="210" y="256" width="360" height="24" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="578" y="273" font-size="12" fill="#000000">~60 min</text>
+
+  <text x="40" y="300" font-size="13" font-weight="600" fill="#000000">Gate setup</text>
+  <rect x="210" y="316" width="90" height="24" fill="#4169E1"/>
+  <text x="308" y="333" font-size="12" fill="#000000">~15 min</text>
+  <rect x="210" y="346" width="270" height="24" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <text x="488" y="363" font-size="12" fill="#000000">~45 min</text>
+
+  <line x1="210" y1="374" x2="630" y2="374" stroke="#000000" stroke-width="1.5"/>
+  <g stroke="#000000" stroke-width="1.5">
+    <line x1="210" y1="374" x2="210" y2="381"/>
+    <line x1="330" y1="374" x2="330" y2="381"/>
+    <line x1="450" y1="374" x2="450" y2="381"/>
+    <line x1="570" y1="374" x2="570" y2="381"/>
+  </g>
+  <g font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle">
+    <text x="210" y="397">~0</text>
+    <text x="330" y="397">~20</text>
+    <text x="450" y="397">~40</text>
+    <text x="570" y="397">~60</text>
+  </g>
+  <text x="420" y="420" font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle">minutes, approximate</text>
+
+  <text x="40" y="452" font-size="12" font-style="italic" fill="#000000">Illustrative estimates — not measured benchmarks.</text>
+</svg>
