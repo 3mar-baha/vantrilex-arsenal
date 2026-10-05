@@ -3,7 +3,18 @@
  *
  * OpenCode has no hooks directory. Hooks are plugin callbacks, so all eight
  * logical Tier-0 hooks live in this single module and are registered on the
- * callbacks that actually fire for them:
+ * callbacks that actually fire for them.
+ *
+ * The module default-exports ONE object carrying both plugin surfaces, because
+ * the two runtimes read disjoint parts of it: V2 reads `id` + `setup()` from a
+ * default export and never invokes a V1 plugin function, while V1 reads
+ * `server()` and ignores the rest.
+ *
+ * V2 - `setup()`, one hook:
+ *
+ *   8. taskDispatcher            -> session "prompt"        (per user prompt)
+ *
+ * V1 - `server()`, the seven remaining hooks:
  *
  *   1. sessionStart              -> experimental.chat.system.transform, event
  *   2. preCompact                -> experimental.session.compacting
@@ -12,7 +23,16 @@
  *   5. typescriptCheck           -> tool.execute.after   (conditional)
  *   6. prettierFormat            -> tool.execute.after   (conditional)
  *   +  docsDisciplineGuard       -> tool.execute.before   (docs discipline)
- *   +  taskDispatcher            -> chat.message          (per user message)
+ *
+ * The six V1-only tool and session guards are carried through `server()`
+ * unchanged and are INERT under V2. That gap is deliberate and unfinished, not
+ * a completed port. V2's `execute.after` hook reports a discriminated
+ * `{ status, result | error }` union where V1 handed the guard a mutable
+ * `{ title, output, metadata }` to append to, and V2's `context` hook takes a
+ * `SystemPart[]` where V1's `experimental.chat.system.transform` took a
+ * `string[]`. Porting those six means reworking what each guard writes and how
+ * it reads a verdict, which is a separate concern from migrating the
+ * user-message hook and is deliberately not bundled into it.
  *
  * Rules this module obeys without exception:
  *
@@ -146,6 +166,91 @@ export type Hooks = {
 }
 
 export type Plugin = (input: PluginInput) => Promise<Hooks>
+
+/* ===========================================================================
+ * 1b. V2 plugin surface
+ * ===========================================================================
+ *
+ * The reasoning from the block above applies one release later. `@opencode/plugin`
+ * is equally absent from this dependency-free repository, so the V2 contract is
+ * mirrored structurally too.
+ *
+ * The mirror is deliberately partial. The published `SessionHooks` map names
+ * twelve hooks and this module registers exactly one of them, so only `prompt`
+ * is declared here. Mirroring the other eleven would be a claim about the V2
+ * contract that nothing in this file can check and that would drift silently
+ * the next time the package changes shape.
+ */
+
+/**
+ * The V2 `prompt` hook event, mirrored from `@opencode/plugin` 2.0.22
+ * `dist/promise/session.d.ts`:
+ *
+ *   export interface SessionPrompt {
+ *       readonly sessionID: Session.ID;
+ *       readonly messageID: SessionMessage.ID;
+ *       prompt: Types.DeepMutable<PromptInput.Prompt>;
+ *       metadata?: Record<string, unknown>;
+ *       delivery: SessionInbox.Delivery;
+ *   }
+ *
+ * `Types.DeepMutable` is why `prompt.text` is assignable even though the
+ * underlying `PromptInput.Prompt` schema declares every field `readonly`: V2
+ * hands the hook an owned draft rather than the caller's argument. That is the
+ * whole reason the V2 surface can write to the prompt at all.
+ */
+export type SessionPromptEvent = {
+  readonly sessionID?: string
+  prompt: { text: string }
+}
+
+/** V2 `Location.Info`, narrowed to the single field this module reads. */
+export type PluginLocationLike = {
+  directory?: string
+}
+
+/**
+ * The V2 plugin `Context`, narrowed to the two members this module uses. The
+ * published context also carries agent, provider, model, tool, permission, vcs
+ * and more; none of them are reachable from a hook this module registers.
+ */
+export type PluginContextLike = {
+  location?: PluginLocationLike
+  session?: {
+    hook?: (
+      name: "prompt",
+      callback: (event: SessionPromptEvent) => Promise<void> | void,
+    ) => Promise<unknown>
+  }
+}
+
+export type PluginCleanup = () => Promise<void> | void
+
+/** Mirrors the published `Plugin` interface from `@opencode/plugin` V2. */
+export type PluginDefinition = {
+  readonly id: string
+  readonly setup: (context: PluginContextLike) => Promise<PluginCleanup | void> | PluginCleanup | void
+}
+
+/**
+ * Mirrors `Plugin.define`, which the published package declares as
+ * `export declare function define(plugin: Plugin): Plugin`.
+ *
+ * Identity at runtime, typed at the call site, so the definition object below
+ * is checked against the mirrored V2 contract exactly as `Plugin.define` would
+ * check it - without adding the dependency this repository refuses to take.
+ */
+export const definePlugin = <T extends PluginDefinition>(plugin: T): T => plugin
+
+/**
+ * The single default export both runtimes accept.
+ *
+ * V2 reads `id` and `setup()` and ignores `server()`. OpenCode V1 `>= 1.18.29`
+ * reads `server()` and ignores the rest. Neither runtime dispatches the other
+ * runtime's hooks, so one file can carry both surfaces without either runtime
+ * loading a hook it has no way to fire.
+ */
+export type ArsenalPluginModule = PluginDefinition & { server: Plugin }
 
 /* ===========================================================================
  * 2. Node runtime shim
@@ -301,12 +406,12 @@ const MAX_CAPTURED_INTENT_CHARS = 600
 /**
  * The task-dispatch instruction injected ahead of every user message.
  *
- * `chat.message` is the only per-turn write surface in this hook API, so the
- * instruction is re-sent on every single prompt and its cost is paid again each
- * time. The budget is therefore five lines, not five paragraphs: the five
- * scenarios are named, each with its one-clause obligation, and the procedure
- * itself is deferred to the vanguard skill that already owns it. A longer
- * injection would not add behaviour, it would only add tokens per prompt.
+ * The session `prompt` hook is the only per-turn write surface in this hook API,
+ * so the instruction is re-sent on every single prompt and its cost is paid
+ * again each time. The budget is therefore five lines, not five paragraphs: the
+ * five scenarios are named, each with its one-clause obligation, and the
+ * procedure itself is deferred to the vanguard skill that already owns it. A
+ * longer injection would not add behaviour, it would only add tokens per prompt.
  */
 const TASK_DISPATCH_INSTRUCTION = [
   "[arsenal] task-dispatcher: classify this prompt into exactly one scenario and run that scenario's playbook in the vantrilex-vanguard skill; if the prompt is genuinely ambiguous, ask the user one short clarifying question before proceeding.",
@@ -1583,43 +1688,62 @@ export const prettierFormat = async (
 }
 
 /**
- * HOOK 8 - task dispatcher. Injects the scenario-classification instruction
- * ahead of every user message so the turn starts by deciding which of the five
- * task scenarios it is, instead of by improvising.
+ * HOOK 8 - task dispatcher. The one decision every surface applies: hand back
+ * the instruction to append to a turn, or null when the kill switch disarms it.
  *
- * ONCE PER TASK IS THE EVENT, NOT A GUARD. `chat.message` fires when a user
- * message is admitted, and the runtime re-reads `output.parts` afterwards, so a
- * part pushed here genuinely reaches the model. Nothing inside a task can
- * re-trigger it: phase transitions are assistant replies and tool calls, and
- * those are `message.updated` / `tool.execute.*`, not user-message admission.
- * The event granularity and the task boundary are the same boundary.
+ * Both runtime surfaces call this function, so V1 and V2 can never disagree
+ * about whether the dispatcher is armed or about which five lines they send.
+ * What differs between the surfaces is only how the returned string reaches the
+ * model, and each adapter owns that.
+ *
+ * ONCE PER TASK IS THE EVENT, NOT A GUARD. Under V1, `chat.message` fired when a
+ * user message was admitted and the runtime re-read `output.parts` afterwards.
+ * Under V2 the `prompt` hook fires "once during admission, not before every
+ * model call". Neither surface can be re-triggered from inside a task: a phase
+ * transition is an assistant reply plus tool calls, which V2 reports as
+ * `context` hooks and event-stream traffic, never as prompt admission. The
+ * event granularity and the task boundary are the same boundary.
+ *
+ * Two differences from the V1 implementation are deliberate, and are recorded
+ * here rather than left for a reader to discover:
+ *
+ *   1. Placement. V1 appended a synthetic `{ type: "text" }` part to the message
+ *      after admission, so the instruction sat beside the user's words. V2's
+ *      hook event has no parts array, so the instruction is appended to
+ *      `event.prompt.text`, and the V2 guide states that edits "become the
+ *      canonical persisted user input". Under V2 the instruction therefore
+ *      persists inside the user's own message. Ordering is unchanged - still
+ *      after the user's own text, still ahead of the model's work - and no
+ *      other part of the turn differs.
+ *   2. Appended, never prepended. V2 requires that "attachment `mention`
+ *      offsets" be updated or removed when text is rewritten. Appending after
+ *      the existing text shifts no offset, so the rewrite is offset-safe by
+ *      construction; prepending would force every mention offset to be
+ *      renumbered or dropped, which would silently break `@file` references.
  *
  * No per-session "already dispatched" flag is kept, deliberately. Every user
  * message may be a new task, a continuation, or a modification, so the
  * classification has to be present on each of them; a once-per-session latch
  * would suppress the instruction on exactly the messages that need it. The one
- * guard that is kept is idempotence within a single parts array, because the
- * runtime may re-present the same output object.
+ * guard that is kept is idempotence within a single turn, because either
+ * runtime may re-present the same draft.
  */
-export const taskDispatcher = async (
-  ctx: ArsenalContext,
-  input: ChatMessageInput,
-  output: ChatMessageOutput,
-): Promise<void> => {
-  if (ctx.config.taskDispatcher.enabled !== true) return
-  const parts = output?.parts
-  if (!Array.isArray(parts)) return
-  const alreadyPresent = parts.some(
-    (entry) => asRecord(entry).type === "text" && asRecord(entry).text === TASK_DISPATCH_INSTRUCTION,
-  )
-  if (alreadyPresent) return
+export const taskDispatcher = (ctx: ArsenalContext): string | null =>
+  ctx.config.taskDispatcher.enabled === true ? TASK_DISPATCH_INSTRUCTION : null
 
-  // The minimal `{ type, text }` shape is deliberate: the runtime owns message
-  // identity and timestamps and fills them in when it re-reads the array, and a
-  // synthetic marker would misreport this text as something the user typed.
-  parts.push({ type: "text", text: TASK_DISPATCH_INSTRUCTION })
-  log(ctx, "debug", `task-dispatcher: instruction injected for ${input?.sessionID ?? "anonymous"}`)
-}
+/**
+ * V2 idempotence check. The draft is a single string, so containment is the
+ * exact analogue of the V1 part-equality test: after one append the
+ * instruction is present verbatim, and a second pass finds it.
+ */
+const hasDispatchInstruction = (text: string): boolean => text.includes(TASK_DISPATCH_INSTRUCTION)
+
+/**
+ * V1 idempotence check. A part is pushed with the instruction verbatim and
+ * never rewritten, so equality is exact here rather than a containment test.
+ */
+const hasDispatchPart = (parts: readonly unknown[]): boolean =>
+  parts.some((entry) => asRecord(entry).type === "text" && asRecord(entry).text === TASK_DISPATCH_INSTRUCTION)
 
 /* ===========================================================================
  * 21. Wiring
@@ -1636,7 +1760,91 @@ const extractText = (parts: unknown): string => {
   return collected.join("\n").trim()
 }
 
-export default (async (input: PluginInput): Promise<Hooks> => {
+/**
+ * Per-plugin-instance state.
+ *
+ * The context is per plugin instance. Two instances in one process must not
+ * share session memory, guard verdicts, or the recorded log target. It is built
+ * by a helper rather than inline in each surface because `server()` and
+ * `setup()` must not drift apart on how the config is read or where state
+ * lives - the V2 dispatcher reads its kill switch out of the very same object
+ * the V1 guards do.
+ */
+const createContext = (
+  rt: Runtime,
+  root: string,
+  client: PluginClientLike | undefined,
+): ArsenalContext => ({
+  rt,
+  root,
+  client,
+  sessions: new Map<string, SessionState>(),
+  anchors: new Map<string, ContextAnchor>(),
+  config: readConfig(rt, root),
+  tscChain: Promise.resolve(),
+  pendingWarnings: [],
+  lastLogTarget: null,
+})
+
+const reportRuntimeDegradation = (ctx: ArsenalContext): void => {
+  for (const failure of ctx.rt.loadErrors) {
+    // Every guard degrades to SKIPPED from here; nothing throws at import time.
+    log(ctx, "warn", `runtime degraded: ${failure}`)
+  }
+}
+
+/**
+ * V2 `setup()`. Registers the one hook V2 offers at user-message granularity.
+ *
+ * Nothing else is registered, on purpose. V2 has no equivalent of V1's
+ * `experimental.chat.system.transform`, `experimental.session.compacting` or
+ * mutable `tool.execute.*` output, so the other seven guards have nowhere
+ * correct to land yet. Registering a stub that fired and did nothing would
+ * report coverage the module does not have.
+ */
+const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise<void> => {
+  const rt = await loadRuntime()
+
+  // V2 exposes the plugin instance's own directory and no worktree field on it,
+  // so `location.directory` is the root here and the cwd is the fallback. This
+  // is the same precedence chain the V1 surface uses, minus the two V1-only
+  // keys, and it resolves the kill-switch config by the identical path.
+  const root = ctx?.location?.directory ?? rt.proc.cwd()
+  const arsenal = createContext(rt, root, undefined)
+  reportRuntimeDegradation(arsenal)
+
+  const register = ctx?.session?.hook
+  if (typeof register !== "function") {
+    // The published context always carries `session.hook`; a context without it
+    // means the runtime is not the one this surface was written against, and a
+    // dispatcher that silently did nothing would be worse than one that says so.
+    return
+  }
+
+  await register.call(ctx.session, "prompt", (event: SessionPromptEvent): void => {
+    const instruction = taskDispatcher(arsenal)
+    if (instruction === null) return
+
+    const draft = event?.prompt
+    const userText = typeof draft?.text === "string" ? draft.text : ""
+    // An empty draft carries no intent to classify, so injecting a five-line
+    // instruction into it would add cost and teach the model nothing.
+    if (userText.length === 0) return
+    if (hasDispatchInstruction(userText)) return
+
+    // Captured before the rewrite so `lastIntent` stays the user's own words
+    // and never the instruction this hook appends.
+    const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
+    state.lastIntent = clip(userText, MAX_CAPTURED_INTENT_CHARS)
+
+    draft.text = `${userText}\n\n${instruction}`
+    // V2's plugin context has no `client.app.log`, so `log` is a no-op here by
+    // design rather than by accident. The V1 surface still records the
+    // injection; under V2 the persisted prompt is the evidence.
+  })
+}
+
+const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
   const rt = await loadRuntime()
   const root =
     input?.worktree ??
@@ -1644,24 +1852,8 @@ export default (async (input: PluginInput): Promise<Hooks> => {
     input?.directory ??
     rt.proc.cwd()
 
-  // The context is per plugin instance. Two instances in one process must not
-  // share session memory, guard verdicts, or the recorded log target.
-  const ctx: ArsenalContext = {
-    rt,
-    root,
-    client: input?.client,
-    sessions: new Map<string, SessionState>(),
-    anchors: new Map<string, ContextAnchor>(),
-    config: readConfig(rt, root),
-    tscChain: Promise.resolve(),
-    pendingWarnings: [],
-    lastLogTarget: null,
-  }
-
-  for (const failure of rt.loadErrors) {
-    // Every guard degrades to SKIPPED from here; nothing throws at import time.
-    log(ctx, "warn", `runtime degraded: ${failure}`)
-  }
+  const ctx = createContext(rt, root, input?.client)
+  reportRuntimeDegradation(ctx)
 
   return {
     config: (cfg: unknown): void => {
@@ -1704,7 +1896,17 @@ export default (async (input: PluginInput): Promise<Hooks> => {
       state.lastIntent = clip(text, MAX_CAPTURED_INTENT_CHARS)
       // After the intent is captured, so `lastIntent` stays the user's own words
       // and never the instruction this hook adds.
-      await taskDispatcher(ctx, msgInput, msgOutput)
+      const instruction = taskDispatcher(ctx)
+      if (instruction === null) return
+      const parts = msgOutput?.parts
+      if (!Array.isArray(parts)) return
+      if (hasDispatchPart(parts)) return
+
+      // The minimal `{ type, text }` shape is deliberate: the runtime owns message
+      // identity and timestamps and fills them in when it re-reads the array, and a
+      // synthetic marker would misreport this text as something the user typed.
+      parts.push({ type: "text", text: instruction })
+      log(ctx, "debug", `task-dispatcher: instruction injected for ${msgInput?.sessionID ?? "anonymous"}`)
     },
 
     "experimental.chat.system.transform": async (
@@ -1742,4 +1944,19 @@ export default (async (input: PluginInput): Promise<Hooks> => {
       await prettierFormat(ctx, toolInput, toolOutput)
     },
   }
-}) satisfies Plugin
+}
+
+/**
+ * One default export, two surfaces.
+ *
+ * The id is required by V2 and optional-but-tolerated by V1, and the two
+ * runtimes never read each other's half: V2 dispatches `setup()` and ignores
+ * `server()`, V1 `>= 1.18.29` dispatches `server()` and ignores `setup()`. A
+ * function export would be loadable by V1 only, so the object form is what
+ * makes the task-dispatcher hook reachable on V2 without retiring the seven
+ * hooks that only V1 can still fire.
+ */
+export default {
+  ...definePlugin({ id: "vantrilex-arsenal", setup }),
+  server,
+} satisfies ArsenalPluginModule

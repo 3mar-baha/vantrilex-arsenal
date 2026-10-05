@@ -38,7 +38,7 @@ provenance: read them, never rewrite them.
 | [13-CONTRIBUTING-WORKFLOW.md](13-CONTRIBUTING-WORKFLOW.md) | How to land a change: branches, commits, components, corrections |
 | [14-CI-RELEASE.md](14-CI-RELEASE.md) | What CI runs, and how a version is tagged and published |
 | [15-DECISIONS.md](15-DECISIONS.md) | Which decisions are already ratified, with date, context, and consequences |
-| [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) | What the task-dispatcher hook is, the event it binds to, and its kill switch |
+| [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) | What the task-dispatcher hook is, the OpenCode V2 `prompt` hook it binds to, the six hooks that stayed on V1, and its kill switch |
 | [spec/VANTRILEX_KIT_SPEC.md](spec/VANTRILEX_KIT_SPEC.md) | Provenance, read-only: naming, the specified Tier-0 set, catalog v2, the transplant manifest |
 | [spec/VANTRILEX_SKILLS_SPEC.md](spec/VANTRILEX_SKILLS_SPEC.md) | Provenance, read-only: Vanguard in Part A, Doctrine in Part B, the phase map, the 28-file target-project set |
 

@@ -377,7 +377,8 @@ verification failure still lacks owner sign-off.
 
 ### Task dispatch
 
-The task-dispatcher hook announces one of five scenarios and points here. It injects no kit and
+The task-dispatcher hook — bound to the OpenCode V2 session `prompt` hook, and the only one of the seven
+hooks that fires on V2 — announces one of five scenarios and points here. It injects no kit and
 carries no plan of its own, so everything an agent needs in order to act lives in this section.
 Dispatch owns exactly one decision — the phase-kit map, meaning which locked components are injected
 in which phase — and it takes that decision before anything is injected. It never restates

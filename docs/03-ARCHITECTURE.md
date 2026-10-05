@@ -52,7 +52,7 @@ docs/                         THIS DOCUMENTATION SET plus provenance
 | `scripts/verify-registry.mjs` | Catalog Markdown, sidecars, `registry/data/overlaps.yaml`, schema | PASS, FAIL, or SKIPPED per check; a skip is never a pass |
 | Prime (shipped) | This repository's tree, `kit/kit.lock`, `.opencode/skills/` | Orientation: canonical URL, clone and pin, what is on disk, the order Prime, Vanguard, Doctrine run in |
 | Vanguard (specified) | `registry/catalog.json`, skills.sh, Smithery, Context7, project files | Kit selection, lock entries, verification report, target docs |
-| `.opencode/plugin/arsenal.ts` | Session events, tool calls, project config | Guard verdicts: PASS, FAIL, SKIPPED, WARN, BLOCKED |
+| `.opencode/plugin/arsenal.ts` | V2 session prompt hook, session events, tool calls, project config | Guard verdicts: PASS, FAIL, SKIPPED, WARN, BLOCKED |
 | `scripts/dispatch-worktrees.sh` | Checkpoint labeled fields (target-project scope) | Isolated worktree on `wt/<concern-slug>` with phase kit injected |
 | `scripts/record-decision.sh` | Operator-supplied title, status, context, decision, consequences | One appended decision record |
 
@@ -69,5 +69,14 @@ docs/                         THIS DOCUMENTATION SET plus provenance
   live as callbacks in the single module `.opencode/plugin/arsenal.ts`. The
   seventh hook, `task-dispatcher`, is a later in-repo addition and lives there
   too — see [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
+- That module default-exports one object carrying both runtime surfaces, because
+  the two runtimes read disjoint halves of it: OpenCode V2 reads `id` and
+  `setup()` and ignores `server()`, while OpenCode V1 `>= 1.18.29` reads
+  `server()` and ignores `setup()`. Only `task-dispatcher` is registered on the
+  V2 surface, against the session `prompt` hook. The other six hooks and the
+  docs-discipline guard stay on the V1 surface and are inert under V2 — a
+  deliberate, unfinished gap, since V2 has no system-prompt transform, no
+  compaction event, and no mutable `tool.execute.*` output for those guards to
+  write into.
 - Target-project documentation (the 28-file system) is generated at runtime
   by Vanguard and is not part of this repository's layout.
