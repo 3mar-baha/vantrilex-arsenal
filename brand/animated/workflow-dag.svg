@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Workflow graph, animated</title>
+  <desc>The directed acyclic workflow draws itself: the royal blue primary path traces first, the light blue converging path traces after it, and each of the three nodes comes up as its own path lands. 6 second period, seamless loop. Base geometry from the Lucide git-branch icon, extended by one converging path and a terminating node.</desc>
+  <style>
+    .main { stroke-dasharray: 27; animation: main 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .second { stroke-dasharray: 18; animation: second 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .nA { animation: nA 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .nB { animation: nB 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .nC { animation: nC 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    @keyframes main { 0% { stroke-dashoffset: 27; } 40% { stroke-dashoffset: 0; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 27; } }
+    @keyframes second { 0% { stroke-dashoffset: 18; } 55% { stroke-dashoffset: 0; } 70% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 18; } }
+    @keyframes nA { 0%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+    @keyframes nB { 0%, 100% { opacity: 0.25; } 70% { opacity: 1; } }
+    @keyframes nC { 0%, 100% { opacity: 0.25; } 25% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .main, .second, .nA, .nB, .nC { animation: none; } .nA, .nB, .nC { opacity: 1; } }
+  </style>
+  <path class="main" d="M15 6a9 9 0 0 0-9 9V3"/>
+  <path class="second" d="M18 9v3a5 5 0 0 1-5 5H6" stroke="#ADD8E6"/>
+  <circle class="nA" cx="18" cy="6" r="3" fill="#4169E1" stroke="none"/>
+  <circle class="nC" cx="6" cy="3" r="2" fill="#4169E1" stroke="none"/>
+  <circle class="nB" cx="6" cy="18" r="3" fill="#4169E1" stroke="none"/>
+</svg>
