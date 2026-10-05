@@ -6,10 +6,10 @@
     "skill": 1503,
     "mcp": 905,
     "plugin": 12,
-    "hook": 19,
+    "hook": 20,
     "agent": 284,
     "formatting": 13,
-    "total": 2736
+    "total": 2737
   },
   "components": [
     {
@@ -53555,6 +53555,25 @@
       "when_to_use": null,
       "phase": null,
       "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "task-dispatcher",
+      "name": "task-dispatcher",
+      "kind": "hook",
+      "description": "Classify each user message into one of the five Vanguard task scenarios",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": "On every user message, to classify the turn into one of the five Vanguard task scenarios before any work starts",
+      "phase": "scout",
+      "tier": "core",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",

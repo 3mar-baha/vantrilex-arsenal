@@ -25,6 +25,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   fourth top-level skill — the orchestration layer stays exactly three. Locked
   at `tier conditional`, `phase build`, a null `install_cmd`, and
   `verification unverified`, matching every other in-repo conditional skill.
+- **Kit component `task-dispatcher`, the seventh hook.** A plugin callback in
+  `.opencode/plugin/arsenal.ts` bound to `chat.message`, so it fires once per
+  user message — the event granularity and the task boundary are the same
+  boundary, and nothing inside a task can re-trigger it. It injects a five-line
+  instruction that classifies the turn into exactly one of five Vanguard task
+  scenarios (new task, continuation, task modification, continuation with
+  modification, continuation with new task) and points at the Vanguard skill,
+  which owns what to do about each. It injects no component and carries no plan
+  of its own. Locked at `phase scout`, `tier core`, a null `install_cmd`, and
+  `verification unverified`, matching every other in-repo hook. Its kill switch
+  is `taskDispatcher.enabled` in `.opencode/arsenal.json`, default `true`, so the
+  policy can be turned off without unpacking the plugin. Documented in
+  `docs/16-TASK-DISPATCH.md`.
 - `README.ar.md`, the full Arabic counterpart to `README.md`, agreeing with it on
   every figure and fact.
 - `AI_GUIDE.md`, an AI-facing operating manual: the three skills and their fixed
@@ -36,19 +49,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `README.md` rewritten for the three-skill architecture, with a quickstart, the
   Registry description, the kit census, and the six gates. Its previous
   "two skills" and "2,699 components" figures were wrong and did not survive.
-- **The census moves from 50 locked components to 51**, being 35 tier `core` and 16
-  tier `conditional` with an empty pending list, of which 25 are skills. The
-  catalog recount moves from 2,735 to **2,736** records, 1,503 of them skill
-  records. On disk `.opencode/skills/` holds 20 folders: 15 locked in-repo kit
-  components, 3 top-level skills, and 5 transplanted mechanisms still unlocked
-  (`circuit-breaker-guard`, `github-release-packager`, `pre-mortem`,
-  `preflight-system-doctor`, `session-context-primer`). The verification split is
-  12 `verified` and 39 `unverified`. The 8-MCP cap and the 22 default-selected
-  components are unchanged. This bullet supersedes the earlier unreleased
-  49-to-50 census bullet, which would otherwise leave two live figures in one
-  unreleased section; the 49 and 50 censuses stay on the record as superseded
-  history, not rewritten, alongside the dated decision log in
-  `docs/15-DECISIONS.md`.
+- **The census moves from 51 locked components to 52**, being 36 tier `core` and
+  16 tier `conditional` with an empty pending list, of which 25 are skills and 7
+  are hooks. The catalog recount moves from 2,736 to **2,737** records, 1,503
+  of them skill records and 20 of them hook records. On disk `.opencode/skills/`
+  holds 20 folders: 15 locked in-repo kit components, 3 top-level skills, and 5
+  transplanted mechanisms still unlocked (`circuit-breaker-guard`,
+  `github-release-packager`, `pre-mortem`, `preflight-system-doctor`,
+  `session-context-primer`). The verification split is 12 `verified` and 40
+  `unverified`. The 8-MCP cap and the 22 default-selected components are
+  unchanged. This bullet supersedes the earlier unreleased 50-to-51 census
+  bullet, which would otherwise leave two live figures in one unreleased section;
+  the 49, 50 and 51 censuses stay on the record as superseded history, not
+  rewritten, alongside the dated decision log in `docs/15-DECISIONS.md`.
 - Every current-state document now describes a three-skill orchestration layer —
   Prime (orientation), Vanguard (equip), Doctrine (work) — instead of two.
   Released history and the dated decision log in `docs/15-DECISIONS.md` are
@@ -56,7 +69,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the draft specs stays as written, because it records the original
   specification's own set.
 - `scripts/verify-kit.mjs` now asserts all three top-level skills are locked, so
-  `vantrilex-prime` cannot silently go missing from the lock.
+  `vantrilex-prime` cannot silently go missing from the lock. It also resolves
+  every locked hook id against a function exported by the plugin file, so
+  `task-dispatcher` cannot be locked without a `taskDispatcher` callback behind it.
+- **Vanguard gained a Task dispatch section and its five dispatch scenarios.** The
+  scout skill now owns one decision — which locked components are injected in
+  which phase, read from the `phase` field of `kit/kit.lock` at dispatch time —
+  and states the rules for each scenario: a continuation is a silent no-op,
+  completed phases are immutable under a modification, and two lanes never share
+  a phase-kit map. The `task-dispatcher` hook above announces a scenario and points
+  there; it restates none of that procedure, and neither does
+  `docs/16-TASK-DISPATCH.md`.
+- **Preflight makes the `.env.example` check conditional.** The preflight
+  configuration check now confirms `.env.example` only when the target project
+  actually declares required environment variables, and reports the check SKIPPED
+  rather than FAIL when it declares none. A project with no env vars previously
+  failed a check that had nothing to check.
 - **Tier-0 census re-ratified at 49 locked components.** The owner-authorized
   figure for `kit/kit.lock` is now **49 = 34 tier core + 15 tier conditional,
   0 pending**. The earlier 36-component figure was ratified 2026-10-04 and is
@@ -71,14 +99,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   both conditional hooks stands. That figure was itself superseded by the census
   bullet above and is kept here as the record of what was ratified at that step.
 - Every current-state documentation site that asserted 36 components was moved
-  to 49 by this change and then to 51 by the census bullet above: `README.md`,
-  `docs/03-ARCHITECTURE.md`, `docs/04-VANGUARD.md`,
+  to 49 by this change, then to 51, and then to 52 by the census bullet above:
+  `README.md`, `README.ar.md`, `AI_GUIDE.md`, `docs/00-INDEX.md`,
+  `docs/01-OVERVIEW.md`, `docs/03-ARCHITECTURE.md`, `docs/04-VANGUARD.md`,
+  `docs/06-REGISTRY-SCHEMA.md`, `docs/07-CATALOG-GENERATION.md`,
   `docs/08-VERIFICATION.md`, `docs/09-KIT-LOCK.md`,
-  `docs/13-CONTRIBUTING-WORKFLOW.md`, `CONTRIBUTING.md`, and both
-  `VANTRILEX_SKILLS_SPEC.md` copies. Released changelog history and the
-  decision log in `docs/15-DECISIONS.md` are left as written; the design-time
-  arithmetic in `docs/spec/VANTRILEX_KIT_SPEC.md` stays as the original
-  specification's own record.
+  `docs/13-CONTRIBUTING-WORKFLOW.md`, and `docs/spec/VANTRILEX_SKILLS_SPEC.md`.
+  Released changelog history and the decision log in `docs/15-DECISIONS.md` are
+  left as written; the design-time arithmetic in
+  `docs/spec/VANTRILEX_KIT_SPEC.md` stays as the original specification's own
+  record. Two sites still carry a stale census and are owned elsewhere:
+  `CONTRIBUTING.md` names the 51-component budget and the root-level
+  `VANTRILEX_SKILLS_SPEC.md` names 49.
+- **This repository's documentation set moves from 16 files to 17.**
+  `docs/16-TASK-DISPATCH.md` joins the numbered series and is registered in the
+  `docs/00-INDEX.md` file map; the file count, the `00` through `16` numbering, and
+  the doc pointers in `README.md`, `README.ar.md` and `AI_GUIDE.md` moved together.
+  The 28-file target-project set Vanguard generates is a different series and is
+  untouched.
+- The kit-census labels inside the existing SVG tables under `docs/assets/tables/`
+  were updated to the new figures — `docs/assets/tables/kit-census.svg`,
+  `locked-contents.svg`, `ar-locked-contents.svg`, `catalog-records.svg`,
+  `elements-role.svg`, `ar-elements-role.svg`, and
+  `compare-with-without-arsenal.svg`. Only numeric and tier label text changed:
+  no SVG was added, removed, resized, restyled, or re-laid-out, the provenance and
+  honesty lines are intact, every figure carrying a `~` is untouched, and the
+  four-value brand palette is unchanged.
 
 ---
 

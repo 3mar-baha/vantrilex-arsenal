@@ -1,6 +1,6 @@
 # Vantrilex Arsenal Documentation Index
 
-This index maps the sixteen-file documentation set for the Vantrilex Arsenal
+This index maps the seventeen-file documentation set for the Vantrilex Arsenal
 repository itself: the OpenCode plugin plus the component registry. It does not
 document any target project. Target-project documentation is a separate,
 runtime-generated set (the 28-file system described by reference in
@@ -38,6 +38,7 @@ provenance: read them, never rewrite them.
 | [13-CONTRIBUTING-WORKFLOW.md](13-CONTRIBUTING-WORKFLOW.md) | How to land a change: branches, commits, components, corrections |
 | [14-CI-RELEASE.md](14-CI-RELEASE.md) | What CI runs, and how a version is tagged and published |
 | [15-DECISIONS.md](15-DECISIONS.md) | Which decisions are already ratified, with date, context, and consequences |
+| [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) | What the task-dispatcher hook is, the event it binds to, and its kill switch |
 | [spec/VANTRILEX_KIT_SPEC.md](spec/VANTRILEX_KIT_SPEC.md) | Provenance, read-only: naming, the specified Tier-0 set, catalog v2, the transplant manifest |
 | [spec/VANTRILEX_SKILLS_SPEC.md](spec/VANTRILEX_SKILLS_SPEC.md) | Provenance, read-only: Vanguard in Part A, Doctrine in Part B, the phase map, the 28-file target-project set |
 
@@ -69,10 +70,12 @@ A contributor reads for landing changes:
 5. [12-QUALITY-GATES.md](12-QUALITY-GATES.md) for the release guards.
 6. [11-WORKTREES.md](11-WORKTREES.md) for the single-writer worktree rule.
 7. [15-DECISIONS.md](15-DECISIONS.md) for decisions that are already settled.
+8. [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) for the hook that classifies every
+   user message into one of five task scenarios.
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2736 catalog records, 35 records with tier
+- Counts are honest and checkable: 2737 catalog records, 36 records with tier
   `core` including the 3 Arsenal skills, 22 default-selected components,
   12 verified install commands, 6 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that

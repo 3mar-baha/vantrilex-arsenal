@@ -146,7 +146,7 @@ instance looks for them next:
 | `AGENTS.md`          | The repository constitution for any coding agent |
 ```
 
-The pinned kit is locked at fifty-one components with an empty pending list — thirty-five core,
+The pinned kit is locked at fifty-two components with an empty pending list — thirty-six core,
 sixteen conditional — and the lockfile caps MCP transports at eight. Read the total, the tier split,
 the pending length, and the cap from `kit/kit.lock` and report them as read; when the file is absent or
 unreadable, report that as a deviation and never fill it in from memory, because a remembered number
