@@ -15,17 +15,17 @@ before you quote them.
 
 | Fact | Value |
 |---|---|
-| Locked kit components | 50, with 0 pending |
-| Kit by tier | 35 `core`, 15 `conditional` |
-| Kit by kind | 24 skill, 8 mcp, 6 plugin, 6 hook, 6 agent |
-| Kit verification | 12 `verified`, 38 `unverified` |
+| Locked kit components | 51, with 0 pending |
+| Kit by tier | 35 `core`, 16 `conditional` |
+| Kit by kind | 25 skill, 8 mcp, 6 plugin, 6 hook, 6 agent |
+| Kit verification | 12 `verified`, 39 `unverified` |
 | MCP cap (`kit/kit.lock` `mcp_cap`) | 8 |
-| Catalog records | 2,735 |
-| Catalog by kind | 1,502 skill, 905 mcp, 284 agent, 19 hook, 13 formatting, 12 plugin |
+| Catalog records | 2,736 |
+| Catalog by kind | 1,503 skill, 905 mcp, 284 agent, 19 hook, 13 formatting, 12 plugin |
 | Catalog default-selected | 22 |
 | Catalog verified install commands | 12 |
-| Folders under `.opencode/skills/` | 19 |
-| Of those, locked kit components | 14 |
+| Folders under `.opencode/skills/` | 20 |
+| Of those, locked kit components | 15 |
 | Of those, top-level skills | 3 |
 
 ## 1. The three skills and the order they run in
@@ -119,7 +119,7 @@ dispute, a gate verdict, or a HALT.
 
 ### The boundary rule
 
-The other 16 folders under `.opencode/skills/` are component folders that Vanguard equips into a
+The other 17 folders under `.opencode/skills/` are component folders that Vanguard equips into a
 target project. They are not entry points and they are not top-level skills.
 
 - Never treat a kit component as a top-level skill. Only `vantrilex-prime`, `vantrilex-vanguard`,

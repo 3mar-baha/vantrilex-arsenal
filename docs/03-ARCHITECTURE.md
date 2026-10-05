@@ -11,7 +11,8 @@ constrain every layer are [AGENTS.md](../AGENTS.md).
 ```text
 .opencode/                    SHIPPED SURFACE (what a target project receives)
   plugin/arsenal.ts             Tier-0 hooks implemented as plugin callbacks
-  skills/                       Prime, Vanguard, Doctrine, transplanted mechanisms
+  skills/                       Prime, Vanguard, Doctrine, plus 12 conditional
+                                kit components and transplanted mechanisms
   agent/                        Leader / Guide / Implementer role agents
   command/                      Operator entry points (equip, doctor, prime, release)
 
@@ -35,7 +36,7 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (50 components, 0 pending)
+kit/                          PINNED KIT (51 components, 0 pending)
   kit.lock                      Pinned Tier-0 versions (pending list empty)
 
 docs/                         THIS DOCUMENTATION SET plus provenance

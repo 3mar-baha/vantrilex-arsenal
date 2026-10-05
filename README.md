@@ -14,7 +14,7 @@ project.
 | Skill 1 | **Vantrilex Prime** | Orientation: where the Arsenal is and how to pin it |
 | Skill 2 | **Vantrilex Vanguard** | Scout: detect the project, select and equip the kit, verify it works |
 | Skill 3 | **Vantrilex Doctrine** | Law: roles, gates, workflows, rituals |
-| The catalog | **Vantrilex Registry** | 2,735 components, machine-readable, install commands honestly labelled |
+| The catalog | **Vantrilex Registry** | 2,736 components, machine-readable, install commands honestly labelled |
 
 The repository is Node 25, ESM, and zero dependencies. It contains **no AI or
 ML model logic** — only Markdown, JSON, and Node ESM. Nothing here may invent an
@@ -72,8 +72,8 @@ Prime does not duplicate Vanguard's four project states, and Vanguard does not
 duplicate Doctrine's workflows. A project can therefore run the scout without
 inheriting the law, and can be re-equipped on new terms without renegotiating
 its conduct rules. Only those three are top-level skills; the remaining
-**16 skill folders** under `.opencode/skills/` are kit content that Vanguard
-equips — 11 conditional skills plus the transplanted mechanisms.
+**17 skill folders** under `.opencode/skills/` are kit content that Vanguard
+equips — 12 conditional skills plus the transplanted mechanisms.
 
 ---
 
@@ -110,17 +110,17 @@ Operator entry points for the same phases live in `.opencode/command/`:
 - **`registry/catalog.json`** — the generated machine mirror Vanguard reads. It
   is regenerated, never hand-edited.
 
-The catalog carries **2,735 records** across six kinds:
+The catalog carries **2,736 records** across six kinds:
 
 | Kind | Records |
 |---|---|
-| skill | 1,502 |
+| skill | 1,503 |
 | mcp | 905 |
 | agent | 284 |
 | hook | 19 |
 | formatting | 13 |
 | plugin | 12 |
-| **Total** | **2,735** |
+| **Total** | **2,736** |
 
 The catalog is enriched from six `registry/data/*.jsonl` sidecars — one per
 kind — each with exactly one owning branch at a time. Every record carries a
@@ -140,25 +140,25 @@ run it.
 
 ## Kit census
 
-`kit/kit.lock` pins **50 components with an empty `pending` list**: 35 tier
-`core` and 15 tier `conditional`.
+`kit/kit.lock` pins **51 components with an empty `pending` list**: 35 tier
+`core` and 16 tier `conditional`.
 
 | Kind | Locked | tier `core` | tier `conditional` |
 |---|---|---|---|
-| skill | 24 | 13 | 11 |
+| skill | 25 | 13 | 12 |
 | mcp | 8 | 8 | 0 |
 | plugin | 6 | 6 | 0 |
 | hook | 6 | 4 | 2 |
 | agent | 6 | 4 | 2 |
-| **Total** | **50** | **35** | **15** |
+| **Total** | **51** | **35** | **16** |
 
-By verification: **12 `verified`** and **38 `unverified`**. The 12 verified
+By verification: **12 `verified`** and **39 `unverified`**. The 12 verified
 entries are the 10 upstream skills installed by `npx skills add`, plus the
 `context7` and `firecrawl` MCP servers, which are version-pinned.
 
 | Locked | Contents |
 |---|---|
-| 24 skills | Prime, Vanguard, Doctrine, 10 upstream skills, 11 conditional in-repo skills |
+| 25 skills | Prime, Vanguard, Doctrine, 10 upstream skills, 12 conditional in-repo skills |
 | 8 MCP servers | filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter |
 | 6 plugins | code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance |
 | 6 hooks | 4 core session hooks, plus 2 conditional: TypeScript check and Prettier format |
@@ -170,8 +170,8 @@ servers are the most expensive components to keep resident, so the kit refuses
 to grow past that ceiling and, on ties, prefers a Skill or a CLI over an MCP
 server.
 
-Nineteen skill folders exist on disk under `.opencode/skills/`, of which
-**14 are locked kit components** and only **three are top-level skills**
+Twenty skill folders exist on disk under `.opencode/skills/`, of which
+**15 are locked kit components** and only **three are top-level skills**
 (Prime, Vanguard, Doctrine). The remaining five — `circuit-breaker-guard`,
 `github-release-packager`, `pre-mortem`, `preflight-system-doctor`, and
 `session-context-primer` — are transplanted mechanisms present on disk but not
@@ -211,7 +211,7 @@ If a check cannot be evaluated, that is a **failed** check, not a skipped one.
 vantrilex-arsenal/
 ├── .opencode/                    Shipped surface
 │   ├── plugin/arsenal.ts         The 6 Tier-0 hooks as plugin callbacks
-│   ├── skills/                   19 folders: the 3 top-level skills + kit components
+│   ├── skills/                   20 folders: the 3 top-level skills + kit components
 │   ├── agent/                    Leader / Guide / Implementer / red-team
 │   └── command/                  Operator entry points: doctor, equip, prime, release
 ├── registry/                     Data plane — the component catalog
@@ -228,7 +228,7 @@ vantrilex-arsenal/
 │   ├── verify-kit.mjs            Kit lockfile checks
 │   ├── verify-skills.mjs         Skill-file format checks
 │   └── *.sh                      Worktree orchestration, git hooks, release
-├── kit/kit.lock                  The pinned 50-component kit
+├── kit/kit.lock                  The pinned 51-component kit
 └── docs/                         00-INDEX.md … 15-DECISIONS.md, plus
                                   docs/spec/ — the two canonical input specs
 ```
