@@ -287,7 +287,7 @@ contract.
 vantrilex-arsenal/
 ├── .opencode/                    Shipped surface
 │   ├── plugin/arsenal.ts         The 7 Tier-0 hooks as plugin callbacks
-│   ├── skills/                   20 folders: 3 top-level skills + 12 conditional kit components
+│   ├── skills/                   20 folders: 3 top-level + 12 conditional kit components + 5 unlocked
 │   ├── agent/                    Leader / Guide / Implementer / red-team
 │   └── command/                  Operator entry points: doctor, equip, prime, release
 ├── registry/                     Data plane — the component catalog

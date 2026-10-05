@@ -53,7 +53,7 @@ every project:
 | Skills | 25 | Vanguard, Prime, Doctrine, plus 10 upstream skills, plus 12 conditional Arsenal skills |
 | MCP servers | 8 | filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter |
 | Plugins | 6 | code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance |
-| Hooks | 7 | 5 core hooks (4 session plus task-dispatch), plus the 2 conditional TypeScript-check and Prettier-format hooks |
+| Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
 | Agents | 6 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer, plus red-team and a11y-audit |
 
 The honest current count is 36 tier `core` records plus 16 tier `conditional`

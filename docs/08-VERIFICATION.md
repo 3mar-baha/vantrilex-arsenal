@@ -1,9 +1,10 @@
 # Verification
 
 A task is finished when the thing is proven, not when the code runs. This file
-lists every gate, what each one checks, and the two meta-rules: a gate that
-cannot be evaluated is a failed gate, and a dispatch is confirmed only when
-the result lands. The per-change checklist is in
+describes the six enforced gates, what each one checks, and the two meta-rules:
+a gate that cannot be evaluated is a failed gate, and a dispatch is confirmed
+only when the result lands. Documentation lint is documented below as an
+additional lint step; it is not one of the six. The per-change checklist is in
 [13-CONTRIBUTING-WORKFLOW.md](13-CONTRIBUTING-WORKFLOW.md); the CI wiring is
 in [14-CI-RELEASE.md](14-CI-RELEASE.md).
 
@@ -21,7 +22,7 @@ node scripts/verify-registry.mjs
 | `schema-conformance` | All 2737 records satisfy `registry/schema/catalog-v2.schema.json` |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
 | `install-command-invariant` | No record claims `verified` with a null `install_cmd` |
-| `orphan-references` | All 48 id references in `registry/data/overlaps.yaml` resolve to catalog ids |
+| `orphan-references` | All 48 id references in `registry/data/overlaps.yaml` resolve to catalog ids — 40 member (`- id:`) references plus 8 `winner:` references across 60 overlap entries |
 | `duplicate-ids` | No id collides within its kind |
 
 Verdicts are PASS, FAIL, or SKIPPED. A skipped check is reported as a skip,
@@ -88,6 +89,9 @@ PASS.
 npx markdownlint-cli "**/*.md"
 ```
 
+Documentation lint is an additional lint step, not one of the six enforced
+gates: CI does not run it, and its absence from a run is not a gate failure.
+
 Repository prose follows `.markdownlint.jsonc`: long paragraphs and wide
 tables are not hard-wrapped, table pipe spacing is free, ASCII diagrams sit
 in fenced blocks, and each document opens with a single top-level heading.
@@ -101,7 +105,7 @@ because the visual identity specification lives there), and the seven named
 root files. A Markdown write outside that allow-list is BLOCKED (or WARNed in
 warn mode), with a message naming the allowed set and how to widen it. The
 numbered target-project series runs `00` through `27`; this Arsenal set's own
-`00` through `15` numbering is the repo-docs analogue, not the same series.
+`00` through `16` numbering is the repo-docs analogue, not the same series.
 
 ## The landing law
 

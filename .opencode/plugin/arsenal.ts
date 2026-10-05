@@ -14,7 +14,8 @@
  *
  *   8. taskDispatcher            -> session "prompt"        (per user prompt)
  *
- * V1 - `server()`, the seven remaining hooks:
+ * V1 - `server()`, the seven remaining hooks (6 locked hook components plus the
+ * docs-discipline guard, which is not a lock component):
  *
  *   1. sessionStart              -> experimental.chat.system.transform, event
  *   2. preCompact                -> experimental.session.compacting
@@ -24,7 +25,7 @@
  *   6. prettierFormat            -> tool.execute.after   (conditional)
  *   +  docsDisciplineGuard       -> tool.execute.before   (docs discipline)
  *
- * The six V1-only tool and session guards are carried through `server()`
+ * All seven of those V1-only callbacks are carried through `server()`
  * unchanged and are INERT under V2. That gap is deliberate and unfinished, not
  * a completed port. V2's `execute.after` hook reports a discriminated
  * `{ status, result | error }` union where V1 handed the guard a mutable
@@ -391,6 +392,10 @@ const COST_FILE_READ_MS = 400
 const COST_STATE_READ_MS = 200
 const COST_GIT_MS = 1_200
 
+// The two doc paths below are the equipped TARGET project's numbering, not this
+// repository's own docs series. This repo is 00-16; an equipped project follows
+// the 28-file set Vanguard generates, where 25-AI-CONSTITUTION.md and
+// 00-PROJECT-SUMMARY.md do exist. A missing file here is SKIPPED, never a FAIL.
 const CONSTITUTION_PATH = "docs/25-AI-CONSTITUTION.md"
 const SUMMARY_PATH = "docs/00-PROJECT-SUMMARY.md"
 const CONFIG_PATH = ".opencode/arsenal.json"
@@ -1688,7 +1693,13 @@ export const prettierFormat = async (
 }
 
 /**
- * HOOK 8 - task dispatcher. The one decision every surface applies: hand back
+ * HOOK 8 in this file's original V1 enumeration, which is not the locked-hook
+ * count: the seventh hook in `kit/kit.lock` is `docsDisciplineGuard` (HOOK 7
+ * below), and it is not a lock component, so the census every document quotes
+ * is seven locked hooks. The dispatcher is the eighth enumerated callback and
+ * the only one of the seven locked hooks that runs on V2.
+ *
+ * The one decision every surface applies: hand back
  * the instruction to append to a turn, or null when the kill switch disarms it.
  *
  * Both runtime surfaces call this function, so V1 and V2 can never disagree

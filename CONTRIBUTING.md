@@ -27,13 +27,16 @@ Run the checks that apply to your change. A check you could not run is a failed 
 say so in the PR description rather than leaving it green-looking.
 
 ```bash
-node scripts/verify-registry.mjs      # schema + UTF-8 + orphan references
-node scripts/generate-catalog-json.mjs # catalog.json and _index.md regenerate cleanly
-node scripts/verify-kit.mjs            # each Tier-0 component resolves
+node scripts/verify-registry.mjs      # registry integrity: schema + UTF-8 + orphan references
+node scripts/generate-catalog-json.mjs # catalog mirror: catalog.json and _index.md regenerate cleanly
+node scripts/verify-kit.mjs            # the kit: each Tier-0 component resolves
+node scripts/verify-skills.mjs         # skill format contract across every skill folder
 shellcheck scripts/*.sh                # POSIX shell correctness
 npx tsc --noEmit                       # plugin TypeScript
-npx markdownlint-cli "**/*.md"         # documentation lint
 ```
+
+Those are the six enforced gates. `npx markdownlint-cli "**/*.md"` is an
+additional documentation lint step that CI does not run, not a seventh gate.
 
 ## Commit messages
 

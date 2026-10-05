@@ -200,8 +200,8 @@ domain, and whether the project is UI-heavy. Then query the catalog. Then score 
 installs and stars with preference for proven adoption at or above one thousand, on activity within
 the last six months, on a clear licence, and on non-overlap with stronger candidates. Then apply the
 overlap rules. Then present the shortlist, wait for owner approval, and only then install. Tier 0 is
-pre-approved for every project: it is the thirty-five core components of the fifty locked in
-`kit/kit.lock`, with an empty pending list. Tier 1, the fifteen conditional components, is selected
+pre-approved for every project: it is the thirty-six core components of the fifty-two locked in
+`kit/kit.lock`, with an empty pending list. Tier 1, the sixteen conditional components, is selected
 per project and needs explicit approval — conditional exists so projects carry what they use and
 nothing they do not.
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="410" viewBox="0 0 720 410" role="img" aria-labelledby="verification-title verification-desc" direction="rtl" unicode-bidi="embed" font-family="'Noto Naskh Arabic','Segoe UI',Tahoma,'Geeza Pro','Noto Kufi Arabic',Arial,sans-serif">
+  <title id="verification-title">تغطية التحقّق قبل الدمج، مع الترسانة وبدونها</title>
+  <desc id="verification-desc">مخططا حلقتين. مع الترسانة، نحو <tspan direction="ltr" unicode-bidi="isolate">80</tspan> بالمئة من التغييرات يفحصها بوابة قبل الدمج. بدون الترسانة، نحو <tspan direction="ltr" unicode-bidi="isolate">40</tspan> بالمئة فقط. الرقمان تقديرات توضيحية تقريبية — ليسا قياسين معياريين مقيسين.</desc>
+  <rect x="0" y="0" width="720" height="410" fill="#FFFFFF"/>
+
+  <text x="680" y="48" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="20" font-weight="700" fill="#000000">تغطية التحقّق قبل الدمج</text>
+  <text x="680" y="74" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="13" fill="#000000" fill-opacity="0.7">نسبة التغييرات التي تجتاز بوابة</text>
+
+  <g>
+    <rect x="40" y="38" width="16" height="14" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+    <text x="62" y="50" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000">بدون الترسانة</text>
+    <rect x="158" y="38" width="16" height="14" fill="#4169E1"/>
+    <text x="180" y="50" text-anchor="end" direction="rtl" unicode-bidi="embed" font-size="12" fill="#000000">مع الترسانة</text>
+  </g>
+
+  <path d="M 215.00 133.00 A 92 92 0 1 1 127.50 196.57 L 157.94 206.46 A 60 60 0 1 0 215.00 165.00 Z" fill="#4169E1"/>
+  <path d="M 127.50 196.57 A 92 92 0 0 1 215.00 133.00 L 215.00 165.00 A 60 60 0 0 0 157.94 206.46 Z" fill="#4169E1" fill-opacity="0.12"/>
+
+  <path d="M 505.00 133.00 A 92 92 0 0 1 559.08 299.43 L 540.27 273.54 A 60 60 0 0 0 505.00 165.00 Z" fill="#ADD8E6" stroke="#4169E1" stroke-width="1.5"/>
+  <path d="M 559.08 299.43 A 92 92 0 1 1 505.00 133.00 L 505.00 165.00 A 60 60 0 1 0 540.27 273.54 Z" fill="#ADD8E6" fill-opacity="0.12" stroke="#4169E1" stroke-width="1.5"/>
+
+  <text x="215" y="232" font-size="30" font-weight="700" fill="#000000" text-anchor="middle" direction="ltr" unicode-bidi="isolate">~80%</text>
+  <text x="215" y="256" font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle" direction="rtl" unicode-bidi="embed">مُفحوصة</text>
+  <text x="505" y="232" font-size="30" font-weight="700" fill="#000000" text-anchor="middle" direction="ltr" unicode-bidi="isolate">~40%</text>
+  <text x="505" y="256" font-size="11" fill="#000000" fill-opacity="0.75" text-anchor="middle" direction="rtl" unicode-bidi="embed">مُفحوصة</text>
+
+  <text x="215" y="356" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" direction="rtl" unicode-bidi="embed">مع الترسانة</text>
+  <text x="505" y="356" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" direction="rtl" unicode-bidi="embed">بدون الترسانة</text>
+
+  <text x="680" y="386" text-anchor="start" direction="rtl" unicode-bidi="embed" font-size="12" font-style="italic" fill="#000000">تقديرات توضيحية — ليست قياسات معيارية.</text>
+</svg>

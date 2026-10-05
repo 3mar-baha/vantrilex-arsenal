@@ -33,7 +33,14 @@ instructions to an automated agent that will typically run them. Two failure mod
 
 Mitigations already in place, and the ones you should hold us to:
 
-- Unverified commands are `null` plus `verification: unverified`. They are never guessed.
+- An install command is never invented. It is either verified against a real
+  registry — carrying `verification: verified` plus a record of what it was
+  verified against — or it is marked `verification: unverified`, which may still
+  carry a command mechanically derived from the component's source repository,
+  or it is `null`. Components that ship as agents, plugins, and hooks carry
+  `null` plus `verification: unverified`. A derived command is never presented
+  as checked, because a plausible-looking wrong command is worse than an
+  admission of ignorance: an agent will run it.
 - Each verified command records what it was verified against.
 - `kit/kit.lock` pins versions so a floating upstream cannot silently change a kit.
 - `scripts/verify-kit.mjs` re-proves that each Tier-0 component resolves.
@@ -62,6 +69,7 @@ reason to delay rotation.
 
 | Version | Supported |
 |---|---|
+| 0.2.x | Yes |
 | 0.1.x | Yes |
 | < 0.1.0 | No |
 
