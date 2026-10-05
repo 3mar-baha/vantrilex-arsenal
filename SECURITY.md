@@ -51,7 +51,8 @@ or data drops require explicit approval recorded before execution.
 ## Secrets
 
 Secrets live in environment variables or a secret manager, never in this repository.
-`.env.example` carries placeholder keys only.
+The one environment variable the tooling reads is `VANTRILEX_STATE_DIR`, and the
+pre-commit hook refuses any staged `.env` file.
 
 If a credential is committed: **revoke or rotate it first, then remove it.** Deleting the
 text without rotating the credential is not remediation, and exposure duration is not a

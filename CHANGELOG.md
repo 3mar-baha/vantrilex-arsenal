@@ -9,8 +9,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Third top-level skill: `vantrilex-prime`.** An orientation skill that runs once
+  per machine, before Vanguard or Doctrine. It covers what the Arsenal is, the
+  canonical repository URL, how to clone and pin it, the on-disk layout, how to
+  confirm the three top-level skills exist, the order they run in, and the standing
+  laws every later phase obeys. Registered in the Registry and locked in
+  `kit/kit.lock` at `tier core`, `phase scout`, a null `install_cmd`, and
+  `verification unverified`, matching the Vanguard and Doctrine precedent.
+- `README.ar.md`, the full Arabic counterpart to `README.md`, agreeing with it on
+  every figure and fact.
+- `AI_GUIDE.md`, an AI-facing operating manual: the three skills and their fixed
+  order, the §33B orchestration law and the single-writer rule, announce-then-verify,
+  the six gates, the on-disk map, and the mistakes to avoid.
+
 ### Changed
 
+- `README.md` rewritten for the three-skill architecture, with a quickstart, the
+  Registry description, the kit census, and the six gates. Its previous
+  "two skills" and "2,699 components" figures were wrong and did not survive.
+- **The census moves from 49 locked components to 50**, being 35 tier `core` and 15
+  tier `conditional` with an empty pending list. The catalog recount moves from
+  2,734 to **2,735** records, 1,502 of them skill records. The 8-MCP cap and the 22
+  default-selected components are unchanged. The 49-entry census stays on the
+  record as superseded, not rewritten.
+- Every current-state document now describes a three-skill orchestration layer —
+  Prime (orientation), Vanguard (equip), Doctrine (work) — instead of two.
+  Released history and the dated decision log in `docs/15-DECISIONS.md` are
+  unchanged; a new decision entry records the move. The design-time arithmetic in
+  the draft specs stays as written, because it records the original
+  specification's own set.
+- `scripts/verify-kit.mjs` now asserts all three top-level skills are locked, so
+  `vantrilex-prime` cannot silently go missing from the lock.
 - **Tier-0 census re-ratified at 49 locked components.** The owner-authorized
   figure for `kit/kit.lock` is now **49 = 34 tier core + 15 tier conditional,
   0 pending**. The earlier 36-component figure was ratified 2026-10-04 and is

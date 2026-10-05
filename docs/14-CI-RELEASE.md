@@ -58,7 +58,8 @@ shipped path fails the job rather than producing a thinner archive than the
 release notes describe:
 
 ```text
-AGENTS.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md SECURITY.md
+AGENTS.md AI_GUIDE.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md
+README.ar.md SECURITY.md
 registry .opencode scripts kit docs
 .editorconfig .gitattributes .gitignore .markdownlint.jsonc
 ```

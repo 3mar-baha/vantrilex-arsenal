@@ -23,7 +23,8 @@ jobs:
           set -euo pipefail
           tarfile="vantrilex-arsenal-${GITHUB_REF_NAME}.tar.gz"
           tar -czf "$tarfile" \
-            AGENTS.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md SECURITY.md \
+            AGENTS.md AI_GUIDE.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md \
+        README.ar.md SECURITY.md \
             registry .opencode scripts kit docs \
             .editorconfig .gitattributes .gitignore .markdownlint.jsonc
           echo "packaged ${tarfile}"

@@ -11,7 +11,7 @@ constrain every layer are [AGENTS.md](../AGENTS.md).
 ```text
 .opencode/                    SHIPPED SURFACE (what a target project receives)
   plugin/arsenal.ts             Tier-0 hooks implemented as plugin callbacks
-  skills/                       Vanguard, Doctrine, transplanted mechanisms
+  skills/                       Prime, Vanguard, Doctrine, transplanted mechanisms
   agent/                        Leader / Guide / Implementer role agents
   command/                      Operator entry points (equip, doctor, prime, release)
 
@@ -35,7 +35,7 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (49 components, 0 pending)
+kit/                          PINNED KIT (50 components, 0 pending)
   kit.lock                      Pinned Tier-0 versions (pending list empty)
 
 docs/                         THIS DOCUMENTATION SET plus provenance
@@ -49,6 +49,7 @@ docs/                         THIS DOCUMENTATION SET plus provenance
 |---|---|---|
 | `scripts/generate-catalog-json.mjs` | `registry/VANTRILEX_CATALOG.md` plus `registry/data/*.jsonl` | `registry/catalog.json`, the Markdown table, per-kind indexes |
 | `scripts/verify-registry.mjs` | Catalog Markdown, sidecars, `registry/data/overlaps.yaml`, schema | PASS, FAIL, or SKIPPED per check; a skip is never a pass |
+| Prime (shipped) | This repository's tree, `kit/kit.lock`, `.opencode/skills/` | Orientation: canonical URL, clone and pin, what is on disk, the order Prime, Vanguard, Doctrine run in |
 | Vanguard (specified) | `registry/catalog.json`, skills.sh, Smithery, Context7, project files | Kit selection, lock entries, verification report, target docs |
 | `.opencode/plugin/arsenal.ts` | Session events, tool calls, project config | Guard verdicts: PASS, FAIL, SKIPPED, WARN, BLOCKED |
 | `scripts/dispatch-worktrees.sh` | Checkpoint labeled fields (target-project scope) | Isolated worktree on `wt/<concern-slug>` with phase kit injected |

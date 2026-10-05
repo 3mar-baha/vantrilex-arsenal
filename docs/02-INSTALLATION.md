@@ -63,9 +63,13 @@ are the four command files:
 |---|---|
 | `.opencode/command/equip.md` | Detect project state and equip the kit |
 | `.opencode/command/doctor.md` | Run the preflight system check |
-| `.opencode/command/prime.md` | Load session context at session start |
+| `.opencode/command/prime.md` | Emit the session CONTEXT ANCHOR at session start |
 | `.opencode/command/release.md` | Run the release lane |
 
-Until Vanguard and Doctrine land as skill files, the contracts in
-[04-VANGUARD.md](04-VANGUARD.md) and [05-DOCTRINE.md](05-DOCTRINE.md) are the
-authoritative description of that behavior.
+Prime, Vanguard, and Doctrine ship as skill files under `.opencode/skills/`
+and run in that order: orientation once per machine, equip once per target
+project, then work. Their contracts are [01-OVERVIEW.md](01-OVERVIEW.md),
+[04-VANGUARD.md](04-VANGUARD.md), and [05-DOCTRINE.md](05-DOCTRINE.md), with
+Prime's own contract carried by
+`.opencode/skills/vantrilex-prime/SKILL.md`. The `prime` command above is
+unrelated to the Prime skill: it is the session-context primer.

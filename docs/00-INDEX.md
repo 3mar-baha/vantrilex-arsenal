@@ -6,6 +6,14 @@ document any target project. Target-project documentation is a separate,
 runtime-generated set (the 28-file system described by reference in
 [04-VANGUARD.md](04-VANGUARD.md)); nothing in this set duplicates it.
 
+Three top-level skills divide the work, and this set covers them in order:
+Prime, the once-per-machine orientation skill, in
+[01-OVERVIEW.md](01-OVERVIEW.md); Vanguard, the once-per-project equip skill,
+in [04-VANGUARD.md](04-VANGUARD.md); and Doctrine, the work and gates skill,
+in [05-DOCTRINE.md](05-DOCTRINE.md). Prime is orientation only and has no file
+of its own in the numbered series, so its contract is
+`.opencode/skills/vantrilex-prime/SKILL.md`.
+
 The two authoritative input specs live in `spec/` next to this set:
 `spec/VANTRILEX_KIT_SPEC.md` and `spec/VANTRILEX_SKILLS_SPEC.md`. They are
 provenance: read them, never rewrite them.
@@ -30,6 +38,8 @@ provenance: read them, never rewrite them.
 | [13-CONTRIBUTING-WORKFLOW.md](13-CONTRIBUTING-WORKFLOW.md) | How to land a change: branches, commits, components, corrections |
 | [14-CI-RELEASE.md](14-CI-RELEASE.md) | What CI runs, and how a version is tagged and published |
 | [15-DECISIONS.md](15-DECISIONS.md) | Which decisions are already ratified, with date, context, and consequences |
+| [spec/VANTRILEX_KIT_SPEC.md](spec/VANTRILEX_KIT_SPEC.md) | Provenance, read-only: naming, the specified Tier-0 set, catalog v2, the transplant manifest |
+| [spec/VANTRILEX_SKILLS_SPEC.md](spec/VANTRILEX_SKILLS_SPEC.md) | Provenance, read-only: Vanguard in Part A, Doctrine in Part B, the phase map, the 28-file target-project set |
 
 ## Reading paths
 
@@ -62,8 +72,8 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2734 catalog records, 34 records with tier
-  `core` including the 2 Arsenal skills, 22 default-selected components,
+- Counts are honest and checkable: 2735 catalog records, 35 records with tier
+  `core` including the 3 Arsenal skills, 22 default-selected components,
   12 verified install commands, 6 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
