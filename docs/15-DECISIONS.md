@@ -350,3 +350,48 @@ the ratified list and are left vacant rather than filled.
   `docs/00-INDEX.md`, `docs/01-OVERVIEW.md`, `docs/03-ARCHITECTURE.md`,
   `docs/04-VANGUARD.md`, and the Task dispatch section of the Vanguard skill,
   and the seven-hook table in `AI_GUIDE.md` marks the six V1 bindings as V1.
+
+## Documentation-only consistency sweep against the kit lock
+
+- **Date:** 2026-10-05
+- **Context:** three read-only audits walked every prose figure in the
+  repository against `kit/kit.lock`, `registry/catalog.json`, `.opencode/skills/`,
+  `docs/`, and `brand/`. The census figures themselves were already correct
+  almost everywhere, so the sweep was a matter of the outliers rather than a
+  recount: the Vanguard skill named 35 core and 50 total where the lock holds 36
+  and 52, `SECURITY.md` stated an install-command rule that the catalog does not
+  follow, `SECURITY.md` supported-versions table omitted the released 0.2.x, the
+  two skills that describe the gate suite named a documentation-links gate and
+  five-plus-one arithmetic that no referent supports, three gate lists
+  disagreed about which six gates exist, and `docs/09-KIT-LOCK.md` carried a
+  phase-resident table naming three components absent from the lock while
+  omitting twenty present ones.
+- **Decision:** the lock, the code, and `registry/` stay the source of truth and
+  the prose follows them. Figures are corrected to the measured value at every
+  site, and the sentences that produced the wrong figure are rewritten rather
+  than the number alone patched, so the claim and the count agree. Where two
+  sources legitimately disagree — the tool reporting 48 overlap references
+  against 40 member entries, the plugin enumerating eight callbacks against a
+  seven-hook lock — both are stated and the difference is explained instead of
+  reconciled away, because each is correct in its own vocabulary. The six-gate
+  suite is registry integrity, the catalog mirror, the kit, the skill format,
+  the shell scripts, and the plugin typecheck; `markdownlint` is documented as
+  an additional lint step because deleting it would hide a real tool.
+  `arsenal.ts` was edited comment-only, so no behaviour changed. Superseded
+  history, the released changelog sections, the design-time arithmetic in
+  `docs/spec/`, and the root-level `VANTRILEX_SKILLS_SPEC.md` were left exactly
+  as written.
+- **Consequences:** `SECURITY.md` now states the real install-command rule —
+  never invented, so verified against a registry, or marked `unverified` with a
+  possibly derived command, or `null` — which is what `README.md`,
+  `docs/01-OVERVIEW.md`, `docs/06-REGISTRY-SCHEMA.md`, and `AGENTS.md` already
+  said; the two skills and three gate lists now name the same six gates, and
+  `docs/08-VERIFICATION.md` keeps its markdownlint section while marking it
+  outside the six. The `docs/09-KIT-LOCK.md` table is derived from the lock and
+  carries an instruction to re-derive rather than trust it, which is also why
+  its earlier claim about injecting without re-deriving is now true rather than
+  aspirational. The kit census is untouched — 52 locked components, 36 tier
+  `core` plus 16 tier `conditional`, 0 pending, 7 of them hooks, with the
+  catalog at 2,737 records, 20 skill folders, 17 documentation files, and 23
+  brand SVGs — and `node scripts/verify-skills.mjs`, `verify-kit.mjs`,
+  `verify-registry.mjs`, and `npx tsc --noEmit` all pass on the result.

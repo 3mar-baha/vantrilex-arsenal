@@ -49,18 +49,26 @@ stops the worst case.
 Install once centrally; inject per phase, prune after. Context spend tracks
 the work being done:
 
+Every locked component carries a `phase`, and that field is the whole of the
+assignment. Read from `kit/kit.lock`, the 52 components group as:
+
 | Phase | Resident components |
 |---|---|
-| docs | `grill-me`, `session-context-primer` |
-| plan | `wayfinder`, `ask-matt` |
-| build | `tdd`, `ponytail`, `preflight-system-doctor` |
-| review | `code-review`, `ponytail-review` |
-| operate | `ponytail-audit`, `ponytail-debt` |
+| scout | `fetch`, `context7` (mcp, plugin), `firecrawl`, `session-start`, `task-dispatcher`, `vantrilex-prime`, `vantrilex-vanguard` |
+| docs | `grill-me`, `technical-writer`, `documentation-as-tests` |
+| plan | `ask-matt`, `wayfinder`, `sequential-thinking`, `architect`, `babel-bridge` |
+| build | `tdd`, `ponytail`, `openrouter`, `typescript-lsp`, `feature-dev`, `long-running-process-guard`, `typescript-check-after-editing-ts-tsx-files`, `auto-format-js-ts-files-with-prettier-after-edits`, `lenis`, `og-image`, `open-graph-image`, `time-capsule-test`, `vantrilex-design-variations` |
+| review | `code-review` (skill, plugin), `ponytail-review`, `github`, `security-guidance`, `code-reviewer`, `ai-generated-code-security-auditor`, `red-team` (skill, agent), `skill-shadow`, `a11y-audit` |
+| operate | `ponytail-audit`, `filesystem`, `memory`, `commit-commands`, `pre-compact`, `persist-session-state-on-end`, `vantrilex-doctrine`, `kit-evaluation-journal`, `kit-evolution-log`, `kill-switch-document` |
+| on-demand | `find-skills`, `skill-creator` |
 
-Discovery and forging (`find-skills`, `skill-creator`) load on demand rather
-than by phase. The phase map is normative in
-[05-DOCTRINE.md](05-DOCTRINE.md); the lock records each component's scope so
-the orchestrating scripts can inject and prune without re-deriving it.
+`on-demand` sits outside every phase and is never injected by phase: discovery
+and forging load on demand instead. An id recorded at two kinds is injected as
+both entries. The phase map is normative in [05-DOCTRINE.md](05-DOCTRINE.md);
+the lock records each component's scope, so the orchestrating scripts inject and
+prune by reading that field rather than re-deriving the assignment themselves.
+This table is a copy of the lock and must be re-derived from it, not trusted in
+place of it.
 
 ## The cost guard
 

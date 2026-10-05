@@ -19,7 +19,7 @@ Commit messages follow Conventional Commits:
 ```text
 feat: add when_to_use backfill for Tier-0 skills
 fix: correct firecrawl-mcp install command scope
-docs: add the 16-file Arsenal documentation set
+docs: add the 17-file Arsenal documentation set
 ```
 
 Valid types include `feat`, `fix`, `docs`, `refactor`, `chore`, and `test`.
@@ -53,10 +53,14 @@ changelog (see [14-CI-RELEASE.md](14-CI-RELEASE.md)).
 ```bash
 node scripts/verify-registry.mjs
 node scripts/generate-catalog-json.mjs --check
+node scripts/verify-kit.mjs
+node scripts/verify-skills.mjs
 shellcheck scripts/*.sh .githooks/*
 npx tsc --noEmit
-npx markdownlint-cli "**/*.md"
 ```
+
+Those six are the enforced gate suite; `npx markdownlint-cli "**/*.md"` is an
+additional documentation lint step that CI does not run.
 
 A check that could not be run is a failed check: say so in the pull request
 description rather than leaving it green-looking.

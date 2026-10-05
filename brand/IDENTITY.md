@@ -239,9 +239,10 @@ https://icons-for-agents.site/icons/{set}/{name}.svg
 Every icon name used here was verified by fetching it and inspecting the returned SVG before it was
 used. No icon name in this directory was guessed.
 
-**Upstream sets.** Nine of the fourteen non-logo assets derive their base geometry from **Lucide**
-(ISC). Two are original compositions on the 24 grid. The shield-and-gate mark and its wordmark are
-original.
+**Upstream sets.** The eighteen non-logo assets are nine icon designs plus their nine animated
+counterparts, and all nine icon geometries derive their base geometry from **Lucide** (ISC) — two of
+them, `verification-gate` and `workflow-dag`, recomposed on the 24 grid. The shield-and-gate mark and
+its wordmark are original.
 
 | Asset | Upstream set | Licence position |
 |---|---|---|

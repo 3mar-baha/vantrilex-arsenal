@@ -175,9 +175,9 @@ node scripts/verify-skills.mjs
 
 Paste its output as printed, with its exit code, and never summarise it into a pass claim the script
 did not make. The Arsenal ships six verification gates in total — registry integrity, the generated
-catalog mirror, the kit, the shell scripts, the plugin typecheck, and the documentation links — and
-Prime names them so a fresh instance knows what proof exists. Prime runs none of the five beyond the
-skill-format gate, and running the skill-format gate proves format only.
+catalog mirror, the kit, the skill format, the shell scripts, and the plugin typecheck — and
+Prime names them so a fresh instance knows what proof exists. Prime runs only the skill-format
+gate, the one it just invoked, and running the skill-format gate proves format only.
 
 ### P.6 — Introduce the two sibling skills
 

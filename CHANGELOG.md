@@ -90,6 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   0 pending**. The earlier 36-component figure was ratified 2026-10-04 and is
   superseded by the 13 conditional components added by the digest-candidate and
   parked-idea work: twelve in-repo conditional skills (`lenis`, `og-image`,
+  `vantrilex-design-variations`,
   `open-graph-image`, `time-capsule-test`, `kit-evaluation-journal`, `red-team`,
   `skill-shadow`, `documentation-as-tests`, `kit-evolution-log`,
   `kill-switch-document`, `babel-bridge`), the in-repo `red-team` agent, and the
@@ -108,9 +109,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Released changelog history and the decision log in `docs/15-DECISIONS.md` are
   left as written; the design-time arithmetic in
   `docs/spec/VANTRILEX_KIT_SPEC.md` stays as the original specification's own
-  record. Two sites still carry a stale census and are owned elsewhere:
-  `CONTRIBUTING.md` names the 51-component budget and the root-level
-  `VANTRILEX_SKILLS_SPEC.md` names 49.
+  record. One site still carries a stale census and is owned elsewhere: the
+  root-level `VANTRILEX_SKILLS_SPEC.md` names 49. It is untracked and
+  gitignored by exact path, so the stale figure cannot be corrected by
+  committing, and the decision log records that state at
+  `docs/15-DECISIONS.md`.
 - **This repository's documentation set moves from 16 files to 17.**
   `docs/16-TASK-DISPATCH.md` joins the numbered series and is registered in the
   `docs/00-INDEX.md` file map; the file count, the `00` through `16` numbering, and
