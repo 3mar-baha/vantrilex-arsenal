@@ -217,6 +217,8 @@ green-looking.
 | `registry/data/*.jsonl` | The data sidecars the catalog is generated from | No |
 | `registry/schema/` | `catalog-v2.schema.json`, the record schema | No |
 | `kit/kit.lock` | The pinned component set, its tiers and phases, `mcp_cap`, and the pending list | No |
+| `brand/` | The visual identity assets: five static logo files in `logo/`, nine static icons in `icons/`, nine animated icons in `animated/` | No |
+| `brand/IDENTITY.md` | The visual identity: concept, palette, asset list, and usage rules | No |
 | `scripts/` | The verification scripts (`verify-registry.mjs`, `generate-catalog-json.mjs`, `verify-kit.mjs`, `verify-skills.mjs`) and the seven orchestration shell scripts | No |
 | `docs/` | This repository's documentation series, numbered `00` through `15`, plus `spec/` | No |
 | `AGENTS.md` | The repository constitution for any coding agent | No |
@@ -227,6 +229,38 @@ Never hand-edit the generated catalog table in `registry/VANTRILEX_CATALOG.md` o
 
 The `docs/` series in this repository runs `00` through `15`. It is not the target-project series,
 which runs `00` through `27` and is written by Vanguard into the equipped project.
+
+### The visual identity
+
+`brand/` holds the visual identity assets. `brand/IDENTITY.md` is authoritative for the palette,
+the asset list, and the usage rules: read it before placing a mark, and do not re-derive it.
+
+- **The logo is never animated.** An agent reaching for a logo uses one of the five files in
+  `brand/logo/` — `brand/logo/arsenal-mark-light.svg`, `brand/logo/arsenal-mark-dark.svg`,
+  `brand/logo/arsenal-mark-mono.svg`, `brand/logo/arsenal-lockup-light.svg`,
+  `brand/logo/arsenal-lockup-dark.svg` — and every one of them is static XML. Motion lives only in
+  `brand/animated/`. Never add, generate, or propose an animated logo, not as a GIF, not with SMIL,
+  not with CSS.
+- **The palette has exactly four values** — royal blue `#4169E1`, light blue `#ADD8E6`, white
+  `#FFFFFF`, black `#000000` — and no fifth colour may be introduced. Not a grey, not a tint, not a
+  gradient stop. Transparency is `fill-opacity` or `stroke-opacity` on an approved colour. The dark
+  variants invert royal blue to white because `#4169E1` does not hold contrast on black; that
+  inversion is deliberate and stays inside those four values.
+- **Which asset belongs where.** A document header mark on a light ground is
+  `brand/logo/arsenal-mark-light.svg`; on a dark surface it is `brand/logo/arsenal-mark-dark.svg`.
+  Single-ink work — favicon, print, stamp, monochrome reproduction — is
+  `brand/logo/arsenal-mark-mono.svg`, its own reduction with the beam dropped, so never recolour the
+  light mark to black and expect the mono result. A skill header takes the matching tier icon from
+  `brand/icons/`. `brand/icons/` is authored for a light ground; never invert it ad hoc.
+  `brand/animated/` is for motion, never for the logo.
+- **Brand assets are not kit components.** Never add one to `kit/kit.lock`, never register one in
+  `registry/`, never count one in the census — the figures in this guide are kit figures, and a
+  brand asset counted among them corrupts them. A brand asset is not a skill either: the icons named
+  after tiers are icons for `vantrilex-prime`, `vantrilex-vanguard`, and `vantrilex-doctrine`, not
+  three more skills. Nothing under `brand/` changes the three-top-level-skill rule.
+- **Never redraw the mark.** Scale an existing file rather than reconstructing it, and never
+  re-letter the wordmark. No icon is a decorative flourish; each of the nine means one specific
+  thing.
 
 ## 6. Common mistakes to avoid
 
@@ -249,6 +283,9 @@ which runs `00` through `27` and is written by Vanguard into the equipped projec
   Incident Report template live in `circuit-breaker-guard`; the context anchor block lives in
   `session-context-primer`. Neither is restated here, in `vantrilex-prime`, or in
   `vantrilex-doctrine`.
+- **Treating a brand asset as kit content, or recolouring one.** `brand/` is not kit: nothing in it
+  enters `kit/kit.lock`, the registry, or the census, and the palette admits no fifth colour. See
+  "The visual identity" in §5.
 - **Committing a placeholder.** No `TODO`, no `FIXME`, no stub section, no "coming soon", no
   deferred or half-written file. If something is unverified, say `unverified` and move on. A leaked
   credential is revoked first, then removed.

@@ -20,6 +20,32 @@ The repository is Node 25, ESM, and zero dependencies. It contains **no AI or
 ML model logic** — only Markdown, JSON, and Node ESM. Nothing here may invent an
 install command.
 
+![Vantrilex Arsenal](brand/logo/arsenal-lockup-light.svg)
+
+**Visual identity.** The mark, the stencil wordmark, and the nine-icon
+family are the Arsenal's identity, specified in
+[`brand/IDENTITY.md`](brand/IDENTITY.md) — read it for the concept, the
+complete asset list, the palette, and the usage rules. The lockup above is the
+static light-ground variant; `brand/logo/arsenal-lockup-dark.svg` is the same
+lockup on a dark ground with royal blue inverted to white, and is the correct
+file there. **The logo is never animated** — all five files in `brand/logo/`
+are static, and every motion in the identity lives in the icon family.
+
+| Icon | Purpose |
+|---|---|
+| `brand/icons/tier-prime.svg` | Orientation — Prime answers *where the Arsenal is* |
+| `brand/icons/tier-vanguard.svg` | Scouting — Vanguard answers *what this project needs* |
+| `brand/icons/tier-doctrine.svg` | Governance — Doctrine answers *how the kit is used* |
+| `brand/icons/three-tier.svg` | The three tiers as stacked plates: orientation, then selection, then conduct |
+| `brand/icons/registry-grid.svg` | The pinned component set |
+| `brand/icons/verification-gate.svg` | The six verification gates as one barrier |
+| `brand/icons/component.svg` | One kit component — the unit the Registry enumerates |
+| `brand/icons/workflow-dag.svg` | The directed acyclic workflow |
+| `brand/icons/armed-kit.svg` | The provisioned kit in full |
+
+Each of the nine has an animated sibling with the same geometry under
+`brand/animated/`.
+
 ---
 
 ## What the Arsenal is
