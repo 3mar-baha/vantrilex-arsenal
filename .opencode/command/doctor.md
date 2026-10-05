@@ -69,7 +69,7 @@ Each row is conditional on the project actually using that toolchain.
 | C4 | Command frontmatter is valid | HIGH | every command file has a `description` in its frontmatter, a non-empty body, and **no `template:` key** |
 | C5 | Guard configuration parses | MEDIUM | `.opencode/arsenal.json` is absent (`SKIPPED (defaults in use)`) or parses as JSON |
 | C6 | OpenCode config parses | MEDIUM | `opencode.json` / `opencode.jsonc` is absent (`SKIPPED`) or parses |
-| C7 | Canonical documentation series | MEDIUM | count the `docs/NN-*.md` files. Report the count and the highest index. A file outside `docs/00-`..`docs/27-`, `docs/99-archive/`, `docs/spec/`, `registry/`, `.opencode/`, or the repo-root `README.md` / `AGENTS.md` / `CHANGELOG.md` / `CONTRIBUTING.md` / `SECURITY.md` set is a `FAIL` for the docs-discipline guard |
+| C7 | Canonical documentation series | MEDIUM | count the `docs/NN-*.md` files. Report the count and the highest index. A file outside `docs/00-`..`docs/27-`, `docs/99-archive/`, `docs/spec/`, `registry/`, `.opencode/`, or the repo-root `README.md` / `README.ar.md` / `AI_GUIDE.md` / `AGENTS.md` / `CHANGELOG.md` / `CONTRIBUTING.md` / `SECURITY.md` set is a `FAIL` for the docs-discipline guard |
 | C8 | Secret hygiene | HIGH | no `.env` file is tracked by git. `git ls-files -- .env` must print nothing. Never print the contents of any `.env` file |
 
 ## Section D - Workspace

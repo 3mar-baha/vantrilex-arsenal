@@ -16,7 +16,8 @@ Vanguard runs the steps in order and never skips ahead: preflight, state detecti
 concept work, source surveying, kit selection, install plus verification, then docs.
 Three laws bind every step: request information before writing, never invent an
 install command, and pass the three owner gates (shortlist, verification failures,
-docs) before proceeding.
+docs) before proceeding. On a fresh machine `vantrilex-prime` runs first and owns
+orientation; Vanguard starts at step 0 with the system already read.
 
 This SKILL.md is written in English. The Arabic relay prompt in the concept phase is
 generated output handed to the owner for use with a chatbot, and that is the intended
@@ -35,9 +36,16 @@ exception to the English rule, not a contradiction.
   Vanguard can re-survey sources and re-equip the project.
 - Before any other skill runs on a project Vanguard has not yet equipped, because
   phase-scoped injection depends on the kit Vanguard pins.
+- On a machine `vantrilex-prime` has already oriented, so the system, the tree, and
+  the next owner are known before the equip run starts. On a machine that has never
+  been oriented, Prime runs first and this skill is not the entry point.
 
 ## Do NOT use
 
+- As the entry point on a fresh machine. Orientation — what the Arsenal is, where the
+  canonical repository lives, and which of the three top-level skills runs next —
+  belongs to `vantrilex-prime`, which runs once per machine before any equip run.
+  Vanguard names that hand-off and carries no copy of it.
 - As a workflow runner. Feature, review, security-audit, bugfix, and release lanes
   belong to the doctrine skill; Vanguard only equips the project and writes the docs
   those lanes consume.
@@ -196,8 +204,9 @@ catalog. Then score each candidate on installs and stars with preference for pro
 adoption at or above one thousand, on activity within the last six months, on a
 clear licence, and on non-overlap with stronger candidates. Then apply the overlap
 rules. Then present the shortlist, wait for owner approval, and only then install.
-Tier 0, the core set of forty-nine components, is pre-approved for every project;
-Tier 1 is selected per project and needs explicit approval.
+Tier 0 is pre-approved for every project: it is the thirty-five core components of
+the fifty locked in `kit/kit.lock`, with an empty pending list. Tier 1, the fifteen
+conditional components, is selected per project and needs explicit approval.
 
 Vanguard reads catalog records by their real field names, exactly these fields, and Vanguard reads them by these names:
 

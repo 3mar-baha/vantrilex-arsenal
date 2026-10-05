@@ -7,7 +7,7 @@ description: Use when review and release work needs doctrine: states what are th
 
 ## Purpose
 
-Doctrine is the law-book and drill manual for every build, review, and release session. It states the seven constitutional laws, assigns decision rights across the Leader, Guide, and Implementer roles, binds each lifecycle phase to its kit, defines the five workflows with their gates and done-definitions, and fixes the session rituals and the parallelism mechanics. Vanguard equips the project; Doctrine governs how the work runs once the kit is installed.
+Doctrine is the law-book and drill manual for every build, review, and release session. It states the seven constitutional laws, assigns decision rights across the Leader, Guide, and Implementer roles, binds each lifecycle phase to its kit, defines the five workflows with their gates and done-definitions, and fixes the session rituals and the parallelism mechanics. Three top-level skills exist and they run in one fixed order: `vantrilex-prime` orients the machine once, `vantrilex-vanguard` equips the project once per project, and `vantrilex-doctrine` governs how the work runs once the kit is installed.
 
 ## When to Use
 
@@ -19,6 +19,7 @@ Doctrine is the law-book and drill manual for every build, review, and release s
 ## Do NOT use
 
 - To survey sources, select components, or install the kit on a fresh project — that equip run belongs to Vanguard.
+- To orient a machine or restate the Arsenal itself — that is `vantrilex-prime`, which runs before Vanguard and before this skill on a fresh machine. Doctrine names that hand-off and never expands it.
 - To restate the halt message or the report template of circuit-breaker-guard — point at that skill instead; its template has a single home there and this file never carries a second copy.
 - To overrule a Guide verdict, waive a guard silently, or reopen a HALT under schedule pressure.
 - To hand-edit generated artifacts (the catalog Markdown, the per-kind index files); change the generator or the data sidecar and regenerate.

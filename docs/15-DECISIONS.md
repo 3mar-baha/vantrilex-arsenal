@@ -197,3 +197,28 @@ the ratified list and are left vacant rather than filled.
   current-state document now carries 49 rather than 36. The design-time
   arithmetic in `docs/spec/VANTRILEX_KIT_SPEC.md` is untouched, because it
   records the original specification's own set rather than the lock.
+
+## Top-level layer is three skills, census re-ratified at 50
+
+- **Date:** 2026-10-05
+- **Context:** The re-ratification above counted 49 locked components spread
+  across two top-level skills. `vantrilex-prime` then landed as a third
+  top-level skill that orients a machine to the Arsenal before any other work
+  starts, and it is locked as a third tier-`core` skill entry, so the layer
+  count and the census moved in the same change.
+- **Decision:** The owner-authorized figure is 50 locked components = 35 tier
+  core + 15 tier conditional, 0 pending, of which 24 are skills; the catalog
+  recount is 2735 records, 1502 of them skill records. The orchestration layer
+  is three skills in order: Prime (orientation, once per machine), Vanguard
+  (equip, once per target project), Doctrine (work). The other skill folders
+  under `.opencode/skills/` are kit components equipped by Vanguard, never
+  top-level skills. The 49-entry census stays on the record as superseded, not
+  rewritten.
+- **Consequences:** [01-OVERVIEW.md](01-OVERVIEW.md) states the three-skill
+  model and carries 50, 35, 24, 2735, and 1502, and every current-state
+  document carries the same figures. The 22 default-selected components and
+  the 12 verified install commands are unchanged, as is the 8-MCP cap. Prime is
+  orientation only: it does not restate Vanguard's four project states or
+  Doctrine's workflows, and each doc describes it in a sentence and points at
+  the skill. The design-time arithmetic in `docs/spec/VANTRILEX_KIT_SPEC.md`
+  stays as written, because it records the original specification's own set.

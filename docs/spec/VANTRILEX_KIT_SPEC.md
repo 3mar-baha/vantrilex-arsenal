@@ -2,7 +2,7 @@
 
 **Status:** draft for owner review (planning day 2026-10-04)
 **Base catalog:** `workspace/user/files/VANTRILEX_CATALOG.md` (2699 components; UTF-8 repaired 2026-10-04)
-**Companion:** the two-skill OpenCode plugin design (Vanguard = scout/equip, Doctrine = workflows)
+**Companion:** the three-skill OpenCode plugin design (Prime = orientation, Vanguard = scout/equip, Doctrine = workflows)
 
 ---
 

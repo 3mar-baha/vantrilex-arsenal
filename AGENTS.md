@@ -35,8 +35,9 @@ Two things follow from that, and they govern everything below:
 5. **English only.** All documentation, skill files, and registry content are English.
 6. **No placeholders.** No `TODO`, no `FIXME`, no stub sections, no "coming soon". If
    something is unverified, say `unverified` and move on.
-7. **Secrets never enter the repository.** `.env.example` carries placeholder keys only.
-   A leaked credential is revoked first, then removed.
+7. **Secrets never enter the repository.** No committed file carries a real value,
+   and the pre-commit hook refuses a staged `.env`. A leaked credential is revoked
+   first, then removed.
 
 ---
 

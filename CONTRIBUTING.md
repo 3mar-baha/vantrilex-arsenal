@@ -53,7 +53,7 @@ A `!` after the type, or a `BREAKING CHANGE:` footer, forces a MAJOR bump at rel
 2. Verify the install command against the real registry — `npm view <pkg>`, the GitHub
    repo, or the vendor's own docs. Record what you checked.
 3. Fill `when_to_use`, `phase`, and `tier`. `tier: core` is for Tier-0 only and needs
-   a slot in the 49-component budget.
+   a slot in the 50-component budget.
 4. If the component overlaps an existing one, record `supersedes` or `pairs_with` in
    `registry/data/overlaps.yaml`.
 5. Update `CHANGELOG.md` in the same change.

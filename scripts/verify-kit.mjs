@@ -26,7 +26,7 @@ const ARSENAL_PATH = path.join(ROOT, ".opencode", "plugin", "arsenal.ts");
 const SKILLS_DIR = path.join(ROOT, ".opencode", "skills");
 
 const EXPECTED_PENDING = [];
-const EXPECTED_LOCKED_SKILLS = ["vantrilex-vanguard", "vantrilex-doctrine"];
+const EXPECTED_LOCKED_SKILLS = ["vantrilex-vanguard", "vantrilex-doctrine", "vantrilex-prime"];
 
 const HOOK_FUNCTIONS = {
   "session-start": "sessionStart",
