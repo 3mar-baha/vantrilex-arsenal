@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>One component, animated</title>
+  <desc>The component is verified by drawing it: the outline traces itself, the lid seam follows a third of a cycle later, and the light blue seam holds while both are complete. 6 second period, seamless loop. Base geometry from the Lucide box icon.</desc>
+  <style>
+    .shell { stroke-dasharray: 48; animation: shell 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .lid { stroke-dasharray: 21; animation: lid 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .seam { animation: seam 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    @keyframes shell { 0% { stroke-dashoffset: 48; } 45% { stroke-dashoffset: 0; } 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 48; } }
+    @keyframes lid { 0% { stroke-dashoffset: 21; } 30% { stroke-dashoffset: 0; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 21; } }
+    @keyframes seam { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .shell, .lid, .seam { animation: none; } .seam { opacity: 1; } }
+  </style>
+  <path class="shell" d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+  <path class="lid" d="m3.3 7 8.7 5 8.7-5"/>
+  <path class="seam" d="M12 22V12" stroke="#ADD8E6"/>
+</svg>

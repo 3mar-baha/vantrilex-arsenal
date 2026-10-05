@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Workflow graph</title>
+  <desc>Directed acyclic workflow: two royal blue sources converging on one sink, the second route in light blue. Base geometry from the Lucide git-branch icon, extended by one converging path and a terminating node.</desc>
+  <path d="M15 6a9 9 0 0 0-9 9V3"/>
+  <path d="M18 9v3a5 5 0 0 1-5 5H6" stroke="#ADD8E6"/>
+  <circle cx="18" cy="6" r="3" fill="#4169E1" stroke="none"/>
+  <circle cx="6" cy="3" r="2" fill="#4169E1" stroke="none"/>
+  <circle cx="6" cy="18" r="3" fill="#4169E1" stroke="none"/>
+</svg>

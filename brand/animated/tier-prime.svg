@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Vantrilex Prime, tier one, animated</title>
+  <desc>The bearing arrow of the Prime icon rocks through 36 degrees while the light blue stretch of ground line travels beneath it. 4 second period, seamless loop. Base geometry from the Lucide navigation icon.</desc>
+  <style>
+    .bear { transform-box: view-box; transform-origin: 12px 12px; animation: bear 4s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .sig { animation: sig 4s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    @keyframes bear { 0%, 100% { transform: rotate(-18deg); } 50% { transform: rotate(18deg); } }
+    @keyframes sig { 0%, 100% { transform: translateX(-4px); opacity: 0; } 50% { transform: translateX(4px); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .bear, .sig { animation: none; } .sig { opacity: 1; } }
+  </style>
+  <polygon class="bear" points="3 11 22 2 13 21 11 13" fill="#4169E1" stroke="none"/>
+  <path d="M3 21.5h18"/>
+  <path class="sig" d="M8 21.5h8" stroke="#ADD8E6" stroke-width="2"/>
+</svg>

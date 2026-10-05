@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Verification gates</title>
+  <desc>The six verification gates as a barrier: six chamfered posts hung between two rails, standing on the light blue threshold line. Post head silhouette derived from the Lucide fence icon, narrowed and repeated six times.</desc>
+  <path d="M1 7.9 2.6 6.8V18H1ZM4.8 7.9 6.4 6.8V18H4.8ZM8.6 7.9 10.2 6.8V18H8.6ZM12.4 7.9 14 6.8V18H12.4ZM16.2 7.9 17.8 6.8V18H16.2ZM20 7.9 21.6 6.8V18H20Z" fill="#4169E1" stroke="none"/>
+  <path d="M0.5 10h22.4M0.5 15h22.4"/>
+  <path d="M1 21.5h22" stroke="#ADD8E6" stroke-width="2"/>
+</svg>

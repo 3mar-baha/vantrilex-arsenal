@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Vantrilex Doctrine, tier three, animated</title>
+  <desc>The Doctrine gavel strikes through 26 degrees about its contact point on the bench while the black bench line holds its full weight at the bottom of the stroke. 4 second period, seamless loop. Base geometry from the Lucide gavel icon.</desc>
+  <style>
+    .gavel { transform-box: view-box; transform-origin: 5.6px 21.4px; animation: gavel 4s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .bench { animation: bench 4s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    @keyframes gavel { 0%, 100% { transform: rotate(-13deg); } 50% { transform: rotate(13deg); } }
+    @keyframes bench { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .gavel, .bench { animation: none; } .bench { opacity: 1; } }
+  </style>
+  <g class="gavel">
+    <path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381"/>
+    <path d="m16 16 6-6"/>
+    <path d="m21.5 10.5-8-8"/>
+    <path d="m8 8 6-6"/>
+    <path d="m8.5 7.5 8 8"/>
+  </g>
+  <path class="bench" d="M2.5 21.5h19" stroke="#000000"/>
+</svg>

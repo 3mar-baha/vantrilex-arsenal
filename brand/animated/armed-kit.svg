@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Armed kit, animated</title>
+  <desc>The three crates of the provisioned kit settle onto the stack two seconds apart, so the kit is seen being set down rather than merely being present. 6 second period, seamless loop. Base geometry from the Lucide boxes icon.</desc>
+  <style>
+    .crate { animation: crate 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .c2 { animation-delay: -2s; }
+    .c3 { animation-delay: -4s; }
+    @keyframes crate { 0%, 100% { transform: translateY(-1.2px); } 50% { transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { .crate { animation: none; } }
+  </style>
+  <g class="crate">
+    <path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/>
+    <path d="m7 16.5-4.74-2.85"/>
+    <path d="m7 16.5 5-3"/>
+    <path d="M7 16.5v5.17"/>
+  </g>
+  <g class="crate c2">
+    <path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/>
+    <path d="m17 16.5-5-3"/>
+    <path d="m17 16.5 4.74-2.85"/>
+    <path d="M17 16.5v5.17"/>
+  </g>
+  <g class="crate c3">
+    <path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/>
+    <path d="M12 8 7.26 5.15"/>
+    <path d="m12 8 4.74-2.85"/>
+    <path d="M12 13.5V8"/>
+  </g>
+</svg>

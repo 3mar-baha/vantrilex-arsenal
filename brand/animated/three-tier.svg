@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Three tiers, animated</title>
+  <desc>The three plates of the tier icon lift and settle one third of a cycle apart, so a slow wave runs down the stack while the light blue ground rule beneath it breathes. 6 second period, seamless loop. Base geometry from the Lucide layers icon.</desc>
+  <style>
+    .plate { animation: plate 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .p2 { animation-delay: -2s; }
+    .p3 { animation-delay: -4s; }
+    .rule { animation: rule 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    @keyframes plate { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.4px); } }
+    @keyframes rule { 0%, 100% { opacity: 0.15; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .plate, .rule { animation: none; } .rule { opacity: 1; } }
+  </style>
+  <path class="plate" d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a2 2 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a2 2 0 0 0 0-1.83z"/>
+  <path class="plate p2" d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/>
+  <path class="plate p3" d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/>
+  <path class="rule" d="M5 22.6h14" stroke="#ADD8E6" stroke-width="1.5"/>
+</svg>

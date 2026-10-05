@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4169E1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img">
+  <title>Verification gates, animated</title>
+  <desc>The six gate posts of the barrier brighten one second apart, so a single pass runs the whole barrier in six seconds and then starts again. 6 second period, seamless loop. Post head silhouette derived from the Lucide fence icon.</desc>
+  <style>
+    .post { animation: post 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .q1 { animation-delay: 0s; }
+    .q2 { animation-delay: -1s; }
+    .q3 { animation-delay: -2s; }
+    .q4 { animation-delay: -3s; }
+    .q5 { animation-delay: -4s; }
+    .q6 { animation-delay: -5s; }
+    .thresh { animation: thresh 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    @keyframes post { 0%, 100% { opacity: 0.28; } 20% { opacity: 1; } 60% { opacity: 0.28; } }
+    @keyframes thresh { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .post, .thresh { animation: none; } .post { opacity: 1; } .thresh { opacity: 1; } }
+  </style>
+  <path class="post q1" d="M1 7.9 2.6 6.8V18H1Z" fill="#4169E1" stroke="none"/>
+  <path class="post q2" d="M4.8 7.9 6.4 6.8V18H4.8Z" fill="#4169E1" stroke="none"/>
+  <path class="post q3" d="M8.6 7.9 10.2 6.8V18H8.6Z" fill="#4169E1" stroke="none"/>
+  <path class="post q4" d="M12.4 7.9 14 6.8V18H12.4Z" fill="#4169E1" stroke="none"/>
+  <path class="post q5" d="M16.2 7.9 17.8 6.8V18H16.2Z" fill="#4169E1" stroke="none"/>
+  <path class="post q6" d="M20 7.9 21.6 6.8V18H20Z" fill="#4169E1" stroke="none"/>
+  <path d="M0.5 10h22.4M0.5 15h22.4"/>
+  <path class="thresh" d="M1 21.5h22" stroke="#ADD8E6" stroke-width="2"/>
+</svg>
