@@ -3,13 +3,13 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 2,
   "counts": {
-    "skill": 1501,
+    "skill": 1502,
     "mcp": 905,
     "plugin": 12,
     "hook": 19,
     "agent": 284,
     "formatting": 13,
-    "total": 2734
+    "total": 2735
   },
   "components": [
     {
@@ -31577,6 +31577,29 @@
       "cost_note": "light",
       "verification": "unverified",
       "default_selected": true
+    },
+    {
+      "id": "vantrilex-prime",
+      "name": "vantrilex-prime",
+      "kind": "skill",
+      "description": "Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "scout",
+        "orientation"
+      ],
+      "when_to_use": "When an agent lands on a machine that has never carried the Arsenal, to read the system, its repository and its tree before any project work",
+      "phase": "scout",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
     },
     {
       "id": "vantrilex-vanguard",

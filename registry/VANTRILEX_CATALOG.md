@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1501 — 7 default-selected)
+## Skills (1502 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1509,6 +1509,7 @@ Consolidated reference of every system component with its folder path.
 | 1499 | kit-evolution-log | Use when a kit component is added, changed, retired, or re-scoped, so the reason… | 3mar-baha/vantrilex-arsenal | `` |
 | 1500 | kill-switch-document | Use when a change could be stopped, paused, or rolled back unsafely, so the halt… | 3mar-baha/vantrilex-arsenal | `` |
 | 1501 | babel-bridge | Use when intent crosses a vocabulary boundary such as business language to imple… | 3mar-baha/vantrilex-arsenal | `` |
+| 1502 | vantrilex-prime | Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe… | 3mar-baha/vantrilex-arsenal | `` |
 
 ## MCP Servers (905 — 8 default-selected)
 
@@ -2770,7 +2771,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2734
+- **Total components:** 2735
 - **Default-selected:** 22
 
 ---
