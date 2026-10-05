@@ -18,7 +18,7 @@ node scripts/verify-registry.mjs
 | Check | What it proves |
 |---|---|
 | `utf8-validity` | The catalog Markdown decodes as strict UTF-8 with no malformed sequence |
-| `schema-conformance` | All 2735 records satisfy `registry/schema/catalog-v2.schema.json` |
+| `schema-conformance` | All 2736 records satisfy `registry/schema/catalog-v2.schema.json` |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
 | `install-command-invariant` | No record claims `verified` with a null `install_cmd` |
 | `orphan-references` | All 48 id references in `registry/data/overlaps.yaml` resolve to catalog ids |
@@ -44,7 +44,7 @@ the exact repair command. Regeneration details are in
 
 `CONTRIBUTING.md` and CI name `scripts/verify-kit.mjs` as the gate that
 proves each Tier-0 component resolves and loads. That script exists and
-passes 11/11 against `kit/kit.lock` (50 components, 0 pending) — see
+passes 11/11 against `kit/kit.lock` (51 components, 0 pending) — see
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## Skill-format check
@@ -58,7 +58,7 @@ lowercase-hyphenated folder shape, frontmatter keys, the frontmatter name
 matching its folder, the one-sentence third-person description with a
 front-loaded trigger, the seven required body headings in order, no placeholders,
 no excluded toolchains, file hygiene, the single-home rule for shared mechanism
-blocks, and the phase-map cross-check. It currently evaluates 19 skill folders
+blocks, and the phase-map cross-check. It currently evaluates 20 skill folders
 and passes 10/10.
 
 ## Shell scripts

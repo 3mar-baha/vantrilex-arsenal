@@ -90,7 +90,7 @@ The five-step selection algorithm:
    and record why.
 5. Present a shortlist table. The owner approves it. Then install.
 
-Tier 0 (50 locked components: 35 tier core plus 15 tier conditional, 0
+Tier 0 (51 locked components: 35 tier core plus 16 tier conditional, 0
 pending) is pre-approved. Tier 1 is per-project and always needs owner
 approval.
 

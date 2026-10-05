@@ -222,3 +222,31 @@ the ratified list and are left vacant rather than filled.
   Doctrine's workflows, and each doc describes it in a sentence and points at
   the skill. The design-time arithmetic in `docs/spec/VANTRILEX_KIT_SPEC.md`
   stays as written, because it records the original specification's own set.
+
+## Design variations is a kit component, census re-ratified at 51
+
+- **Date:** 2026-10-05
+- **Context:** `vantrilex-design-variations` landed as a twentieth skill folder
+  that fires when a design task arrives on a UI-bearing project. Its folder name
+  carries the `vantrilex-` prefix, which is a naming convention every Arsenal
+  component shares and grants no status, so without a recorded decision a
+  reader could count a fourth top-level skill in the layer. It is locked as a
+  tier-`conditional` kit component, which moved the census in the same change.
+- **Decision:** The owner-authorized figure is 51 locked components = 35 tier
+  core + 16 tier conditional, 0 pending, of which 25 are skills; the catalog
+  recount is 2736 records, 1503 of them skill records. The orchestration layer
+  stays exactly three skills: Prime, Vanguard, Doctrine. The new file is a kit
+  component Vanguard equips for a UI-bearing project and is locked at `phase
+  build`, `tier conditional`, with a null `install_cmd` and `verification
+  unverified`, matching every other in-repo conditional skill. The 50-entry
+  census stays on the record as superseded, not rewritten.
+- **Consequences:** [01-OVERVIEW.md](01-OVERVIEW.md) and
+  [03-ARCHITECTURE.md](03-ARCHITECTURE.md) describe it where kit components are
+  described, never in the three-skill layer, so no document implies four
+  top-level skills. Every current-state document carries 51, 35, 25, 2736, and
+  1503. `.opencode/skills/` holds 20 folders: 15 locked in-repo kit components,
+  3 top-level skills, and 5 transplanted mechanisms still unlocked
+  (`circuit-breaker-guard`, `github-release-packager`, `pre-mortem`,
+  `preflight-system-doctor`, `session-context-primer`). The verification split is
+  12 verified and 39 unverified, and the 22 default-selected components and the
+  8-MCP cap are unchanged.

@@ -3,13 +3,13 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 2,
   "counts": {
-    "skill": 1502,
+    "skill": 1503,
     "mcp": 905,
     "plugin": 12,
     "hook": 19,
     "agent": 284,
     "formatting": 13,
-    "total": 2735
+    "total": 2736
   },
   "components": [
     {
@@ -31552,6 +31552,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-design-variations",
+      "name": "vantrilex-design-variations",
+      "kind": "skill",
+      "description": "Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "design",
+        "ui"
+      ],
+      "when_to_use": "When a design task arrives on a UI-bearing project and the styling work has not been written yet, to produce four screenshot-able variations and an owner approval before implementation",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },

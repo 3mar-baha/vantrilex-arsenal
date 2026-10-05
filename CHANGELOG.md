@@ -18,6 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   laws every later phase obeys. Registered in the Registry and locked in
   `kit/kit.lock` at `tier core`, `phase scout`, a null `install_cmd`, and
   `verification unverified`, matching the Vanguard and Doctrine precedent.
+- **Kit component `vantrilex-design-variations`.** A procedure that fires when a
+  design task arrives on a UI-bearing project: it produces four screenshot-able
+  HTML variations, an owner approval gate, a linked ticket, and a verified build
+  before any styling work is written. It is a catalog kit component, not a
+  fourth top-level skill — the orchestration layer stays exactly three. Locked
+  at `tier conditional`, `phase build`, a null `install_cmd`, and
+  `verification unverified`, matching every other in-repo conditional skill.
 - `README.ar.md`, the full Arabic counterpart to `README.md`, agreeing with it on
   every figure and fact.
 - `AI_GUIDE.md`, an AI-facing operating manual: the three skills and their fixed
@@ -29,11 +36,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `README.md` rewritten for the three-skill architecture, with a quickstart, the
   Registry description, the kit census, and the six gates. Its previous
   "two skills" and "2,699 components" figures were wrong and did not survive.
-- **The census moves from 49 locked components to 50**, being 35 tier `core` and 15
-  tier `conditional` with an empty pending list. The catalog recount moves from
-  2,734 to **2,735** records, 1,502 of them skill records. The 8-MCP cap and the 22
-  default-selected components are unchanged. The 49-entry census stays on the
-  record as superseded, not rewritten.
+- **The census moves from 50 locked components to 51**, being 35 tier `core` and 16
+  tier `conditional` with an empty pending list, of which 25 are skills. The
+  catalog recount moves from 2,735 to **2,736** records, 1,503 of them skill
+  records. On disk `.opencode/skills/` holds 20 folders: 15 locked in-repo kit
+  components, 3 top-level skills, and 5 transplanted mechanisms still unlocked
+  (`circuit-breaker-guard`, `github-release-packager`, `pre-mortem`,
+  `preflight-system-doctor`, `session-context-primer`). The verification split is
+  12 `verified` and 39 `unverified`. The 8-MCP cap and the 22 default-selected
+  components are unchanged. This bullet supersedes the earlier unreleased
+  49-to-50 census bullet, which would otherwise leave two live figures in one
+  unreleased section; the 49 and 50 censuses stay on the record as superseded
+  history, not rewritten, alongside the dated decision log in
+  `docs/15-DECISIONS.md`.
 - Every current-state document now describes a three-skill orchestration layer —
   Prime (orientation), Vanguard (equip), Doctrine (work) — instead of two.
   Released history and the dated decision log in `docs/15-DECISIONS.md` are
@@ -53,9 +68,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   upstream `a11y-audit` agent. All 13 are `tier conditional` and
   `verification unverified` with a null `install_cmd`, so none of them raises
   the Tier-0 core count. The 8-MCP cap is unchanged, and the decision to keep
-  both conditional hooks stands.
-- Every current-state documentation site that asserted 36 components now reads
-  49: `README.md`, `docs/03-ARCHITECTURE.md`, `docs/04-VANGUARD.md`,
+  both conditional hooks stands. That figure was itself superseded by the census
+  bullet above and is kept here as the record of what was ratified at that step.
+- Every current-state documentation site that asserted 36 components was moved
+  to 49 by this change and then to 51 by the census bullet above: `README.md`,
+  `docs/03-ARCHITECTURE.md`, `docs/04-VANGUARD.md`,
   `docs/08-VERIFICATION.md`, `docs/09-KIT-LOCK.md`,
   `docs/13-CONTRIBUTING-WORKFLOW.md`, `CONTRIBUTING.md`, and both
   `VANTRILEX_SKILLS_SPEC.md` copies. Released changelog history and the
