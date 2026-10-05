@@ -70,10 +70,13 @@ else.
 
 4. **Check the configuration.** Confirm `kit/kit.lock` exists and that every component it
    pins appears in `registry/catalog.json` with a `phase` field, so injection can be
-   scoped per phase rather than kept hot in every session. Confirm `.env.example` exists
-   and holds no real credential values, only stand-ins. Scan tracked files for
-   real-looking credentials (AWS access-key ids, `ghp_`/`sk-`/`xox` token shapes, long
-   high-entropy literals) so no secret is about to be leaked.
+   scoped per phase rather than kept hot in every session. If the target project declares
+   required env vars (references to `process.env` without defaults, or documented required
+   vars), confirm `.env.example` exists and holds no real credential values, only
+   stand-ins. If the project needs no env vars, mark this check SKIPPED — never FAIL.
+   Scan tracked files for real-looking credentials (AWS access-key ids,
+   `ghp_`/`sk-`/`xox` token shapes, long high-entropy literals) so no secret is
+   about to be leaked.
 5. **Check the workspace.** Require `git status --porcelain` to be empty, or accept an
    explicit operator override recorded in the run log. Verify free disk space on the repo
    volume and on any worktree pool volume; require at least 5 GB free on each.
@@ -86,8 +89,9 @@ else.
 6. **Assign severities before reading results.** Each row is CRITICAL or WARN:
    - CRITICAL: node present and version ok; git present and version ok; gh authenticated
      when the run touches GitHub; `kit/kit.lock` in sync with `registry/catalog.json`;
-     `.env.example` present and free of real values; secret scan clean; clean workspace or
-     logged override; disk space.
+     `.env.example` present and free of real values (when the project needs env vars;
+     otherwise SKIPPED); secret scan clean; clean workspace or logged override; disk
+     space.
    - WARN: OS/shell identity; long-running-process log path convention; worktree pool
      disk when the run creates no worktrees.
 7. **Print the report.** Emit one table with the columns check, status, detail, and
@@ -112,7 +116,7 @@ One report block per run, in this shape:
 | gh >= 2.40.0 | PASS | 2.57.0 | n/a |
 | gh auth status | FAIL | Not authenticated | `gh auth login` |
 | kit/kit.lock in sync with registry/catalog.json | FAIL | 2 pinned components carry no `phase` | Set `phase` in the catalog, then regenerate |
-| .env.example present, no real values | PASS | 6 of 6 keys are stand-ins | n/a |
+| .env.example present, no real values (only when env vars needed) | SKIPPED | Project declares no required env vars | n/a |
 | Secret scan of tracked files | PASS | No credential-shaped strings found | n/a |
 | Clean git status (or logged override) | FAIL | 3 modified files | Commit, stash, or log an explicit override |
 | Long-running process log path echoed | SKIPPED | No long-running process started | n/a |
