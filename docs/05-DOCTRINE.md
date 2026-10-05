@@ -98,9 +98,22 @@ done-definition.
 
 ## Section 33B mechanics
 
-Plan once, then run the plan as a directed graph. Independent nodes fan out as
-concurrent worktree branches with one concern per worktree; dependent nodes
-chain sequentially. Shared resources stay single-writer. Merges return through
-reviewed, signed-off integrations. The worktree mechanics are documented in
+Every task is decomposed into the maximum number of independent parallel units
+and those units fan out across subagents; two independent units are never run in
+sequence and never absorbed into one. The goal is speed, and the same split is
+what keeps each unit's contract small enough to verify and each failure isolated
+to one node.
+
+Plan once, then run the plan as a directed graph. Two units are independent only
+when no shared write target, no read-after-write dependency, and no shared
+mutable state; anything else is a chain. Every node whose predecessors have
+landed goes out in the same wave, one concern per worktree. Shared resources
+stay single-writer: two writers on one file lose data silently, so either chain
+the units or split the file into disjoint regions. Merges return through
+reviewed, signed-off integrations. The lead plans, dispatches, verifies each
+landing, and integrates; subagents execute.
+
+Three failure modes carry names: the serial slog, the god-agent, and the write
+collision. The worktree mechanics are documented in
 [11-WORKTREES.md](11-WORKTREES.md); the decision rights behind them in
 [10-ROLE-MODEL.md](10-ROLE-MODEL.md).

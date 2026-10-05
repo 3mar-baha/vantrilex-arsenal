@@ -44,7 +44,9 @@ A worktree's work lands only as a reviewed integration with sign-off. The
 review lane is the two-axis review (standards against spec) from
 [05-DOCTRINE.md](05-DOCTRINE.md); the merge itself is sequential per concern
 even when the work ran in parallel. Parallel fan-out applies to independent
-graph nodes; the merge order is a chain, not a fan.
+graph nodes; the merge order is a chain, not a fan. Fan out as wide as the
+dependency graph allows: a task with independent steps still running one at a
+time is a planning defect, not a safe default.
 
 ## Shared-resource single-writer
 
