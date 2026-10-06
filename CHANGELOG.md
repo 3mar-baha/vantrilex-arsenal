@@ -90,8 +90,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `AI_GUIDE.md`, an AI-facing operating manual: the three skills and their fixed
   order, the §33B orchestration law and the single-writer rule, announce-then-verify,
   the six gates, the on-disk map, and the mistakes to avoid.
+- **officialskills.sh is now a documented registry source.** The Vanguard skill's
+  surveyed-sources list names it: the official frontend of the
+  VoltAgent/awesome-agent-skills collection, whose per-skill pages publish a real
+  `npx skills add` install command that can be recorded verbatim as provenance.
 
 ### Changed
+
+- **336 of the 623 nulled records were repointed to real commands.** officialskills.sh
+  was tried first, as planned, but its 660 skill pages cover only 56 orgs — and
+  just 7 of the 201 origin orgs these records actually come from — so it supplied
+  25 verbatim commands and no more. The remaining 311 came from probing each
+  record's `origin` repository and confirming the named skill's directory exists
+  there: 25 recorded verbatim from the skill's officialskills.sh page, 311
+  constructed as `npx skills add <origin> --skill <id>` to match the catalog's
+  convention. Nothing was invented — a skill that could not be proven to exist
+  upstream stays nulled, which is 287 of the 623: 262 absent from their origin
+  repo, 22 whose origin repo no longer exists, and 3 (`lenis`, `og-image`,
+  `open-graph-image`) that are locked in `kit.lock` with an intentional null, so
+  the lock governs. Valid skill commands rose from 823 to 1,159. Only
+  `install_cmd` changed, proven by field-level comparison against HEAD; every
+  `origin` and every other field is untouched.
+
+- **`SECURITY.md` said three things the audit disproved.** It claimed the project
+  ships "not an executable runtime" while `.opencode/plugin/arsenal.ts` is a
+  runtime with seven hook callbacks that write and spawn; it claimed a verified
+  entry records what it was verified against, and no such field exists among the
+  twelve fields the catalog carries; and it claimed the lock pins versions, where
+  2 of 52 entries carry a `version_pin` and all ten installable skills carry
+  none. Each now states what is actually true, including that a `verified` flag
+  is an assertion to re-test rather than auditable proof. Two weaker claims were
+  corrected the same way: the pre-commit hook refuses a newly *added* `.env`
+  rather than any staged one, and `scripts/` records no approval before its
+  recursive deletions even though the paths themselves are verified inside the
+  repository root. The 36 catalog records whose unquoted multi-word `--skill`
+  values would install the wrong thing are documented as a known open defect
+  rather than silently left for the next reader to trip over.
+
+- **A lost warning came back.** Adding CLI install prose to the Vanguard skill
+  reworded "never guess a repository path" down to "never guess a binary", which
+  silently dropped the guard on `npx skills add <repo>` — the failure it exists to
+  prevent. It now reads "a repository path or a binary".
+
+- **The Vanguard skill's three bare source URLs are wrapped in backticks**, so
+  markdownlint passes on a file this change touches. `docs/04-VANGUARD.md` now
+  records that an MCP server may be installed as a JSON snippet *or* as
+  `npx -y <package>`, which is what `verify-kit.mjs` actually accepts and what the
+  two verified MCP entries already do.
 
 - `README.md` rewritten for the three-skill architecture, with a quickstart, the
   Registry description, the kit census, and the six gates. Its previous
@@ -202,6 +247,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The kit census is unchanged by that migration: 52 locked components, 36 tier
   `core` plus 16 tier `conditional`, 0 pending, 7 of them hooks. A guard moving
   to a different runtime surface is not a new component.
+
+### Fixed
+
+- **623 install commands pointed at a repository that contains no skills.**
+  `VoltAgent/awesome-agent-skills` is an awesome list — a README of links with
+  zero skill directories, so it can install nothing. That is 43% of the catalog's
+  install commands naming a repo that cannot serve them. Resolving the twenty
+  records this round set out to fix surfaced the real class: the display names
+  were a symptom, the repo axis was the disease. All 623 now carry
+  `install_cmd: null` with `verification: unverified`, the Rule B treatment the
+  36 phantoms already used — an admission of ignorance rather than a command that
+  looks right and installs the wrong thing. Every record's `origin` field is left
+  untouched because it already names the true host repo, and repointing the 623
+  there is a separate work order that needs 201 repositories proven one by one,
+  not a guess folded in here. Three more records — `adversary-in-the-middle`,
+  `phishing`, `structuring` — named skills absent from even their real upstream
+  repository and were nulled on the same rule. Verified by field-level comparison
+  against HEAD: 1503 records in and 1503 out, zero fields touched except
+  `install_cmd`, 823 install commands remaining and every one of them canonical.
+
+- **36 catalog records named skills that do not exist upstream.** Each carried a
+  multi-word, unquoted `--skill` value, so the shell split it and the command
+  installed something other than what it named — a direct instance of the
+  failure mode `SECURITY.md` names as the top threat in this repo. Checking the
+  upstream repository settled it: it publishes 818 skill directories, and *none*
+  of the 36 ids is among them, nor does anything resembling a rename of them.
+  These were phantom rows, not malformed commands, so quoting the name would not
+  have fixed them — a quoted name still resolves to nothing. All 36 now carry
+  `install_cmd: null` with `verification: unverified`, which is the honest state:
+  an admission of ignorance rather than a command that looks right and is not.
+  Only `install_cmd` was touched; `id`, `origin`, `verification`, and `tags` are
+  unchanged. All 1,449 remaining skill commands now match the shape the kit
+  verifier enforces.
+
+- **`kit/kit.lock` pointed `firecrawl` at a repository that does not exist.** The
+  entry carried `source: firecrawl/firecrawl-mcp` and `verification: verified`
+  together. `git ls-remote` returns *Repository not found* for that path, so a
+  verified entry asserted provenance on a dead repo — the exact
+  plausible-looking-wrong-command failure this repo exists to prevent. The npm
+  metadata for the pinned `firecrawl-mcp@3.27.3` names
+  `firecrawl/firecrawl-mcp-server` as its repository, that path resolves, and the
+  lock now says so. `install_cmd`, pin, phase, tier, and verification are
+  unchanged; only `source` moved.
+
+- **Four locked agents recorded no provenance at all.** `architect`,
+  `code-reviewer`, `ai-generated-code-security-auditor`, and `technical-writer`
+  carried `source: null` while the registry sidecar already held the upstream
+  origin for each — `worldflowai/everything-claude-code` and
+  `msitarzewski/agency-agents`. Both resolve. The lock now carries what the
+  registry already knew instead of discarding it.
 
 ---
 
@@ -345,76 +440,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.2.0...HEAD
 [0.2.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.2.0
 [0.1.0]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.1.0...v0.2.0
-
-### Fixed
-
-- **623 install commands pointed at a repository that contains no skills.**
-  `VoltAgent/awesome-agent-skills` is an awesome list — a README of links with
-  zero skill directories, so it can install nothing. That is 43% of the catalog's
-  install commands naming a repo that cannot serve them. Resolving the twenty
-  records this round set out to fix surfaced the real class: the display names
-  were a symptom, the repo axis was the disease. All 623 now carry
-  `install_cmd: null` with `verification: unverified`, the Rule B treatment the
-  36 phantoms already used — an admission of ignorance rather than a command that
-  looks right and installs the wrong thing. Every record's `origin` field is left
-  untouched because it already names the true host repo, and repointing the 623
-  there is a separate work order that needs 201 repositories proven one by one,
-  not a guess folded in here. Three more records — `adversary-in-the-middle`,
-  `phishing`, `structuring` — named skills absent from even their real upstream
-  repository and were nulled on the same rule. Verified by field-level comparison
-  against HEAD: 1503 records in and 1503 out, zero fields touched except
-  `install_cmd`, 823 install commands remaining and every one of them canonical.
-- **36 catalog records named skills that do not exist upstream.** Each carried a
-  multi-word, unquoted `--skill` value, so the shell split it and the command
-  installed something other than what it named — a direct instance of the
-  failure mode `SECURITY.md` names as the top threat in this repo. Checking the
-  upstream repository settled it: it publishes 818 skill directories, and *none*
-  of the 36 ids is among them, nor does anything resembling a rename of them.
-  These were phantom rows, not malformed commands, so quoting the name would not
-  have fixed them — a quoted name still resolves to nothing. All 36 now carry
-  `install_cmd: null` with `verification: unverified`, which is the honest state:
-  an admission of ignorance rather than a command that looks right and is not.
-  Only `install_cmd` was touched; `id`, `origin`, `verification`, and `tags` are
-  unchanged. All 1,449 remaining skill commands now match the shape the kit
-  verifier enforces.
-- **`kit/kit.lock` pointed `firecrawl` at a repository that does not exist.** The
-  entry carried `source: firecrawl/firecrawl-mcp` and `verification: verified`
-  together. `git ls-remote` returns *Repository not found* for that path, so a
-  verified entry asserted provenance on a dead repo — the exact
-  plausible-looking-wrong-command failure this repo exists to prevent. The npm
-  metadata for the pinned `firecrawl-mcp@3.27.3` names
-  `firecrawl/firecrawl-mcp-server` as its repository, that path resolves, and the
-  lock now says so. `install_cmd`, pin, phase, tier, and verification are
-  unchanged; only `source` moved.
-- **Four locked agents recorded no provenance at all.** `architect`,
-  `code-reviewer`, `ai-generated-code-security-auditor`, and `technical-writer`
-  carried `source: null` while the registry sidecar already held the upstream
-  origin for each — `worldflowai/everything-claude-code` and
-  `msitarzewski/agency-agents`. Both resolve. The lock now carries what the
-  registry already knew instead of discarding it.
-
-### Changed
-
-- **`SECURITY.md` said three things the audit disproved.** It claimed the project
-  ships "not an executable runtime" while `.opencode/plugin/arsenal.ts` is a
-  runtime with seven hook callbacks that write and spawn; it claimed a verified
-  entry records what it was verified against, and no such field exists among the
-  twelve fields the catalog carries; and it claimed the lock pins versions, where
-  2 of 52 entries carry a `version_pin` and all ten installable skills carry
-  none. Each now states what is actually true, including that a `verified` flag
-  is an assertion to re-test rather than auditable proof. Two weaker claims were
-  corrected the same way: the pre-commit hook refuses a newly *added* `.env`
-  rather than any staged one, and `scripts/` records no approval before its
-  recursive deletions even though the paths themselves are verified inside the
-  repository root. The 36 catalog records whose unquoted multi-word `--skill`
-  values would install the wrong thing are documented as a known open defect
-  rather than silently left for the next reader to trip over.
-- **A lost warning came back.** Adding CLI install prose to the Vanguard skill
-  reworded "never guess a repository path" down to "never guess a binary", which
-  silently dropped the guard on `npx skills add <repo>` — the failure it exists to
-  prevent. It now reads "a repository path or a binary".
-- **The Vanguard skill's three bare source URLs are wrapped in backticks**, so
-  markdownlint passes on a file this change touches. `docs/04-VANGUARD.md` now
-  records that an MCP server may be installed as a JSON snippet *or* as
-  `npx -y <package>`, which is what `verify-kit.mjs` actually accepts and what the
-  two verified MCP entries already do.

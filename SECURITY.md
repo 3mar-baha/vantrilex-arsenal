@@ -64,17 +64,20 @@ Mitigations already in place, and the ones you should hold us to:
 - Known defect, closed: 623 records pointed their `install_cmd` at
   `VoltAgent/awesome-agent-skills`, which is an *awesome list* — a README of
   links with zero skill directories, so it can install nothing. That is 43% of
-  every install command in the catalog naming a repo that cannot serve it. All
-  623 now carry `install_cmd: null` with `verification: unverified`, and each
-  record's `origin` field is preserved untouched because it already names the
-  real host repo — 201 distinct repositories — which is the starting point for
-  any later repoint. Three further records (`adversary-in-the-middle`,
-  `phishing`, `structuring`) named skills that do not exist even in their real
-  upstream repository and were nulled on the same rule. The remaining 823
-  install commands all match the canonical shape the kit verifier enforces.
-  Repointing the 623 to their `origin` repos is deliberately deferred: it means
-  proving each of 201 repositories actually publishes the named skill, and it is
-  a separate work order, not a guess to fold in here.
+  every install command in the catalog naming a repo that cannot serve it. They
+  were nulled, then repointed against provenance: 336 now carry a real command,
+  because the named skill provably exists in the record's own `origin` repo —
+  25 recorded verbatim from the skill's officialskills.sh page, 311 constructed
+  as `npx skills add <origin> --skill <id>`. The other 287 stay
+  `install_cmd: null` with `verification: unverified`, because no provable
+  command exists: 262 name a skill absent from their origin repository, 22 name
+  an origin repository that no longer exists, and 3 (`lenis`, `og-image`,
+  `open-graph-image`) are locked in `kit.lock` with an intentional null
+  `install_cmd`, so the lock's null governs. Three further records
+  (`adversary-in-the-middle`, `phishing`, `structuring`) named skills that do
+  not exist even in their real upstream repository and were nulled on the same
+  rule. Repointing was done by proving each skill's directory exists upstream,
+  never by guessing a rename.
 
 If you find a command in the catalog that resolves somewhere unexpected, that is a
 high-severity report.

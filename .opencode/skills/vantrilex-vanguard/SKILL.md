@@ -183,8 +183,10 @@ Query the sources in this fixed order and record what each one yields: the local
 then vercel-labs/find-skills, then the Smithery registry CLI via `npx @smithery/cli`, then the
 agency-agents roster at `https://github.com/msitarzewski/agency-agents`, then awesome-design-md at
 `https://github.com/voltagent/awesome-design-md`, then the ecc hooks at
-`https://github.com/affaan-m/ecc`. Fixed order keeps two runs comparable: the same project surveyed
-twice yields the same evidence in the same places.
+`https://github.com/affaan-m/ecc`, then officialskills.sh at `https://officialskills.sh` — the
+official frontend of the VoltAgent/awesome-agent-skills collection, whose per-skill pages publish a
+real `npx skills add` install command that can be recorded verbatim as provenance. Fixed order keeps
+two runs comparable: the same project surveyed twice yields the same evidence in the same places.
 
 Apply the hard reachability rule to every candidate MCP or CLI: its docs must be reachable through
 Context7 live lookup. A candidate whose docs are not reachable is rejected, or explicitly flagged
