@@ -13,7 +13,7 @@ const CATALOG_JSON = join(ROOT, 'registry', 'catalog.json');
 const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v2.schema.json');
 const DATA_DIR = join(ROOT, 'registry', 'data');
 
-export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting'];
+export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'cli'];
 
 const SECTION_KINDS = new Map([
   ['Skills', 'skill'],
@@ -22,6 +22,7 @@ const SECTION_KINDS = new Map([
   ['Hooks', 'hook'],
   ['Agents', 'agent'],
   ['Formatting', 'formatting'],
+  ['CLI Tools', 'cli'],
 ]);
 
 const SECTION_LABELS = new Map([
@@ -31,6 +32,7 @@ const SECTION_LABELS = new Map([
   ['hook', 'Hooks'],
   ['agent', 'Agents'],
   ['formatting', 'Formatting'],
+  ['cli', 'CLI Tools'],
 ]);
 
 const INDEX_DIRS = new Map([
@@ -40,6 +42,7 @@ const INDEX_DIRS = new Map([
   ['hook', 'hooks'],
   ['agent', 'agents'],
   ['formatting', 'formatting'],
+  ['cli', 'cli'],
 ]);
 
 export const RECORD_FIELDS = [
@@ -341,6 +344,7 @@ const SIDECAR_FILES = new Map([
   ['hook', 'hooks.jsonl'],
   ['agent', 'agents.jsonl'],
   ['formatting', 'formatting.jsonl'],
+  ['cli', 'cli.jsonl'],
 ]);
 
 export function loadSidecar(kind, dataDir = DATA_DIR) {

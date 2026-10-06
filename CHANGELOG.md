@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **The `cli` kind now reaches the catalog generator.** `generate-catalog-json.mjs`
+  knows the kind in all five places it enumerates one — `KINDS`, `SECTION_KINDS`,
+  `SECTION_LABELS`, `INDEX_DIRS`, `SIDECAR_FILES` — so a future `cli` lock entry no
+  longer fails `catalog-agreement` with `cli: absent from registry/catalog.json`.
+  Proven end to end with temporary fixtures (a markdown row, a sidecar, and a lock
+  entry): `per-kind/cli` reported `1 cli entries carry a real installer command`
+  and `catalog-agreement` passed at 53 entries. Every fixture was then removed and
+  `kit/kit.lock`, the sidecar, and the markdown restored byte-for-byte, so the kit
+  still locks 0 `cli` entries and the census is unchanged at 2737. Nothing about
+  the toolchain's behaviour changed for the six existing kinds.
+
 - **A `cli` kind — the place for command-line tools, holding zero entries.** The
   lock schema and the registry catalog schema both accept `cli`, and
   `scripts/verify-kit.mjs` grew a `per-kind/cli` check that validates a real
@@ -337,6 +348,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **36 catalog records named skills that do not exist upstream.** Each carried a
+  multi-word, unquoted `--skill` value, so the shell split it and the command
+  installed something other than what it named — a direct instance of the
+  failure mode `SECURITY.md` names as the top threat in this repo. Checking the
+  upstream repository settled it: it publishes 818 skill directories, and *none*
+  of the 36 ids is among them, nor does anything resembling a rename of them.
+  These were phantom rows, not malformed commands, so quoting the name would not
+  have fixed them — a quoted name still resolves to nothing. All 36 now carry
+  `install_cmd: null` with `verification: unverified`, which is the honest state:
+  an admission of ignorance rather than a command that looks right and is not.
+  Only `install_cmd` was touched; `id`, `origin`, `verification`, and `tags` are
+  unchanged. All 1,449 remaining skill commands now match the shape the kit
+  verifier enforces.
 - **`kit/kit.lock` pointed `firecrawl` at a repository that does not exist.** The
   entry carried `source: firecrawl/firecrawl-mcp` and `verification: verified`
   together. `git ls-remote` returns *Repository not found* for that path, so a

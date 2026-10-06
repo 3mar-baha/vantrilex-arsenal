@@ -53,12 +53,20 @@ Mitigations already in place, and the ones you should hold us to:
   all ten installable skills, so a floating upstream *can* silently change the kit
   today. Do not read a lock entry as immutable unless its `version_pin` is set.
 - `scripts/verify-kit.mjs` re-proves that each Tier-0 component resolves.
-- Known defect, open: 36 records in `registry/data/skills.jsonl` carry a
-  `--skill` value with spaces and no quoting, so the shell splits it and the
-  command installs something other than what it names. All 36 are
-  `verification: unverified`, none are locked in `kit/kit.lock`, and all 36 have
-  `origin: null`, so the correct value cannot be re-derived from provenance. They
-  are inert until someone installs from the catalog.
+- Known defect, closed: 36 records in `registry/data/skills.jsonl` named a
+  skill with a multi-word, unquoted `--skill` value, so the shell split it and the
+  command installed something other than what it named. All 36 turned out to
+  describe skills the upstream repository does not publish — none of their ids
+  exist among its 818 skill directories — so no rewrite could have made the
+  commands honest. Each now carries `install_cmd: null` with
+  `verification: unverified`. Every one of the 1,449 remaining skill commands
+  now matches the `SKILL_CMD` shape the kit verifier enforces.
+- Known defect, open: about 20 further records pass `--skill` a single-token
+  *display name* rather than a directory slug — `Aegis`, `Dorothy`,
+  `beautiful_prose`, `skill.color-expert`, `Adversary-in-the-Middle`. They are
+  not multi-word, so the verifier accepts them, but they are not proven to resolve
+  upstream and will likely fail at install time. Confirming them means resolving
+  each against its own upstream repository.
 
 If you find a command in the catalog that resolves somewhere unexpected, that is a
 high-severity report.
