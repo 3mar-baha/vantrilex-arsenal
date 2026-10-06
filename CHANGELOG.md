@@ -348,6 +348,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **623 install commands pointed at a repository that contains no skills.**
+  `VoltAgent/awesome-agent-skills` is an awesome list — a README of links with
+  zero skill directories, so it can install nothing. That is 43% of the catalog's
+  install commands naming a repo that cannot serve them. Resolving the twenty
+  records this round set out to fix surfaced the real class: the display names
+  were a symptom, the repo axis was the disease. All 623 now carry
+  `install_cmd: null` with `verification: unverified`, the Rule B treatment the
+  36 phantoms already used — an admission of ignorance rather than a command that
+  looks right and installs the wrong thing. Every record's `origin` field is left
+  untouched because it already names the true host repo, and repointing the 623
+  there is a separate work order that needs 201 repositories proven one by one,
+  not a guess folded in here. Three more records — `adversary-in-the-middle`,
+  `phishing`, `structuring` — named skills absent from even their real upstream
+  repository and were nulled on the same rule. Verified by field-level comparison
+  against HEAD: 1503 records in and 1503 out, zero fields touched except
+  `install_cmd`, 823 install commands remaining and every one of them canonical.
 - **36 catalog records named skills that do not exist upstream.** Each carried a
   multi-word, unquoted `--skill` value, so the shell split it and the command
   installed something other than what it named — a direct instance of the
