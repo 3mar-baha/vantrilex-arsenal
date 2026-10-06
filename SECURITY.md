@@ -61,12 +61,20 @@ Mitigations already in place, and the ones you should hold us to:
   commands honest. Each now carries `install_cmd: null` with
   `verification: unverified`. Every one of the 1,449 remaining skill commands
   now matches the `SKILL_CMD` shape the kit verifier enforces.
-- Known defect, open: about 20 further records pass `--skill` a single-token
-  *display name* rather than a directory slug — `Aegis`, `Dorothy`,
-  `beautiful_prose`, `skill.color-expert`, `Adversary-in-the-Middle`. They are
-  not multi-word, so the verifier accepts them, but they are not proven to resolve
-  upstream and will likely fail at install time. Confirming them means resolving
-  each against its own upstream repository.
+- Known defect, closed: 623 records pointed their `install_cmd` at
+  `VoltAgent/awesome-agent-skills`, which is an *awesome list* — a README of
+  links with zero skill directories, so it can install nothing. That is 43% of
+  every install command in the catalog naming a repo that cannot serve it. All
+  623 now carry `install_cmd: null` with `verification: unverified`, and each
+  record's `origin` field is preserved untouched because it already names the
+  real host repo — 201 distinct repositories — which is the starting point for
+  any later repoint. Three further records (`adversary-in-the-middle`,
+  `phishing`, `structuring`) named skills that do not exist even in their real
+  upstream repository and were nulled on the same rule. The remaining 823
+  install commands all match the canonical shape the kit verifier enforces.
+  Repointing the 623 to their `origin` repos is deliberately deferred: it means
+  proving each of 201 repositories actually publishes the named skill, and it is
+  a separate work order, not a guess to fold in here.
 
 If you find a command in the catalog that resolves somewhere unexpected, that is a
 high-severity report.
