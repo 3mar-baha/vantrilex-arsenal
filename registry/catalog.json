@@ -9,6 +9,7 @@
     "hook": 20,
     "agent": 284,
     "formatting": 13,
+    "cli": 0,
     "total": 2737
   },
   "components": [
@@ -41,7 +42,7 @@
       "description": "Detects and analyzes malicious behavior in mobile applications through",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Abuse of Public-Facing API: Mobile API Abuse -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -63,7 +64,7 @@
       "description": "Configure SAML 2.0 identity federation between on-premises Active Directory (via…",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Access with Stolen Session Cookie -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -85,7 +86,7 @@
       "description": "Auditing Kubernetes cluster RBAC configurations to identify overly permissive",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Access Removal -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -107,7 +108,7 @@
       "description": "Detect compromised cloud credentials across AWS, Azure, and GCP by analyzing",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Manipulation -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -129,7 +130,7 @@
       "description": "Detect unusual API call patterns in AWS CloudTrail logs using boto3,",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Manipulation: Account Linking -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -151,7 +152,7 @@
       "description": "Configure Microsoft Entra Privileged Identity Management (PIM) to convert",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Manipulation: Add Authorized User -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -173,7 +174,7 @@
       "description": "Hardens AWS IAM configurations to enforce least-privilege access, covering",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Manipulation: Change Account Details -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -195,7 +196,7 @@
       "description": "Deploy and configure Proofpoint Email Protection as a secure email gateway",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Manipulation: Change of Payment Details -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -217,7 +218,7 @@
       "description": "Configure and execute access recertification campaigns in Saviynt Enterprise",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Manipulation: Enable Account Features -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -239,7 +240,7 @@
       "description": "Design identity governance and lifecycle (IGA) programs on platforms like SailPo…",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Takeover -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -261,7 +262,7 @@
       "description": "Extracts cached credentials, password hashes, Kerberos tickets, and",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Takeover: Exposed API Key -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -283,7 +284,7 @@
       "description": "Respond to phishing incidents by analyzing reported emails, extracting indicator…",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Takeover: Exposed Login Credential -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -305,7 +306,7 @@
       "description": "Implement SAML 2.0 Single Sign-On using Okta as the Identity Provider,",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Account Takeover: Password Reset -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -327,7 +328,7 @@
       "description": "Deploys remote browser isolation (RBI) as a core component of a Zero",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Adversary-in-the-Browser: Malicious JavaScript Injection -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -459,7 +460,7 @@
       "description": "Detect and respond to OAuth token theft and replay in Microsoft Entra ID (Azure …",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Browser Session Hijacking -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -481,7 +482,7 @@
       "description": "Monitors dark web forums, marketplaces, paste sites, and ransomware",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Brute Force:  Credential Stuffing -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -503,7 +504,7 @@
       "description": "Detect LSASS credential dumping, SAM database extraction, and NTDS.dit theft (e.…",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Brute Force: Password Cracking -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -525,7 +526,7 @@
       "description": "Designs a ransomware-resilient backup strategy using the 3-2-1-1-0",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Conversion to Physical Monetary Instruments: Cash -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -547,7 +548,7 @@
       "description": "This skill teaches security teams how to detect and respond to unauthorized",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Convert to Cryptocurrency -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -569,7 +570,7 @@
       "description": "Parse and analyze email headers (Received chain, Return-Path, Message-ID)",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Create Fake Materials: Fake Website -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -591,7 +592,7 @@
       "description": "Detect Business Email Compromise (BEC) fraud, where attackers impersonate",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Delete Relevant Emails -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -613,7 +614,7 @@
       "description": "Performs OAuth 2.0 scope minimization review to identify over-permissioned",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Device Fingerprint Spoofing -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -657,7 +658,7 @@
       "description": "Safely monitor ransomware group Tor-hosted data leak sites (DLS) to collect and …",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Electronic Funds Transfer: Wire Transfer -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -679,7 +680,7 @@
       "description": "Monitor for brand impersonation attacks across domains, social media,",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Email Spoofing -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -701,7 +702,7 @@
       "description": "Monitor paste sites like Pastebin and GitHub Gists for leaked credentials,",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Gather Customer Information -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -723,7 +724,7 @@
       "description": "Guides designing, deploying, and measuring an anti-phishing security awareness p…",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Impersonate Account Holder -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -745,7 +746,7 @@
       "description": "Automates phishing incident response by calling the Splunk SOAR (Phantom)",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Impersonate Official -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -767,7 +768,7 @@
       "description": "Deploys canary files (honeytokens) across file systems to detect ransomware",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Indicator Removal -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -789,7 +790,7 @@
       "description": "Configures HashiCorp Vault dynamic secrets engines for database credentials,",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Insider Access Abuse -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -855,7 +856,7 @@
       "description": "Implements continuous, risk-adaptive identity verification for zero trust",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Phishing for Information -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -877,7 +878,7 @@
       "description": "Plan and execute authorized vishing (voice phishing) pretext calls to",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Phone Number Spoofing: Official Phone Number Spoofing -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -899,7 +900,7 @@
       "description": "Analyzes encryption algorithms, key management, and file encryption",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Remote Access Tools -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -965,7 +966,7 @@
       "description": "Discovers and maps adversary-controlled infrastructure (C2 servers,",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Stage Capabilities: SEO Poisoning -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -987,7 +988,7 @@
       "description": "Configures Google Cloud Identity-Aware Proxy (IAP) via gcloud to enforce",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Steal Web Session Cookie -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1031,7 +1032,7 @@
       "description": "Analyze malicious Linux ELF binaries — botnets, cryptominers, ransomware,",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Transfer of funds -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1053,7 +1054,7 @@
       "description": "Scan source code repositories, CI/CD pipelines, and configuration files",
       "source": "mukul975/Anthropic-Cybersecurity-Skills",
       "origin": null,
-      "install_cmd": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill Use Alternate Authentication Material: Application Access Token -a opencode -y",
+      "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [

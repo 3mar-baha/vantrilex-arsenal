@@ -2771,6 +2771,11 @@ Consolidated reference of every system component with its folder path.
 | 12 | opencode.ai | Terminal-agent developer tool interface system | voltagent/awesome-design-md | `registry/formatting/brands/opencode.ai/` |
 | 13 | claude | Conversational AI assistant interface system | voltagent/awesome-design-md | `registry/formatting/brands/claude/` |
 
+## CLI Tools (0 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+
 ## Summary
 
 - **Total components:** 2737
