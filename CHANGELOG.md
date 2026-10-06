@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **A direct install command under each of the three skills.** The README now
+  carries a copy-pasteable `npx skills add` command beneath Prime, Vanguard, and
+  Doctrine, so a reader can take one skill immediately instead of running the
+  full Vanguard survey first. The commands follow the install pattern documented
+  at `docs/04-VANGUARD.md` and are recorded as documented text — they were not
+  executed to produce this entry. Both READMEs carry the block at the same
+  position: the English one under `Install directly:`, the Arabic one under
+  `للتثبيت مباشرة:` with the command itself left in Latin script so the two
+  files render identically. Documentation only: no new component, no registry or
+  `kit.lock` change, no behavior change.
 - **Third top-level skill: `vantrilex-prime`.** An orientation skill that runs once
   per machine, before Vanguard or Doctrine. It covers what the Arsenal is, the
   canonical repository URL, how to clone and pin it, the on-disk layout, how to

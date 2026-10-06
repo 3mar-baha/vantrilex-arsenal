@@ -62,6 +62,12 @@ phase obeys. Orientation only — it does not survey the project, and it does no
 define how work is conducted. See
 [`.opencode/skills/vantrilex-prime/SKILL.md`](.opencode/skills/vantrilex-prime/SKILL.md).
 
+Install directly:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-prime
+```
+
 ![The Vanguard tier icon — a compass needle inside a sweep ring](brand/icons/tier-vanguard.svg) **Vantrilex Vanguard** answers *what does this project need?* It is the EQUIP
 phase, run once per target project. It detects one of four project states by
 scanning the repository rather than asking, surveys the resources present,
@@ -71,6 +77,12 @@ target-project documentation system. It refuses to hand over a kit it has not
 verified. See
 [`.opencode/skills/vantrilex-vanguard/SKILL.md`](.opencode/skills/vantrilex-vanguard/SKILL.md).
 
+Install directly:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-vanguard
+```
+
 ![The Doctrine tier icon — a gavel resting on the bench line](brand/icons/tier-doctrine.svg) **Vantrilex Doctrine** answers *how is the kit used?* It is the WORK phase. It
 defines the role model, the constitutional laws an agent may not break, the
 phase-to-skill map, and the workflows for features, reviews, security audits,
@@ -78,6 +90,12 @@ bug fixes, and releases — including the second-pass release guards and the
 3-strike circuit breaker that halts a defect that has survived three failed
 fix attempts. See
 [`.opencode/skills/vantrilex-doctrine/SKILL.md`](.opencode/skills/vantrilex-doctrine/SKILL.md).
+
+Install directly:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-doctrine
+```
 
 The separation is deliberate: **orientation, then selection, then conduct.**
 Prime does not duplicate Vanguard's four project states, and Vanguard does not

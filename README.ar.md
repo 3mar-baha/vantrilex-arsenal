@@ -59,6 +59,12 @@ Prime ← Vanguard ← Doctrine، وتذكر القوانين الدائمة ا�
 لاحقة. وهي للتوجيه فقط: لا تستطلع المشروع، ولا تعرّف كيف يُنجَز العمل. انظر
 [`.opencode/skills/vantrilex-prime/SKILL.md`](.opencode/skills/vantrilex-prime/SKILL.md).
 
+للتثبيت مباشرة:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-prime
+```
+
 ![أيقونة مستوى Vanguard — إبرة بوصلة داخل حلقة مسح](brand/icons/tier-vanguard.svg) **Vantrilex Vanguard** تجيب عن سؤال *عمّا يحتاجه هذا المشروع؟*. وهي مرحلة
 التجهيز (EQUIP)، وتعمل مرة واحدة لكل مشروع هدف. تكتشف واحدة من أربع حالات
 للشروع عبر مسح المستودع بدل السؤال عنها، وجرد الموارد المتاحة، وتنتقِ الطقم
@@ -67,6 +73,12 @@ Prime ← Vanguard ← Doctrine، وتذكر القوانين الدائمة ا�
 تتحقّق منه. انظر
 [`.opencode/skills/vantrilex-vanguard/SKILL.md`](.opencode/skills/vantrilex-vanguard/SKILL.md).
 
+للتثبيت مباشرة:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-vanguard
+```
+
 ![أيقونة مستوى Doctrine — مطرقة مستقرة على خط المنضدة](brand/icons/tier-doctrine.svg) **Vantrilex Doctrine** تجيب عن سؤال *كيف يُستخدم الطقم؟*. وهي مرحلة العمل.
 تعرّف نموذج الأدوار، والقوانين الدستورية التي لا يجوز للوكيل خرقها، وخريطة
 المراحل إلى المهارات، وسير العمل الخاص بالميزات والمراجعات والتدقيقات الأمنية
@@ -74,6 +86,12 @@ Prime ← Vanguard ← Doctrine، وتذكر القوانين الدائمة ا�
 الدائرة بعد ثلاث محاولات (3-strike circuit breaker) الذي يوقف علةً صمدت أمام
 ثلاث محاولات إصلاح فاشلة. انظر
 [`.opencode/skills/vantrilex-doctrine/SKILL.md`](.opencode/skills/vantrilex-doctrine/SKILL.md).
+
+للتثبيت مباشرة:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-doctrine
+```
 
 الفصل بينهما مقصود: **توجيه، ثم انتقاء، ثم سلوك.** فلا تكرّر Prime حالات
 المشروع الأربع عند Vanguard، ولا يكرّر Vanguard سير العمل عند Doctrine. وبذلك
