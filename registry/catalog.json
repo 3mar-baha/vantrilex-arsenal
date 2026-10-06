@@ -944,7 +944,7 @@
       "description": "Automatically convert documentation websites, GitHub repositories, and PDFs into…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "yusufkaraaslan/Skill_Seekers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add yusufkaraaslan/Skill_Seekers --skill skill-seekers -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1076,7 +1076,7 @@
       "description": "AI-powered VMware vCenter/ESXi monitoring and operations: inventory queries, hea…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "vmware-skills/VMware-AIops",
-      "install_cmd": null,
+      "install_cmd": "npx skills add vmware-skills/VMware-AIops --skill vmware-aiops -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1208,7 +1208,7 @@
       "description": "Analyze A/B test results with statistical significance and recommendations",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill ab-test-analysis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1230,7 +1230,7 @@
       "description": "Plan and implement A/B tests or experiments for any digital experience",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill ab-testing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1384,7 +1384,7 @@
       "description": "Evaluate channels using unit economics and recommend scale/test/kill decisions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill acquisition-channel-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1450,7 +1450,7 @@
       "description": "Expand a core idea into multiple distinct ad angles for creative testing",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill ad-angle-multiplier -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1494,7 +1494,7 @@
       "description": "Generate and iterate ad creative including headlines, descriptions, and primary …",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill ad-creative -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1648,7 +1648,7 @@
       "description": "Create and optimize paid campaigns on Google, Meta, LinkedIn, and more",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill ads -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1670,7 +1670,7 @@
       "description": "70+ Claude Code skills + autonomous GitHub Actions agent framework",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "aeonfun/aeon",
-      "install_cmd": null,
+      "install_cmd": "npx skills add aeonfun/aeon --skill aeon -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1714,7 +1714,7 @@
       "description": "AI agent email inbox management",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "resend/resend-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/resend/resend-skills --skill agent-email-inbox",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1780,7 +1780,7 @@
       "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and …",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill agent-platform-skill-registry -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1890,7 +1890,7 @@
       "description": "Optimize content to appear in AI-generated answers and LLM search results",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill ai-seo -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1912,7 +1912,7 @@
       "description": "Assess automation vs. redesign opportunities across five competencies",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill ai-shaped-readiness-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -1978,7 +1978,7 @@
       "description": "Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integra…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill alloydb-basics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -2022,7 +2022,7 @@
       "description": "Navigate the PM→Director mindset shift covering scope, time horizons, and fail…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill altitude-horizon-framework -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -2044,7 +2044,7 @@
       "description": "Set up and audit analytics tracking and measurement pipelines",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill analytics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -2066,7 +2066,7 @@
       "description": "Prioritize feature requests by theme, impact, effort, and risk",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill analyze-feature-requests -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -3540,7 +3540,7 @@
       "description": "Generate Angular code and architectural guidance for components, services, react…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "angular/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/angular/skills --skill angular-developer",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -3562,7 +3562,7 @@
       "description": "Create new Angular apps using CLI with modern best practices",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "angular/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/angular/skills --skill angular-new-app",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -3584,7 +3584,7 @@
       "description": "Ansoff Matrix analysis across 4 growth strategy quadrants",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill ansoff-matrix -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -3694,7 +3694,7 @@
       "description": "Generate Appium mobile automation for Android and iOS in Java, Python, or JS",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill appium-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -3716,7 +3716,7 @@
       "description": "Native macOS app access — manage Apple Reminders, Calendar, Contacts, Notes, M…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "more-io/claude-apple-bridges",
-      "install_cmd": null,
+      "install_cmd": "npx skills add more-io/claude-apple-bridges --skill apple-bridges -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -3738,7 +3738,7 @@
       "description": "Generate validated interactive architecture diagrams from codebases or system de…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "tt-a1i/archify",
-      "install_cmd": null,
+      "install_cmd": "npx skills add tt-a1i/archify --skill archify -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -3826,7 +3826,7 @@
       "description": "Audits assessments for validity, reliability, and learning alignment",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "GarethManning/education-agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add GarethManning/education-agent-skills --skill assessment-validity-checker -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4222,7 +4222,7 @@
       "description": "Define exactly who the buyer is, what they want, what they've tried, and what's …",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill avatar-extraction -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4333,7 +4333,7 @@
       "description": "Identify the first beachhead market segment for product launch",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill beachhead-segment -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4377,7 +4377,7 @@
       "description": "Generate Behat BDD tests for PHP with Gherkin and Mink",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill behat-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4399,7 +4399,7 @@
       "description": "Generate Behave BDD tests for Python with Gherkin and step implementations",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill behave-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4443,7 +4443,7 @@
       "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML …",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill bigquery-basics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4465,7 +4465,7 @@
       "description": "Design experiments to test assumptions for existing products",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill brainstorm-experiments-existing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4487,7 +4487,7 @@
       "description": "Design lean pretotypes for new product validation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill brainstorm-experiments-new -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4509,7 +4509,7 @@
       "description": "Brainstorm product ideas from PM, Designer, Engineer perspectives",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill brainstorm-ideas-existing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4531,7 +4531,7 @@
       "description": "Brainstorm feature ideas for new products in early discovery",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill brainstorm-ideas-new -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4553,7 +4553,7 @@
       "description": "Brainstorm team OKRs aligned with company objectives",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill brainstorm-okrs -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4597,7 +4597,7 @@
       "description": "Generate and explore ideas",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill brainstorming -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4685,7 +4685,7 @@
       "description": "Automate authenticated browsers with extraction and human handoff",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "browser-act/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add browser-act/skills --skill browser-act -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -4707,7 +4707,7 @@
       "description": "Control an existing logged-in Chrome without stealing focus",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "reliefeai/browser-relay",
-      "install_cmd": null,
+      "install_cmd": "npx skills add reliefeai/browser-relay --skill browser-relay -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5477,7 +5477,7 @@
       "description": "Diagnose SaaS health, identify red flags, and prioritize recovery actions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill business-health-diagnostic -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5499,7 +5499,7 @@
       "description": "Generate Business Model Canvas with all 9 building blocks",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill business-model -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5587,7 +5587,7 @@
       "description": "Generate Capybara E2E tests in Ruby with RSpec integration",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill capybara-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5609,7 +5609,7 @@
       "description": "14-skill collection for AI-powered job search: JD evaluation with A-F scoring, A…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "santifer/career-ops",
-      "install_cmd": null,
+      "install_cmd": "npx skills add santifer/career-ops --skill career-ops -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5675,7 +5675,7 @@
       "description": "Build cancellation flows, save offers, and recover failed payments",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill churn-prevention -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5719,7 +5719,7 @@
       "description": "Generate CI/CD pipelines for tests on GitHub Actions, Jenkins, GitLab CI, and Az…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill cicd-pipeline-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5763,7 +5763,7 @@
       "description": "Epistemic quality verification for RAG systems",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "frmoretto/clarity-gate",
-      "install_cmd": null,
+      "install_cmd": "npx skills add frmoretto/clarity-gate --skill clarity-gate -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -5961,7 +5961,7 @@
       "description": "Scene-aware keyframes plus transcripts so any LLM watches videos",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "HUANGCHIHHUNGLeo/claude-real-video",
-      "install_cmd": null,
+      "install_cmd": "npx skills add HUANGCHIHHUNGLeo/claude-real-video --skill claude-real-video -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6159,7 +6159,7 @@
       "description": "Manages Cloud Run services, jobs, and worker pools.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill cloud-run-basics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6181,7 +6181,7 @@
       "description": "This file generates or explains Cloud SQL resources.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill cloud-sql-basics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6247,7 +6247,7 @@
       "description": "Generate Codeception acceptance, functional, and unit tests in PHP",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill codeception-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6291,7 +6291,7 @@
       "description": "Evidence-based workflow gates for Codex",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "baskduf/FableCodex",
-      "install_cmd": null,
+      "install_cmd": "npx skills add baskduf/FableCodex --skill codex-fable5 -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6357,7 +6357,7 @@
       "description": "Cohort retention curves, feature adoption, and segment insights",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill cohort-analysis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6379,7 +6379,7 @@
       "description": "Write B2B cold emails and follow-up sequences that convert",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill cold-email -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6489,7 +6489,7 @@
       "description": "Deep-dive competitor or company analysis",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill company-research -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6511,7 +6511,7 @@
       "description": "Unpacks broad competencies into assessable sub-skills and success criteria",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "GarethManning/education-agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add GarethManning/education-agent-skills --skill competency-unpacker -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6533,7 +6533,7 @@
       "description": "Create sales-ready battlecards against specific competitors",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill competitive-battlecard -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6555,7 +6555,7 @@
       "description": "Analyze competitors with strengths, weaknesses, and differentiation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill competitor-analysis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -6577,7 +6577,7 @@
       "description": "Build competitor comparison and alternative landing pages for SEO",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill competitors -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7391,7 +7391,7 @@
       "description": "Plan content strategy and decide what topics and formats to prioritize",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill content-strategy -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7413,7 +7413,7 @@
       "description": "Design and evaluate compression strategies for long-running sessions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "install_cmd": null,
+      "install_cmd": "npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering --skill context-compression -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7435,7 +7435,7 @@
       "description": "Recognize patterns of context failure: lost-in-middle, poisoning, distraction, a…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "install_cmd": null,
+      "install_cmd": "npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering --skill context-degradation -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7457,7 +7457,7 @@
       "description": "Generates .claudeignore and flags context bloat before it costs tokens",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "chrono-meta/forge-harness",
-      "install_cmd": null,
+      "install_cmd": "npx skills add chrono-meta/forge-harness --skill context-doctor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7479,7 +7479,7 @@
       "description": "Diagnose context stuffing vs. engineering and guide memory and retrieval design",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill context-engineering-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7501,7 +7501,7 @@
       "description": "Understand what context is, why it matters, and the anatomy of context in agent …",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "install_cmd": null,
+      "install_cmd": "npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering --skill context-fundamentals -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7523,7 +7523,7 @@
       "description": "Apply compaction, masking, and caching strategies",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "install_cmd": null,
+      "install_cmd": "npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering --skill context-optimization -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7611,7 +7611,7 @@
       "description": "Design the optimal funnel from click to conversion and booked calls",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill conversion-path-builder -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7677,7 +7677,7 @@
       "description": "Edit and improve existing marketing copy for clarity and impact",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill copy-editing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7721,7 +7721,7 @@
       "description": "Write and rewrite marketing copy for landing pages, homepages, and ads",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill copywriting -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7853,7 +7853,7 @@
       "description": "Create a PRD with 8-section template covering problem to release",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill create-prd -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7897,7 +7897,7 @@
       "description": "Improve conversion rates on any marketing page or form, including homepages, lan…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill cro -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7919,7 +7919,7 @@
       "description": "Generate Cucumber BDD tests with Gherkin and step definitions in Java, JS, or Ru…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill cucumber-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7941,7 +7941,7 @@
       "description": "CUDA-Q onboarding guide for installation, test programs, GPU simulation, QPU har…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill cudaq-guide -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7963,7 +7963,7 @@
       "description": "Modify, build, test, debug, and contribute to NVIDIA cuOpt (C++/CUDA, Python, se…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill cuopt-developer -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -7985,7 +7985,7 @@
       "description": "Install cuOpt for Python, C, or as a server (pip, conda, Docker) — system requ…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill cuopt-install -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8073,7 +8073,7 @@
       "description": "Vehicle routing (VRP, TSP, PDP) with cuOpt — Python API only.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill cuopt-routing-api-python -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8095,7 +8095,7 @@
       "description": "cuOpt REST server — start server, endpoints, Python/curl client examples.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill cuopt-server-api-python -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8161,7 +8161,7 @@
       "description": "Map customer experience across touchpoints using the NNGroup framework",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill customer-journey-map -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8183,7 +8183,7 @@
       "description": "Guide journey mapping sessions with pain point identification",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill customer-journey-mapping-workshop -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8249,7 +8249,7 @@
       "description": "Creates, updates, and fixes Cypress E2E and component tests.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "cypress-io/ai-toolkit",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/cypress-io/ai-toolkit --skill cypress-author",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8271,7 +8271,7 @@
       "description": "Search and extract Cypress information from official documentation.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "cypress-io/ai-toolkit",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/cypress-io/ai-toolkit --skill cypress-docs",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8293,7 +8293,7 @@
       "description": "Explains Cypress E2E and component tests, and answers questions about Cypress us…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "cypress-io/ai-toolkit",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/cypress-io/ai-toolkit --skill cypress-explain",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8315,7 +8315,7 @@
       "description": "Generate Cypress E2E and component tests in JavaScript or TypeScript",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill cypress-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8337,7 +8337,7 @@
       "description": "Deploy web projects with verified previews and confirmed production releases",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "d1vai/d1v-cli",
-      "install_cmd": null,
+      "install_cmd": "npx skills add d1vai/d1v-cli --skill d1v -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8359,7 +8359,7 @@
       "description": "Use when writing DALI data loading or preprocessing code with `nvidia.dali.exper…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill dali-dynamic-mode -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8403,7 +8403,7 @@
       "description": "Animated technical diagrams from plain English or Mermaid, self-contained HTML/S…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "csthink/dashmotion",
-      "install_cmd": null,
+      "install_cmd": "npx skills add csthink/dashmotion --skill dashmotion -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8425,7 +8425,7 @@
       "description": "Graph-based long-term memory skill for AI (LLM) coding agents — faster context…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "k-kolomeitsev/data-structure-protocol",
-      "install_cmd": null,
+      "install_cmd": "npx skills add k-kolomeitsev/data-structure-protocol --skill data-structure-protocol -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8491,7 +8491,7 @@
       "description": "Autonomous multi-step research using Gemini Deep Research Agent",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "sanjay3290/ai-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add sanjay3290/ai-skills --skill deep-research -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8513,7 +8513,7 @@
       "description": "NVIDIA DeepStream SDK 9.0 development with Python pyservicemaker API.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill deepstream-dev -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8535,7 +8535,7 @@
       "description": "> Use this skill to bring any vision model from HuggingFace or NVIDIA NGC into a…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill deepstream-import-vision-model -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8579,7 +8579,7 @@
       "description": "Searches your own past sessions across 20 coding agents",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "vshulcz/deja-vu",
-      "install_cmd": null,
+      "install_cmd": "npx skills add vshulcz/deja-vu --skill deja-history -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -10735,7 +10735,7 @@
       "description": "Generate Detox gray-box E2E tests for React Native apps in JavaScript",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill detox-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -10823,7 +10823,7 @@
       "description": "Coach the PM→Director transition across four key situations",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill director-readiness-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -10867,7 +10867,7 @@
       "description": "Plan customer interviews using Mom Test style based on research goals",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill discovery-interview-prep -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -10889,7 +10889,7 @@
       "description": "Full discovery cycle: frame problem → research → synthesize → validate (3-…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill discovery-process -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -10911,7 +10911,7 @@
       "description": "Coordinate multiple simultaneous agents",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill dispatching-parallel-agents -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11088,7 +11088,7 @@
       "description": "Draft NDAs covering information types, jurisdiction, and clauses",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill draft-nda -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11110,7 +11110,7 @@
       "description": "Generate realistic dummy datasets in CSV, JSON, or SQL",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill dummy-dataset -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11132,7 +11132,7 @@
       "description": "Email deliverability and design best practices",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "resend/resend-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/resend/resend-skills --skill email-best-practices",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11176,7 +11176,7 @@
       "description": "Build email sequences, drip campaigns, and lifecycle email flows",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill emails -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11220,7 +11220,7 @@
       "description": "Mines AI coding logs into personal agent profiles",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "ohad6k/emulo",
-      "install_cmd": null,
+      "install_cmd": "npx skills add ohad6k/emulo --skill emulo -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11264,7 +11264,7 @@
       "description": "Communicate product or feature deprecation gracefully",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill eol-message -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11286,7 +11286,7 @@
       "description": "Split epics into stories using Richard Lawrence's 9 splitting patterns",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill epic-breakdown-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11308,7 +11308,7 @@
       "description": "Turn initiatives into testable hypotheses with measurable success metrics",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill epic-hypothesis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11418,7 +11418,7 @@
       "description": "Generate Espresso UI tests for Android apps in Kotlin or Java",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill espresso-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11594,7 +11594,7 @@
       "description": "Implement and run strategic plans",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill executing-plans -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -11660,7 +11660,7 @@
       "description": "30-60-90 day diagnostic playbook for VP/CPO onboarding transitions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill executive-onboarding-playbook -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12540,7 +12540,7 @@
       "description": "Evaluate features using ROI and strategic value scoring",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill feature-investment-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12606,7 +12606,7 @@
       "description": "Evaluate pricing changes using financial impact analysis",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill finance-based-pricing-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12628,7 +12628,7 @@
       "description": "Reference guide for 32+ SaaS finance metrics with formulas and benchmarks",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill finance-metrics-quickref -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12694,7 +12694,7 @@
       "description": "Complete Git code branches",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill finishing-a-development-branch -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12716,7 +12716,7 @@
       "description": "Use this skill whenever you are working on a project that uses Firebase products…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill firebase-basics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12760,7 +12760,7 @@
       "description": "Generate Flutter widget, integration, and golden tests in Dart",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill flutter-testing-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12804,7 +12804,7 @@
       "description": "Bounded hierarchical agent loops in isolated git worktrees",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "plasma-ai/fractal",
-      "install_cmd": null,
+      "install_cmd": "npx skills add plasma-ai/fractal --skill fractal -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12826,7 +12826,7 @@
       "description": "Plan and build free tools for lead generation and SEO value",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill free-tools -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12892,7 +12892,7 @@
       "description": "Generate animation-rich HTML presentations with visual style previews",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "zarazhangrui/frontend-slides",
-      "install_cmd": null,
+      "install_cmd": "npx skills add zarazhangrui/frontend-slides --skill frontend-slides -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12914,7 +12914,7 @@
       "description": "Coordinate all skills to build a complete ads + funnel campaign end-to-end",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill full-funnel-campaign-orchestrator -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12958,7 +12958,7 @@
       "description": "Generate Gauge specs in Markdown with steps in Java, Python, JS, or Ruby",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill gauge-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -12980,7 +12980,7 @@
       "description": "Generate Geb browser automation in Groovy with Spock and page objects",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill geb-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13002,7 +13002,7 @@
       "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill gemini-agents-api -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13024,7 +13024,7 @@
       "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill gemini-api -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13046,7 +13046,7 @@
       "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill gemini-interactions-api -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13134,7 +13134,7 @@
       "description": "Remove vague, corporate, or AI-sounding language and replace it with clear, spec…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill generic-language-killer -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13178,7 +13178,7 @@
       "description": "Attach screenshots, PDFs, logs, zips, and videos to GitHub PRs, issues, and comm…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "drogers0/gh-image",
-      "install_cmd": null,
+      "install_cmd": "npx skills add drogers0/gh-image --skill github-image-upload -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13200,7 +13200,7 @@
       "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clus…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill gke-basics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13244,7 +13244,7 @@
       "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diag…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-networking-observability -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13266,7 +13266,7 @@
       "description": "Provides expert guidance on authenticating and authorizing to Google Cloud servi…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-recipe-auth -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13288,7 +13288,7 @@
       "description": "Guidance for a developer's first steps on Google Cloud, covering account creatio…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-recipe-onboarding -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13310,7 +13310,7 @@
       "description": "Generates cost optimization guidance for Google Cloud workloads based on the Goo…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-waf-cost-optimization -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13332,7 +13332,7 @@
       "description": "Generates operations-focused guidance for Google Cloud workloads based on the de…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-waf-operational-excellence -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13354,7 +13354,7 @@
       "description": "Generates performance-focused guidance for Google Cloud workloads based on the d…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-waf-performance-optimization -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13376,7 +13376,7 @@
       "description": "Generates reliability-focused guidance for Google Cloud workloads based on the d…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-waf-reliability -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13398,7 +13398,7 @@
       "description": "Generates security-focused guidance for Google Cloud workloads based on the desi…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-waf-security -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13420,7 +13420,7 @@
       "description": "Generates sustainability-focused guidance for Google Cloud workloads based on th…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "google/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add google/skills --skill google-cloud-waf-sustainability -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13486,7 +13486,7 @@
       "description": "Identify grammar and flow errors with targeted fix suggestions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill grammar-check -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13574,7 +13574,7 @@
       "description": "Identify growth loops across 5 flywheel types for traction",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill growth-loops -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13618,7 +13618,7 @@
       "description": "Identify best GTM motions across 7 types including PLG and ABM",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill gtm-motions -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13640,7 +13640,7 @@
       "description": "Create GTM strategy with channels, messaging, and launch timeline",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill gtm-strategy -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13794,7 +13794,7 @@
       "description": "Generate high-performing headline variations across different angles",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill headline-matrix -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -13948,7 +13948,7 @@
       "description": "Removes AI-writing markers from Russian text",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Vladimir-Human/humanizer-ru",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Vladimir-Human/humanizer-ru --skill humanizer-ru -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -14740,7 +14740,7 @@
       "description": "Operate TestMu AI HyperExecute end-to-end: YAML, CLI runs, debugging, and CI wir…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill hyperexecute-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -14784,7 +14784,7 @@
       "description": "Identify ICP with demographics, behaviors, and JTBD",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill ideal-customer-profile -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -14806,7 +14806,7 @@
       "description": "Identify risky assumptions across Value, Usability, Viability, Feasibility",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill identify-assumptions-existing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -14828,7 +14828,7 @@
       "description": "Identify risky assumptions for new products across 8 risk categories",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill identify-assumptions-new -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -14916,7 +14916,7 @@
       "description": "Generate images using Google Gemini's API",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "sanjay3290/ai-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add sanjay3290/ai-skills --skill imagen -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18326,7 +18326,7 @@
       "description": "Create structured customer interview scripts with JTBD probing",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill interview-script -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18370,7 +18370,7 @@
       "description": "Control iOS Simulator",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "conorluddy/ios-simulator-skill",
-      "install_cmd": null,
+      "install_cmd": "npx skills add conorluddy/ios-simulator-skill --skill ios-simulator-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18392,7 +18392,7 @@
       "description": "Generate Jasmine BDD tests in JavaScript with spies and async support",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill jasmine-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18414,7 +18414,7 @@
       "description": "Generate Jest unit and integration tests in JS/TS with mocking and snapshots",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill jest-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18436,7 +18436,7 @@
       "description": "Privacy-first job discovery and tracking",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "vaibhavarora14/job-application-agent",
-      "install_cmd": null,
+      "install_cmd": "npx skills add vaibhavarora14/job-application-agent --skill job-application-agent -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18458,7 +18458,7 @@
       "description": "Create job stories with acceptance criteria in JTBD format",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill job-stories -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18480,7 +18480,7 @@
       "description": "Understand customer objectives using the JTBD framework",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill jobs-to-be-done -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18502,7 +18502,7 @@
       "description": "Generate JUnit 5 unit and integration tests in Java with Mockito",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill junit-5-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18546,7 +18546,7 @@
       "description": "Generate Karma test-runner configs for browser-based JS testing",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill karma-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18568,7 +18568,7 @@
       "description": "Preserves the reasoning behind a codebase — decisions, workarounds, rejected a…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "oliver-zehentleitner/keep-the-why",
-      "install_cmd": null,
+      "install_cmd": "npx skills add oliver-zehentleitner/keep-the-why --skill keep-the-why -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18791,7 +18791,7 @@
       "description": "Generate Laravel Dusk Chrome-based browser tests in PHP",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill laravel-dusk-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18835,7 +18835,7 @@
       "description": "Plan product launches, feature announcements, and go-to-market strategies",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill launch -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18857,7 +18857,7 @@
       "description": "Playbook for launching, monitoring, stopping, and debugging NeMo-RL recipes on a…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill launch-nemo-rl -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18901,7 +18901,7 @@
       "description": "Generate Lean Canvas with problem, solution, UVP, and metrics",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill lean-canvas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18923,7 +18923,7 @@
       "description": "Set up hypothesis-driven planning using Jeff Gothelf's Lean UX Canvas v2",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill lean-ux-canvas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18945,7 +18945,7 @@
       "description": "Authors observable competency learning targets across developmental bands",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "GarethManning/education-agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add GarethManning/education-agent-skills --skill learning-target-authoring-guide -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -18991,7 +18991,7 @@
       "description": "Generate Lettuce BDD tests for Python (legacy; prefer Behave)",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill lettuce-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19035,7 +19035,7 @@
       "description": "Fetch LinkedIn profiles, search people and companies, send messages, manage conn…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Linked-API/linkedin-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Linked-API/linkedin-skills --skill linkedin -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19057,7 +19057,7 @@
       "description": "LinkedIn marketing skills: viral hooks, comment drafting, algorithm audit, human…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "sergebulaev/linkedin-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add sergebulaev/linkedin-skills --skill linkedin-skills -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19145,7 +19145,7 @@
       "description": "Opinionated project initialization with security-first guardrails, spec-driven a…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "alinaqi/maggy",
-      "install_cmd": null,
+      "install_cmd": "npx skills add alinaqi/maggy --skill maggy -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19299,7 +19299,7 @@
       "description": "Identify 3-5 customer segments with JTBD and product fit",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill market-segments -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19321,7 +19321,7 @@
       "description": "Estimate TAM, SAM, SOM with top-down and bottom-up approaches",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill market-sizing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19343,7 +19343,7 @@
       "description": "Generate marketing strategies and campaign ideas for SaaS products",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill marketing-ideas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19387,7 +19387,7 @@
       "description": "Apply psychological principles and behavioral science to copy and design",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill marketing-psychology -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19409,7 +19409,7 @@
       "description": "Install streaming Markdown renderers across five frontend frameworks",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Simon-He95/markstream-vue",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Simon-He95/markstream-vue --skill markstream-install -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19497,7 +19497,7 @@
       "description": "Explain why your solution works and others failed with a unique mechanism",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill mechanism-builder -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19519,7 +19519,7 @@
       "description": "Design short-term, long-term, and graph-based memory architectures",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "install_cmd": null,
+      "install_cmd": "npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering --skill memory-systems -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19541,7 +19541,7 @@
       "description": "Define product metrics dashboard with sources and alert thresholds",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill metrics-dashboard -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19673,7 +19673,7 @@
       "description": "Generate Mocha tests in JavaScript with Chai and Sinon",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill mocha-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19739,7 +19739,7 @@
       "description": "Brainstorm 3-5 monetization strategies with validation experiments",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill monetization-strategy -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19827,7 +19827,7 @@
       "description": "Build and review product motion with installable React components",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Ryan-yang125/motion-lexicon",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Ryan-yang125/motion-lexicon --skill motion-lexicon -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19871,7 +19871,7 @@
       "description": "Anti-over-engineering skill with 5 variants and 10 platforms",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "uucz/moyu",
-      "install_cmd": null,
+      "install_cmd": "npx skills add uucz/moyu --skill moyu -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19893,7 +19893,7 @@
       "description": "Generate MSTest tests in C# for .NET",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill mstest-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19915,7 +19915,7 @@
       "description": "Master orchestrator, peer-to-peer, and hierarchical multi-agent architectures",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "install_cmd": null,
+      "install_cmd": "npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering --skill multi-agent-patterns -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19959,7 +19959,7 @@
       "description": "Evidence-led multi-source research with offline validation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "sandbaseai/sandbase-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add sandbaseai/sandbase-skills --skill multi-source-search -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -19981,7 +19981,7 @@
       "description": "JavaScript in n8n Code nodes with data access patterns",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "czlonkowski/n8n-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add czlonkowski/n8n-skills --skill n8n-code-javascript -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20003,7 +20003,7 @@
       "description": "Python coding in n8n Code nodes with limitations",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "czlonkowski/n8n-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add czlonkowski/n8n-skills --skill n8n-code-python -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20025,7 +20025,7 @@
       "description": "n8n expression syntax with {{}} and $json/$node variables",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "czlonkowski/n8n-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add czlonkowski/n8n-skills --skill n8n-expression-syntax -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20047,7 +20047,7 @@
       "description": "MCP tools guide with tool selection and node formats",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "czlonkowski/n8n-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add czlonkowski/n8n-skills --skill n8n-mcp-tools-expert -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20069,7 +20069,7 @@
       "description": "Node configuration with dependency rules and AI connections",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "czlonkowski/n8n-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add czlonkowski/n8n-skills --skill n8n-node-configuration -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20113,7 +20113,7 @@
       "description": "Fix n8n validation errors with error catalog",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "czlonkowski/n8n-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add czlonkowski/n8n-skills --skill n8n-validation-expert -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20135,7 +20135,7 @@
       "description": "Workflow patterns for webhook, HTTP, database, and AI tasks",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "czlonkowski/n8n-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add czlonkowski/n8n-skills --skill n8n-workflow-patterns -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20795,7 +20795,7 @@
       "description": "Generate Nemo.js Selenium-based tests for Node.js",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill nemojs-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20883,7 +20883,7 @@
       "description": "Generate NightwatchJS E2E tests in JavaScript with Selenium WebDriver",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill nightwatchjs-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20905,7 +20905,7 @@
       "description": "Define North Star Metric and input metrics constellation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill north-star-metric -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -20993,7 +20993,7 @@
       "description": "Generate NUnit 3 tests in C# with the constraint model and Moq",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill nunit-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21037,7 +21037,7 @@
       "description": "Identify and neutralize buyer objections and hesitation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill objection-crusher -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21103,7 +21103,7 @@
       "description": "Govern evidence, responsibility routing, safety boundaries, and verified deliver…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "orziz/odai",
-      "install_cmd": null,
+      "install_cmd": "npx skills add orziz/odai --skill odai -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21125,7 +21125,7 @@
       "description": "Turn a product or service into a compelling, high-converting offer",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill offer-extraction -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21193,7 +21193,7 @@
       "description": "Optimize post-signup onboarding and user activation to improve time-to-value",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill onboarding -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21371,7 +21371,7 @@
       "description": "Generate opportunities and solutions and recommend proof-of-concept tests",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill opportunity-solution-tree -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21393,7 +21393,7 @@
       "description": "Agent-guided optimization for measurable system tuning.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Optim-Agent/optim-agent",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Optim-Agent/optim-agent --skill optim-agent -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21437,7 +21437,7 @@
       "description": "Transform output roadmaps into outcome-focused strategic plans",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill outcome-roadmap -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -21503,7 +21503,7 @@
       "description": "Design and optimize upgrade screens, paywalls, and upsell modals",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill paywalls -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -22119,7 +22119,7 @@
       "description": "Diagnose why campaigns are underperforming — low conversion, high CPL, bad ads",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill performance-diagnosis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25617,7 +25617,7 @@
       "description": "Analyze external factors across Political, Economic, Social, Tech, Environmental…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill pestel-analysis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25639,7 +25639,7 @@
       "description": "PESTLE analysis across Political, Economic, Social, Tech, Legal, Environmental",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill pestle-analysis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25661,7 +25661,7 @@
       "description": "Generate PHPUnit tests in PHP with data providers and mocking",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill phpunit-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25705,7 +25705,7 @@
       "description": "Generate Playwright E2E tests in TS, JS, Python, Java, or C#",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill playwright-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25727,7 +25727,7 @@
       "description": "Make misuse unrepresentable: audit, design, and enforce mistake-proofing devices",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "rainmanjam/poka-yoke",
-      "install_cmd": null,
+      "install_cmd": "npx skills add rainmanjam/poka-yoke --skill poka-yoke -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25749,7 +25749,7 @@
       "description": "Define lightweight validation experiments to test hypotheses",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill pol-probe -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25771,7 +25771,7 @@
       "description": "Recommend prototype type: Feasibility, Task-Focused, Narrative, Synthetic, or Vi…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill pol-probe-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25925,7 +25925,7 @@
       "description": "Create and optimize popups, modals, and slide-ins for conversions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill popups -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25947,7 +25947,7 @@
       "description": "Porter's Five Forces competitive analysis with strategic insights",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill porters-five-forces -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25969,7 +25969,7 @@
       "description": "Brainstorm positioning ideas differentiated from competitors",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill positioning-ideas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -25991,7 +25991,7 @@
       "description": "Define target audience, problem solved, and differentiation using Geoffrey Moore…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill positioning-statement -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26013,7 +26013,7 @@
       "description": "Guide positioning definition with adaptive discovery questions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill positioning-workshop -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26057,7 +26057,7 @@
       "description": "Execute safe read-only SQL queries against PostgreSQL databases",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "sanjay3290/ai-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add sanjay3290/ai-skills --skill postgres -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26123,7 +26123,7 @@
       "description": "Structured PRD process: problem → personas → solution → metrics → storie…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill prd-development -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26145,7 +26145,7 @@
       "description": "Run pre-mortem risk analysis on PRDs and launch plans",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill pre-mortem -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26213,7 +26213,7 @@
       "description": "Clarify product vision with a future press release using Amazon's Working Backwa…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill press-release -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26235,7 +26235,7 @@
       "description": "Define pricing, packaging, and monetization strategy for SaaS products",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill pricing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26257,7 +26257,7 @@
       "description": "Design pricing strategies with competitive analysis and WTP estimation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill pricing-strategy -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26279,7 +26279,7 @@
       "description": "Recommend the right prioritization framework (RICE, ICE, Kano, etc.) for your si…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill prioritization-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26301,7 +26301,7 @@
       "description": "Reference guide to 9 prioritization frameworks with templates",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill prioritization-frameworks -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26323,7 +26323,7 @@
       "description": "Prioritize assumptions with Impact × Risk matrix and experiments",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill prioritize-assumptions -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26345,7 +26345,7 @@
       "description": "Prioritize backlog by impact, effort, risk, and strategic alignment",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill prioritize-features -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26389,7 +26389,7 @@
       "description": "Draft privacy policies with GDPR compliance considerations",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill privacy-policy -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26411,7 +26411,7 @@
       "description": "Lead through MITRE Problem Framing: Look Inward, Outward, and Reframe",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill problem-framing-canvas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26433,7 +26433,7 @@
       "description": "Frame customer problems with evidence before jumping to solutions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill problem-statement -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26499,7 +26499,7 @@
       "description": "Create and maintain a product marketing context document for consistent messagin…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill product-marketing -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26521,7 +26521,7 @@
       "description": "Brainstorm 5 memorable product names aligned to brand values",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill product-name -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26543,7 +26543,7 @@
       "description": "Create product strategy using 9-section Product Strategy Canvas",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill product-strategy -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26565,7 +26565,7 @@
       "description": "Full strategy session: positioning → framing → exploration → roadmap (2-4 …",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill product-strategy-session -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26587,7 +26587,7 @@
       "description": "Brainstorm inspiring, achievable product vision statements",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill product-vision -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26631,7 +26631,7 @@
       "description": "Build SEO-driven page templates for large-scale content generation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill programmatic-seo -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26653,7 +26653,7 @@
       "description": "Provides graduated hints while preserving learner thinking and agency",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "GarethManning/education-agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add GarethManning/education-agent-skills --skill progressive-hint-ladder -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26719,7 +26719,7 @@
       "description": "Create hypothesis-driven personas before conducting full research",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill proto-persona -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26763,7 +26763,7 @@
       "description": "Generate Protractor E2E tests for Angular in JS/TS (deprecated; prefer Playwrigh…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill protractor-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26807,7 +26807,7 @@
       "description": "Generate Puppeteer scripts for browser automation, scraping, and PDF generation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill puppeteer-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26851,7 +26851,7 @@
       "description": "Generate pytest tests in Python with fixtures, parametrize, and mocking",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill pytest-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26873,7 +26873,7 @@
       "description": "\"NVIDIA RAG Blueprint — deploy, configure, troubleshoot, and manage.",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "NVIDIA/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add NVIDIA/skills --skill rag-blueprint -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26939,7 +26939,7 @@
       "description": "Build emails with React Email components",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "resend/resend-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/resend/resend-skills --skill react-email",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -26961,7 +26961,7 @@
       "description": "Process and incorporate code feedback",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill receiving-code-review -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27005,7 +27005,7 @@
       "description": "Document AI-powered product recommendations",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill recommendation-canvas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27138,7 +27138,7 @@
       "description": "Redis development best practices — data structures, query engine, vector searc…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "redis/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add redis/agent-skills --skill redis-core -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27160,7 +27160,7 @@
       "description": "Design and optimize referral, affiliate, and word-of-mouth programs",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill referrals -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27204,7 +27204,7 @@
       "description": "Orchestrates proportionate regenerative learning projects with safeguards and st…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "GarethManning/education-agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add GarethManning/education-agent-skills --skill regenerative-project-design-orchestrator -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27226,7 +27226,7 @@
       "description": "Content-Derived Design CLI and agent skill: reads existing HTML and writes a str…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Kayforkind/reimagine-it",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Kayforkind/reimagine-it --skill reimagine-it -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27292,7 +27292,7 @@
       "description": "Generate user-facing release notes from tickets or changelogs",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill release-notes -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27358,7 +27358,7 @@
       "description": "Generate Reqnroll BDD tests for web and mobile in C#",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill reqnroll-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27380,7 +27380,7 @@
       "description": "Initiate code review processes",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill requesting-code-review -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27424,7 +27424,7 @@
       "description": "Send and manage emails via the Resend API",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "resend/resend-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/resend/resend-skills --skill resend",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27446,7 +27446,7 @@
       "description": "Resend CLI commands and workflows",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "resend/resend-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/resend/resend-skills --skill resend-cli",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27710,7 +27710,7 @@
       "description": "PM resume review against 10 best practices including XYZ+S formula",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill review-resume -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27732,7 +27732,7 @@
       "description": "Streamline revenue operations, lead lifecycle, and marketing-to-sales handoff",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill revops -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27754,7 +27754,7 @@
       "description": "Strategic roadmap process: inputs → epics → prioritize → sequence → comm…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill roadmap-planning -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27776,7 +27776,7 @@
       "description": "Generate Robot Framework keyword-driven tests in Python",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill robot-framework-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27842,7 +27842,7 @@
       "description": "Generate RSpec tests in Ruby with matchers, hooks, and mocking",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill rspec-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27886,7 +27886,7 @@
       "description": "Russian text quality: ~1,040 rules for typography, info-style, editorial, UX wri…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "talkstream/ru-text",
-      "install_cmd": null,
+      "install_cmd": "npx skills add talkstream/ru-text --skill ru-text -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27930,7 +27930,7 @@
       "description": "Calculate unit economics and capital efficiency including CAC, LTV, payback, and…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill saas-economics-efficiency-metrics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27952,7 +27952,7 @@
       "description": "Track revenue, retention, and growth metrics including MRR/ARR, churn, NRR, and …",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill saas-revenue-growth-metrics -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -27996,7 +27996,7 @@
       "description": "Create pitch decks, one-pagers, objection handling docs, and demo scripts",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill sales-enablement -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28194,7 +28194,7 @@
       "description": "Add and optimize schema markup and structured data for better SEO",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill schema -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28216,7 +28216,7 @@
       "description": "Determine audience awareness level and the correct messaging approach",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill schwartz-awareness-mapper -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28260,7 +28260,7 @@
       "description": "Create ad concepts that stop attention in the first 3 seconds",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "realkimbarrett/advertising-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add realkimbarrett/advertising-skills --skill scroll-stopping-creative -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28612,7 +28612,7 @@
       "description": "Generate Selenide UI tests in Java with auto-waits and a fluent API",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill selenide-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28634,7 +28634,7 @@
       "description": "Generate Selenium WebDriver tests in Java, Python, JS, C#, Ruby, or PHP",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill selenium-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28656,7 +28656,7 @@
       "description": "Analyze user feedback with sentiment scores and JTBD insights",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill sentiment-analysis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28678,7 +28678,7 @@
       "description": "Audit and diagnose technical and on-page SEO issues on a site",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill seo-audit -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28700,7 +28700,7 @@
       "description": "De-AI writing skill fixing narrative structure before word choice",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Nanako0129/sepia",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Nanako0129/sepia --skill sepia -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28722,7 +28722,7 @@
       "description": "Generate Serenity BDD tests in Java with the Screenplay pattern and reporting",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill serenity-bdd-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28899,7 +28899,7 @@
       "description": "Optimize signup, registration, and trial activation flows for higher conversion",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill signup -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28943,7 +28943,7 @@
       "description": "Plan and restructure page hierarchy, navigation, and URL structure",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill site-architecture -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -28965,7 +28965,7 @@
       "description": "Meta workflow for authoring skills: choose path → validate → update docs →…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill skill-authoring-workflow -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29186,7 +29186,7 @@
       "description": "Guided discovery skill for Claude Code: runs an interview to recommend from a ca…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "lindblomstefan/skills-library",
-      "install_cmd": null,
+      "install_cmd": "npx skills add lindblomstefan/skills-library --skill skills-library -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29230,7 +29230,7 @@
       "description": "Generate SmartUI visual regression configs for screenshot comparison",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill smartui-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29252,7 +29252,7 @@
       "description": "Create and schedule social media content for LinkedIn, Twitter/X, and Instagram",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "coreyhaines31/marketingskills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add coreyhaines31/marketingskills --skill social -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29318,7 +29318,7 @@
       "description": "Generate SpecFlow BDD tests for C#/.NET with Gherkin and step bindings",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill specflow-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29362,7 +29362,7 @@
       "description": "Plan sprints with capacity, story selection, and risk mapping",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill sprint-plan -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29384,7 +29384,7 @@
       "description": "Generate SQL queries from natural language across major dialects",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill sql-queries -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29428,7 +29428,7 @@
       "description": "Build stakeholder maps with power/interest grid and comms plan",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill stakeholder-map -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29450,7 +29450,7 @@
       "description": "Generate Startup Canvas combining Product Strategy and Business Model",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill startup-canvas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29494,7 +29494,7 @@
       "description": "Visualize user journeys with 6-frame narrative storyboards",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill storyboard -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29560,7 +29560,7 @@
       "description": "Development using multiple sub-agents",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill subagent-driven-development -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29604,7 +29604,7 @@
       "description": "Summarize interview transcripts with JTBD and action items",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill summarize-interview -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29626,7 +29626,7 @@
       "description": "Summarize meeting transcripts into structured notes and actions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill summarize-meeting -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29758,7 +29758,7 @@
       "description": "Modern SwiftUI best practices and iOS 26+ Liquid Glass adoption",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "AvdLee/SwiftUI-Agent-Skill",
-      "install_cmd": null,
+      "install_cmd": "npx skills add AvdLee/SwiftUI-Agent-Skill --skill swiftui-expert-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29780,7 +29780,7 @@
       "description": "SWOT analysis with actionable recommendations per quadrant",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill swot-analysis -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29802,7 +29802,7 @@
       "description": "Methodical problem-solving in code",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill systematic-debugging -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29824,7 +29824,7 @@
       "description": "Project market size with real-world data and citations",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill tam-sam-som-calculator -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -29868,7 +29868,7 @@
       "description": "High-agency frontend skill that gives AI good taste with tunable design variance…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Leonxlnx/taste-skill",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Leonxlnx/taste-skill --skill taste-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -30000,7 +30000,7 @@
       "description": "Write tests before implementing code",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill test-driven-development -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -30022,7 +30022,7 @@
       "description": "Migrate tests between Selenium, Playwright, Puppeteer, and Cypress",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill test-framework-migration-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -30066,7 +30066,7 @@
       "description": "Create comprehensive test scenarios from user stories",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill test-scenarios -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -30088,7 +30088,7 @@
       "description": "Generate TestCafe automation tests in JavaScript or TypeScript",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill testcafe-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -30638,7 +30638,7 @@
       "description": "Generate TestNG tests in Java with data providers and parallel execution",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill testng-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -30660,7 +30660,7 @@
       "description": "Generate Test::Unit xUnit-style tests in Ruby",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill testunit-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -30815,7 +30815,7 @@
       "description": "Build tools that agents can use effectively, including architectural reduction p…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "install_cmd": null,
+      "install_cmd": "npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering --skill tool-design -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31211,7 +31211,7 @@
       "description": "Generate Python unittest tests with TestCase and setUp/tearDown",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill unittest-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31255,7 +31255,7 @@
       "description": "Removes named AI writing tells (tricolons, em-dash pileups, hedging stacks, syco…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "MohamedAbdallah-14/unslop",
-      "install_cmd": null,
+      "install_cmd": "npx skills add MohamedAbdallah-14/unslop --skill unslop -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31299,7 +31299,7 @@
       "description": "Create 3 user personas with JTBD, pains, and gains",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill user-personas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31321,7 +31321,7 @@
       "description": "Segment users by behavior, JTBD, and needs from feedback data",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill user-segmentation -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31343,7 +31343,7 @@
       "description": "Create INVEST-compliant user stories with 3 C's structure",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill user-stories -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31365,7 +31365,7 @@
       "description": "Write user stories with acceptance criteria using Mike Cohn and Gherkin formats",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill user-story -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31387,7 +31387,7 @@
       "description": "Organize stories by user workflow using Jeff Patton's story mapping approach",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill user-story-mapping -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31409,7 +31409,7 @@
       "description": "Walk through creating story maps with backbone and release slices",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill user-story-mapping-workshop -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31431,7 +31431,7 @@
       "description": "Break down large stories using 8 proven splitting patterns",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill user-story-splitting -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31453,7 +31453,7 @@
       "description": "Manage multiple Git working trees",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill using-git-worktrees -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31475,7 +31475,7 @@
       "description": "Leverage core platform capabilities",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill using-superpowers -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31519,7 +31519,7 @@
       "description": "Generate value prop statements for marketing, sales, and onboarding",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill value-prop-statements -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31541,7 +31541,7 @@
       "description": "Design value propositions using 6-part JTBD template",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill value-proposition -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31677,7 +31677,7 @@
       "description": "API key CRUD, rate limits, and Web3 keys",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-api-keys",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31699,7 +31699,7 @@
       "description": "API basics, auth modes, pricing, and versioning",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-api-overview",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31721,7 +31721,7 @@
       "description": "Music generation queueing, retrieval, and completion endpoints",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-audio-music",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31743,7 +31743,7 @@
       "description": "Text-to-speech models, voices, formats, and streaming",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-audio-speech",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31765,7 +31765,7 @@
       "description": "Audio transcription models and speech-to-text options",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-audio-transcription",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31787,7 +31787,7 @@
       "description": "Search, scraping, and text parsing endpoints",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add veniceai/skills --skill venice-augment -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31809,7 +31809,7 @@
       "description": "API keys and wallet-based Venice authentication",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-auth",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31831,7 +31831,7 @@
       "description": "Balance, usage, and billing analytics endpoints",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-billing",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31853,7 +31853,7 @@
       "description": "Character endpoints and `character_slug` usage",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-characters",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31875,7 +31875,7 @@
       "description": "Chat completions, multimodal inputs, tools, and streaming",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-chat",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31897,7 +31897,7 @@
       "description": "JSON-RPC proxying for supported crypto networks",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add veniceai/skills --skill venice-crypto-rpc -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31919,7 +31919,7 @@
       "description": "Embeddings models, dimensions, and encoding formats",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-embeddings",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31941,7 +31941,7 @@
       "description": "Error handling, retries, and API status codes",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add veniceai/skills --skill venice-errors -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31963,7 +31963,7 @@
       "description": "Image edits, upscaling, and background removal",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-image-edit",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -31985,7 +31985,7 @@
       "description": "Image generation endpoints and available styles",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-image-generate",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32007,7 +32007,7 @@
       "description": "Model catalog, traits, and compatibility mappings",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-models",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32029,7 +32029,7 @@
       "description": "OpenAI-compatible Responses API for Venice",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-responses",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32051,7 +32051,7 @@
       "description": "Video generation and transcription workflows",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add https://github.com/veniceai/skills --skill venice-video",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32073,7 +32073,7 @@
       "description": "Wallet credits and x402 payments on Base",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "veniceai/skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add veniceai/skills --skill venice-x402 -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32095,7 +32095,7 @@
       "description": "Validate work before finalizing",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill verification-before-completion -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32293,7 +32293,7 @@
       "description": "Route video requests through deterministic agent production stages",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "Orkas-AI/Orkas-VideoStudio",
-      "install_cmd": null,
+      "install_cmd": "npx skills add Orkas-AI/Orkas-VideoStudio --skill video-router -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32403,7 +32403,7 @@
       "description": "Generate Vitest tests in JS/TS with a Jest-compatible API and ESM",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill vitest-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32425,7 +32425,7 @@
       "description": "Coach the Director→VP/CPO transition including a CEO interview framework",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill vp-cpo-readiness-advisor -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32557,7 +32557,7 @@
       "description": "Generate WebdriverIO (WDIO) automation tests in JavaScript or TypeScript",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill webdriverio-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32645,7 +32645,7 @@
       "description": "Add step-by-step facilitation with numbered recommendations to any workshop",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "deanpeters/Product-Manager-Skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add deanpeters/Product-Manager-Skills --skill workshop-facilitation -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32777,7 +32777,7 @@
       "description": "Create strategic documentation",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill writing-plans -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32821,7 +32821,7 @@
       "description": "Develop and document capabilities",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "obra/superpowers",
-      "install_cmd": null,
+      "install_cmd": "npx skills add obra/superpowers --skill writing-skills -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32843,7 +32843,7 @@
       "description": "Create backlog items in Why-What-Acceptance format",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "phuryn/pm-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add phuryn/pm-skills --skill wwas -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32909,7 +32909,7 @@
       "description": "Extract text, tables, and metadata from 101+ document formats",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "xberg-io/xberg",
-      "install_cmd": null,
+      "install_cmd": "npx skills add xberg-io/xberg --skill xberg -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32931,7 +32931,7 @@
       "description": "Generate XCUITest UI tests for iOS/iPadOS apps in Swift",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill xcuitest-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -32975,7 +32975,7 @@
       "description": "Generate xUnit.net tests in C# with Fact/Theory and FluentAssertions",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "LambdaTest/agent-skills",
-      "install_cmd": null,
+      "install_cmd": "npx skills add LambdaTest/agent-skills --skill xunit-skill -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -33063,7 +33063,7 @@
       "description": "Discover and call external paid tools for Claude Code agents instead of stopping…",
       "source": "VoltAgent/awesome-agent-skills",
       "origin": "officialzeroxyz/zero-plugins",
-      "install_cmd": null,
+      "install_cmd": "npx skills add officialzeroxyz/zero-plugins --skill zero -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
