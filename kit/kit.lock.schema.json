@@ -37,7 +37,7 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["skill", "mcp", "plugin", "hook", "agent"]
+            "enum": ["skill", "mcp", "plugin", "hook", "agent", "cli"]
           },
           "source": {
             "type": ["string", "null"],
@@ -93,7 +93,7 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["skill", "mcp", "plugin", "hook", "agent"]
+            "enum": ["skill", "mcp", "plugin", "hook", "agent", "cli"]
           },
           "reason": {
             "type": "string",

@@ -11,8 +11,11 @@ reproduction if you have one. Expect an acknowledgement within 72 hours.
 
 ## Scope
 
-This project ships **instructions and data, not an executable runtime**. Its blast radius
-is therefore mostly about what it tells an agent to do:
+This project ships **instructions and data, and an executable runtime**. The catalog and the
+skills are instructions; `.opencode/plugin/arsenal.ts` is a real TypeScript runtime with seven
+registered hook callbacks that write to disk and spawn processes, and `scripts/` is a set of
+executable programs. Its blast radius is therefore about both what it tells an agent to do and
+what it does itself:
 
 | In scope | Out of scope |
 |---|---|
@@ -34,16 +37,28 @@ instructions to an automated agent that will typically run them. Two failure mod
 Mitigations already in place, and the ones you should hold us to:
 
 - An install command is never invented. It is either verified against a real
-  registry — carrying `verification: verified` plus a record of what it was
-  verified against — or it is marked `verification: unverified`, which may still
-  carry a command mechanically derived from the component's source repository,
-  or it is `null`. Components that ship as agents, plugins, and hooks carry
-  `null` plus `verification: unverified`. A derived command is never presented
-  as checked, because a plausible-looking wrong command is worse than an
-  admission of ignorance: an agent will run it.
-- Each verified command records what it was verified against.
-- `kit/kit.lock` pins versions so a floating upstream cannot silently change a kit.
+  registry and marked `verification: verified`, or it is marked
+  `verification: unverified`, which may still carry a command mechanically
+  derived from the component's source repository, or it is `null`. Components
+  that ship as agents, plugins, and hooks carry `null` plus
+  `verification: unverified`. A derived command is never presented as checked,
+  because a plausible-looking wrong command is worse than an admission of
+  ignorance: an agent will run it.
+- `verification: verified` records **that** a command was checked. It does not
+  record **what** it was checked against — the catalog has no field for that, so
+  the evidence trail does not exist yet. Treat a `verified` flag as an assertion
+  to re-test, not as proof you can audit later.
+- `kit/kit.lock` pins versions only where a pin exists. **2 of 52** entries carry
+  a `version_pin` — `context7` and `firecrawl`. The other 50 are `null`, including
+  all ten installable skills, so a floating upstream *can* silently change the kit
+  today. Do not read a lock entry as immutable unless its `version_pin` is set.
 - `scripts/verify-kit.mjs` re-proves that each Tier-0 component resolves.
+- Known defect, open: 36 records in `registry/data/skills.jsonl` carry a
+  `--skill` value with spaces and no quoting, so the shell splits it and the
+  command installs something other than what it names. All 36 are
+  `verification: unverified`, none are locked in `kit/kit.lock`, and all 36 have
+  `origin: null`, so the correct value cannot be re-derived from provenance. They
+  are inert until someone installs from the catalog.
 
 If you find a command in the catalog that resolves somewhere unexpected, that is a
 high-severity report.
@@ -55,11 +70,20 @@ explicitly named path inside the project — never a shared checkout, never anyt
 outside the project root. Force pushes, history rewrites, recursive deletions, and schema
 or data drops require explicit approval recorded before execution.
 
+Every deletion in `scripts/` is verified to resolve inside `${REPO_ROOT}`, and both
+worktree scripts reject any concern slug outside `[a-z0-9]` before it reaches
+`git worktree`. No force push or history rewrite exists in `scripts/` at all. Approval is
+the weaker half of this promise: `teardown-stage.sh` deletes five target groups and
+`dispatch-worktrees.sh` runs `git worktree remove --force` with no approval record
+written anywhere. The paths are safe; the recorded-approval claim is not yet enforced.
+
 ## Secrets
 
 Secrets live in environment variables or a secret manager, never in this repository.
 The one environment variable the tooling reads is `VANTRILEX_STATE_DIR`, and the
-pre-commit hook refuses any staged `.env` file.
+pre-commit hook refuses a newly added `.env` file. An already-tracked `.env` that is then
+modified is not refused by that name check, though the credential-shape scan still runs
+on added lines of every file, so a real secret is still caught.
 
 If a credential is committed: **revoke or rotate it first, then remove it.** Deleting the
 text without rotating the credential is not remediation, and exposure duration is not a

@@ -45,7 +45,9 @@ the exact repair command. Regeneration details are in
 
 `CONTRIBUTING.md` and CI name `scripts/verify-kit.mjs` as the gate that
 proves each Tier-0 component resolves and loads. That script exists and
-passes 11/11 against `kit/kit.lock` (52 components, 0 pending) — see
+passes 12/12 against `kit/kit.lock` (52 components, 0 pending), including a
+per-kind check for each locked kind — the `per-kind/cli` check passing on zero
+`cli` entries is reported as such rather than as a silent vacuous pass. See
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## Skill-format check

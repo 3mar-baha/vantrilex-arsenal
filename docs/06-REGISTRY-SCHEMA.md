@@ -14,7 +14,7 @@ built and merged.
 |---|---|---|
 | `id` | string, required | Stable lowercase-hyphenated slug; the merge key against the sidecar |
 | `name` | string | Display name exactly as authored, minus the default-selection marker |
-| `kind` | string, required | One of `skill`, `mcp`, `plugin`, `hook`, `agent`, `formatting` |
+| `kind` | string, required | One of `skill`, `mcp`, `plugin`, `hook`, `agent`, `formatting`, `cli` |
 | `description` | string | One-line summary; truncated source rows keep their trailing mark as authored |
 | `source` | string or null | The `owner/repo` collection the component installs from |
 | `origin` | string or null | The true upstream author repository when it differs from `source` |
@@ -63,6 +63,13 @@ its own. A plausible-looking wrong command is worse than an admitted gap,
 because an agent will run it — so unverified commands stay null rather than
 guessed. The verifier's install-command check (see
 [08-VERIFICATION.md](08-VERIFICATION.md)) fails the registry on any violation.
+
+For the `cli` kind the command is additionally required to *install* the tool:
+a package-manager invocation such as `npm i -g <pkg>` or `brew install
+<formula>`, or the vendor's own official installer. A bare package name is not
+an install command, and a `curl … | sh` pipe is refused outright because it
+executes unreviewed remote code. The rule and its rationale are in
+[09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## Tier semantics
 

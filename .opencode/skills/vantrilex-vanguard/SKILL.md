@@ -181,9 +181,9 @@ with that concept as the needs baseline.
 Query the sources in this fixed order and record what each one yields: the local
 `registry/catalog.json` first, then the skills.sh leaderboard together with the `npx skills` CLI,
 then vercel-labs/find-skills, then the Smithery registry CLI via `npx @smithery/cli`, then the
-agency-agents roster at https://github.com/msitarzewski/agency-agents, then awesome-design-md at
-https://github.com/voltagent/awesome-design-md, then the ecc hooks at
-https://github.com/affaan-m/ecc. Fixed order keeps two runs comparable: the same project surveyed
+agency-agents roster at `https://github.com/msitarzewski/agency-agents`, then awesome-design-md at
+`https://github.com/voltagent/awesome-design-md`, then the ecc hooks at
+`https://github.com/affaan-m/ecc`. Fixed order keeps two runs comparable: the same project surveyed
 twice yields the same evidence in the same places.
 
 Apply the hard reachability rule to every candidate MCP or CLI: its docs must be reachable through
@@ -204,6 +204,29 @@ pre-approved for every project: it is the thirty-six core components of the fift
 `kit/kit.lock`, with an empty pending list. Tier 1, the sixteen conditional components, is selected
 per project and needs explicit approval — conditional exists so projects carry what they use and
 nothing they do not.
+
+A `cli` entry is a locally installed command-line tool the kit can rely on, recorded in
+`kit/kit.lock` with kind `cli`. It is a place for command-line tools, and the kit locks none of them
+today: population happens later, through the digest, the Saturday review, and the weekly
+work-order mechanism, never through an equip run. Vanguard still governs an entry when a project
+needs one, because an unmanaged binary on a developer's machine is not a kit.
+
+CLI tools sit in the conditional tier, are selected per project, and need the same explicit owner
+approval every conditional component needs. Vanguard proposes; it never installs a command-line
+tool into someone's machine on its own authority.
+
+Selection of a CLI tool follows a fixed owner policy rather than a judgement call in the moment.
+Five rules hold:
+
+- The tool is free, or carries a generous free tier, for a solo developer. The entry records the
+  actual terms — pricing, free-tier limits, and the date recorded — so the claim stays auditable
+  when the vendor changes them.
+- The tool has no functional overlap with a component already in the lock.
+- The tool is best-of-breed. Among duplicates, only the strongest is kept.
+- A candidate that would replace a locked component is surfaced only when it is clearly and
+  significantly better, and only with the concrete differences stated. Otherwise it is dropped
+  silently: no entry, no report, no nagging.
+- The licence is recorded for information only and is never a filter.
 
 Read catalog records by their real field names, exactly these fields:
 
@@ -230,10 +253,16 @@ Present the shortlist in this shape and stop for approval:
 ### Step 4 — Install, verify, report (A.6)
 
 Install with real commands only. Skills install through the skills CLI, MCP servers through JSON
-snippets placed in the client configuration, and every package name is checked against the live
-registry first. Never invent a package name and never guess a repository path: an unrecognised
-package is rejected, and an unverified component keeps a null command with
-`verification: unverified`.
+snippets placed in the client configuration, CLI tools through a package-manager invocation or the
+vendor's official installer, and every package name is checked against the live registry first.
+Never invent a package name and never guess a repository path or a binary: an unrecognised package
+is rejected, and an
+unverified component keeps a null command with `verification: unverified`.
+
+Verify a CLI tool with `<binary> --version` and nothing else. The entry is recorded as `verified`
+only when that command actually exits 0; any other outcome keeps `verification: unverified` with
+the reason, because an installed binary that cannot report its own version is not a tool the kit
+can rely on.
 
 ```sh
 npx skills add <repo> --skill <name> -a opencode
@@ -267,6 +296,7 @@ kit verifier at `scripts/verify-kit.mjs` checks:
 | `mcp` | Ping the server with a tool listing, then make one real smoke call.   |
 | `skill` | Load the component's `SKILL.md`, then dry-run its procedure on a scratch input. |
 | `agent` | Echo a task back to the agent and require a scoped, non-destructive answer. |
+| `cli` | Run `<binary> --version` and require exit 0. |
 | `plugin`, `hook` | Fire the specific event the component subscribes to.           |
 | LSP, exposed by a plugin | Open a sample file that contains a deliberate fault and require diagnostics. |
 | `formatting` | Run the formatter over a sample file and diff the result.      |
@@ -457,6 +487,9 @@ decides; guessing a scenario is the failure, not asking.
 - The pinned `kit/kit.lock` entries with id, kind, version, source, install command, phase, verify
   note, and status, mirrored at `docs/04-kit/15-kit.lock` with the kit inventory beside it at
   `docs/04-kit/14-KIT-INVENTORY.md`.
+- For any proposed `cli` entry, the approval record with the tool's recorded pricing, free-tier
+  limits, licence, and date recorded, so a later audit can tell what the terms were when the owner
+  said yes.
 - The generated twenty-eight-file documentation set in its eight folders, with the reserved workflow
   name recorded and the archive manifest written.
 - The Arabic relay prompt with its four sections and the owner-goal slot, handed to the owner ready
@@ -479,3 +512,7 @@ decides; guessing a scenario is the failure, not asking.
   continue on cached metadata. A silent pass on a step that never ran is a failure of the report.
 - A package name is unrecognised or unverifiable. Reject it rather than guessing a registry path,
   because a plausible-looking wrong command will be executed by an agent that trusts this skill.
+- A CLI tool is installed without owner approval, or a replacement candidate that is not clearly and
+  significantly better is surfaced as a proposal. Installing on Vanguard's own authority rewrites
+  the owner's machine without consent, and a marginal replacement raised as a proposal produces the
+  nagging the policy exists to stop; drop it silently instead.

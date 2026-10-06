@@ -42,6 +42,44 @@ const SKILL_CMD = /^npx skills add (\S+) --skill (\S+) -a opencode( -y)?$/;
 const NPM_CMD = /^npx -y (\S+)$/;
 const NETWORK_TIMEOUT_MS = 20000;
 
+const LOCK_PHASES = ["scout", "docs", "plan", "build", "review", "operate", "on-demand"];
+const LOCK_TIERS = ["core", "conditional", "extended"];
+const CLI_VERIFICATIONS = ["verified", "unverified"];
+
+// A cli entry must name a real, runnable installer. Anything else is refused
+// here rather than trusted, because an agent downstream will execute the
+// string verbatim.
+const CLI_PKG_MANAGERS = [
+  /^npm (?:i|install) -g (\S+)(?:@\S+)?$/,
+  /^pnpm (?:i|install) -g (\S+)(?:@\S+)?$/,
+  /^yarn global add (\S+)(?:@\S+)?$/,
+  /^bun (?:i|add) -g (\S+)(?:@\S+)?$/,
+  /^brew install (\S+)$/,
+  /^brew tap (\S+)$/,
+  /^scoop install (\S+)$/,
+  /^choco install (\S+)$/,
+  /^winget install (?:--id )?(\S+)$/,
+  /^apt(?:-get)? install (\S+)$/,
+  /^dnf install (\S+)$/,
+  /^pacman -S (\S+)$/,
+  /^cargo install (\S+)$/,
+  /^go install (\S+)$/,
+  /^pipx install (\S+)$/,
+  /^uv tool install (\S+)$/
+];
+// The vendor's own official installer. Anchored to a single known vendor
+// command so a plausible-looking guess cannot pass as verified.
+const CLI_VENDOR_INSTALLERS = [
+  /^gh (\S+)$/,
+  /^mise (?:install|use|exec) (\S+)$/,
+  /^rustup-init\b.*$/,
+  /^op install (\S+)$/,
+  /^docker-plugin-install (\S+)$/
+];
+// A curl-piped installer is never acceptable: it executes unreviewed remote
+// code as root-equivalent on the owner's machine.
+const CLI_PIPE_FORBIDDEN = /\||\|\||&&|;|`|\$\(|\$\{/;
+
 const OFFLINE_MARKERS = [
   "ENOENT",
   "ENOTFOUND",
@@ -211,6 +249,83 @@ function runCapture(command, args) {
   }
 }
 
+/**
+ * Classify a cli install_cmd. Returns null when the command is a real
+ * installer, otherwise a human-readable reason it is refused.
+ */
+function cliCommandReason(cmd) {
+  if (typeof cmd !== "string" || cmd.trim() === "") {
+    return "install_cmd is empty; a cli entry carries the command that installs the tool";
+  }
+  const text = cmd.trim();
+  if (CLI_PIPE_FORBIDDEN.test(text) === true) {
+    return "install_cmd chains shell operators or pipes remote code (" + JSON.stringify(cmd) + "); use a package-manager invocation or the vendor installer";
+  }
+  for (const pattern of CLI_PKG_MANAGERS) {
+    const match = text.match(pattern);
+    if (match !== null) {
+      const target = match[1];
+      if (target === undefined || /^[<>{}\[\]()|&;]$/.test(target)) {
+        return "install_cmd names no package (" + JSON.stringify(cmd) + ")";
+      }
+      return null;
+    }
+  }
+  for (const pattern of CLI_VENDOR_INSTALLERS) {
+    if (pattern.test(text) === true) return null;
+  }
+  if (/\.sh\b|\.ps1\b|\.bat\b|\.cmd\b|\.py\b|\.rb\b/.test(text) === true) {
+    return "install_cmd runs a script file (" + JSON.stringify(cmd) + "); use a package-manager invocation or the vendor installer";
+  }
+  return "install_cmd matches no package-manager invocation and no known vendor installer (" + JSON.stringify(cmd) + ")";
+}
+
+/**
+ * Validate the shape of every locked cli entry. Zero entries is a legitimate
+ * state: the kind is scaffolded and populated later, so it passes with the
+ * count stated rather than as a silent vacuous pass.
+ */
+function checkCliEntries(components) {
+  const clis = components.filter((c) => c.kind === "cli");
+  if (clis.length === 0) {
+    return { status: "PASS", detail: "0 cli entries locked; the kind is scaffolded and carries no entry yet" };
+  }
+  const failures = [];
+  for (const entry of clis) {
+    const id = entry.id;
+    if (LOCK_PHASES.includes(entry.phase) === false) {
+      failures.push(id + ": phase " + JSON.stringify(entry.phase) + " is outside the lock phase enum");
+    }
+    if (LOCK_TIERS.includes(entry.tier) === false) {
+      failures.push(id + ": tier " + JSON.stringify(entry.tier) + " is outside the lock tier enum");
+    }
+    if (CLI_VERIFICATIONS.includes(entry.verification) === false) {
+      failures.push(id + ": verification " + JSON.stringify(entry.verification) + " is not verified or unverified");
+    }
+    // Consistency with the schema's conditional rule: verified requires a
+    // runnable command, and a null command is only honest as unverified.
+    if (entry.verification === "verified" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
+      failures.push(id + ": verification is verified but install_cmd is null or empty");
+    }
+    if (entry.install_cmd === null || entry.install_cmd === undefined) {
+      failures.push(id + ": install_cmd is null; a cli entry must carry a real installer command");
+      continue;
+    }
+    const reason = cliCommandReason(entry.install_cmd);
+    if (reason !== null) {
+      failures.push(id + ": " + reason);
+    }
+  }
+  if (failures.length > 0) {
+    return { status: "FAIL", detail: failures.join("; ") };
+  }
+  const verified = clis.filter((c) => c.verification === "verified").length;
+  return {
+    status: "PASS",
+    detail: clis.length + " cli entries carry a real installer command with valid phase, tier and verification (" + verified + " verified)"
+  };
+}
+
 function offlineReason(result) {
   if (result.code === "ENOENT") return "tool not on PATH (ENOENT)";
   const hay = result.stderr + "\n" + result.stdout + "\n" + result.code + "\n" + (result.message || "");
@@ -279,6 +394,7 @@ function main() {
     record("per-kind/plugins", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/hooks", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/agents", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/cli", "FAIL", "cannot be evaluated: lockfile components unreadable");
   } else {
     const skills = components.filter((c) => c.kind === "skill");
     const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
@@ -512,6 +628,9 @@ function main() {
         agents.length + " agents are upstream records with null install_cmd + unverified; catalog agreement is proven by the catalog-agreement check"
       );
     }
+
+    const cliResult = checkCliEntries(components);
+    record("per-kind/cli", cliResult.status, cliResult.detail);
   }
 
   if (components === null) {
