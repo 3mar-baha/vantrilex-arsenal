@@ -20,8 +20,8 @@
     },
     "kind": {
       "type": "string",
-      "enum": ["skill", "mcp", "plugin", "hook", "agent", "formatting"],
-      "description": "Component family. Decides which registry subdirectory holds the component files and which registry/data/<kind>.jsonl sidecar may enrich it."
+      "enum": ["skill", "mcp", "plugin", "hook", "agent", "formatting", "cli"],
+      "description": "Component family. Decides which registry subdirectory holds the component files and which registry/data/<kind>.jsonl sidecar may enrich it. 'cli' covers a command-line tool provisioned as an executable on PATH rather than a prompt-loaded or process-resident component; its install_cmd must be a real package-manager invocation or the vendor's own installer, never a bare package name and never a curl-piped script."
     },
     "description": {
       "type": "string",

@@ -11,16 +11,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **A `cli` kind — the place for command-line tools, holding zero entries.** The
+  lock schema and the registry catalog schema both accept `cli`, and
+  `scripts/verify-kit.mjs` grew a `per-kind/cli` check that validates a real
+  package-manager invocation or vendor installer, rejects chained shell operators
+  and piped remote code, and reports `0 cli entries locked` rather than passing
+  vacuously. New `cli` entries default to `conditional` — per-project, owner
+  approval — recorded as prose rather than a schema mechanism, since a hard-coded
+  tier check would turn a legitimate promotion to `core` into an error.
+  Selection criteria are owner-locked: free or a generous free tier for a solo
+  developer with the terms recorded, no functional overlap with a locked
+  component, best-of-breed among duplicates, a replacement surfaced only when
+  clearly and significantly better with concrete differences stated and otherwise
+  dropped silently, and licence recorded for information only, never a filter.
+  Population happens later through the digest and review mechanism; nothing is
+  locked now.
 - **A direct install command under each of the three skills.** The README now
   carries a copy-pasteable `npx skills add` command beneath Prime, Vanguard, and
   Doctrine, so a reader can take one skill immediately instead of running the
   full Vanguard survey first. The commands follow the install pattern documented
-  at `docs/04-VANGUARD.md` and are recorded as documented text — they were not
-  executed to produce this entry. Both READMEs carry the block at the same
+  at `docs/04-VANGUARD.md`. Both READMEs carry the block at the same
   position: the English one under `Install directly:`, the Arabic one under
   `للتثبيت مباشرة:` with the command itself left in Latin script so the two
   files render identically. Documentation only: no new component, no registry or
   `kit.lock` change, no behavior change.
+- **Those three commands are now proven, not assumed.** Each was executed for real
+  in an isolated sandbox with a fresh `HOME` and its own working directory, with
+  nothing written outside it. All three exited 0, each installed into
+  `.agents/skills/<name>/SKILL.md`, and every installed file is byte-identical to
+  its committed blob — matched with `git hash-object` and SHA-256 against
+  `HEAD:<path>` rather than the working tree, so an unrelated uncommitted edit
+  cannot manufacture a false pass. The CLI reports *Found 20 skills*, which
+  matches the twenty directories under `.opencode/skills/`, so it does discover
+  this repository's layout. The `-a opencode` flag that `kit.lock` uses for
+  upstream skills is **not** required here: agent auto-detection already resolves
+  to OpenCode, and adding the flag changes only the console echo, not where files
+  land. The commands stay as written.
 - **Third top-level skill: `vantrilex-prime`.** An orientation skill that runs once
   per machine, before Vanguard or Doctrine. It covers what the Arsenal is, the
   canonical repository URL, how to clone and pin it, the on-disk layout, how to
@@ -308,3 +334,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.2.0...HEAD
 [0.2.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.2.0
 [0.1.0]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.1.0...v0.2.0
+
+### Fixed
+
+- **`kit/kit.lock` pointed `firecrawl` at a repository that does not exist.** The
+  entry carried `source: firecrawl/firecrawl-mcp` and `verification: verified`
+  together. `git ls-remote` returns *Repository not found* for that path, so a
+  verified entry asserted provenance on a dead repo — the exact
+  plausible-looking-wrong-command failure this repo exists to prevent. The npm
+  metadata for the pinned `firecrawl-mcp@3.27.3` names
+  `firecrawl/firecrawl-mcp-server` as its repository, that path resolves, and the
+  lock now says so. `install_cmd`, pin, phase, tier, and verification are
+  unchanged; only `source` moved.
+- **Four locked agents recorded no provenance at all.** `architect`,
+  `code-reviewer`, `ai-generated-code-security-auditor`, and `technical-writer`
+  carried `source: null` while the registry sidecar already held the upstream
+  origin for each — `worldflowai/everything-claude-code` and
+  `msitarzewski/agency-agents`. Both resolve. The lock now carries what the
+  registry already knew instead of discarding it.
+
+### Changed
+
+- **`SECURITY.md` said three things the audit disproved.** It claimed the project
+  ships "not an executable runtime" while `.opencode/plugin/arsenal.ts` is a
+  runtime with seven hook callbacks that write and spawn; it claimed a verified
+  entry records what it was verified against, and no such field exists among the
+  twelve fields the catalog carries; and it claimed the lock pins versions, where
+  2 of 52 entries carry a `version_pin` and all ten installable skills carry
+  none. Each now states what is actually true, including that a `verified` flag
+  is an assertion to re-test rather than auditable proof. Two weaker claims were
+  corrected the same way: the pre-commit hook refuses a newly *added* `.env`
+  rather than any staged one, and `scripts/` records no approval before its
+  recursive deletions even though the paths themselves are verified inside the
+  repository root. The 36 catalog records whose unquoted multi-word `--skill`
+  values would install the wrong thing are documented as a known open defect
+  rather than silently left for the next reader to trip over.
+- **A lost warning came back.** Adding CLI install prose to the Vanguard skill
+  reworded "never guess a repository path" down to "never guess a binary", which
+  silently dropped the guard on `npx skills add <repo>` — the failure it exists to
+  prevent. It now reads "a repository path or a binary".
+- **The Vanguard skill's three bare source URLs are wrapped in backticks**, so
+  markdownlint passes on a file this change touches. `docs/04-VANGUARD.md` now
+  records that an MCP server may be installed as a JSON snippet *or* as
+  `npx -y <package>`, which is what `verify-kit.mjs` actually accepts and what the
+  two verified MCP entries already do.

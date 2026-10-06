@@ -55,6 +55,7 @@ every project:
 | Plugins | 6 | code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance |
 | Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
 | Agents | 6 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer, plus red-team and a11y-audit |
+| CLIs | 0 | Kind scaffolded in both schemas and checked by the verifier; no entry locked yet |
 
 The honest current count is 36 tier `core` records plus 16 tier `conditional`
 records, which is 52 locked components with an empty `pending` list. The two

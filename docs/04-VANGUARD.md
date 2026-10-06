@@ -98,6 +98,42 @@ The five-step selection algorithm:
    and record why.
 5. Present a shortlist table. The owner approves it. Then install.
 
+### Selection criteria, owner-locked
+
+These criteria are fixed policy, not scoring weight. Step 3 scores candidates,
+but a candidate that fails any criterion below is not downgraded into the kit —
+it is out, whatever its install count.
+
+1. **Free, or a generous free tier, for a solo developer.** Record the actual
+   terms in the selection note: the price at the tier that applies, the quota
+   or limit attached to it, and what happens past that limit. A component whose
+   free tier cannot carry one developer's ordinary use does not qualify, and
+   "generous" is read as covering normal working volume, not as covering a
+   trial window.
+2. **No functional overlap with an existing locked component.** If it does
+   something a locked component already does, it is rejected — not parked
+   beside it. Overlap is measured on what the tool does, not on whether its
+   interface differs.
+3. **Best-of-breed.** Among duplicates that survive criteria 1 and 2, only the
+   strongest is kept. The stronger one is the one that covers the need more
+   completely or more reliably, judged against the same need the duplicate was
+   selected for.
+4. **A replacement is surfaced only when clearly and significantly better.**
+   A candidate that would *replace* a locked component is put to the owner only
+   when it is clearly and significantly better, with the concrete differences
+   stated: what the incumbent cannot do, what the candidate does instead, and
+   what the swap costs. Anything short of that is **dropped silently** — no
+   report, no entry, no pending slot. A near-tie is not a proposal.
+5. **License is recorded for information only and is never a filter.** The
+   license is stated in the selection note so the owner can judge it. A license
+   on its own never excludes a candidate and never decides between two
+   candidates.
+
+Criterion 4 is the one that gets misread, so it is stated as a rule about
+reporting as much as about selection: silence is the correct output for a
+marginal replacement, and a silence is not an oversight to be corrected by
+reporting it next time.
+
 Tier 0 (52 locked components: 36 tier core plus 16 tier conditional, 0
 pending) is pre-approved. Tier 1 is per-project and always needs owner
 approval.
@@ -105,19 +141,23 @@ approval.
 ### Step 4 — Install, verify, report
 
 Install with real commands only — skills via
-`npx skills add <repo> --skill <name>`, MCP servers via JSON snippets, never
+`npx skills add <repo> --skill <name>`, MCP servers either as a JSON snippet or, where the server
+ships an npm entry point, as `npx -y <package>` — the pattern `scripts/verify-kit.mjs` accepts as
+`NPM_CMD` — never
 an invented package name. Write the lock entries with pinned versions. Inject
 phase-scoped: a component lives only in its phases, with the 8-MCP cap as the
-backstop. Then verify per kind, six protocols:
+backstop. Then verify per kind, seven protocols:
 
 | Kind | Verification protocol |
 |---|---|
 | MCP server | `list_tools` ping plus one smoke call |
 | Skill | Load SKILL.md plus a dry run |
 | Agent | Echo task dispatch |
+| CLI | `<binary> --version` exits 0 |
 | Plugin and hook | Fire a test event |
 | LSP | Open a sample file and expect diagnostics |
 | Formatting | Run on a sample and diff-check |
+| CLI | `<binary> --version` exits 0 |
 
 Report one table row per component: tool, kind, status (works or fails),
 evidence, and how to fix. Proceed only after owner sign-off on failures.
