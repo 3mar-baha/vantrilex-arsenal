@@ -10,6 +10,12 @@ permissions:
 jobs:
   upload:
     name: Attach release artifact
+    # Two independent gates, deliberately. The trigger only fires on v* tags, and
+    # this job-level guard is the second line, so a ref that ever reaches the
+    # workflow without being a version tag cannot run the upload. A push to main
+    # therefore creates no run at all rather than a run with every job skipped,
+    # which is what produced the false "No jobs were run" failures.
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -24,7 +30,7 @@ jobs:
           tarfile="vantrilex-arsenal-${GITHUB_REF_NAME}.tar.gz"
           tar -czf "$tarfile" \
             AGENTS.md AI_GUIDE.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md \
-        README.ar.md SECURITY.md \
+            README.ar.md SECURITY.md \
             registry .opencode scripts kit docs \
             .editorconfig .gitattributes .gitignore .markdownlint.jsonc
           echo "packaged ${tarfile}"

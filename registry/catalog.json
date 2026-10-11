@@ -4,13 +4,14 @@
   "catalog_version": 2,
   "counts": {
     "skill": 1503,
-    "mcp": 905,
-    "plugin": 12,
+    "mcp": 907,
+    "plugin": 11,
     "hook": 20,
     "agent": 284,
     "formatting": 13,
+    "lsp": 1,
     "cli": 0,
-    "total": 2737
+    "total": 2739
   },
   "components": [
     {
@@ -42608,10 +42609,10 @@
       "name": "filesystem",
       "kind": "mcp",
       "description": "Secure scoped filesystem read/write.",
-      "source": null,
+      "source": "modelcontextprotocol/servers",
       "origin": "modelcontextprotocol/servers",
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y @modelcontextprotocol/server-filesystem",
+      "version_pin": "1.0.0",
       "category": null,
       "tags": [
         "files",
@@ -42622,7 +42623,7 @@
       "tier": "core",
       "verify_cmd": null,
       "cost_note": null,
-      "verification": "unverified",
+      "verification": "verified",
       "default_selected": true
     },
     {
@@ -43157,8 +43158,8 @@
       "description": "GitHub repos, issues, PRs.",
       "source": null,
       "origin": "modelcontextprotocol/servers",
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y @modelcontextprotocol/server-github",
+      "version_pin": "2025.4.8",
       "category": null,
       "tags": [
         "git",
@@ -43169,7 +43170,7 @@
       "tier": "core",
       "verify_cmd": null,
       "cost_note": null,
-      "verification": "unverified",
+      "verification": "verified",
       "default_selected": true
     },
     {
@@ -46610,10 +46611,10 @@
       "name": "memory",
       "kind": "mcp",
       "description": "Persistent knowledge-graph memory.",
-      "source": null,
+      "source": "modelcontextprotocol/servers",
       "origin": "modelcontextprotocol/servers",
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y @modelcontextprotocol/server-memory",
+      "version_pin": "1.0.0",
       "category": null,
       "tags": [
         "memory",
@@ -46624,7 +46625,7 @@
       "tier": "core",
       "verify_cmd": null,
       "cost_note": null,
-      "verification": "unverified",
+      "verification": "verified",
       "default_selected": true
     },
     {
@@ -49868,10 +49869,10 @@
       "name": "sequential-thinking",
       "kind": "mcp",
       "description": "Structured step-by-step reasoning server.",
-      "source": null,
+      "source": "modelcontextprotocol/servers",
       "origin": "modelcontextprotocol/servers",
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y @modelcontextprotocol/server-sequential-thinking",
+      "version_pin": "1.0.0",
       "category": null,
       "tags": [
         "reasoning",
@@ -49882,7 +49883,7 @@
       "tier": "core",
       "verify_cmd": null,
       "cost_note": null,
-      "verification": "unverified",
+      "verification": "verified",
       "default_selected": true
     },
     {
@@ -51184,6 +51185,28 @@
       "default_selected": false
     },
     {
+      "id": "supabase-mcp",
+      "name": "supabase/mcp",
+      "kind": "mcp",
+      "description": "Official Supabase MCP server. Connect via the hosted remote server at `https://mcp.supabase.com/mcp` (OAuth 2.1, no PAT) or install locally with `npx -y @supabase/mcp-server-supabase` and a personal access token.",
+      "source": "supabase/mcp",
+      "origin": null,
+      "install_cmd": "npx -y @supabase/mcp-server-supabase",
+      "version_pin": "0.13.0",
+      "category": null,
+      "tags": [
+        "databases",
+        "remote"
+      ],
+      "when_to_use": "When a Supabase project tables, config, or data must be queried or managed from an agent",
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
       "id": "supertone-inc-supertone-mcp",
       "name": "supertone-inc/supertone-mcp",
       "kind": "mcp",
@@ -52240,6 +52263,28 @@
       "default_selected": false
     },
     {
+      "id": "vercel-mcp",
+      "name": "vercel-mcp",
+      "kind": "mcp",
+      "description": "Official Vercel MCP server, remote-only at `https://mcp.vercel.com` with OAuth. There is no self-hostable package; install the client config with `npx -y add-mcp https://mcp.vercel.com`.",
+      "source": "vercel/vercel-mcp-overview",
+      "origin": null,
+      "install_cmd": "npx -y add-mcp@2.4.1 https://mcp.vercel.com",
+      "version_pin": "2.4.1",
+      "category": null,
+      "tags": [
+        "cloud-platforms",
+        "remote"
+      ],
+      "when_to_use": "When a Vercel project deployments, logs, docs, or Web Analytics must be queried from an agent",
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
       "id": "vibeads-mcp",
       "name": "vibeads/mcp",
       "kind": "mcp",
@@ -53027,7 +53072,7 @@
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
-      "default_selected": true
+      "default_selected": false
     },
     {
       "id": "code-simplifier",
@@ -53065,7 +53110,7 @@
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
-      "default_selected": true
+      "default_selected": false
     },
     {
       "id": "context7",
@@ -53218,25 +53263,6 @@
       "cost_note": null,
       "verification": "unverified",
       "default_selected": false
-    },
-    {
-      "id": "typescript-lsp",
-      "name": "typescript-lsp",
-      "kind": "plugin",
-      "description": "TypeScript intelligence",
-      "source": null,
-      "origin": "anthropics/claude-plugins-official",
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [],
-      "when_to_use": "When editing .ts/.tsx, for language intelligence and diagnostics",
-      "phase": "build",
-      "tier": "core",
-      "verify_cmd": null,
-      "cost_note": null,
-      "verification": "unverified",
-      "default_selected": true
     },
     {
       "id": "auto-format-js-ts-files-with-prettier-after-edits",
@@ -59884,6 +59910,25 @@
       "cost_note": "heavy",
       "verification": "unverified",
       "default_selected": false
+    },
+    {
+      "id": "typescript-lsp",
+      "name": "typescript-lsp",
+      "kind": "lsp",
+      "description": "TypeScript intelligence",
+      "source": "typescript-language-server/typescript-language-server",
+      "origin": null,
+      "install_cmd": "npm install -g typescript-language-server",
+      "version_pin": "6.0.2",
+      "category": null,
+      "tags": [],
+      "when_to_use": "When editing .ts/.tsx, for language intelligence and diagnostics",
+      "phase": "build",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "default_selected": true
     }
   ]
 }

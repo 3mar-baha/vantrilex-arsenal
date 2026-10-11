@@ -326,6 +326,50 @@ function checkCliEntries(components) {
   };
 }
 
+/**
+ * Validate the shape of every locked lsp entry. Mirrors checkCliEntries: a
+ * language server installs through a package manager or a vendor installer,
+ * never a chained shell or a piped remote script.
+ */
+function checkLspEntries(components) {
+  const lsps = components.filter((c) => c.kind === "lsp");
+  if (lsps.length === 0) {
+    return { status: "PASS", detail: "0 lsp entries locked; the kind is scaffolded and carries no entry yet" };
+  }
+  const failures = [];
+  for (const entry of lsps) {
+    const id = entry.id;
+    if (LOCK_PHASES.includes(entry.phase) === false) {
+      failures.push(id + ": phase " + JSON.stringify(entry.phase) + " is outside the lock phase enum");
+    }
+    if (LOCK_TIERS.includes(entry.tier) === false) {
+      failures.push(id + ": tier " + JSON.stringify(entry.tier) + " is outside the lock tier enum");
+    }
+    if (CLI_VERIFICATIONS.includes(entry.verification) === false) {
+      failures.push(id + ": verification " + JSON.stringify(entry.verification) + " is not verified or unverified");
+    }
+    if (entry.verification === "verified" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
+      failures.push(id + ": verification is verified but install_cmd is null or empty");
+    }
+    if (entry.install_cmd === null || entry.install_cmd === undefined) {
+      failures.push(id + ": install_cmd is null; an lsp entry must carry a real installer command");
+      continue;
+    }
+    const reason = cliCommandReason(entry.install_cmd);
+    if (reason !== null) {
+      failures.push(id + ": " + reason);
+    }
+  }
+  if (failures.length > 0) {
+    return { status: "FAIL", detail: failures.join("; ") };
+  }
+  const verified = lsps.filter((c) => c.verification === "verified").length;
+  return {
+    status: "PASS",
+    detail: lsps.length + " lsp entries carry a real installer command with valid phase, tier and verification (" + verified + " verified)"
+  };
+}
+
 function offlineReason(result) {
   if (result.code === "ENOENT") return "tool not on PATH (ENOENT)";
   const hay = result.stderr + "\n" + result.stdout + "\n" + result.code + "\n" + (result.message || "");
@@ -395,6 +439,7 @@ function main() {
     record("per-kind/hooks", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/agents", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/cli", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/lsp", "FAIL", "cannot be evaluated: lockfile components unreadable");
   } else {
     const skills = components.filter((c) => c.kind === "skill");
     const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
@@ -631,6 +676,9 @@ function main() {
 
     const cliResult = checkCliEntries(components);
     record("per-kind/cli", cliResult.status, cliResult.detail);
+
+    const lspResult = checkLspEntries(components);
+    record("per-kind/lsp", lspResult.status, lspResult.detail);
   }
 
   if (components === null) {

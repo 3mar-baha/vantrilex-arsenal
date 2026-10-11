@@ -1512,7 +1512,7 @@ Consolidated reference of every system component with its folder path.
 | 1502 | vantrilex-prime | Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe… | 3mar-baha/vantrilex-arsenal | `` |
 | 1503 | vantrilex-design-variations | Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi… | 3mar-baha/vantrilex-arsenal | `` |
 
-## MCP Servers (905 — 8 default-selected)
+## MCP Servers (907 — 8 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2421,14 +2421,16 @@ Consolidated reference of every system component with its folder path.
 | 903 | context7 ✅ | Live library and framework documentation lookup by package and version | upstash/context7 | `` |
 | 904 | firecrawl ✅ | Deep web scrape, crawl and extract with LLM-powered content analysis | firecrawl/firecrawl-mcp | `` |
 | 905 | lenis-mcp-server | Lenis smooth-scroll MCP server. The npm package is NOT published as of 2026-10-0… |  | `` |
+| 906 | supabase/mcp | Official Supabase MCP server. Connect via the hosted remote server at `https://mcp.supabase.com/mcp` (OAuth 2.1, no PAT) or install locally with `npx -y @supabase/mcp-server-supabase` and a personal access token. | supabase/mcp | `npx -y @supabase/mcp-server-supabase` |
+| 907 | vercel-mcp | Official Vercel MCP server, remote-only at `https://mcp.vercel.com` with OAuth. There is no self-hostable package; install the client config with `npx -y add-mcp https://mcp.vercel.com`. | vercel/vercel-mcp-overview | `npx -y add-mcp@2.4.1 https://mcp.vercel.com` |
 
-## Plugins (12 — 3 default-selected)
+## Plugins (11 — 0 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
-| 1 | code-review ✅ | Code review |  | `` |
+| 1 | code-review | Code review |  | `` |
 | 2 | code-simplifier | Refactor code |  | `` |
-| 3 | commit-commands ✅ | Git workflow |  | `` |
+| 3 | commit-commands | Git workflow |  | `` |
 | 4 | context7 | Live documentation lookup |  | `` |
 | 5 | feature-dev | Feature development |  | `` |
 | 6 | frontend-design | UI patterns |  | `` |
@@ -2437,7 +2439,6 @@ Consolidated reference of every system component with its folder path.
 | 9 | pr-review-toolkit | PR automation |  | `` |
 | 10 | pyright-lsp | Python type checking |  | `` |
 | 11 | security-guidance | Security checks |  | `` |
-| 12 | typescript-lsp ✅ | TypeScript intelligence |  | `` |
 
 ## Hooks (20 — 3 default-selected)
 
@@ -2771,6 +2772,12 @@ Consolidated reference of every system component with its folder path.
 | 12 | opencode.ai | Terminal-agent developer tool interface system | voltagent/awesome-design-md | `registry/formatting/brands/opencode.ai/` |
 | 13 | claude | Conversational AI assistant interface system | voltagent/awesome-design-md | `registry/formatting/brands/claude/` |
 
+## LSP Servers (1 — 1 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | typescript-lsp ✅ | TypeScript intelligence | typescript-language-server/typescript-language-server | `` |
+
 ## CLI Tools (0 — 0 default-selected)
 
 | # | Name | Description | Source | Install |
@@ -2778,8 +2785,8 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2737
-- **Default-selected:** 22
+- **Total components:** 2740
+- **Default-selected:** 23
 
 ---
 
@@ -2790,4 +2797,5 @@ Consolidated reference of every system component with its folder path.
 - Hooks → `registry/hooks/`
 - Agents → `registry/agents/`
 - Formatting → `registry/formatting/`
+- LSP Servers → `registry/lsp/`
 - Machine mirror → `registry/catalog.json`

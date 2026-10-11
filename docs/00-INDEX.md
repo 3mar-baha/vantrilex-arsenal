@@ -39,6 +39,7 @@ provenance: read them, never rewrite them.
 | [14-CI-RELEASE.md](14-CI-RELEASE.md) | What CI runs, and how a version is tagged and published |
 | [15-DECISIONS.md](15-DECISIONS.md) | Which decisions are already ratified, with date, context, and consequences |
 | [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) | What the task-dispatcher hook is, the OpenCode V2 `prompt` hook it binds to, the six hooks that stayed on V1, and its kill switch |
+| [17-V2-HOOK-GAP.md](17-V2-HOOK-GAP.md) | Which plugin callbacks have a real OpenCode V2 landing site and which two lose their blocking teeth, with the evidence from the published types |
 | [spec/VANTRILEX_KIT_SPEC.md](spec/VANTRILEX_KIT_SPEC.md) | Provenance, read-only: naming, the specified Tier-0 set, catalog v2, the transplant manifest |
 | [spec/VANTRILEX_SKILLS_SPEC.md](spec/VANTRILEX_SKILLS_SPEC.md) | Provenance, read-only: Vanguard in Part A, Doctrine in Part B, the phase map, the 28-file target-project set |
 
@@ -72,12 +73,14 @@ A contributor reads for landing changes:
 7. [15-DECISIONS.md](15-DECISIONS.md) for decisions that are already settled.
 8. [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) for the hook that classifies every
    user message into one of five task scenarios.
+9. [17-V2-HOOK-GAP.md](17-V2-HOOK-GAP.md) for which plugin callbacks port to
+   OpenCode V2 and which two lose their blocking teeth.
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2737 catalog records, 36 records with tier
-  `core` including the 3 Arsenal skills, 22 default-selected components,
-  12 verified install commands, 6 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
+- Counts are honest and checkable: 2739 catalog records, 31 records with tier
+  `core` including the 3 Arsenal skills, 23 default-selected components,
+  19 verified install commands, 7 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
 - Every relative link resolves to a file that exists. The `spec/` inputs are

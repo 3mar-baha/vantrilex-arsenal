@@ -15,7 +15,10 @@ the book assumes. Read it when the question is what the rules are, which workflo
 decides; it answers all three, and it answers them the same way every session. Three top-level
 skills exist and they run in one fixed order: `vantrilex-prime` orients the machine once,
 `vantrilex-vanguard` equips the project once per project, and `vantrilex-doctrine` governs how the
-work runs once the kit is installed.
+work runs once the kit is installed. It also owns one artifact inside every
+project it governs: the standing-directive block written into that project's `CLAUDE.md` and
+re-verified on every later run, so the permanent rules are stated once in the file every agent
+already reads instead of being repeated in every work order.
 
 ## When to Use
 
@@ -27,11 +30,21 @@ work runs once the kit is installed.
 - At every phase transition, before injecting the next phase kit and pruning the last one.
 - When a defect resists fixing and the breaker must be armed, or when a gate fails and the verdict
   must be held.
+- At every equip run and every later run on an equipped project, to write the standing-directive
+  block into the target project's `CLAUDE.md` when it is absent and to repair it when it has
+  drifted, following the procedure under B.8.
 
 ## Do NOT use
 
 - To survey sources, select components, or install the kit on a fresh project — that equip run
   belongs to Vanguard, which already pinned the kit this skill injects per phase.
+- To carry the standing directives inside a work order. The block under B.8 is their single home
+  once it is on disk, and a directive restated inside a brief is a second copy that will drift
+  from the one the target project's agents actually read.
+- To write the block into `docs/25-AI-CONSTITUTION.md` or to merge it with the laws that file
+  holds. The constitution holds the project's own immutable laws and the block holds the permanent
+  Arsenal directives; one file carrying both makes it impossible to change one without rewriting
+  the other.
 - To orient a machine or restate the Arsenal itself — that is `vantrilex-prime`, which runs before
   Vanguard and before this skill on a fresh machine. Doctrine names that hand-off and never expands
   it.
@@ -51,6 +64,9 @@ work runs once the kit is installed.
 - Gate evidence: the exact command run and its real output, never a summary of it. A summary is an
   interpretation, and gates rule on observations, not interpretations.
 - The strike ledger for any live defect id, and the owner's recorded decisions.
+- For the standing-directive run: the target project's root directory, the current contents of that
+  project's `CLAUDE.md` when the file exists, and the deployed kit and spec marker stated in
+  `kit/kit.lock`, read there rather than remembered.
 
 ## Parallel execution first
 
@@ -408,6 +424,183 @@ Parallel execution first. This entry exists so a reader arriving at the B-series
 without reading the whole file, and it deliberately carries no second copy: two versions of the
 same law will disagree at the worst possible moment.
 
+### B.8 — Standing directives in the target project's `CLAUDE.md`
+
+Six directives are permanent. They used to be restated in every work order, which
+meant the cost was paid again on each dispatch and any edit had to be replayed
+into every brief already sent. They now live in one place instead: a delimited
+block inside the target project's `CLAUDE.md`, written once and re-verified
+forever after. This section states where the block lives, what it says, when
+Doctrine writes and verifies it, and how it is extended without touching a word
+the owner wrote.
+
+The block is read every session, so it carries no Arsenal internals and no
+version numbers of its own: it states the six rules, names the owner, and stops.
+Everything an implementing agent needs in order to place and repair the block
+sits in the prose around it, never inside it.
+
+#### B.8.1 — Where the block lives
+
+One file, one region, one owner. The block lives at the repository root of the
+equipped project, in `CLAUDE.md`, appended after whatever the owner already wrote
+there. `CLAUDE.md` is where every agent running in the project reads its standing
+instructions, and no other file in the twenty-eight-file set is read that way.
+The block is never written into the project's `docs/` series and is never merged
+into `docs/25-AI-CONSTITUTION.md`: the constitution holds the project's own
+immutable laws, the block holds the permanent Arsenal directives, and mixing them
+makes it impossible to change one without rewriting the other. A directive
+restated inside a work order is a second copy of a permanent rule, and two
+copies of a permanent rule will disagree.
+
+Two HTML comment sentinels delimit the region, so the block is findable by exact
+string match and an agent can never mistake the owner's prose for kit content:
+
+```text
+<!-- vantrilex:standing-directives:begin spec=standing-directives@v1 -->
+<!-- vantrilex:standing-directives:end -->
+```
+
+The opening sentinel carries the spec marker. The closing sentinel closes the
+region and carries nothing else. `standing-directives` is the name and `v1` is
+the revision; the marker exists so a later revision of the block can be told
+apart from an edited or damaged one by reading a single line.
+
+#### B.8.2 — The canonical block
+
+The block below is the exact text Doctrine inserts. Copy it verbatim, including
+both sentinels and the blank line that separates them from the owner's content.
+The kit is the only writer: an agent that finds the block missing writes it from
+here, and an agent that finds it drifted restores it from here.
+
+```text
+<!-- vantrilex:standing-directives:begin spec=standing-directives@v1 -->
+
+<!-- Written by the Vantrilex Arsenal. This block is maintained by the kit. To
+     change it, edit the canonical copy in the Arsenal's doctrine skill; to add
+     your own instructions, put them outside the sentinels above and below. -->
+
+## Standing directives
+
+These rules are permanent. They are set by the Vantrilex Arsenal and they are
+not preferences, defaults, or suggestions.
+
+1. **Plan once, then fan out.** Every task is planned once, up front, into a
+   dependency graph. Independent tasks go to named subagents and run in parallel.
+   Only a real dependency is chained. Exactly one writer owns each shared file,
+   branch, or resource.
+2. **Management only.** The orchestrator plans, dispatches, reviews, and
+   integrates. Subagents execute the work. The orchestrator never executes node
+   work itself.
+3. **No commit, no push to main.** The kit never commits to `main` and never
+   pushes to `main`. Work lands on a branch and merges into `main` only after it
+   is verified.
+4. **Announce, then verify.** Completion is announced explicitly, with real
+   commit hashes. An independent verifier checks the result from a fresh clone.
+   The owner releases.
+5. **Free models only.** Every agent uses the free model tier. A paid model is
+   never used, on any agent, for any task. A model pin that is paid or
+   unavailable is auto-corrected: the agent inherits the default, or an
+   available free model.
+6. **General is the last resort.** Never dispatch the generic agent when a named
+   specialist fits. When no roster member fits the assignment, state the reason
+   in one line, then proceed.
+
+### Shared infrastructure
+
+The Vantrilex Arsenal plugin provides the guard infrastructure for this
+project: the session task-dispatcher that classifies each turn, the
+documentation-discipline guard that keeps Markdown inside its allowed set, and
+the versioned component kit installed per phase. Those guards are configured in
+the Arsenal config file. They are infrastructure, not permission: nothing they
+do, and no setting in them, overrides a directive above.
+
+`docs/25-AI-CONSTITUTION.md` holds this project's own immutable laws and stands
+beside this block. It is not replaced by it and does not restate it.
+
+<!-- vantrilex:standing-directives:end -->
+```
+
+The block text appears exactly twice in the Arsenal: once here, as the canonical
+copy, and once per equipped project, inside that project's `CLAUDE.md`. The
+canonical copy is changed only here, and an equipped project's copy is always
+restored from here, so the two can never describe different rules.
+
+#### B.8.3 — When Doctrine writes and verifies the block
+
+The block is written and checked at two moments, by one procedure:
+
+- **At equip, when the kit is already installed and the project is about to be
+  documented.** The kit writes or verifies the block before the documentation
+  phase closes, so no project leaves an equip run without it.
+- **On every later run on an equipped project.** The block is re-verified before
+  the run's own gates, and a drifted block is repaired at the start of that run
+  rather than left for the owner to notice.
+
+#### B.8.4 — When a directive is missing: repair, and block
+
+A missing block is repaired, and the repair is a gate:
+
+- **A directive missing from the block, or the block missing from `CLAUDE.md`
+  entirely.** Doctrine restores the region from the canonical copy in B.8.2.
+  This is a **block**, not a warning: the equip run does not close and the later
+  run does not proceed to its own gates until the block is on disk and verified.
+  A warning would let a project that lost the block keep working, and every
+  later work order in that project would pay the repetition cost again.
+- **A directive edited, reordered, or weakened.** The same repair and the same
+  block. The owner's own words outside the sentinels are preserved; anything
+  inside the sentinels is kit content and the kit decides it.
+- **The opening sentinel present with the closing sentinel absent, or prose
+  written after the block.** Drift. The region is replaced through the end of
+  the file, which trims whatever was written after the kit content.
+- **The owner's own instructions inside the sentinels.** Also drift, and restored
+  the same way. Custom instructions belong outside the sentinels, and the block
+  says so in its own header comment.
+- **The spec marker in `CLAUDE.md` disagrees with the spec this skill carries.**
+  Drift. The region is restored, which brings the marker with it.
+
+Verification checks three things and reports all three: the opening sentinel is
+present, the closing sentinel follows it, and the region between them matches
+the canonical copy character for character. The check is a guard, so it is never
+evaluated from a summary: the file is read and compared. When the file or the
+canonical copy cannot be read, the check reports `unverified` with the reason and
+is treated as failed, never skipped.
+
+#### B.8.5 — Extending an existing `CLAUDE.md` without destroying it
+
+An equipped project usually has a `CLAUDE.md` the owner wrote. The block is
+appended to it, never written over it:
+
+- **The file does not exist.** Create it holding the block, with no header
+  invented above it.
+- **The file exists without the opening sentinel.** Append one blank line, then
+  the block. Nothing above the block is read, moved, or reflowed.
+- **The file exists with the opening sentinel.** Replace exactly the region
+  between the sentinels, and nothing above or below it that the owner wrote.
+
+Idempotence is a property of that algorithm, not a convention. The opening
+sentinel decides which branch runs, so a second run over an already-correct
+`CLAUDE.md` takes the replace branch, produces a region identical to the
+canonical copy, and writes the same file it read. Re-running never duplicates
+the block, never appends a second copy below the first, and never touches the
+owner's text.
+
+#### B.8.6 — The block and the kill-switch config
+
+The six directives are not switchable. `.opencode/arsenal.json` is the
+kill-switch config for the Arsenal's own guards, and as it stands it resolves
+exactly two switches: `docsGuard`, which configures the documentation
+discipline guard and carries `mode`, `allowedDirs`, `allowedFiles`, and
+`series`, and `taskDispatcher.enabled`, which turns the session
+task-dispatcher instruction off. Neither key reaches the directive block, and no
+key in that file weakens a directive, because a permanent rule that a config
+file can quietly turn off is not permanent.
+
+The two config switches do bound the block's own mechanics. `CLAUDE.md` is in the
+docs-guard's `allowedFiles` default, so appending the block passes the guard on
+every project that left `allowedFiles` at its default. A project that narrowed
+`allowedFiles` must add its own `CLAUDE.md` there for the append to pass, and a
+`docsGuard.mode` of `block` refuses the write until it does.
+
 ## Outputs
 
 - A role-assignment record for every dispatch, in this exact shape:
@@ -449,6 +642,17 @@ Pruned  : <skill names from the previous phase>
 Cap     : <8-MCP backstop respected: yes>
 ```
 
+- A standing-directive record for every run that writes or verifies the block, in this exact shape:
+
+```text
+STANDING DIRECTIVE RECORD
+File   : <path to the target project's CLAUDE.md>
+Marker : <absent | present | present, drifted | unverified, reason>
+Action : <wrote block | replaced region between sentinels | created file | none, already canonical>
+Gate   : <PASS | FAIL — blocks the equip close and every later gate>
+Spec   : <standing-directives@v1, matches the Arsenal doctrine skill: yes | no>
+```
+
 - Authorship confirmation for the target-project workflow file: Vanguard generates 27 of the 28
   target-project docs; `docs/18-WORKFLOW.md` is the one it does not generate. Doctrine authors it —
   written in full on creation and never left empty — so the handoff is unambiguous.
@@ -471,3 +675,7 @@ Cap     : <8-MCP backstop respected: yes>
   stack two phases of kit.
 - **Skipping a level hides information.** A question that jumps the ladder is sent back down one
   level with the reason stated; the ledger records every escalation and every verdict.
+- **The standing-directive block is missing or a directive is gone from it.** Restore the region
+  from B.8.2 and hold the run at its gate until the file on disk matches the canonical copy.
+  Passing a gate on a repaired-in-memory block is the same failure as a dispatch confirmed on a
+  subagent's word.

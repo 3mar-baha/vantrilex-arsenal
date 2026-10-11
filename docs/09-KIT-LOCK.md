@@ -4,7 +4,7 @@ The kit lock is the pinned record of what a project actually received: every
 provisioned component at an exact version, plus the approved-but-not-yet-fit
 remainder. Its contract comes from Vanguard Step 4 in
 [04-VANGUARD.md](04-VANGUARD.md). The lock manifest (`kit/kit.lock`) holds
-52 components (36 tier core plus 16 tier conditional) with an empty pending
+47 components (31 tier core plus 16 tier conditional) with an empty pending
 list; this file states what it pins and the rules that govern it.
 
 ## What the lock pins
@@ -50,16 +50,16 @@ Install once centrally; inject per phase, prune after. Context spend tracks
 the work being done:
 
 Every locked component carries a `phase`, and that field is the whole of the
-assignment. Read from `kit/kit.lock`, the 52 components group as:
+assignment. Read from `kit/kit.lock`, the 47 components group as:
 
 | Phase | Resident components |
 |---|---|
-| scout | `fetch`, `context7` (mcp, plugin), `firecrawl`, `session-start`, `task-dispatcher`, `vantrilex-prime`, `vantrilex-vanguard` |
+| scout | `fetch`, `context7` (mcp), `firecrawl`, `session-start`, `task-dispatcher`, `vantrilex-prime`, `vantrilex-vanguard` |
 | docs | `grill-me`, `technical-writer`, `documentation-as-tests` |
 | plan | `ask-matt`, `wayfinder`, `sequential-thinking`, `architect`, `babel-bridge` |
-| build | `tdd`, `ponytail`, `openrouter`, `typescript-lsp`, `feature-dev`, `long-running-process-guard`, `typescript-check-after-editing-ts-tsx-files`, `auto-format-js-ts-files-with-prettier-after-edits`, `lenis`, `og-image`, `open-graph-image`, `time-capsule-test`, `vantrilex-design-variations` |
-| review | `code-review` (skill, plugin), `ponytail-review`, `github`, `security-guidance`, `code-reviewer`, `ai-generated-code-security-auditor`, `red-team` (skill, agent), `skill-shadow`, `a11y-audit` |
-| operate | `ponytail-audit`, `filesystem`, `memory`, `commit-commands`, `pre-compact`, `persist-session-state-on-end`, `vantrilex-doctrine`, `kit-evaluation-journal`, `kit-evolution-log`, `kill-switch-document` |
+| build | `tdd`, `ponytail`, `openrouter`, `typescript-lsp`, `long-running-process-guard`, `typescript-check-after-editing-ts-tsx-files`, `auto-format-js-ts-files-with-prettier-after-edits`, `lenis`, `og-image`, `open-graph-image`, `time-capsule-test`, `vantrilex-design-variations` |
+| review | `code-review` (skill), `ponytail-review`, `github`, `code-reviewer`, `ai-generated-code-security-auditor`, `red-team` (skill, agent), `skill-shadow`, `a11y-audit` |
+| operate | `ponytail-audit`, `filesystem`, `memory`, `pre-compact`, `persist-session-state-on-end`, `vantrilex-doctrine`, `kit-evaluation-journal`, `kit-evolution-log`, `kill-switch-document` |
 | on-demand | `find-skills`, `skill-creator` |
 
 `on-demand` sits outside every phase and is never injected by phase: discovery

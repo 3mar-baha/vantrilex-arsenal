@@ -152,9 +152,9 @@ repository has never benchmarked itself.*
 two rows carrying `~` — first-time setup and setup again — are rough
 illustrative estimates, not measured benchmarks; this repository has never
 benchmarked itself. Every unmarked cell is a verified
-count, not an estimate: 2,737 catalog records over six kinds, 12 verified
-install commands with the rest marked `unverified`, the same 52 pinned
-components from a pinned commit, six registry checks plus eleven kit checks,
+count, not an estimate: 2,739 catalog records over eight kinds, 19 verified
+install commands with the rest marked `unverified`, the same 47 pinned
+components from a pinned commit, six registry checks plus twelve kit checks,
 six gates each required to exit 0, three top-level skills and four role
 agents, the generated 28-file doc system, and `mcp_cap` = 8.*
 
@@ -233,19 +233,21 @@ run it.
 
 ## Kit census
 
-`kit/kit.lock` pins **52 components with an empty `pending` list**: 36 tier
+`kit/kit.lock` pins **47 components with an empty `pending` list**: 31 tier
 `core` and 16 tier `conditional`.
 
-![Table of the kit census by kind: skill 25 locked, 13 tier core, 12 tier conditional; mcp 8, 8, 0; plugin 6, 6, 0; hook 7, 5, 2; agent 6, 4, 2; Total 52 locked, 36 tier core, 16 tier conditional](docs/assets/tables/kit-census.svg)
+![Table of the kit census by kind: skill 25 locked, 13 tier core, 12 tier conditional; mcp 8, 8, 0; lsp 1, 1, 0; hook 7, 5, 2; agent 6, 4, 2; Total 47 locked, 31 tier core, 16 tier conditional](docs/assets/tables/kit-census.svg)
 
-By verification: **12 `verified`** and **40 `unverified`**. The 12 verified
-entries are the 10 upstream skills installed by `npx skills add`, plus the
-`context7` and `firecrawl` MCP servers, which are version-pinned.
+By verification: **17 `verified`** and **30 `unverified`**. The 17 verified
+entries are the 10 upstream skills installed by `npx skills add`, the
+`context7`, `firecrawl`, `filesystem`, `memory`, `sequential-thinking`, and
+`github` MCP servers, and the `typescript-lsp` language server, all
+version-pinned.
 
-The lock breaks down by kind into skills, MCP servers, plugins, hooks, and
-agents:
+The lock breaks down by kind into skills, MCP servers, the language server,
+hooks, and agents:
 
-![Table of what the 52 locked components are: 25 skills, 8 MCP servers, 6 plugins, 7 hooks, and 6 agents, with each group's contents listed](docs/assets/tables/locked-contents.svg)
+![Table of what the 47 locked components are: 25 skills, 8 MCP servers, 1 language server, 7 hooks, and 6 agents, with each group's contents listed](docs/assets/tables/locked-contents.svg)
 
 **The 8-MCP cap.** `mcp_cap` is **8** — the ceiling on tier `core` MCP servers,
 and the locked set sits exactly at it. The cap is a context-budget backstop: MCP
@@ -322,8 +324,8 @@ vantrilex-arsenal/
 │   ├── verify-kit.mjs            Kit lockfile checks
 │   ├── verify-skills.mjs         Skill-file format checks
 │   └── *.sh                      Worktree orchestration, git hooks, release
-├── kit/kit.lock                  The pinned 52-component kit
-└── docs/                         00-INDEX.md … 16-TASK-DISPATCH.md, plus
+├── kit/kit.lock                  The pinned 47-component kit
+└── docs/                         00-INDEX.md … 17-V2-HOOK-GAP.md, plus
                                   docs/spec/ — the two canonical input specs
 ```
 

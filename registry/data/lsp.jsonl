@@ -1,0 +1,1 @@
+{"id":"typescript-lsp","name":"typescript-lsp","origin":null,"tags":[],"default_selected":true,"when_to_use":"When editing .ts/.tsx, for language intelligence and diagnostics","phase":"build","tier":"core","install_cmd":"npm install -g typescript-language-server","verification":"verified","version_pin":"6.0.2","cost_note":null}

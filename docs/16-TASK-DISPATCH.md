@@ -237,6 +237,6 @@ two records to agree on `kind`, `phase`, `tier`, `install_cmd` and
 
 The migration to V2 changed which runtime surface registers this hook, not what
 the lock records. `task-dispatcher` is still `tier core` at `phase scout`, and
-the lock still holds 52 components — 36 `core` plus 16 `conditional`, 0 pending
+the lock still holds 47 components — 31 `core` plus 16 `conditional`, 0 pending
 — of which 7 are hooks. A guard moving onto a different API is not a new
 component, and nothing here may be read as one.
