@@ -13,7 +13,7 @@ const CATALOG_JSON = join(ROOT, 'registry', 'catalog.json');
 const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v2.schema.json');
 const DATA_DIR = join(ROOT, 'registry', 'data');
 
-export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'cli'];
+export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli'];
 
 const SECTION_KINDS = new Map([
   ['Skills', 'skill'],
@@ -22,6 +22,7 @@ const SECTION_KINDS = new Map([
   ['Hooks', 'hook'],
   ['Agents', 'agent'],
   ['Formatting', 'formatting'],
+  ['LSP Servers', 'lsp'],
   ['CLI Tools', 'cli'],
 ]);
 
@@ -32,6 +33,7 @@ const SECTION_LABELS = new Map([
   ['hook', 'Hooks'],
   ['agent', 'Agents'],
   ['formatting', 'Formatting'],
+  ['lsp', 'LSP Servers'],
   ['cli', 'CLI Tools'],
 ]);
 
@@ -42,6 +44,7 @@ const INDEX_DIRS = new Map([
   ['hook', 'hooks'],
   ['agent', 'agents'],
   ['formatting', 'formatting'],
+  ['lsp', 'lsp'],
   ['cli', 'cli'],
 ]);
 
@@ -344,6 +347,7 @@ const SIDECAR_FILES = new Map([
   ['hook', 'hooks.jsonl'],
   ['agent', 'agents.jsonl'],
   ['formatting', 'formatting.jsonl'],
+  ['lsp', 'lsp.jsonl'],
   ['cli', 'cli.jsonl'],
 ]);
 

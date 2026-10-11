@@ -55,8 +55,8 @@ Merge rule, in precedence order:
 5. A duplicate id inside one sidecar fails the run.
 6. An unknown field in a sidecar entry fails the run.
 
-All 6 sidecars are present today and merge cleanly: 1503 skill, 905 MCP,
-12 plugin, 20 hook, 284 agent, and 13 formatting entries, totaling 2737
+All 7 sidecars are present today and merge cleanly: 1503 skill, 907 MCP,
+12 plugin, 20 hook, 284 agent, 13 formatting, and 1 lsp entry, totaling 2739
 records.
 
 ## The single-writer law

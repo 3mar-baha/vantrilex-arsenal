@@ -19,7 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   entry): `per-kind/cli` reported `1 cli entries carry a real installer command`
   and `catalog-agreement` passed at 53 entries. Every fixture was then removed and
   `kit/kit.lock`, the sidecar, and the markdown restored byte-for-byte, so the kit
-  still locks 0 `cli` entries and the census is unchanged at 2737. Nothing about
+  still locks 0 `cli` entries and the census is unchanged at 2737 — a figure
+  superseded later in this same section by the 47-component lock cleanup, which
+  is the live census. Nothing about
   the toolchain's behaviour changed for the six existing kinds.
 
 - **A `cli` kind — the place for command-line tools, holding zero entries.** The
@@ -94,6 +96,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   surveyed-sources list names it: the official frontend of the
   VoltAgent/awesome-agent-skills collection, whose per-skill pages publish a real
   `npx skills add` install command that can be recorded verbatim as provenance.
+- **Five role agents now ship as real OpenCode definitions.** `architect`,
+  `code-reviewer`, `technical-writer`, `ai-generated-code-security-auditor`,
+  and `kit-maintainer` exist as `.opencode/agent/*.md` with `mode: subagent`,
+  no model pin, no color, and no Claude-only syntax, and all five register in
+  `opencode agent list`. The registry held only pointer indexes before, which is
+  why named specialists could never be dispatched.
+- **Official Supabase and Vercel MCP records.** Both install commands were proven
+  in a sandbox before recording: `npx -y @supabase/mcp-server-supabase@0.13.0
+  --version` and `npx -y add-mcp@2.4.1 --help` each exit 0. Vercel has no
+  self-hostable package — its server is hosted-only — and its installer is
+  third-party, which the record states.
+- **`docs/17-V2-HOOK-GAP.md`: every plugin callback has a real V2 landing site.**
+  Researched against the published `@opencode/plugin` 2.x types: all eight
+  callbacks port, though the two blocking guards go advisory-only on V2. The
+  older claim that V2 has no equivalents was wrong about writability and is
+  corrected here.
+- **`verify-kit.mjs` grew a `per-kind/lsp` check** mirroring `per-kind/cli`, so a
+  future malformed `lsp` entry cannot pass the suite silently.
 
 ### Changed
 
@@ -138,6 +158,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `npx -y <package>`, which is what `verify-kit.mjs` actually accepts and what the
   two verified MCP entries already do.
 
+- **The plugin no longer crashes the host.** `opencode run` exited 1 with the
+  plugin installed and 0 without it; the cause was not the export shape but a
+  malformed synthetic message part — the `chat.message` hook pushed a text part
+  without host-validated identity fields, which host 1.18.34 rejects before
+  save. The fix appends the instruction into the last existing user text part
+  instead, and the smoke test now exits 0 with the plugin installed. The
+  `docsDisciplineGuard` default moves from `block` to `warn` with a new
+  `docsGuard.enabled` kill switch, and `CLAUDE.md` joins the default allowed
+  files so the standing-directive append passes the guard.
+- **Vanguard gains a catalog fallback, open choice, install-time validation,
+  hygiene, a mandatory report, and a binding gap protocol.** Beyond-lock needs
+  query the live catalog under a second owner sign-off; the full inventory is
+  presented with capabilities and never hardcoded; agents are validated at
+  install (name shape, `mode: subagent`, no color, no foreign syntax) instead
+  of failing at dispatch; no vestigial deny entries are left behind; the
+  initial report is one long evidence-traced document in the required four-part
+  shape; and a missing role is searched, authored, verified, and dispatched —
+  never silently replaced by a generic agent.
+- **Doctrine writes the standing directives into the target `CLAUDE.md`.** The
+  six permanent rules live in one delimited, idempotent block, written once and
+  re-verified every run, with the spec marker telling revisions apart.
+- **`release.yml` no longer false-fails on pushes to `main`.** The committed
+  file had invalid YAML that produced zero-job runs; the trigger stays
+  tag-scoped with a job-level `v*` gate as the second line, so a main push
+  creates no run at all.
+
 - `README.md` rewritten for the three-skill architecture, with a quickstart, the
   Registry description, the kit census, and the six gates. Its previous
   "two skills" and "2,699 components" figures were wrong and did not survive.
@@ -154,6 +200,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   bullet, which would otherwise leave two live figures in one unreleased section;
   the 49, 50 and 51 censuses stay on the record as superseded history, not
   rewritten, alongside the dated decision log in `docs/15-DECISIONS.md`.
+- **The kit census moves from 52 locked components to 47, and the registry mirror is re-synced to it.** The lock drops its five `plugin` entries, reclassifies `typescript-lsp` from `plugin` to a new `lsp` kind with a verified `npm install -g typescript-language-server` command at pin 6.0.2, records real `npx -y` install commands with pins for the `filesystem`, `memory`, `sequential-thinking`, and `github` MCPs (all four now `verified`), and re-sources the four in-repo agents to `3mar-baha/vantrilex-arsenal`. The registry follows the lock without touching it: the four MCP sidecar rows now carry the locked commands, pins, and `verified` state with no other field changed; the `lsp` kind is scaffolded end to end exactly as `cli` was — catalog-schema enum, generator `KINDS`, `SECTION_KINDS`, `SECTION_LABELS`, `INDEX_DIRS`, and `SIDECAR_FILES`, a one-row `registry/data/lsp.jsonl` sidecar, an `LSP Servers` catalog section, and a generated `registry/lsp/_index.md` — and `registry/catalog.json` is regenerated to 2,739 records, 23 default-selected and 19 verified install commands from 7 sidecars. The five removed plugins stay in the catalog as unverified reference entries: the gate checks lock-to-catalog only, so extra rows are fine. The `typescript-lsp` plugin-sidecar row was removed (it now lives only in `lsp.jsonl`, ending a phantom double), and the dropped `code-review` and `commit-commands` rows were demoted from default-selected. `docs/09-KIT-LOCK.md` and `docs/01-OVERVIEW.md` carry the recounted census of 31 tier `core` plus 16 tier `conditional` with an empty pending list. This bullet supersedes the earlier unreleased 51-to-52 census bullet, which would otherwise leave two live figures in one unreleased section.
 - Every current-state document now describes a three-skill orchestration layer —
   Prime (orientation), Vanguard (equip), Doctrine (work) — instead of two.
   Released history and the dated decision log in `docs/15-DECISIONS.md` are
@@ -249,6 +296,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   to a different runtime surface is not a new component.
 
 ### Fixed
+
+- **Current-state docs now assert the 47-component census.** The lock cleanup
+  moved 52 to 47 but only two docs followed; the README pair, eight numbered
+  docs, and both census SVGs still said 52/36/2737. All fifteen stale lines now
+  read 47 locked (31 core + 16 conditional), 2,739 catalog records, 19 verified
+  commands, 23 default-selected, with the SVGs relabeled text-only and no
+  re-layout. Note: the `github` MCP pin (`2025.4.8`) is marked deprecated
+  upstream — the command is real and installs today, but it is recorded here so
+  `verified` is not misread as "maintained".
+- **The `typescript-lsp` phantom double is gone.** The row moved to the new
+  `lsp` sidecar but its old plugin-sidecar row survived, so the catalog listed
+  it twice; the plugin row is removed and the catalog recounts to 2,739. The
+  dropped `code-review` and `commit-commands` plugin rows are demoted from
+  default-selected, and the Vercel record prose now carries the pinned
+  `add-mcp@2.4.1` command the sidecar verifies.
 
 - **623 install commands pointed at a repository that contains no skills.**
   `VoltAgent/awesome-agent-skills` is an awesome list — a README of links with

@@ -36,7 +36,7 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (52 components, 0 pending)
+kit/                          PINNED KIT (47 components, 0 pending)
   kit.lock                      Pinned Tier-0 versions (pending list empty)
 
 docs/                         THIS DOCUMENTATION SET plus provenance

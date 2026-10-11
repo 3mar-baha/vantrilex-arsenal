@@ -425,6 +425,10 @@ function checkExcludedToolchains(skills) {
     const lines = decodeText(skill.buffer).split('\n');
     lines.forEach((line, index) => {
       for (const pattern of EXCLUDED_PATTERNS) {
+        // Scoped exemption (F1): vantrilex-doctrine governs the TARGET project's
+        // CLAUDE.md — the standing-directive block lives there by owner order —
+        // so that one skill must name the file. Every other skill stays banned.
+        if (pattern.label === 'CLAUDE.md' && skill.folder === 'vantrilex-doctrine') continue;
         pattern.re.lastIndex = 0;
         if (pattern.re.test(line)) {
           hits.push(`${skill.repoPath}:${index + 1}: excluded reference "${pattern.label}"`);

@@ -13,7 +13,7 @@ contradicts them.
 | Part | Location | Role |
 |---|---|---|
 | Plugin | `.opencode/` | Shipped hooks-as-plugin callbacks, role agents, operator commands, transplanted skills |
-| Registry | `registry/` | The 2737-component catalog: human-readable source plus machine mirror |
+| Registry | `registry/` | The 2740-component catalog: human-readable source plus machine mirror |
 | Default kit | Tier-0 set in the catalog | What every project receives without questions asked |
 
 The kit specification is `spec/VANTRILEX_KIT_SPEC.md` (naming, the Tier-0 set
@@ -45,26 +45,27 @@ scout without inheriting the law.
 
 ## Tier-0 census, stated honestly
 
-The default kit as locked in `kit/kit.lock` is 52 components, provisioned on
+The default kit as locked in `kit/kit.lock` is 47 components, provisioned on
 every project:
 
 | Kind | Locked count | Contents |
 |---|---|---|
 | Skills | 25 | Vanguard, Prime, Doctrine, plus 10 upstream skills, plus 12 conditional Arsenal skills |
 | MCP servers | 8 | filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter |
-| Plugins | 6 | code-review, commit-commands, typescript-lsp, context7, feature-dev, security-guidance |
+| Plugins | 0 | No entry locked; the 12 catalog plugin records stay as unverified reference entries |
 | Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
 | Agents | 6 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer, plus red-team and a11y-audit |
+| LSP servers | 1 | typescript-lsp, the TypeScript language server (build phase, tier core, verified) |
 | CLIs | 0 | Kind scaffolded in both schemas and checked by the verifier; no entry locked yet |
 
-The honest current count is 36 tier `core` records plus 16 tier `conditional`
-records, which is 52 locked components with an empty `pending` list. The two
+The honest current count is 31 tier `core` records plus 16 tier `conditional`
+records, which is 47 locked components with an empty `pending` list. The two
 conditional hooks stay locked because `.opencode/plugin/arsenal.ts` already
 implements them, so a separate install would be a second path to the same
-guard. `registry/catalog.json` today carries 2737 records in total.
-The catalog recount stands at 22 default-selected components and 12 verified
-install commands, enriched from 6 sidecars merged by the generator (skills,
-mcp, plugins, hooks, agents, formatting). Tier-1 components — Python, UI,
+guard. `registry/catalog.json` today carries 2740 records in total.
+The catalog recount stands at 23 default-selected components and 19 verified
+install commands, enriched from 7 sidecars merged by the generator (skills,
+mcp, plugins, hooks, agents, formatting, lsp). Tier-1 components — Python, UI,
 team-flow, and design-system components — are added by Vanguard only when the
 project requires them. The 8-MCP cap and the phase-scoping rule that keep the
 kit affordable are documented in [09-KIT-LOCK.md](09-KIT-LOCK.md).
@@ -76,7 +77,7 @@ OpenCode has no standalone hooks directory, so hooks are plugin callbacks: the
 against the session `prompt` hook — while the other six hooks and the
 docs-discipline guard remain on the V1 `server()` surface and are **inert under
 V2**. That gap is deliberate and unfinished, not a completed port, and it does
-not move the census: 52 locked components, 7 of them hooks. The seventh hook is
+not move the census: 47 locked components, 7 of them hooks. The seventh hook is
 documented in [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 
 ## The Node-only toolchain

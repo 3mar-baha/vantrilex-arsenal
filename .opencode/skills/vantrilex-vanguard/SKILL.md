@@ -63,6 +63,15 @@ English rule, not a contradiction.
   skill.
 - To keep running after a CRITICAL preflight failure or an unsigned-off verification failure. Both
   stop the run until the owner resolves them.
+- To install anything from beyond the locked set without a separate explicit
+  owner approval. The fallback serves proven needs the lock cannot meet, and
+  the locked shortlist approval never covers a beyond-lock install.
+- To select components from a mapping frozen in this file. Vanguard reads the
+  lock and the generated mirror live at dispatch time, and a printed table is
+  an example of the shape that never governs what installs.
+- To dispatch a generic agent while a named roster member fits the role, or to
+  fall back silently when none fits. A fallback states its reason in one line
+  before it dispatches, never after the dispatch has already run.
 
 ## Inputs
 
@@ -78,6 +87,10 @@ English rule, not a contradiction.
   documentation set. No gate is ever assumed approved.
 - Network access when available. When offline, Vanguard degrades to cached metadata and marks every
   network-dependent check SKIPPED with its reason.
+- The generated mirror `registry/catalog.json` as the fallback source beyond
+  the locked set, read live and scored with the same tests as locked rows.
+- The live roster from `opencode agent list` as the only binding source for
+  agent dispatch, searched before the kit agent and skill files are read.
 
 ## Procedure
 
@@ -149,6 +162,17 @@ states:
   new documentation set, then continue as in State 1.
 - State 4, docs plus code: run deep recon over the code, then write the documentation set, then
   record findings in `27-PROBLEMS.md`, then treat the owner's new additions as in State 1.
+
+Vanguard emits one initial report before any install begins. The report opens
+with the project described from zero in its own words, then lists every
+current problem beside the file and line that proves it, then lists possible
+future problems with probability plus impact plus prevention stated for each,
+then lists improvements ranked by impact against effort. Every claim traces
+to code Vanguard actually read; a claim without a source file is not filed.
+Every recon dispatch follows the binding protocol under task dispatch below.
+Vanguard resolves each role from the live roster first, searches the kit agent
+files next, records the role-to-agent mapping per lane, and never falls back
+to a generic agent without stating the reason in one line before dispatch.
 
 ### Concept phase (A.3)
 
@@ -252,6 +276,18 @@ Present the shortlist in this shape and stop for approval:
 | code-review      | skill  | conditional | Solid but overlapping              | Dropped, superseded, recorded   |
 ```
 
+When the locked set cannot meet a proven need, Vanguard opens the catalog
+fallback. It queries the generated mirror live, scores candidates with the
+same adoption and activity and licence and non-overlap tests, applies the same
+overlap rules, and presents fallback candidates apart from the locked rows.
+Nothing installs from beyond the lock without a second explicit owner sign-off
+that names the fallback rows being accepted beside their evidence and overlap
+ruling. Selection reads the full inventory with capabilities before narrowing
+anything: kind plus phase plus tier plus trigger shown per candidate, taken
+from the lock and the mirror live. No mapping frozen in this file governs the
+choice; a printed table illustrates the shape while the lock entry in force
+decides what installs and what stays out.
+
 ### Step 4 — Install, verify, report (A.6)
 
 Install with real commands only. Skills install through the skills CLI, MCP servers through JSON
@@ -260,6 +296,12 @@ vendor's official installer, and every package name is checked against the live 
 Never invent a package name and never guess a repository path or a binary: an unrecognised package
 is rejected, and an
 unverified component keeps a null command with `verification: unverified`.
+
+Vanguard leaves installer hygiene clean behind it. It records no vestigial
+deny entry against skills on any permission surface, and it warns the owner in
+one line whenever a global-scope skill install would inject noise into every
+project on the machine. Project-scoped phase injection stays the default, and
+global scope proceeds only under its own explicit owner approval.
 
 Verify a CLI tool with `<binary> --version` and nothing else. The entry is recorded as `verified`
 only when that command actually exits 0; any other outcome keeps `verification: unverified` with
@@ -315,6 +357,13 @@ failures:
 | grill-me   | skill | works  | SKILL.md load plus dry-run| n/a                         |
 | firecrawl  | mcp   | fails  | Connection refused, log L3| Rotate the key, then retry  |
 ```
+
+Before an agent installs or dispatches, Vanguard validates its definition
+file. The frontmatter parses as valid syntax, the name is lowercase and
+hyphenated and equals the filename stem, `mode: subagent` is present, no
+`color` field and no model pin is present, and no tool reference from another
+harness appears. A definition that fails validation is rejected with its file
+and reason stated, and dispatch on it is refused until it is repaired.
 
 ### Step 5 — Documentation phase (A.7)
 
@@ -405,7 +454,11 @@ need explicit sign-off before Vanguard moves on. Fourth, no deferred or half-wri
 kind: every file Vanguard writes is complete on delivery, because a stub filed today becomes the
 missing foundation of a failed gate next month. Vanguard additionally holds a BLOCKED checkpoint that
 refuses dispatch into install and docs phases while any CRITICAL preflight row fails or any
-verification failure still lacks owner sign-off.
+verification failure still lacks owner sign-off. Vanguard treats the catalog
+fallback as a gated lane of its own: beyond-lock candidates carry their own
+evidence and their own owner approval, and the locked approval never covers
+them. Binding stays roster-first on every single dispatch, recorded per lane,
+with no silent generic lane anywhere.
 
 ### Task dispatch
 
@@ -440,6 +493,10 @@ injected by phase. The assignment as the lock stands:
 Read the lock at dispatch time instead of copying that table forward: a component absent from a row
 is not thereby unassigned, a phase holding no row is not thereby empty, and the lock entry is what
 gets injected, never the id alone. An id recorded at two kinds is injected as both entries.
+
+No mapping printed in this skill governs a dispatch. Vanguard derives the
+phase-kit map from the lock entries in force on every run, and a mismatch
+between a printed table and the lock resolves in favour of the lock file.
 
 **Announce, then inject.** Print the phase-kit map before the first injection and let the owner read
 it. A plan presented after the kit is already in context cannot be course-corrected without spending
@@ -480,6 +537,15 @@ one short clarifying question naming the scenarios in play, then waits for the a
 agent asking the owner at runtime, not a check performed in advance. One question, then the answer
 decides; guessing a scenario is the failure, not asking.
 
+**Binding protocol.** Every dispatch binds each role to a real agent before
+anything runs. Vanguard reads the live roster from `opencode agent list` as
+the only source of truth, searches the kit agent and skill files next, authors
+a replacement only through the authoring procedure the spec defines when no
+member fits, then dispatches. The dispatch record names role, agent, and the
+dispatched target for every lane. Silent fallback to a generic agent never
+happens: when no roster member fits, Vanguard states the reason in one line
+first, then proceeds on that stated reason.
+
 ## Outputs
 
 - The kit shortlist table with candidate, kind, tier, score note, and overlap ruling, consumable as
@@ -496,6 +562,20 @@ decides; guessing a scenario is the failure, not asking.
   name recorded and the archive manifest written.
 - The Arabic relay prompt with its four sections and the owner-goal slot, handed to the owner ready
   to paste, whose returned concept feeds the next Vanguard run.
+- The OPEN CHOICE inventory with kind plus phase plus tier plus trigger shown
+  for every candidate before the shortlist narrows anything, read live from
+  the lock and the generated mirror rather than from a frozen mapping.
+- The fallback shortlist with its separate explicit approval, naming every row
+  accepted from beyond the locked set with its evidence and overlap ruling.
+- The agent validation record with file, name check, and mode check stated for
+  every agent installed or dispatched, and file plus reason for every reject.
+- The installer hygiene note with vestigial denies removed and any global scope
+  warning stated in one line beside the approval that scope still needs.
+- The initial report with the from-zero summary, current problems with proof,
+  future problems with probability plus impact plus prevention, improvements
+  ranked by impact against effort, and every claim traced to the code read.
+- The binding record naming role, agent, and dispatched target for every lane,
+  with any generic fallback reason stated in one line beside that lane.
 
 ## Failure Modes
 
@@ -518,3 +598,20 @@ decides; guessing a scenario is the failure, not asking.
   significantly better is surfaced as a proposal. Installing on Vanguard's own authority rewrites
   the owner's machine without consent, and a marginal replacement raised as a proposal produces the
   nagging the policy exists to stop; drop it silently instead.
+- Vanguard installs from beyond the locked set on the locked approval alone.
+  The fallback needs its own explicit approval naming its rows; without that
+  approval the install lane stops before any beyond-lock row runs.
+- Vanguard selects from a hardcoded mapping instead of the live lock and live
+  mirror. Re-derive the map from the files in force and re-present the plan
+  before anything injects.
+- An agent definition fails validation at install time. Vanguard rejects it
+  with file and reason stated, and refuses dispatch on it until repair lands.
+- A vestigial deny entry against skills survives the install, or a global skill
+  install lands without its one-line noise warning. Vanguard removes the entry,
+  states the warning, and re-confirms scope with the owner before proceeding.
+- The initial report ships without a mandated part, or a claim ships without
+  its source file. The report returns unapproved until every part is present
+  and every claim traces to code Vanguard actually read.
+- A dispatch lands on a generic agent without a stated reason, or a role ships
+  without its binding record. Vanguard rebinds through the roster-first rule
+  and records role, agent, and dispatched target before running anything.

@@ -42,6 +42,11 @@
  *   - Every guard degrades to SKIPPED with a stated reason. A guard never
  *     crashes a session and never reports PASS for work it did not do.
  *   - Hook callbacks mutate their output argument in place and return void.
+ *   - Message parts are never synthesized. The host validates stored part
+ *     identity (id/sessionID/messageID) before save, so a hook that needs
+ *     words in the turn appends to an existing user text part instead of
+ *     pushing a new one. (Proven 2026-10-11 on host 1.18.34: a bare
+ *     `{ type: "text", text }` part fails validation and aborts the run.)
  *   - Nothing here writes outside the resolved state directory.
  */
 
@@ -477,6 +482,8 @@ const LOG_REDIRECT_PATTERNS: readonly RegExp[] = [
  */
 export type DocsGuardConfig = {
   mode: "block" | "warn" | "off"
+  /** Kill switch, equivalent to the task-dispatcher `enabled` flag. Explicit `false` disarms the guard. */
+  enabled: boolean
   allowedDirs: string[]
   allowedFiles: string[]
   /** Numbered series such as docs/00-..27-. Series entries are `dir` + range. */
@@ -484,9 +491,11 @@ export type DocsGuardConfig = {
 }
 
 export const DEFAULT_DOCS_GUARD: DocsGuardConfig = {
-  mode: "block",
+  mode: "warn",
+  enabled: true,
   allowedDirs: ["docs/99-archive", "docs/spec", "registry", ".opencode", "brand"],
   allowedFiles: [
+    "CLAUDE.md",
     "README.md",
     "README.ar.md",
     "AI_GUIDE.md",
@@ -504,10 +513,10 @@ const MARKDOWN_EXTENSIONS = new Set([".md", ".markdown", ".mdx"])
  * Task-dispatcher kill switch.
  *
  * The flag defaults to enabled and is honoured only on an explicit boolean
- * `false`, for the same reason the docs guard defaults to blocking: a missing
- * file, malformed JSON or a half-written config must never quietly disarm a
- * guard. It also means a config that cannot be parsed fails towards the
- * documented default in both directions instead of guessing.
+ * `false`, for the same reason the docs guard defaults to warn-but-armed: a
+ * missing file, malformed JSON or a half-written config must never quietly
+ * disarm a guard. It also means a config that cannot be parsed fails towards
+ * the documented default in both directions instead of guessing.
  */
 export type TaskDispatcherConfig = {
   enabled: boolean
@@ -962,6 +971,7 @@ const readConfig = (rt: Runtime, root: string): ArsenalConfig => {
       ? value.filter((entry): entry is string => typeof entry === "string").map((entry) => toPosix(entry).replace(/^\/+|\/+$/g, ""))
       : fallback
   const mode = guard.mode === "warn" || guard.mode === "off" || guard.mode === "block" ? guard.mode : DEFAULT_DOCS_GUARD.mode
+  const docsEnabled = typeof guard.enabled === "boolean" ? guard.enabled : DEFAULT_DOCS_GUARD.enabled
   const series = Array.isArray(guard.series)
     ? guard.series.flatMap((entry) => {
         if (!entry || typeof entry !== "object") return []
@@ -979,6 +989,7 @@ const readConfig = (rt: Runtime, root: string): ArsenalConfig => {
   return {
     docsGuard: {
       mode,
+      enabled: docsEnabled,
       allowedDirs: stringList(guard.allowedDirs, DEFAULT_DOCS_GUARD.allowedDirs),
       allowedFiles: stringList(guard.allowedFiles, DEFAULT_DOCS_GUARD.allowedFiles),
       series: series.length > 0 ? series : DEFAULT_DOCS_GUARD.series,
@@ -997,6 +1008,7 @@ const formatGuardLine = (name: string, status: GuardStatus, detail: string): str
   `[arsenal] ${name}: ${status}${detail.length > 0 ? ` — ${detail}` : ""}`
 
 const appendGuardLine = (output: ToolExecuteAfterOutput, line: string): void => {
+  if (!output || typeof output.output !== "string") return
   output.output = `${output.output}\n${line}`
 }
 
@@ -1528,7 +1540,7 @@ export const docsDisciplineGuard = async (
   output: ToolExecuteBeforeOutput,
 ): Promise<void> => {
   const guard = ctx.config.docsGuard
-  if (guard.mode === "off") return
+  if (guard.enabled === false || guard.mode === "off") return
   if (!WRITE_TOOLS.has(input?.tool)) return
 
   const markdownCandidates = candidatePathsFrom(ctx.root, output?.args).filter((entry) =>
@@ -1715,17 +1727,20 @@ export const prettierFormat = async (
  * `context` hooks and event-stream traffic, never as prompt admission. The
  * event granularity and the task boundary are the same boundary.
  *
- * Two differences from the V1 implementation are deliberate, and are recorded
- * here rather than left for a reader to discover:
+ * One difference between the surfaces is deliberate, and is recorded here
+ * rather than left for a reader to discover:
  *
- *   1. Placement. V1 appended a synthetic `{ type: "text" }` part to the message
- *      after admission, so the instruction sat beside the user's words. V2's
- *      hook event has no parts array, so the instruction is appended to
- *      `event.prompt.text`, and the V2 guide states that edits "become the
- *      canonical persisted user input". Under V2 the instruction therefore
- *      persists inside the user's own message. Ordering is unchanged - still
- *      after the user's own text, still ahead of the model's work - and no
- *      other part of the turn differs.
+ *   1. Placement. V1 has a parts array, but the host validates stored part
+ *      identity before save, so pushing a synthetic `{ type: "text" }` part
+ *      aborts the run (observed 2026-10-11 on host 1.18.34: "invalid user
+ *      part before save", Missing key id/sessionID/messageID). The V1
+ *      adapter therefore appends the instruction to the last existing user
+ *      text part, which already carries valid identity. V2's hook event has
+ *      no parts array, so the instruction is appended to `event.prompt.text`,
+ *      and the V2 guide states that edits "become the canonical persisted
+ *      user input". Under V2 the instruction therefore persists inside the
+ *      user's own message. Ordering is unchanged on both surfaces - still
+ *      after the user's own text, still ahead of the model's work.
  *   2. Appended, never prepended. V2 requires that "attachment `mention`
  *      offsets" be updated or removed when text is rewritten. Appending after
  *      the existing text shifts no offset, so the rewrite is offset-safe by
@@ -1748,13 +1763,6 @@ export const taskDispatcher = (ctx: ArsenalContext): string | null =>
  * instruction is present verbatim, and a second pass finds it.
  */
 const hasDispatchInstruction = (text: string): boolean => text.includes(TASK_DISPATCH_INSTRUCTION)
-
-/**
- * V1 idempotence check. A part is pushed with the instruction verbatim and
- * never rewritten, so equality is exact here rather than a containment test.
- */
-const hasDispatchPart = (parts: readonly unknown[]): boolean =>
-  parts.some((entry) => asRecord(entry).type === "text" && asRecord(entry).text === TASK_DISPATCH_INSTRUCTION)
 
 /* ===========================================================================
  * 21. Wiring
@@ -1855,13 +1863,34 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
   })
 }
 
+/**
+ * Project-root precedence.
+ *
+ * The host may hand a bare filesystem root (`"/"`) as the worktree when the
+ * project is not a git checkout (observed 2026-10-11 on host 1.18.34: a
+ * worktree of `"/"` for a plain directory). A bare root is never the
+ * project: config, state and relative paths all resolve against it, so the
+ * kill switches silently stop working and session state lands outside the
+ * project. It is therefore skipped in favour of the next candidate, which
+ * for a plain directory is the project directory itself. Git checkouts are
+ * unaffected: a real worktree still wins.
+ */
+const isBareRoot = (value: string): boolean => /^[\\/]$/.test(value) || /^[A-Za-z]:[\\/]$/.test(value)
+
+const firstUsableRoot = (...candidates: readonly unknown[]): string | null => {
+  let fallback: string | null = null
+  for (const candidate of candidates) {
+    if (typeof candidate !== "string" || candidate.trim().length === 0) continue
+    if (fallback === null) fallback = candidate
+    if (!isBareRoot(candidate.trim())) return candidate
+  }
+  return fallback
+}
+
 const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
   const rt = await loadRuntime()
   const root =
-    input?.worktree ??
-    input?.project?.worktree ??
-    input?.directory ??
-    rt.proc.cwd()
+    firstUsableRoot(input?.worktree, input?.project?.worktree, input?.directory) ?? rt.proc.cwd()
 
   const ctx = createContext(rt, root, input?.client)
   reportRuntimeDegradation(ctx)
@@ -1901,23 +1930,32 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
     },
 
     "chat.message": async (msgInput: ChatMessageInput, msgOutput: ChatMessageOutput): Promise<void> => {
-      const text = extractText(msgOutput?.parts)
-      if (text.length === 0) return
-      const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
-      state.lastIntent = clip(text, MAX_CAPTURED_INTENT_CHARS)
-      // After the intent is captured, so `lastIntent` stays the user's own words
-      // and never the instruction this hook adds.
-      const instruction = taskDispatcher(ctx)
-      if (instruction === null) return
       const parts = msgOutput?.parts
       if (!Array.isArray(parts)) return
-      if (hasDispatchPart(parts)) return
+      const text = extractText(parts)
+      if (text.length === 0) return
+      const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
+      // After the intent is captured, so `lastIntent` stays the user's own words
+      // and never the instruction this hook adds.
+      state.lastIntent = clip(text, MAX_CAPTURED_INTENT_CHARS)
+      const instruction = taskDispatcher(ctx)
+      if (instruction === null) return
+      if (hasDispatchInstruction(text)) return
 
-      // The minimal `{ type, text }` shape is deliberate: the runtime owns message
-      // identity and timestamps and fills them in when it re-reads the array, and a
-      // synthetic marker would misreport this text as something the user typed.
-      parts.push({ type: "text", text: instruction })
-      log(ctx, "debug", `task-dispatcher: instruction injected for ${msgInput?.sessionID ?? "anonymous"}`)
+      // Append to the last existing user text part, which already carries the
+      // host-validated identity (id/sessionID/messageID). A synthetic part
+      // pushed here fails host-side validation before save and aborts the run.
+      for (let index = parts.length - 1; index >= 0; index -= 1) {
+        const part: unknown = parts[index]
+        if (!part || typeof part !== "object" || Array.isArray(part)) continue
+        const record = part as { type?: unknown; text?: unknown }
+        if (record.type !== "text" || typeof record.text !== "string") continue
+        record.text = `${record.text}\n\n${instruction}`
+        log(ctx, "debug", `task-dispatcher: instruction appended for ${msgInput?.sessionID ?? "anonymous"}`)
+        return
+      }
+      // No text part to extend: injecting nothing is the only safe degradation.
+      log(ctx, "debug", `task-dispatcher: skipped for ${msgInput?.sessionID ?? "anonymous"} (no user text part)`)
     },
 
     "experimental.chat.system.transform": async (
@@ -1961,11 +1999,18 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
  * One default export, two surfaces.
  *
  * The id is required by V2 and optional-but-tolerated by V1, and the two
- * runtimes never read each other's half: V2 dispatches `setup()` and ignores
- * `server()`, V1 `>= 1.18.29` dispatches `server()` and ignores `setup()`. A
- * function export would be loadable by V1 only, so the object form is what
- * makes the task-dispatcher hook reachable on V2 without retiring the seven
- * hooks that only V1 can still fire.
+ * runtimes never read each other's half. V1 1.18.34 resolves this module
+ * through `readV1Plugin(mod, spec, "server", "detect")`, which reads
+ * `mod.default`, requires `server` to be a function when present, and ignores
+ * every other key (`packages/opencode/src/plugin/shared.ts`); `applyPlugin`
+ * in `packages/opencode/src/plugin/index.ts` then awaits
+ * `plugin.server(input, options)` (verified 2026-10-11: the export shape
+ * loads, the crash was a malformed message part, not the export). V2
+ * (`@opencode/plugin` 2.0.26 `dist/promise/plugin.d.ts`:
+ * `Plugin { id; setup }`) reads `id` + `setup()` and ignores `server()`.
+ * A bare function export would be loadable by V1 only, so the object form
+ * is what makes the task-dispatcher hook reachable on V2 without retiring
+ * the seven hooks that only V1 can still fire.
  */
 export default {
   ...definePlugin({ id: "vantrilex-arsenal", setup }),
