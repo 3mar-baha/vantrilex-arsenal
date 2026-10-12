@@ -395,3 +395,32 @@ the ratified list and are left vacant rather than filled.
   catalog at 2,737 records, 20 skill folders, 17 documentation files, and 23
   brand SVGs — and `node scripts/verify-skills.mjs`, `verify-kit.mjs`,
   `verify-registry.mjs`, and `npx tsc --noEmit` all pass on the result.
+
+## Guard warn default and `CLAUDE.md` allow-listing are deliberate (F2, F6)
+
+- **Date:** 2026-10-12
+- **Context:** Findings F2 (MEDIUM) and F6 (LOW) flag two docs-discipline
+  guard defaults that look like defects: the guard ships in `warn` mode
+  instead of `block`, and `CLAUDE.md` sits in the default `allowedFiles`.
+  A future reader asking why the guard warns instead of blocking, or why
+  `CLAUDE.md` is allowed, needs one place that answers both.
+- **Decision:** Both defaults are deliberate and stay. F2: the `warn`
+  default is accepted per finding A4 with owner sign-off already recorded;
+  in `warn` mode the write goes through, the warning is queued in
+  `pendingWarnings` and flushed into the next tool output, and the
+  circuit-breaker failure count does not increment — only `block` mode
+  increments it and throws. Do not "fix" this by flipping the default to
+  `block`: hard-blocking documentation writes on existing projects was
+  the A4 defect, and `warn` keeps the flow moving while staying visible.
+  F6: `CLAUDE.md` stays in the default `allowedFiles` because the
+  standing-directives work requires it — Doctrine appends and repairs
+  the standing-directive block in the target project's `CLAUDE.md`, so
+  removing it would make the guard reject the project's own prescribed
+  write. Keep the entry; document the reasoning here instead.
+- **Consequences:** A finding that asks for `block` by default or for
+  `CLAUDE.md` to leave the allow-list is answered by this entry, not by
+  a code change. Projects that want a harder guard set
+  `docsGuard.mode` to `block` in `.opencode/arsenal.json`; the default
+  stays `warn`. The guard source is `.opencode/plugin/arsenal.ts` and
+  the standing-directives procedure is section B.8 of the Doctrine
+  skill; neither behavior changes with this entry.

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-10-12
+
 ### Added
 
 - **The `cli` kind now reaches the catalog generator.** `generate-catalog-json.mjs`
@@ -116,6 +118,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   future malformed `lsp` entry cannot pass the suite silently.
 
 ### Changed
+
+- **GitHub MCP pin reviewed, not moved.** `2025.4.8` is confirmed as the latest
+  upstream release of `@modelcontextprotocol/server-github`; the package is
+  deprecated in place with no successor version, and the sandbox install still
+  exits 0, so `verified` stands and the pin is unchanged.
 
 - **336 of the 623 nulled records were repointed to real commands.** officialskills.sh
   was tried first, as planned, but its 660 skill pages cover only 56 orgs — and
@@ -296,6 +303,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   to a different runtime surface is not a new component.
 
 ### Fixed
+
+- **Docs-discipline guard sees bash writes.** Shell file-write redirection
+  previously bypassed the guard entirely; bash commands are now routed through
+  the same verdict path as edit-tool writes for detectable cases (`>`, `>>`,
+  heredoc, `tee` in command position). Residual interpreter/`dd` bypasses are
+  documented in the code, not silently left.
+- **Guard verdicts name the right file.** Verdicts are paired per-path before
+  filtering, so multi-file calls with mixed allowed and denied files report the
+  denied file instead of misindexing into the unfiltered list. Pinned by probe.
+- **Session ids are sanitized before path construction.** Hostile ids cannot
+  escape the state directory from either filesystem sink; `ses_*` ids pass
+  through unchanged.
+- **UNC and network roots resolve correctly**, and the root candidate is trimmed
+  consistently instead of returning the untrimmed string.
+- **Kill-switch parity on both surfaces.** V1 no longer records intent when the
+  dispatcher is disabled, matching V2; the append target prefers the user-role
+  text part with a safe fallback.
+- **`tee` detection requires command position.** A first-pass detector matched
+  the word anywhere (blocking prose mentions and `--grep=tee`); it now fires
+  only when `tee` starts the command or follows a pipe, semicolon, `&`, paren,
+  or newline. Known residual: `sudo tee` and path-qualified `tee` are still
+  missed — recorded here rather than silently left.
 
 - **Current-state docs now assert the 47-component census.** The lock cleanup
   moved 52 to 47 but only two docs followed; the README pair, eight numbered
@@ -499,6 +528,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.3.0
 [0.2.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.2.0
 [0.1.0]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.1.0...v0.2.0
