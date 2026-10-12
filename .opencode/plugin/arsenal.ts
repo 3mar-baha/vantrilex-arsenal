@@ -634,6 +634,27 @@ const extensionOf = (rt: Runtime, target: string): string => {
 
 const basenameOf = (target: string): string => target.slice(target.lastIndexOf("/") + 1) || target
 
+/**
+ * Contain a session id before it reaches path construction (F4).
+ *
+ * preCompact and sessionEnd build join(stateDir, handoff|sessions,
+ * sessionId + .md) from an id the host supplies. A hostile id with
+ * dot-dot-slash segments would otherwise escape the state directory. The
+ * mapping keeps every byte outside [A-Za-z0-9._-] (both separators included)
+ * as an underscore, strips leading dots so lone dot and dot-dot collapse,
+ * caps length, and falls back to anonymous when nothing survives. ses_ style
+ * ids pass through unchanged. In-memory session keys keep the raw id on
+ * purpose: only the filesystem path is contained.
+ */
+export const sanitizeSessionId = (raw: unknown): string => {
+  const text = typeof raw === "string" ? raw : ""
+  const cleaned = text
+    .replace(/[^A-Za-z0-9._-]/g, "_")
+    .replace(/^\.+/, "")
+    .slice(0, 128)
+  return cleaned.length > 0 ? cleaned : "anonymous"
+}
+
 const isMarkdownPath = (rt: Runtime, target: string): boolean =>
   MARKDOWN_EXTENSIONS.has(extensionOf(rt, target))
 
@@ -1048,6 +1069,61 @@ const candidatePathsFrom = (root: string, args: unknown): string[] => {
   return Array.from(new Set(found.filter((entry) => entry.length > 0)))
 }
 
+/**
+ * Shell write targets for the docs-discipline guard (F1).
+ *
+ * The bash tool carries no filePath argument, so candidatePathsFrom sees
+ * nothing and the guard used to return before any verdict. Shell file writes
+ * are recovered here with deliberately narrow patterns: output redirection
+ * (greater-than, double greater-than, including heredoc redirects, which use
+ * the same operator for their target file) and tee operands, with single,
+ * double or no quoting. The result is normalised exactly like edit-tool
+ * paths and flows through the same docsGuardVerdict logic.
+ *
+ * Residual, documented rather than handled: this is not a shell parser.
+ * Variable expansion, command substitution, brace expansion, dd of=,
+ * install -D, interpreter-embedded writes such as python -c open(...), and
+ * operator evasion through quoting all bypass detection. A bypass that hides
+ * the operator hides the write; the guard flags detectable cases only.
+ */
+export const bashMarkdownTargets = (root: string, command: unknown): string[] => {
+  if (typeof command !== "string" || command.trim().length === 0) return []
+  const found: string[] = []
+  const push = (token: string | undefined): void => {
+    if (typeof token !== "string") return
+    const cleaned = token.replace(/^["']|["']$/g, "").trim()
+    if (cleaned.length === 0 || cleaned.startsWith("-") || cleaned.startsWith("/dev/")) return
+    found.push(normalizeRelative(root, cleaned))
+  }
+  const TOKEN = "(\"[^\"]+\"|'[^']+'|[^\\s;&|()<>]+)"
+  const redirect = new RegExp("(?:^|[\\s;&|()])\\d?>>?\\|?\\s*" + TOKEN, "g")
+  for (const match of command.matchAll(redirect)) push(match[1])
+  const teePattern = /\btee\b/gi
+  let teeMatch: RegExpExecArray | null
+  while ((teeMatch = teePattern.exec(command)) !== null) {
+    const before = command.slice(0, teeMatch.index).replace(/[ \t]+$/, "")
+    if (before.length > 0) {
+      const prev = before.slice(-1)
+      if (prev !== "|" && prev !== ";" && prev !== "&" && prev !== "(" && prev !== "\n" && prev !== "\r") continue
+    }
+    const tail = command.slice(teeMatch.index + teeMatch[0].length)
+    const segment = /^\s*[^|&;\n\r]*/.exec(tail)?.[0] ?? ""
+    const tokens = segment.match(/("[^"]+"|'[^']+'|[^\s]+)/g) ?? []
+    let flagsDone = false
+    for (const token of tokens) {
+      const cleaned = token.replace(/^["']|["']$/g, "")
+      if (!flagsDone && cleaned === "--") {
+        flagsDone = true
+        continue
+      }
+      if (!flagsDone && cleaned.startsWith("-") && cleaned.length > 1) continue
+      flagsDone = true
+      push(token)
+    }
+  }
+  return Array.from(new Set(found))
+}
+
 const recordTouchedFiles = (ctx: ArsenalContext, sessionId: string, paths: readonly string[]): void => {
   if (paths.length === 0) return
   const state = sessionState(ctx, sessionId)
@@ -1426,7 +1502,7 @@ export const preCompact = async (
     `Circuit: ${state.circuit.failures} consecutive guard failure(s) this session`,
   ].join("\n")
 
-  const written = writeTextFile(ctx.rt, join(stateDir, "handoff", `${sessionId}.md`), `${handoff}\n`)
+  const written = writeTextFile(ctx.rt, join(stateDir, "handoff", sanitizeSessionId(sessionId) + ".md"), handoff + "\n")
   if (written.status === "ok") {
     log(ctx, "info", `pre-compact: handoff written to ${toPosix(written.value)}`)
   } else {
@@ -1486,7 +1562,7 @@ export const sessionEnd = async (
   ].join("\n")
 
   const latest = writeTextFile(ctx.rt, join(stateDir, "latest-session.md"), markdown)
-  const archived = writeTextFile(ctx.rt, join(stateDir, "sessions", `${candidate}.md`), markdown)
+  const archived = writeTextFile(ctx.rt, join(stateDir, "sessions", sanitizeSessionId(candidate) + ".md"), markdown)
   if (latest.status === "ok") log(ctx, "info", `session-end: learnings persisted for ${candidate}`)
   else log(ctx, "warn", `session-end: ${latest.reason}`)
   if (archived.status !== "ok") log(ctx, "warn", `session-end: ${archived.reason}`)
@@ -1541,17 +1617,25 @@ export const docsDisciplineGuard = async (
 ): Promise<void> => {
   const guard = ctx.config.docsGuard
   if (guard.enabled === false || guard.mode === "off") return
-  if (!WRITE_TOOLS.has(input?.tool)) return
+  // The bash tool carries shell text rather than a filePath argument, so its
+  // markdown write targets are recovered from redirections and tee operands
+  // (F1) instead of being skipped by the edit-tool check below.
+  if (!WRITE_TOOLS.has(input?.tool) && input?.tool !== "bash") return
 
-  const markdownCandidates = candidatePathsFrom(ctx.root, output?.args).filter((entry) =>
-    isMarkdownPath(ctx.rt, entry),
-  )
+  const rawCandidates =
+    input?.tool === "bash"
+      ? bashMarkdownTargets(ctx.root, asRecord(output?.args).command)
+      : candidatePathsFrom(ctx.root, output?.args)
+  const markdownCandidates = rawCandidates.filter((entry) => isMarkdownPath(ctx.rt, entry))
   if (markdownCandidates.length === 0) return
 
+  // Each path is paired with its own verdict before filtering (F3): filtering
+  // the verdicts first and re-indexing into the unfiltered candidate array
+  // names the wrong file on multi-file calls.
   const violations = markdownCandidates
-    .map((entry) => docsGuardVerdict(ctx, entry))
-    .filter((verdict) => !verdict.allowed)
-    .map((verdict, index) => ({ path: markdownCandidates[index] ?? "unknown", reason: verdict.reason }))
+    .map((entry) => ({ path: entry, verdict: docsGuardVerdict(ctx, entry) }))
+    .filter((entry) => !entry.verdict.allowed)
+    .map((entry) => ({ path: entry.path, reason: entry.verdict.reason }))
 
   if (violations.length === 0) return
 
@@ -1768,6 +1852,36 @@ const hasDispatchInstruction = (text: string): boolean => text.includes(TASK_DIS
  * 21. Wiring
  * ========================================================================= */
 
+/**
+ * Locate the part the task dispatcher may extend in place (F8).
+ *
+ * When parts expose a string role, the last user text part wins. When no part
+ * exposes a role, which is the only shape observed on host 1.18.34, the last
+ * text part of any role is returned, preserving the legacy behaviour without
+ * inventing a role the host never sent. Null is returned when no appendable
+ * part exists, and also when roles are exposed but no user text part exists:
+ * appending dispatcher text to an assistant part would misattribute the
+ * instruction as model output, so the turn is left untouched.
+ */
+export const findDispatcherAppendTarget = (
+  parts: readonly unknown[],
+): ({ text: string } & Record<string, unknown>) | null => {
+  let fallback: ({ text: string } & Record<string, unknown>) | null = null
+  let userTarget: ({ text: string } & Record<string, unknown>) | null = null
+  let exposesRoles = false
+  for (const part of parts) {
+    if (!part || typeof part !== "object" || Array.isArray(part)) continue
+    const record = part as { type?: unknown; text?: unknown; role?: unknown } & Record<string, unknown>
+    if (typeof record.role === "string") exposesRoles = true
+    if (record.type !== "text" || typeof record.text !== "string") continue
+    const writable = record as { text: string } & Record<string, unknown>
+    fallback = writable
+    if (typeof record.role === "string" && record.role.toLowerCase() === "user") userTarget = writable
+  }
+  if (!exposesRoles) return fallback
+  return userTarget
+}
+
 const extractText = (parts: unknown): string => {
   if (!Array.isArray(parts)) return ""
   const collected: string[] = []
@@ -1875,14 +1989,32 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
  * for a plain directory is the project directory itself. Git checkouts are
  * unaffected: a real worktree still wins.
  */
-const isBareRoot = (value: string): boolean => /^[\\/]$/.test(value) || /^[A-Za-z]:[\\/]$/.test(value)
+/**
+ * A filesystem root that is never the project (F5): POSIX slash, a drive
+ * root such as C colon backslash, a bare UNC prefix (two backslashes or two
+ * slashes), or a bare UNC share root such as server share with an optional
+ * trailing separator. Anything deeper than the share is a usable path.
+ */
+export const isBareRoot = (value: string): boolean => {
+  const text = value.trim()
+  if (/^[\\/]$/.test(text)) return true
+  if (/^[A-Za-z]:[\\/]$/.test(text)) return true
+  if (/^(?:\\\\|\/\/)$/.test(text)) return true
+  if (/^\\\\[^\\/]+[\\/][^\\/]+[\\/]?$/.test(text)) return true
+  if (/^\/\/[^\\/]+\/[^\\/]+\/?$/.test(text)) return true
+  return false
+}
 
-const firstUsableRoot = (...candidates: readonly unknown[]): string | null => {
+export const firstUsableRoot = (...candidates: readonly unknown[]): string | null => {
   let fallback: string | null = null
   for (const candidate of candidates) {
-    if (typeof candidate !== "string" || candidate.trim().length === 0) continue
-    if (fallback === null) fallback = candidate
-    if (!isBareRoot(candidate.trim())) return candidate
+    if (typeof candidate !== "string") continue
+    // Trimmed once and reused: the bare-root test, the fallback and the
+    // return value all observe the same string (F5).
+    const trimmed = candidate.trim()
+    if (trimmed.length === 0) continue
+    if (fallback === null) fallback = trimmed
+    if (!isBareRoot(trimmed)) return trimmed
   }
   return fallback
 }
@@ -1934,28 +2066,31 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       if (!Array.isArray(parts)) return
       const text = extractText(parts)
       if (text.length === 0) return
-      const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
-      // After the intent is captured, so `lastIntent` stays the user's own words
-      // and never the instruction this hook adds.
-      state.lastIntent = clip(text, MAX_CAPTURED_INTENT_CHARS)
+      // The kill switch disarms the dispatcher rather than only its text
+      // (F7): a disabled dispatcher returns before any session state is
+      // touched, which matches what the V2 prompt surface already does.
       const instruction = taskDispatcher(ctx)
       if (instruction === null) return
+      const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
+      // After the intent is captured, so lastIntent stays the user-owned words
+      // and never the instruction this hook adds.
+      state.lastIntent = clip(text, MAX_CAPTURED_INTENT_CHARS)
       if (hasDispatchInstruction(text)) return
 
       // Append to the last existing user text part, which already carries the
-      // host-validated identity (id/sessionID/messageID). A synthetic part
-      // pushed here fails host-side validation before save and aborts the run.
-      for (let index = parts.length - 1; index >= 0; index -= 1) {
-        const part: unknown = parts[index]
-        if (!part || typeof part !== "object" || Array.isArray(part)) continue
-        const record = part as { type?: unknown; text?: unknown }
-        if (record.type !== "text" || typeof record.text !== "string") continue
-        record.text = `${record.text}\n\n${instruction}`
-        log(ctx, "debug", `task-dispatcher: instruction appended for ${msgInput?.sessionID ?? "anonymous"}`)
+      // host-validated identity. A synthetic part pushed here fails host-side
+      // validation before save and aborts the run. When the host exposes a
+      // string role on parts, only an explicit user part is extended; a turn
+      // with no user text part is left untouched instead of misattributing
+      // dispatcher text to an assistant part (F8).
+      const target = findDispatcherAppendTarget(parts)
+      if (!target) {
+        // No text part to extend: injecting nothing is the only safe degradation.
+        log(ctx, "debug", "task-dispatcher: skipped for " + (msgInput?.sessionID ?? "anonymous") + " (no user text part)")
         return
       }
-      // No text part to extend: injecting nothing is the only safe degradation.
-      log(ctx, "debug", `task-dispatcher: skipped for ${msgInput?.sessionID ?? "anonymous"} (no user text part)`)
+      target.text = target.text + "\n\n" + instruction
+      log(ctx, "debug", "task-dispatcher: instruction appended for " + (msgInput?.sessionID ?? "anonymous"))
     },
 
     "experimental.chat.system.transform": async (
