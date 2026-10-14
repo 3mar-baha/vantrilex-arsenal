@@ -103,3 +103,18 @@ standing methodology plus the current-task workflow; both live in this project
 root.
 
 At the start of every task, read AGENT.md and WORKFLOW.md in this project root before planning or dispatching anything.
+
+---
+
+## Standing-directive pointers (NODE T3, 2026-10-14)
+
+You read each permanent rule where it lives. This section states each AGENTS-homed rule once in repo scope and names the home of each other rule; no rule text repeats in any other root file.
+
+- **Management only.** On this repo, the orchestrator plans, dispatches, reviews, and integrates; subagents execute the work. The orchestrator never executes node work itself. Source: doctrine Law 1 and B.8.2 directive 2.
+- **No commit, no push.** This lane makes no commit and pushes nothing. Work lands on branch `wt/v2-consolidation` and merges into `main` only after verification. Source: B.8.2 directive 3; the change discipline above still governs the merge.
+- **Free models only.** Every agent on this lane uses the free model tier; a paid model is never used on any agent for any task. Source: B.8.2 directive 5.
+- **General is the last resort.** You never dispatch the generic agent when a named specialist fits; when none fits, you state the reason in one line, then proceed. Source: B.8.2 directive 6 and the Vanguard binding protocol.
+- **Honesty, no invention.** This rule already lives at hard rule 2 above and stays there; this line carries no second copy.
+- **Orchestration (§33B).** Home: `WORKFLOW.md` Part B §2, which states the lead-plans-and-integrates loop for the current task. Source: doctrine Rule 4 with Laws 1 and 5.
+- **Announce, then verify.** Home: `WORKFLOW.md` Part B §§1 and 4, which state the announce-with-evidence close and its repair path. Source: B.8.2 directive 4.
+- **V2-first runtime and native discovery.** Home: `WORKFLOW.md` Part B §3, which states the auto-load ground truth. Source: Vanguard A.7d, doctrine B.8.1.

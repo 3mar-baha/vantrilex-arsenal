@@ -75,6 +75,7 @@ Streams observed in flight (uncommitted worktree state, same date):
   `HEAD`). Not re-verified by re-running their guards in this lane;
   per-stream verifier output is unverified — this lane ran no historical
   guard.
+- 2026-10-14 — NODE T3 docs merge (this task): fold the standing-law substance into `AGENTS.md`, `AGENT.md`, `WORKFLOW.md` through single-home pointers with zero duplication, on branch `wt/v2-consolidation`. Owns only those three files; no commit; free models only. Outcome: drafts returned with evidence 2026-10-14; the implementer writes the files and re-runs the literal verifications.
 
 ## Decisions
 
@@ -94,6 +95,9 @@ Streams observed in flight (uncommitted worktree state, same date):
 - This lane owns only `AGENT.md` (new), `WORKFLOW.md` (new), and one
   appended pointer section in `AGENTS.md`, with no commit. Sourced from
   the 2026-10-13 NODE DOG work order; decider: the dispatching session.
+- NODE T3 single-home ruling 2026-10-14: each merged item lives in exactly one root file — standing directives in `AGENTS.md`, orchestration/verification/runtime method in `WORKFLOW.md` Part B, lane records here; the other files point, never restate. Sourced from the NODE T3 work order; decider: the dispatching session.
+- NODE T3 lane discipline 2026-10-14: this lane writes only the three owned files, makes no commit, and uses free models only. Observance is recorded here; the standing rules live in `AGENTS.md` and carry no copy here. Sourced from the NODE T3 work order; decider: the dispatching session.
+- Orchestrator-only write 2026-10-14: only the orchestrator writes this file, after every task, rotating closed entries into `docs/agent-log-YYYY-MM.md`. Sourced from doctrine Ritual 2; decider unverified — the doctrine states the role and no decision record names one.
 
 ## Open items & next actions
 
@@ -109,6 +113,7 @@ Streams observed in flight (uncommitted worktree state, same date):
   owner: unverified — no dispatch observed.
 - Populate the `cli` kind through the digest and review mechanism —
   owner: unverified — named only as future work in `CHANGELOG.md` 0.3.0.
+- Implementer writes the three NODE T3 appends, runs `npx --yes markdownlint-cli AGENTS.md AGENT.md WORKFLOW.md` to exit 0, proves append-only with `git diff --numstat` and full `git diff`, runs the single-home census, and reports evidence per section — owner: the owning implementer, no commit.
 
 ## Known risks & defects
 
@@ -125,3 +130,4 @@ Streams observed in flight (uncommitted worktree state, same date):
   in `node_modules/.bin` at seeding time; the verification step must
   report its actual runner and exit code, and a check that cannot run is a
   failed check.
+- Pointer drift between the root files and the canonical skill text (doctrine B.8.2, Vanguard A.7d). Evidence: pointers cite sections, never copy text (NODE T3 drafts 2026-10-14). Mitigation observed: single-home census at every docs gate; a census failure returns for re-homing before any other gate runs.
