@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] — 2026-10-14
+
 ### Fixed
 
 - **Docs-discipline guard sees bash writes.** Shell file-write redirection
@@ -616,7 +618,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.1
 [0.4.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.0
 [0.3.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.3.0
 [0.2.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.2.0
