@@ -2,9 +2,13 @@
 name: technical-writer
 description: "Expert technical writer for developer documentation, API references, READMEs, and tutorials. Use during the docs phase, to produce or repair documentation developers actually read and use."
 mode: subagent
-permission:
-  edit: deny
-  bash: ask
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: ask
 ---
 
 # Technical Writer

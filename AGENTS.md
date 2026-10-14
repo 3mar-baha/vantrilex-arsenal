@@ -93,3 +93,13 @@ If a check cannot be evaluated, that is a **failed** check, not a skipped one. S
   A `!` after the type or a `BREAKING CHANGE:` footer forces a MAJOR bump at release.
 - Update `CHANGELOG.md` in the same change as any user-visible edit. The Docs Guard
   fails a release without it.
+
+---
+
+## Project memory
+
+`AGENT.md` is this repository's live task memory and `WORKFLOW.md` carries its
+standing methodology plus the current-task workflow; both live in this project
+root.
+
+At the start of every task, read AGENT.md and WORKFLOW.md in this project root before planning or dispatching anything.

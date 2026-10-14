@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1503 — 7 default-selected)
+## Skills (1504 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1511,6 +1511,7 @@ Consolidated reference of every system component with its folder path.
 | 1501 | babel-bridge | Use when intent crosses a vocabulary boundary such as business language to imple… | 3mar-baha/vantrilex-arsenal | `` |
 | 1502 | vantrilex-prime | Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe… | 3mar-baha/vantrilex-arsenal | `` |
 | 1503 | vantrilex-design-variations | Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi… | 3mar-baha/vantrilex-arsenal | `` |
+| 1504 | vantrilex-workflow-forge | Authors the standing methodology at each task start — use when a new task begins, befo… | 3mar-baha/vantrilex-arsenal | `` |
 
 ## MCP Servers (907 — 8 default-selected)
 
@@ -2778,15 +2779,79 @@ Consolidated reference of every system component with its folder path.
 |---|------|-------------|--------|--------|
 | 1 | typescript-lsp ✅ | TypeScript intelligence | typescript-language-server/typescript-language-server | `` |
 
-## CLI Tools (0 — 0 default-selected)
+## CLI Tools (64 — 0 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
+| 1 | OpenPencil | AI-native vector design tool whose op CLI runs batch design DSL and node manipulation. License: MIT. Terms: Free MIT open source; AI features use operator-supplied model keys. | ZSeven-W/openpencil | `brew install zseven-w/openpencil/op` |
+| 2 | TypeScript | Compiles TypeScript and typechecks projects via tsc. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | microsoft/TypeScript | `npm i -g typescript` |
+| 3 | TSX | Runs TypeScript and ESM files directly with on-demand transform. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | privatenumber/tsx | `npm i -g tsx` |
+| 4 | esbuild | Bundles and minifies JavaScript and TypeScript at native speed. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | evanw/esbuild | `npm i -g esbuild` |
+| 5 | Vite | Scaffolds and serves modern frontend projects with instant hot reload. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | vitejs/vite | `npm i -g vite` |
+| 6 | Prettier | Formats JavaScript, TypeScript, CSS, Markdown and more opinionatedly. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | prettier/prettier | `npm i -g prettier` |
+| 7 | ESLint | Lints JavaScript and TypeScript for bugs and style violations. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | eslint/eslint | `npm i -g eslint` |
+| 8 | Stylelint | Lints CSS, SCSS and CSS-in-JS for errors and convention drift. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | stylelint/stylelint | `npm i -g stylelint` |
+| 9 | CSpell | Spellchecks code, prose and commit text against project dictionaries. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | streetsidesoftware/cspell | `npm i -g cspell` |
+| 10 | Markdownlint CLI | Lints Markdown files for style and structural consistency. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | igorshubovych/markdownlint-cli | `npm i -g markdownlint-cli` |
+| 11 | Remark CLI | Processes and lints Markdown through the unified plugin pipeline. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | remarkjs/remark | `npm i -g remark-cli` |
+| 12 | Alex | Flags insensitive or inconsiderate wording in prose. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | get-alex/alex | `npm i -g alex` |
+| 13 | Write Good | Flags passive voice, weasel words and puffery in prose. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | btford/write-good | `npm i -g write-good` |
+| 14 | TypeDoc | Generates API documentation from TypeScript source comments. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | TypeStrong/TypeDoc | `npm i -g typedoc` |
+| 15 | OpenAPI TypeScript | Generates TypeScript types from OpenAPI schemas. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | openapi-ts/openapi-typescript | `npm i -g openapi-typescript` |
+| 16 | NPM Check Updates | Shows which project dependencies lag their latest versions. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | raineorshine/npm-check-updates | `npm i -g npm-check-updates` |
+| 17 | Depcheck | Finds unused and missing dependencies in a project. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | depcheck/depcheck | `npm i -g depcheck` |
+| 18 | Knip | Finds unused files, exports and dependencies in TypeScript projects. License: ISC. Terms: Free ISC open source, no paid tier for the CLI. | webpro-nl/knip | `npm i -g knip` |
+| 19 | Madge | Maps module dependencies and reports circular imports. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | pahen/madge | `npm i -g madge` |
+| 20 | Dependency Cruiser | Enforces architectural dependency rules and visualises them. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sverweij/dependency-cruiser | `npm i -g dependency-cruiser@17.4.3` |
+| 21 | License Checker | Inventories third-party package licenses in a project. License: BSD-3-Clause. Terms: Free BSD-3-Clause open source, no paid tier for the CLI. | davglass/license-checker | `npm i -g license-checker` |
+| 22 | Audit CI | Gates CI on the severity of known dependency advisories. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | IBM/audit-ci | `npm i -g audit-ci` |
+| 23 | Publint | Lints npm packages for publishing correctness. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | publint/publint | `npm i -g publint` |
+| 24 | ATTW | Checks which module formats a package types resolve under. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | arethetypeswrong/arethetypeswrong.github.io | `npm i -g @arethetypeswrong/cli` |
+| 25 | JSCPD | Detects copy-pasted code across many languages. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | kucherenko/jscpd | `npm i -g jscpd` |
+| 26 | Commitizen | Authors Conventional Commit messages through an interactive prompt. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | commitizen/cz-cli | `npm i -g commitizen` |
+| 27 | Commitlint | Lints commit messages against conventional-commit rules. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | conventional-changelog/commitlint | `npm i -g @commitlint/cli` |
+| 28 | Lint Staged | Runs linters only on staged files before a commit lands. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | lint-staged/lint-staged | `npm i -g lint-staged` |
+| 29 | Sort Package JSON | Sorts package.json keys into a canonical order. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | keithamus/sort-package-json | `npm i -g sort-package-json` |
+| 30 | Release It | Cuts versioned releases with changelog, tag and publish flow. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | release-it/release-it | `npm i -g release-it@21.0.3` |
+| 31 | Changesets | Versions monorepos through changeset files and release pull requests. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | changesets/changesets | `npm i -g @changesets/cli@2.31.1` |
+| 32 | Concurrently | Runs several commands at once with prefixed output. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | open-cli-tools/concurrently | `npm i -g concurrently` |
+| 33 | Cross Env | Sets environment variables inline across operating systems. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | kentcdodds/cross-env | `npm i -g cross-env` |
+| 34 | Dotenv CLI | Runs a command with variables loaded from a dotenv file. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | entropitor/dotenv-cli | `npm i -g dotenv-cli` |
+| 35 | Rimraf | Removes files and directories recursively on every platform. License: BlueOak-1.0.0. Terms: Free BlueOak-1.0.0 open source, no paid tier for the CLI. | isaacs/rimraf | `npm i -g rimraf` |
+| 36 | Turbo | Runs monorepo build, test and lint tasks with caching. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | vercel/turborepo | `npm i -g turbo` |
+| 37 | NP | Publishes a package to npm with preflight checks and release flow. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/np | `npm i -g np` |
+| 38 | Snyk | Scans projects for vulnerable dependencies and insecure code. License: Apache-2.0. Terms: Free Snyk Free plan exists with an account; CLI is Apache-2.0 OSS; scan quotas follow snyk.io/plans. | snyk/snyk | `npm i -g snyk` |
+| 39 | Lighthouse | Audits pages for performance, accessibility and SEO regressions. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | GoogleChrome/lighthouse | `npm i -g lighthouse` |
+| 40 | Pa11y | Tests web pages against accessibility standards headlessly. License: LGPL-3.0-only. Terms: Free LGPL-3.0-only open source, no paid tier for the CLI. | pa11y/pa11y | `npm i -g pa11y` |
+| 41 | MD to PDF | Converts Markdown documents into styled PDF files. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | simonhaenisch/md-to-pdf | `npm i -g md-to-pdf` |
+| 42 | Mermaid CLI | Renders Mermaid diagrams into SVG, PNG and PDF images. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | mermaid-js/mermaid-cli | `npm i -g @mermaid-js/mermaid-cli` |
+| 43 | Vercel | Deploys web projects to the Vercel platform from the terminal. License: Apache-2.0. Terms: Free Hobby plan $0 for personal non-commercial use; 100GB transfer and 1M function invocations per month included. | vercel/vercel | `npm i -g vercel` |
+| 44 | Netlify CLI | Deploys sites to Netlify and manages its serverless helpers. License: MIT. Terms: Free plan $0 for individuals; 300 credits per month included. | netlify/cli | `npm i -g netlify-cli` |
+| 45 | Wrangler | Develops and deploys Cloudflare Workers and Pages projects. License: MIT OR Apache-2.0. Terms: Free Workers Free plan by default; 100k requests per day included. | cloudflare/workers-sdk | `npm i -g wrangler` |
+| 46 | Supabase | Manages Supabase Postgres projects, migrations and edge functions. License: MIT. Terms: Free plan $0; 500MB database with 2 projects; idle projects pause after 1 week. | supabase/cli | `npm i -g supabase` |
+| 47 | Prisma | Manages Prisma schema, migrations and generated database clients. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | prisma/prisma-cli | `npm i -g prisma@7.10.0` |
+| 48 | Drizzle Kit | Generates and applies Drizzle ORM database migrations. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | drizzle-team/drizzle-orm | `npm i -g drizzle-kit` |
+| 49 | JSON Server | Serves a full mock REST API from a JSON file. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | typicode/json-server | `npm i -g json-server` |
+| 50 | LocalTunnel | Exposes a local port through a public tunnel URL. License: MIT. Terms: Free public relay with no account; issued URLs last for the session. | localtunnel/localtunnel | `npm i -g localtunnel` |
+| 51 | Newman | Runs Postman collections as API functional tests in CI. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | postmanlabs/newman | `npm i -g newman` |
+| 52 | Autocannon | Benchmarks HTTP endpoints for latency and throughput. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | mcollina/autocannon | `npm i -g autocannon` |
+| 53 | Artillery | Load-tests services with scripted arrival scenarios. License: MPL-2.0. Terms: Free MPL-2.0 open source, no paid tier for the CLI. | artilleryio/artillery | `npm i -g artillery` |
+| 54 | Envinfo | Prints versions of binaries and toolchains for bug reports. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | tabrindle/envinfo | `npm i -g envinfo` |
+| 55 | Local Web Server | Serves static files locally with rewrite and proxy rules. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | lwsjs/local-web-server | `npm i -g local-web-server` |
+| 56 | Prism | Serves mock APIs from OpenAPI documents for contract testing. License: Apache-2.0. Terms: Free Apache-2.0 open source, no paid tier for the CLI. | stoplightio/prism | `npm i -g @stoplight/prism-cli` |
+| 57 | TLDR | Shows community cheat sheets for commands with practical examples. License: MIT. Terms: Free MIT open source; community pages, no account. | tldr-pages/tldr-node-client | `npm i -g tldr` |
+| 58 | FX | Explores JSON in an interactive terminal viewer with queries. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | antonmedv/fx | `npm i -g fx` |
+| 59 | SVGO | Optimises SVG files by stripping bloat without changing rendering. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | svg/svgo | `npm i -g svgo` |
+| 60 | Sharp CLI | Converts and resizes images through the Sharp pipeline. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | vseventer/sharp-cli | `npm i -g sharp-cli` |
+| 61 | PWA Asset Generator | Generates PWA icons and splash screens from one source image. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | elegantapp/pwa-asset-generator | `npm i -g pwa-asset-generator` |
+| 62 | Fkill CLI | Kills processes by name or port with interactive selection. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/fkill-cli | `npm i -g fkill-cli` |
+| 63 | Trash CLI | Moves files to the system trash instead of deleting them. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/trash-cli | `npm i -g trash-cli` |
+| 64 | Kill Port | Frees a TCP port by killing whatever process holds it. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | tiaanduplessis/kill-port | `npm i -g kill-port` |
 
 ## Summary
 
-- **Total components:** 2740
-- **Default-selected:** 23
+- **Total components:** 2804
+- **Default-selected:** 20
 
 ---
 

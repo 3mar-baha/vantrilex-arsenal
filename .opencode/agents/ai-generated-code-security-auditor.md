@@ -2,9 +2,13 @@
 name: ai-generated-code-security-auditor
 description: "Security reviewer for AI-generated and vibe-coded apps. Use after an AI-assisted change, to hunt the hardcoded secrets, broken row-level security, and prompt-injection sinks that coding assistants ship by default."
 mode: subagent
-permission:
-  edit: deny
-  bash: ask
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: ask
 ---
 
 # AI-Generated Code Security Auditor

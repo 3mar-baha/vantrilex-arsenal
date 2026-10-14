@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Vantrilex Arsenal companion-config template (BLAZAR routing).
+  // Copy these keys into the target project's opencode.jsonc and merge
+  // additively: keep every owner key outside this set untouched.
+  // The merged routing takes effect at the NEXT RUNTIME RESTART. Claiming
+  // the new routing before the restart certifies what never executed.
+  // Shape follows https://opencode.ai/v2/docs/config/: `agents` (plural)
+  // with `disabled`, `experimental.subagent_depth`, and compaction keeps
+  // on tokens and buffer only. There is deliberately NO `instructions`
+  // array: the V2 runtime auto-loads AGENTS.md and AGENTS.md alone, so an
+  // instructions array would be a second, inert source of directives.
+  "default_agent": "blazar",
+  "agents": {
+    "build": {
+      "disabled": true
+    },
+    "plan": {
+      "disabled": true
+    }
+  },
+  "experimental": {
+    "subagent_depth": 1
+  },
+  "compaction": {
+    // Starting points taken from the compaction config example; tune to
+    // the project and record the reason beside the changed value.
+    "keep": {
+      "tokens": 15000
+    },
+    "buffer": 20000
+  }
+}

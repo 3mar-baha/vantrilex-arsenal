@@ -134,7 +134,7 @@ reporting as much as about selection: silence is the correct output for a
 marginal replacement, and a silence is not an oversight to be corrected by
 reporting it next time.
 
-Tier 0 (47 locked components: 31 tier core plus 16 tier conditional, 0
+Tier 0 (112 locked components: 31 tier core plus 81 tier conditional, 0
 pending) is pre-approved. Tier 1 is per-project and always needs owner
 approval.
 
@@ -157,10 +157,21 @@ backstop. Then verify per kind, seven protocols:
 | Plugin and hook | Fire a test event |
 | LSP | Open a sample file and expect diagnostics |
 | Formatting | Run on a sample and diff-check |
-| CLI | `<binary> --version` exits 0 |
 
 Report one table row per component: tool, kind, status (works or fails),
 evidence, and how to fix. Proceed only after owner sign-off on failures.
+
+### Step 4 lane — Forge skill install
+
+Four top-level skills exist once the forge lands, in the fixed order Prime,
+Vanguard, Workflow-Forge, Doctrine. Vanguard installs the forge in the Step 4
+lane under the same real-command law that binds every other install, with the
+single command `npx skills add 3mar-baha/vantrilex-arsenal --skill
+vantrilex-workflow-forge` at the path
+`.opencode/skills/vantrilex-workflow-forge/SKILL.md`, and proves it by
+read-back before the run treats the four-skill set as complete. The procedure
+is section A.6b of the Vanguard skill, which is its single home; nothing here
+restates it.
 
 ### Step 5 — Documentation phase
 

@@ -43,7 +43,7 @@ English rule, not a contradiction.
 ## Do NOT use
 
 - As the entry point on a fresh machine. Orientation — what the Arsenal is, where the canonical
-  repository lives, and which of the three top-level skills runs next — belongs to
+  repository lives, and which of the four top-level skills runs next — belongs to
   `vantrilex-prime`, which runs once per machine before any equip run. Vanguard names that hand-off
   and carries no copy of it.
 - As a workflow runner. Feature, review, security-audit, bugfix, and release lanes belong to the
@@ -72,6 +72,17 @@ English rule, not a contradiction.
 - To dispatch a generic agent while a named roster member fits the role, or to
   fall back silently when none fits. A fallback states its reason in one line
   before it dispatches, never after the dispatch has already run.
+- To author the standing methodology of the target project from memory. Part
+  A of the target `WORKFLOW.md` is seeded from the canonical copy the forge
+  skill carries, read live at seed time, and every later revision carries a
+  dated note. An invented methodology is a second source of process truth.
+- To overwrite the target `AGENT.md`, to clobber owner content in the target
+  `AGENTS.md`, or to hand-edit the generated mirror. Vanguard creates only
+  what is absent, merges additively into what exists, and regenerates the
+  mirror from the merged source on every run.
+- To install the fourth top-level skill from any path but its own. The forge
+  skill id is its directory path, and the install section of this file states
+  the one command that installs it. A copy written by hand is not installed.
 
 ## Inputs
 
@@ -91,11 +102,23 @@ English rule, not a contradiction.
   the locked set, read live and scored with the same tests as locked rows.
 - The live roster from `opencode agent list` as the only binding source for
   agent dispatch, searched before the kit agent and skill files are read.
+- The target root files, read live when present: `AGENT.md`, `WORKFLOW.md`,
+  `AGENTS.md`, and the generated mirror the doctrine skill names. Vanguard
+  reads each file before touching it and never rebuilds one from memory.
+- The forge source with its directory-path id `vantrilex-workflow-forge`,
+  installed by the single command the install section states and proven by
+  read-back before the run treats the four-skill set as complete.
+- The companion-config key set the program brief fixes: the default agent,
+  the disabled lanes, the subagent depth, and the compaction keeps. Vanguard
+  merges those keys into the target companion config and proves the merge by
+  reading the file back and reporting every key.
 
 ## Procedure
 
-Execute the six steps of Part A in order, then the documentation phase, then the execution relay,
-under the standing laws. The map below keeps every section traceable:
+Execute the six steps of Part A in order, then the documentation phase, then
+the execution relay, under the standing laws. The map below keeps every
+section traceable. Root-file installs run in the docs lane; the forge install
+and the companion config run in the install lane:
 
 ```text
 | A.1 | Step 0 — Preflight                | Environment to workspace, block on CRITICAL      |
@@ -104,7 +127,12 @@ under the standing laws. The map below keeps every section traceable:
 | A.4 | Step 2 — Source surveying         | Ordered sources, Context7 reachability rule      |
 | A.5 | Step 3 — Kit selection            | Five-step algorithm, overlap rules, shortlist    |
 | A.6 | Step 4 — Install, verify, report  | Real commands, kit.lock, per-kind protocols     |
+| A.6b | Forge skill install              | Fourth skill, one command, read-back proof       |
+| A.6c | Companion config                 | BLAZAR routing, merged keys, restart noted       |
 | A.7 | Step 5 — Documentation phase      | 28 files in 8 folders, reserved workflow name    |
+| A.7b | Root file AGENT.md               | Six sections, created once, repaired additively  |
+| A.7c | Root file WORKFLOW.md            | Part A method plus Part B task, dated notes      |
+| A.7d | Root directives and mirror       | Merged source, pointer line, generated mirror    |
 | A.8 | Execution relay                   | Owner as bridge between agent and chatbot        |
 | A.9 | Vanguard laws                     | Request first, real commands, gates, no stubs    |
 ```
@@ -365,6 +393,61 @@ hyphenated and equals the filename stem, `mode: subagent` is present, no
 harness appears. A definition that fails validation is rejected with its file
 and reason stated, and dispatch on it is refused until it is repaired.
 
+### Forge skill install (A.6b)
+
+Four top-level skills exist once the forge lands, in this fixed order:
+`vantrilex-prime` orients the machine, `vantrilex-vanguard` equips the
+project, `vantrilex-workflow-forge` authors the standing methodology, and
+`vantrilex-doctrine` governs the work. Vanguard installs the forge in the
+Step 4 lane under the same real-command law that binds every other install.
+
+A skill id is its directory path, so the install path is fixed:
+
+```text
+.opencode/skills/vantrilex-workflow-forge/SKILL.md
+```
+
+Vanguard runs this command in the Step 4 lane and reports the exact string
+for the CS node README block:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-workflow-forge
+```
+
+Vanguard proves the install by read-back: the file exists at the path above,
+its frontmatter `name` equals `vantrilex-workflow-forge`, and
+`node scripts/verify-skills.mjs` exits 0. Until that proof lands, the run
+reports the forge as pending and the set as incomplete. A hand-written copy
+at the path counts as absent, because a fabricated skill governs nothing.
+
+### Companion config (A.6c)
+
+Vanguard installs BLAZAR as the default agent and applies the V2 companion
+config in the Step 4 lane, after the kit verifies and before the docs gate
+closes. The program brief fixes the key set. Vanguard resolves the config
+path live in the target tree, merges the keys, reads the file back, and
+reports every key with its before and after values. No key is assumed from
+a remembered path, and no routing claim is made before the read-back
+matches.
+
+| Key | Merged value |
+|---|---|
+| `default_agent` | `blazar` |
+| `build` lane | disabled |
+| `plan` lane | disabled |
+| `experimental.subagent_depth` | `1` |
+| `compaction` keeps | tokens and buffer only |
+
+BLAZAR installs under the same law as every component: a verified vector
+from the lock or the live catalog installs it, and a missing vector records
+the entry with a null command and `verification: unverified`, never with a
+guessed command.
+
+The merged routing takes effect at the next runtime restart. Vanguard notes
+the restart in the merge record and treats the new routing as pending until
+the owner confirms the reload. A run that claims the new routing before the
+restart certifies what never executed.
+
 ### Step 5 — Documentation phase (A.7)
 
 Generate the twenty-eight files with fixed numbers and fixed filenames in eight folders. The grouping
@@ -432,6 +515,81 @@ Superseded material is moved to `docs/99-archive/` with a manifest stating why e
 replaced, and archive contents are never deleted — deletion destroys the evidence of what was
 decided and why.
 
+### Root file AGENT.md (A.7b)
+
+Vanguard seeds the target project root `AGENT.md` in the docs lane from the
+canonical template beside this skill at `assets/agent-md-template.md`. The
+template carries six sections in this fixed order, and a seeded file keeps
+them:
+
+```text
+| # | Section | Holds |
+| 1 | Identity | What the project is, in project words |
+| 2 | Current state | Where the work stands at the last update |
+| 3 | Task log | Dated entries, one per unit of work |
+| 4 | Decisions | Rulings with reasons and dates |
+| 5 | Open items & next actions | Pending work with owners |
+| 6 | Known risks & defects | Ranked, with evidence or dates |
+```
+
+One rule covers all four project states: Vanguard never overwrites. When
+the file is absent, Vanguard creates it from the template. When the file
+exists, Vanguard verifies the six sections, adds the missing ones
+additively, leaves every owner line untouched, and reports each section as
+created or kept. An overwrite that destroys the task log is unrecoverable,
+which is why repair stays additive.
+
+### Root file WORKFLOW.md (A.7c)
+
+Vanguard seeds the target project root `WORKFLOW.md` in the docs lane from
+the template beside this skill at `assets/workflow-md-template.md`. The
+file is a two-part artifact. Part A is the standing methodology, items A1
+through A7, copied from the canonical text the forge skill carries and read
+live at seed time. Part B is the current-task workflow, written per task and
+replaced as tasks turn over. The parts keep separate revision discipline:
+Part B changes freely with the work, while every Part A change carries a
+dated note stating what changed and why, so a later reader can tell
+standing method from recent edit.
+
+When the forge canonical copy is unreadable at seed time, Vanguard blocks
+the docs gate and reports the block. Seeding Part A from memory invents the
+very method the run exists to pin down, so the run stops instead of
+guessing.
+
+### Root directives and mirror (A.7d)
+
+Standing directives live in the target project root `AGENTS.md`, because
+the V2 runtime auto-loads that file and that file alone: not the generated
+mirror, not `AGENT.md`, and not the accepted-but-inert instructions array.
+Vanguard merges the canonical directive text into `AGENTS.md` inside a
+delimited kit region, preserving every owner line outside the sentinels and
+replacing only the region between them:
+
+```text
+<!-- vantrilex:agents-directives:begin spec=agents-directives@v1 -->
+<!-- vantrilex:agents-directives:end -->
+```
+
+The canonical directive text lives with the doctrine skill, which remains
+its only home. Vanguard reads it live at merge time and carries no copy, so
+the merged region can never describe different rules from the source. When
+the file is absent, Vanguard creates it holding the region. When the region
+is absent, Vanguard appends it after one blank line. When the region is
+present, Vanguard replaces exactly the text between the sentinels.
+
+The mirror file is generated from the merged `AGENTS.md` region on every
+run and is never hand-maintained. The doctrine skill states the exact
+mirror filename once, so this file carries no second copy of it. Vanguard
+regenerates the mirror from the single source, reads both files back, and
+reports drift instead of editing the mirror by hand.
+
+Every merged `AGENTS.md` carries the pointer line verbatim, inside the kit
+region, so each task starts from the live project files:
+
+```text
+At the start of every task, read AGENT.md and WORKFLOW.md in this project root before planning or dispatching anything.
+```
+
 ### Execution relay (A.8)
 
 After the docs land, the owner becomes the bridge between the coding agent and the chatbot from the
@@ -493,6 +651,9 @@ injected by phase. The assignment as the lock stands:
 Read the lock at dispatch time instead of copying that table forward: a component absent from a row
 is not thereby unassigned, a phase holding no row is not thereby empty, and the lock entry is what
 gets injected, never the id alone. An id recorded at two kinds is injected as both entries.
+The fourth top-level skill enters this map under its directory-path id when
+the lock carries a row for it. Until then the lock in force decides the map,
+never a printed row.
 
 No mapping printed in this skill governs a dispatch. Vanguard derives the
 phase-kit map from the lock entries in force on every run, and a mismatch
@@ -576,6 +737,20 @@ first, then proceeds on that stated reason.
   ranked by impact against effort, and every claim traced to the code read.
 - The binding record naming role, agent, and dispatched target for every lane,
   with any generic fallback reason stated in one line beside that lane.
+- The `AGENT.md` install record: the path, marked created or repaired, with
+  each of the six sections marked created or kept beside the run date.
+- The `WORKFLOW.md` seed record: the path, the Part A revision notes
+  carried forward with the new note appended, and the task Part B was
+  written for.
+- The directives merge record: the `AGENTS.md` path with owner content
+  marked preserved, the kit region marked wrote or replaced, the pointer
+  line marked present, and the generated mirror marked regenerated with its
+  read-back match stated.
+- The forge install record: the directory path, the exact command run, and
+  the read-back proof with the `verify-skills.mjs` exit code beside it.
+- The companion-config merge record: every merged key with its before and
+  after values, the config path resolved in the target tree, and the
+  restart noted as pending until the owner confirms the reload.
 
 ## Failure Modes
 
@@ -615,3 +790,25 @@ first, then proceeds on that stated reason.
 - A dispatch lands on a generic agent without a stated reason, or a role ships
   without its binding record. Vanguard rebinds through the roster-first rule
   and records role, agent, and dispatched target before running anything.
+- Vanguard overwrites an existing `AGENT.md` instead of repairing it
+  additively. The task log and the decisions it held are unrecoverable, so
+  prevention is the only fix: create only what is absent and report each
+  section as created or kept.
+- A section of `AGENT.md` or a part of `WORKFLOW.md` is invented from
+  memory. Vanguard re-seeds the section from the template asset, and Part A
+  from the forge canonical copy, then re-verifies before the docs gate
+  closes.
+- Owner content in `AGENTS.md` is clobbered, or the pointer line is missing
+  or reworded. Vanguard restores the owner content from the pre-merge read,
+  rewrites the region from the canonical text, and holds the docs gate
+  until the pointer line matches verbatim.
+- The generated mirror is hand-edited or left stale. Vanguard regenerates
+  it from the merged source and reads both files back. A hand edit is
+  drift, and drift is repaired, never kept.
+- Companion-config keys merge without a read-back, or the new routing is
+  claimed before the restart. Vanguard re-reads the file, reports every key
+  again, and keeps the routing pending until the reload is confirmed.
+- The forge skill is installed from any path but its directory path, or a
+  top-level enumeration still reads three. Vanguard reinstalls by the
+  stated command and corrects the count to four wherever the four skills
+  are named.

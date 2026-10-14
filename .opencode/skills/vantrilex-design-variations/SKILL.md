@@ -8,9 +8,10 @@ description: Use when a design task arrives on a UI-bearing project — any layo
 ## Purpose
 
 `vantrilex-design-variations` is a **catalog kit component**, not a top-level skill. The Arsenal's
-top-level orchestration layer is exactly three skills and stays exactly three: `vantrilex-prime`
+top-level orchestration layer is exactly four skills and stays exactly four: `vantrilex-prime`
 orients the machine, `vantrilex-vanguard` equips the project and decides when this component is
-needed, and `vantrilex-doctrine` governs the work that follows. The `vantrilex-` prefix on this
+needed, `vantrilex-workflow-forge` authors the per-task workflow before execution begins, and
+`vantrilex-doctrine` governs the work that follows. The `vantrilex-` prefix on this
 folder is a naming convention shared by all Arsenal components and grants no extra status. This file
 is a procedure a working agent runs inside an already-equipped project when a design task arrives;
 it never orients a machine, never equips a project, and never owns a phase.

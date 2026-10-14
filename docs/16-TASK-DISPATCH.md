@@ -19,7 +19,7 @@ It lives in `.opencode/plugin/arsenal.ts` as `export const taskDispatcher`,
 because OpenCode has no standalone hooks directory — see
 [03-ARCHITECTURE.md](03-ARCHITECTURE.md). Its identity in the Registry and in
 the lock is `task-dispatcher`, unprefixed like every other hook id here; the
-`vantrilex-` prefix is reserved for the three top-level skills.
+`vantrilex-` prefix is reserved for the four top-level skills.
 
 | Field | Value |
 |---|---|
@@ -237,6 +237,6 @@ two records to agree on `kind`, `phase`, `tier`, `install_cmd` and
 
 The migration to V2 changed which runtime surface registers this hook, not what
 the lock records. `task-dispatcher` is still `tier core` at `phase scout`, and
-the lock still holds 47 components — 31 `core` plus 16 `conditional`, 0 pending
+the lock still holds 112 components — 31 `core` plus 81 `conditional`, 0 pending
 — of which 7 are hooks. A guard moving onto a different API is not a new
 component, and nothing here may be read as one.

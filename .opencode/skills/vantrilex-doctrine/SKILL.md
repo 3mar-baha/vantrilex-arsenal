@@ -12,13 +12,14 @@ the seven constitutional laws, assigns decision rights across the Leader, Guide,
 roles, binds each lifecycle phase to its kit, defines the five workflows with their gates and
 done-definitions, fixes the session rituals, and states the parallel-execution law that the rest of
 the book assumes. Read it when the question is what the rules are, which workflow applies, or who
-decides; it answers all three, and it answers them the same way every session. Three top-level
+decides; it answers all three, and it answers them the same way every session. Four top-level
 skills exist and they run in one fixed order: `vantrilex-prime` orients the machine once,
-`vantrilex-vanguard` equips the project once per project, and `vantrilex-doctrine` governs how the
-work runs once the kit is installed. It also owns one artifact inside every
-project it governs: the standing-directive block written into that project's `CLAUDE.md` and
-re-verified on every later run, so the permanent rules are stated once in the file every agent
-already reads instead of being repeated in every work order.
+`vantrilex-vanguard` equips the project once per project, `vantrilex-workflow-forge` authors
+the standing methodology before execution, and `vantrilex-doctrine` governs how the work runs
+once the kit is installed. It also owns one artifact inside every project it governs: the
+canonical standing-directive text merged into that project's `AGENTS.md` and mirrored into
+the generated `CLAUDE.md`, re-verified on every later run, so the permanent rules are stated
+once in the file the OpenCode V2 runtime auto-loads instead of being repeated in work orders.
 
 ## When to Use
 
@@ -30,19 +31,19 @@ already reads instead of being repeated in every work order.
 - At every phase transition, before injecting the next phase kit and pruning the last one.
 - When a defect resists fixing and the breaker must be armed, or when a gate fails and the verdict
   must be held.
-- At every equip run and every later run on an equipped project, to write the standing-directive
-  block into the target project's `CLAUDE.md` when it is absent and to repair it when it has
-  drifted, following the procedure under B.8.
+- At every equip run and every later run on an equipped project, to merge the standing-directive
+  region into the target project's `AGENTS.md` when it is absent and to repair it when it has
+  drifted, then to regenerate the generated `CLAUDE.md` mirror from it, following B.8.
 
 ## Do NOT use
 
 - To survey sources, select components, or install the kit on a fresh project — that equip run
   belongs to Vanguard, which already pinned the kit this skill injects per phase.
-- To carry the standing directives inside a work order. The block under B.8 is their single home
+- To carry the standing directives inside a work order. The region under B.8 is their single home
   once it is on disk, and a directive restated inside a brief is a second copy that will drift
   from the one the target project's agents actually read.
-- To write the block into `docs/25-AI-CONSTITUTION.md` or to merge it with the laws that file
-  holds. The constitution holds the project's own immutable laws and the block holds the permanent
+- To write the region into `docs/25-AI-CONSTITUTION.md` or to merge it with the laws that file
+  holds. The constitution holds the project's own immutable laws and the region holds the permanent
   Arsenal directives; one file carrying both makes it impossible to change one without rewriting
   the other.
 - To orient a machine or restate the Arsenal itself — that is `vantrilex-prime`, which runs before
@@ -53,8 +54,22 @@ already reads instead of being repeated in every work order.
   two copies of a halt procedure will disagree at the worst possible moment.
 - To overrule a Guide verdict, waive a guard silently, or reopen a halt under schedule pressure.
   Pressure is logged as evidence, never treated as authority.
-- To hand-edit generated artifacts (the catalog Markdown, the per-kind index files); change the
-  generator or the data sidecar and regenerate, so the source and the mirror can never disagree.
+- To hand-edit generated artifacts (the catalog Markdown, the per-kind index files, the `CLAUDE.md`
+  mirror); change the generator or the data sidecar and regenerate, so the source and the mirror
+  can never disagree.
+- To start execution before the forge skill has authored the standing methodology. The run invokes
+  the forge by its skill id `vantrilex-workflow-forge` at each task start and seeds Part A of the
+  target `WORKFLOW.md` from the canonical copy it carries; a start without that invocation fails
+  its gate and the run stops before the first dispatch.
+- To close a task without the two landings the close gate requires: a dated revision note on Part A
+  of the target `WORKFLOW.md` when the methodology changed, and the per-task `AGENT.md` update
+  beside it. A close without both landings fails the gate and the run stays open.
+- To let anyone but the orchestrator write the target `AGENT.md`, or to leave it unrotated when the
+  task log outgrows one file. Only the orchestrator writes it, after every task, rotating closed
+  entries into `docs/agent-log-YYYY-MM.md`; any other writer fails the close gate.
+- To provision, install, or configure a language server on the kit's authority. The lock's `lsp`
+  entry is a need-label pointing at the project's own typecheck and lint commands, and the run
+  executes those commands and records their exit codes instead of installing a server.
 
 ## Inputs
 
@@ -65,8 +80,8 @@ already reads instead of being repeated in every work order.
   interpretation, and gates rule on observations, not interpretations.
 - The strike ledger for any live defect id, and the owner's recorded decisions.
 - For the standing-directive run: the target project's root directory, the current contents of that
-  project's `CLAUDE.md` when the file exists, and the deployed kit and spec marker stated in
-  `kit/kit.lock`, read there rather than remembered.
+  project's `AGENTS.md` and its generated `CLAUDE.md` mirror when each file exists, and the deployed
+  kit and spec marker stated in `kit/kit.lock`, read there rather than remembered.
 
 ## Parallel execution first
 
@@ -302,12 +317,28 @@ phases match this map; `ponytail-debt` is catalogued with phase `operate`, also 
 but carries a null `tier` where its peers carry `core` or `conditional`. The map above governs
 regardless; the tier backfill follows.
 
+Language-server state, read from the lock rather than remembered: the lock carries one entry of
+kind `lsp`, `typescript-lsp`, in phase `build` and tier `core`, with a null install command and
+`verification: unverified`. The OpenCode V2 runtime runs no language servers and produces no
+diagnostics, so the entry is a need-label pointing at the project's own typecheck and lint
+commands, never a provisioning record. No run installs or configures a server on its authority:
+the run executes the project's typecheck and lint commands and records their exit codes instead.
+
 ### B.4 — Workflows
 
 Each workflow states its trigger, required kit, steps, gates, and done-definition — the same five
 headings every time, so a reader who knows one workflow can read them all. Target-project mirrors
 of these workflows live at `docs/19-FEATURE-WORKFLOW.md` through `docs/22-BUGFIX-WORKFLOW.md`,
 authored from this skill.
+
+Two forge laws bind every workflow below. No execution starts before the forge skill authors the
+standing methodology: the orchestrator invokes the forge by its skill id `vantrilex-workflow-forge`
+at each task start, seeds Part A of the target `WORKFLOW.md` from the canonical copy it carries,
+and only then dispatches. No task closes without its two landings: a dated revision note on Part A
+when the methodology changed, and the per-task `AGENT.md` update from Ritual 2 beside it. Part B
+of `WORKFLOW.md` turns over freely with the work; Part A changes only with a dated note stating
+what changed and why. A start without the forge invocation, or a close without both landings,
+fails its gate and the run stops.
 
 #### Workflow 1 — Feature
 
@@ -392,13 +423,27 @@ mechanics to `session-context-primer` and consume the single anchor block it emi
 approximate anchor now beats a perfect anchor late). The anchor format has its single home in
 `session-context-primer`, which defines the seven fields the anchor carries — mission, phase,
 branch, worktrees, next item, guards, and circuit state — and Doctrine consumes the anchor rather
-than defining it.
+than defining it. At the start of every task, the orchestrator then reads `AGENT.md` and
+`WORKFLOW.md` in the project root before planning or dispatching anything, as the pointer line in
+the `AGENTS.md` kit region states verbatim, and invokes the forge by its skill id
+`vantrilex-workflow-forge` so Part A of `WORKFLOW.md` is authored before execution begins.
 
 #### Ritual 2 — End
 
 Persist learnings to `docs/17-CHECKPOINT.md` (what changed, what is in flight, what is halted, what
 was deliberately not started). Record decisions with record-decision.sh into the ledger so the next
-session inherits every ruling instead of rediscovering it.
+session inherits every ruling instead of rediscovering it. Then the orchestrator updates the target
+root `AGENT.md` itself, in the fixed entry shape below: no task closes without this update, and no
+Implementer writes it. The update appends one dated entry per unit of work, refreshes the
+current-state section to the landing, and files decisions, open items, and defects beside their
+dates. When the task log outgrows one file, the orchestrator rotates closed entries into
+`docs/agent-log-YYYY-MM.md` for the month in which they closed, keeping the live file short and
+the archive dated. A close without the update, or an update written by anyone but the
+orchestrator, fails the close gate and the run stays open.
+
+```text
+YYYY-MM-DD — <unit of work>: <outcome observed> (<evidence: commit, command, or file>)
+```
 
 #### Ritual 3 — Pre-compact
 
@@ -424,58 +469,68 @@ Parallel execution first. This entry exists so a reader arriving at the B-series
 without reading the whole file, and it deliberately carries no second copy: two versions of the
 same law will disagree at the worst possible moment.
 
-### B.8 — Standing directives in the target project's `CLAUDE.md`
+### B.8 — Standing directives in the target project's `AGENTS.md`
 
 Six directives are permanent. They used to be restated in every work order, which
 meant the cost was paid again on each dispatch and any edit had to be replayed
 into every brief already sent. They now live in one place instead: a delimited
-block inside the target project's `CLAUDE.md`, written once and re-verified
-forever after. This section states where the block lives, what it says, when
-Doctrine writes and verifies it, and how it is extended without touching a word
-the owner wrote.
+region inside the target project's `AGENTS.md`, merged once and re-verified
+forever after, with the generated `CLAUDE.md` mirror rebuilt from it on every
+run. This section states where the region lives, what it says, when Doctrine
+writes and verifies it, and how it is extended without touching a word the owner
+wrote.
 
-The block is read every session, so it carries no Arsenal internals and no
-version numbers of its own: it states the six rules, names the owner, and stops.
-Everything an implementing agent needs in order to place and repair the block
-sits in the prose around it, never inside it.
+The region is read every session, so it carries no Arsenal internals and no
+version numbers of its own: it states the six rules, carries the pointer line
+that opens every task, names the owner, and stops. Everything an implementing
+agent needs in order to place and repair the region sits in the prose around
+it, never inside it.
 
-#### B.8.1 — Where the block lives
+#### B.8.1 — Where the region lives
 
-One file, one region, one owner. The block lives at the repository root of the
-equipped project, in `CLAUDE.md`, appended after whatever the owner already wrote
-there. `CLAUDE.md` is where every agent running in the project reads its standing
-instructions, and no other file in the twenty-eight-file set is read that way.
-The block is never written into the project's `docs/` series and is never merged
+One file, one region, one owner. The region lives at the repository root of the
+equipped project, in `AGENTS.md`, merged after whatever the owner already wrote
+there. The OpenCode V2 runtime auto-loads that file and that file alone: not the
+generated mirror, not `AGENT.md`, and not the accepted-but-inert instructions
+array. The merge never clobbers: every owner line outside the sentinels stays
+exactly as written, and only the text between the sentinels is kit content. The
+region is never written into the project's `docs/` series and is never merged
 into `docs/25-AI-CONSTITUTION.md`: the constitution holds the project's own
-immutable laws, the block holds the permanent Arsenal directives, and mixing them
-makes it impossible to change one without rewriting the other. A directive
+immutable laws, the region holds the permanent Arsenal directives, and mixing
+them makes it impossible to change one without rewriting the other. A directive
 restated inside a work order is a second copy of a permanent rule, and two
 copies of a permanent rule will disagree.
 
-Two HTML comment sentinels delimit the region, so the block is findable by exact
+Two HTML comment sentinels delimit the region, so the region is findable by exact
 string match and an agent can never mistake the owner's prose for kit content:
 
 ```text
-<!-- vantrilex:standing-directives:begin spec=standing-directives@v1 -->
-<!-- vantrilex:standing-directives:end -->
+<!-- vantrilex:agents-directives:begin spec=agents-directives@v1 -->
+<!-- vantrilex:agents-directives:end -->
 ```
 
 The opening sentinel carries the spec marker. The closing sentinel closes the
-region and carries nothing else. `standing-directives` is the name and `v1` is
-the revision; the marker exists so a later revision of the block can be told
+region and carries nothing else. `agents-directives` is the name and `v1` is
+the revision; the marker exists so a later revision of the region can be told
 apart from an edited or damaged one by reading a single line.
 
-#### B.8.2 — The canonical block
+The generated mirror is `CLAUDE.md`, named here as the single authority for that
+name. Vanguard carries no copy of it: it regenerates that file from the merged
+`AGENTS.md` region on every run and never hand-edits it, so the source and the
+mirror can never describe different rules.
 
-The block below is the exact text Doctrine inserts. Copy it verbatim, including
-both sentinels and the blank line that separates them from the owner's content.
-The kit is the only writer: an agent that finds the block missing writes it from
-here, and an agent that finds it drifted restores it from here.
+#### B.8.2 — The canonical region
+
+The region below is the exact text Doctrine merges. Copy it verbatim, including
+both sentinels, the pointer line, and the blank line that separates the region
+from the owner's content. The kit is the only writer: an agent that finds the
+region missing writes it from here, and an agent that finds it drifted restores
+it from here.
 
 ```text
-<!-- vantrilex:standing-directives:begin spec=standing-directives@v1 -->
+<!-- vantrilex:agents-directives:begin spec=agents-directives@v1 -->
 
-<!-- Written by the Vantrilex Arsenal. This block is maintained by the kit. To
+<!-- Written by the Vantrilex Arsenal. This region is maintained by the kit. To
      change it, edit the canonical copy in the Arsenal's doctrine skill; to add
      your own instructions, put them outside the sentinels above and below. -->
 
@@ -483,6 +538,8 @@ here, and an agent that finds it drifted restores it from here.
 
 These rules are permanent. They are set by the Vantrilex Arsenal and they are
 not preferences, defaults, or suggestions.
+
+At the start of every task, read AGENT.md and WORKFLOW.md in this project root before planning or dispatching anything.
 
 1. **Plan once, then fan out.** Every task is planned once, up front, into a
    dependency graph. Independent tasks go to named subagents and run in parallel.
@@ -515,91 +572,104 @@ the Arsenal config file. They are infrastructure, not permission: nothing they
 do, and no setting in them, overrides a directive above.
 
 `docs/25-AI-CONSTITUTION.md` holds this project's own immutable laws and stands
-beside this block. It is not replaced by it and does not restate it.
+beside this region. It is not replaced by it and does not restate it.
 
-<!-- vantrilex:standing-directives:end -->
+<!-- vantrilex:agents-directives:end -->
 ```
 
-The block text appears exactly twice in the Arsenal: once here, as the canonical
-copy, and once per equipped project, inside that project's `CLAUDE.md`. The
-canonical copy is changed only here, and an equipped project's copy is always
-restored from here, so the two can never describe different rules.
+The region text has one canonical home: here. Each equipped project carries its merged copy
+inside `AGENTS.md`, restored from here whenever it drifts, and the `CLAUDE.md` mirror is
+generated from that merged copy on every run, never written by hand. The canonical copy is
+changed only here, so the three can never describe different rules.
 
-#### B.8.3 — When Doctrine writes and verifies the block
+#### B.8.3 — When Doctrine writes and verifies the region
 
-The block is written and checked at two moments, by one procedure:
+The region is written and checked at two moments, by one procedure:
 
 - **At equip, when the kit is already installed and the project is about to be
-  documented.** The kit writes or verifies the block before the documentation
-  phase closes, so no project leaves an equip run without it.
-- **On every later run on an equipped project.** The block is re-verified before
-  the run's own gates, and a drifted block is repaired at the start of that run
-  rather than left for the owner to notice.
+  documented.** The kit writes or verifies the region before the documentation
+  phase closes, then regenerates the mirror from it, so no project leaves an
+  equip run without both.
+- **On every later run on an equipped project.** The region is re-verified before
+  the run's own gates, a drifted region is repaired at the start of that run
+  rather than left for the owner to notice, and the mirror is regenerated from
+  the repaired source before the run proceeds.
 
 #### B.8.4 — When a directive is missing: repair, and block
 
-A missing block is repaired, and the repair is a gate:
+A missing region is repaired, and the repair is a gate:
 
-- **A directive missing from the block, or the block missing from `CLAUDE.md`
+- **A directive missing from the region, or the region missing from `AGENTS.md`
   entirely.** Doctrine restores the region from the canonical copy in B.8.2.
   This is a **block**, not a warning: the equip run does not close and the later
-  run does not proceed to its own gates until the block is on disk and verified.
-  A warning would let a project that lost the block keep working, and every
+  run does not proceed to its own gates until the region is on disk and verified.
+  A warning would let a project that lost the region keep working, and every
   later work order in that project would pay the repetition cost again.
 - **A directive edited, reordered, or weakened.** The same repair and the same
-  block. The owner's own words outside the sentinels are preserved; anything
+  region. The owner's own words outside the sentinels are preserved; anything
   inside the sentinels is kit content and the kit decides it.
 - **The opening sentinel present with the closing sentinel absent, or prose
-  written after the block.** Drift. The region is replaced through the end of
+  written after the region.** Drift. The region is replaced through the end of
   the file, which trims whatever was written after the kit content.
 - **The owner's own instructions inside the sentinels.** Also drift, and restored
-  the same way. Custom instructions belong outside the sentinels, and the block
+  the same way. Custom instructions belong outside the sentinels, and the region
   says so in its own header comment.
-- **The spec marker in `CLAUDE.md` disagrees with the spec this skill carries.**
+- **The spec marker in `AGENTS.md` disagrees with the spec this skill carries.**
   Drift. The region is restored, which brings the marker with it.
+- **The mirror disagrees with the merged region.** Drift. The mirror is
+  regenerated from the source and read back; it is never patched by hand to
+  match, because a hand edit is a second copy that will disagree again.
 
-Verification checks three things and reports all three: the opening sentinel is
-present, the closing sentinel follows it, and the region between them matches
-the canonical copy character for character. The check is a guard, so it is never
-evaluated from a summary: the file is read and compared. When the file or the
-canonical copy cannot be read, the check reports `unverified` with the reason and
-is treated as failed, never skipped.
+Verification checks four things and reports all four: the opening sentinel is
+present, the closing sentinel follows it, the region between them matches
+the canonical copy character for character, and the mirror matches the region it
+was generated from. The check is a guard, so it is never
+evaluated from a summary: both files are read and compared. When either file or
+the canonical copy cannot be read, the check reports `unverified` with the reason
+and is treated as failed, never skipped.
 
-#### B.8.5 — Extending an existing `CLAUDE.md` without destroying it
+#### B.8.5 — Extending an existing `AGENTS.md` without destroying it
 
-An equipped project usually has a `CLAUDE.md` the owner wrote. The block is
+An equipped project usually has an `AGENTS.md` the owner wrote. The region is
 appended to it, never written over it:
 
-- **The file does not exist.** Create it holding the block, with no header
-  invented above it.
+- **The file does not exist.** Create it holding the region, with no header
+  invented above it, then generate the mirror from it.
 - **The file exists without the opening sentinel.** Append one blank line, then
-  the block. Nothing above the block is read, moved, or reflowed.
+  the region, then generate the mirror. Nothing above the region is read, moved,
+  or reflowed.
 - **The file exists with the opening sentinel.** Replace exactly the region
-  between the sentinels, and nothing above or below it that the owner wrote.
+  between the sentinels, and nothing above or below it that the owner wrote,
+  then regenerate the mirror from the merged source.
+
+The mirror is never written by hand under any branch above: every branch ends by
+regenerating it from the merged source, reading both files back, and reporting
+drift instead of editing the mirror to match.
 
 Idempotence is a property of that algorithm, not a convention. The opening
 sentinel decides which branch runs, so a second run over an already-correct
-`CLAUDE.md` takes the replace branch, produces a region identical to the
-canonical copy, and writes the same file it read. Re-running never duplicates
-the block, never appends a second copy below the first, and never touches the
-owner's text.
+`AGENTS.md` takes the replace branch, produces a region identical to the
+canonical copy, regenerates an identical mirror, and writes the same files it
+read. Re-running never duplicates the region, never appends a second copy below
+the first, and never touches the owner's text.
 
-#### B.8.6 — The block and the kill-switch config
+#### B.8.6 — The region and the kill-switch config
 
 The six directives are not switchable. `.opencode/arsenal.json` is the
 kill-switch config for the Arsenal's own guards, and as it stands it resolves
 exactly two switches: `docsGuard`, which configures the documentation
 discipline guard and carries `mode`, `allowedDirs`, `allowedFiles`, and
 `series`, and `taskDispatcher.enabled`, which turns the session
-task-dispatcher instruction off. Neither key reaches the directive block, and no
+task-dispatcher instruction off. Neither key reaches the directive region, and no
 key in that file weakens a directive, because a permanent rule that a config
 file can quietly turn off is not permanent.
 
-The two config switches do bound the block's own mechanics. `CLAUDE.md` is in the
-docs-guard's `allowedFiles` default, so appending the block passes the guard on
-every project that left `allowedFiles` at its default. A project that narrowed
-`allowedFiles` must add its own `CLAUDE.md` there for the append to pass, and a
-`docsGuard.mode` of `block` refuses the write until it does.
+The two config switches do bound the region's own mechanics. `AGENTS.md` and the
+generated `CLAUDE.md` mirror sit in the docs-guard's `allowedFiles` default, so
+merging the region and regenerating the mirror pass the guard on every project
+that left `allowedFiles` at its default. A project that narrowed `allowedFiles`
+must list both files there for the write to pass, and a `docsGuard.mode` of
+`block` refuses the write until it does.
 
 ## Outputs
 
@@ -642,15 +712,27 @@ Pruned  : <skill names from the previous phase>
 Cap     : <8-MCP backstop respected: yes>
 ```
 
-- A standing-directive record for every run that writes or verifies the block, in this exact shape:
+- A standing-directive record for every run that writes or verifies the region, in this exact shape:
 
 ```text
 STANDING DIRECTIVE RECORD
-File   : <path to the target project's CLAUDE.md>
+Source : <path to the target project's AGENTS.md>
+Mirror : <path to the generated CLAUDE.md mirror>
 Marker : <absent | present | present, drifted | unverified, reason>
-Action : <wrote block | replaced region between sentinels | created file | none, already canonical>
+Action : <wrote region | replaced region between sentinels | created file | regenerated mirror | none, already canonical>
 Gate   : <PASS | FAIL — blocks the equip close and every later gate>
-Spec   : <standing-directives@v1, matches the Arsenal doctrine skill: yes | no>
+Spec   : <agents-directives@v1, matches the Arsenal doctrine skill: yes | no>
+```
+
+- An `AGENT.md` update record for every task close, in this exact shape:
+
+```text
+AGENT UPDATE RECORD
+File   : <path to the target project's AGENT.md>
+Writer : <orchestrator — no other writer passes the close gate>
+Entries: <dated entries appended, one per unit of work>
+Rotated: <none | docs/agent-log-YYYY-MM.md with the closed entries moved>
+Gate   : <PASS | FAIL — a close without the update stays open>
 ```
 
 - Authorship confirmation for the target-project workflow file: Vanguard generates 27 of the 28
@@ -675,7 +757,26 @@ Spec   : <standing-directives@v1, matches the Arsenal doctrine skill: yes | no>
   stack two phases of kit.
 - **Skipping a level hides information.** A question that jumps the ladder is sent back down one
   level with the reason stated; the ledger records every escalation and every verdict.
-- **The standing-directive block is missing or a directive is gone from it.** Restore the region
-  from B.8.2 and hold the run at its gate until the file on disk matches the canonical copy.
-  Passing a gate on a repaired-in-memory block is the same failure as a dispatch confirmed on a
-  subagent's word.
+- **The standing-directive region is missing or a directive is gone from it.** Restore the region
+  from B.8.2, regenerate the mirror from the restored source, and hold the run at its gate until
+  both files on disk match the canonical copy. Passing a gate on a repaired-in-memory region is
+  the same failure as a dispatch confirmed on a subagent's word.
+- **The generated mirror is hand-edited or left stale.** Regenerate it from the merged `AGENTS.md`
+  source and read both files back. A hand edit is drift, and drift is repaired, never kept.
+- **Owner content in `AGENTS.md` is clobbered, or the pointer line is missing or reworded.**
+  Restore the owner content from the pre-merge read, rewrite the region from the canonical text,
+  and hold the docs gate until the pointer line matches verbatim.
+- **Execution starts without the forge invocation.** Stop before the first dispatch and invoke the
+  forge by its skill id `vantrilex-workflow-forge`; Part A of `WORKFLOW.md` is seeded from the
+  canonical copy it carries, never written from memory.
+- **A task closes without the Part A revision note or the `AGENT.md` update.** The close gate fails
+  and the run stays open until the dated note states what changed and why and the orchestrator
+  lands the per-task update, rotating closed entries into `docs/agent-log-YYYY-MM.md`.
+- **Anyone but the orchestrator writes `AGENT.md`.** The write is discarded and rewritten by the
+  orchestrator, because a task log with two writers loses entries the same way any shared file
+  does under two writers.
+- **A top-level enumeration still reads three.** The count is four — prime, vanguard, workflow-forge,
+  doctrine — and every enumeration is corrected to four wherever the four skills are named.
+- **A run provisions a language server or claims one is installed.** The lock carries no installer
+  for its single `lsp` entry; the run executes the project's own typecheck and lint commands and
+  records their exit codes instead.

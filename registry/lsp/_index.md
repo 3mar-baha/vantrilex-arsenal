@@ -8,7 +8,7 @@
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| typescript-lsp | lsp | core | When editing .ts/.tsx, for language intelligence and diagnostics | `npm install -g typescript-language-server` |
+| typescript-lsp | lsp | core | Needs project typecheck/lint on .ts/.tsx: OpenCode V2 runs no language… |  |
 
 ## Tier 1 — Conditional (0)
 

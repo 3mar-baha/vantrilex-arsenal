@@ -323,6 +323,54 @@ function checkDuplicateIds(records) {
   };
 }
 
+/* ---------- check 7: MCP server-name normalization ---------- */
+
+const MCP_NAME_KEEP_RE = /[^A-Za-z0-9_-]/gu;
+
+function normalizeMcpName(name) {
+  return name.replace(MCP_NAME_KEEP_RE, '_');
+}
+
+function checkMcpNameNormalization(records) {
+  const mcps = records.filter((record) => record.kind === 'mcp');
+  const seen = new Map();
+  const collisions = [];
+  let normalizedAway = 0;
+  let skipped = 0;
+  for (const record of mcps) {
+    if (typeof record.name !== 'string' || record.name === '') {
+      skipped += 1;
+      continue;
+    }
+    // OpenCode V2 names a tool `<server>_<tool>` and replaces every
+    // character outside [A-Za-z0-9_-] with `_`. Two server names that
+    // normalize identically would share one tool prefix, so normalized
+    // names must stay unique across the whole MCP set.
+    const normalized = normalizeMcpName(record.name);
+    if (normalized !== record.name) normalizedAway += 1;
+    const previous = seen.get(normalized);
+    if (previous) {
+      collisions.push(
+        `normalized MCP server name "${normalized}": "${previous.name}" (line ${lineOf(previous)}) collides with "${record.name}" (line ${lineOf(record)})`,
+      );
+    } else {
+      seen.set(normalized, record);
+    }
+  }
+  if (collisions.length > 0) {
+    return {
+      status: 'FAIL',
+      detail: `${collisions.length} MCP server-name collision${collisions.length === 1 ? '' : 's'} after V2 normalization across ${mcps.length} MCP records`,
+      lines: collisions.slice(0, MAX_REPORTED),
+    };
+  }
+  const tail = skipped === 0 ? 'every MCP record carries a name' : `${skipped} MCP record${skipped === 1 ? '' : 's'} without a name not evaluated`;
+  return {
+    status: 'PASS',
+    detail: `${seen.size} MCP server names stay unique after V2 normalization (${normalizedAway} normalize away out-of-range characters; ${tail})`,
+  };
+}
+
 /* ---------- report ---------- */
 
 function report(results) {
@@ -374,7 +422,7 @@ function main() {
   if (parseFailure) {
     const reason = `catalog could not be parsed, so this check evaluated nothing: ${parseFailure.message}`;
     results.push({ name: 'schema-conformance', status: 'FAIL', detail: reason });
-    for (const name of ['row-count-integrity', 'install-command-invariant', 'orphan-references', 'duplicate-ids']) {
+    for (const name of ['row-count-integrity', 'install-command-invariant', 'orphan-references', 'duplicate-ids', 'mcp-name-normalization']) {
       results.push({ name, status: 'SKIPPED', detail: reason });
     }
   } else {
@@ -384,6 +432,7 @@ function main() {
     results.push({ name: 'install-command-invariant', ...checkInstallInvariant(records) });
     results.push({ name: 'orphan-references', ...checkOrphans(records) });
     results.push({ name: 'duplicate-ids', ...checkDuplicateIds(records) });
+    results.push({ name: 'mcp-name-normalization', ...checkMcpNameNormalization(records) });
   }
 
   process.exitCode = report(results);

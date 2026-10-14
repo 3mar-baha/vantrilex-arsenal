@@ -17,29 +17,32 @@ Prime is the orientation skill of that system. A fresh OpenCode instance lands o
 map of any of this, and an agent with no map guesses: it assumes paths, invents commands, and acts
 on memory. Prime exists so the instance never has to guess. Read this file and the system is known
 end to end — what the Arsenal is, where the canonical repository lives, how to fetch and pin it,
-how the tree is laid out on disk, and which of the three top-level skills owns the next decision.
-Prime reads the system and answers. It does not equip a project and it does not govern work.
+how the tree is laid out on disk, and which of the four top-level skills owns the next decision.
+Prime reads the system and answers. It does not equip a project, it does not author a workflow,
+and it does not govern work.
 
-Exactly three top-level skills exist, and they run in one fixed order:
+Exactly four top-level skills exist, and they run in one fixed order:
 
 ```text
-| Order | Skill                | Owns                                              |
-| 1    | `vantrilex-prime`    | Orientation: the system, the tree, who runs next |
-| 2    | `vantrilex-vanguard` | The EQUIP phase for one target project           |
-| 3    | `vantrilex-doctrine` | The WORK phase for every lane, gate, and verdict |
+| Order | Skill                      | Owns                                              |
+| 1     | `vantrilex-prime`          | Orientation: the system, the tree, who runs next |
+| 2     | `vantrilex-vanguard`       | The EQUIP phase for one target project           |
+| 3     | `vantrilex-workflow-forge` | WORK design: workflow per task, authored pre-run |
+| 4     | `vantrilex-doctrine`       | WORK governance: laws, roles, map, rituals       |
 ```
 
-Prime runs once per machine. Vanguard runs once per target project. Doctrine governs every unit of
-work from that point on. The one thing Prime tells the reader beyond the system itself is which of
-those three owns the next decision — and nothing else.
+Prime runs once per machine. Vanguard runs once per target project. The forge authors the workflow
+at each task start before execution. Doctrine governs every unit of work from that point on. The
+one thing Prime tells the reader beyond the system itself is which of those four owns the next
+decision — and nothing else.
 
 ## When to Use
 
 - At the start of a session on a machine that has never carried the Arsenal, before any project work.
 - When the owner says prime, orient, set up the arsenal, or asks what this system is and how to use it.
 - When a session cannot say where the kit, the skills, the roles, or the Registry live on disk.
-- When control is about to pass to Vanguard or to Doctrine and the next owner of the decision is
-  unclear.
+- When control is about to pass to Vanguard, to the forge, or to Doctrine and the next owner of
+  the decision is unclear.
 - When re-orienting after a long gap or a context loss, to rebuild the system view before dispatching.
 
 ## Do NOT use
@@ -51,7 +54,7 @@ those three owns the next decision — and nothing else.
   in Vanguard, and Prime restates none of it — not the state names expanded, not the probes, not the
   outcomes.
 - To author, amend, or adjudicate a workflow, a gate, or a done-definition. Those belong to
-  `vantrilex-doctrine`; Prime points at them and never paraphrases their steps.
+  `vantrilex-workflow-forge`; Prime points at them and never paraphrases their steps.
 - To restate a mechanism another skill owns. The halt block and the incident-report template live in
   `circuit-breaker-guard`, and the anchor block lives in `session-context-primer`. Prime names where
   each one lives and carries no copy of any of them, because a second copy becomes a second,
@@ -126,17 +129,17 @@ Report these component homes, each with its observed presence:
 ```text
 | Path                | Holds                                                      |
 | `.opencode/skills/` | Every skill folder, one SKILL.md each                     |
-| `.opencode/agent/`  | The role files: Leader, Guide, Implementer, and red-team   |
+| `.opencode/agent/`  | Agent definitions: roles, reviewers, guards — read live    |
 | `.opencode/plugin/` | The plugin source that installs the Arsenal into a project |
 | `registry/`         | The Registry: catalog, data sidecars, and schema           |
 ```
 
 Skills and kit components share the `.opencode/skills/` tree, which is why a folder count there is
-not a component count. The tree holds twenty folders: three are the top-level orchestration skills,
-twelve more are locked kit components, and five sit on disk unlocked. Read that split from
-`.opencode/skills/` and `kit/kit.lock` rather than from this file, because a folder can land on disk
-before or after the lock catches up with it. Name the supporting paths beside them, because a fresh
-instance looks for them next:
+not a component count. Count the folders on disk and read the pinned set from `kit/kit.lock`
+rather than from this file, because a folder can land on disk before or after the lock catches up
+with it. This file carries no folder total and no tier split: the disk and the lock are the only
+sources Prime reads for either. Name the supporting paths beside them, because a fresh instance
+looks for them next:
 
 ```text
 | Path                 | Holds                                             |
@@ -146,21 +149,23 @@ instance looks for them next:
 | `AGENTS.md`          | The repository constitution for any coding agent |
 ```
 
-The pinned kit is locked at fifty-two components with an empty pending list — thirty-six core,
-sixteen conditional — and the lockfile caps MCP transports at eight. Read the total, the tier split,
-the pending length, and the cap from `kit/kit.lock` and report them as read; when the file is absent or
-unreadable, report that as a deviation and never fill it in from memory, because a remembered number
-that no longer matches the tree is a silent lie.
+Read the kit total, the tier split, the pending-list length, and the MCP cap from `kit/kit.lock`
+and report each value as read; when the file is absent or unreadable, report that as a deviation
+and never fill any of them in from memory, because a remembered number that no longer matches the
+tree is a silent lie.
 
-### P.5 — Verify the three top-level skills
+### P.5 — Verify the four top-level skills
 
-Check that all three paths exist, then check that each frontmatter `name` equals its folder name:
+Check that all four paths exist, then check that each frontmatter `name` equals its folder name.
+Fill the Verdict column from observation, never from this file: while the forge skill is absent its
+row reads Absent, the absence is reported by name, and the handoff is refused until it lands.
 
 ```text
-| Skill                | Path                                               | Verdict |
-| `vantrilex-prime`    | `.opencode/skills/vantrilex-prime/SKILL.md`        | Present |
-| `vantrilex-vanguard` | `.opencode/skills/vantrilex-vanguard/SKILL.md`     | Present |
-| `vantrilex-doctrine` | `.opencode/skills/vantrilex-doctrine/SKILL.md`     | Present |
+| Skill                      | Path                                                 | Verdict |
+| `vantrilex-prime`          | `.opencode/skills/vantrilex-prime/SKILL.md`          | Present |
+| `vantrilex-vanguard`       | `.opencode/skills/vantrilex-vanguard/SKILL.md`       | Present |
+| `vantrilex-workflow-forge` | `.opencode/skills/vantrilex-workflow-forge/SKILL.md` | Present |
+| `vantrilex-doctrine`       | `.opencode/skills/vantrilex-doctrine/SKILL.md`       | Present |
 ```
 
 A missing path, an unreadable file, or a `name` that does not match its folder is reported
@@ -179,29 +184,33 @@ catalog mirror, the kit, the skill format, the shell scripts, and the plugin typ
 Prime names them so a fresh instance knows what proof exists. Prime runs only the skill-format
 gate, the one it just invoked, and running the skill-format gate proves format only.
 
-### P.6 — Introduce the two sibling skills
+### P.6 — Introduce the sibling skills
 
 One line each, no more:
 
 - `vantrilex-vanguard` detects the project state, surveys the resources, selects and installs the kit,
   verifies it, and reports — the EQUIP phase.
-- `vantrilex-doctrine` holds the constitutional laws, the phase-to-skill mapping, and the workflows for
-  features, reviews, security audits, bug fixes, and releases — the WORK phase.
+- `vantrilex-workflow-forge` authors and amends the workflow at each task start before execution —
+  the WORK design.
+- `vantrilex-doctrine` holds the constitutional laws, the role that decides each gate, the
+  phase-to-skill mapping, and the session rituals — the WORK governance.
 
-Both lines name the scope. Neither line expands into steps, gates, or criteria, because a summary of
+Each line names the scope. No line expands into steps, gates, or criteria, because a summary of
 a sibling's procedure is a second, unauthenticated source of process truth beside the one that owns
 it.
 
 ### P.7 — State the order of use
 
-Report the order plainly: Prime once per machine, then Vanguard once per target project, then
-Doctrine for all work. Name where the session currently sits as one of the three, and name the next
+Report the order plainly: Prime once per machine, then Vanguard once per target project, then the
+forge at each task start before execution, then Doctrine for all work. Invoke the forge by its skill
+id before any execution begins — `vantrilex-workflow-forge` — and refuse the handoff while its
+SKILL.md is absent. Name where the session currently sits as one of the four, and name the next
 owner of the decision beside it. An unequipped machine is a Prime job; an equipped project with a
-pending decision is a Vanguard or a Doctrine job, never a Prime job.
+pending decision is a Vanguard, a forge, or a Doctrine job, never a Prime job.
 
 ### P.8 — Read out the standing laws
 
-Three laws bind Prime from its first line, and all three carry forward into every later phase:
+Standing laws bind Prime from its first line, and each one carries forward into every later phase:
 
 - **The coding agent never performs project work directly.** It plans, dispatches subagents, verifies
   their results, and merges; the subagents write. This holds during orientation too: Prime reads and
@@ -223,12 +232,12 @@ System    : Vantrilex Arsenal, shareable plugin plus component system
 Repository: https://github.com/3mar-baha/vantrilex-arsenal
 Commit    : <the id git rev-parse HEAD printed, verbatim>
 Tree      : <the four component homes, each marked present or absent>
-Skills    : <the three top-level skills, each marked present or absent>
-Order     : Prime, then Vanguard per project, then Doctrine for all work
-Next owner: <prime | vanguard | doctrine>
+Skills    : <the four top-level skills, each marked present or absent>
+Order     : Prime, then Vanguard per project, then forge pre-run, then Doctrine
+Next owner: <prime | vanguard | workflow-forge | doctrine>
 ```
 
-- One skill-presence table with the three rows from P.5, every absence named rather than summarised.
+- One skill-presence table with the four rows from P.5, every absence named rather than summarised.
 - One handoff line naming the next owner of the decision and the trigger that moves it there, so the
   session never has to guess whether a project is equipped.
 - Nothing else. Prime writes no project file, no registry entry, and no documentation; the report is
@@ -249,8 +258,8 @@ Next owner: <prime | vanguard | doctrine>
 - **A count is quoted from this file rather than from the tree.** Read it again. The kit size, the
   folder count, and the pending-list length are observations, and a remembered number that no longer
   matches the tree is a silent lie.
-- **The orientation drifts into equipping or governing.** Cut the section and hand off to
-  `vantrilex-vanguard` or `vantrilex-doctrine`. Restating a sibling's procedure is a scope failure
-  even when the summary is accurate.
+- **The orientation drifts into equipping, authoring, or governing.** Cut the section and hand off
+  to `vantrilex-vanguard`, `vantrilex-workflow-forge`, or `vantrilex-doctrine`. Restating a
+  sibling's procedure is a scope failure even when the summary is accurate.
 - **A verification script runs and the session paraphrases it.** Paste the output and the exit code as
   printed. A check that cannot be evaluated is a failed check, never a skipped one, and never a pass.
