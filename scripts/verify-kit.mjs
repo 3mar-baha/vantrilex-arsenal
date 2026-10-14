@@ -24,6 +24,8 @@ const SCHEMA_PATH = path.join(ROOT, "kit", "kit.lock.schema.json");
 const CATALOG_PATH = path.join(ROOT, "registry", "catalog.json");
 const ARSENAL_PATH = path.join(ROOT, ".opencode", "plugin", "arsenal.ts");
 const SKILLS_DIR = path.join(ROOT, ".opencode", "skills");
+const AGENTS_DIR = path.join(ROOT, ".opencode", "agents");
+const LSP_SIDECAR_PATH = path.join(ROOT, "registry", "data", "lsp.jsonl");
 
 const EXPECTED_PENDING = [];
 const EXPECTED_LOCKED_SKILLS = ["vantrilex-vanguard", "vantrilex-doctrine", "vantrilex-prime"];
@@ -327,16 +329,36 @@ function checkCliEntries(components) {
 }
 
 /**
- * Validate the shape of every locked lsp entry. Mirrors checkCliEntries: a
- * language server installs through a package manager or a vendor installer,
- * never a chained shell or a piped remote script.
+ * Validate the shape of every locked lsp entry. Two honest states exist.
+ * A provisioned entry installs through a package manager or a vendor
+ * installer, never a chained shell or a piped remote script. A need-label
+ * entry carries install_cmd null + verification unverified and points at
+ * the project's own typecheck/lint commands through its sidecar
+ * when_to_use, because OpenCode V2 accepts lsp configuration but runs no
+ * language servers and produces no diagnostics. Anything else is refused
+ * here rather than trusted, because an agent downstream will execute the
+ * string verbatim.
  */
 function checkLspEntries(components) {
   const lsps = components.filter((c) => c.kind === "lsp");
   if (lsps.length === 0) {
     return { status: "PASS", detail: "0 lsp entries locked; the kind is scaffolded and carries no entry yet" };
   }
+  let sidecar = null;
+  try {
+    sidecar = new Map();
+    const raw = fs.readFileSync(LSP_SIDECAR_PATH, "utf8");
+    for (const line of raw.split("\n")) {
+      if (line.trim() === "") continue;
+      const record = JSON.parse(line);
+      if (typeof record.id === "string") sidecar.set(record.id, record);
+    }
+  } catch (err) {
+    sidecar = null;
+  }
   const failures = [];
+  let provisioned = 0;
+  let needLabels = 0;
   for (const entry of lsps) {
     const id = entry.id;
     if (LOCK_PHASES.includes(entry.phase) === false) {
@@ -352,21 +374,39 @@ function checkLspEntries(components) {
       failures.push(id + ": verification is verified but install_cmd is null or empty");
     }
     if (entry.install_cmd === null || entry.install_cmd === undefined) {
-      failures.push(id + ": install_cmd is null; an lsp entry must carry a real installer command");
+      if (entry.verification !== "unverified") {
+        failures.push(id + ": install_cmd is null but verification is not unverified; a null command is only honest as unverified");
+        continue;
+      }
+      if (sidecar === null) {
+        failures.push(id + ": need-label cannot be evaluated: registry/data/lsp.jsonl is unreadable");
+        continue;
+      }
+      const side = sidecar.get(id);
+      if (side === undefined) {
+        failures.push(id + ": need-label has no matching record in registry/data/lsp.jsonl");
+        continue;
+      }
+      if (typeof side.when_to_use !== "string" || side.when_to_use.trim() === "") {
+        failures.push(id + ": need-label carries no when_to_use instruction pointing at the project's own typecheck/lint");
+        continue;
+      }
+      needLabels++;
       continue;
     }
     const reason = cliCommandReason(entry.install_cmd);
     if (reason !== null) {
       failures.push(id + ": " + reason);
+    } else {
+      provisioned++;
     }
   }
   if (failures.length > 0) {
     return { status: "FAIL", detail: failures.join("; ") };
   }
-  const verified = lsps.filter((c) => c.verification === "verified").length;
   return {
     status: "PASS",
-    detail: lsps.length + " lsp entries carry a real installer command with valid phase, tier and verification (" + verified + " verified)"
+    detail: lsps.length + " lsp " + (lsps.length === 1 ? "entry valid" : "entries valid") + " with correct phase, tier and verification (" + provisioned + " provisioned with a real installer, " + needLabels + " " + (needLabels === 1 ? "need-label" : "need-labels") + " pointing at project typecheck/lint)"
   };
 }
 
@@ -679,6 +719,73 @@ function main() {
 
     const lspResult = checkLspEntries(components);
     record("per-kind/lsp", lspResult.status, lspResult.detail);
+
+    // Every shipped agent file declares mode explicitly. OpenCode V2
+    // defaults an omitted mode to primary, so a file without a mode line
+    // would silently promote a subagent to session leadership. The check
+    // reads .opencode/agents/ (canonical plural V2 location) and proves
+    // each self-sourced lock agent resolves to one of those files.
+    // Upstream agents carry no local file by design and are named, not checked.
+    let agentFiles = null;
+    try {
+      agentFiles = fs.readdirSync(AGENTS_DIR).filter((f) => f.endsWith(".md")).sort();
+    } catch (err) {
+      record("agent-mode-explicit", "FAIL", "cannot read .opencode/agents/: " + String(err));
+    }
+    if (agentFiles !== null) {
+      const modeFailures = [];
+      let subagentCount = 0;
+      for (const file of agentFiles) {
+        let text = null;
+        try {
+          text = fs.readFileSync(path.join(AGENTS_DIR, file), "utf8");
+        } catch (err) {
+          modeFailures.push(file + ": unreadable (" + String(err) + ")");
+          continue;
+        }
+        const fence = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+        if (fence === null) {
+          modeFailures.push(file + ": no frontmatter fence");
+          continue;
+        }
+        const fenceLines = fence[1].split(/\r?\n/);
+        const findKey = (key) => fenceLines.find((line) => new RegExp("^\\s*" + key + "\\s*:").test(line));
+        const stem = file.replace(/\.md$/, "");
+        const nameLine = findKey("name");
+        const name = nameLine === undefined ? null : nameLine.replace(/^\s*name\s*:\s*/, "").trim().replace(/^["']|["']$/g, "");
+        if (name !== stem) {
+          modeFailures.push(file + ": frontmatter name " + JSON.stringify(name) + " does not match filename stem");
+          continue;
+        }
+        const modeLine = findKey("mode");
+        if (modeLine === undefined) {
+          modeFailures.push(file + ": frontmatter declares no mode (V2 would default it to primary)");
+          continue;
+        }
+        const mode = modeLine.replace(/^\s*mode\s*:\s*/, "").trim();
+        if (mode !== "primary" && mode !== "subagent" && mode !== "all") {
+          modeFailures.push(file + ": mode " + JSON.stringify(mode) + " is not primary, subagent or all");
+          continue;
+        }
+        if (mode === "subagent") subagentCount++;
+      }
+      const selfAgents = agents.filter((c) => c.source === "3mar-baha/vantrilex-arsenal");
+      for (const entry of selfAgents) {
+        if (agentFiles.includes(entry.id + ".md") === false) {
+          modeFailures.push(entry.id + ": self-sourced lock agent has no .opencode/agents/" + entry.id + ".md");
+        }
+      }
+      const upstreamAgents = agents.filter((c) => c.source !== "3mar-baha/vantrilex-arsenal");
+      if (modeFailures.length > 0) {
+        record("agent-mode-explicit", "FAIL", modeFailures.join("; "));
+      } else {
+        record(
+          "agent-mode-explicit",
+          "PASS",
+          agentFiles.length + " agent files declare mode explicitly (" + subagentCount + " subagent); " + selfAgents.length + " self-sourced lock agents resolve to files; " + upstreamAgents.length + " upstream agent (" + upstreamAgents.map((c) => c.id).join(", ") + ") carries no local file by design"
+        );
+      }
+    }
   }
 
   if (components === null) {

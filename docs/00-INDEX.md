@@ -6,12 +6,14 @@ document any target project. Target-project documentation is a separate,
 runtime-generated set (the 28-file system described by reference in
 [04-VANGUARD.md](04-VANGUARD.md)); nothing in this set duplicates it.
 
-Three top-level skills divide the work, and this set covers them in order:
+Four top-level skills divide the work, and this set covers them in order:
 Prime, the once-per-machine orientation skill, in
 [01-OVERVIEW.md](01-OVERVIEW.md); Vanguard, the once-per-project equip skill,
-in [04-VANGUARD.md](04-VANGUARD.md); and Doctrine, the work and gates skill,
-in [05-DOCTRINE.md](05-DOCTRINE.md). Prime is orientation only and has no file
-of its own in the numbered series, so its contract is
+in [04-VANGUARD.md](04-VANGUARD.md); Workflow-Forge, the per-task workflow
+author Vanguard installs at equip time, whose contract is
+`.opencode/skills/vantrilex-workflow-forge/SKILL.md`; and Doctrine, the work
+and gates skill, in [05-DOCTRINE.md](05-DOCTRINE.md). Prime is orientation only
+and has no file of its own in the numbered series, so its contract is
 `.opencode/skills/vantrilex-prime/SKILL.md`.
 
 The two authoritative input specs live in `spec/` next to this set:
@@ -78,9 +80,9 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2739 catalog records, 31 records with tier
-  `core` including the 3 Arsenal skills, 23 default-selected components,
-  19 verified install commands, 7 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
+- Counts are honest and checkable: 2804 catalog records, 36 records with tier
+  `core` including Prime, Vanguard, and Doctrine, 20 default-selected components,
+  82 verified install commands, 8 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
 - Every relative link resolves to a file that exists. The `spec/` inputs are

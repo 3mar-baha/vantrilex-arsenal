@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="609" viewBox="0 0 760 609" role="img" aria-labelledby="figTitle figDesc">
 <title id="figTitle">The six verification gates</title>
-<desc id="figDesc">Table converted from README.md. Six gates with their exact commands and what each proves: registry data (6 checks), catalog mirror, kit (11 checks), skills (10 checks), plugin typecheck, shell lint.</desc>
+<desc id="figDesc">Table converted from README.md. Six gates with their exact commands and what each proves: registry data (7 checks), catalog mirror, kit (14 checks), skills (10 checks), plugin typecheck, shell lint.</desc>
 <rect x="0" y="0" width="760" height="609" fill="#FFFFFF"/>
 <rect x="18" y="58" width="724" height="98" fill="#FFFFFF"/>
 <rect x="18" y="156" width="724" height="80" fill="#ADD8E6" fill-opacity="0.24"/>
@@ -26,10 +26,10 @@
 <text x="459" y="40.2" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" fill="#FFFFFF" xml:space="preserve"><tspan font-weight="700">What it proves</tspan></text>
 <text x="33" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Registry data</text>
 <text x="171" y="81.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">node scripts/verify-registry.mjs</tspan></text>
-<text x="459" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">6 checks: strict UTF-8, schema conformance,</text>
-<text x="459" y="99.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">row-count integrity against the generated</text>
-<text x="459" y="117.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">tables, the install-command invariant, orphan</text>
-<text x="459" y="135.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">references, duplicate ids</text>
+<text x="459" y="81.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">7 checks: strict UTF-8, schema conformance,</text>
+<text x="459" y="99.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">row-count integrity, the install-command</text>
+<text x="459" y="117.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">invariant, orphan references, duplicate ids,</text>
+<text x="459" y="135.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">MCP name normalization</text>
 <text x="33" y="179.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Catalog mirror</text>
 <text x="171" y="179.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">node scripts/generate-catalog-json.mjs</tspan></text>
 <text x="171" y="197.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">--check</tspan></text>
@@ -38,7 +38,7 @@
 <text x="459" y="215.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Markdown source of truth</text>
 <text x="33" y="259.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">Kit</text>
 <text x="171" y="259.14" text-anchor="start" font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="11.5" font-weight="400" fill="#000000" xml:space="preserve"><tspan font-family="'Cascadia Mono',Consolas,'DejaVu Sans Mono',Menlo,monospace" font-size="10.5">node scripts/verify-kit.mjs</tspan></text>
-<text x="459" y="259.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">11 checks: the lockfile validates against its</text>
+<text x="459" y="259.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">14 checks: the lockfile validates against its</text>
 <text x="459" y="277.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">schema, each component kind is honest,</text>
 <text x="459" y="295.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">catalog agreement between lock and mirror,</text>
 <text x="459" y="313.14" text-anchor="start" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#000000" xml:space="preserve">the MCP cap, pending integrity</text>

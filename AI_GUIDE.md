@@ -15,28 +15,29 @@ before you quote them.
 
 | Fact | Value |
 |---|---|
-| Locked kit components | 52, with 0 pending |
-| Kit by tier | 36 `core`, 16 `conditional` |
-| Kit by kind | 25 skill, 8 mcp, 6 plugin, 7 hook, 6 agent |
-| Kit verification | 12 `verified`, 40 `unverified` |
+| Locked kit components | 112, with 0 pending |
+| Kit by tier | 31 `core`, 81 `conditional` |
+| Kit by kind | 26 skill, 8 mcp, 1 lsp, 7 hook, 6 agent, 64 cli |
+| Kit verification | 80 `verified`, 32 `unverified` |
 | MCP cap (`kit/kit.lock` `mcp_cap`) | 8 |
-| Catalog records | 2,737 |
-| Catalog by kind | 1,503 skill, 905 mcp, 284 agent, 20 hook, 13 formatting, 12 plugin |
-| Catalog default-selected | 22 |
-| Catalog verified install commands | 12 |
-| Folders under `.opencode/skills/` | 20 |
-| Of those, locked kit components | 15 |
-| Of those, top-level skills | 3 |
+| Catalog records | 2,804 |
+| Catalog by kind | 1,504 skill, 907 mcp, 284 agent, 20 hook, 13 formatting, 11 plugin, 1 lsp, 64 cli |
+| Catalog default-selected | 20 |
+| Catalog verified install commands | 82 |
+| Folders under `.opencode/skills/` | 21 |
+| Of those, locked kit components | 16 |
+| Of those, top-level skills | 4 |
 
-## 1. The three skills and the order they run in
+## 1. The four skills and the order they run in
 
-Exactly three top-level skills exist. Run them in this order and no other.
+Exactly four top-level skills exist. Run them in this order and no other.
 
 | Order | Skill | Frequency | Owns |
 |---|---|---|---|
 | 1 | `vantrilex-prime` | once per machine, first, always on a new machine | Orientation only |
 | 2 | `vantrilex-vanguard` | once per target project | The EQUIP phase |
-| 3 | `vantrilex-doctrine` | all work, forever after | Laws, phases, workflows, verdicts |
+| 3 | `vantrilex-workflow-forge` | every task start, before execution | WORK design: workflow per task, authored pre-run |
+| 4 | `vantrilex-doctrine` | all work, forever after | Laws, phases, workflows, verdicts |
 
 ### `vantrilex-prime` — orientation
 
@@ -44,7 +45,7 @@ File: `.opencode/skills/vantrilex-prime/SKILL.md`.
 
 Prime answers one question: what is this system, where does it live, and who owns the next decision.
 It states the Arsenal, prints the canonical URL, clones and pins the repository, maps the tree on
-disk, confirms the three top-level skills are present, names the order of use, and reads out the
+disk, confirms the four top-level skills are present, names the order of use, and reads out the
 standing laws.
 
 Prime does not equip and it does not govern. It writes no project file, no registry entry, and no
@@ -58,13 +59,18 @@ git clone https://github.com/3mar-baha/vantrilex-arsenal.git
 git rev-parse HEAD
 ```
 
-Then verify these three paths exist, and that each file's frontmatter `name` equals its folder name:
+Then verify these four paths exist, and that each file's frontmatter `name` equals its folder name:
 
 ```text
 .opencode/skills/vantrilex-prime/SKILL.md
 .opencode/skills/vantrilex-vanguard/SKILL.md
+.opencode/skills/vantrilex-workflow-forge/SKILL.md
 .opencode/skills/vantrilex-doctrine/SKILL.md
 ```
+
+While the forge path is absent its row reads Absent: report it by name and refuse the handoff until
+Vanguard installs it in the Step 4 lane (see `vantrilex-vanguard` below). Never create the file
+yourself — a fabricated sibling passes inspection while governing nothing.
 
 The one read-only proof command for the whole skill tree is:
 
@@ -105,6 +111,23 @@ The kit verifier is the per-component proof. Where a component cannot be proven 
 runs the per-kind protocol and reports one row per component with tool, kind, status, evidence, and
 how to fix.
 
+### `vantrilex-workflow-forge` — WORK design
+
+Vanguard installs the forge in the Step 4 lane; the forge runs at every task start before execution.
+It authors the standing methodology — the workflow for that task — so execution never invents its
+own process mid-task. The install command is:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-workflow-forge
+```
+
+The install path is `.opencode/skills/vantrilex-workflow-forge/SKILL.md`. Proof is by read-back:
+the file exists there, its frontmatter `name` equals `vantrilex-workflow-forge`, and
+`node scripts/verify-skills.mjs` exits 0. Until that proof lands the skill set is incomplete.
+The procedure lives in the Forge skill install section of
+`.opencode/skills/vantrilex-vanguard/SKILL.md`, which is its single home; this guide states only
+the command and the proof, never the steps.
+
 ### `vantrilex-doctrine` — the WORK phase
 
 File: `.opencode/skills/vantrilex-doctrine/SKILL.md`.
@@ -123,7 +146,7 @@ The other 17 folders under `.opencode/skills/` are component folders that Vangua
 target project. They are not entry points and they are not top-level skills.
 
 - Never treat a kit component as a top-level skill. Only `vantrilex-prime`, `vantrilex-vanguard`,
-  and `vantrilex-doctrine` are top-level.
+  `vantrilex-workflow-forge`, and `vantrilex-doctrine` are top-level.
 - Never skip `vantrilex-prime` on a fresh machine. An unequipped machine is a Prime job.
 - An equipped project with a pending decision is a Vanguard or a Doctrine job, never a Prime job.
 - Skills and kit components share one tree, so a count of folders under `.opencode/skills/` is not
@@ -192,9 +215,9 @@ All six must exit 0 before a change is claimed done. A skip is a failure.
 
 | Gate | Command | Proves |
 |---|---|---|
-| Registry data | `node scripts/verify-registry.mjs` | 6 checks: strict UTF-8, schema conformance, row-count integrity against the generated tables, the install-command invariant, orphan references, duplicate ids |
+| Registry data | `node scripts/verify-registry.mjs` | 7 checks: strict UTF-8, schema conformance, row-count integrity against the generated tables, the install-command invariant, orphan references, duplicate ids, MCP name normalization |
 | Catalog mirror | `node scripts/generate-catalog-json.mjs --check` | the generated machine mirror matches the Markdown source of truth |
-| Kit | `node scripts/verify-kit.mjs` | 11 checks: the lockfile validates against its schema, each component kind is honest, catalog agreement between lock and mirror, the MCP cap, pending integrity |
+| Kit | `node scripts/verify-kit.mjs` | 14 checks: the lockfile validates against its schema, each component kind is honest, catalog agreement between lock and mirror, the MCP cap, pending integrity |
 | Skills | `node scripts/verify-skills.mjs` | 10 checks: the skill-file format contract |
 | Plugin typecheck | `npx tsc --noEmit -p tsconfig.json` | `.opencode/plugin/arsenal.ts` typechecks under `strict` |
 | Shell lint | `shellcheck scripts/*.sh .githooks/*` | the orchestration scripts and git hooks are lint-clean |
@@ -208,8 +231,8 @@ green-looking.
 
 | Path | What it is | Generated |
 |---|---|---|
-| `.opencode/skills/` | Every skill folder, one `SKILL.md` each: 3 top-level skills plus the component folders | No |
-| `.opencode/agent/` | Role files: Leader, Guide, Implementer, red-team | No |
+| `.opencode/skills/` | Every skill folder, one `SKILL.md` each: the top-level skills plus the component folders | No |
+| `.opencode/agents/` | Ten agent files: `ai-generated-code-security-auditor.md`, `architect.md`, `blazar.md`, `code-reviewer.md`, `kit-maintainer.md`, `red-team.md`, `technical-writer.md`, `vantrilex-guide.md`, `vantrilex-implementer.md`, `vantrilex-leader.md` | No |
 | `.opencode/plugin/arsenal.ts` | The plugin source that installs the Arsenal into a target project; it also carries the docs-discipline guard and the `task-dispatcher` hook, and default-exports both the OpenCode V2 `setup()` surface and the V1 `server()` surface | No |
 | `.opencode/command/` | Operator entry points, including prime, equip, doctor, and release | No |
 | `registry/VANTRILEX_CATALOG.md` | The catalog. **The source of truth.** | Yes — edit the generator or the sidecar |
@@ -220,14 +243,14 @@ green-looking.
 | `brand/` | The visual identity assets: five static logo files in `logo/`, nine static icons in `icons/`, nine animated icons in `animated/` | No |
 | `brand/IDENTITY.md` | The visual identity: concept, palette, asset list, and usage rules | No |
 | `scripts/` | The verification scripts (`verify-registry.mjs`, `generate-catalog-json.mjs`, `verify-kit.mjs`, `verify-skills.mjs`) and the seven orchestration shell scripts | No |
-| `docs/` | This repository's documentation series, numbered `00` through `16`, plus `spec/` | No |
+| `docs/` | This repository's documentation series, numbered `00` through `17`, plus `spec/` | No |
 | `AGENTS.md` | The repository constitution for any coding agent | No |
 | `CHANGELOG.md` | The release notes, extracted verbatim at release | No |
 
 Never hand-edit the generated catalog table in `registry/VANTRILEX_CATALOG.md` or the mirror at
 `registry/catalog.json`. Edit the generator or the JSONL sidecar, then regenerate.
 
-The `docs/` series in this repository runs `00` through `16`. It is not the target-project series,
+The `docs/` series in this repository runs `00` through `17`. It is not the target-project series,
 which runs `00` through `27` and is written by Vanguard into the equipped project.
 
 ### The seven hooks
@@ -252,7 +275,7 @@ every user prompt and classifies the turn into one of five Vanguard task scenari
 behavioural, not a guard: it blocks nothing. Its kill switch is `taskDispatcher.enabled` in
 `.opencode/arsenal.json`, default `true`, and it is documented in
 [`docs/16-TASK-DISPATCH.md`](docs/16-TASK-DISPATCH.md). A hook id here is never prefixed
-with `vantrilex-`; that prefix belongs to the three top-level skills.
+with `vantrilex-`; that prefix belongs to the four top-level skills.
 
 **The six other hooks and the docs-discipline guard are still V1-only and are inert under V2.** They
 are registered from the `server()` surface, which a V2 runtime never dispatches, so on OpenCode V2
@@ -290,7 +313,7 @@ the asset list, and the usage rules: read it before placing a mark, and do not r
   `registry/`, never count one in the census — the figures in this guide are kit figures, and a
   brand asset counted among them corrupts them. A brand asset is not a skill either: the icons named
   after tiers are icons for `vantrilex-prime`, `vantrilex-vanguard`, and `vantrilex-doctrine`, not
-  three more skills. Nothing under `brand/` changes the three-top-level-skill rule.
+  four more skills. Nothing under `brand/` changes the four-top-level-skill rule.
 - **Never redraw the mark.** Scale an existing file rather than reconstructing it, and never
   re-letter the wordmark. No icon is a decorative flourish; each of the nine means one specific
   thing.
@@ -309,7 +332,7 @@ the asset list, and the usage rules: read it before placing a mark, and do not r
 - **Hand-editing `registry/VANTRILEX_CATALOG.md` or `registry/catalog.json`.** Change the generator
   or the sidecar and regenerate.
 - **Treating a kit component as a top-level skill, or skipping `vantrilex-prime` on a fresh
-  machine.** Exactly three skills are top-level, and Prime runs first, always.
+  machine.** Exactly four skills are top-level, and Prime runs first, always.
 - **Restating another skill's procedure.** Each mechanism and each workflow has a single home. Point
   at it instead of copying it; a second unauthenticated copy of a procedure is a scope failure even
   when it is accurate. Two concrete cases: the circuit-breaker halt block and the Diagnostic

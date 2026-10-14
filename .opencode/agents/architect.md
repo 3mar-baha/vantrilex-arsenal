@@ -2,9 +2,13 @@
 name: architect
 description: "Software architecture specialist for system design, scalability, and technical decision-making. Use when planning new features, refactoring large systems, or making architectural decisions."
 mode: subagent
-permission:
-  edit: deny
-  bash: ask
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: ask
 ---
 
 # Architect

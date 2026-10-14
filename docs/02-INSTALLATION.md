@@ -26,7 +26,7 @@ node scripts/verify-registry.mjs
 node scripts/generate-catalog-json.mjs --check
 ```
 
-The first proves the registry is internally consistent (six checks, documented
+The first proves the registry is internally consistent (seven checks, documented
 in [08-VERIFICATION.md](08-VERIFICATION.md)). The second proves the generated
 mirror matches the sources, so `registry/catalog.json` and every per-kind
 `_index.md` are current. If either fails, fix the tree before starting work;
@@ -42,7 +42,7 @@ shellcheck scripts/*.sh .githooks/*
 ## What `registry/catalog.json` is for
 
 `registry/catalog.json` is the machine mirror of the catalog. It is generated
-from `registry/VANTRILEX_CATALOG.md` plus the six JSONL sidecars under
+from `registry/VANTRILEX_CATALOG.md` plus the eight JSONL sidecars under
 `registry/data/`, never hand-edited (see
 [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md)). Vanguard reads the JSON
 at selection time; humans read the Markdown. The schema that both sides must
@@ -66,9 +66,11 @@ are the four command files:
 | `.opencode/command/prime.md` | Emit the session CONTEXT ANCHOR at session start |
 | `.opencode/command/release.md` | Run the release lane |
 
-Prime, Vanguard, and Doctrine ship as skill files under `.opencode/skills/`
-and run in that order: orientation once per machine, equip once per target
-project, then work. Their contracts are [01-OVERVIEW.md](01-OVERVIEW.md),
+Prime, Vanguard, and Doctrine ship as skill files under `.opencode/skills/`;
+Workflow-Forge joins them at equip time, when Vanguard installs it in the
+Step 4 lane and proves the install by read-back. They run in the order Prime,
+Vanguard, Workflow-Forge, Doctrine: orientation once per machine, equip once per target
+project, workflow design at each task start, then work. Their contracts are [01-OVERVIEW.md](01-OVERVIEW.md),
 [04-VANGUARD.md](04-VANGUARD.md), and [05-DOCTRINE.md](05-DOCTRINE.md), with
 Prime's own contract carried by
 `.opencode/skills/vantrilex-prime/SKILL.md`. The `prime` command above is

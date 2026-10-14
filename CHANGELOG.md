@@ -9,6 +9,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-10-14
+
+### Added
+
+- **Fourth top-level skill: `vantrilex-workflow-forge`.** Authors the
+  standing methodology per task (seven sections: Methodology, Roles,
+  Precautions, Repair states, Research, Expanded thinking, Kit loadout) and
+  the per-project `WORKFLOW.md` (Part A standing + Part B current-task).
+  Locked conditional, installed and proven at equip time.
+- **`AGENT.md` living state + pointer chain.** The kit ships an `AGENT.md`
+  template (six fixed sections) and installs/verifies it per task without
+  overwriting; standing directives live in the target `AGENTS.md` with a
+  generated `CLAUDE.md` mirror; every task starts by reading both state files.
+- **64 CLI entries (kind `cli`, all conditional).** Every install command
+  sandbox-verified exit 0, free solo-dev terms recorded, delivery mechanism
+  declared per entry (PATH-assert default — the lock never claims OpenCode
+  installs a CLI). Open Design ships no CLI, so OpenPencil `op` substitutes
+  as entry #1 with the reason recorded.
+- **BLAZAR primary agent.** Manager-only orchestrator (`mode: primary`,
+  free-model pin `opencode/big-pickle` 2026-10-13, twelve prompt sections),
+  with `default_agent: blazar` companion config (build/plan disabled).
+- **`docs/17-V2-HOOK-GAP.md`.** Every plugin callback has a real V2 landing
+  site in the published 2.x types; the two blocking guards go advisory-only
+  there. The older "no V2 equivalent" claim was wrong about writability.
+- **Official Supabase and Vercel MCP records**, both sandbox exit 0.
+- **Five role agents as real OpenCode definitions**, all registering as
+  subagents with no model pins, colors, or Claude syntax.
+
+### Changed
+
+- **Machine unified on V2.** The npm V1 (`opencode-ai@1.18.34`) no longer
+  shadows the desktop bundle; `opencode` is v2.0.27 on PATH. Global config
+  normalized to V2 `permissions` (allow-all intent preserved exactly).
+- **Plugin proven on the V2 surface.** All four V2 hook registrations pass
+  with per-guard evidence; M-1 (sudo/path `tee`) and two V2 parity items
+  closed with probe proof (45/45). V1 dual surface intact.
+- **Lock 48→112, catalog 2740→2804.** Agents moved to canonical
+  `.opencode/agents/`; all agent files normalized to V2 `permissions`;
+  `typescript-lsp` honestly converted to need-label (V2 runs no language
+  servers); zero MCP name collisions with a permanent scan; new
+  `per-kind/lsp`, `agent-mode-explicit`, `mcp-name-normalization` checks.
+- **Vanguard and Doctrine govern the four-skill world.** Vanguard gains
+  catalog fallback under owner sign-off, open choice, install-time
+  validation, hygiene, a mandatory four-part report, and a binding gap
+  protocol. Doctrine writes the standing directives and the per-task AGENT.md
+  law. Prime names four skills and routes to the forge.
+- **`release.yml` no longer false-fails.** Invalid YAML was the true cause;
+  trigger stays tag-scoped with a job-level gate, so main pushes run nothing.
+- **READMEs, AI_GUIDE, docs, and visuals recount to 112/2804.** Table SVGs
+  that still render the prior census say so in their captions; no figure is
+  warranted as verified that is not.
+
+### Fixed
+
+- **Red-team findings F1, F3, F4, F5, F7, F8 closed** with probe proof and a
+  clean re-probe (R2) plus V2-surface re-probe (R3); F2/F6 recorded as
+  deliberate with rationale in `docs/15-DECISIONS.md`.
+- **36 phantom + 623 awesome-list catalog commands** nulled or repointed per
+  prior rounds (see 0.3.0); this release adds the `eslint` placeholder fix.
+- **Phantom `typescript-lsp` double removed**; dropped plugins demoted from
+  default-selected; Summary bullet corrected to 20.
+
 ## [0.3.0] — 2026-10-12
 
 ### Added
@@ -528,7 +590,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.0
 [0.3.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.3.0
 [0.2.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.2.0
 [0.1.0]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.1.0...v0.2.0

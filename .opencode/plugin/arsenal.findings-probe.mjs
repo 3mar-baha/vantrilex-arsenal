@@ -1,5 +1,6 @@
 ﻿/**
- * NODE P1 findings probe for .opencode/plugin/arsenal.ts (F1/F3/F4/F5/F7/F8).
+ * NODE P1 findings probe for .opencode/plugin/arsenal.ts
+ * (F1/F3/F4/F5/F7/F8 + M-1 tee prefixes + V2 surface + argv/egress).
  *
  * Run: node .opencode/plugin/arsenal.findings-probe.mjs
  * Exit 0 when every probe passes, 1 with the failing probe named otherwise.
@@ -23,6 +24,7 @@ import pluginModule, {
   isBareRoot,
   preCompact,
   sanitizeSessionId,
+  v2ToolBefore,
 } from "./arsenal.ts";
 
 const PROBE_ROOT = path.join(os.tmpdir(), "opencode", "node-p1", "probe-run");
@@ -97,6 +99,42 @@ const silent = async (ctx, tool, args) => {
   return ctx.pendingWarnings.length;
 };
 
+const captureV2 = async (dir) => {
+  const seen = {};
+  const fake = {
+    location: { directory: dir },
+    session: {
+      hook: async (name, cb) => {
+        seen["session:" + name] = cb;
+      },
+    },
+    tool: {
+      hook: async (name, cb) => {
+        seen["tool:" + name] = cb;
+      },
+    },
+    shell: {
+      hook: async (name, cb) => {
+        seen["shell:" + name] = cb;
+      },
+    },
+  };
+  await pluginModule.setup(fake);
+  return seen;
+};
+
+const throwsV2Tool = async (seen, event, mustName) => {
+  let message = "";
+  try {
+    await seen["tool:execute.before"](event);
+  } catch (error) {
+    message = error instanceof Error ? error.message : String(error);
+  }
+  assert.ok(message.length > 0, "expected a V2 BLOCKED throw, got silence");
+  for (const name of mustName) assert.ok(message.includes(name), "V2 message names " + name + " :: " + message);
+  return message;
+};
+
 const main = async () => {
   fs.rmSync(PROBE_ROOT, { recursive: true, force: true });
   const proj = path.join(PROBE_ROOT, "proj");
@@ -104,6 +142,13 @@ const main = async () => {
   fs.mkdirSync(proj, { recursive: true });
   fs.mkdirSync(stateDir, { recursive: true });
   process.env.VANTRILEX_STATE_DIR = stateDir;
+  const projBlock = path.join(PROBE_ROOT, "proj-block");
+  fs.mkdirSync(path.join(projBlock, ".opencode"), { recursive: true });
+  fs.writeFileSync(
+    path.join(projBlock, ".opencode", "arsenal.json"),
+    JSON.stringify({ docsGuard: { mode: "block", enabled: true } }),
+    "utf8",
+  );
 
   // ---- F1: bash writes get the same verdict path as edit-tool writes ----
   await check("F1 redirect writes are blocked and named", () =>
@@ -150,6 +195,23 @@ const main = async () => {
   });
   await check("F1 R2 piped tee still verdicts (positive control)", () =>
     throwsNaming(makeDocsCtx(), "bash", { command: "echo hi | tee docs/X.md" }, ["docs/X.md"], []),
+  );
+  // ---- M-1: privilege/path-prefixed tee is command position ----
+  await check("M-1 piped sudo tee is blocked and named", () =>
+    throwsNaming(makeDocsCtx(), "bash", { command: "echo hi | sudo tee docs/X.md" }, ["docs/X.md"], []),
+  );
+  await check("M-1 bare sudo tee is blocked and named", () =>
+    throwsNaming(makeDocsCtx(), "bash", { command: "sudo tee docs/X.md" }, ["docs/X.md"], []),
+  );
+  await check("M-1 path-qualified tee is blocked and named", async () => {
+    await throwsNaming(makeDocsCtx(), "bash", { command: "echo hi | /usr/bin/tee docs/PATH-TEE.md" }, ["docs/PATH-TEE.md"], []);
+    await throwsNaming(makeDocsCtx(), "bash", { command: "/usr/bin/tee docs/PATH-BARE.md" }, ["docs/PATH-BARE.md"], []);
+  });
+  await check("M-1 pipe-merge tee is blocked and named", () =>
+    throwsNaming(makeDocsCtx(), "bash", { command: "echo hi |& tee docs/MERGE-TEE.md" }, ["docs/MERGE-TEE.md"], []),
+  );
+  await check("M-1 newline tee is blocked and named", () =>
+    throwsNaming(makeDocsCtx(), "bash", { command: "echo hi\ntee docs/NEWLINE-TEE.md" }, ["docs/NEWLINE-TEE.md"], []),
   );
   // ---- F3: multi-file reports name the right files ----
   await check("F3 allowed-then-denied names the denied file", () =>
@@ -301,6 +363,70 @@ const main = async () => {
     assert.ok(event.prompt.text.includes("task-dispatcher"), "V2 instruction appended when armed");
   });
 
+  // ---- V2 surface: every guard reachable via Plugin.define + setup ----
+  await check("V2 setup registers prompt + tool.before/after + shell.before", async () => {
+    const seen = await captureV2(proj);
+    for (const want of ["session:prompt", "tool:execute.before", "tool:execute.after", "shell:create.before"]) {
+      assert.ok(typeof seen[want] === "function", "registered " + want);
+    }
+  });
+  await check("V2 tool.before blocks write-tool docs path", async () => {
+    const seen = await captureV2(projBlock);
+    await throwsV2Tool(seen, { tool: "write", sessionID: "ses_v2", id: "c1", input: { filePath: "docs/EVIL-V2.md" } }, ["docs/EVIL-V2.md"]);
+  });
+  await check("V2 tool.before blocks sudo-tee bash (M-1 via V2)", async () => {
+    const seen = await captureV2(projBlock);
+    await throwsV2Tool(seen, { tool: "bash", sessionID: "ses_v2", id: "c1", input: { command: "echo hi | sudo tee docs/X.md" } }, ["docs/X.md"]);
+  });
+  await check("V2 tool.before blocks unlogged dev server", async () => {
+    const seen = await captureV2(projBlock);
+    let message = "";
+    try {
+      await seen["tool:execute.before"]({ tool: "bash", sessionID: "ses_v2", id: "c1", input: { command: "npm run dev" } });
+    } catch (error) {
+      message = error instanceof Error ? error.message : String(error);
+    }
+    assert.ok(message.includes("long-running-process-guard"), "V2 long-running blocks :: " + message);
+  });
+  await check("V2 shell.before blocks piped tee", async () => {
+    const seen = await captureV2(projBlock);
+    let message = "";
+    try {
+      await seen["shell:create.before"]({ command: "echo hi | tee docs/SHELL-TEE.md", cwd: projBlock, timeout: 30000, shell: "bash", env: {} });
+    } catch (error) {
+      message = error instanceof Error ? error.message : String(error);
+    }
+    assert.ok(message.includes("docs/SHELL-TEE.md"), "V2 shell.before names the file :: " + message);
+  });
+  await check("V2 warn-default flushes to string result.content", async () => {
+    const seen = await captureV2(proj);
+    await seen["tool:execute.before"]({ tool: "bash", sessionID: "ses_v2w", id: "c1", input: { command: "echo x > docs/WARN-V2.md" } });
+    const result = { content: "prior output" };
+    await seen["tool:execute.after"]({ tool: "bash", sessionID: "ses_v2w", id: "c1", input: { command: "echo x > docs/WARN-V2.md" }, status: "completed", result });
+    assert.ok(String(result.content).includes("docs/WARN-V2.md"), "warn verdict forwarded :: " + String(result.content));
+  });
+  await check("V2 after pushes a text part onto array result.content", async () => {
+    const seen = await captureV2(proj);
+    await seen["tool:execute.before"]({ tool: "write", sessionID: "ses_v2a", id: "c1", input: { filePath: "docs/ARR-V2.md" } });
+    const result = { content: [{ type: "text", text: "prior" }] };
+    await seen["tool:execute.after"]({ tool: "write", sessionID: "ses_v2a", id: "c1", input: { filePath: "docs/ARR-V2.md" }, status: "completed", result });
+    assert.equal(result.content.length, 2);
+    assert.ok(String(result.content[1].text).includes("docs/ARR-V2.md"), "verdict pushed :: " + JSON.stringify(result.content));
+  });
+  await check("argv safety: shell-free spawn only", () => {
+    const src = fs.readFileSync(new URL("./arsenal.ts", import.meta.url), "utf8");
+    assert.ok(src.includes("execFile("), "execFile is the spawn path");
+    assert.ok(!src.includes("shell: true"), "no shell:true spawn");
+    assert.ok(!src.includes("spawn("), "no spawn()");
+    assert.ok(!src.includes("execSync"), "no execSync");
+  });
+  await check("egress: no network surface in the plugin", () => {
+    const src = fs.readFileSync(new URL("./arsenal.ts", import.meta.url), "utf8");
+    assert.ok(!src.includes("fetch("), "no fetch");
+    assert.ok(!src.includes("node:http"), "no node:http");
+    assert.ok(!src.includes("XMLHttpRequest"), "no XHR");
+  });
+
   // ---- F8: role-aware part targeting ----
   await check("F8 target unit cases", () => {
     const plain = [
@@ -329,6 +455,71 @@ const main = async () => {
     const solo = [{ role: "assistant", type: "text", text: "A" }];
     await hooks["chat.message"]({ sessionID: "ses_f8b" }, { message: {}, parts: solo });
     assert.equal(solo[0].text, "A");
+  });
+
+  // ---- R3 follow-up: V2 bare-root bypass (MEDIUM) ----
+  // setup() resolves its root through firstUsableRoot, matching V1 (F5). The
+  // cwd is patched to a controlled fallback so the resolution is observable:
+  // a bare-root location must fall through to the fallback's block config,
+  // while a normal location keeps precedence over the fallback's off config.
+  await check("R3 V2 bare-root location resolves past it (F5 via setup)", async () => {
+    const fallback = path.join(PROBE_ROOT, "proj-fallback");
+    fs.mkdirSync(path.join(fallback, ".opencode"), { recursive: true });
+    fs.writeFileSync(
+      path.join(fallback, ".opencode", "arsenal.json"),
+      JSON.stringify({ docsGuard: { mode: "block", enabled: true } }),
+      "utf8",
+    );
+    const realCwd = process.cwd;
+    process.cwd = () => fallback;
+    try {
+      const seen = await captureV2("/");
+      await throwsV2Tool(
+        seen,
+        { tool: "write", sessionID: "ses_r3_bare", id: "c1", input: { filePath: "docs/EVIL-R3-BARE.md" } },
+        ["docs/EVIL-R3-BARE.md"],
+      );
+    } finally {
+      process.cwd = realCwd;
+    }
+  });
+  await check("R3 V2 normal location keeps precedence over the cwd fallback", async () => {
+    const fallbackOff = path.join(PROBE_ROOT, "proj-fallback-off");
+    fs.mkdirSync(path.join(fallbackOff, ".opencode"), { recursive: true });
+    fs.writeFileSync(
+      path.join(fallbackOff, ".opencode", "arsenal.json"),
+      JSON.stringify({ docsGuard: { mode: "off", enabled: true } }),
+      "utf8",
+    );
+    const realCwd = process.cwd;
+    process.cwd = () => fallbackOff;
+    try {
+      const seen = await captureV2(projBlock);
+      await throwsV2Tool(
+        seen,
+        { tool: "write", sessionID: "ses_r3_prec", id: "c1", input: { filePath: "docs/EVIL-R3-PREC.md" } },
+        ["docs/EVIL-R3-PREC.md"],
+      );
+    } finally {
+      process.cwd = realCwd;
+    }
+  });
+
+  // ---- R3 follow-up: V2 tool.before working-set gap (LOW) ----
+  // v2ToolBefore records candidate paths under the event session id before the
+  // guards run, mirroring V1. brand/OK.md is allow-listed, so neither guard
+  // touches session state for it: the only sessions entry must come from the
+  // working-set recording itself.
+  await check("R3 V2 tool.before records the working set under the event session", async () => {
+    const ctx = makeDocsCtx();
+    await v2ToolBefore(ctx, { tool: "edit", sessionID: "ses_r3_ws", id: "c1", input: { filePath: "brand/OK.md" } });
+    const state = ctx.sessions.get("ses_r3_ws");
+    assert.ok(state, "session state exists for the event session id");
+    assert.ok(
+      state.touchedFiles.has("brand/OK.md"),
+      "working set holds brand/OK.md :: " + JSON.stringify(Array.from(state.touchedFiles)),
+    );
+    assert.equal(ctx.sessions.has("anonymous"), false, "nothing attributed to anonymous");
   });
 
   // ---- Deliberately unchanged: F2 warn-default fail-open, F6 CLAUDE.md ----

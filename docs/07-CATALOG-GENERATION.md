@@ -33,7 +33,7 @@ declared default-selected count must match the parsed flags.
 
 ## The JSONL sidecar merge rule
 
-Six sidecars enrich the six kinds, with explicit plural filenames:
+Eight sidecars enrich the eight kinds, with explicit plural filenames:
 
 | Kind | Sidecar file |
 |---|---|
@@ -43,6 +43,8 @@ Six sidecars enrich the six kinds, with explicit plural filenames:
 | hook | `registry/data/hooks.jsonl` |
 | agent | `registry/data/agents.jsonl` |
 | formatting | `registry/data/formatting.jsonl` |
+| lsp | `registry/data/lsp.jsonl` |
+| cli | `registry/data/cli.jsonl` |
 
 Merge rule, in precedence order:
 
@@ -55,9 +57,9 @@ Merge rule, in precedence order:
 5. A duplicate id inside one sidecar fails the run.
 6. An unknown field in a sidecar entry fails the run.
 
-All 7 sidecars are present today and merge cleanly: 1503 skill, 907 MCP,
-12 plugin, 20 hook, 284 agent, 13 formatting, and 1 lsp entry, totaling 2739
-records.
+All 8 sidecars are present today and merge cleanly: 1504 skill, 907 MCP,
+11 plugin, 20 hook, 284 agent, 13 formatting, 1 lsp, and 64 cli entries,
+totaling 2804 records.
 
 ## The single-writer law
 

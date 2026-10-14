@@ -2,9 +2,13 @@
 name: code-reviewer
 description: "Expert code review specialist for quality, security, and maintainability. Use after a feature, for the standards review lane, immediately after code is written or modified."
 mode: subagent
-permission:
-  edit: deny
-  bash: ask
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: ask
 ---
 
 # Code Reviewer

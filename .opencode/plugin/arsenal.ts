@@ -10,12 +10,16 @@
  * default export and never invokes a V1 plugin function, while V1 reads
  * `server()` and ignores the rest.
  *
- * V2 - `setup()`, one hook:
+ * V2 - `setup()`, four hooks:
  *
  *   8. taskDispatcher            -> session "prompt"        (per user prompt)
+ *   4. longRunningProcessGuard   -> tool "execute.before" + shell "create.before"
+ *   7. docsDisciplineGuard       -> tool "execute.before" + shell "create.before"
+ *   5. typescriptCheck           -> tool "execute.after"    (conditional)
+ *   6. prettierFormat            -> tool "execute.after"    (conditional)
  *
- * V1 - `server()`, the seven remaining hooks (6 locked hook components plus the
- * docs-discipline guard, which is not a lock component):
+ * V1 - `server()`, all eight hooks (6 locked hook components plus the
+ * docs-discipline guard, which is not a lock component, plus the dispatcher):
  *
  *   1. sessionStart              -> experimental.chat.system.transform, event
  *   2. preCompact                -> experimental.session.compacting
@@ -25,15 +29,22 @@
  *   6. prettierFormat            -> tool.execute.after   (conditional)
  *   +  docsDisciplineGuard       -> tool.execute.before   (docs discipline)
  *
- * All seven of those V1-only callbacks are carried through `server()`
- * unchanged and are INERT under V2. That gap is deliberate and unfinished, not
- * a completed port. V2's `execute.after` hook reports a discriminated
- * `{ status, result | error }` union where V1 handed the guard a mutable
- * `{ title, output, metadata }` to append to, and V2's `context` hook takes a
- * `SystemPart[]` where V1's `experimental.chat.system.transform` took a
- * `string[]`. Porting those six means reworking what each guard writes and how
- * it reads a verdict, which is a separate concern from migrating the
- * user-message hook and is deliberately not bundled into it.
+ * The three session-lifecycle callbacks (`experimental.chat.system.transform`,
+ * `experimental.session.compacting`, `event`) are carried through `server()`
+ * unchanged and are INERT under V2. That gap is deliberate, not unfinished:
+ * V2's `context` hook takes a `SystemPart[]` where V1's transform took a
+ * `string[]`, and V2's `compaction` hook takes an optional
+ * `SessionCompactionResult` where V1 appended to a `context: string[]`, so
+ * porting those three means reworking what each guard writes, which is a
+ * separate concern from the per-turn and per-tool guards ported here. V2's
+ * `execute.after` hook reports a discriminated `{ status, result | error }`
+ * union where V1 handed the guard a mutable `{ title, output, metadata }` to
+ * append to: the V2 adapter reuses the V1 check functions against a shim
+ * output and forwards the shim text into the V2 `result.content` (appended to
+ * a string, pushed as a text part onto an array, set when absent), draining
+ * the serialised type-check chain first so no queued verdict is lost. The
+ * shell `create.before` hook carries no session id, so its guard outcomes are
+ * recorded under `anonymous` by design.
  *
  * Rules this module obeys without exception:
  *
@@ -181,11 +192,12 @@ export type Plugin = (input: PluginInput) => Promise<Hooks>
  * is equally absent from this dependency-free repository, so the V2 contract is
  * mirrored structurally too.
  *
- * The mirror is deliberately partial. The published `SessionHooks` map names
- * twelve hooks and this module registers exactly one of them, so only `prompt`
- * is declared here. Mirroring the other eleven would be a claim about the V2
- * contract that nothing in this file can check and that would drift silently
- * the next time the package changes shape.
+ * The mirror covers exactly the four hooks this module registers: `prompt`
+ * from the twelve-entry `SessionHooks` map, `execute.before`/`execute.after`
+ * from `ToolHooks`, and `create.before` from `ShellHooks`. Mirroring hooks
+ * this module does not register (notably `context` and `compaction`) would be
+ * a claim about the V2 contract that nothing in this file can check and that
+ * would drift silently the next time the package changes shape.
  */
 
 /**
@@ -216,16 +228,60 @@ export type PluginLocationLike = {
 }
 
 /**
- * The V2 plugin `Context`, narrowed to the two members this module uses. The
- * published context also carries agent, provider, model, tool, permission, vcs
+ * The V2 plugin `Context`, narrowed to the members this module uses. The
+ * published context also carries agent, provider, model, permission, vcs
  * and more; none of them are reachable from a hook this module registers.
  */
+/** V2 `tool.execute.before` event, narrowed to the fields this module reads. */
+export type V2ToolBeforeEvent = {
+  tool: string
+  readonly sessionID?: string
+  readonly agent?: string
+  readonly messageID?: string
+  readonly id?: string
+  input: unknown
+}
+
+/** V2 `tool.execute.after` event, narrowed to the fields this module reads. */
+export type V2ToolAfterEvent = {
+  readonly tool: string
+  readonly sessionID?: string
+  readonly agent?: string
+  readonly messageID?: string
+  readonly id?: string
+  readonly input: unknown
+  readonly status: "completed" | "error"
+  result?: unknown
+  error?: unknown
+}
+
+/** V2 `shell.create.before` event, narrowed to the fields this module reads. */
+export type V2ShellBeforeEvent = {
+  command: string
+  cwd: string
+  timeout: number
+  shell: string
+  env: Record<string, string | undefined>
+}
+
 export type PluginContextLike = {
   location?: PluginLocationLike
   session?: {
     hook?: (
       name: "prompt",
       callback: (event: SessionPromptEvent) => Promise<void> | void,
+    ) => Promise<unknown>
+  }
+  tool?: {
+    hook?: (
+      name: "execute.before" | "execute.after",
+      callback: (event: V2ToolBeforeEvent & V2ToolAfterEvent) => Promise<void> | void,
+    ) => Promise<unknown>
+  }
+  shell?: {
+    hook?: (
+      name: "create.before",
+      callback: (event: V2ShellBeforeEvent) => Promise<void> | void,
     ) => Promise<unknown>
   }
 }
@@ -1080,8 +1136,11 @@ const candidatePathsFrom = (root: string, args: unknown): string[] => {
  * double or no quoting. The result is normalised exactly like edit-tool
  * paths and flows through the same docsGuardVerdict logic.
  *
- * Residual, documented rather than handled: this is not a shell parser.
- * Variable expansion, command substitution, brace expansion, dd of=,
+ * M-1 closed: privilege prefixes (sudo/doas/su with flags and sudo user
+ * args), path-qualified tee, the pipe-merge operator (|&) and
+ * newline separators are command position and verdict exactly like a bare
+ * piped tee. Residual, documented rather than handled: this is not a shell
+ * parser. Variable expansion, command substitution, brace expansion, dd of=,
  * install -D, interpreter-embedded writes such as python -c open(...), and
  * operator evasion through quoting all bypass detection. A bypass that hides
  * the operator hides the write; the guard flags detectable cases only.
@@ -1098,14 +1157,16 @@ export const bashMarkdownTargets = (root: string, command: unknown): string[] =>
   const TOKEN = "(\"[^\"]+\"|'[^']+'|[^\\s;&|()<>]+)"
   const redirect = new RegExp("(?:^|[\\s;&|()])\\d?>>?\\|?\\s*" + TOKEN, "g")
   for (const match of command.matchAll(redirect)) push(match[1])
-  const teePattern = /\btee\b/gi
+  // M-1: tee at command position, including privilege (sudo/doas/su with flags
+  // and sudo user args) and path-qualified (any */tee) prefixes, plus the
+  // pipe-merge operator (|&) and newline separators. A bare word tee that is
+  // an argument (echo tee, grep=tee, commit -m tee, prose about tee) is not at
+  // command position and stays silent: the match must open at the start of the
+  // input or just after a shell operator. The R2 negative pins guard this
+  // boundary, so widening the gate here must keep them green.
+  const teeCommand = /(?:^|[|&;()\n\r])\s*(?:(?:sudo|doas|su)\s+(?:[^\s|&;()<>]+\s+)*)?(?:[^\s|&;()<>]*\/)?tee(?=[\s|&;()<>]|$)/gi
   let teeMatch: RegExpExecArray | null
-  while ((teeMatch = teePattern.exec(command)) !== null) {
-    const before = command.slice(0, teeMatch.index).replace(/[ \t]+$/, "")
-    if (before.length > 0) {
-      const prev = before.slice(-1)
-      if (prev !== "|" && prev !== ";" && prev !== "&" && prev !== "(" && prev !== "\n" && prev !== "\r") continue
-    }
+  while ((teeMatch = teeCommand.exec(command)) !== null) {
     const tail = command.slice(teeMatch.index + teeMatch[0].length)
     const segment = /^\s*[^|&;\n\r]*/.exec(tail)?.[0] ?? ""
     const tokens = segment.match(/("[^"]+"|'[^']+'|[^\s]+)/g) ?? []
@@ -1793,7 +1854,9 @@ export const prettierFormat = async (
  * count: the seventh hook in `kit/kit.lock` is `docsDisciplineGuard` (HOOK 7
  * below), and it is not a lock component, so the census every document quotes
  * is seven locked hooks. The dispatcher is the eighth enumerated callback and
- * the only one of the seven locked hooks that runs on V2.
+ * one of the five guards that run on V2 (dispatcher, docs-discipline,
+ * long-running, typescript-check, prettier-format); the three
+ * session-lifecycle hooks remain V1-only by design (see the module header).
  *
  * The one decision every surface applies: hand back
  * the instruction to append to a turn, or null when the kill switch disarms it.
@@ -1927,13 +1990,147 @@ const reportRuntimeDegradation = (ctx: ArsenalContext): void => {
 }
 
 /**
- * V2 `setup()`. Registers the one hook V2 offers at user-message granularity.
+ * V2 `tool.execute.before` adapter (HOOKS 4 + 7).
  *
- * Nothing else is registered, on purpose. V2 has no equivalent of V1's
+ * V2 hands the guard one mutable event (`{ tool, sessionID, id, input }`)
+ * where V1 handed it `(input, output)` with the arguments on `output.args`.
+ * The event is re-paired into the V1 shape and the same two functions run, so
+ * both surfaces block the same commands with the same message text. The write
+ * is recorded into the session working set first, mirroring the V1
+ * `tool.execute.before` hook, so pre-compact and session-end observe V2 tool
+ * writes exactly like V1 ones.
+ */
+export const v2ToolBefore = async (arsenal: ArsenalContext, event: V2ToolBeforeEvent): Promise<void> => {
+  const toolName = typeof event?.tool === "string" ? event.tool : ""
+  if (toolName.length === 0) return
+  const sessionId =
+    typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
+  const callId = typeof event?.id === "string" && event.id.length > 0 ? event.id : "v2-before"
+  recordTouchedFiles(arsenal, sessionId, candidatePathsFrom(arsenal.root, event?.input))
+  const input: ToolExecuteBeforeInput = { tool: toolName, sessionID: sessionId, callID: callId }
+  const output: ToolExecuteBeforeOutput = { args: event?.input }
+  await longRunningProcessGuard(arsenal, input, output)
+  await docsDisciplineGuard(arsenal, input, output)
+}
+
+/**
+ * Append a guard line to a V2 tool result.
+ *
+ * V1 hands `execute.after` a mutable `{ title, output, metadata }` whose
+ * `output` string the guards extend. V2 hands it a `Tool.Result` whose
+ * `content` is `string | Content[] | undefined`, so the same line is appended
+ * to a string, pushed as a text part onto an array, or set when content is
+ * absent. Any other shape is left untouched: inventing a field the host never
+ * reads would claim a verdict was delivered when it was not.
+ */
+const appendV2ResultLine = (result: unknown, line: string): void => {
+  if (!result || typeof result !== "object" || line.length === 0) return
+  const holder = result as { content?: unknown }
+  if (typeof holder.content === "string") {
+    holder.content = `${holder.content}\n${line}`
+    return
+  }
+  if (Array.isArray(holder.content)) {
+    (holder.content as unknown[]).push({ type: "text", text: line })
+    return
+  }
+  if (holder.content === undefined) {
+    holder.content = line
+  }
+}
+
+/**
+ * V2 `tool.execute.after` adapter (HOOKS 5 + 6, plus warn-mode flushing).
+ *
+ * The V1 check functions are reused against a shim output and the shim text is
+ * then forwarded into the V2 `result.content`. The serialised type-check chain
+ * is drained before forwarding so a queued verdict is delivered on the call it
+ * belongs to rather than on a later one; V1 leaves the queue undrained and the
+ * late mutation lands through the still-held output reference instead. Neither
+ * surface throws here: the V2 contract types this hook's failure as `never`,
+ * and neither check throws on V1 either. When the event carries no result
+ * object (status `error`), the text is re-queued instead of dropped: dropping
+ * a warning would be a silent PASS for work the guard actually flagged.
+ */
+const v2ToolAfter = async (arsenal: ArsenalContext, event: V2ToolAfterEvent): Promise<void> => {
+  const sessionId =
+    typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
+  const callId = typeof event?.id === "string" && event.id.length > 0 ? event.id : "v2-after"
+  const toolName = typeof event?.tool === "string" ? event.tool : ""
+  const shim: ToolExecuteAfterOutput = { title: "", output: "", metadata: {} }
+  if (arsenal.pendingWarnings.length > 0) {
+    shim.output = `${shim.output}\n${arsenal.pendingWarnings.join("\n")}`
+    arsenal.pendingWarnings = []
+  }
+  const input: ToolExecuteAfterInput = {
+    tool: toolName,
+    sessionID: sessionId,
+    callID: callId,
+    args: event?.input,
+  }
+  await typescriptCheck(arsenal, input, shim)
+  await prettierFormat(arsenal, input, shim)
+  // Drain the serialised type-check queue (see enqueueTypeCheck): without this
+  // the shim would be forwarded before a queued tsc run appends its verdict.
+  await arsenal.tscChain
+  const text = shim.output.trim()
+  if (text.length === 0) return
+  const result = (event as { result?: unknown })?.result
+  if (!result || typeof result !== "object") {
+    arsenal.pendingWarnings.push(text)
+    return
+  }
+  const holder = result as { content?: unknown }
+  if (typeof holder.content !== "string" && !Array.isArray(holder.content) && holder.content !== undefined) {
+    arsenal.pendingWarnings.push(text)
+    return
+  }
+  appendV2ResultLine(result, text)
+}
+
+/**
+ * V2 `shell.create.before` adapter (HOOKS 4 + 7 for raw shell executions).
+ *
+ * The shell hook carries `{ command, cwd, ... }` with no tool name and no
+ * session id. The command is re-paired as a `bash` tool call so the same two
+ * before-guards run with the same message text; outcomes are recorded under
+ * `anonymous` because attributing them to any other session would invent
+ * provenance the event does not carry.
+ */
+const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent): Promise<void> => {
+  const command = typeof event?.command === "string" ? event.command : ""
+  if (command.trim().length === 0) return
+  const input: ToolExecuteBeforeInput = { tool: "bash", sessionID: "anonymous", callID: "shell" }
+  const output: ToolExecuteBeforeOutput = { args: { command } }
+  await longRunningProcessGuard(arsenal, input, output)
+  await docsDisciplineGuard(arsenal, input, output)
+}
+
+/**
+ * V2 `setup()`. Registers the four hooks whose V2 shapes have a correct
+ * landing place for an existing guard.
+ *
+ *   - session "prompt"       -> taskDispatcher (HOOK 8)
+ *   - tool "execute.before"  -> longRunningProcessGuard (HOOK 4) +
+ *                               docsDisciplineGuard (HOOK 7)
+ *   - tool "execute.after"   -> typescriptCheck (HOOK 5) +
+ *                               prettierFormat (HOOK 6)
+ *   - shell "create.before"  -> longRunningProcessGuard + docsDisciplineGuard
+ *                               for raw shell executions, which carry no tool
+ *                               name and no session id
+ *
+ * Three V1 hooks are not registered, on purpose. V2 has no equivalent of V1's
  * `experimental.chat.system.transform`, `experimental.session.compacting` or
- * mutable `tool.execute.*` output, so the other seven guards have nowhere
- * correct to land yet. Registering a stub that fired and did nothing would
- * report coverage the module does not have.
+ * `event` session-end signal with a mutable string array to append to, so
+ * session-start, pre-compact and session-end have nowhere correct to land yet.
+ * Registering a stub that fired and did nothing would report coverage the
+ * module does not have.
+ *
+ * V2 hook callbacks take a single mutable event object where V1 took an
+ * `(input, output)` pair, so each registration below re-pairs the event into
+ * the V1 shape and reuses the same guard core the V1 surface calls. Blocking
+ * guards throw the same Error text on both surfaces; `execute.after` never
+ * throws on either surface (its V2 failure type is `never`), it only appends.
  */
 const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise<void> => {
   const rt = await loadRuntime()
@@ -1941,40 +2138,60 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
   // V2 exposes the plugin instance's own directory and no worktree field on it,
   // so `location.directory` is the root here and the cwd is the fallback. This
   // is the same precedence chain the V1 surface uses, minus the two V1-only
-  // keys, and it resolves the kill-switch config by the identical path.
-  const root = ctx?.location?.directory ?? rt.proc.cwd()
+  // keys, and it resolves the kill-switch config by the identical path. Bare
+  // filesystem roots are skipped via firstUsableRoot exactly like V1 (F5): a
+  // bare root is never the project, so config, state and relative paths never
+  // anchor on it.
+  const root = firstUsableRoot(ctx?.location?.directory, rt.proc.cwd()) ?? rt.proc.cwd()
   const arsenal = createContext(rt, root, undefined)
   reportRuntimeDegradation(arsenal)
 
-  const register = ctx?.session?.hook
-  if (typeof register !== "function") {
-    // The published context always carries `session.hook`; a context without it
-    // means the runtime is not the one this surface was written against, and a
-    // dispatcher that silently did nothing would be worse than one that says so.
-    return
+  // Each domain registers independently: a context missing one domain still
+  // arms the others. A guard that silently did nothing would be worse than one
+  // that says so, so every callback below degrades to a no-op only for the
+  // cases its own comments name (kill switch off, empty draft,
+  // already-dispatched draft, unknown tool, empty command).
+  const sessionRegister = ctx?.session?.hook
+  if (typeof sessionRegister === "function") {
+    await sessionRegister.call(ctx.session, "prompt", (event: SessionPromptEvent): void => {
+      const instruction = taskDispatcher(arsenal)
+      if (instruction === null) return
+
+      const draft = event?.prompt
+      const userText = typeof draft?.text === "string" ? draft.text : ""
+      // An empty draft carries no intent to classify, so injecting a five-line
+      // instruction into it would add cost and teach the model nothing.
+      if (userText.length === 0) return
+      if (hasDispatchInstruction(userText)) return
+
+      // Captured before the rewrite so `lastIntent` stays the user's own words
+      // and never the instruction this hook appends.
+      const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
+      state.lastIntent = clip(userText, MAX_CAPTURED_INTENT_CHARS)
+
+      draft.text = `${userText}\n\n${instruction}`
+      // V2's plugin context has no `client.app.log`, so `log` is a no-op here by
+      // design rather than by accident. The V1 surface still records the
+      // injection; under V2 the persisted prompt is the evidence.
+    })
   }
 
-  await register.call(ctx.session, "prompt", (event: SessionPromptEvent): void => {
-    const instruction = taskDispatcher(arsenal)
-    if (instruction === null) return
+  const toolRegister = ctx?.tool?.hook
+  if (typeof toolRegister === "function") {
+    await toolRegister.call(ctx.tool, "execute.before", (event: V2ToolBeforeEvent & V2ToolAfterEvent): Promise<void> =>
+      v2ToolBefore(arsenal, event),
+    )
+    await toolRegister.call(ctx.tool, "execute.after", (event: V2ToolBeforeEvent & V2ToolAfterEvent): Promise<void> =>
+      v2ToolAfter(arsenal, event),
+    )
+  }
 
-    const draft = event?.prompt
-    const userText = typeof draft?.text === "string" ? draft.text : ""
-    // An empty draft carries no intent to classify, so injecting a five-line
-    // instruction into it would add cost and teach the model nothing.
-    if (userText.length === 0) return
-    if (hasDispatchInstruction(userText)) return
-
-    // Captured before the rewrite so `lastIntent` stays the user's own words
-    // and never the instruction this hook appends.
-    const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
-    state.lastIntent = clip(userText, MAX_CAPTURED_INTENT_CHARS)
-
-    draft.text = `${userText}\n\n${instruction}`
-    // V2's plugin context has no `client.app.log`, so `log` is a no-op here by
-    // design rather than by accident. The V1 surface still records the
-    // injection; under V2 the persisted prompt is the evidence.
-  })
+  const shellRegister = ctx?.shell?.hook
+  if (typeof shellRegister === "function") {
+    await shellRegister.call(ctx.shell, "create.before", (event: V2ShellBeforeEvent): Promise<void> =>
+      v2ShellBefore(arsenal, event),
+    )
+  }
 }
 
 /**
@@ -2144,8 +2361,8 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
  * (`@opencode/plugin` 2.0.26 `dist/promise/plugin.d.ts`:
  * `Plugin { id; setup }`) reads `id` + `setup()` and ignores `server()`.
  * A bare function export would be loadable by V1 only, so the object form
- * is what makes the task-dispatcher hook reachable on V2 without retiring
- * the seven hooks that only V1 can still fire.
+ * is what makes the dispatcher and the tool/shell guards reachable on V2
+ * without retiring the three session-lifecycle hooks that only V1 can fire.
  */
 export default {
   ...definePlugin({ id: "vantrilex-arsenal", setup }),

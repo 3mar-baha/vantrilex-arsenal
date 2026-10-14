@@ -1,6 +1,6 @@
 # Vantrilex Arsenal
 
-**Three skills, one registry, one pinned kit.**
+**Four skills, one registry, one pinned kit.**
 
 Vantrilex Arsenal is a shareable OpenCode plugin plus a component system. It
 provisions a target project with a curated, version-pinned kit of skills, MCP
@@ -8,7 +8,9 @@ servers, plugins, hooks, agents, and design conventions — then governs how tha
 kit is used. It is not a bundle of everything; it is an arsenal you equip per
 project.
 
-![The five elements of the Arsenal and the role of each: the kit, which is everything that gets provisioned onto a project; Vantrilex Prime, which answers where the Arsenal is and how to pin it; Vantrilex Vanguard, which detects the project, selects and equips the kit, and verifies it works; Vantrilex Doctrine, which holds the law on roles, gates, workflows, and rituals; and the Vantrilex Registry, a catalog of 2,737 components with machine-readable records and honestly labelled install commands](docs/assets/tables/elements-role.svg)
+![The six elements of the Arsenal and the role of each: the kit, which is everything that gets provisioned onto a project; Vantrilex Prime, which answers where the Arsenal is and how to pin it; Vantrilex Vanguard, which detects the project, selects and equips the kit, and verifies it works; Vantrilex Workflow-Forge, which authors the per-task workflow before execution begins; Vantrilex Doctrine, which holds the law on roles, gates, workflows, and rituals; and the Vantrilex Registry, a catalog of 2,804 components with machine-readable records and honestly labelled install commands](docs/assets/tables/elements-role.svg)
+
+*The table images in this file still render the prior census and are pending regeneration; the prose figures are the live verified counts.*
 
 The repository is Node 25, ESM, and zero dependencies. It contains **no AI or
 ML model logic** — only Markdown, JSON, and Node ESM. Nothing here may invent an
@@ -38,8 +40,8 @@ Each of the nine has an animated sibling with the same geometry under
 
 Two parts, with one boundary between them:
 
-- **A shareable OpenCode plugin** — `.opencode/` ships the plugin, the three
-  top-level skills, four role agents, and four operator commands.
+- **A shareable OpenCode plugin** — `.opencode/` ships the plugin, the four
+  top-level skills, ten agent files, and four operator commands.
 - **A component system** — `registry/` is the catalog the plugin draws from,
   and `kit/kit.lock` is the pinned, verified subset of that catalog every
   project receives.
@@ -51,13 +53,13 @@ equipped last quarter gets the same components it got last quarter.
 
 ---
 
-## The three skills
+## The four skills
 
 ![The Prime tier icon — a bearing arrow over the ground line](brand/icons/tier-prime.svg) **Vantrilex Prime** answers *where the Arsenal is*. It runs once per machine,
 not once per project: it states what the Arsenal is, gives the canonical
 repository URL, shows how to clone and pin it with `git rev-parse HEAD`, lists
-what is on disk, shows how to confirm the three skills exist, fixes the order
-Prime → Vanguard → Doctrine runs in, and states the standing laws every later
+what is on disk, shows how to confirm the four skills exist, fixes the order
+Prime → Vanguard → Workflow-Forge → Doctrine runs in, and states the standing laws every later
 phase obeys. Orientation only — it does not survey the project, and it does not
 define how work is conducted. See
 [`.opencode/skills/vantrilex-prime/SKILL.md`](.opencode/skills/vantrilex-prime/SKILL.md).
@@ -83,6 +85,14 @@ Install directly:
 npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-vanguard
 ```
 
+**Vantrilex Workflow-Forge** answers *how is this task run?* It authors the standing methodology: the workflow for each task, written before execution begins rather than during it. Vanguard installs it in the Step 4 lane and proves the install by read-back — the file exists at `.opencode/skills/vantrilex-workflow-forge/SKILL.md`, its frontmatter `name` equals `vantrilex-workflow-forge`, and `node scripts/verify-skills.mjs` exits 0. Until that proof lands, the skill set is incomplete. See the Forge skill install section of [`.opencode/skills/vantrilex-vanguard/SKILL.md`](.opencode/skills/vantrilex-vanguard/SKILL.md).
+
+Install directly:
+
+```text
+npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-workflow-forge
+```
+
 ![The Doctrine tier icon — a gavel resting on the bench line](brand/icons/tier-doctrine.svg) **Vantrilex Doctrine** answers *how is the kit used?* It is the WORK phase. It
 defines the role model, the constitutional laws an agent may not break, the
 phase-to-skill map, and the workflows for features, reviews, security audits,
@@ -97,12 +107,11 @@ Install directly:
 npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-doctrine
 ```
 
-The separation is deliberate: **orientation, then selection, then conduct.**
-Prime does not duplicate Vanguard's four project states, and Vanguard does not
-duplicate Doctrine's workflows. A project can therefore run the scout without
+The separation is deliberate: **orientation, then selection, then workflow design, then conduct.**
+Prime does not duplicate Vanguard's four project states, Vanguard does not author the per-task workflow — the forge does that at each task start — and the forge does not govern it; Doctrine does. A project can therefore run the scout without
 inheriting the law, and can be re-equipped on new terms without renegotiating
-its conduct rules. Only those three are top-level skills. The other **17 skill
-folders** under `.opencode/skills/` split into the 12 conditional components
+its conduct rules. Only those four are top-level skills. The other **17 skill
+folders** on disk under `.opencode/skills/` split into the 12 conditional components
 Vanguard equips and five transplanted mechanisms that ship on disk without being
 locked into the kit.
 
@@ -152,11 +161,13 @@ repository has never benchmarked itself.*
 two rows carrying `~` — first-time setup and setup again — are rough
 illustrative estimates, not measured benchmarks; this repository has never
 benchmarked itself. Every unmarked cell is a verified
-count, not an estimate: 2,739 catalog records over eight kinds, 19 verified
-install commands with the rest marked `unverified`, the same 47 pinned
-components from a pinned commit, six registry checks plus twelve kit checks,
-six gates each required to exit 0, three top-level skills and four role
-agents, the generated 28-file doc system, and `mcp_cap` = 8.*
+count, not an estimate: 2,804 catalog records over eight kinds, 82 verified
+install commands with the rest marked `unverified`, the same 112 pinned
+components from a pinned commit, seven registry checks plus fourteen kit checks,
+six gates each required to exit 0, four top-level skills and ten agent
+files, the generated 28-file doc system, and `mcp_cap` = 8. The table image
+above still renders the prior census; the prose figures in this caption are
+the live verified counts.*
 
 ![Comparison table of approximate per-phase effort across seven phases from orientation to release, with and without the Arsenal, and a column on what actually changes in each phase](docs/assets/tables/compare-phase-effort-estimate.svg)
 
@@ -181,14 +192,17 @@ cd vantrilex-arsenal
 git rev-parse HEAD          # pin this commit; the kit is version-pinned
 ```
 
-Then, in the order the three skills are meant to run:
+Then, in the order the four skills are meant to run:
 
 1. **Prime** — run `vantrilex-prime` once on this machine. It records where the
    Arsenal lives and what is on disk.
 2. **Vanguard** — run `vantrilex-vanguard` in each target project you want to
    equip. It detects the project state, installs the kit, verifies it, and
    writes the target-project documentation.
-3. **Doctrine** — run `vantrilex-doctrine` for the work itself: features,
+3. **Workflow-Forge** — Vanguard installs `vantrilex-workflow-forge` in the
+   Step 4 lane and proves it by read-back. It runs at each task start before
+   execution and authors the per-task workflow.
+4. **Doctrine** — run `vantrilex-doctrine` for the work itself: features,
    reviews, audits, fixes, releases.
 
 Operator entry points in `.opencode/command/` cover two of those phases and two
@@ -211,17 +225,19 @@ Vantrilex Prime skill — it is the session primer.
 - **`registry/catalog.json`** — the generated machine mirror Vanguard reads. It
   is regenerated, never hand-edited.
 
-The catalog carries **2,737 records** across six kinds:
+The catalog carries **2,804 records** across eight kinds: skill 1,504, mcp 907, agent 284, hook 20, formatting 13, plugin 11, lsp 1, and cli 64.
 
-![Table of catalog records by kind: skill 1,503, mcp 905, agent 284, hook 20, formatting 13, plugin 12, Total 2,737](docs/assets/tables/catalog-records.svg)
+![Table of catalog records by kind: skill 1,504, mcp 907, agent 284, hook 20, formatting 13, plugin 11, lsp 1, cli 64, Total 2,804](docs/assets/tables/catalog-records.svg)
 
-The catalog is enriched from six `registry/data/*.jsonl` sidecars — one per
+The shared SVG above still renders the prior census (seven rows, no `cli` row); the paragraph above carries the live verified counts.
+
+The catalog is enriched from eight `registry/data/*.jsonl` sidecars — one per
 kind — each with exactly one owning branch at a time. Every record carries a
 `when_to_use` trigger, a lifecycle `phase`, a `tier`, a `verify_cmd`, an
-`install_cmd`, a `verification` state, and a `default_selected` flag. **22
+`install_cmd`, a `verification` state, and a `default_selected` flag. **20
 components are default-selected.**
 
-**The honesty rule.** 12 components carry a verified install command. Every
+**The honesty rule.** 82 components carry a verified install command: 10 skills, 8 MCP servers, and 64 CLI tools. Every
 remaining install command is mechanically derived from the component's source
 repository and is marked `verification: unverified` rather than presented as
 checked. Agents, plugins, and hooks are recorded with a `null` `install_cmd`
@@ -233,21 +249,23 @@ run it.
 
 ## Kit census
 
-`kit/kit.lock` pins **47 components with an empty `pending` list**: 31 tier
-`core` and 16 tier `conditional`.
+`kit/kit.lock` pins **112 components with an empty `pending` list**: 31 tier
+`core` and 81 tier `conditional`.
 
-![Table of the kit census by kind: skill 25 locked, 13 tier core, 12 tier conditional; mcp 8, 8, 0; lsp 1, 1, 0; hook 7, 5, 2; agent 6, 4, 2; Total 47 locked, 31 tier core, 16 tier conditional](docs/assets/tables/kit-census.svg)
+![Table of the kit census by kind: skill 26 locked, 13 tier core, 13 tier conditional; mcp 8, 8, 0; lsp 1, 1, 0; hook 7, 5, 2; agent 6, 4, 2; cli 64 locked, 0 tier core, 64 tier conditional; Total 112 locked, 31 tier core, 81 tier conditional](docs/assets/tables/kit-census.svg)
 
-By verification: **17 `verified`** and **30 `unverified`**. The 17 verified
-entries are the 10 upstream skills installed by `npx skills add`, the
-`context7`, `firecrawl`, `filesystem`, `memory`, `sequential-thinking`, and
-`github` MCP servers, and the `typescript-lsp` language server, all
-version-pinned.
+By verification: **80 `verified`** and **32 `unverified`**. The 80 verified
+entries are the 10 upstream skills installed by `npx skills add`, the six
+version-pinned MCP servers (`context7`, `firecrawl`, `filesystem`, `memory`,
+`sequential-thinking`, and `github`), and the 64 `cli` tools. The 32
+unverified entries are the 16 in-repo skills, the `fetch` and `openrouter` MCP
+servers, the language server, the 7 hooks, and the 6 agents — every one of
+them recorded with a `null` `install_cmd`.
 
 The lock breaks down by kind into skills, MCP servers, the language server,
-hooks, and agents:
+hooks, agents, and CLI tools:
 
-![Table of what the 47 locked components are: 25 skills, 8 MCP servers, 1 language server, 7 hooks, and 6 agents, with each group's contents listed](docs/assets/tables/locked-contents.svg)
+![Table of what the 112 locked components are: 26 skills, 8 MCP servers, 1 language server, 7 hooks, 6 agents, and 64 CLI tools, with each group's contents listed](docs/assets/tables/locked-contents.svg)
 
 **The 8-MCP cap.** `mcp_cap` is **8** — the ceiling on tier `core` MCP servers,
 and the locked set sits exactly at it. The cap is a context-budget backstop: MCP
@@ -255,19 +273,21 @@ servers are the most expensive components to keep resident, so the kit refuses
 to grow past that ceiling and, on ties, prefers a skill or a CLI over an MCP
 server.
 
-**20 skill folders** exist on disk under `.opencode/skills/`. **15 of them are
-locked kit components** — the **three top-level skills** (Prime, Vanguard,
-Doctrine) plus the 12 conditional ones. The remaining five —
+**21 skill folders** exist on disk under `.opencode/skills/`. **16 of them are
+locked kit components** — the four top-level skills (Prime, Vanguard, Doctrine,
+Workflow-Forge) plus the 12 conditional ones. Workflow-Forge ships on disk in
+this tree; Vanguard still proves it by read-back in the Step 4 lane (see
+above). The remaining five —
 `circuit-breaker-guard`, `github-release-packager`, `pre-mortem`,
 `preflight-system-doctor`, and `session-context-primer` — are transplanted
 mechanisms: present on disk, not locked into the default kit.
 
 > **Implementation note.** OpenCode has no standalone hooks directory — hooks
-> are plugin callbacks. The 7 logical Tier-0 hooks are implemented inside a
-> single plugin file, `.opencode/plugin/arsenal.ts`, rather than as 7 separate
+> are plugin callbacks. The 8 logical Tier-0 callbacks are implemented inside a
+> single plugin file, `.opencode/plugin/arsenal.ts`, rather than as 8 separate
 > files. The two conditional hooks stay locked for that reason: the plugin
 > already implements them, and a separate install would be a second path to the
-> same guard. The seventh, `task-dispatcher`, classifies every user message
+> same guard. `task-dispatcher` classifies every user message
 > into one of five Vanguard task scenarios; see
 > [`docs/16-TASK-DISPATCH.md`](docs/16-TASK-DISPATCH.md).
 >
@@ -292,7 +312,7 @@ A task is not finished because the code runs; it is finished when the thing is
 proven. Every gate below is runnable from the repository root and every one must
 exit 0.
 
-![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs for six checks; catalog mirror runs node scripts/generate-catalog-json.mjs --check; kit runs node scripts/verify-kit.mjs for eleven checks; skills runs node scripts/verify-skills.mjs for ten checks; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
+![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs for seven checks; catalog mirror runs node scripts/generate-catalog-json.mjs --check; kit runs node scripts/verify-kit.mjs for fourteen checks; skills runs node scripts/verify-skills.mjs for ten checks; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
 
 If a check cannot be evaluated, that is a **failed** check, not a skipped one.
 Say so in the change description rather than leaving the gate green-looking;
@@ -306,17 +326,19 @@ contract.
 ```text
 vantrilex-arsenal/
 ├── .opencode/                    Shipped surface
-│   ├── plugin/arsenal.ts         The 7 Tier-0 hooks as plugin callbacks
-│   ├── skills/                   20 folders: 3 top-level + 12 conditional kit components + 5 unlocked
-│   ├── agent/                    Leader / Guide / Implementer / red-team
+│   ├── plugin/arsenal.ts         The 8 Tier-0 callbacks as plugin callbacks
+│   ├── skills/                   21 folders: 4 top-level skills + 12 conditional kit components + 5 unlocked
+│   ├── agents/                   ai-generated-code-security-auditor, architect, blazar,
+│   │                               code-reviewer, kit-maintainer, red-team, technical-writer,
+│   │                               vantrilex-guide, vantrilex-implementer, vantrilex-leader
 │   └── command/                  Operator entry points: doctor, equip, prime, release
 ├── registry/                     Data plane — the component catalog
 │   ├── VANTRILEX_CATALOG.md      Source of truth (generated table)
 │   ├── catalog.json              Generated machine mirror
 │   ├── schema/catalog-v2.schema.json   The record contract
-│   ├── data/                     Six per-kind JSONL sidecars + overlaps.yaml
+│   ├── data/                     Eight per-kind JSONL sidecars + overlaps.yaml
 │   ├── formatting/               Curated design-system documents + ATTRIBUTION.md
-│   └── {skills,mcp,plugins,hooks,agents}/
+│   └── {skills,mcp,plugins,hooks,agents,formatting,lsp,cli}/
 │                                  Per-kind records and generated _index.md
 ├── scripts/                      Node ESM, zero dependencies
 │   ├── generate-catalog-json.mjs Generator for the mirror and the tables
@@ -324,13 +346,13 @@ vantrilex-arsenal/
 │   ├── verify-kit.mjs            Kit lockfile checks
 │   ├── verify-skills.mjs         Skill-file format checks
 │   └── *.sh                      Worktree orchestration, git hooks, release
-├── kit/kit.lock                  The pinned 47-component kit
+├── kit/kit.lock                  The pinned 112-component kit
 └── docs/                         00-INDEX.md … 17-V2-HOOK-GAP.md, plus
                                   docs/spec/ — the two canonical input specs
 ```
 
-`docs/` holds a 17-file numbered set from `00-INDEX.md` through
-`16-TASK-DISPATCH.md`, plus `docs/spec/` which holds the two canonical input
+`docs/` holds an 18-file numbered set from `00-INDEX.md` through
+`17-V2-HOOK-GAP.md`, plus `docs/spec/` which holds the two canonical input
 specifications, `VANTRILEX_KIT_SPEC.md` and `VANTRILEX_SKILLS_SPEC.md`. The
 28-file documentation system Vanguard prepares is generated into the *target*
 project at runtime and is deliberately not part of this repository's layout.

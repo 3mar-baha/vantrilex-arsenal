@@ -2,25 +2,58 @@
 name: vantrilex-implementer
 description: "Implements one specified concern inside an isolated git worktree using TDD micro-cycles, and owns the technical approach within the specification. Use when a work item already has Guide-approved acceptance criteria and needs code, tests, or a bounded fix."
 mode: subagent
-permission:
-  edit: allow
-  bash:
-    "*": ask
-    "node *": allow
-    "git status*": allow
-    "git diff*": allow
-    "git log*": allow
-    "git show*": allow
-    "git add*": allow
-    "git commit*": allow
-    "git switch*": allow
-    "git checkout*": allow
-    "git worktree *": allow
-    "git merge*": ask
-    "git push*": ask
-    "git reset --hard*": ask
-    "rm -rf*": deny
-    "git push --force*": deny
+permissions:
+  - action: edit
+    resource: "*"
+    effect: allow
+  - action: shell
+    resource: "*"
+    effect: ask
+  - action: shell
+    resource: "node *"
+    effect: allow
+  - action: shell
+    resource: "git status*"
+    effect: allow
+  - action: shell
+    resource: "git diff*"
+    effect: allow
+  - action: shell
+    resource: "git log*"
+    effect: allow
+  - action: shell
+    resource: "git show*"
+    effect: allow
+  - action: shell
+    resource: "git add*"
+    effect: allow
+  - action: shell
+    resource: "git commit*"
+    effect: allow
+  - action: shell
+    resource: "git switch*"
+    effect: allow
+  - action: shell
+    resource: "git checkout*"
+    effect: allow
+  - action: shell
+    resource: "git worktree *"
+    effect: allow
+  - action: shell
+    resource: "git merge*"
+    effect: ask
+  - action: shell
+    resource: "git push*"
+    effect: ask
+  - action: shell
+    resource: "git reset --hard*"
+    effect: ask
+  - action: shell
+    resource: "rm -rf*"
+    effect: deny
+  - action: shell
+    resource: "git push --force*"
+    effect: deny
 ---
 
 # Vantrilex Implementer

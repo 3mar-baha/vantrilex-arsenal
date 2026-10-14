@@ -11,7 +11,8 @@ constrain every layer are [AGENTS.md](../AGENTS.md).
 ```text
 .opencode/                    SHIPPED SURFACE (what a target project receives)
   plugin/arsenal.ts             Tier-0 hooks implemented as plugin callbacks
-  skills/                       Prime, Vanguard, Doctrine, plus 12 conditional
+  skills/                       Prime, Vanguard, Doctrine on disk (Workflow-Forge
+                                installs at equip time), plus 12 conditional
                                 kit components and transplanted mechanisms
   agent/                        Leader / Guide / Implementer role agents
   command/                      Operator entry points (equip, doctor, prime, release)
@@ -20,14 +21,14 @@ registry/                     DATA PLANE (the component catalog)
   VANTRILEX_CATALOG.md          Human-readable source of truth (generated table)
   catalog.json                  Machine mirror Vanguard reads (generated)
   schema/catalog-v2.schema.json Record contract every entry must satisfy
-  data/*.jsonl                  Six enrichment sidecars, one writer each
+  data/*.jsonl                  Eight enrichment sidecars, one writer each
   data/overlaps.yaml            Supersedes / pairs-with relations
   skills, mcp, ...              Per-kind records and generated _index.md files
   formatting/                   Vendored design-system documents + attribution
 
 scripts/                      TOOLING (Node ESM, zero dependencies)
   generate-catalog-json.mjs     Builds catalog.json, the Markdown table, indexes
-  verify-registry.mjs           Six registry consistency checks
+  verify-registry.mjs           Seven registry consistency checks
   dispatch-worktrees.sh         One isolated worktree per concern
   merge-worktrees.sh            Reviewed, signed-off merges back
   orchestrate-stage.sh          Phase kit injection for a worktree
@@ -36,7 +37,7 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (47 components, 0 pending)
+kit/                          PINNED KIT (112 components, 0 pending)
   kit.lock                      Pinned Tier-0 versions (pending list empty)
 
 docs/                         THIS DOCUMENTATION SET plus provenance
@@ -50,7 +51,7 @@ docs/                         THIS DOCUMENTATION SET plus provenance
 |---|---|---|
 | `scripts/generate-catalog-json.mjs` | `registry/VANTRILEX_CATALOG.md` plus `registry/data/*.jsonl` | `registry/catalog.json`, the Markdown table, per-kind indexes |
 | `scripts/verify-registry.mjs` | Catalog Markdown, sidecars, `registry/data/overlaps.yaml`, schema | PASS, FAIL, or SKIPPED per check; a skip is never a pass |
-| Prime (shipped) | This repository's tree, `kit/kit.lock`, `.opencode/skills/` | Orientation: canonical URL, clone and pin, what is on disk, the order Prime, Vanguard, Doctrine run in |
+| Prime (shipped) | This repository's tree, `kit/kit.lock`, `.opencode/skills/` | Orientation: canonical URL, clone and pin, what is on disk, the order Prime, Vanguard, Workflow-Forge, Doctrine run in |
 | Vanguard (specified) | `registry/catalog.json`, skills.sh, Smithery, Context7, project files | Kit selection, lock entries, verification report, target docs |
 | `.opencode/plugin/arsenal.ts` | V2 session prompt hook, session events, tool calls, project config | Guard verdicts: PASS, FAIL, SKIPPED, WARN, BLOCKED |
 | `scripts/dispatch-worktrees.sh` | Checkpoint labeled fields (target-project scope) | Isolated worktree on `wt/<concern-slug>` with phase kit injected |
