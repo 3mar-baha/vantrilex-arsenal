@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Docs-discipline guard sees bash writes.** Shell file-write redirection
+  previously bypassed the guard entirely; bash commands are now routed through
+  the same verdict path as edit-tool writes for detectable cases (`>`, `>>`,
+  heredoc, `tee` in command position, `sudo`/`path`-qualified `tee`).
+  Residual interpreter/`dd` bypasses are documented in code. Pinned by probe
+  (28→45 checks, all passing).
+- **Guard verdicts name the right file** on multi-file calls (per-path pairing
+  before filtering).
+- **Session ids sanitized before path construction** at both filesystem sinks;
+  `ses_*` ids pass through unchanged.
+- **UNC/network roots resolve** with consistent trimming; V1/V2 kill-switch
+  parity (no state mutation when disabled); append target prefers the
+  user-role text part.
+- **BLAZAR model pin removed** per DEFAULT-ONLY law; it inherits the user's
+  configured default model.
+
+### Changed
+
+- **GitHub MCP pin reviewed, not moved.** `2025.4.8` confirmed as the latest
+  upstream release with a sandbox exit-0 install; the package is deprecated in
+  place with no successor, so `verified` stands and the pin is unchanged.
+- **Warn-default and `CLAUDE.md` allow-listing recorded as deliberate** in
+  `docs/15-DECISIONS.md` with acceptance and rationale; behavior unchanged.
+
 ## [0.4.0] — 2026-10-14
 
 ### Added

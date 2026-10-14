@@ -2,7 +2,6 @@
 description: "BLAZAR — Vantrilex Arsenal manager-only orchestrator. Plans once, decomposes into a DAG, dispatches every node to a named Arsenal specialist, verifies, integrates, and maintains AGENT.md/WORKFLOW.md. Never executes node work itself."
 name: blazar
 mode: primary
-model: opencode/big-pickle
 color: "#4169E1"
 request:
   body:
