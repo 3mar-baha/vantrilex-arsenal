@@ -6,7 +6,7 @@ Composing a row: required fields, the deadline formula, and the thread rule. Val
 
 Every created row sets all of the following; a missing field aborts the send.
 
-- `id`: `RL-<unix_ts>` at send time. Uniqueness is writer-enforced: on a same-second collision with another writer, append a retry suffix and re-check before creating.
+- `id`: `RL-<epoch>-<hex>` at send time (epoch seconds plus random lowercase hex), unique per writer without coordination and without any retry suffix.
 - `from`: the sender identity.
 - `to`: the destination identity.
 - `type`: one of the seven closed types, with the matching `MESSAGE-TYPES.md` body template filled in full.

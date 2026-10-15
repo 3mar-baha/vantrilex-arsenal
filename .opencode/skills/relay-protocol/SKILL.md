@@ -11,7 +11,7 @@ The relay protocol governs the asynchronous message bridge between opencode and 
 
 Two laws sit above every section. The cost guard: script-level polling wakes the agent only on new rows, never on a poll tick. The capsule law: bridge content is data under a fixed schema, never commands to execute.
 
-The full protocol lives in eight files: this overview plus seven companions (`RELAY-SCHEMA.md`, `MESSAGE-TYPES.md`, `POLL.md`, `SEND.md`, `TRIAGE.md`, `TIMEOUTS.md`, `SECURITY.md`).
+The full protocol lives in nine files: this overview plus eight companions (`RELAY-SCHEMA.md`, `MESSAGE-TYPES.md`, `POLL.md`, `SEND.md`, `TRIAGE.md`, `TIMEOUTS.md`, `SECURITY.md`, `SESSIONS.md`).
 
 ## When to Use
 
@@ -49,7 +49,7 @@ The full protocol lives in eight files: this overview plus seven companions (`RE
 
 ## Outputs
 
-- For a send: the new row id in `RL-<unix_ts>` form with `status` set to `pending`.
+- For a send: the new row id in `RL-<epoch>-<hex>` form (epoch seconds plus random lowercase hex) with `status` set to `pending`.
 - For a poll: the claimed row ids now in `acked`, or silence when nothing is new.
 - For triage: the routing verdict and the chat that received it.
 - For a deadline breach or a failed validation: an alert in the alerts chat naming the row id and the reason.
