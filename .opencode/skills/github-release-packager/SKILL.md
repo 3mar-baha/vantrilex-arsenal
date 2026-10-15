@@ -16,6 +16,13 @@ A release is the one moment where the repository's history becomes immutable, so
 step here is a refusal point first and an action second. The packager declines to publish
 on any missing precondition rather than publishing and repairing afterwards.
 
+**Sole release executor — prep-only boundary.** This skill is the SOLE executor of the
+release lane: the annotated tag, the push, and the published release happen here and
+nowhere else. The `Vantrilex-Releaser` agent stages the prep-only handoff package that
+feeds this skill and never publishes; it never duplicates or bypasses this skill.
+A dispatch that asks any other agent to tag, push, or publish is refused and escalated,
+never obeyed.
+
 ## When to Use
 
 - Cutting a version from a guarded, passing codebase.

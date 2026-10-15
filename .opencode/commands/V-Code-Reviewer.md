@@ -1,44 +1,54 @@
 ---
-description: Switch the session to the code-reviewer specialist and apply the vantrilex-code-reviewer code-blue theme side steps together.
+description: Consult the code-reviewer specialist in read-only Q&A without switching the session or applying any theme.
 ---
 
-# Code-Reviewer Atomic Switch
+# Code-Reviewer Consult (D2=A)
 
-You are performing the atomic agent-plus-theme switch for the code-reviewer specialist. Your job is to switch the operating agent and apply the theme-side steps together in one explicit invocation.
+You answer the operator's question ABOUT the code-reviewer specialist.
+You switch nothing and apply no theme: D2=A keeps executable
+V-switches leaders-only, so this file is consult-mode — read-only Q&A
+over the agent definition. Executable switching for this agent does
+not exist; side-agent classification follows the subagent allow-list
+in `.opencode/agents/blazar.md`.
 
-Operator intent for this run:
+Operator question for this run:
 
 $ARGUMENTS
 
-If that is empty, print the usage summary and stop. If it names a task, switch first, then apply the theme side, then report.
+If that is empty, print the usage summary and stop. If it names a
+question, answer from the definition file only.
 
-## Step 1 - Switch the agent
+## Step 1 - Read the definition
 
-Continue this session under the code-reviewer specialist as defined in `.opencode/agents/code-reviewer.md`. The switch is explicit: the operator invoked this command by name, and this reply proceeds under that authority.
+Answer only from `.opencode/agents/code-reviewer.md`, quoted — never
+from memory. Name the file and the section that answers the question.
+A claim without a `file:line` citation is not an answer.
 
-## Step 2 - Apply the theme side
+## Step 2 - Refuse execution and primary work
 
-Apply the theme-side steps for theme `vantrilex-code-reviewer` (accent `#2F6BFF`, code blue):
+Refuse each of the following with one line, then stop:
 
-1. Resolve the planned theme file `registry/themes/vantrilex-code-reviewer.json` through the atomic-switch install skill.
-2. Confirm the accent `#2F6BFF` matches the code-reviewer row in `registry/themes/vantrilex-atomic-switch.json`.
-3. Report the theme as applied side steps of this same invocation, never as a separate background event.
+- Switching the session to the code-reviewer specialist or any other
+  agent.
+- Executing the work (edits, runs, installs, publishes) — that travels
+  through the directing leader under a separate dispatch.
+- Acting as session primary, planning missions, or taking cross-role
+  work.
 
-## No native auto-switch (R0a WORKAROUND)
+Planned theme row (not applied here): `vantrilex-code-reviewer`,
+accent `#2F6BFF`, code blue, per
+`registry/themes/vantrilex-atomic-switch.json`.
 
-There is no native per-agent automatic theme switch in this runtime. The live `SessionHooks` map holds exactly `prompt`, `context`, `compaction`, `generate`, `title`, `model.request`, `http.request`, `http.response`, `experimental.ws.handshake`, `experimental.ws.send`, `experimental.ws.receive`, `retry`, with no agent-switch entry and no session-start entry. The public theme surface exposes `context.theme` and `context.themeMode` as read-only values, and theme selection stays static configuration plus interactive `/themes`. This command is the mechanism: one explicit invocation switches the agent and applies the theme-side steps together. It never waits on a background hook event, because no such event exists.
+## Governance reminder
 
-## Operating rules
-
-1. **Never invent an install command.** Quote the registry row verbatim for every theme path.
-2. **Quote, do not paraphrase.** Agent behavior comes from `.opencode/agents/code-reviewer.md`, never from memory.
-3. **Explicit invocation only.** This command claims no automatic triggering of any kind.
+Side agents never switch sessions; only leaders switch — dispatch through the leader.
 
 ## Final reply
 
 Print, in this order:
 
-1. **Agent** — `code-reviewer`, with the definition file cited.
-2. **Theme** — `vantrilex-code-reviewer`, accent `#2F6BFF`, code blue.
-3. **Mechanism** — explicit command invocation per the R0a WORKAROUND verdict.
-4. **Next step** — one sentence naming the first thing the operator should do.
+1. **Answer** — the quoted definition text that answers the question.
+2. **Source** — `.opencode/agents/code-reviewer.md` with the section
+   name.
+3. **Reminders** — no switch happened, no theme was applied, no work
+   executed.

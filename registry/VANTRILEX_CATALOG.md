@@ -2467,7 +2467,7 @@ Consolidated reference of every system component with its folder path.
 | 19 | long-running-process-guard ✅ | Guard long-running dev servers and watchers so their logs stay reachable |  | `` |
 | 20 | task-dispatcher | Classify each user message into one of the five Vanguard task scenarios |  | `` |
 
-## Agents (284 — 1 default-selected)
+## Agents (298 — 1 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2755,6 +2755,20 @@ Consolidated reference of every system component with its folder path.
 | 282 | ZK Steward | Knowledge-base steward in the spirit of Niklas Luhmann's Zettelkasten. Default p… |  | `` |
 | 283 | red-team | Adversarial attacker that tries to break a plan, design, or diff before it ships… | 3mar-baha/vantrilex-arsenal | `` |
 | 284 | a11y-audit | Accessibility auditing agent from rksekar5/a11y-audit (MIT, 1 star, last push 20… | rksekar5/a11y-audit | `` |
+| 285 | vantrilex-typescript | Strict TypeScript specialist that masters advanced types and enterprise-grade… | 3mar-baha/vantrilex-arsenal | `` |
+| 286 | vantrilex-python | Builds type-safe production Python with ruff, uv, and pytest; use when Python… | 3mar-baha/vantrilex-arsenal | `` |
+| 287 | vantrilex-fixer | Diagnoses and repairs defects with reproduce-first debugging; use when a build… | 3mar-baha/vantrilex-arsenal | `` |
+| 288 | vantrilex-github | Executes GitHub issue, branch, and pull-request work inside a directed node;… | 3mar-baha/vantrilex-arsenal | `` |
+| 289 | vantrilex-ui-designer | Use when a UI task needs interface design, layout, component specs, or… | 3mar-baha/vantrilex-arsenal | `` |
+| 290 | vantrilex-ux-designer | Translates user evidence into information architecture, user flows, and a… | 3mar-baha/vantrilex-arsenal | `` |
+| 291 | vantrilex-scout | Read-only scout that surveys a target project into a fixed-schema brief. Use… | 3mar-baha/vantrilex-arsenal | `` |
+| 292 | vantrilex-librarian | Use when catalog knowledge needs version-qualified curation, drift reporting,… | 3mar-baha/vantrilex-arsenal | `` |
+| 293 | vantrilex-reviewer | Use when a diff, branch, or pull request needs a read-only kit-law review that… | 3mar-baha/vantrilex-arsenal | `` |
+| 294 | vantrilex-verifier | Independent gate-runner that executes the full verification battery and reports… | 3mar-baha/vantrilex-arsenal | `` |
+| 295 | vantrilex-harness | Use when a kit component needs an adversarial probe that proves exploitability… | 3mar-baha/vantrilex-arsenal | `` |
+| 296 | vantrilex-security-auditor | Use when AI-generated or vibe-coded app code needs a static security audit with… | 3mar-baha/vantrilex-arsenal | `` |
+| 297 | vantrilex-scribe | Use when project documentation must be drafted, mirrored into Arabic, or… | 3mar-baha/vantrilex-arsenal | `` |
+| 298 | vantrilex-releaser | Use when a release needs terminal prep that stages a versioned handoff package… | 3mar-baha/vantrilex-arsenal | `` |
 
 ## Formatting (13 — 0 default-selected)
 

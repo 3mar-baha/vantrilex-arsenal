@@ -1137,17 +1137,63 @@ function main() {
 
     const agents = components.filter((c) => c.kind === "agent");
     const agentBad = agents.filter((c) => c.install_cmd !== null || c.verification !== "unverified");
+    // Every self-sourced lock agent ships its definition in this repo. The
+    // file must exist, its frontmatter name must byte-equal the lock id (no
+    // case-insensitive fallback), its mode must be exactly subagent, and it
+    // must carry no model pin and no color field. Upstream agents carry no
+    // local file by design and stay exempt from this proof.
+    const agentFileFailures = [];
+    let selfAgentFiles = 0;
+    for (const entry of agents.filter((c) => c.source === SELF_SOURCE)) {
+      let text = null;
+      try {
+        text = fs.readFileSync(path.join(AGENTS_DIR, entry.id + ".md"), "utf8");
+      } catch (err) {
+        agentFileFailures.push(entry.id + ": self-sourced lock agent has no .opencode/agents/" + entry.id + ".md");
+        continue;
+      }
+      const fence = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+      if (fence === null) {
+        agentFileFailures.push(entry.id + ": no frontmatter fence in .opencode/agents/" + entry.id + ".md");
+        continue;
+      }
+      const fenceLines = fence[1].split(/\r?\n/);
+      const findKey = (key) => fenceLines.find((line) => new RegExp("^\\s*" + key + "\\s*:").test(line));
+      const nameLine = findKey("name");
+      const name = nameLine === undefined ? null : nameLine.replace(/^\s*name\s*:\s*/, "").trim().replace(/^["']|["']$/g, "");
+      if (name !== entry.id) {
+        agentFileFailures.push(entry.id + ": frontmatter name " + JSON.stringify(name) + " does not byte-equal the lock id (no case-insensitive fallback)");
+        continue;
+      }
+      const modeLine = findKey("mode");
+      const mode = modeLine === undefined ? null : modeLine.replace(/^\s*mode\s*:\s*/, "").trim();
+      if (mode !== "subagent") {
+        agentFileFailures.push(entry.id + ": mode " + JSON.stringify(mode) + " is not subagent");
+        continue;
+      }
+      if (findKey("model") !== undefined) {
+        agentFileFailures.push(entry.id + ": frontmatter pins a model; agents carry no model pins");
+        continue;
+      }
+      if (findKey("color") !== undefined) {
+        agentFileFailures.push(entry.id + ": frontmatter carries a color field");
+        continue;
+      }
+      selfAgentFiles++;
+    }
     if (agentBad.length > 0) {
       record(
         "per-kind/agents",
         "FAIL",
-        "agents are upstream records with null install_cmd + unverified; fabricated spawn commands in: " + agentBad.map((c) => c.id).join(", ")
+        "agents must carry null install_cmd + unverified; fabricated spawn commands in: " + agentBad.map((c) => c.id).join(", ")
       );
+    } else if (agentFileFailures.length > 0) {
+      record("per-kind/agents", "FAIL", agentFileFailures.join("; "));
     } else {
       record(
         "per-kind/agents",
         "PASS",
-        agents.length + " agents are upstream records with null install_cmd + unverified; catalog agreement is proven by the catalog-agreement check"
+        agents.length + " agents carry null install_cmd + unverified; " + selfAgentFiles + " self-sourced lock agents resolve to .opencode/agents/<id>.md with byte-equal name, mode subagent, zero model pins, zero color fields; catalog agreement is proven by the catalog-agreement check"
       );
     }
 
