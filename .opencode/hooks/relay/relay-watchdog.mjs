@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 /**
  * relay-watchdog.mjs — relay queue deadline watchdog.
  *
@@ -45,17 +47,23 @@
  * machine-readable receipt line carrying the verdict, the SHAs seen, and
  * the verification checklist.
  *
- * Watermark: the watchdog keeps local state holding the last sweep
- * timestamp (last_edited_time cursor) plus the per-row announce ledger.
- * Each tick sweeps rows against that cursor minus a backfill window (600
- * seconds), so a row edited just behind the cursor is still caught. The
- * cursor advances after every sweep; a tick with nothing overdue ends
- * silently.
+ * Watermark: the watchdog keeps hook-local state in a JSON file
+ * (RELAY_WATCHDOG_STATE_FILE, defaulting to
+ * .opencode/hooks/relay/.relay-watchdog.state.json, local-only and never
+ * committed) holding the last sweep timestamp plus the per-row announce
+ * ledger. Each tick sweeps rows against that cursor minus a backfill
+ * window (600 seconds), so a row edited just behind the cursor is still
+ * caught. The cursor advances after every sweep and is saved to the file;
+ * a tick with nothing overdue ends silently. Loads never return nulls (a
+ * missing file seeds the epoch cursor with an empty ledger), and dry_run
+ * uses in-memory fixtures with zero filesystem writes.
  *
- * Explicit DLQ: each row tracks retry_count (here: announce_count) and
- * last_error. After MAX_ATTEMPTS unanswered announcements a row is moved
- * to invalid with an escalated alert naming the stall, per the TIMEOUTS.md
- * repeated-stall rung, and is never alerted again.
+ * Explicit DLQ: each row tracks consecutive overdue observations in the
+ * hook-local announce ledger above (no Notion column is added; the live
+ * nine-column shape stays frozen) with last_error beside the count. After
+ * MAX_ATTEMPTS unanswered announcements a row is moved to invalid with an
+ * escalated alert naming the stall, per the TIMEOUTS.md repeated-stall
+ * rung, and is never alerted again.
  *
  * Session-scoped sequencing: alerts are grouped by thread_id and ordered
  * oldest-deadline-first within each thread, so one conversation escalates
@@ -118,16 +126,61 @@ function readOwnerConfig() {
   };
 }
 
+function defaultSweepStateFile() {
+  return process.env.RELAY_WATCHDOG_STATE_FILE ?? ".opencode/hooks/relay/.relay-watchdog.state.json";
+}
+
 function loadSweepState() {
   if (DRY_RUN) {
     return {
       lastSweepTs: "2026-10-15T07:00:00.000Z",
       ledger: {},
+      stateFile: null,
     };
   }
-  const file = process.env.RELAY_WATCHDOG_STATE_FILE ?? null;
-  if (file === null) return { lastSweepTs: null, ledger: {} };
-  return { lastSweepTs: null, ledger: {}, stateFile: file };
+  const file = defaultSweepStateFile();
+  try {
+    const parsed = JSON.parse(readFileSync(file, "utf8"));
+    return {
+      lastSweepTs: typeof parsed.lastSweepTs === "string" ? parsed.lastSweepTs : "1970-01-01T00:00:00.000Z",
+      ledger: parsed.ledger !== null && typeof parsed.ledger === "object" ? parsed.ledger : {},
+      stateFile: file,
+    };
+  } catch {
+    return { lastSweepTs: "1970-01-01T00:00:00.000Z", ledger: {}, stateFile: file };
+  }
+}
+
+function saveSweepState(sweep) {
+  if (DRY_RUN || sweep.stateFile === null || sweep.stateFile === undefined) return;
+  mkdirSync(dirname(sweep.stateFile), { recursive: true });
+  writeFileSync(sweep.stateFile, JSON.stringify({ lastSweepTs: sweep.lastSweepTs, ledger: sweep.ledger ?? {} }, null, 2));
+}
+
+// Hook-local announce ledger: the live nine-column shape carries no
+// announce counter, so consecutive overdue observations of the same row id
+// are counted here, never in a new column. Absence from the ledger reads
+// as 0; a row that leaves pending is pruned and never alerted again.
+function effectiveAnnounceCount(row, sweep) {
+  const envelope = Number(row.announceCount ?? 0);
+  const ledger = Number(sweep.ledger?.[row.id]?.count ?? 0);
+  return Math.max(Number.isFinite(envelope) ? envelope : 0, Number.isFinite(ledger) ? ledger : 0);
+}
+
+function observeSweep(rows, sweep, nowIso) {
+  const seen = new Set();
+  for (const row of rows) {
+    if (row.status !== "pending") continue;
+    seen.add(row.id);
+    const entry = sweep.ledger[row.id] ?? { count: 0, lastError: null };
+    entry.count = (Number(entry.count) || 0) + 1;
+    if (row.lastError !== null && row.lastError !== undefined) entry.lastError = row.lastError;
+    sweep.ledger[row.id] = entry;
+  }
+  for (const id of Object.keys(sweep.ledger)) {
+    if (!seen.has(id)) delete sweep.ledger[id];
+  }
+  sweep.lastSweepTs = nowIso;
 }
 
 function makeAlertId(epochSeconds, hex) {
@@ -292,8 +345,8 @@ function scanSecrets(row) {
   return null;
 }
 
-function selectAlerts(rows) {
-  const overdue = rows.filter((row) => row.status === "pending" && row.overdue && scanSecrets(row) === null && (row.announceCount ?? 0) < MAX_ATTEMPTS);
+function selectAlerts(rows, sweep) {
+  const overdue = rows.filter((row) => row.status === "pending" && row.overdue && scanSecrets(row) === null && effectiveAnnounceCount(row, sweep) < MAX_ATTEMPTS);
   const approvals = rows.filter((row) => row.status === "pending" && row.type === "approval_request" && scanSecrets(row) === null);
   const seen = new Set();
   return [...overdue, ...approvals].filter((row) => {
@@ -307,12 +360,12 @@ function selectQuarantine(rows) {
   return rows.filter((row) => row.status === "pending" && scanSecrets(row) !== null);
 }
 
-function selectDeadLetter(rows) {
+function selectDeadLetter(rows, sweep) {
   return rows.filter(
     (row) =>
       row.status === "pending" &&
       row.overdue &&
-      (row.announceCount ?? 0) >= MAX_ATTEMPTS &&
+      effectiveAnnounceCount(row, sweep) >= MAX_ATTEMPTS &&
       scanSecrets(row) === null,
   );
 }
@@ -466,6 +519,8 @@ async function main() {
     alertsTarget = "alerts side chat (owner-configured id)";
   }
 
+  if (!DRY_RUN) observeSweep(rows, sweep, nowIso);
+
   const quarantined = selectQuarantine(rows);
   for (const row of quarantined) {
     const family = scanSecrets(row);
@@ -474,21 +529,23 @@ async function main() {
     } else {
       const config = readOwnerConfig();
       await markInvalid(config, row, `secret-pattern family=${family}, value redacted`);
+      delete sweep.ledger[row.id];
     }
   }
 
-  const deadLetters = selectDeadLetter(rows);
+  const deadLetters = selectDeadLetter(rows, sweep);
   for (const row of deadLetters) {
     if (DRY_RUN) {
       console.log(`[relay-watchdog] dry_run: WOULD move ${row.id} to invalid (announce_count=${row.announceCount} >= ${MAX_ATTEMPTS}, last_error="${row.lastError}") + escalated stall alert armed for ${alertsTarget} (not delivered, never alerted again)`);
       emitReceipt(row, "unanswered", "dry_run: three sweeps with no reply and no progress; escalated per repeated-stall rung");
     } else {
       const config = readOwnerConfig();
-      await markInvalid(config, row, `dlq: announce_count=${row.announceCount} >= ${MAX_ATTEMPTS}, last_error tracked`);
+      await markInvalid(config, row, `dlq: announce_count=${effectiveAnnounceCount(row, sweep)} >= ${MAX_ATTEMPTS}, last_error tracked`);
+      delete sweep.ledger[row.id];
     }
   }
 
-  const alerts = selectAlerts(rows);
+  const alerts = selectAlerts(rows, sweep);
   if (alerts.length === 0 && quarantined.length === 0 && deadLetters.length === 0) {
     console.log("[relay-watchdog] no overdue or approval rows: silent tick, nothing delivered");
     if (DRY_RUN) console.log("[relay-watchdog] RESULT: green — silent tick path exercised");
@@ -520,6 +577,8 @@ async function main() {
     console.log(`[relay-watchdog] dry_run: sweep cursor WOULD advance to ${nowIso} (not written)`);
     console.log(`[relay-watchdog] dry_run: zero approvals performed — approval_request rows alert, never auto-approved (not written)`);
     console.log(`[relay-watchdog] RESULT: green — ${alerts.length} alert(s) armed for the alerts side chat`);
+  } else {
+    saveSweepState(sweep);
   }
 }
 

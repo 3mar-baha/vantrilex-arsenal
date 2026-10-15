@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 /**
  * relay-poll.mjs — relay queue poll hook (vanbu side).
  *
@@ -42,16 +44,23 @@
  * machine-readable receipt line carrying the verdict, the SHAs seen, and
  * the verification checklist.
  *
- * Watermark: the poll script keeps local state holding the last seen
- * last_edited_time and the last row id. Each tick compares fresh query
- * results against that state minus a backfill window (600 seconds), so a
- * row edited just behind the cursor is still caught. Rows already seen
- * are ignored; only unseen rows wake the agent, and the state advances
- * past them after the wake. A tick with nothing new ends silently.
+ * Watermark: the poll script keeps hook-local state in a JSON file
+ * (RELAY_STATE_FILE, defaulting to
+ * .opencode/hooks/relay/.relay-poll.state.json, local-only and never
+ * committed) holding the last seen last_edited_time, the last row id, and
+ * the per-row retry ledger. Each tick compares fresh query results against
+ * that state minus a backfill window (600 seconds), so a row edited just
+ * behind the cursor is still caught. Rows already seen are ignored; only
+ * unseen rows wake the agent, and the state advances past them after the
+ * wake and is saved to the file. The file is the whole cursor: loads never
+ * return nulls (a missing file seeds the epoch cursor), and dry_run uses
+ * in-memory fixtures with zero filesystem writes.
  *
- * Explicit DLQ: each row tracks retry_count and last_error. After
- * MAX_ATTEMPTS failures a row is moved to invalid with an alert to the
- * alerts side chat, and is never woken again.
+ * Explicit DLQ: each row tracks consecutive pending observations in the
+ * hook-local retry ledger above (no Notion column is added; the live
+ * nine-column shape stays frozen). After MAX_ATTEMPTS observations a row
+ * is moved to invalid with an alert to the alerts side chat, and is never
+ * woken again. A landed claim clears the row's ledger entry.
  *
  * Session-scoped sequencing: woken rows are grouped by thread_id and
  * delivered oldest-created-first within each thread, so one conversation
@@ -72,6 +81,14 @@
  * owner shell environment) and are never hardcoded here. Missing config
  * fails closed: loud error, no query, no retry storm.
  *
+ * Claim lease: a claimed row carries a 600-second lease
+ * (RELAY_CLAIM_LEASE_SECONDS). A row still acked past the lease is
+ * ack-but-abandoned and re-queues to pending automatically through the
+ * guarded acked->pending path (re-read confirms still acked, then write
+ * pending; thread_id linkage preserved so the reply still correlates).
+ * The reaper never writes this edge: its terminal-only rails refuse every
+ * non-terminal transition, so the lease lives in this poller alone.
+ *
  * dry_run: `node relay-poll.mjs --dry-run` runs the full pipeline against
  * simulated rows. It performs zero live reads and zero live writes; the
  * transcript states exactly what WOULD be delivered.
@@ -79,6 +96,15 @@
 
 const POLL_INTERVAL_SECONDS = 180;
 const QUIET_INTERVAL_SECONDS = 300;
+// Claim lease: a claimed (acked) row abandoned past this age re-queues to
+// pending automatically via the guarded acked->pending path below, so a
+// crashed worker can never hold a row forever. Duration 600 seconds;
+// knob RELAY_CLAIM_LEASE_SECONDS in the owner environment overrides it.
+const CLAIM_LEASE_SECONDS = (() => {
+  const raw = process.env.RELAY_CLAIM_LEASE_SECONDS ?? null;
+  const parsed = raw === null ? 600 : Number.parseInt(raw, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 600;
+})();
 // Poll target, pinned per the POLL.md consumer query (vanbu side).
 const QUERY_CONSUMER = "vanbu";
 const NOTION_API_BASE = "https://api.notion.com/v1";
@@ -118,11 +144,65 @@ function readOwnerConfig() {
   };
 }
 
+function defaultStateFile() {
+  return process.env.RELAY_STATE_FILE ?? ".opencode/hooks/relay/.relay-poll.state.json";
+}
+
+function seedPollState(stateFile) {
+  return { lastEditedTs: "1970-01-01T00:00:00.000Z", lastRowId: "", retryLedger: {}, stateFile };
+}
+
 function loadWatermark() {
-  if (DRY_RUN) return { lastEditedTs: "2026-10-15T07:00:00.000Z", lastRowId: "RL-1760505600-000000" };
-  const file = process.env.RELAY_STATE_FILE ?? null;
-  if (file === null) return { lastEditedTs: null, lastRowId: null };
-  return { lastEditedTs: null, lastRowId: null, stateFile: file };
+  if (DRY_RUN) return { lastEditedTs: "2026-10-15T07:00:00.000Z", lastRowId: "RL-1760505600-000000", retryLedger: {}, stateFile: null };
+  const file = defaultStateFile();
+  try {
+    const parsed = JSON.parse(readFileSync(file, "utf8"));
+    return {
+      lastEditedTs: typeof parsed.lastEditedTs === "string" ? parsed.lastEditedTs : "1970-01-01T00:00:00.000Z",
+      lastRowId: typeof parsed.lastRowId === "string" ? parsed.lastRowId : "",
+      retryLedger: parsed.retryLedger !== null && typeof parsed.retryLedger === "object" ? parsed.retryLedger : {},
+      stateFile: file,
+    };
+  } catch {
+    return seedPollState(file);
+  }
+}
+
+function savePollState(watermark) {
+  if (DRY_RUN || watermark.stateFile === null || watermark.stateFile === undefined) return;
+  mkdirSync(dirname(watermark.stateFile), { recursive: true });
+  writeFileSync(
+    watermark.stateFile,
+    JSON.stringify({ lastEditedTs: watermark.lastEditedTs, lastRowId: watermark.lastRowId, retryLedger: watermark.retryLedger ?? {} }, null, 2),
+  );
+}
+
+// Hook-local retry ledger: the live nine-column shape carries no retry
+// counter, so consecutive observations of the same pending row id are
+// counted here, never in a new column. Absence from the ledger reads as 0.
+function effectiveRetryCount(row, watermark) {
+  const envelope = Number(row.retryCount ?? 0);
+  const ledger = Number(watermark.retryLedger?.[row.id]?.count ?? 0);
+  return Math.max(Number.isFinite(envelope) ? envelope : 0, Number.isFinite(ledger) ? ledger : 0);
+}
+
+function observePendingRows(rows, watermark) {
+  const seen = new Set();
+  for (const row of rows) {
+    if (row.status !== "pending") continue;
+    seen.add(row.id);
+    const entry = watermark.retryLedger[row.id] ?? { count: 0, lastError: null };
+    entry.count = (Number(entry.count) || 0) + 1;
+    if (row.lastError !== null && row.lastError !== undefined) entry.lastError = row.lastError;
+    watermark.retryLedger[row.id] = entry;
+  }
+  for (const id of Object.keys(watermark.retryLedger)) {
+    if (!seen.has(id)) delete watermark.retryLedger[id];
+  }
+}
+
+function clearRetryEntries(rows, watermark) {
+  for (const row of rows) delete watermark.retryLedger[row.id];
 }
 
 function makeRowId(epochSeconds, hex) {
@@ -296,7 +376,7 @@ function selectNewActivity(rows, watermark) {
     (row) =>
       row.to === QUERY_CONSUMER &&
       row.status === "pending" &&
-      row.retryCount < MAX_ATTEMPTS &&
+      effectiveRetryCount(row, watermark) < MAX_ATTEMPTS &&
       scanSecrets(row) === null &&
       row.id !== watermark.lastRowId &&
       (floorMs === null || Date.parse(row.lastEditedTs) >= floorMs),
@@ -309,12 +389,12 @@ function selectQuarantine(rows) {
   );
 }
 
-function selectDeadLetter(rows) {
+function selectDeadLetter(rows, watermark) {
   return rows.filter(
     (row) =>
       row.to === QUERY_CONSUMER &&
       row.status === "pending" &&
-      row.retryCount >= MAX_ATTEMPTS &&
+      effectiveRetryCount(row, watermark) >= MAX_ATTEMPTS &&
       scanSecrets(row) === null,
   );
 }
@@ -459,6 +539,55 @@ async function markInvalid(config, row, reason) {
   console.log(`[relay-poll] QUARANTINE ${row.id}: invalid (${reason}); alert armed for the alerts side chat`);
 }
 
+async function queryAckedForLease(config) {
+  // Lease sweep: acked rows only, oldest first; age is compared locally
+  // against CLAIM_LEASE_SECONDS so no new query shape is pinned.
+  const doRequest = () =>
+    fetch(`${NOTION_API_BASE}/databases/${config.databaseId}/query`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${config.token}`,
+        "Notion-Version": NOTION_VERSION,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        filter: { property: "status", status: { equals: "acked" } },
+        sorts: [{ property: "last_edited_time", direction: "ascending" }],
+        page_size: PAGE_SIZE,
+      }),
+    });
+  const response = await requestWithBackoff("lease sweep query", doRequest);
+  const payload = await response.json();
+  return (payload.results ?? []).map(readEnvelope);
+}
+
+async function requeueLeaseExpired(config, nowMs) {
+  const acked = await queryAckedForLease(config);
+  let requeued = 0;
+  for (const row of acked) {
+    if (row.lastEditedTs === null) continue;
+    const ageSeconds = (nowMs - Date.parse(row.lastEditedTs)) / 1000;
+    if (!(ageSeconds > CLAIM_LEASE_SECONDS)) continue;
+    const current = await readRowStatus(config, row.pageId);
+    if (current !== "acked") continue;
+    const doRequest = () =>
+      fetch(`${NOTION_API_BASE}/pages/${row.pageId}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${config.token}`,
+          "Notion-Version": NOTION_VERSION,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ properties: { status: { status: { name: "pending" } } } }),
+      });
+    const response = await requestWithBackoff("lease re-queue write", doRequest);
+    if (!response.ok) throw new Error(`lease re-queue write failed with HTTP ${response.status}`);
+    requeued += 1;
+    console.log(`[relay-poll] LEASE ${row.id}: acked->pending (idle ${Math.round(ageSeconds)}s > ${CLAIM_LEASE_SECONDS}s; thread linkage preserved, not written twice)`);
+  }
+  return requeued;
+}
+
 async function main() {
   console.log(`[relay-poll] cadence=${cadenceSeconds}s quiet=${QUIET_MODE ? "on" : "off"} dry_run=${DRY_RUN ? "on" : "off"}`);
   const watermark = loadWatermark();
@@ -470,6 +599,7 @@ async function main() {
   if (DRY_RUN) {
     rows = simulatedRows();
     console.log(`[relay-poll] dry_run: simulated ${rows.length} rows, zero live reads, zero live writes`);
+    console.log(`[relay-poll] dry_run: lease sweep over 0 acked fixture rows (lease ${CLAIM_LEASE_SECONDS}s, guarded acked->pending, not written); re-queue path armed, nothing expired`);
   } else {
     const config = readOwnerConfig();
     if (config.token === null || config.databaseId === null) {
@@ -478,7 +608,11 @@ async function main() {
       return;
     }
     rows = await queryLive(config);
+    const leaseRequeued = await requeueLeaseExpired(config, Date.now());
+    if (leaseRequeued === 0) console.log(`[relay-poll] lease sweep: 0 ack-but-abandoned rows past ${CLAIM_LEASE_SECONDS}s, nothing re-queued`);
   }
+
+  if (!DRY_RUN) observePendingRows(rows, watermark);
 
   const quarantined = selectQuarantine(rows);
   for (const row of quarantined) {
@@ -488,16 +622,18 @@ async function main() {
     } else {
       const config = readOwnerConfig();
       await markInvalid(config, row, `secret-pattern family=${family}, value redacted`);
+      clearRetryEntries([row], watermark);
     }
   }
 
-  const deadLetters = selectDeadLetter(rows);
+  const deadLetters = selectDeadLetter(rows, watermark);
   for (const row of deadLetters) {
     if (DRY_RUN) {
       console.log(`[relay-poll] dry_run: WOULD move ${row.id} to invalid (retry_count=${row.retryCount} >= ${MAX_ATTEMPTS}, last_error="${row.lastError}") + alert armed (not delivered, never woken)`);
     } else {
       const config = readOwnerConfig();
-      await markInvalid(config, row, `dlq: retry_count=${row.retryCount} >= ${MAX_ATTEMPTS}, last_error tracked`);
+      await markInvalid(config, row, `dlq: retry_count=${effectiveRetryCount(row, watermark)} >= ${MAX_ATTEMPTS}, last_error tracked`);
+      clearRetryEntries([row], watermark);
     }
   }
 
@@ -505,6 +641,7 @@ async function main() {
   if (fresh.length === 0) {
     // COST GUARD: silent tick. No worker wakes, nothing is delivered.
     console.log("[relay-poll] no new activity: silent tick, worker stays asleep, nothing delivered");
+    if (!DRY_RUN) savePollState(watermark);
     if (DRY_RUN) console.log("[relay-poll] RESULT: green — silent tick path exercised, cost guard holds");
     return;
   }
@@ -533,10 +670,15 @@ async function main() {
 
   const config = readOwnerConfig();
   for (const row of fresh) {
-    await guardedAck(config, row);
+    const claimed = await guardedAck(config, row);
+    if (claimed) clearRetryEntries([row], watermark);
     await fetchPageBody(config, row.pageId);
     if (row.type === "verify_request") emitReceipt(row);
   }
+  const newestLive = [...fresh].sort((a, b) => (a.lastEditedTs < b.lastEditedTs ? -1 : 1))[fresh.length - 1];
+  watermark.lastEditedTs = newestLive.lastEditedTs;
+  watermark.lastRowId = newestLive.id;
+  savePollState(watermark);
   console.log(`[relay-poll] WAKE worker relay-activity row_ids=[${ids}] delivery=main-chat`);
 }
 

@@ -198,6 +198,16 @@ enablement steps, and what ships without it. The leader decides; you wait.
 - Never carry a pinned model, a color field, or any routing identity. You run
   on whatever the dispatcher provides.
 
+## Sunset (v0.8)
+
+At v0.8 this operator sunsets: supreme-endpoint authorization transfers its
+duties to the supreme endpoint's own operator, and this agent is then
+retired/merged out of the roster. Handover condition: the supreme endpoint
+is authorized and its operator acknowledges the relay queue in writing;
+until both hold, this file stays in force. The charter above (worker-only,
+operator-never-decider, never-approve, never-execute-body) is untouched by
+the sunset: retirement removes the role, it never widens it.
+
 ## Definition of done
 
 You are finished when every woken row was claimed before it was acted on,

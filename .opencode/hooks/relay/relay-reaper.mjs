@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 /**
  * relay-reaper.mjs — stale-session reaper for the relay bridge.
  *
@@ -16,10 +18,14 @@
  *    Mark: session record open/active -> closed. In-flight acked rows still
  *    finish under the closed session; the reaper never touches them.
  * 2. Failed DLQ leftovers — queue rows still pending with announce/retry
- *    count at or past MAX_ATTEMPTS that an earlier sweep did not move.
- *    Mark: row pending -> invalid (the failed mark; the live shape carries
- *    no separate failed value) plus one escalated stall alert. Never alerted
- *    again afterwards.
+ *    observations at or past MAX_ATTEMPTS that an earlier sweep did not
+ *    move. Observations are counted in the hook-local announce ledger
+ *    (RELAY_REAPER_STATE_FILE, defaulting to
+ *    .opencode/hooks/relay/.relay-reaper.state.json, local-only and never
+ *    committed; no Notion column is added and the live nine-column shape
+ *    stays frozen). Mark: row pending -> invalid (the failed mark; the live
+ *    shape carries no separate failed value) plus one escalated stall
+ *    alert. Never alerted again afterwards.
  * 3. Orphaned session rows — pending rows whose body Session: line names an
  *    unknown session. Mark: row pending -> invalid plus one orphan alert.
  *    A pending row naming an archived session is NOT orphaned: per
@@ -164,6 +170,55 @@ function assertTerminalWrite(recordKind, from, to) {
     );
   }
   throw new Error(`[relay-reaper] REFUSED write of unknown record kind ${recordKind}`);
+}
+
+function defaultReaperStateFile() {
+  return process.env.RELAY_REAPER_STATE_FILE ?? ".opencode/hooks/relay/.relay-reaper.state.json";
+}
+
+function loadReaperLedger() {
+  if (DRY_RUN) return { ledger: {}, stateFile: null };
+  const file = defaultReaperStateFile();
+  try {
+    const parsed = JSON.parse(readFileSync(file, "utf8"));
+    return {
+      ledger: parsed.ledger !== null && typeof parsed.ledger === "object" ? parsed.ledger : {},
+      stateFile: file,
+    };
+  } catch {
+    return { ledger: {}, stateFile: file };
+  }
+}
+
+function saveReaperLedger(ledgerState) {
+  if (DRY_RUN || ledgerState.stateFile === null || ledgerState.stateFile === undefined) return;
+  mkdirSync(dirname(ledgerState.stateFile), { recursive: true });
+  writeFileSync(ledgerState.stateFile, JSON.stringify({ ledger: ledgerState.ledger ?? {} }, null, 2));
+}
+
+// Hook-local announce ledger: the live nine-column shape carries no
+// announce counter, so consecutive sweeps observing the same pending row
+// past its deadline are counted here, never in a new column. Absence from
+// the ledger reads as 0; a row that leaves pending is pruned.
+function effectiveReaperAnnounces(row, ledgerState) {
+  const envelope = Number(row.announceCount ?? 0);
+  const ledger = Number(ledgerState.ledger?.[row.id]?.count ?? 0);
+  return Math.max(Number.isFinite(envelope) ? envelope : 0, Number.isFinite(ledger) ? ledger : 0);
+}
+
+function observeReaperRows(rows, ledgerState) {
+  const seen = new Set();
+  for (const row of rows) {
+    if (row.status !== "pending") continue;
+    seen.add(row.id);
+    const entry = ledgerState.ledger[row.id] ?? { count: 0, lastError: null };
+    entry.count = (Number(entry.count) || 0) + 1;
+    if (row.lastError !== null && row.lastError !== undefined) entry.lastError = row.lastError;
+    ledgerState.ledger[row.id] = entry;
+  }
+  for (const id of Object.keys(ledgerState.ledger)) {
+    if (!seen.has(id)) delete ledgerState.ledger[id];
+  }
 }
 
 function makeAlertId(epochSeconds, hex) {
@@ -357,11 +412,11 @@ function selectStaleSessions(sessions) {
   return sessions.filter((session) => session.stale);
 }
 
-function selectDeadLetterLeftovers(rows) {
+function selectDeadLetterLeftovers(rows, ledgerState) {
   return rows.filter(
     (row) =>
       row.status === "pending" &&
-      (row.announceCount ?? 0) >= MAX_ATTEMPTS,
+      effectiveReaperAnnounces(row, ledgerState) >= MAX_ATTEMPTS,
   );
 }
 
@@ -508,6 +563,7 @@ async function main() {
   if (DRY_RUN) {
     const sessions = simulatedSessions(nowMs);
     const rows = simulatedRows(nowMs);
+    const ledgerState = loadReaperLedger();
     const alertsTarget = "<alerts-side-chat; owner config, not hardcoded>";
     console.log(`[relay-reaper] dry_run: simulated ${sessions.length} sessions + ${rows.length} rows, zero live reads, zero live writes`);
     const guardGreen = runGuardSelfTest();
@@ -521,9 +577,9 @@ async function main() {
       sessions.filter((session) => session.lifecycle === "archived").map((session) => session.id),
     );
     const stale = selectStaleSessions(sessions);
-    const deadLetters = selectDeadLetterLeftovers(rows);
+    const deadLetters = selectDeadLetterLeftovers(rows, ledgerState);
     const orphans = selectOrphanedRows(rows, knownSessionIds).filter(
-      (row) => !selectDeadLetterLeftovers([row]).length,
+      (row) => !selectDeadLetterLeftovers([row], ledgerState).length,
     );
     const archivedRows = selectArchivedSessionRows(rows, archivedSessionIds);
 
@@ -563,7 +619,7 @@ async function main() {
     }
     const alertId = makeAlertId(1760510000, "d4e5f6");
     console.log(`[relay-reaper] dry_run: alert id form sample ${alertId} (relay-alert-<epoch>-<hex>, unique per alert)`);
-    console.log(`[relay-reaper] dry_run: sweep cursor stateless by design (staleness derived from last-activity timestamps each tick; repeats are idempotent no-ops)`);
+    console.log(`[relay-reaper] dry_run: sweep cursor stateless by design (staleness derived from last-activity timestamps each tick; repeats are idempotent no-ops); announce ledger file-backed, in-memory fixtures here with zero filesystem writes`);
     console.log(`[relay-reaper] RESULT: green — ${stale.length} session close(s) + ${deadLetters.length + orphans.length} row terminal mark(s) armed, 0 deletes, 0 reopens, 0 archives, 0 non-terminal writes; simulated rows, zero live writes`);
     void nowIso;
     return;
@@ -586,17 +642,23 @@ async function main() {
   }
 
   const rows = await queryLive(config);
+  const ledgerState = loadReaperLedger();
+  observeReaperRows(rows, ledgerState);
+  saveReaperLedger(ledgerState);
   const idleCutoff = nowMs - config.idleSeconds * 1000;
   void idleCutoff;
   // Live session-close pass goes here once the registry contract lands;
   // until registryReady holds, the REFUSED line above is the whole pass.
   const deadLetters = rows.filter(
-    (row) => row.status === "pending" && (row.announceCount ?? 0) >= config.maxAttempts,
+    (row) => row.status === "pending" && effectiveReaperAnnounces(row, ledgerState) >= config.maxAttempts,
   );
   for (const row of deadLetters) {
     const marked = await guardedMark(config, config.queueDatabaseId, "status", "row", row.id, row.pageId, "pending", ROW_MARK);
     if (marked) {
-      console.log(`[relay-reaper] DLQ ${row.id}: invalid (announce_count=${row.announceCount} >= ${config.maxAttempts}, last_error tracked); escalated stall alert armed for the alerts side chat, never alerted again`);
+      const announces = effectiveReaperAnnounces(row, ledgerState);
+      delete ledgerState.ledger[row.id];
+      saveReaperLedger(ledgerState);
+      console.log(`[relay-reaper] DLQ ${row.id}: invalid (announce_count=${announces} >= ${config.maxAttempts}, last_error tracked); escalated stall alert armed for the alerts side chat, never alerted again`);
     }
   }
   if (deadLetters.length === 0) {

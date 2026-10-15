@@ -29,6 +29,7 @@ Filter `status` equals `pending` (status-type `status.equals`) and `expected_rep
 2. The poller writes that row from `pending` to `acked` immediately, before reading the body further or acting.
 3. The poller fetches the full row for the claimed id only, then validates, triages, and acts per `TRIAGE.md` and `SECURITY.md`.
 4. On completion the poller creates the reply row with `thread_id` set to the origin id, then moves the origin row to its terminal state (`done`, `needs_omar`, or `invalid`).
+5. Lease: a claimed row carries a 600-second lease (`RELAY_CLAIM_LEASE_SECONDS`, default 600). A row still `acked` past the lease is ack-but-abandoned and re-queues to `pending` automatically through the guarded `acked` to `pending` path in `relay-poll.mjs` (re-read confirms still `acked`, then write `pending`; `thread_id` linkage preserved so the reply still correlates). The reaper never writes this edge: its terminal-only rails refuse every non-terminal transition, so the lease lives in the poller alone.
 
 ## Watermark
 

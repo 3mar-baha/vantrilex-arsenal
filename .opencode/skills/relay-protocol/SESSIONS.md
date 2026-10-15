@@ -39,9 +39,35 @@ Proof exception: the single test session `r03-sessions-proof-001`
 by the `r03-sessions` node to demonstrate the lifecycle; it is labeled
 test-only and the production ownership above still holds.
 
+### Handover (v0.8)
+
+Vanbu-owns-writes above is the NOW rule and stays in force until the v0.8
+trigger lands. Trigger: the supreme endpoint is authorized and its
+operator acknowledges the relay queue in writing. After the trigger, duties
+split: Vantrilex opens session records and writes the open to active
+advance; vanbu archives and closes (writes `closed` and the terminal
+archive, and holds the read-only terminal). Until both halves of the
+trigger hold, no handover write ships and the NOW rule governs every
+session record.
+
 ## Reaper
 
-The stale-session reaper is DEFERRED, not rejected. No watchdog move runs: no automatic close, no notice row, and no session-record write ships in this version. Re-evaluation condition: an owner-held session registry both sides can read identically plus a tested reaper write path; until both hold, sessions advance only by explicit open and close records and no automatic reaping is promised.
+The stale-session reaper SHIPS as the sibling script
+`.opencode/hooks/relay/relay-reaper.mjs` on a 900-second cadence, and it is
+terminal-only: session records move `open`/`active` to `closed` only, queue
+rows move `pending` to `invalid` only, with 0 deletes, 0 reopens,
+0 archives, and 0 non-terminal writes (the guard self-test in `--dry-run`
+proves every forbidden edge refused before any request is built). In-flight
+`acked` rows still finish under a closed session and are never marked;
+rows already terminal are never rewritten; a pending row naming an archived
+session is treated as a new conversation under a fresh session (no mark, no
+alert). Session-record writes stay refused until the owner-held session
+registry both sides can read identically exists with its lifecycle property
+pinned (`RELAY_SESSION_REGISTRY_DATABASE_ID` plus
+`RELAY_SESSION_STATE_PROPERTY`); until both hold, the live tick performs no
+session-record write and says so loudly, while the row-level terminal
+backstops still run. The reaper never writes the claim lease edge
+(`acked` to `pending`): that re-queue lives in the poller alone.
 
 ## Registry writes
 
