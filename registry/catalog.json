@@ -1,7 +1,7 @@
 {
-  "$schema": "./schema/catalog-v2.schema.json",
+  "$schema": "./schema/catalog-v3.schema.json",
   "generated_by": "scripts/generate-catalog-json.mjs",
-  "catalog_version": 2,
+  "catalog_version": 3,
   "counts": {
     "skill": 1504,
     "mcp": 907,
@@ -11,7 +11,14 @@
     "formatting": 13,
     "lsp": 1,
     "cli": 64,
-    "total": 2804
+    "theme": 1,
+    "prompt": 1,
+    "dataset": 1,
+    "template": 1,
+    "policy": 1,
+    "benchmark": 1,
+    "workflow": 1,
+    "total": 2811
   },
   "components": [
     {
@@ -61360,6 +61367,171 @@
       "verify_cmd": "esbuild --version",
       "cost_note": null,
       "verification": "verified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-blazar",
+      "name": "vantrilex-blazar",
+      "kind": "theme",
+      "description": "Dark royal-blue Vantrilex theme for the OpenCode CLI, built around blazar blue (#4169E1).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-blazar.json ~/.config/opencode/themes/vantrilex-blazar.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark royal-blue Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-blazar.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-blazar.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');console.log('vantrilex-blazar: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-install-prompt",
+      "name": "vantrilex-install-prompt",
+      "kind": "prompt",
+      "description": "Paste-once repo install prompt: pinned-tag clone, Prime once per machine, Vanguard in project, then prove and report.",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/prompts/vantrilex-install-prompt.md docs/vantrilex-install-prompt.md",
+      "version_pin": null,
+      "category": "onboarding",
+      "tags": [
+        "install",
+        "onboarding",
+        "prime",
+        "vanguard"
+      ],
+      "when_to_use": "Use when a fresh agent session must install the Arsenal from the canonical repo with a pinned tag, prove it, and report.",
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs');const t=fs.readFileSync('registry/prompts/vantrilex-install-prompt.md','utf8');for(const m of ['[INSTALLED]','[VERIFIED]','[OPEN ITEMS]','vantrilex-prime','vantrilex-vanguard']){if(!t.includes(m))throw new Error('missing '+m)}console.log('vantrilex-install-prompt: install prompt carries all report markers')\"",
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "stream-g-guard-probes",
+      "name": "stream-g-guard-probes",
+      "kind": "dataset",
+      "description": "Golden dataset of the 45 Stream-G guard probe checks from arsenal.findings-probe.mjs, as structured id/category/description/assertion records.",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/datasets/stream-g-guard-probes.json eval/golden/stream-g-guard-probes.json",
+      "version_pin": null,
+      "category": "guard-probes",
+      "tags": [
+        "dataset",
+        "guard-probes",
+        "golden",
+        "stream-g"
+      ],
+      "when_to_use": "Use when guard behavior must be scored against the 45 Stream-G probe checks as a golden dataset.",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const d=require('./registry/datasets/stream-g-guard-probes.json');if(!Array.isArray(d)||d.length!==45)throw new Error('expected 45 probe records');console.log('stream-g-guard-probes: 45 probe records parse')\"",
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "target-project-docs-scaffold",
+      "name": "target-project-docs-scaffold",
+      "kind": "template",
+      "description": "Manifest of the 28-file target-project docs scaffold in 8 folders with fixed numbers; 18-WORKFLOW.md stays reserved for Doctrine.",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/templates/target-project-docs-scaffold.json docs/target-project-docs-scaffold.json",
+      "version_pin": null,
+      "category": "docs-scaffold",
+      "tags": [
+        "template",
+        "docs-scaffold",
+        "vanguard",
+        "scaffold"
+      ],
+      "when_to_use": "Use when Vanguard seeds the 28-file target-project docs scaffold with fixed numbers and folders.",
+      "phase": "docs",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const m=require('./registry/templates/target-project-docs-scaffold.json');if(m.files.length!==28)throw new Error('expected 28 files');if(m.folders.length!==8)throw new Error('expected 8 folders');console.log('target-project-docs-scaffold: 28 files in 8 folders')\"",
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "allow-all-pack",
+      "name": "allow-all-pack",
+      "kind": "policy",
+      "description": "Owner global allow-all pack for opencode.json: every permission effect is allow; never becomes deny or ask by stealth.",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/policies/allow-all-pack.json ~/.config/opencode/opencode.json",
+      "version_pin": null,
+      "category": "permissions",
+      "tags": [
+        "policy",
+        "permissions",
+        "allow-all"
+      ],
+      "when_to_use": "Use when the owner global allow-all permission pack must be installed or audited for deny or ask drift. Back up the existing ~/.config/opencode/opencode.json first — the install command overwrites it.",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const p=require('./registry/policies/allow-all-pack.json');const bad=p.permissions.filter(function(r){return r.effect!=='allow'});if(bad.length>0)throw new Error('non-allow effect present');console.log('allow-all-pack: all effects are allow')\"",
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "verifier-gate-smoke",
+      "name": "verifier-gate-smoke",
+      "kind": "benchmark",
+      "description": "Single tiny verifier-gate smoke benchmark; outputs are illustrative and environment-dependent, never a target metric.",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/benchmarks/verifier-gate-smoke.json eval/verifier-gate-smoke.json",
+      "version_pin": null,
+      "category": "verifier-gates",
+      "tags": [
+        "benchmark",
+        "smoke",
+        "verifier-gate"
+      ],
+      "when_to_use": "Use when a verifier gate needs one tiny deterministic smoke benchmark with no target metric.",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const b=require('./registry/benchmarks/verifier-gate-smoke.json');if(b.checks.length!==1)throw new Error('benchmark must stay one check');console.log('verifier-gate-smoke: single-check benchmark parses')\"",
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "forge-dag-exemplar",
+      "name": "forge-dag-exemplar",
+      "kind": "workflow",
+      "description": "Forge-authored BLAZAR DAG exemplar in YAML with the 7 Forge sections; BLAZAR dispatches it via subagent, no native runner.",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/workflows/forge-dag-exemplar.yaml .opencode/workflows/forge-dag-exemplar.yaml",
+      "version_pin": null,
+      "category": "orchestration",
+      "tags": [
+        "workflow",
+        "forge",
+        "dag",
+        "blazar"
+      ],
+      "when_to_use": "Use when BLAZAR must dispatch a Forge-authored DAG of nodes with owners, acceptance, and waves.",
+      "phase": "plan",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs');const t=fs.readFileSync('registry/workflows/forge-dag-exemplar.yaml','utf8');for(const m of ['Methodology','Kit loadout','depends_on','BLAZAR']){if(!t.includes(m))throw new Error('missing '+m)}console.log('forge-dag-exemplar: DAG carries Forge sections and BLAZAR fields')\"",
+      "cost_note": "light",
+      "verification": "unverified",
       "default_selected": false
     }
   ]

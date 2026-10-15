@@ -2848,9 +2848,51 @@ Consolidated reference of every system component with its folder path.
 | 63 | Trash CLI | Moves files to the system trash instead of deleting them. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/trash-cli | `npm i -g trash-cli` |
 | 64 | Kill Port | Frees a TCP port by killing whatever process holds it. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | tiaanduplessis/kill-port | `npm i -g kill-port` |
 
+## Themes (1 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | vantrilex-blazar | Dark royal-blue Vantrilex theme for the OpenCode CLI, built around blazar blue (#4169E1). |  | `cp registry/themes/vantrilex-blazar.json ~/.config/opencode/themes/vantrilex-blazar.json` |
+
+## Prompts (1 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | vantrilex-install-prompt | Paste-once repo install prompt: pinned-tag clone, Prime once per machine, Vanguard in project, then prove and report. |  | `cp registry/prompts/vantrilex-install-prompt.md docs/vantrilex-install-prompt.md` |
+
+## Datasets (1 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | stream-g-guard-probes | Golden dataset of the 45 Stream-G guard probe checks from arsenal.findings-probe.mjs, as structured id/category/description/assertion records. |  | `cp registry/datasets/stream-g-guard-probes.json eval/golden/stream-g-guard-probes.json` |
+
+## Templates (1 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | target-project-docs-scaffold | Manifest of the 28-file target-project docs scaffold in 8 folders with fixed numbers; 18-WORKFLOW.md stays reserved for Doctrine. |  | `cp registry/templates/target-project-docs-scaffold.json docs/target-project-docs-scaffold.json` |
+
+## Policies (1 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | allow-all-pack | Owner global allow-all pack for opencode.json: every permission effect is allow; never becomes deny or ask by stealth. |  | `cp registry/policies/allow-all-pack.json ~/.config/opencode/opencode.json` |
+
+## Benchmarks (1 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | verifier-gate-smoke | Single tiny verifier-gate smoke benchmark; outputs are illustrative and environment-dependent, never a target metric. |  | `cp registry/benchmarks/verifier-gate-smoke.json eval/verifier-gate-smoke.json` |
+
+## Workflows (1 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | forge-dag-exemplar | Forge-authored BLAZAR DAG exemplar in YAML with the 7 Forge sections; BLAZAR dispatches it via subagent, no native runner. |  | `cp registry/workflows/forge-dag-exemplar.yaml .opencode/workflows/forge-dag-exemplar.yaml` |
+
 ## Summary
 
-- **Total components:** 2804
+- **Total components:** 2811
 - **Default-selected:** 20
 
 ---
@@ -2863,4 +2905,11 @@ Consolidated reference of every system component with its folder path.
 - Agents → `registry/agents/`
 - Formatting → `registry/formatting/`
 - LSP Servers → `registry/lsp/`
+- Themes → `registry/themes/`
+- Prompts → `registry/prompts/`
+- Datasets → `registry/datasets/`
+- Templates → `registry/templates/`
+- Policies → `registry/policies/`
+- Benchmarks → `registry/benchmarks/`
+- Workflows → `registry/workflows/`
 - Machine mirror → `registry/catalog.json`

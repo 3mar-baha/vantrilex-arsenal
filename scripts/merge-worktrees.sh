@@ -105,7 +105,8 @@ gate_changed_files() {
 
     if [ -n "$md_files" ] && command -v npx > /dev/null 2>&1; then
         # shellcheck disable=SC2086
-        (cd "$REPO_ROOT" && npx --yes markdownlint-cli $md_files) || rc=1
+        # --ignore-scripts blocks preinstall/postinstall RCE from the fetched markdownlint-cli package.
+        (cd "$REPO_ROOT" && npx --yes --ignore-scripts markdownlint-cli $md_files) || rc=1
     fi
 
     if [ -z "$sh_files" ] && [ -z "$md_files" ]; then

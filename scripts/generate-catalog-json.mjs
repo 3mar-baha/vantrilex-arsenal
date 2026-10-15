@@ -10,10 +10,10 @@ const ROOT = dirname(dirname(SCRIPT_PATH));
 
 const CATALOG_MD = join(ROOT, 'registry', 'VANTRILEX_CATALOG.md');
 const CATALOG_JSON = join(ROOT, 'registry', 'catalog.json');
-const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v2.schema.json');
+const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v3.schema.json');
 const DATA_DIR = join(ROOT, 'registry', 'data');
 
-export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli'];
+export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli', 'theme', 'prompt', 'dataset', 'template', 'policy', 'benchmark', 'workflow'];
 
 const SECTION_KINDS = new Map([
   ['Skills', 'skill'],
@@ -24,6 +24,13 @@ const SECTION_KINDS = new Map([
   ['Formatting', 'formatting'],
   ['LSP Servers', 'lsp'],
   ['CLI Tools', 'cli'],
+  ['Themes', 'theme'],
+  ['Prompts', 'prompt'],
+  ['Datasets', 'dataset'],
+  ['Templates', 'template'],
+  ['Policies', 'policy'],
+  ['Benchmarks', 'benchmark'],
+  ['Workflows', 'workflow'],
 ]);
 
 const SECTION_LABELS = new Map([
@@ -35,6 +42,13 @@ const SECTION_LABELS = new Map([
   ['formatting', 'Formatting'],
   ['lsp', 'LSP Servers'],
   ['cli', 'CLI Tools'],
+  ['theme', 'Themes'],
+  ['prompt', 'Prompts'],
+  ['dataset', 'Datasets'],
+  ['template', 'Templates'],
+  ['policy', 'Policies'],
+  ['benchmark', 'Benchmarks'],
+  ['workflow', 'Workflows'],
 ]);
 
 const INDEX_DIRS = new Map([
@@ -46,6 +60,13 @@ const INDEX_DIRS = new Map([
   ['formatting', 'formatting'],
   ['lsp', 'lsp'],
   ['cli', 'cli'],
+  ['theme', 'themes'],
+  ['prompt', 'prompts'],
+  ['dataset', 'datasets'],
+  ['template', 'templates'],
+  ['policy', 'policies'],
+  ['benchmark', 'benchmarks'],
+  ['workflow', 'workflows'],
 ]);
 
 export const RECORD_FIELDS = [
@@ -349,6 +370,13 @@ const SIDECAR_FILES = new Map([
   ['formatting', 'formatting.jsonl'],
   ['lsp', 'lsp.jsonl'],
   ['cli', 'cli.jsonl'],
+  ['theme', 'themes.jsonl'],
+  ['prompt', 'prompts.jsonl'],
+  ['dataset', 'datasets.jsonl'],
+  ['template', 'templates.jsonl'],
+  ['policy', 'policies.jsonl'],
+  ['benchmark', 'benchmarks.jsonl'],
+  ['workflow', 'workflows.jsonl'],
 ]);
 
 export function loadSidecar(kind, dataDir = DATA_DIR) {
@@ -611,9 +639,9 @@ export function buildCatalog(records) {
   for (const record of components) counts[record.kind] += 1;
   counts.total = components.length;
   return {
-    $schema: './schema/catalog-v2.schema.json',
+    $schema: './schema/catalog-v3.schema.json',
     generated_by: 'scripts/generate-catalog-json.mjs',
-    catalog_version: 2,
+    catalog_version: 3,
     counts,
     components,
   };
@@ -772,7 +800,7 @@ function run(argv, { stdout, log }) {
   const problems = [];
   for (const record of records) problems.push(...validateRecord(record, schema));
   if (problems.length > 0) {
-    fail(`generated records violate catalog-v2 schema:\n  ${problems.slice(0, 20).join('\n  ')}${problems.length > 20 ? `\n  ... and ${problems.length - 20} more` : ''}`);
+    fail(`generated records violate catalog schema:\n  ${problems.slice(0, 20).join('\n  ')}${problems.length > 20 ? `\n  ... and ${problems.length - 20} more` : ''}`);
   }
 
   for (const section of parsed.sections) {

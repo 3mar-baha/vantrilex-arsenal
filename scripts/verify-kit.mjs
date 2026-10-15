@@ -81,6 +81,12 @@ const CLI_VENDOR_INSTALLERS = [
 // A curl-piped installer is never acceptable: it executes unreviewed remote
 // code as root-equivalent on the owner's machine.
 const CLI_PIPE_FORBIDDEN = /\||\|\||&&|;|`|\$\(|\$\{/;
+// A theme ships as a JSON file under registry/themes/ and installs by copying
+// that file into a themes directory. Only that shape is accepted: a bare
+// filename installs nothing, and a chained command runs code the reader did
+// not review.
+const THEME_COPY_RE = /^cp (registry\/themes\/[A-Za-z0-9._-]+\.json) (\S+)$/;
+const THEME_PIPE_FORBIDDEN = /\||\|\||&&|;|`|\$\(|\$\{/;
 
 const OFFLINE_MARKERS = [
   "ENOENT",
@@ -410,6 +416,320 @@ function checkLspEntries(components) {
   };
 }
 
+/**
+ * Collect every object path in a theme JSON whose key names an image,
+ * wallpaper or model. The V2 markdown token set legitimately carries
+ * `markdown.image` and `markdown.imageText` as element colours, so those two
+ * keys are not images and are excluded; any other image-shaped key, and any
+ * `model` key, is a defect in a colour-only theme.
+ */
+function collectThemeKeyPaths(value, atPath, out) {
+  if (value === null || typeof value !== "object") return out;
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i++) collectThemeKeyPaths(value[i], atPath + "[" + i + "]", out);
+    return out;
+  }
+  for (const key of Object.keys(value)) {
+    const lower = key.toLowerCase();
+    const markdownImageToken = atPath.endsWith(".markdown") && (lower === "image" || lower === "imagetext");
+    if (markdownImageToken === false && /image|wallpaper/.test(lower)) out.push(atPath + "." + key);
+    if (lower === "model") out.push(atPath + "." + key);
+    collectThemeKeyPaths(value[key], atPath + "." + key, out);
+  }
+  return out;
+}
+
+/**
+ * Validate the shape of every locked theme entry. A theme is a V2-native
+ * OpenCode CLI theme JSON (`base` plus a `light`/`dark` hue palette) shipped
+ * under registry/themes/ and installed by copying that file into a themes
+ * directory. Anything else is refused here rather than trusted, because the
+ * JSON file is the whole component and a bare filename installs nothing.
+ */
+function checkThemeEntries(components) {
+  const themes = components.filter((c) => c.kind === "theme");
+  if (themes.length === 0) {
+    return { status: "PASS", detail: "0 theme entries locked; the kind is scaffolded and carries no entry yet" };
+  }
+  const failures = [];
+  for (const entry of themes) {
+    const id = entry.id;
+    if (LOCK_PHASES.includes(entry.phase) === false) {
+      failures.push(id + ": phase " + JSON.stringify(entry.phase) + " is outside the lock phase enum");
+    }
+    if (LOCK_TIERS.includes(entry.tier) === false) {
+      failures.push(id + ": tier " + JSON.stringify(entry.tier) + " is outside the lock tier enum");
+    }
+    if (CLI_VERIFICATIONS.includes(entry.verification) === false) {
+      failures.push(id + ": verification " + JSON.stringify(entry.verification) + " is not verified or unverified");
+    }
+    if (entry.verification === "verified" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
+      failures.push(id + ": verification is verified but install_cmd is null or empty");
+    }
+    if (typeof entry.install_cmd !== "string" || entry.install_cmd.trim() === "") {
+      failures.push(id + ": install_cmd is empty; a theme entry must carry the file-copy command that installs the JSON");
+      continue;
+    }
+    const text = entry.install_cmd.trim();
+    if (THEME_PIPE_FORBIDDEN.test(text) === true) {
+      failures.push(id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
+      continue;
+    }
+    const match = text.match(THEME_COPY_RE);
+    if (match === null) {
+      failures.push(id + ": install_cmd is not a `cp registry/themes/<id>.json <themes-dir>/<id>.json` file copy (" + JSON.stringify(entry.install_cmd) + ")");
+      continue;
+    }
+    const src = match[1];
+    const dest = match[2];
+    const expectedSrc = "registry/themes/" + id + ".json";
+    if (src !== expectedSrc) {
+      failures.push(id + ": install_cmd copies " + JSON.stringify(src) + " but the theme ships at " + expectedSrc);
+      continue;
+    }
+    if (dest.endsWith("/" + id + ".json") === false) {
+      failures.push(id + ": install_cmd copies to " + JSON.stringify(dest) + " but the target filename must be " + id + ".json, which V2 turns into the theme name");
+      continue;
+    }
+    const filePath = path.join(ROOT, src);
+    if (fs.existsSync(filePath) === false) {
+      failures.push(id + ": theme file " + src + " does not exist");
+      continue;
+    }
+    let theme = null;
+    try {
+      theme = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    } catch (err) {
+      failures.push(id + ": " + src + " is not valid JSON (" + String(err) + ")");
+      continue;
+    }
+    if (isPlainObject(theme) === false) {
+      failures.push(id + ": " + src + " is not a JSON object");
+      continue;
+    }
+    if (theme.defs !== undefined || theme.theme !== undefined) {
+      failures.push(id + ": " + src + " carries V1 keys (defs/theme); a V2 theme is base plus light/dark");
+      continue;
+    }
+    if (isPlainObject(theme.base) === false) {
+      failures.push(id + ": " + src + " has no base object");
+      continue;
+    }
+    const modes = ["dark", "light"].filter((mode) => isPlainObject(theme[mode]));
+    if (modes.length === 0) {
+      failures.push(id + ": " + src + " defines no dark or light mode palette");
+      continue;
+    }
+    const missingHue = modes.find((mode) => isPlainObject(theme[mode].hue) === false);
+    if (missingHue !== undefined) {
+      failures.push(id + ": " + src + " mode " + missingHue + " carries no hue palette");
+      continue;
+    }
+    const keyDefects = [];
+    collectThemeKeyPaths(theme, "$", keyDefects);
+    if (keyDefects.length > 0) {
+      failures.push(id + ": " + src + " carries image or model keys: " + keyDefects.join(", "));
+      continue;
+    }
+  }
+  if (failures.length > 0) {
+    return { status: "FAIL", detail: failures.join("; ") };
+  }
+  return {
+    status: "PASS",
+    detail: themes.length + " theme " + (themes.length === 1 ? "entry ships" : "entries ship") + " a V2-native JSON (base plus mode hue palette) installed by a real file copy; zero image keys, zero model keys"
+  };
+}
+
+/**
+ * Shared shape for the six file-copy kinds added after theme (prompt,
+ * dataset, template, policy, benchmark, workflow). Each locked entry
+ * installs by copying one shipped file to its destination: a plain
+ * `cp <src> <dest>` with no shell operators, where <src> is exactly
+ * registry/<dir>/<id>.<ext>. Anything else is refused here rather than
+ * trusted, because an agent downstream will execute the string verbatim.
+ * Kind-specific invariants run through `prove`, which receives the entry id
+ * and the shipped file text and returns a failure string or null.
+ */
+const FILE_COPY_PIPE_FORBIDDEN = /\||\|\||&&|;|`|\$\(|\$\{/;
+
+function checkFileCopyKind(components, { kind, dir, ext, prove }) {
+  const entries = components.filter((c) => c.kind === kind);
+  if (entries.length === 0) {
+    return { status: "PASS", detail: "0 " + kind + " entries locked; the kind is scaffolded and carries no entry yet" };
+  }
+  const failures = [];
+  for (const entry of entries) {
+    const id = entry.id;
+    if (LOCK_PHASES.includes(entry.phase) === false) {
+      failures.push(id + ": phase " + JSON.stringify(entry.phase) + " is outside the lock phase enum");
+    }
+    if (LOCK_TIERS.includes(entry.tier) === false) {
+      failures.push(id + ": tier " + JSON.stringify(entry.tier) + " is outside the lock tier enum");
+    }
+    if (CLI_VERIFICATIONS.includes(entry.verification) === false) {
+      failures.push(id + ": verification " + JSON.stringify(entry.verification) + " is not verified or unverified");
+    }
+    if (entry.verification === "verified" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
+      failures.push(id + ": verification is verified but install_cmd is null or empty");
+    }
+    if (typeof entry.install_cmd !== "string" || entry.install_cmd.trim() === "") {
+      failures.push(id + ": install_cmd is empty; a " + kind + " entry must carry the file-copy command that installs it");
+      continue;
+    }
+    const text = entry.install_cmd.trim();
+    if (FILE_COPY_PIPE_FORBIDDEN.test(text) === true) {
+      failures.push(id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
+      continue;
+    }
+    const match = text.match(/^cp (\S+) (\S+)$/);
+    if (match === null) {
+      failures.push(id + ": install_cmd is not a `cp <src> <dest>` file copy (" + JSON.stringify(entry.install_cmd) + ")");
+      continue;
+    }
+    const expectedSrc = "registry/" + dir + "/" + id + "." + ext;
+    if (match[1] !== expectedSrc) {
+      failures.push(id + ": install_cmd copies " + JSON.stringify(match[1]) + " but the component ships at " + expectedSrc);
+      continue;
+    }
+    const filePath = path.join(ROOT, expectedSrc);
+    if (fs.existsSync(filePath) === false) {
+      failures.push(id + ": shipped file " + expectedSrc + " does not exist");
+      continue;
+    }
+    let shipped = null;
+    try {
+      shipped = fs.readFileSync(filePath, "utf8");
+    } catch (err) {
+      failures.push(id + ": " + expectedSrc + " is unreadable (" + String(err) + ")");
+      continue;
+    }
+    const defect = prove(id, shipped, expectedSrc);
+    if (defect !== null) {
+      failures.push(id + ": " + defect);
+    }
+  }
+  if (failures.length > 0) {
+    return { status: "FAIL", detail: failures.join("; ") };
+  }
+  return {
+    status: "PASS",
+    detail: entries.length + " " + kind + " " + (entries.length === 1 ? "entry ships" : "entries ship") + " registry/" + dir + "/ file(s) installed by a real file copy with valid phase, tier and verification"
+  };
+}
+
+function provePrompt(id, shipped, src) {
+  for (const marker of ["[INSTALLED]", "[VERIFIED]", "[OPEN ITEMS]", "vantrilex-prime", "vantrilex-vanguard"]) {
+    if (shipped.includes(marker) === false) return src + " carries no " + marker + " marker";
+  }
+  if (/^\s*model\s*:/m.test(shipped)) return src + " pins a model; prompts carry no model pins";
+  if (/TODO|FIXME/.test(shipped)) return src + " carries a TODO or FIXME placeholder";
+  return null;
+}
+
+function proveDataset(id, shipped, src) {
+  let records = null;
+  try {
+    records = JSON.parse(shipped);
+  } catch (err) {
+    return src + " is not valid JSON (" + String(err) + ")";
+  }
+  if (Array.isArray(records) === false) return src + " is not a JSON array";
+  if (records.length !== 45) return src + " carries " + records.length + " records, expected the 45 Stream-G probe checks";
+  const seen = new Set();
+  for (let i = 0; i < records.length; i++) {
+    const record = records[i];
+    for (const field of ["id", "category", "description", "assertion"]) {
+      if (record === null || typeof record !== "object" || typeof record[field] !== "string" || record[field] === "") {
+        return src + "[" + i + "] carries no non-empty " + JSON.stringify(field);
+      }
+    }
+    if (seen.has(record.id)) return src + " repeats id " + JSON.stringify(record.id);
+    seen.add(record.id);
+  }
+  return null;
+}
+
+function proveTemplate(id, shipped, src) {
+  let manifest = null;
+  try {
+    manifest = JSON.parse(shipped);
+  } catch (err) {
+    return src + " is not valid JSON (" + String(err) + ")";
+  }
+  if (manifest === null || typeof manifest !== "object" || Array.isArray(manifest)) return src + " is not a JSON object";
+  if (Array.isArray(manifest.files) === false || manifest.files.length !== 28) {
+    return src + " lists " + (Array.isArray(manifest.files) ? manifest.files.length : "no") + " files, expected the fixed 28";
+  }
+  if (Array.isArray(manifest.folders) === false || manifest.folders.length !== 8) {
+    return src + " lists " + (Array.isArray(manifest.folders) ? manifest.folders.length : "no") + " folders, expected 8";
+  }
+  const reserved = manifest.files.find((f) => f !== null && typeof f === "object" && f.number === 18);
+  if (reserved === undefined || typeof reserved.note !== "string" || /reserved/i.test(reserved.note) === false) {
+    return src + " file 18 carries no reserved-for-Doctrine marker";
+  }
+  if (shipped.includes("{{")) return src + " carries an unsubstituted {{...}} template variable";
+  if (/<[^<>\n]*>/.test(shipped)) return src + " carries an unsubstituted <...> template variable";
+  return null;
+}
+
+function provePolicy(id, shipped, src) {
+  let pack = null;
+  try {
+    pack = JSON.parse(shipped);
+  } catch (err) {
+    return src + " is not valid JSON (" + String(err) + ")";
+  }
+  if (pack === null || typeof pack !== "object" || Array.isArray(pack.permissions) === false) {
+    return src + " carries no permissions array";
+  }
+  if (pack.permissions.length === 0) return src + " carries an empty permissions array";
+  for (let i = 0; i < pack.permissions.length; i++) {
+    const rule = pack.permissions[i];
+    if (rule === null || typeof rule !== "object" || rule.effect !== "allow") {
+      return src + " rule " + i + " carries effect " + JSON.stringify(rule !== null && typeof rule === "object" ? rule.effect : rule) + "; the allow-all pack never becomes deny or ask by stealth";
+    }
+  }
+  return null;
+}
+
+function proveBenchmark(id, shipped, src) {
+  let spec = null;
+  try {
+    spec = JSON.parse(shipped);
+  } catch (err) {
+    return src + " is not valid JSON (" + String(err) + ")";
+  }
+  if (spec === null || typeof spec !== "object" || Array.isArray(spec.checks) === false) {
+    return src + " carries no checks array";
+  }
+  if (spec.checks.length !== 1) return src + " carries " + spec.checks.length + " checks; the Goodhart guard keeps this benchmark at exactly one";
+  if (typeof spec.goodhart_guard !== "string" || spec.goodhart_guard === "") {
+    return src + " carries no Goodhart guard note";
+  }
+  if (typeof spec.output_note !== "string" || spec.output_note.includes("~") === false || /never a target metric/.test(spec.output_note) === false) {
+    return src + " output_note does not state that outputs are illustrative (~) and never a target metric";
+  }
+  return null;
+}
+
+function proveWorkflow(id, shipped, src) {
+  for (const field of ["id", "concern", "owner", "inputs", "acceptance", "verification", "artifact", "wave", "depends_on"]) {
+    if (shipped.includes(field) === false) return src + " carries no BLAZAR node field " + JSON.stringify(field);
+  }
+  for (const section of ["Methodology", "Roles", "Precautions", "Repair states", "Research", "Expanded thinking", "Kit loadout"]) {
+    if (shipped.includes(section) === false) return src + " carries no Forge section " + JSON.stringify(section);
+  }
+  if (shipped.includes("no native YAML workflow runner") === false) {
+    return src + " states no BLAZAR consumption contract: OpenCode V2 has no native YAML workflow runner";
+  }
+  if (shipped.includes("subagent") === false) {
+    return src + " names no subagent-dispatch execution path";
+  }
+  if (/^\s*model\s*:/m.test(shipped)) return src + " pins a model; workflows carry no model pins";
+  return null;
+}
+
 function offlineReason(result) {
   if (result.code === "ENOENT") return "tool not on PATH (ENOENT)";
   const hay = result.stderr + "\n" + result.stdout + "\n" + result.code + "\n" + (result.message || "");
@@ -480,6 +800,13 @@ function main() {
     record("per-kind/agents", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/cli", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/lsp", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/theme", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/prompt", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/dataset", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/template", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/policy", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/benchmark", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/workflow", "FAIL", "cannot be evaluated: lockfile components unreadable");
   } else {
     const skills = components.filter((c) => c.kind === "skill");
     const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
@@ -581,7 +908,8 @@ function main() {
         continue;
       }
       const pkg = match[1];
-      const versioned = runCapture("npm", ["view", pkg + "@" + entry.version_pin, "version"]);
+      // --ignore-scripts blocks preinstall/postinstall RCE during npm metadata reads.
+      const versioned = runCapture("npm", ["view", pkg + "@" + entry.version_pin, "version", "--ignore-scripts"]);
       if (versioned.ok === false) {
         const reason = offlineReason(versioned);
         if (reason === null) {
@@ -595,7 +923,8 @@ function main() {
         npmFailures.push(entry.id + ": registry reports " + versioned.stdout.trim() + ", lock pins " + entry.version_pin);
         continue;
       }
-      const bin = runCapture("npm", ["view", pkg + "@" + entry.version_pin, "bin", "--json"]);
+      // --ignore-scripts blocks preinstall/postinstall RCE during npm metadata reads.
+      const bin = runCapture("npm", ["view", pkg + "@" + entry.version_pin, "bin", "--json", "--ignore-scripts"]);
       if (bin.ok === false) {
         const reason = offlineReason(bin);
         if (reason === null) {
@@ -719,6 +1048,27 @@ function main() {
 
     const lspResult = checkLspEntries(components);
     record("per-kind/lsp", lspResult.status, lspResult.detail);
+
+    const themeResult = checkThemeEntries(components);
+    record("per-kind/theme", themeResult.status, themeResult.detail);
+
+    const promptResult = checkFileCopyKind(components, { kind: "prompt", dir: "prompts", ext: "md", prove: provePrompt });
+    record("per-kind/prompt", promptResult.status, promptResult.detail);
+
+    const datasetResult = checkFileCopyKind(components, { kind: "dataset", dir: "datasets", ext: "json", prove: proveDataset });
+    record("per-kind/dataset", datasetResult.status, datasetResult.detail);
+
+    const templateResult = checkFileCopyKind(components, { kind: "template", dir: "templates", ext: "json", prove: proveTemplate });
+    record("per-kind/template", templateResult.status, templateResult.detail);
+
+    const policyResult = checkFileCopyKind(components, { kind: "policy", dir: "policies", ext: "json", prove: provePolicy });
+    record("per-kind/policy", policyResult.status, policyResult.detail);
+
+    const benchmarkResult = checkFileCopyKind(components, { kind: "benchmark", dir: "benchmarks", ext: "json", prove: proveBenchmark });
+    record("per-kind/benchmark", benchmarkResult.status, benchmarkResult.detail);
+
+    const workflowResult = checkFileCopyKind(components, { kind: "workflow", dir: "workflows", ext: "yaml", prove: proveWorkflow });
+    record("per-kind/workflow", workflowResult.status, workflowResult.detail);
 
     // Every shipped agent file declares mode explicitly. OpenCode V2
     // defaults an omitted mode to primary, so a file without a mode line

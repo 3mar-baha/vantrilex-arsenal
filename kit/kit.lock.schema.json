@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vantrilex.dev/schema/kit-lock.schema.json",
   "title": "Vantrilex Kit Lockfile",
-  "description": "Pinned Tier-0 kit (Vantrilex Core) plus the pending list. Compatible with registry/schema/catalog-v2.schema.json: a verified entry MUST carry a non-null install_cmd, and a null install_cmd MUST be recorded unverified.",
+  "description": "Pinned kit (Vantrilex Core) plus the pending list. Compatible with registry/schema/catalog-v3.schema.json: a verified entry MUST carry a non-null install_cmd, and a null install_cmd MUST be recorded unverified. The component 'kind' enum tracks the catalog schema's enum; a kind is added here when the Lock begins pinning it, and the extensible-kind mechanism itself lives in the top-level $comment of registry/schema/catalog-v3.schema.json.",
   "type": "object",
   "additionalProperties": false,
   "required": ["lockfileVersion", "kit", "mcp_cap", "components", "pending"],
@@ -37,7 +37,8 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli"]
+            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow"],
+            "description": "Component family. registry/schema/catalog-v3.schema.json owns the full enum and the mechanism for adding a kind; this enum grows only when the lock pins that kind. 'theme' pins an OpenCode CLI theme JSON shipped under registry/themes/ and installed by a file copy, never by a bare filename. 'prompt', 'dataset', 'template', 'policy', 'benchmark' and 'workflow' pin file-copy components shipped under registry/prompts/, registry/datasets/, registry/templates/, registry/policies/, registry/benchmarks/ and registry/workflows/ respectively."
           },
           "source": {
             "type": ["string", "null"],
@@ -93,7 +94,8 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli"]
+            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow"],
+            "description": "Component family. registry/schema/catalog-v3.schema.json owns the full enum and the mechanism for adding a kind; this enum grows only when the lock pins that kind. 'theme' pins an OpenCode CLI theme JSON shipped under registry/themes/ and installed by a file copy, never by a bare filename. 'prompt', 'dataset', 'template', 'policy', 'benchmark' and 'workflow' pin file-copy components shipped under registry/prompts/, registry/datasets/, registry/templates/, registry/policies/, registry/benchmarks/ and registry/workflows/ respectively."
           },
           "reason": {
             "type": "string",

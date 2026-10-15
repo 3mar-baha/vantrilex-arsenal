@@ -66,34 +66,45 @@ injects — never an id alone, never a printed table.
 
 ## Part B — Current-task workflow
 
-Task: NODE T3 docs merge — fold the standing-law substance into the three root files through pointers with zero duplication, on branch `wt/v2-consolidation`. Dispatch classification: scenario 1, NEW TASK — this lane opens with no task in flight, so it plans from scratch and runs directly in the single lane (no subagents fit a three-file pointer-merge lane, and the work order forbids leaving it).
+Task: `VTA-EXPANSION-02-RESUME` — resume the paused expansion order on branch `wt/vta-expansion-02` from `012e449` (`v0.4.1`): finish T1 (`theme` kind + `vantrilex-blazar` theme + schema v3), T3 (10-domain file-based RAG + `knowledge-hotfix.json` + `v06-api-plan.md`), T4 (`vantrilex-deep-understand` skill + `docs/dev/` microscopic dev docs), T5 (ECC takeaways: `manifests/install-profiles.json`, `docs/ar/`, `--ignore-scripts` hygiene, `docs/19-HARNESS-MATRIX.md`), then chain T2 (6 remaining kinds: `prompt`, `dataset`, `template`, `policy`, `benchmark`, `workflow`), verify all gates, and cut `v0.5.0`.
 
 ### 1 — Methodology
 
-You plan once, then write the three owned files, then verify literally: markdownlint on all three files to exit 0, `git diff --numstat` plus the full `git diff` proving append-only, a single-home census proving zero duplication, and a per-section evidence report with `git status`. Done state: all three files extended, lint exit 0, diff proves zero removed lines, census passes, report delivered, no commit.
-
-**Announce, then verify.** You announce completion explicitly with real evidence: the exact command run plus its real output, never a summary. An independent verifier checks the written files. The owner releases. Source: B.8.2 directive 4.
+Four waves in dependency order, single-writer per resource:
+- Wave 1 (parallel, disjoint write sets): `t1-theme-infra` (verify/complete T1 theme kind + schema v3 + catalog/lock sync), `t3-rag-apply` (materialize the 12 drafted RAG files into `registry/rag/`), `t4-deep-understand-apply` (materialize `.opencode/skills/vantrilex-deep-understand/SKILL.md` and `docs/dev/00-INDEX.md`..`08-WORKFLOWS-GATES.md`), `t5-ecc-takeaways` (verify/complete `manifests/install-profiles.json`, `docs/ar/`, `docs/19-HARNESS-MATRIX.md`, and `--ignore-scripts` in `scripts/*.sh`).
+- Wave 2 (after Wave 1): verification nodes for Wave 1 + `t2-remaining-kinds` (chained after T1's v3 mechanism: add `prompt`, `dataset`, `template`, `policy`, `benchmark`, `workflow` kinds + exemplars + catalog/lock registration).
+- Wave 3 (after Wave 2): `t2-verify` + `v-expansion-review` (code-reviewer full diff + census + zero-`model:` check).
+- Wave 4 (after Wave 3): `int-v050-release` (CHANGELOG `v0.5.0`, six-gate suite, merge `--no-ff` to `main`, tag `v0.5.0`, push, verify release workflow).
 
 ### 2 — Roles
 
-This node drafts, verifies, and reports the full lane. The owning implementer writes the files. The Guide owns sign-off and sequencing. **§33B loop.** The lead plans the graph once, dispatches the ready set, verifies each landing itself (the branch exists, the diff carries that one concern and nothing else, the named command actually ran), and integrates; subagents execute and nothing else. Work outside a dispatched worktree is discarded and redispatched. Source: doctrine Rule 4 with Laws 1 and 5. Management-only, lane commits, models, and binding live in `AGENTS.md`; this section carries no copy of them.
+- Orchestrator (`blazar` on `opencode-go/gemini-4-argon-contributor`): owns plan, dispatches, `AGENT.md`, and `WORKFLOW.md`.
+- Subagents (all dispatched on `opencode-go/deepseek-v4.1-flash` per §0A): `kit-maintainer` for `t1-theme-infra`, `t5-ecc-takeaways`, `t2-remaining-kinds`, and `int-v050-release`; `vantrilex-implementer` for `t3-rag-apply`, `t4-deep-understand-apply`, and verification nodes; `code-reviewer` for `v-expansion-review`; `vantrilex-guide` for phase-exit sign-off.
 
 ### 3 — Precautions
 
-Writes stay inside the three owned files; existing contributor content is never touched; no commit is made. **V2-first runtime.** The OpenCode V2 runtime auto-loads `AGENTS.md` and that file alone: not the generated mirror, not `AGENT.md`, and not the accepted-but-inert `instructions` array. You rely on native `AGENTS.md` discovery. Source: Vanguard A.7d, doctrine B.8.1.
+- `RESEARCH.md` verdicts govern: no native background-image key, no native auto-per-agent theme switching, no per-agent icon.
+- Zero `model:` pins in any shipped agent, command, skill, or config file (`§0A` model routing is session execution only).
+- Global allow-all preserved (`permissions: [{"action":"*","resource":"*","effect":"allow"}]`); the `policy` kind exemplar is the allow-all pack itself, never deny/ask gates.
+- Single-writer law enforced between T1 (Wave 1) and T2 (Wave 2) on `registry/schema/`, `registry/VANTRILEX_CATALOG.md`, `registry/catalog.json`, `scripts/generate-catalog-json.mjs`, and `scripts/verify-kit.mjs`.
 
 ### 4 — Repair states
 
-A failing markdownlint gate returns to this node with the lint output attached; only the offending owned file is edited. A single-home census failure (one anchor phrase in two files) returns for re-homing before any other gate runs. Any write conflict stops the lane and escalates to the Guide for sequencing — never a direct merge decision. A disputed guard escalates to the Guide, never weakens to pass.
+- If `opencode-go/deepseek-v4.1-flash` hits a usage/quota limit: stop dispatching new workers immediately, report affected and completed nodes to the owner, and wait for the owner's replacement pick.
+- If a node fails verification for a non-quota reason: return to its owner with the failure output and a materially changed hypothesis (max 2 repair rounds, then escalate to the owner with the exact blocker).
 
 ### 5 — Research
 
-Sources read and what each yielded: `AGENTS.md` (hard rules, pointer line at line 105, append target); `AGENT.md` (six-section shape, lane history); `WORKFLOW.md` Part A (standing method, unchanged since seeding); doctrine `SKILL.md` B.8.2 (canonical region, directives 1–6), Rule 4 with Laws 1 and 5, B.8.1 (runtime auto-load), Rituals 1–2 (pointer line, orchestrator-only write); Vanguard A.7d (merge mechanics, verbatim pointer line), A.9 (honesty, roster-first binding), dispatch scenarios (scenario 1); `git log`, `git status`, `git diff --numstat` (tip `f9c7a6a`, clean tree, disjoint untracked paths).
+- `RESEARCH.md` (completed in R0 on `wt/vta-expansion-02`) is the binding source for §2 (T1) and §4 (T3). No re-run of R0.
 
 ### 6 — Expanded thinking
 
-None — because a single-node, three-file pointer-merge lane needs no auxiliary lanes beyond the verification the Methodology section names.
+Stop for broad verification before Wave 2 (`t2-remaining-kinds`) starts, confirming T1's schema v3 extensible kind mechanism passes `verify-registry.mjs` and `generate-catalog-json.mjs --check`, and again before Wave 4 (`int-v050-release`), confirming census counts, zero `model:` pins, and all new-kind verifiers pass.
 
 ### 7 — Kit loadout
 
-None — because this lane injects no kit components into any phase; it writes repo-root memory files only.
+- `scout`: `vantrilex-vanguard`, `vantrilex-prime`, `vantrilex-workflow-forge`
+- `docs`: `technical-writer`, `documentation-as-tests`
+- `build`: `tdd`, `typescript-lsp` (need-label: `npx tsc --noEmit`)
+- `review`: `code-reviewer`, `red-team`
+- `operate`: `vantrilex-doctrine`, `github-release-packager`
