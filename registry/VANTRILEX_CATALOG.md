@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1504 — 7 default-selected)
+## Skills (1505 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1512,6 +1512,7 @@ Consolidated reference of every system component with its folder path.
 | 1502 | vantrilex-prime | Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe… | 3mar-baha/vantrilex-arsenal | `` |
 | 1503 | vantrilex-design-variations | Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi… | 3mar-baha/vantrilex-arsenal | `` |
 | 1504 | vantrilex-workflow-forge | Authors the standing methodology at each task start — use when a new task begins, befo… | 3mar-baha/vantrilex-arsenal | `` |
+| 1505 | vantrilex-atomic-switch | Use when the operator installs per-agent themes, so the atomic switch commands resolve to a real theme file. | 3mar-baha/vantrilex-arsenal | `` |
 
 ## MCP Servers (907 — 8 default-selected)
 
@@ -2892,7 +2893,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2811
+- **Total components:** 2812
 - **Default-selected:** 20
 
 ---

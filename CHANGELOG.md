@@ -9,6 +9,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] — 2026-10-15
+
+### Added
+
+- **Six V-commands under `.opencode/commands/`.** `V-FULL-AUDIT`
+  (14-section REPORT-SPEC), `V-CATALOG`, `V-RAG`, `V-DOCTOR`, `V-PROFILE`,
+  and `V-HTML_DESIGN` (plus `--index`); zero `model:` pins; content/model
+  split holds. Ten companion `V-<Agent>` switch commands pair each roster
+  agent (`V-Blazar`, `V-Architect`, `V-Code-Reviewer`,
+  `V-Ai-Generated-Code-Security-Auditor`, `V-Kit-Maintainer`, `V-Red-Team`,
+  `V-Technical-Writer`, `V-Vantrilex-Guide`, `V-Vantrilex-Implementer`,
+  `V-Vantrilex-Leader`) — 16 command files in total, counted live.
+- **Atomic agent+theme switch as the honest WORKAROUND mechanism.**
+  `RESEARCH-03.md` (R0a verdict WORKAROUND, binding: no agent-switch hook,
+  no session-start hook, and read-only `context.theme` on
+  `opencode v2.0.27`) rules out a native per-agent auto-switch, so one
+  explicitly invoked command switches the agent and applies the theme-side
+  steps together. The `vantrilex-atomic-switch` install skill is locked
+  (conditional, unverified, null install command) and ships the per-agent
+  theme registry.
+- **Per-agent theme registry, 1 installed / 9 pending.**
+  `registry/themes/vantrilex-atomic-switch.json` carries 10 rows: `blazar`
+  installed (dark royal blue `#4169E1`, reserved), the other nine agents
+  pending with distinct category shades (code blue shades, security purple,
+  kit flame red, research green, design gold reserved). The 9 pending theme
+  JSONs are not yet authored, so no file-copy install command is registered
+  for them — the lock records all nine under `pending` with a stated reason
+  each, never as file-copies of nonexistent files.
+- **Ponytail bundle with dual guardrails (MIT, adopt don't reinvent).**
+  Upstream `dietrichgebert/ponytail` core + review + audit pinned by
+  canonical raw URL with content-hash verification; `GUARDRAILS.md` wires
+  the verbatim FLOOR/CEILING lines for every code-executing agent
+  (review/audit stay report-only, max 20 ranked findings).
+- **Census recounted live for this entry (never transcribed): lock 120
+  components + 9 pending (was 119 + 0); catalog 2812 records across
+  15 sections (was 2811).** Lock delta is exactly +1
+  (`vantrilex-atomic-switch` skill); catalog delta is exactly +1 (same
+  row). Skill folders on disk 24; `verify-skills.mjs` 10/10 PASS.
+  Six gates green after the final edit plus probe battery 45/45 —
+  outputs and exit codes quoted in the release report.
+
+### Honesty notes
+
+- The 16 `.opencode/commands/` files are schema-unsupported: the lock
+  schema carries no `command` kind, so they are not lock entries.
+  Recorded for the Guide; no unilateral schema edit was made.
+- `V-DOCTOR.md` saying "six V-commands" counts the six headline commands;
+  the ten `V-<Agent>` switch commands are a distinct set. Adjudicated
+  without a repair round at W6 verify, recorded here so the phrasing is
+  never misread as a stale count.
+
 ## [0.5.0] — 2026-10-15
 
 ### Added
@@ -679,7 +730,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.6.0
 [0.5.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.5.0
 [0.4.1]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.1
 [0.4.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.0
