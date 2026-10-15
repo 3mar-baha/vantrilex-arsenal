@@ -1,0 +1,22 @@
+{
+  "comment": "Relay hook registrations. Both hooks ship REGISTERED DISABLED: the owner starts the loops with an explicit enable, which doubles as the start/stop switch. Path home is .opencode/hooks/relay/, disjoint from the sibling-owned .opencode/skills/relay-protocol/ tree. No chat ids, tokens, or database ids are stored here; the owner places them in local config at install time.",
+  "hooks": [
+    {
+      "id": "relay-poll",
+      "script": ".opencode/hooks/relay/relay-poll.mjs",
+      "cadenceSeconds": 180,
+      "quietCadenceSeconds": 300,
+      "delivery": "main-chat",
+      "wakePolicy": "worker wakes ONLY on new activity; silent ticks cost one query and wake nothing",
+      "enabled": false
+    },
+    {
+      "id": "relay-watchdog",
+      "script": ".opencode/hooks/relay/relay-watchdog.mjs",
+      "cadenceSeconds": 60,
+      "delivery": "alerts-side-chat",
+      "wakePolicy": "alerts on status=pending AND expected_reply_by in the past; approval_request rows always alert and are never auto-approved",
+      "enabled": false
+    }
+  ]
+}
