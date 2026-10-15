@@ -2467,7 +2467,7 @@ Consolidated reference of every system component with its folder path.
 | 19 | long-running-process-guard ✅ | Guard long-running dev servers and watchers so their logs stay reachable |  | `` |
 | 20 | task-dispatcher | Classify each user message into one of the five Vanguard task scenarios |  | `` |
 
-## Agents (301 — 1 default-selected)
+## Agents (302 — 1 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2772,6 +2772,7 @@ Consolidated reference of every system component with its folder path.
 | 299 | aether | Produces a verified MISSION-PLAN from an owner brief through PREPARE, PLAN, and STOP… | 3mar-baha/vantrilex-arsenal | `` |
 | 300 | pulsar | Tests plan assumptions through hypothesis-first investigation and reports… | 3mar-baha/vantrilex-arsenal | `` |
 | 301 | blazar | Derives waves from a verified MISSION-PLAN, dispatches every node, verifies… | 3mar-baha/vantrilex-arsenal | `` |
+| 302 | vantrilex-relay | Worker-only relay operator that polls the shared relay queue, triages claimed rows, sends replies, and emits receipts. Use when status, verification, or approval traffic must move between opencode and vanbu through the relay queue. | 3mar-baha/vantrilex-arsenal | `` |
 
 ## Formatting (13 — 0 default-selected)
 
@@ -2866,13 +2867,14 @@ Consolidated reference of every system component with its folder path.
 | 63 | Trash CLI | Moves files to the system trash instead of deleting them. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/trash-cli | `npm i -g trash-cli` |
 | 64 | Kill Port | Frees a TCP port by killing whatever process holds it. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | tiaanduplessis/kill-port | `npm i -g kill-port` |
 
-## Themes (3 — 0 default-selected)
+## Themes (4 — 0 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
 | 1 | vantrilex-blazar | Dark royal-blue Vantrilex theme for the OpenCode CLI, built around blazar blue (#4169E1). |  | `cp registry/themes/vantrilex-blazar.json ~/.config/opencode/themes/vantrilex-blazar.json` |
 | 2 | vantrilex-aether | Dark teal Vantrilex theme for the OpenCode CLI, built around aether teal (#14B8A6). |  | `cp registry/themes/vantrilex-aether.json ~/.config/opencode/themes/vantrilex-aether.json` |
 | 3 | vantrilex-pulsar | Dark fuchsia Vantrilex theme for the OpenCode CLI, built around pulsar fuchsia (#C026D3). |  | `cp registry/themes/vantrilex-pulsar.json ~/.config/opencode/themes/vantrilex-pulsar.json` |
+| 4 | vantrilex-relay | Dark amber Vantrilex theme for the OpenCode CLI, built around relay amber (#F59E0B). |  | `cp registry/themes/vantrilex-relay.json ~/.config/opencode/themes/vantrilex-relay.json` |
 
 ## Prompts (1 — 0 default-selected)
 

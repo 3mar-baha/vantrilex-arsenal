@@ -13,6 +13,8 @@ Two laws sit above every section. The cost guard: script-level polling wakes the
 
 The full protocol lives in nine files: this overview plus eight companions (`RELAY-SCHEMA.md`, `MESSAGE-TYPES.md`, `POLL.md`, `SEND.md`, `TRIAGE.md`, `TIMEOUTS.md`, `SECURITY.md`, `SESSIONS.md`).
 
+The operator binding lives outside the nine: `.opencode/agents/vantrilex-relay.md` holds the operator role, and the skill/agent split is that this skill tree defines the protocol while the agent file defines who runs it. Stale-session reaping lives hook-side; any reaping move lands in a terminal state only (`done`, `needs_omar`, or `invalid`), never a delete. Home for the reaper is `SESSIONS.md` §Reaper with the terminal set in `RELAY-SCHEMA.md` Lifecycle.
+
 ## When to Use
 
 - Sending an announcement, verification request, reply, question, approval request, alert, or heartbeat through the relay queue.
@@ -41,7 +43,7 @@ The full protocol lives in nine files: this overview plus eight companions (`REL
 ## Procedure
 
 1. **Load configuration.** Read the token, the database id, and the alerts-chat id from the install-time config file. Fail closed when any value is absent: no poll, no send, and a loud local error instead of a retry storm.
-2. **Select the companion for the concern.** `RELAY-SCHEMA.md` for columns and values, `MESSAGE-TYPES.md` for the type and its body template, `POLL.md` for polling and claiming, `SEND.md` for composing a row, `TRIAGE.md` for routing a claimed row, `TIMEOUTS.md` for deadlines and escalation, `SECURITY.md` for validation and quarantine.
+2. **Select the companion for the concern.** `RELAY-SCHEMA.md` for columns and values, `MESSAGE-TYPES.md` for the type and its body template, `POLL.md` for polling and claiming, `SEND.md` for composing a row, `TRIAGE.md` for routing a claimed row, `TIMEOUTS.md` for deadlines and escalation, `SECURITY.md` for validation and quarantine, `SESSIONS.md` §Reaper for stale sessions (terminal states only). For the operator binding rather than the protocol, see `.opencode/agents/vantrilex-relay.md`.
 3. **Validate before acting.** Run the `SECURITY.md` validator on every inbound row before triage and on every outbound row before sending. A row that fails validation goes to `invalid` plus an alert, never to execution.
 4. **Claim before acting.** Move a picked-up row from `pending` to `acked` before doing anything with it, so two pollers can never own one row.
 5. **Route by the matrix.** Apply `TRIAGE.md`: routine traffic stays in the main chat, timeouts and approvals go to the alerts chat, and nothing is ever auto-approved.

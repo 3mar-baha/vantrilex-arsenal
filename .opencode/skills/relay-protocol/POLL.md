@@ -6,22 +6,22 @@ Three exact queries, one claim protocol, one watermark, one backoff ladder. The 
 
 Two shapes are allowed, both quota-proof; the install-time config file pins which one each side uses, with the database id and the view URL where used.
 
-- REST data-source query. The tick queries the data-source endpoint with a server-side `and` filter: `to` equals me AND `status` equals `pending`. Page size stays small (at most 25 rows), sorting and filtering run server-side, and the poll projects only the `id` and `status` properties on a tick. The full row (remaining properties plus body blocks) is fetched only on wake, for the woken ids only.
+- REST data-source query. The tick queries the data-source endpoint with a server-side `and` filter: `to` equals me AND `status` equals `pending`. The `status` clause uses the status-type form `{ property: "status", status: { equals: "pending" } }`, never the select form; the select form returns HTTP 400 against the live database. The `to` clause uses the select-type form, matching its column type. Page size stays small (at most 25 rows), sorting and filtering run server-side, and the poll projects only the `id` and `status` properties on a tick. The full row (remaining properties plus body blocks) is fetched only on wake, for the woken ids only.
 - Pinned view fetch. Where the install exposes a pre-filtered view URL for `to` equals me AND `status` equals `pending`, the tick fetches that URL instead of composing a query. The URL comes from config; it is never reconstructed by hand.
 
 Inline SQL appears nowhere: routine polling never uses MCP SQL-mode tools, and no skill text, hook script, chat transcript, or row body carries a SQL string. A tick that cannot use its pinned shape fails closed and silent.
 
 ## Consumer query, vanbu side
 
-Filter `to` equals `vanbu` and `status` equals `pending`, sorted by `created` ascending. One query per poll tick.
+Filter `to` equals `vanbu` (select-type) and `status` equals `pending` (status-type `status.equals`), sorted by `created` ascending. One query per poll tick.
 
 ## Consumer query, opencode side
 
-Filter `to` equals `opencode` and `status` equals `pending`, sorted by `created` ascending. One query per poll tick, on a 180-second cadence.
+Filter `to` equals `opencode` (select-type) and `status` equals `pending` (status-type `status.equals`), sorted by `created` ascending. One query per poll tick, on a 180-second cadence.
 
 ## Watchdog query
 
-Filter `status` equals `pending` and `expected_reply_by` earlier than now, sorted by `expected_reply_by` ascending. One query every 60 seconds. The watchdog delivers to the alerts chat and never to the main chat.
+Filter `status` equals `pending` (status-type `status.equals`) and `expected_reply_by` earlier than now, sorted by `expected_reply_by` ascending. One query every 60 seconds. The watchdog delivers to the alerts chat and never to the main chat.
 
 ## Claim protocol
 

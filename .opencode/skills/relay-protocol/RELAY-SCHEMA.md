@@ -2,7 +2,7 @@
 
 ## Quota-proof polling rule
 
-Routine polling NEVER uses MCP SQL-mode query tools. Every poll tick is a REST data-source query carrying a server-side filter (`to` equals me AND `status` equals `pending`), or a fetch of the pinned pre-filtered view URL where one is exposed. The poll target (the data-source id, and the view URL when used) is pinned in the install-time config file; no inline SQL appears anywhere: not in skill text, not in hook scripts, not in chat transcripts, not in row bodies. A tick that cannot build its pinned REST shape fails closed and stays silent instead of improvising a query path.
+Routine polling NEVER uses MCP SQL-mode query tools. Every poll tick is a REST data-source query carrying a server-side filter (`to` equals me AND `status` equals `pending`), or a fetch of the pinned pre-filtered view URL where one is exposed. The `status` clause uses the status-type form `{ property: "status", status: { equals: "pending" } }`, never the select form; the select form returns HTTP 400 against the live database. The `to` clause uses the select-type form, matching its column type. The poll target (the data-source id, and the view URL when used) is pinned in the install-time config file; no inline SQL appears anywhere: not in skill text, not in hook scripts, not in chat transcripts, not in row bodies. A tick that cannot build its pinned REST shape fails closed and stays silent instead of improvising a query path.
 
 ## Envelope version
 
@@ -18,7 +18,7 @@ The nine columns of the live `relay-queue` database, carried forward from the p3
 | `from` | select | `opencode`, `vanbu`, `omar` |
 | `to` | select | `opencode`, `vanbu`, `omar` |
 | `type` | select | The seven message types in `MESSAGE-TYPES.md`, closed set |
-| `status` | status (native Notion status type) | `pending`, `acked`, `done`, `needs_omar`, `invalid` |
+| `status` | status (native Notion status type) | `pending`, `acked`, `done`, `needs_omar`, `invalid`; filter with `status: { equals }`, never `select: { equals }` (the select form returns HTTP 400 live) |
 | `eta_minutes` | number | Sender estimate of the task in minutes, before the margin, kept for transparency |
 | `expected_reply_by` | date | Send-time value of now plus estimate times 1.10; the API stores the timestamp, never the formula |
 | `thread_id` | rich_text | New rows carry their own id; replies carry the origin row id |
@@ -51,7 +51,7 @@ Budgets bind each side separately: opencode and vanbu each stay inside every cap
 
 ## Variances against DESIGN.md
 
-- `status` is the native Notion status type in the live database; the DESIGN.md draft proposed a select. Readers filter by option name, never by status group, so a regrouping in Notion cannot break a poll.
+- `status` is the native Notion status type in the live database; the DESIGN.md draft proposed a select. Readers filter by option name, never by status group, so a regrouping in Notion cannot break a poll. Live trial proved the select form for `status` returns HTTP 400, so every `status` filter in this tree and in the hooks uses the status-type `status.equals` form.
 - `from` admits `omar` in the live shape alongside `opencode` and `vanbu`; the DESIGN.md draft listed only the two agents. The live three-option set governs.
 
 ## Identifiers
