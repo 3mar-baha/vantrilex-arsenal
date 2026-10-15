@@ -9,6 +9,206 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.6] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
+
+> Status: this section is a parked draft, not a release. No `v0.7.6` tag
+> was cut, nothing was merged, pushed, or published, and no `[0.7.6]`
+> link reference was added below. It ships with the branch so the
+> owner's return finds the census, the gates, the residuals, and the
+> verification checklist in one place.
+
+### Added
+
+- **BLAZAR retooled from plan-owning orchestrator to Build Leader
+  (`p2-retool`, sole writer of `.opencode/agents/blazar.md` plus the
+  companion config).** The prompt now opens third-person on the trigger
+  ("use when a verified plan is ready to execute"), carries THE ONE LAW
+  verbatim — "derive waves, dispatch everything, execute nothing, plan
+  nothing" (`blazar.md:208`) — and NEVER plans, NEVER explores, NEVER
+  executes node work, NEVER dispatches a leader, the generic agent, or
+  itself (`blazar.md:219-247`). The D5 bright line is quoted verbatim
+  ("owner overrides direct work but NEVER suppresses gate verdicts",
+  `blazar.md:558`) and the B2 naming law as amended for leaders is
+  stated on the page (lowercase stem/id `blazar`, capitalized display
+  BLAZAR, `blazar.md:192-196`). Zero `model:` keys in the retooled file
+  (counted live: 0).
+- **Phase-0 Plan-Intake gate (`blazar.md` section 3).** Five steps in
+  order — read `AGENT.md` then `WORKFLOW.md` live, validate the AETHER
+  MISSION-PLAN against the 10-field checklist, require each role's
+  refusal list plus the justification ledger inline, write the loadout
+  into `AGENT.md`, confirm companion routing — and PLAN-INCOMPLETE
+  escalates, never improvised: any missing item stops the intake with a
+  refusal capsule (`disposition: escalate`), never filled from memory,
+  never borrowed from an older document, never dispatched on a draft
+  (`blazar.md:307-312`).
+- **Wave-derivation specification (`blazar.md` section 4).** BLAZAR
+  authors no plan: waves derive only from role sections labeled
+  `section_leader: blazar`; another leader's label or no label at all
+  escalates and waits. Every derived node carries all nine fields
+  (`id`, `concern`, `owner`, `inputs`, `acceptance`, `verification`,
+  `artifact`, `wave`, `depends_on`) and a node missing one is not
+  dispatched; a wave fans out only when every node holds a complete
+  brief (all-ready-together), and roles sharing a write target never
+  share a wave.
+- **13-worker subagent allow-list with Scout restricted
+  (`blazar.md` section 5).** Exactly 13 dispatchable build workers
+  (`vantrilex-fixer`, `vantrilex-github`, `vantrilex-harness`,
+  `vantrilex-librarian`, `vantrilex-python`, `vantrilex-releaser`,
+  `vantrilex-reviewer`, `vantrilex-scribe`,
+  `vantrilex-security-auditor`, `vantrilex-typescript`,
+  `vantrilex-ui-designer`, `vantrilex-ux-designer`,
+  `vantrilex-verifier`), counted live from the frontmatter. Scout is
+  SHARED and RESTRICTED (D3 — never dispatched by BLAZAR); never
+  dispatched either are `aether`/`pulsar` (planning/exploration
+  leaders), `blazar` itself, `vantrilex-leader`/`vantrilex-guide`/
+  `vantrilex-implementer` (lanes outside this seat), the `build`/`plan`
+  primaries (disabled), and `general` (one-line reason plus owner
+  routing decision, never silent fallback). `ponytail` rides in the
+  skill allow-list; `vantrilex-workflow-forge` is gone from the
+  frontmatter (0 hits, counted live) — ponytail-in, forge-out.
+- **10-field intake checklist plus PLAN-INCOMPLETE capsule plus
+  versioned-diff amendment protocol (`P2-INTAKE.md`, W27).** Exactly
+  ten fields (`Lane`, `Node`, `Concern`, `Owner`, `Acceptance`,
+  `May read`, `Must leave`, `Must run`, `Must not touch`,
+  `State files`), each with its H-verdict ref back to `P2-R0.md`
+  (3 CONFORM, 5 PARTIAL, 8 GAP); the escalate capsule shape validated
+  by `node scripts/validate-capsule.mjs`; amendments arrive versioned
+  (v1→v2…), re-validate affected waves only, and never weaken an
+  acceptance criterion or a verification check to fit an artifact.
+- **Ponytail compliance machinery
+  (`docs/21-PONYTAIL-COMPLIANCE.md`, W27).** The `Doctrine:` brief
+  line, the trailer shape (`Ponytail: <binding> — <one-line
+  evidence>; Skipped: …; Risk: …`), the mechanical non-trivial rule
+  (10+ lines, or 2+ files, or add/delete, or a trust-boundary path,
+  counted from `git diff --numstat`), the Verifier two-sided checklist
+  (side A green with side B vacuous is FAIL), the Reviewer
+  `ponytail-review` checklist, and violations routing (vacuous trailer
+  → leader re-dispatch, never reconstructed from memory). FLOOR and
+  CEILING carried verbatim throughout.
+- **Four negative-control probes, ALL FOUR PASS, all STATIC
+  (`P2-NEGCTRL.md`, W27).** Gapped plan (missing Acceptance plus
+  artifact) → `escalate` PLAN-INCOMPLETE; cross-section label
+  (`section_leader: aether`/other/unlabeled) → pre-dispatch refusal;
+  vacuous trailer on a non-trivial diff → leader re-dispatch, not a
+  §9 repair round; node missing `verification` → not dispatched, wave
+  held. Zero live legs (subagent depth-1 bars nested execution — no
+  live dispatch claimed, static reasoning labeled per probe).
+- **Migration note plus V-Blazar rewiring
+  (`P2-BLAZAR-AETHER-MIGRATION.md` + `V-Blazar.md`, W27).** The note
+  records what moved to AETHER (planning, MISSION-PLAN authorship,
+  replan ownership, P0 Scout tasking), what stayed with BLAZAR
+  (derivation-only waves, dispatches, verification, integration, state
+  files), and the session-restart reminder (re-enter through the
+  switch command; a pre-retool session still runs the old authority).
+  `V-Blazar.md` now enters the Build Leader (intake gate §3,
+  derivation §4, no planning/exploring/executing) and carries the
+  Leaders-only rule.
+- **Binding P2 research (`P2-R0.md`, W25): 16 handshake verdicts
+  (3 CONFORM / 5 PARTIAL / 8 GAP), M1 detective plan-guard NO-DRIFT,
+  28 roster verdicts (7 EXACTLY-COVERED + 0 STALE + 19 UNREGISTERED
+  on-disk non-self ids across 26 agent files).** The pre-P2
+  allow-list gap (finding F1) is counted, not papered, and owned by
+  the retool in this same release.
+- **Census recounted for this entry live (never transcribed): lock 138
+  components + 9 pending (was 137 + 9); catalog 2915 records across 16
+  sections (was 2914 across 16); agents sidecar 301 rows (was 300).**
+  Lock delta is exactly +1 (agent `blazar`: `core`, `build`, null
+  install command, `unverified` — the honest null, never an invented
+  command); catalog delta is exactly +1 (same row; agent kind 301;
+  catalog Markdown `## Agents` heading 301; agents `_index.md` 301
+  with Tier 0 core 7; the Markdown `Total components: 2900` summary
+  line is generator accounting, observed unchanged for this delta).
+  Lock tiers: 32 `core` + 106 `conditional` (was 31 + 106). Agent
+  files on disk: 26 (23 `subagent` + 3 primary leaders); 20
+  self-sourced lock agents resolve to files, 1 upstream agent
+  (`a11y-audit`) carries no local file by design. The 9 `pending`
+  entries are unchanged and still absent from `components`.
+  `verify-registry.mjs` 7/7 PASS (exit `0`),
+  `generate-catalog-json.mjs --check` ok (exit `0`), `verify-kit.mjs`
+  22/22 PASS (exit `0`), `verify-skills.mjs` 10/10 PASS over 24 skill
+  folders (exit `0`), `tsc --noEmit` clean (exit `0`), `shellcheck`
+  over the 8 `scripts/*.sh` files clean (exit `0`); six gates green
+  after the final edit plus probe battery 45/45 (exit `0`) plus
+  capsule validator self-test (exit `0`).
+
+### Changed
+
+- **Dispatch authority swapped with the retool (old 6 + `explore` →
+  13 workers).** The pre-P2 allow-list (`architect`, `code-reviewer`,
+  `ai-generated-code-security-auditor`, `technical-writer`,
+  `red-team`, `kit-maintainer`, plus built-in `explore`) is replaced
+  by the 13 build workers above; the old entries are out of this
+  seat's dispatch scope by rule, not by omission. `blazar.md`
+  description, NEVER/ALWAYS, roster, dispatch, verification,
+  repair, refusal-capsule, and anti-rationalisation sections are
+  rewritten around derivation-only leadership; the identical
+  shared-instrument section (D3, Librarian, plan-guard) is unchanged.
+
+### Known residuals (NOT fixed here; recorded so none is misread as fixed)
+
+- **F8 (doc/schema mismatch) — direction deferred to vanbu.** Doc-shape
+  `pulsar.md:124-158` (`Confidence` high/medium/low + reason,
+  `file:line` evidence, affected-node/impact sections) disagrees with
+  schema-shape `capsule.schema.json:46-72` (optional numeric
+  `confidence`, per-finding evidence strings, no impact sections, six
+  schema-required fields with no doc counterpart) in both directions.
+  Either repair alters a verified component, so no repair ships here;
+  the ruling travels announce→verify.
+- **F-1 (drills finding: pre-P2 BLAZAR accepted planning orders) —
+  CLOSED by this retool.** The retooled NEVER-plan rule
+  (`blazar.md:219-220, 245-247`), the intake gate, and the refusal
+  capsule now refuse/escalate planning work by the build seat; probes
+  1–2 re-prove the refusal path (static, with file:line). Stated
+  closed here so it is never re-opened as a residual.
+- **Live-probe gap.** Subagent depth-1 bars nested execution, so all
+  four negative-control probes rest on static transcripts with
+  `file:line` citations; the owner may run the live legs optionally.
+- **F1–F5 (forgery/authenticity) carried forward unchanged** with the
+  v0.7.5 compensating control (session trust — capsules are
+  session-local planning artifacts, never cross-session
+  credentials).
+
+### PARKED list (what this change deliberately does not do)
+
+- The `v0.7.6` release itself: no merge, no tag, no push, no publish —
+  this section is parked uncommitted on `wt/vta-expansion-03`.
+- D4 plan-guard HARD admission gate: still PARKED per `P1-R0.md`
+  Verdict 1 (detective fallback ships instead, honestly documented;
+  re-confirmed NO-DRIFT by `P2-R0.md` M1).
+- The dedicated commands library: PARKED to v0.8 per the B2 ruling
+  (commands stay omitted; `V-Blazar` is a switch command, not a
+  commands library).
+- The 9 `pending` per-agent themes: still pending with stated reasons
+  each (no theme JSON on disk, no install command registered).
+- P3 (7.7 Relay): starts only on the owner go after the v0.7.6
+  release; nothing of it is built here.
+
+### Vanbu fresh-clone verification checklist (exact)
+
+1. `git clone` the repo, `git checkout wt/vta-expansion-03`, confirm
+   `git rev-parse HEAD` prints the hash quoted in the park report.
+2. `node scripts/verify-registry.mjs` → exit `0`, 7/7 PASS.
+3. `node scripts/generate-catalog-json.mjs --check` → exit `0`.
+4. `node scripts/verify-kit.mjs` → exit `0`, 22/22 PASS.
+5. `node scripts/verify-skills.mjs` → exit `0`, 10/10 PASS.
+6. `npx tsc --noEmit -p tsconfig.json` → exit `0`.
+7. `shellcheck` the 8 `scripts/*.sh` files (enumerated, not globbed)
+   → exit `0`.
+8. `node .opencode/plugin/arsenal.findings-probe.mjs` → 45/45,
+   exit `0`.
+9. `node scripts/validate-capsule.mjs --self-test` → exit `0`.
+10. Recount: lock 138 + 9 pending; catalog 2915 / 16 sections; agents
+    sidecar 301 rows; agent files 26 on disk (23 subagent + 3
+    primary); tiers 32 core + 106 conditional.
+11. Confirm `.opencode/agents/blazar.md`: THE ONE LAW line 208
+    present; 13-worker subagent allow-list with zero `forge` hits and
+    `ponytail` in the skill allow-list; `mode: primary` plus
+    non-empty `color`; zero `model:` keys; `P2-INTAKE.md` 10 fields,
+    `P2-NEGCTRL.md` 4/4 PASS (all STATIC), `docs/21-PONYTAIL-
+    COMPLIANCE.md` and `P2-BLAZAR-AETHER-MIGRATION.md` present.
+12. Confirm `git tag -l v0.7.6` prints nothing and no `v0.7.6` release
+    exists — parked means parked.
+
 ## [0.7.5] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
 
 > Status: this section is a parked draft, not a release. No `v0.7.5` tag
