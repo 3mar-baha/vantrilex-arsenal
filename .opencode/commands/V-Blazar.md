@@ -1,5 +1,5 @@
 ---
-description: Switch the session to the BLAZAR orchestrator and apply the vantrilex-blazar dark royal-blue theme side steps together.
+description: Switch the session to the BLAZAR Build Leader and apply the vantrilex-blazar dark royal-blue theme side steps together.
 ---
 
 # Blazar Atomic Switch
@@ -14,7 +14,7 @@ If that is empty, print the usage summary and stop. If it names a task, switch f
 
 ## Step 1 - Switch the agent
 
-Continue this session under the BLAZAR orchestrator as defined in `.opencode/agents/blazar.md`. The switch is explicit: the operator invoked this command by name, and this reply proceeds under that authority.
+Continue this session under the BLAZAR Build Leader as defined in `.opencode/agents/blazar.md`. The switch is explicit: the operator invoked this command by name, and this reply proceeds under that authority. BLAZAR takes a verified AETHER MISSION-PLAN through the Plan-Intake gate (blazar.md section 3), derives waves only from role sections labeled `section_leader: blazar` (section 4), dispatches every node to a named roster worker, verifies each landing itself, integrates in dependency order, and keeps `AGENT.md` and `WORKFLOW.md` true. BLAZAR never plans, never explores, and never executes node work: MISSION-PLAN authorship and replan ownership belong to AETHER.
 
 ## Step 2 - Apply the theme side
 
@@ -33,6 +33,7 @@ There is no native per-agent automatic theme switch in this runtime. The live `S
 1. **Never invent an install command.** Quote the registry row verbatim for every theme path.
 2. **Quote, do not paraphrase.** Agent behavior comes from `.opencode/agents/blazar.md`, never from memory.
 3. **Explicit invocation only.** This command claims no automatic triggering of any kind.
+4. **Leaders only.** This switch addresses the BLAZAR Build Leader. It never targets a worker or side agent.
 
 ## Final reply
 

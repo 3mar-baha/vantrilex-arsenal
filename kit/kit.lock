@@ -65,6 +65,7 @@
     { "id": "vantrilex-releaser", "kind": "agent", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" },
     { "id": "aether", "kind": "agent", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "plan", "tier": "core", "verification": "unverified" },
     { "id": "pulsar", "kind": "agent", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "scout", "tier": "core", "verification": "unverified" },
+    { "id": "blazar", "kind": "agent", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "build", "tier": "core", "verification": "unverified" },
     { "id": "openpencil", "kind": "cli", "source": "ZSeven-W/openpencil", "install_cmd": "brew install zseven-w/openpencil/op", "version_pin": "0.8.2", "phase": "build", "tier": "conditional", "verification": "verified" },
     { "id": "typescript", "kind": "cli", "source": "microsoft/TypeScript", "install_cmd": "npm i -g typescript", "version_pin": "7.0.2", "phase": "build", "tier": "conditional", "verification": "verified" },
     { "id": "tsx", "kind": "cli", "source": "privatenumber/tsx", "install_cmd": "npm i -g tsx", "version_pin": "4.23.15", "phase": "build", "tier": "conditional", "verification": "verified" },
