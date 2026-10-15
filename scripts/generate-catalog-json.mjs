@@ -13,7 +13,7 @@ const CATALOG_JSON = join(ROOT, 'registry', 'catalog.json');
 const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v3.schema.json');
 const DATA_DIR = join(ROOT, 'registry', 'data');
 
-export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli', 'theme', 'prompt', 'dataset', 'template', 'policy', 'benchmark', 'workflow'];
+export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli', 'theme', 'prompt', 'dataset', 'template', 'policy', 'benchmark', 'workflow', 'design.md'];
 
 const SECTION_KINDS = new Map([
   ['Skills', 'skill'],
@@ -31,6 +31,7 @@ const SECTION_KINDS = new Map([
   ['Policies', 'policy'],
   ['Benchmarks', 'benchmark'],
   ['Workflows', 'workflow'],
+  ['Design', 'design.md'],
 ]);
 
 const SECTION_LABELS = new Map([
@@ -49,6 +50,7 @@ const SECTION_LABELS = new Map([
   ['policy', 'Policies'],
   ['benchmark', 'Benchmarks'],
   ['workflow', 'Workflows'],
+  ['design.md', 'Design'],
 ]);
 
 const INDEX_DIRS = new Map([
@@ -67,6 +69,7 @@ const INDEX_DIRS = new Map([
   ['policy', 'policies'],
   ['benchmark', 'benchmarks'],
   ['workflow', 'workflows'],
+  ['design.md', 'design'],
 ]);
 
 export const RECORD_FIELDS = [
@@ -377,6 +380,7 @@ const SIDECAR_FILES = new Map([
   ['policy', 'policies.jsonl'],
   ['benchmark', 'benchmarks.jsonl'],
   ['workflow', 'workflows.jsonl'],
+  ['design.md', 'design.jsonl'],
 ]);
 
 export function loadSidecar(kind, dataDir = DATA_DIR) {
@@ -860,8 +864,9 @@ function run(argv, { stdout, log }) {
 
   if (!check) {
     for (const sidecar of sidecars) {
-      if (!sidecar.present) log(`sidecar: registry/data/${sidecar.kind}.jsonl — absent, base values used`);
-      else log(`sidecar: registry/data/${sidecar.kind}.jsonl — ${sidecar.entries.length} entr${sidecar.entries.length === 1 ? 'y' : 'ies'} merged`);
+      const label = relative(ROOT, sidecar.path).split('\\').join('/');
+      if (!sidecar.present) log(`sidecar: ${label} — absent, base values used`);
+      else log(`sidecar: ${label} — ${sidecar.entries.length} entr${sidecar.entries.length === 1 ? 'y' : 'ies'} merged`);
     }
     printCounts(catalog.counts, stdout);
   }

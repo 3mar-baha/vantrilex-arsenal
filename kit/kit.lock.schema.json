@@ -37,8 +37,8 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow"],
-            "description": "Component family. registry/schema/catalog-v3.schema.json owns the full enum and the mechanism for adding a kind; this enum grows only when the lock pins that kind. 'theme' pins an OpenCode CLI theme JSON shipped under registry/themes/ and installed by a file copy, never by a bare filename. 'prompt', 'dataset', 'template', 'policy', 'benchmark' and 'workflow' pin file-copy components shipped under registry/prompts/, registry/datasets/, registry/templates/, registry/policies/, registry/benchmarks/ and registry/workflows/ respectively."
+            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow", "design.md"],
+            "description": "Component family. registry/schema/catalog-v3.schema.json owns the full enum and the mechanism for adding a kind; this enum grows only when the lock pins that kind. 'theme' pins an OpenCode CLI theme JSON shipped under registry/themes/ and installed by a file copy, never by a bare filename. 'prompt', 'dataset', 'template', 'policy', 'benchmark' and 'workflow' pin file-copy components shipped under registry/prompts/, registry/datasets/, registry/templates/, registry/policies/, registry/benchmarks/ and registry/workflows/ respectively. 'design.md' pins an unmodified MIT-licensed brand interface design document shipped under registry/design/<brand>/DESIGN.md and installed by a real file copy, carrying no model pin and no placeholder."
           },
           "source": {
             "type": ["string", "null"],
@@ -94,8 +94,8 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow"],
-            "description": "Component family. registry/schema/catalog-v3.schema.json owns the full enum and the mechanism for adding a kind; this enum grows only when the lock pins that kind. 'theme' pins an OpenCode CLI theme JSON shipped under registry/themes/ and installed by a file copy, never by a bare filename. 'prompt', 'dataset', 'template', 'policy', 'benchmark' and 'workflow' pin file-copy components shipped under registry/prompts/, registry/datasets/, registry/templates/, registry/policies/, registry/benchmarks/ and registry/workflows/ respectively."
+            "enum": ["skill", "mcp", "plugin", "hook", "agent", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow", "design.md"],
+            "description": "Component family. registry/schema/catalog-v3.schema.json owns the full enum and the mechanism for adding a kind; this enum grows only when the lock pins that kind. 'theme' pins an OpenCode CLI theme JSON shipped under registry/themes/ and installed by a file copy, never by a bare filename. 'prompt', 'dataset', 'template', 'policy', 'benchmark' and 'workflow' pin file-copy components shipped under registry/prompts/, registry/datasets/, registry/templates/, registry/policies/, registry/benchmarks/ and registry/workflows/ respectively. 'design.md' pins an unmodified MIT-licensed brand interface design document shipped under registry/design/<brand>/DESIGN.md and installed by a real file copy, carrying no model pin and no placeholder."
           },
           "reason": {
             "type": "string",

@@ -2891,9 +2891,98 @@ Consolidated reference of every system component with its folder path.
 |---|------|-------------|--------|--------|
 | 1 | forge-dag-exemplar | Forge-authored BLAZAR DAG exemplar in YAML with the 7 Forge sections; BLAZAR dispatches it via subagent, no native runner. |  | `cp registry/workflows/forge-dag-exemplar.yaml .opencode/workflows/forge-dag-exemplar.yaml` |
 
+## Design (84 — 0 default-selected)
+
+| # | Name | Description | Source | Install |
+|---|------|-------------|--------|--------|
+| 1 | 1win | Third-party 1win interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 2 | airbnb | Third-party airbnb interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 3 | airtable | Third-party airtable interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 4 | aljazeera | Third-party aljazeera interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 5 | apple | Third-party apple interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 6 | binance | Third-party binance interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 7 | bmw-m | Third-party bmw-m interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 8 | bmw | Third-party bmw interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 9 | bugatti | Third-party bugatti interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 10 | cal | Third-party cal interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 11 | claude | Third-party claude interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 12 | clay | Third-party clay interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 13 | clickhouse | Third-party clickhouse interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 14 | cohere | Third-party cohere interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 15 | coinbase | Third-party coinbase interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 16 | composio | Third-party composio interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 17 | cursor | Third-party cursor interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 18 | dell-1996 | Third-party dell-1996 interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 19 | dji | Third-party dji interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 20 | elevenlabs | Third-party elevenlabs interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 21 | expo | Third-party expo interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 22 | ferrari | Third-party ferrari interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 23 | figma | Third-party figma interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 24 | framer | Third-party framer interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 25 | hashicorp | Third-party hashicorp interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 26 | hp | Third-party hp interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 27 | ibm | Third-party ibm interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 28 | intercom | Third-party intercom interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 29 | jobright | Third-party jobright interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 30 | kraken | Third-party kraken interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 31 | lamborghini | Third-party lamborghini interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 32 | linear.app | Third-party linear.app interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 33 | lovable | Third-party lovable interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 34 | mastercard | Third-party mastercard interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 35 | mercury | Third-party mercury interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 36 | meta | Third-party meta interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 37 | minimax | Third-party minimax interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 38 | mintlify | Third-party mintlify interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 39 | miro | Third-party miro interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 40 | mistral.ai | Third-party mistral.ai interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 41 | mongodb | Third-party mongodb interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 42 | mydealz | Third-party mydealz interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 43 | nerdwallet | Third-party nerdwallet interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 44 | nike | Third-party nike interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 45 | nintendo-2001 | Third-party nintendo-2001 interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 46 | notion | Third-party notion interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 47 | nvidia | Third-party nvidia interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 48 | ollama | Third-party ollama interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 49 | opencode.ai | Third-party opencode.ai interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 50 | oracle | Third-party oracle interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 51 | oura | Third-party oura interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 52 | pinterest | Third-party pinterest interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 53 | playstation | Third-party playstation interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 54 | posthog | Third-party posthog interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 55 | raycast | Third-party raycast interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 56 | renault | Third-party renault interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 57 | replicate | Third-party replicate interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 58 | resend | Third-party resend interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 59 | revolut | Third-party revolut interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 60 | runwayml | Third-party runwayml interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 61 | sanity | Third-party sanity interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 62 | sap | Third-party sap interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 63 | sentry | Third-party sentry interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 64 | shopify | Third-party shopify interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 65 | slack | Third-party slack interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 66 | spacex | Third-party spacex interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 67 | spotify | Third-party spotify interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 68 | starbucks | Third-party starbucks interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 69 | stripe | Third-party stripe interface design document (MIT, VoltAgent) | voltagent/awesome-design-md | `cp registry/design/stripe/DESIGN.md docs/design/stripe-DESIGN.md` |
+| 70 | supabase | Third-party supabase interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 71 | superhuman | Third-party superhuman interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 72 | tesla | Third-party tesla interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 73 | theverge | Third-party theverge interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 74 | together.ai | Third-party together.ai interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 75 | uber | Third-party uber interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 76 | vercel | Third-party vercel interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 77 | vodafone | Third-party vodafone interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 78 | voltagent | Third-party voltagent interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 79 | warp | Third-party warp interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 80 | webflow | Third-party webflow interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 81 | wired | Third-party wired interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 82 | wise | Third-party wise interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 83 | x.ai | Third-party x.ai interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+| 84 | zapier | Third-party zapier interface design document (MIT, VoltAgent) | voltagent/awesome-design-md |  |
+
 ## Summary
 
-- **Total components:** 2812
+- **Total components:** 2896
 - **Default-selected:** 20
 
 ---
@@ -2913,4 +3002,5 @@ Consolidated reference of every system component with its folder path.
 - Policies → `registry/policies/`
 - Benchmarks → `registry/benchmarks/`
 - Workflows → `registry/workflows/`
+- Design → `registry/design/`
 - Machine mirror → `registry/catalog.json`

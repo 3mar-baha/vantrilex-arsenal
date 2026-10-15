@@ -122,7 +122,8 @@
     { "id": "allow-all-pack", "kind": "policy", "source": null, "install_cmd": "cp registry/policies/allow-all-pack.json ~/.config/opencode/opencode.json", "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" },
     { "id": "verifier-gate-smoke", "kind": "benchmark", "source": null, "install_cmd": "cp registry/benchmarks/verifier-gate-smoke.json eval/verifier-gate-smoke.json", "version_pin": null, "phase": "review", "tier": "conditional", "verification": "unverified" },
     { "id": "forge-dag-exemplar", "kind": "workflow", "source": null, "install_cmd": "cp registry/workflows/forge-dag-exemplar.yaml .opencode/workflows/forge-dag-exemplar.yaml", "version_pin": null, "phase": "plan", "tier": "conditional", "verification": "unverified" },
-    { "id": "vantrilex-atomic-switch", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" }
+    { "id": "vantrilex-atomic-switch", "kind": "skill", "source": "3mar-baha/vantrilex-arsenal", "install_cmd": null, "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" },
+    { "id": "stripe", "kind": "design.md", "source": "voltagent/awesome-design-md", "install_cmd": "cp registry/design/stripe/DESIGN.md docs/design/stripe-DESIGN.md", "version_pin": null, "phase": "build", "tier": "conditional", "verification": "unverified" }
   ],
   "pending": [
     { "id": "vantrilex-architect", "kind": "theme", "reason": "Per-agent theme JSON not yet authored; no file-copy install command is registered for a nonexistent file. Ships through the vantrilex-atomic-switch install skill once registry/themes/vantrilex-architect.json lands." },
