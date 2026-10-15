@@ -1142,6 +1142,13 @@ function main() {
     // case-insensitive fallback), its mode must be exactly subagent, and it
     // must carry no model pin and no color field. Upstream agents carry no
     // local file by design and stay exempt from this proof.
+    // Named-leader exemption (triumvirate design D1 + owner ruling (a) 2026-10-15):
+    // the three session leaders aether, pulsar and blazar are EXEMPT from the
+    // mode:subagent requirement. Each exempt id must instead carry mode exactly
+    // primary plus a color field, enforced just as hard (an exempt id without
+    // primary mode or without color FAILS). Every other self-sourced lock agent
+    // must still carry mode exactly subagent with no color field. No pattern,
+    // no flag, no skip: only these three named ids are exempt.
     const agentFileFailures = [];
     let selfAgentFiles = 0;
     for (const entry of agents.filter((c) => c.source === SELF_SOURCE)) {
@@ -1163,6 +1170,27 @@ function main() {
       const name = nameLine === undefined ? null : nameLine.replace(/^\s*name\s*:\s*/, "").trim().replace(/^["']|["']$/g, "");
       if (name !== entry.id) {
         agentFileFailures.push(entry.id + ": frontmatter name " + JSON.stringify(name) + " does not byte-equal the lock id (no case-insensitive fallback)");
+        continue;
+      }
+      // Named-leader exemption: aether, pulsar, blazar (triumvirate design D1 + owner ruling (a) 2026-10-15).
+      if (entry.id === "aether" || entry.id === "pulsar" || entry.id === "blazar") {
+        const modeLine = findKey("mode");
+        const mode = modeLine === undefined ? null : modeLine.replace(/^\s*mode\s*:\s*/, "").trim();
+        if (mode !== "primary") {
+          agentFileFailures.push(entry.id + ": exempt leader mode " + JSON.stringify(mode) + " is not primary per triumvirate design D1 + owner ruling (a) 2026-10-15");
+          continue;
+        }
+        if (findKey("model") !== undefined) {
+          agentFileFailures.push(entry.id + ": frontmatter pins a model; agents carry no model pins");
+          continue;
+        }
+        const colorLine = findKey("color");
+        const color = colorLine === undefined ? null : colorLine.replace(/^\s*color\s*:\s*/, "").trim().replace(/^["']|["']$/g, "");
+        if (color === null || color === "") {
+          agentFileFailures.push(entry.id + ": exempt leader carries no non-empty color field; leaders require mode primary plus a non-empty color per triumvirate design D1 + owner ruling (a) 2026-10-15");
+          continue;
+        }
+        selfAgentFiles++;
         continue;
       }
       const modeLine = findKey("mode");
@@ -1193,7 +1221,7 @@ function main() {
       record(
         "per-kind/agents",
         "PASS",
-        agents.length + " agents carry null install_cmd + unverified; " + selfAgentFiles + " self-sourced lock agents resolve to .opencode/agents/<id>.md with byte-equal name, mode subagent, zero model pins, zero color fields; catalog agreement is proven by the catalog-agreement check"
+        agents.length + " agents carry null install_cmd + unverified; " + selfAgentFiles + " self-sourced lock agents resolve to .opencode/agents/<id>.md with byte-equal name, zero model pins (non-leaders mode subagent with zero color fields; named leaders aether, pulsar, blazar mode primary plus color per triumvirate design D1 + owner ruling (a) 2026-10-15); catalog agreement is proven by the catalog-agreement check"
       );
     }
 

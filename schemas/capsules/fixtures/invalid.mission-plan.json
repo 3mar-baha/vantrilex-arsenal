@@ -1,0 +1,9 @@
+{
+  "capsule": "mission-plan",
+  "capsule_version": "1.0",
+  "issued_at": "2026-10-15T08:00:00Z",
+  "issuer": "aether",
+  "waves": [],
+  "handoff": "aether",
+  "plan_guard": "detective"
+}

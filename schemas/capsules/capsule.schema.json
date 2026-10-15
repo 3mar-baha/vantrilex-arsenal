@@ -1,0 +1,116 @@
+{
+  "title": "Vantrilex universal capsule schema family",
+  "version": "1.0.0",
+  "description": "Single source of truth for every capsule shape in the P1 flows: MISSION-PLAN capsules issued by AETHER, findings capsules issued by PULSAR, refusal/escalation capsules issued by any leader, and WAKE plus OVERRIDE event records. Each definition states its required fields in its required array; every other listed property is optional. Validated by node scripts/validate-capsule.mjs, which reads this file and enforces it. Enforcement is detective only: per P1-R0 Verdict 1 (PARKED) no hook denies admission, so the plan-guard reports drift after the fact and no HARD admission-denial claim is made.",
+  "capsule_field": "capsule",
+  "types": ["mission-plan", "findings", "refusal", "wake", "override"],
+  "wiring": {
+    "reference": "Every capsule flow cites this family by path schemas/capsules/capsule.schema.json and validates with node scripts/validate-capsule.mjs.",
+    "mission_plan": "The AETHER MISSION-PLAN section cites this family and validates each emitted plan before handoff.",
+    "findings": "The PULSAR findings-capsule section cites this family and validates each emitted findings capsule before chaining to AETHER.",
+    "refusal": "Every refusal/escalation path cites the refusal definition and validates the capsule it emits.",
+    "wake_override": "The WAKE-REQUEST channel spec and the OVERRIDE log cite the wake and override definitions and validate each event record.",
+    "enforcement": "Detective only. A capsule that fails validation is reported with named reasons and never silently accepted; nothing here grants a hook the power to refuse a brief."
+  },
+  "defs": {
+    "mission-plan": {
+      "description": "AETHER planning output. Required: capsule, capsule_version, issued_at, issuer, plan_id, waves, handoff, plan_guard. Optional: replan_count, ledger_ref, notes.",
+      "required": ["capsule", "capsule_version", "issued_at", "issuer", "plan_id", "waves", "handoff", "plan_guard"],
+      "properties": {
+        "capsule": { "type": "string", "const": "mission-plan" },
+        "capsule_version": { "type": "string", "pattern": "^1\\." },
+        "issued_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$" },
+        "issuer": { "type": "string", "const": "aether" },
+        "plan_id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "waves": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "concern", "owner"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "concern": { "type": "string", "minLength": 1 },
+              "owner": { "type": "string", "minLength": 1 },
+              "depends_on": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+            }
+          }
+        },
+        "handoff": { "type": "string", "const": "blazar" },
+        "plan_guard": { "type": "string", "const": "detective" },
+        "replan_count": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "ledger_ref": { "type": "string", "minLength": 1 },
+        "notes": { "type": "string", "minLength": 1 }
+      }
+    },
+    "findings": {
+      "description": "PULSAR exploration output, chained to AETHER only and never raw to execution. Required: capsule, capsule_version, issued_at, issuer, findings_id, hypothesis, findings, chain. Optional: budget_ref, confidence.",
+      "required": ["capsule", "capsule_version", "issued_at", "issuer", "findings_id", "hypothesis", "findings", "chain"],
+      "properties": {
+        "capsule": { "type": "string", "const": "findings" },
+        "capsule_version": { "type": "string", "pattern": "^1\\." },
+        "issued_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$" },
+        "issuer": { "type": "string", "const": "pulsar" },
+        "findings_id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "hypothesis": { "type": "string", "minLength": 1 },
+        "findings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["claim", "evidence"],
+            "properties": {
+              "claim": { "type": "string", "minLength": 1 },
+              "evidence": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "chain": { "type": "string", "const": "aether-only" },
+        "budget_ref": { "type": "string", "minLength": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "refusal": {
+      "description": "Refusal or escalation record from any leader. Required: capsule, capsule_version, issued_at, issuer, disposition, reason, refused_request. Optional: evidence, suggested_route. Disposition refuse stops the request; escalate routes it upward with the reason attached.",
+      "required": ["capsule", "capsule_version", "issued_at", "issuer", "disposition", "reason", "refused_request"],
+      "properties": {
+        "capsule": { "type": "string", "const": "refusal" },
+        "capsule_version": { "type": "string", "pattern": "^1\\." },
+        "issued_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$" },
+        "issuer": { "type": "string", "minLength": 1 },
+        "disposition": { "type": "string", "enum": ["refuse", "escalate"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "refused_request": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "string", "minLength": 1 },
+        "suggested_route": { "type": "string", "minLength": 1 }
+      }
+    },
+    "wake": {
+      "description": "WAKE-REQUEST channel event. Required: capsule, capsule_version, issued_at, issuer, channel, summary. Optional: context_ref.",
+      "required": ["capsule", "capsule_version", "issued_at", "issuer", "channel", "summary"],
+      "properties": {
+        "capsule": { "type": "string", "const": "wake" },
+        "capsule_version": { "type": "string", "pattern": "^1\\." },
+        "issued_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$" },
+        "issuer": { "type": "string", "minLength": 1 },
+        "channel": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 },
+        "context_ref": { "type": "string", "minLength": 1 }
+      }
+    },
+    "override": {
+      "description": "OVERRIDE log record. Required: capsule, capsule_version, issued_at, issuer, owner_directive, verdict_ref, verdict_preserved. The verdict_preserved field keeps the original verdict text on record: an owner override never suppresses a verdict. Optional: rationale.",
+      "required": ["capsule", "capsule_version", "issued_at", "issuer", "owner_directive", "verdict_ref", "verdict_preserved"],
+      "properties": {
+        "capsule": { "type": "string", "const": "override" },
+        "capsule_version": { "type": "string", "pattern": "^1\\." },
+        "issued_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$" },
+        "issuer": { "type": "string", "minLength": 1 },
+        "owner_directive": { "type": "string", "minLength": 1 },
+        "verdict_ref": { "type": "string", "minLength": 1 },
+        "verdict_preserved": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
