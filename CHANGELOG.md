@@ -9,6 +9,90 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] — 2026-10-15
+
+### Added
+
+- **Fourteen `vantrilex-*` side agents (workers, never primaries).**
+  `vantrilex-typescript`, `vantrilex-python`, `vantrilex-fixer`,
+  `vantrilex-github`, `vantrilex-ui-designer`, `vantrilex-ux-designer`,
+  `vantrilex-scout`, `vantrilex-librarian`, `vantrilex-reviewer`,
+  `vantrilex-verifier`, `vantrilex-harness`, `vantrilex-security-auditor`,
+  `vantrilex-scribe`, and `vantrilex-releaser` ship as
+  `.opencode/agents/<id>.md` with `mode: subagent`, zero `model:` pins,
+  zero `color:` fields, and lowercase-hyphenated names byte-equal to file,
+  lock id, and registry key. Lowercase-id naming-law amendment with the
+  owner B2 ruling: side agents display lowercase `vantrilex-*` while
+  leaders keep capitalized display with lowercase machine ids; all 14 are
+  `tier conditional` with group tags (`dev`, `design`, `exploration`,
+  `review`, `docs`, `operate`) and parent groups; dedicated side-agent
+  commands stay omitted — the commands library is PARKED to v0.8.
+  Provenance for every row is carried in `SOURCES.md` (44 sources fetched
+  live: 39 REACHABLE + 5 GONE) and wired into each prompt's `when_to_use`.
+- **Census recounted for this entry live (never transcribed): lock 133
+  components + 9 pending (was 121 + 9); catalog 2910 records across 16
+  sections (was 2896 across 16); agents sidecar 298 rows (was 284).**
+  Lock delta is exactly +12 (14 side-agent rows added, 2 superseded
+  agent rows removed); catalog delta is exactly +14 (same 14 rows).
+  Lock tiers: 29 `core` + 104 `conditional`. Agent files on disk: 24
+  (23 `subagent` + `blazar` primary); 17 self-sourced lock agents resolve
+  to files, 1 upstream agent (`a11y-audit`) carries no local file by
+  design. The 84-file design bundle is untouched (84 brand directories
+  recounted). `verify-registry.mjs` 7/7 PASS (exit `0`),
+  `generate-catalog-json.mjs --check` ok (exit `0`), `verify-kit.mjs`
+  22/22 PASS (exit `0`), `verify-skills.mjs` 10/10 PASS (exit `0`),
+  `tsc --noEmit` clean (exit `0`), `shellcheck` on scripts plus hooks
+  clean (exit `0`); six gates green after the final edit plus probe
+  battery 45/45 (exit `0`).
+
+### Changed
+
+- **Dual supersession: exactly one documentation authority and one audit
+  authority remain.** `technical-writer` is a dated superseded pointer
+  redirecting to `vantrilex-scribe` (sole documentation authority);
+  `ai-generated-code-security-auditor` is a dated superseded pointer
+  redirecting to `vantrilex-security-auditor` (sole audit authority).
+  Both files perform no work and carry no rules of their own; both lock
+  rows are removed, so the lock holds 18 agents (17 self-sourced + 1
+  upstream). Verified by `a70-verify` 14/14 probes green.
+- **T4 cross-cutting controls plus D2=A switch conversion with the KEEP
+  ruling on triad switches.** All 14 prompts carry the worker-only line,
+  kit-awareness, missing-tooling protocol, and ponytail matrix verbatim;
+  side-agent V-switches are removed or consult-mode, so no session can
+  make a side agent primary-by-position. The triad switches
+  (`V-Vantrilex-Leader`, `V-Vantrilex-Guide`, `V-Vantrilex-Implementer`)
+  stay executable per the W17 redteam KEEP ruling on finding F2 (triad
+  mode-mismatch residual, kept deliberately, carried forward).
+- **Prep-only release boundary stated as a refusal in three places with
+  identical semantics (`t3-releaser-wire`).** `Vantrilex-Releaser` is
+  prep-only: it stages the handoff package feeding the
+  `github-release-packager` skill and never pushes a tag, never creates
+  or publishes a release, even when asked directly — a direct request
+  escalates to the leader, never obeys. The `github-release-packager`
+  skill is the SOLE release executor: tag, push, and publish happen
+  there and nowhere else; the Releaser feeds it, never duplicates or
+  bypasses it. The Releaser prompt already carried this refusal absolute,
+  so it stands unchanged (duplicate refusal lines are a defect); the
+  packager skill doc now states the sole-executor side of the same
+  boundary. Negative probe PASS (refuse + escalate).
+
+### Honesty notes
+
+- Scribe provenance is thin (1/4: `llipe/dev-tasks` REACHABLE, three
+  sibling sources GONE) — flagged, not papered; the Scribe prompt claims
+  only what the one live source supports.
+- Five GONE sources name parked rows with fetch proof and no invented
+  replacement (`t1-ux` proceeds on 1/2 sources, `t2-scout` on 4/5).
+- Finding F1 (allow-list gap) is a P1/P2 retool input, already planned —
+  not a release blocker, recorded here so it is never misread as fixed.
+- Live-probe gap: subagent depth-1 bars nested execution, so W17
+  verification rests on static transcripts; the owner may run the live
+  legs optionally.
+- The `SOURCES.md` seat-header defect (node ran on `main`, not the work
+  branch) is closed by the seat repair plus the on-branch 44/44
+  re-verification; the header line records the actual write-time branch
+  honestly.
+
 ## [0.6.5] — 2026-10-15
 
 ### Added
@@ -756,7 +840,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.6.5...HEAD
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.7.0
 [0.6.5]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.6.5
 [0.6.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.6.0
 [0.5.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.5.0
