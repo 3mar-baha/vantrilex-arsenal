@@ -3,7 +3,7 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 3,
   "counts": {
-    "skill": 1504,
+    "skill": 1505,
     "mcp": 907,
     "plugin": 11,
     "hook": 20,
@@ -18,7 +18,7 @@
     "policy": 1,
     "benchmark": 1,
     "workflow": 1,
-    "total": 2811
+    "total": 2812
   },
   "components": [
     {
@@ -31561,6 +31561,29 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-atomic-switch",
+      "name": "vantrilex-atomic-switch",
+      "kind": "skill",
+      "description": "Use when the operator installs per-agent themes, so the atomic switch commands resolve to a real theme file.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "themes",
+        "install"
+      ],
+      "when_to_use": "When the operator installs per-agent themes, to copy registry theme files into the runtime themes directory",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },

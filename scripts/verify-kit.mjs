@@ -27,7 +27,17 @@ const SKILLS_DIR = path.join(ROOT, ".opencode", "skills");
 const AGENTS_DIR = path.join(ROOT, ".opencode", "agents");
 const LSP_SIDECAR_PATH = path.join(ROOT, "registry", "data", "lsp.jsonl");
 
-const EXPECTED_PENDING = [];
+const EXPECTED_PENDING = [
+  "vantrilex-architect",
+  "vantrilex-code-reviewer",
+  "vantrilex-ai-generated-code-security-auditor",
+  "vantrilex-kit-maintainer",
+  "vantrilex-red-team",
+  "vantrilex-technical-writer",
+  "vantrilex-vantrilex-guide",
+  "vantrilex-vantrilex-implementer",
+  "vantrilex-vantrilex-leader"
+];
 const EXPECTED_LOCKED_SKILLS = ["vantrilex-vanguard", "vantrilex-doctrine", "vantrilex-prime"];
 
 const HOOK_FUNCTIONS = {
@@ -1199,13 +1209,22 @@ function main() {
   } else {
     const pendingIds = lock.pending.map((p) => p.id);
     const componentIds = new Set(components.map((c) => c.id));
+    const componentKeys = new Set(components.map((c) => c.id + "|" + c.kind));
     const problems = [];
-    if (pendingIds.length > 0) problems.push("expected empty pending list, found: " + pendingIds.join(", "));
     for (const id of EXPECTED_LOCKED_SKILLS) {
       if (componentIds.has(id) === false) problems.push("expected locked component missing: " + id);
     }
-    for (const id of pendingIds) {
-      if (componentIds.has(id)) problems.push("pending id is also locked as a component: " + id);
+    // The nine per-agent themes whose JSONs are not yet built stay pending:
+    // a file-copy install command for a nonexistent file is never registered.
+    const expectedPending = new Set(EXPECTED_PENDING);
+    for (const id of EXPECTED_PENDING) {
+      if (pendingIds.includes(id) === false) problems.push("expected pending entry missing: " + id);
+    }
+    for (const entry of lock.pending) {
+      if (expectedPending.has(entry.id) === false) problems.push("unexpected pending entry: " + entry.id);
+      if (typeof entry.reason !== "string" || entry.reason.trim() === "") problems.push("pending entry carries no reason: " + entry.id);
+      if (entry.kind !== "theme") problems.push("pending entry is not kind theme: " + entry.id);
+      if (componentKeys.has(entry.id + "|" + entry.kind)) problems.push("pending id is also locked as a component: " + entry.id);
     }
     if (problems.length > 0) {
       record("pending-integrity", "FAIL", problems.join("; "));
@@ -1213,7 +1232,7 @@ function main() {
       record(
         "pending-integrity",
         "PASS",
-        "pending is empty; " + EXPECTED_LOCKED_SKILLS.join(", ") + " are locked as components (catalog-matching fields proven by the catalog-agreement check)"
+        lock.pending.length + " pending per-agent themes carry stated reasons (no theme JSON on disk, no install command registered); " + EXPECTED_LOCKED_SKILLS.join(", ") + " are locked as components (catalog-matching fields proven by the catalog-agreement check)"
       );
     }
   }
