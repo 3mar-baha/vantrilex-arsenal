@@ -1,0 +1,46 @@
+# Forge DAG exemplar: two-wave kit census repair
+#
+# BLAZAR consumption contract (read before executing anything):
+# - BLAZAR reads the target WORKFLOW.md plus this DAG YAML as specification
+#   input. The YAML describes the work; it does not run it.
+# - OpenCode V2 has no native YAML workflow runner, so nothing here executes
+#   by itself. Execution happens only through BLAZAR's subagent tool
+#   dispatches, one node per dispatch, in dependency order.
+# - Each node carries the 9 BLAZAR fields: id, concern, owner, inputs,
+#   acceptance, verification, artifact, wave, depends_on.
+#
+# Forge section map (the 7 sections from vantrilex-workflow-forge F.3):
+# - Methodology: waves below run in order; wave 2 starts only on wave 1 done.
+# - Roles: kit-maintainer owns both nodes; the Guide signs off on the gate.
+# - Precautions: branch wt/vta-expansion-02 checked out; verifiers green first.
+# - Repair states: a red verifier halts the wave and the defect gets an id.
+# - Research: kit/kit.lock plus registry/catalog.json read live, never cited.
+# - Expanded thinking: none, because two nodes need no auxiliary lanes.
+# - Kit loadout: this workflow file plus the verify-kit and verify-registry
+#   scripts, read from the lock in force.
+
+dag: forge-dag-exemplar
+version: 1
+nodes:
+  - id: census-recount
+    concern: Recompute the kit census by counting lock and catalog entries
+    owner: kit-maintainer
+    inputs:
+      - kit/kit.lock
+      - registry/catalog.json
+    acceptance: Counts reported per kind and tier match the files on disk
+    verification: node scripts/verify-kit.mjs exits 0
+    artifact: census table in the wave report
+    wave: 1
+    depends_on: []
+  - id: gate-repair
+    concern: Repair the first red gate the recount exposes, one fix per change
+    owner: kit-maintainer
+    inputs:
+      - census table from census-recount
+    acceptance: The exact verification that failed now exits 0
+    verification: re-run of the failing command, output pasted verbatim
+    artifact: single-concern fix plus its changelog entry
+    wave: 2
+    depends_on:
+      - census-recount

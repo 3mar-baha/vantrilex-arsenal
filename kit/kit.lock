@@ -114,7 +114,14 @@
     { "id": "pwa-asset-generator", "kind": "cli", "source": "elegantapp/pwa-asset-generator", "install_cmd": "npm i -g pwa-asset-generator", "version_pin": "8.1.7", "phase": "on-demand", "tier": "conditional", "verification": "verified" },
     { "id": "fkill-cli", "kind": "cli", "source": "sindresorhus/fkill-cli", "install_cmd": "npm i -g fkill-cli", "version_pin": "9.0.0", "phase": "on-demand", "tier": "conditional", "verification": "verified" },
     { "id": "trash-cli", "kind": "cli", "source": "sindresorhus/trash-cli", "install_cmd": "npm i -g trash-cli", "version_pin": "7.2.0", "phase": "on-demand", "tier": "conditional", "verification": "verified" },
-    { "id": "kill-port", "kind": "cli", "source": "tiaanduplessis/kill-port", "install_cmd": "npm i -g kill-port", "version_pin": "2.0.1", "phase": "on-demand", "tier": "conditional", "verification": "verified" }
+    { "id": "kill-port", "kind": "cli", "source": "tiaanduplessis/kill-port", "install_cmd": "npm i -g kill-port", "version_pin": "2.0.1", "phase": "on-demand", "tier": "conditional", "verification": "verified" },
+    { "id": "vantrilex-blazar", "kind": "theme", "source": null, "install_cmd": "cp registry/themes/vantrilex-blazar.json ~/.config/opencode/themes/vantrilex-blazar.json", "version_pin": null, "phase": "on-demand", "tier": "conditional", "verification": "unverified" },
+    { "id": "vantrilex-install-prompt", "kind": "prompt", "source": null, "install_cmd": "cp registry/prompts/vantrilex-install-prompt.md docs/vantrilex-install-prompt.md", "version_pin": null, "phase": "scout", "tier": "conditional", "verification": "unverified" },
+    { "id": "stream-g-guard-probes", "kind": "dataset", "source": null, "install_cmd": "cp registry/datasets/stream-g-guard-probes.json eval/golden/stream-g-guard-probes.json", "version_pin": null, "phase": "review", "tier": "conditional", "verification": "unverified" },
+    { "id": "target-project-docs-scaffold", "kind": "template", "source": null, "install_cmd": "cp registry/templates/target-project-docs-scaffold.json docs/target-project-docs-scaffold.json", "version_pin": null, "phase": "docs", "tier": "conditional", "verification": "unverified" },
+    { "id": "allow-all-pack", "kind": "policy", "source": null, "install_cmd": "cp registry/policies/allow-all-pack.json ~/.config/opencode/opencode.json", "version_pin": null, "phase": "operate", "tier": "conditional", "verification": "unverified" },
+    { "id": "verifier-gate-smoke", "kind": "benchmark", "source": null, "install_cmd": "cp registry/benchmarks/verifier-gate-smoke.json eval/verifier-gate-smoke.json", "version_pin": null, "phase": "review", "tier": "conditional", "verification": "unverified" },
+    { "id": "forge-dag-exemplar", "kind": "workflow", "source": null, "install_cmd": "cp registry/workflows/forge-dag-exemplar.yaml .opencode/workflows/forge-dag-exemplar.yaml", "version_pin": null, "phase": "plan", "tier": "conditional", "verification": "unverified" }
   ],
   "pending": []
 }

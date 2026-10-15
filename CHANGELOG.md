@@ -9,6 +9,67 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-10-15
+
+### Added
+
+- **Per-agent theme infrastructure (new `theme` kind).** Schema v3 carries an
+  extensible kind mechanism (new schema file per version, never in-place
+  edits); `theme` is its first use. `vantrilex-blazar` is a dark royal-blue
+  V2-native theme (`base` + `dark` hue palettes, `#4169E1` at `blue.500`,
+  zero image keys), installed by file copy, mapped ACTIVE to `blazar` with
+  three future-agent rows RESERVED. No native auto-switch or background
+  image exists — the mapping is static config plus manual `/themes`.
+- **Ten-domain file-based RAG under `registry/rag/`.** Versioned JSON
+  envelope (`version`, `release`, per-entry `version_range`) across doctrine,
+  creator-identity (verbatim owner string), blazar-ops, component-deepdives,
+  failure-modes, releases, workflow-recipes, opencode-v2-platform,
+  security-posture, and user-faq, plus `knowledge-hotfix.json` (GitHub Pages
+  merge policy) and the v0.6.0 hosted-API design doc (no server).
+- **`vantrilex-deep-understand` skill + microscopic `docs/dev/`.** Read-only
+  progressive disclosure over a nine-file dev index; skill count 21→22.
+- **ECC takeaways.** Profile-based install (`minimal`/`opencode`/`core`/
+  `full` in `manifests/install-profiles.json`, ids resolved against the
+  lock), full `docs/ar/` translation set, `--ignore-scripts` hygiene on all
+  npm/npx script invocations, and `docs/19-HARNESS-MATRIX.md`
+  (OpenCode-first, all other harnesses FUTURE).
+- **Agents moved to canonical `.opencode/agents/`.** All ten files pure
+  renames; every agent declares `mode` explicitly (new `agent-mode-explicit`
+  gate); all nine pre-existing files normalized to V2 `permissions`.
+- **Zero-collision MCP names with a permanent scan** (`mcp-name-normalization`
+  gate); LSP honestly converted to need-label (V2 runs no language servers).
+
+### Fixed
+
+- **Red-team round-2 findings closed with probe proof** (45/45 checks):
+  bash-path verdicts, per-path pairing, session-id sanitizer at both sinks,
+  UNC-aware roots, kill-switch parity on both surfaces, role-preferring
+  append target, `sudo`/path-qualified `tee` coverage, and two V2 parity
+  items (bare-root setup, working-set recording).
+- **Phantom `typescript-lsp` double removed** from the plugins sidecar (now
+  lives only in `lsp.jsonl`); dropped plugins demoted from default-selected;
+  catalog Summary bullet corrected to 20.
+- **V-review notes applied**: `red-team` duplicate profile ids documented as
+  intentional (resolve by id+kind); `allow-all-pack` trigger carries a
+  back-up-first warning (the gate requires a plain `cp` install command, so
+  the warning lives in prose, not in the command).
+
+- **Six remaining kit kinds, one exemplar each (all conditional).**
+  `prompt` ships the paste-once repo install prompt
+  (`vantrilex-install-prompt`: pinned-tag clone, Prime once per machine,
+  Vanguard in project, prove-and-report); `dataset` ships the 45 Stream-G
+  guard probe checks as a golden JSON dataset (`stream-g-guard-probes`);
+  `template` ships the 28-file target-project docs scaffold manifest in 8
+  folders (`target-project-docs-scaffold`, `18-WORKFLOW.md` reserved for
+  Doctrine); `policy` ships the owner global allow-all pack itself
+  (`allow-all-pack`, every effect `allow`, never `deny`/`ask` by stealth);
+  `benchmark` ships one tiny verifier-gate smoke spec
+  (`verifier-gate-smoke`, outputs illustrative and never a target metric);
+  `workflow` ships one Forge-authored BLAZAR DAG exemplar
+  (`forge-dag-exemplar`, executed only through BLAZAR subagent dispatches).
+  Lock at 119 components, registry at 2811 records across 15 sections; the
+  `full` install profile stays in sync.
+
 ## [0.4.1] — 2026-10-14
 
 ### Fixed
@@ -618,7 +679,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.5.0
 [0.4.1]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.1
 [0.4.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.0
 [0.3.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.3.0

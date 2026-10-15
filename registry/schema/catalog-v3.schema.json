@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vantrilex.dev/schema/catalog-v3.schema.json",
+  "$comment": "EXTENSIBLE KIND MECHANISM (v3): 'kind' is a closed enum per schema version, extended by publishing a NEW schema version file, never by editing a published version in place. Plugging in a future kind touches exactly these places, and 'theme' (the first new kind, added in v3) followed this list: 1) the new schema file's 'kind' enum plus its description; 2) scripts/generate-catalog-json.mjs: the KINDS order, SECTION_KINDS (Markdown '##' heading to kind), SECTION_LABELS (kind to heading), SIDECAR_FILES (registry/data/<kind>.jsonl), INDEX_DIRS (registry/<dir>/_index.md), and SCHEMA_PATH plus the buildCatalog '$schema'/catalog_version pointer; 3) a new '## <Label> (N — M default-selected)' section in registry/VANTRILEX_CATALOG.md plus the Summary counts and folder paths; 4) when the kind is pinned in the kit, kit/kit.lock.schema.json's component and pending 'kind' enums plus one kit/kit.lock component whose phase, tier, install_cmd and verification match the generated record exactly, which scripts/verify-kit.mjs proves in its catalog-agreement check; 5) the new sidecar and component files, then regeneration through the generator. scripts/verify-registry.mjs needs no change for a new kind: its checks are kind-agnostic. scripts/verify-kit.mjs adds one per-kind check when a locked kind needs its own shape proven, as 'per-kind/theme' does.",
+  "title": "Vantrilex Catalog v3 Record",
+  "description": "One component record in the Vantrilex Registry. A record starts as a row parsed out of registry/VANTRILEX_CATALOG.md and becomes authoritative once registry/data/<kind>.jsonl enriches it. INVARIANT: a null install_cmd MUST carry verification 'unverified'. A record claiming verification 'verified' while install_cmd is null is invalid, because 'verified' asserts the install command was run against a real registry. A bare repository slug is not an install command, so it never populates install_cmd on its own. V3 adds the 'theme' kind; see the top-level $comment for how future kinds plug in.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "verification"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Stable lowercase-hyphenated slug derived from the display name, and the merge key against registry/data/<kind>.jsonl. An MCP row whose display name is already 'owner/repo' slugs by joining both segments, so '06ketan/slideshot' becomes '06ketan-slideshot'. Must be unique within its kind."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name exactly as authored in the catalog, with the trailing default-selection marker removed. Not required to be a slug and not required to be unique; id carries identity."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["skill", "mcp", "plugin", "hook", "agent", "formatting", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow"],
+      "description": "Component family. Decides which registry subdirectory holds the component files and which registry/data/<kind>.jsonl sidecar may enrich it. 'cli' covers a command-line tool provisioned as an executable on PATH rather than a prompt-loaded or process-resident component; its install_cmd must be a real package-manager invocation or the vendor's own installer, never a bare package name and never a curl-piped script. 'theme' covers an OpenCode CLI theme JSON shipped under registry/themes/ and installed by file copy into a themes directory; its install_cmd must be a real copy command, never a bare filename. 'prompt' covers a paste-once install or orientation prompt shipped under registry/prompts/ as Markdown and installed by file copy; 'dataset' covers a golden evaluation dataset shipped under registry/datasets/ as JSON and installed by file copy; 'template' covers a project scaffold manifest shipped under registry/templates/ as JSON and installed by file copy, carrying zero unsubstituted placeholder variables; 'policy' covers a permission pack shipped under registry/policies/ as JSON and installed by file copy, whose every effect stays allow and never becomes deny or ask by stealth; 'benchmark' covers a tiny gate benchmark specification shipped under registry/benchmarks/ as JSON and installed by file copy, kept to one check whose outputs are illustrative and never a target metric; 'workflow' covers a Forge-authored BLAZAR DAG shipped under registry/workflows/ as YAML, read as specification input and executed only through BLAZAR subagent dispatches since OpenCode V2 has no native YAML workflow runner. The enum grows by schema version (see the top-level $comment); 'theme' is the first addition after v2, and 'prompt', 'dataset', 'template', 'policy', 'benchmark' and 'workflow' follow in that order."
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line human summary of what the component does. May be the empty string when the source row carried none, but never null. Many rows are truncated by the authoring tool with a trailing U+2026; that truncation is source data and is preserved rather than expanded."
+    },
+    "source": {
+      "type": ["string", "null"],
+      "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+      "description": "The 'owner/repo' aggregator or collection the component is installed FROM. Null when the component ships inside Vantrilex itself and has no external origin."
+    },
+    "origin": {
+      "type": ["string", "null"],
+      "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+      "description": "The TRUE upstream author repository when it differs from source. Catalog v1 conflated aggregator with author, so a component redistributed by an awesome-list lost its real home: source 'VoltAgent/awesome-agent-skills' with origin 'shouldnotappearcalm/a-share-skill'. Null when source is already the author."
+    },
+    "install_cmd": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "A REAL, runnable shell command that installs this component, or null when no verified command is known. Never a bare repository slug, never a guess: a plausible-looking wrong command is worse than an admission of ignorance, because an agent will run it. Null forces verification to be 'unverified'."
+    },
+    "version_pin": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Exact version or tag the component is pinned to, such as 'v1.4.2'. Null means floating, which is the state of every record until backfill pins it."
+    },
+    "category": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Human-facing grouping label used by the generated per-kind index, such as 'security', 'research', or 'developer-tools'. Null when unclassified."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Lowercase, hyphenated search keywords. Always present in generated output; an unclassified record carries an empty array rather than null."
+    },
+    "when_to_use": {
+      "type": ["string", "null"],
+      "description": "One-line trigger describing the situation that should load this component. This is the text a model reads when deciding whether to invoke it. Null when the trigger is not yet authored."
+    },
+    "phase": {
+      "type": ["string", "null"],
+      "enum": ["scout", "docs", "plan", "build", "review", "operate", "on-demand", null],
+      "description": "Lifecycle phase this component belongs to. Null when the component spans phases or has not been placed yet."
+    },
+    "tier": {
+      "type": ["string", "null"],
+      "enum": ["core", "conditional", "extended", null],
+      "description": "Provisioning tier. 'core' leads the generated index, 'conditional' follows, 'extended' after that, and untiered entries last. Null means untiered."
+    },
+    "verify_cmd": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Command that proves the component works after installation, distinct from the command that installs it. Null when no verification procedure is known."
+    },
+    "cost_note": {
+      "type": ["string", "null"],
+      "enum": ["light", "heavy", null],
+      "description": "Relative cost of loading this component, so a model does not pull 'heavy' machinery into a trivial task. Null when the cost has not been measured."
+    },
+    "verification": {
+      "type": "string",
+      "enum": ["verified", "unverified"],
+      "description": "Provenance of this record's claims. 'verified' means install_cmd and origin were checked against a real registry or repository. 'unverified' means the record is carried as authored and its commands are not trusted. Any record with a null install_cmd MUST be 'unverified'."
+    },
+    "default_selected": {
+      "type": "boolean",
+      "description": "True when the component is included in Vantrilex provisioning automatically. Carried in the source catalog as a trailing U+2705 marker after the name."
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "The install-command invariant: a null install_cmd must be declared unverified.",
+      "if": {
+        "required": ["install_cmd"],
+        "properties": { "install_cmd": { "type": "null" } }
+      },
+      "then": {
+        "required": ["verification"],
+        "properties": { "verification": { "const": "unverified" } }
+      }
+    }
+  ]
+}

@@ -27,7 +27,7 @@ _None._
 | Dependency Cruiser | cli | conditional | Use when architectural dependency rules must be enforced or drawn. Deli… | `npm i -g dependency-cruiser@17.4.3` |
 | Dotenv CLI | cli | conditional | Use when a command must run with variables from a dotenv file. Delivery… | `npm i -g dotenv-cli` |
 | Drizzle Kit | cli | conditional | Use when Drizzle ORM migrations must be generated or applied. Delivery:… | `npm i -g drizzle-kit` |
-| ESLint | cli | conditional | Use when undefined. Delivery: PATH-assert - eslint lands on PATH after… | `npm i -g eslint` |
+| ESLint | cli | conditional | Use when JavaScript or TypeScript files must be linted for bugs and sty… | `npm i -g eslint` |
 | Envinfo | cli | conditional | Use when toolchain versions must be collected for a bug report. Deliver… | `npm i -g envinfo` |
 | FX | cli | conditional | Use when JSON must be explored interactively in the terminal. Delivery:… | `npm i -g fx` |
 | Fkill CLI | cli | conditional | Use when processes must be killed by name with interactive selection. D… | `npm i -g fkill-cli` |
