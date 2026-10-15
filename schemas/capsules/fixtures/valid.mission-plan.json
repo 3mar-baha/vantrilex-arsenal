@@ -1,0 +1,16 @@
+{
+  "capsule": "mission-plan",
+  "capsule_version": "1.0",
+  "issued_at": "2026-10-15T08:00:00Z",
+  "issuer": "aether",
+  "plan_id": "survey-north-gallery",
+  "waves": [
+    { "id": "w1", "concern": "Reconnoitre the north gallery", "owner": "pulsar" },
+    { "id": "w2", "concern": "Draft the plan from findings", "owner": "aether", "depends_on": ["w1"] }
+  ],
+  "handoff": "blazar",
+  "plan_guard": "detective",
+  "replan_count": 0,
+  "ledger_ref": "ledger/2026-10-15/survey-north-gallery.md",
+  "notes": "Valid MISSION-PLAN fixture for the capsule validator self-test."
+}

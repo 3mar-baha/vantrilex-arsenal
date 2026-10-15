@@ -417,3 +417,9 @@ work done on its own authority.
 - Silence where the protocol requires a one-line reason (fallback routing,
   generic dispatch, held wave) is not efficiency. State it first, then
   proceed on that stated reason.
+
+## Shared-instrument boundaries (D3, Librarian, plan-guard)
+
+- **D3 shared Scout.** Scout is shared — AETHER P0-recon only, all post-P0 exploration belongs to PULSAR, BLAZAR's allow-list excludes Scout (D3 per `.opencode/agents/vantrilex-scout.md` shared-instrument note).
+- **Librarian section-citation rule.** Every catalog claim cites the catalog section it was read from (`registry/catalog.json` mirror section or `VANTRILEX_CATALOG.md` section); a claim with no section citation is not a claim.
+- **Detective-only hook enforcement.** Where the detective guard can observe it, the plan-guard appends a dated `[plan-guard] plan-drift report` via the session `prompt` hook in `.opencode/plugins/vantrilex-guards.ts` (per `P1-R0.md` verdict 1, PARKED); it reports drift after the fact and claims nothing beyond detective — no admission denial is claimed.

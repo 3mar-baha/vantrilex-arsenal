@@ -9,6 +9,152 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.5] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
+
+> Status: this section is a parked draft, not a release. No `v0.7.5` tag
+> was cut, nothing was merged, pushed, or published, and no `[0.7.5]`
+> link reference was added below. It ships with the branch so the
+> owner's return finds the census, the gates, the residuals, and the
+> verification checklist in one place.
+
+### Added
+
+- **AETHER (`aether`) and PULSAR (`pulsar`) planning/exploration leaders,
+  lowercase ids everywhere checked.** Both ship as
+  `.opencode/agents/<id>.md` with `name` byte-equal to the file stem,
+  `mode: primary`, a non-empty `color` (`#14B8A6` teal for AETHER,
+  `#C026D3` fuchsia for PULSAR), `temperature: 0.1` (a focus setting,
+  not a model pin), and zero `model:` keys. AETHER runs
+  PREPARE→PLAN→STOP and never executes; PULSAR runs hypothesis-first
+  investigation under a budget box and hands findings-capsules to AETHER
+  only, never raw to the build lane. Display forms stay capitalized
+  (Aether, Pulsar) while every machine-checked surface — file stem,
+  frontmatter, lock id, registry key — is lowercase per the B2 ruling.
+  Companion switch commands `V-AETHER` / `V-PULSAR` and leader-tier
+  themes `vantrilex-aether` / `vantrilex-pulsar` ship alongside.
+- **Universal capsule validator family.** `schemas/capsules/`
+  carries the schema family (5 types: `mission-plan`, `findings`,
+  `refusal`, `wake`, `override`) plus valid/invalid
+  `mission-plan` fixtures; `scripts/validate-capsule.mjs` exits 0 on
+  valid capsules and nonzero with named reasons on invalid ones
+  (self-test exit `0`, quoted below). The `mission-plan` shape requires
+  `plan_id`, a non-empty `waves` array, and `handoff: blazar`.
+- **Detective plan-guard with PARKED-HARD honesty.** `p1-planguard`
+  extends `.opencode/plugins/vantrilex-guards.ts` with a
+  detective-only plan-drift append (`[plan-guard] plan-drift report`
+  via the session `prompt` hook). Per `P1-R0.md` Verdict 1, hook
+  admission-denial is IMPOSSIBLE on host `v2.0.27`, so no HARD
+  admission-denial claim is made anywhere: drift is reported after the
+  fact, never refused at admission.
+- **Identical shared-instrument section in all three leader docs.**
+  `aether.md`, `pulsar.md`, and `blazar.md` carry the same
+  `Shared-instrument boundaries (D3, Librarian, plan-guard)` section:
+  D3 shared Scout (AETHER P0-recon only, post-P0 exploration is
+  PULSAR's, BLAZAR's allow-list excludes Scout), the Librarian
+  section-citation rule, and the detective-only enforcement note.
+- **WAKE-REQUEST channel and OVERRIDE logging with the D5 bright line
+  (`docs/20-WAKE-OVERRIDE.md`).** Wake records route attention between
+  leaders (workers never issue them); override records carry
+  `verdict_preserved` verbatim — owner overrides direct work but NEVER
+  suppress gate verdicts.
+- **Refusal drills plus triumvirate integration test (`P1-DRILLS.md`,
+  all legs STATIC — subagent depth-1 bars nested execution, so no live
+  dispatch is claimed).** Drill 1 (order AETHER to execute) PASS with
+  cited refusal; Drill 3 (order PULSAR out-of-section) PASS with the
+  chain rule; integration P0→plan→EXPLORE→findings→plan-v2 PASS with
+  the BLAZAR stub boundary observed. Drill 2 is finding F-1 (see
+  residuals): ordering the pre-P2 BLAZAR seat to plan is accepted, not
+  refused — the refusal capsule plus prompt surgery is P2 scope
+  (`p2-retool`), already planned.
+- **Rename checklist plus audit re-homing note.** `P1-RENAME-CHECKLIST.md`
+  restates the B2 lowercase scope with per-surface proof commands;
+  `P1-AUDIT-REHOMING.md` homes `V-FULL-AUDIT` one way — AETHER plans,
+  the Build Leader executes — without editing the shipped command.
+- **Census recounted for this entry live (never transcribed): lock 137
+  components + 9 pending (was 133 + 9); catalog 2914 records across 16
+  sections (was 2910 across 16); agents sidecar 300 rows (was 298);
+  themes sidecar 3 rows (was 1).** Lock delta is exactly +4 (agents
+  `aether`, `pulsar` + themes `vantrilex-aether`, `vantrilex-pulsar`);
+  catalog delta is exactly +4 (same 4 rows; agent kind 300, theme kind
+  3, all other kinds unchanged; catalog Markdown Summary 2900, was
+  2896). Lock tiers: 31 `core` + 106 `conditional` (was 29 + 104).
+  Agent files on disk: 26 (23 `subagent` + 3 primary leaders); 19
+  self-sourced lock agents resolve to files, 1 upstream agent
+  (`a11y-audit`) carries no local file by design. The 9 `pending`
+  entries are unchanged and still absent from `components`.
+  `verify-registry.mjs` 7/7 PASS (exit `0`),
+  `generate-catalog-json.mjs --check` ok (exit `0`), `verify-kit.mjs`
+  22/22 PASS (exit `0`), `verify-skills.mjs` 10/10 PASS over 24 skill
+  folders (exit `0`), `tsc --noEmit` clean (exit `0`), `shellcheck`
+  over the 8 `scripts/*.sh` files clean (exit `0`); six gates green
+  after the final edit plus probe battery 45/45 (exit `0`) plus capsule
+  validator self-test (exit `0`).
+
+### Changed
+
+- **Leader exemption in `scripts/verify-kit.mjs`, ruling (a), named ids
+  only.** `per-kind/agents` now exempts exactly `aether`, `pulsar`,
+  and `blazar` from the `mode: subagent` requirement — each exempt id
+  must instead carry `mode` exactly `primary` plus a non-empty `color`,
+  enforced just as hard (missing either FAILS). Every other
+  self-sourced lock agent still requires `mode: subagent` with no color
+  field. No pattern, no flag, no skip.
+- **W23 repair round 1 (scope-locked, no new features).** F6: the missing
+  `aether`/`pulsar` registry rows the order's own commands promise are
+  added (lock rows, sidecar rows, catalog rows, indexes — delta +2
+  agents / +2 themes counted above). F9: color presence-only hardened
+  to non-empty enforcement in the verifier (an exempt leader with an
+  empty color FAILS). Re-verified green after the repair.
+
+### Known residuals (NOT fixed here; recorded so none is misread as fixed)
+
+- **F1–F5 (forgery/authenticity).** Signature-class machinery is
+  out-of-scope new machinery for this lane. Compensating control:
+  session trust — capsules are session-local planning artifacts, never
+  cross-session credentials; nothing here authenticates a foreign
+  issuer.
+- **F7 (= drills F-1, pre-P2 BLAZAR).** Until the P2 retool lands,
+  nothing on disk stops planning from being done by the orchestrator
+  seat. Input to P2, already planned (`p2-retool`: prompt surgery +
+  refusal capsule).
+- **F8 (doc/schema mismatch).** Either repair direction alters a
+  verified component, so it waits on an explicit vanbu ruling.
+- **Live-probe gap.** Subagent depth-1 bars nested execution, so the
+  drills and the integration test rest on static transcripts with
+  `file:line` citations; the owner may run the live legs optionally.
+
+### PARKED list (what this change deliberately does not do)
+
+- The `v0.7.5` release itself: no merge, no tag, no push, no publish —
+  this section is parked uncommitted on `wt/vta-expansion-03`.
+- D4 plan-guard HARD admission gate: PARKED per `P1-R0.md` Verdict 1
+  (detective fallback ships instead, honestly documented).
+- The dedicated commands library: PARKED to v0.8 per the B2 ruling
+  (commands stay omitted; `V-AETHER` / `V-PULSAR` are switch commands,
+  not a commands library).
+- The 9 `pending` per-agent themes: still pending with stated reasons
+  each (no theme JSON on disk, no install command registered).
+
+### Vanbu fresh-clone verification checklist (exact)
+
+1. `git clone` the repo, `git checkout wt/vta-expansion-03`, confirm
+   `git rev-parse HEAD` prints the hash quoted in the park report.
+2. `node scripts/verify-registry.mjs` → exit `0`, 7/7 PASS.
+3. `node scripts/generate-catalog-json.mjs --check` → exit `0`.
+4. `node scripts/verify-kit.mjs` → exit `0`, 22/22 PASS.
+5. `node scripts/verify-skills.mjs` → exit `0`, 10/10 PASS.
+6. `npx tsc --noEmit -p tsconfig.json` → exit `0`.
+7. `shellcheck scripts/*.sh` (8 files) → exit `0`.
+8. `node .opencode/plugin/arsenal.findings-probe.mjs` → 45/45, exit `0`.
+9. `node scripts/validate-capsule.mjs --self-test` → exit `0`.
+10. Recount: lock 137 + 9 pending; catalog 2914 / 16 sections; agents
+    sidecar 300 rows; agent files 26 on disk.
+11. Confirm `.opencode/agents/aether.md` + `pulsar.md`: lowercase
+    `name` == stem, `mode: primary`, non-empty `color`, zero `model:`
+    keys; shared section byte-identical across the three leader docs.
+12. Confirm `git tag -l v0.7.5` prints nothing and no `v0.7.5` release
+    exists — parked means parked.
+
 ## [0.7.0] — 2026-10-15
 
 ### Added
