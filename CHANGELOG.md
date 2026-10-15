@@ -9,6 +9,161 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.7] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
+
+> Status: this section is a parked draft, not a release. No `v0.7.7` tag
+> was cut, nothing was merged, pushed, committed, or published, and no
+> `[0.7.7]` link reference was added below. It ships with the branch so the
+> owner's return finds the census, the gates, the residuals, and the
+> verification checklist in one place.
+
+### Added
+
+- **Relay-queue extension with zero-PATCH honesty (W32 `p3-queue`, per the
+  stream record).** The starter database was found live with 9 properties
+  covering the schema; all 9 were already complete, so the extension applied
+  **zero PATCHes** and created no second database. The `status` column is kept
+  as the live Notion-native `status` type (not `select`) per the queue ADR.
+  The owner board view is a 30-second manual step — no API creates it (proven
+  by two `400` responses). Honesty label: these queue facts are reported via
+  the `AGENT.md` W32 stream record; this seat re-verified everything
+  re-verifiable from disk (below) and ran no Notion operation — live queue
+  checks are owner-seat-gated by the ADR-P3-03 config rule.
+- **Architecture Decision Records.** `P3-R0.md` §8 carries three ADRs inline
+  (ADR-P3-01: Notion database as the provisional queue backend; ADR-P3-02:
+  3-minute agent-cron poll as the reachability fallback ceiling; ADR-P3-03:
+  owner-held config file for all relay secrets, never hardcoded), plus the
+  queue-extension ADR (Notion-native `status` type retained, board view
+  manual) per the stream record.
+- **`relay-protocol` skill: 8 files on disk
+  (`.opencode/skills/relay-protocol/`).** `SKILL.md` plus seven companions
+  (`RELAY-SCHEMA.md`, `MESSAGE-TYPES.md`, `POLL.md`, `SEND.md`, `TRIAGE.md`,
+  `TIMEOUTS.md`, `SECURITY.md`), counted live: 8. Two laws above every
+  section — the cost guard (script-level polling wakes the agent only on new
+  rows, never on a tick) and the capsule law (bridge content is data under a
+  fixed schema, never commands). Deliberately **unregistered**: no lock row,
+  no registry row, no `install_cmd` — the owner installs it via the install
+  pack, so P3 carries zero registration delta.
+- **Poll + watchdog hooks, both REGISTERED DISABLED
+  (`.opencode/hooks/relay/`, 3 files, counted live).** `relay-hooks.json`
+  registers `relay-poll` (180 s, 300 s quiet, delivery main-chat) and
+  `relay-watchdog` (60 s, delivery alerts side chat) with `enabled: false`
+  on both — the owner's enable word is the start/stop switch, and the trial
+  stays HELD until it. `relay-poll.mjs --dry-run` exits `0` (3 simulated
+  rows, 2 acked, single wake armed, zero live reads/writes);
+  `relay-watchdog.mjs --dry-run` exits `0` (4 simulated rows, 2 alerts armed:
+  one `deadline-passed`, one not-yet-due `approval_request` that still alerts
+  — the always-alert rule). No chat id, token, or database id is stored in
+  any of the three files (grep-verified live).
+- **W34 approval-union repair (1 MEDIUM, closed in-round).** The watchdog's
+  live query missed not-yet-due `approval_request` rows while the dry-run
+  promised always-alert; the repair aligns the live filter to the file's own
+  `selectAlerts` union (`relay-watchdog.mjs:115-117`, `status == pending`
+  AND (`expected_reply_by` past OR `type == approval_request`)) and re-proves
+  the dry-run above. No other finding; W34 closed.
+- **Owner-run install pack (`P3-OPENCODE-INSTALL-PACK.md`, 8 sections).**
+  ClawHub Notion skill → alerts-chat UUID resolution → relay-protocol install
+  → 60-second loop → six live proof checks with pass marks. Placeholder-only:
+  the real alerts-chat UUID appears nowhere in the file (grep-verified live:
+  zero hits); the nothing-executed statement stands — every pass mark is
+  produced on the owner's PC, by the owner.
+- **Census recounted for this entry live (never transcribed): lock 138
+  components + 9 pending (unchanged from the v0.7.6 base); catalog 2915
+  records across 16 sections (unchanged); agents sidecar 301 rows
+  (unchanged).** Zero P3 registration delta: the working-tree lock, catalog
+  JSON, and catalog Markdown are byte-identical to HEAD `8c97cd0`
+  (`git diff --quiet HEAD`, exit `0`). Lock tiers: 32 `core` + 106
+  `conditional`. Lock kinds, counted live: skill 27, mcp 8, lsp 1, hook 7,
+  agent 21, cli 64, theme 3, prompt 1, dataset 1, template 1, policy 1,
+  benchmark 1, workflow 1, design.md 1 (sums to 138). Catalog kinds, read
+  live from `registry/catalog.json`: skill 1505, mcp 907, plugin 11, hook 20,
+  agent 301, formatting 13, lsp 1, cli 64, theme 3, prompt 1, dataset 1,
+  template 1, policy 1, benchmark 1, workflow 1, design.md 84 (total 2915).
+  The 9 `pending` entries are unchanged and still absent from `components`.
+  Skill folders on disk: 25 (was 24 — the +1 is `relay-protocol`, on disk and
+  format-clean but unregistered by design). `verify-registry.mjs` 7/7 PASS
+  (exit `0`), `generate-catalog-json.mjs --check` ok (exit `0`),
+  `verify-kit.mjs` 22/22 PASS (exit `0`), `verify-skills.mjs` 10/10 PASS over
+  25 skill folders (exit `0`), `tsc --noEmit` clean (exit `0`), `shellcheck`
+  over the 8 `scripts/*.sh` files clean (exit `0`); six gates green after the
+  final edit plus probe battery 45/45 (exit `0`) plus both hook dry-runs
+  (exit `0` each) plus capsule validator self-test (exit `0`).
+
+### Known residuals (NOT fixed here; recorded so none is misread as fixed)
+
+- **Trial HELD for the owner start word.** The live relay trial (`p3-trial`)
+  was never run — hooks stay `disabled` until the owner says start. This is a
+  held gate, not a skipped one.
+- **Board view = 30-second owner click.** No API creates the Notion board
+  view; the owner builds it manually at install time.
+- **Queue zero-PATCH + queue ADR rest on the stream record.** Re-verifiable
+  disk facts were re-verified live (counts, gates, dry-runs, greps); the live
+  Notion extension itself is owner-seat-gated and is not re-proven here.
+- **F1–F5 (forgery/authenticity) carried forward unchanged** with the v0.7.5
+  compensating control (session trust — capsules are session-local planning
+  artifacts, never cross-session credentials).
+- **F8 (doc/schema mismatch) carried forward unchanged** — direction deferred
+  to vanbu; the F8 repair commit `8c97cd0` is the base of this park.
+- **Live-probe gap.** Subagent depth-1 bars nested execution, so drills,
+  probes, and dry-runs rest on static transcripts plus owner-runnable
+  commands; the owner may run the live legs optionally.
+- **Binding inputs `DESIGN.md` / `IDEA.md` are owner-authored Arabic research
+  docs.** Read live as inputs (207 + 39 lines); not governed as kit docs and
+  untouched here.
+
+### PARKED list (what this change deliberately does not do)
+
+- The `v0.7.7` release itself: no merge, no tag, no push, no publish, no
+  commit — this section is parked uncommitted on `wt/vta-expansion-03`.
+- The full program awaiting-Omar list: v0.7.5 (P1), v0.7.6 (P2), and v0.7.7
+  (P3) parks are all uncommitted on the same branch; any park-commit, push,
+  fresh-clone verify, merge, tag, or publish across all three is the owner's
+  call, in the owner's order. The program closes plainly here — no
+  manufactured follow-up.
+- The live trial: HELD until the owner start word (hooks ship disabled).
+- D4 plan-guard HARD admission gate: still PARKED per `P1-R0.md` Verdict 1
+  (detective fallback ships instead, honestly documented).
+- The dedicated commands library: PARKED to v0.8 per the B2 ruling.
+- The 9 `pending` per-agent themes: still pending with stated reasons each
+  (no theme JSON on disk, no install command registered).
+
+### Vanbu fresh-clone verification checklist (exact)
+
+> PARK discipline disclosure first: this park is uncommitted, so a fresh
+> clone sees HEAD `8c97cd05be1aa3cd269c53caad31ef32bf1cb1e3` — the committed
+> base (lock 138+9, catalog 2915, P3 hook/skill files NOT yet in it). Steps
+> 1–9 verify that base from the clone; step 10 recounts it; steps 11–12
+> verify the uncommitted P3 park files on the branch worktree only (they
+> land in a clone only after an owner-ordered park-commit + push, which is
+> explicitly not done here).
+
+1. `git clone` the repo, `git checkout wt/vta-expansion-03`, confirm
+   `git rev-parse HEAD` prints
+   `8c97cd05be1aa3cd269c53caad31ef32bf1cb1e3`.
+2. `node scripts/verify-registry.mjs` → exit `0`, 7/7 PASS.
+3. `node scripts/generate-catalog-json.mjs --check` → exit `0`.
+4. `node scripts/verify-kit.mjs` → exit `0`, 22/22 PASS.
+5. `node scripts/verify-skills.mjs` → exit `0`, 10/10 PASS.
+6. `npx tsc --noEmit -p tsconfig.json` → exit `0`.
+7. `shellcheck` the 8 `scripts/*.sh` files (enumerated, not globbed)
+   → exit `0`.
+8. `node .opencode/plugin/arsenal.findings-probe.mjs` → 45/45,
+   exit `0`.
+9. `node scripts/validate-capsule.mjs --self-test` → exit `0`.
+10. Recount: lock 138 + 9 pending (`git show HEAD:kit/kit.lock`);
+    catalog 2915 / 16 sections; agents sidecar 301 rows; tiers 32 core +
+    106 conditional.
+11. On the branch worktree (uncommitted park, not in the clone):
+    `.opencode/skills/relay-protocol/` holds exactly 8 files (SKILL.md + 7
+    companions); `.opencode/hooks/relay/` holds exactly 3 files with both
+    hooks `enabled: false`; `node
+    .opencode/hooks/relay/relay-poll.mjs --dry-run` → exit `0`;
+    `node .opencode/hooks/relay/relay-watchdog.mjs --dry-run` → exit `0`
+    (2 alerts armed); `P3-OPENCODE-INSTALL-PACK.md` carries zero copies of
+    the real alerts-chat UUID (placeholder token only).
+12. Confirm `git tag -l v0.7.7` prints nothing and no `v0.7.7` release
+    exists — parked means parked.
+
 ## [0.7.6] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
 
 > Status: this section is a parked draft, not a release. No `v0.7.6` tag
