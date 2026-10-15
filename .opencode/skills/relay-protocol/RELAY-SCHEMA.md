@@ -24,6 +24,10 @@ The nine columns of the live `relay-queue` database, carried forward from the p3
 | `thread_id` | rich_text | New rows carry their own id; replies carry the origin row id |
 | `created` | created_time | System-set timestamp and tamper-proof sort key for polls |
 
+## Counter reads
+
+The nine columns above are frozen: no tenth column exists and none is added. Counters the loops need are read with graceful defaults when absent: a missing `retry_count` reads as `0` and a missing `last_error` reads as `null`, exactly as the hook envelope readers do. Absence is the normal case, never an error.
+
 ## Session fields
 
 Session membership travels with the correlation fields, never in new columns: the body carries a `Session:` line naming the owning session, and `thread_id` keys request to reply correlation inside that session. The session lifecycle, keying detail, and the reaper live in `SESSIONS.md`. No tenth column exists and none is added.

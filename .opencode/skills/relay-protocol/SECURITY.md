@@ -16,7 +16,7 @@ Release, publish, tag-push, and delete are banned over the bridge in all cases, 
 
 ## Secret-pattern scan
 
-The validator scans every row for secret-like patterns: tokens beginning with `secret_`, `sk-`, `ghp_`, or `xoxb-`. A match quarantines the row at once: status to `invalid`, an immediate alert, and no further action on the row. The alert names the row id and the matched pattern family without copying the secret value.
+The validator scans every row for secret-like patterns: tokens beginning with `secret_`, `sk-`, `ghp_`, `xoxb-`, or `ntn_`. A match quarantines the row at once: status to `invalid`, an immediate alert, and no further action on the row. The alert names the row id and the matched pattern family without copying the secret value.
 
 ## Config and identity hygiene
 

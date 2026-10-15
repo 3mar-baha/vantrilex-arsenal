@@ -17,7 +17,7 @@ Filter `to` equals `vanbu` and `status` equals `pending`, sorted by `created` as
 
 ## Consumer query, opencode side
 
-Filter `to` equals `opencode` and `status` equals `pending`, sorted by `created` ascending. One query per poll tick, on a 60-second cadence.
+Filter `to` equals `opencode` and `status` equals `pending`, sorted by `created` ascending. One query per poll tick, on a 180-second cadence.
 
 ## Watchdog query
 
@@ -34,9 +34,13 @@ Filter `status` equals `pending` and `expected_reply_by` earlier than now, sorte
 
 The poll script keys its watermark on `last_edited_time` with the row id as tiebreak, holding the highest pair seen. Each tick drops rows at or below the watermark except through the backfill window: the trailing 10 minutes of `last_edited_time` are always re-compared, so late-indexed or edited rows still surface. Rows already seen are ignored; only unseen rows wake the agent, and the state advances past them after the wake. A tick with nothing new ends silently.
 
+## Receipts
+
+Every `verify_request` row on the wake set emits one machine-readable receipt: a single-line JSON log line, one per row, never a new row. The poll loop logs `[relay-poll] RECEIPT {"receipt_for":"<row id>","kind":"verify_receipt","verdict":"inconclusive","reason":"dry_run: envelope read only; body evidence not executed","shas":[],"checklist":["schema-valid","no-secret-hit","evidence-present","human-verdict-pending"],"thread_id":"<thread id>"}` where `shas` carries the SHAs seen (empty when none) and `thread_id` falls back to the row id. The watchdog logs `[relay-watchdog] RECEIPT {...}` with the same keys, its own caller verdict and reason, and the checklist `["schema-valid","no-secret-hit","deadline-checked","human-verdict-pending"]`.
+
 ## Backoff
 
-Quota-aware backoff overrides cadence on pressure. On HTTP 429 or an explicit usage-limit signal the poller runs the per-tick ladder inside the tick: 30 seconds, then 2 minutes, then 10 minutes, with jitter added to each step so the two sides do not march in lockstep. A `Retry-After` header is always honored exactly when present. HTTP 529 is treated exactly as 429. When the ladder is exhausted the tick fails loud with the degrade hint and stops: no persistent cadence state is kept, the next tick retries fresh from the first ladder step, and backoff never wakes the agent; it only delays ticks.
+Quota-aware backoff overrides cadence on pressure. On HTTP 429 or an explicit usage-limit signal the poller runs the per-tick ladder inside the tick: 30 seconds, then 2 minutes, then 10 minutes, with jitter added to each step so the two sides do not march in lockstep. A `Retry-After` header is always honored exactly when present. HTTP 529 is treated exactly as 429. When the ladder is exhausted the tick fails loud with the degrade hint and stops. The degrade ladder is advisory-only: no persistent cadence state is kept, the next tick retries fresh from the first ladder step, and backoff never wakes the agent; it only delays ticks.
 
 ## Webhooks deferred
 
