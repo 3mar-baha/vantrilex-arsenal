@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.5] — 2026-10-15
+
+### Added
+
+- **Eighth `design.md` kind with the complete 84-file MIT bundle.**
+  `voltagent/awesome-design-md` on `main` recounted live (GitHub API tree,
+  exactly one `DESIGN.md` per brand directory: `84`, exit `0`); all 84 files
+  bundled unmodified under `registry/design/<brand>/DESIGN.md` (2,466,141
+  bytes, dotted slugs preserved, `DESIGN.md` only, no Vantrilex authorship
+  asserted) with the MIT text at `registry/design/LICENSE.voltagent-MIT`
+  (byte-identical to the live upstream `LICENSE`, 1066 bytes) and per-file
+  blob SHA-1 proof in `registry/design/ATTRIBUTION.md`. Schema v3, the
+  generator (`KINDS` / `SECTION_KINDS` / `SECTION_LABELS` / `SIDECAR_FILES` /
+  `INDEX_DIRS`), the catalog `## Design` section plus Summary recount, the
+  lock-schema enums, and a new `per-kind/design.md` verifier check all carry
+  the kind; one `stripe` exemplar is wired end to end (lock row, sidecar row,
+  catalog row, generated `registry/design/_index.md`, verifier proof).
+  Census recounted for this entry (never transcribed): lock 121 components +
+  9 pending (was 120 + 9); catalog 2896 records across 16 sections (was
+  2812 across 15); sidecar `registry/data/design.jsonl` 84 rows; 84/84 brand
+  directories carry `DESIGN.md`; zero `model:` pins and zero placeholders
+  across all 84 bundled files.
+  `verify-registry.mjs` 7/7 PASS, `generate-catalog-json.mjs --check` ok,
+  `verify-kit.mjs` 22/22 PASS, `verify-skills.mjs` 10/10 PASS; six gates
+  green after the final edit plus probe battery 45/45.
+
 ## [0.6.0] — 2026-10-15
 
 ### Added
@@ -730,7 +756,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Registry v2 (schema, generator, verifier, per-kind sidecars) and the Tier-0 kit are
   in progress and are tracked under `[Unreleased]`.
 
-[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/3mar-baha/vantrilex-arsenal/compare/v0.6.5...HEAD
+[0.6.5]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.6.5
 [0.6.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.6.0
 [0.5.0]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.5.0
 [0.4.1]: https://github.com/3mar-baha/vantrilex-arsenal/releases/tag/v0.4.1

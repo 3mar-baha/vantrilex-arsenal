@@ -740,6 +740,103 @@ function proveWorkflow(id, shipped, src) {
   return null;
 }
 
+/**
+ * Validate the shape of every locked design.md entry. A design.md entry is an
+ * unmodified MIT-licensed brand interface design document
+ * (Copyright (c) 2026 VoltAgent) shipped under registry/design/<brand>/DESIGN.md
+ * and installed by copying that file into the target project docs: a plain
+ * `cp registry/design/<brand>/DESIGN.md <dest>` with no shell operators.
+ * Dotted upstream slugs (linear.app, mistral.ai, opencode.ai, together.ai,
+ * x.ai) are preserved exactly as directory names, so the entry id is the
+ * slugified brand (dots become hyphens) and must satisfy designSlug(brand).
+ * The shipped file must carry no model pin and no placeholder, because the
+ * bundle rule ships third-party bytes unmodified and asserts no Vantrilex
+ * authorship. Anything else is refused here rather than trusted, because an
+ * agent downstream will execute the string verbatim.
+ */
+const DESIGN_COPY_RE = /^cp registry\/design\/([A-Za-z0-9._-]+)\/DESIGN\.md (\S+)$/;
+const DESIGN_PIPE_FORBIDDEN = /\||\|\||&&|;|`|\$\(|\$\{/;
+
+function designSlug(brand) {
+  const folded = brand.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  return folded.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+function checkDesignEntries(components) {
+  const entries = components.filter((c) => c.kind === "design.md");
+  if (entries.length === 0) {
+    return { status: "PASS", detail: "0 design.md entries locked; the kind is scaffolded and carries no entry yet" };
+  }
+  const failures = [];
+  for (const entry of entries) {
+    const id = entry.id;
+    if (LOCK_PHASES.includes(entry.phase) === false) {
+      failures.push(id + ": phase " + JSON.stringify(entry.phase) + " is outside the lock phase enum");
+    }
+    if (LOCK_TIERS.includes(entry.tier) === false) {
+      failures.push(id + ": tier " + JSON.stringify(entry.tier) + " is outside the lock tier enum");
+    }
+    if (CLI_VERIFICATIONS.includes(entry.verification) === false) {
+      failures.push(id + ": verification " + JSON.stringify(entry.verification) + " is not verified or unverified");
+    }
+    if (entry.verification === "verified" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
+      failures.push(id + ": verification is verified but install_cmd is null or empty");
+    }
+    if (typeof entry.install_cmd !== "string" || entry.install_cmd.trim() === "") {
+      failures.push(id + ": install_cmd is empty; a design.md entry must carry the file-copy command that installs it");
+      continue;
+    }
+    const text = entry.install_cmd.trim();
+    if (DESIGN_PIPE_FORBIDDEN.test(text) === true) {
+      failures.push(id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
+      continue;
+    }
+    const match = text.match(DESIGN_COPY_RE);
+    if (match === null) {
+      failures.push(id + ": install_cmd is not a `cp registry/design/<brand>/DESIGN.md <dest>` file copy (" + JSON.stringify(entry.install_cmd) + ")");
+      continue;
+    }
+    const brand = match[1];
+    if (designSlug(brand) !== id) {
+      failures.push(id + ": install_cmd names brand " + JSON.stringify(brand) + " but the slugified brand does not equal the entry id (dotted slugs become hyphens)");
+      continue;
+    }
+    const expectedSrc = "registry/design/" + brand + "/DESIGN.md";
+    const filePath = path.join(ROOT, expectedSrc);
+    if (fs.existsSync(filePath) === false) {
+      failures.push(id + ": shipped file " + expectedSrc + " does not exist");
+      continue;
+    }
+    let shipped = null;
+    try {
+      shipped = fs.readFileSync(filePath, "utf8");
+    } catch (err) {
+      failures.push(id + ": " + expectedSrc + " is unreadable (" + String(err) + ")");
+      continue;
+    }
+    if (/^\s*model\s*:/m.test(shipped)) {
+      failures.push(id + ": " + expectedSrc + " pins a model; design documents carry no model pins");
+      continue;
+    }
+    if (/TODO|FIXME/.test(shipped)) {
+      failures.push(id + ": " + expectedSrc + " carries a TODO or FIXME placeholder");
+      continue;
+    }
+    for (const companion of ["registry/design/LICENSE.voltagent-MIT", "registry/design/ATTRIBUTION.md"]) {
+      if (fs.existsSync(path.join(ROOT, companion)) === false) {
+        failures.push(id + ": MIT companion " + companion + " does not exist; the license travels with the content");
+      }
+    }
+  }
+  if (failures.length > 0) {
+    return { status: "FAIL", detail: failures.join("; ") };
+  }
+  return {
+    status: "PASS",
+    detail: entries.length + " design.md " + (entries.length === 1 ? "entry ships" : "entries ship") + " unmodified MIT brand document(s) installed by a real file copy with valid phase, tier and verification; zero model pins, zero placeholders, MIT companions present"
+  };
+}
+
 function offlineReason(result) {
   if (result.code === "ENOENT") return "tool not on PATH (ENOENT)";
   const hay = result.stderr + "\n" + result.stdout + "\n" + result.code + "\n" + (result.message || "");
@@ -817,6 +914,7 @@ function main() {
     record("per-kind/policy", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/benchmark", "FAIL", "cannot be evaluated: lockfile components unreadable");
     record("per-kind/workflow", "FAIL", "cannot be evaluated: lockfile components unreadable");
+    record("per-kind/design.md", "FAIL", "cannot be evaluated: lockfile components unreadable");
   } else {
     const skills = components.filter((c) => c.kind === "skill");
     const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
@@ -1079,6 +1177,9 @@ function main() {
 
     const workflowResult = checkFileCopyKind(components, { kind: "workflow", dir: "workflows", ext: "yaml", prove: proveWorkflow });
     record("per-kind/workflow", workflowResult.status, workflowResult.detail);
+
+    const designResult = checkDesignEntries(components);
+    record("per-kind/design.md", designResult.status, designResult.detail);
 
     // Every shipped agent file declares mode explicitly. OpenCode V2
     // defaults an omitted mode to primary, so a file without a mode line
