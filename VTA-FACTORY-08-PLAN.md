@@ -30,6 +30,33 @@ a written justification flag. No execution follows from this document.
   stands: every side agent id is lowercase `vantrilex-*`; any other form is
   rejected at admission.
 
+### 1.1 Theme-color law (amended, owner-decided)
+
+Owner decision recorded in repair round 1: agent theme COLORS are chosen by
+the OWNER, never auto-assigned. Assignment is by TAG/role family — one color
+per family from a striking-but-harmonious palette. Every agent keeps its OWN
+theme, but the COLOR comes from the owner's palette by tag. No rename and no
+theme change lands on any agent or theme file until the owner approves the
+palette below; the table is a PROPOSAL REQUIRING OWNER APPROVAL.
+
+Baseline reconciled: leader accents today are `#14B8A6` (Aether),
+`#4169E1` (Blazar), `#C026D3` (Pulsar) per R1 §8. The proposal keeps all
+three leader accents unchanged and chooses family colors to harmonize with
+them without colliding.
+
+| Scope | Proposed color | Rationale |
+|---|---|---|
+| dev family | `#3B82F6` blue | Owner example honored: programmers and developers read blue. |
+| design family | `#EC4899` pink | Striking warm contrast against the blue/teal leader baseline. |
+| review family | `#F59E0B` amber | Signals careful second-pass judgment; distinct from audit red. |
+| audit family | `#EF4444` red | Signals scrutiny and stop-power; standard alert semantics. |
+| docs family | `#10B981` emerald | Green neighbor of the Aether teal baseline, distinct shade. |
+| operate family | `#8B5CF6` purple | Owner example honored: GitHub specialists read purple family. |
+| exploration family | `#22D3EE` cyan | Open-search signal; light neighbor of the teal baseline. |
+| Leader Blazar | `#4169E1` royal blue (BASELINE KEPT) | Build-leader accent unchanged; anchors the blue dev neighbor. |
+| Leader Aether | `#14B8A6` dark teal (BASELINE KEPT) | Planning-leader accent unchanged; anchors docs and exploration. |
+| Leader Pulsar | `#C026D3` deep magenta (BASELINE KEPT) | Exploration-leader accent unchanged; anchors design pink. |
+
 ## 2 — Ground truth carried from R1 (recounted live, never transcribed)
 
 Source: `VTA-FACTORY-08-R1-inventory.md` (branch `wt/vta-factory-08`,
@@ -122,7 +149,9 @@ with-skill versus baseline same-turn evals, grade and iterate. Both target
 the OpenCode frontmatter subset (`name` plus `description` required;
 `allowed-tools` and equivalents silently ignored). Agent-maker emits
 Arsenal-format agents (`.opencode/agents/`, lowercase `vantrilex-*`, `mode:`,
-one theme per agent).
+one theme per agent) and carries the owner-approved color-by-tag mapping
+(§1.1) as a required spec element: every emitted agent names its tag family
+and its palette color, and no theme ships without that mapping.
 
 ### 5.3 A1 identity fix design (v0.8-gated, foundational)
 
@@ -247,7 +276,10 @@ Covers: §2.4 agent-polisher, §2.5 Crucible-uploader set, §2.6 auto-evaluator,
 
 Same eval-driven loop as §2.3 applied to agents, yielding `vantrilex-*` ids
 for every polished agent (R1 scope: 17 workers plus leaders). False-friends
-and the order-given 7-dimension audit apply symmetrically.
+and the order-given 7-dimension audit apply symmetrically. Every polished
+agent carries the owner-approved color-by-tag mapping (§1.1) as a required
+spec element: tag family plus palette color recorded per agent, and no
+rename or theme change lands before the owner approves the palette.
 
 ### 7.2 Crucible-uploader set (§2.5) and Crucible (§3)
 
