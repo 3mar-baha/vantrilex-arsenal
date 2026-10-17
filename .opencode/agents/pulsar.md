@@ -269,3 +269,18 @@ the investigation without it:
 - **D3 shared Scout.** Scout is shared — AETHER P0-recon only, all post-P0 exploration belongs to PULSAR, BLAZAR's allow-list excludes Scout (D3 per `.opencode/agents/vantrilex-scout.md` shared-instrument note).
 - **Librarian section-citation rule.** Every catalog claim cites the catalog section it was read from (`registry/catalog.json` mirror section or `VANTRILEX_CATALOG.md` section); a claim with no section citation is not a claim.
 - **Detective-only hook enforcement.** Where the detective guard can observe it, the plan-guard appends a dated `[plan-guard] plan-drift report` via the session `prompt` hook in `.opencode/plugins/vantrilex-guards.ts` (per `P1-R0.md` verdict 1, PARKED); it reports drift after the fact and claims nothing beyond detective — no admission denial is claimed.
+
+## Section 1 — Ranks (decided — do not rename; these are RANKS, not personal names)
+
+- Rank Zenith (/ˈziː.nɪθ/ — highest point of the celestial sphere) → the supreme, named Vantrilex (arrives v0.8).
+- Rank Syzygy (/ˈsɪz.ɪ.dʒi/ — alignment of three celestial bodies) → the three leaders: Blazar, Aether, Pulsar.
+- Rank Asterism (/ˈæs.tə.rɪz.əm/ — distinctive star pattern) → side agents, ids vantrilex-* lowercase (naming law stands).
+
+## Section 4 — Factory doctrine (standing law)
+
+- If leaders detect a missing agent/skill need, they CREATE it — no hesitation, no bureaucracy.
+- Anti-sprawl counterweight (no extravagance): creation justified by RECURRENCE or COMPLEXITY — one-off needs get done, not manufactured. Hard spawn caps + recursion-depth caps. Unique IDs + action ledger per creation. Recursive kill switch. Human sign-off before Arsenal admission. (Rationale: the 361-agent quota-burn incident.)
+
+## Section 5 — Daily refresh law
+
+- Leaders know the Arsenal updates periodically. At every day start they check for Arsenal updates and apply them to OpenCode WITHOUT user approval and WITHOUT asking (self-reminder or equivalent mechanism).
