@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المحادثة — thread</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="thread">
+<header class="topbar">
+  <nav aria-label="تنقل"><a class="back" href="index.html">→ كل الخيوط · all threads</a></nav>
+  <h1 id="threadTitle">المحادثة <span class="latin">thread</span></h1>
+  <p class="mode" id="modeBadge" role="status">وضع التجربة — demo (fixtures)</p>
+</header>
+<main>
+  <section class="thread-meta" aria-label="بيانات الخيط">
+    <div id="threadMeta"></div>
+    <label class="toggle">
+      <input type="checkbox" id="ntfyToggle">
+      <span>تنبيه ntfy لهذا الخيط <span class="latin">ntfy alerts for this thread</span></span>
+    </label>
+    <p class="hint" id="ntfyNote">إيقاف افتراضيًا — OFF by default. التشغيل يرسل POST لموضوع المالك من الإعداد المحلي فقط.</p>
+  </section>
+  <section aria-label="الرسائل">
+    <ol id="msgList" class="msgs"></ol>
+  </section>
+  <section aria-label="رسالة جديدة" class="compose">
+    <h2>رسالة جديدة <span class="latin">send</span></h2>
+    <form id="sendForm">
+      <label for="fTitle">العنوان · title</label>
+      <input id="fTitle" name="title" required maxlength="200" autocomplete="off">
+      <label for="fBody">النص · body</label>
+      <textarea id="fBody" name="body" rows="3" required maxlength="4000"></textarea>
+      <label class="check">
+        <input type="checkbox" id="fNeeds">
+        <span>تحتاج تدخل المستخدم · needs_user_action</span>
+      </label>
+      <button type="submit">إرسال · send</button>
+      <p class="hint" id="sendNote" role="status"></p>
+    </form>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
