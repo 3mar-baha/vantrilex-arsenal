@@ -1,6 +1,6 @@
 # Vs Supabase — Maker Eval Notes
 
-Method: Anthropic skill-creator loop per `VTA-FACTORY-08-PLAN.md` §5.2:
+Method: Anthropic skill-creator loop per `VTA-FACTORY-08-PLAN.md` §5.2 (`unverified` on this branch — file on unmerged `wt/vta-factory-08`):
 with-skill vs baseline same-turn notes, graded, then iterate. Date
 (UTC): 2026-10-17. No live Supabase probe ran on this seat (owner
 OAuth pending); grades judge trigger surface and procedure adherence
@@ -61,5 +61,5 @@ from the `SUPABASE-U-understand.md` evidence, marked accordingly.
 ## Iteration log
 
 - v1→v2: description/trigger surface changed once from the grades
-  (see skill §note above); false-friends suite re-run 4/4 on v2.
+  (see the `vs-supabase` SKILL.md description); false-friends suite re-run 4/4 on v2.
   No further iteration claimed.

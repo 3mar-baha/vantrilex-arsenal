@@ -55,7 +55,7 @@ never to you.
   `npx skills add supabase/agent-skills` (quoted from repo README
   `Installation`); update `npx skills update`; MIT license 2026.
 - Methodology context (read-only):
-  `VTA-FACTORY-08-PLAN.md` §§5.2, 6, 7.1 (maker loop plus polish).
+  `VTA-FACTORY-08-PLAN.md` §§5.2, 6, 7.1 (maker loop plus polish) — `unverified` on this branch: the file lives on the unmerged lane branch `wt/vta-factory-08`, not in this tree; re-anchor on merge.
 - No GONE source contributes anything. No wording is claimed from a
   GONE source.
 
@@ -102,6 +102,8 @@ scope parameters used, tables plus advisories observed, exact SQL or
 parameters proposed, confirmation flow that applied, local vs remote
 statement, sources cited per claim, `unverified` marks where no probe
 ran, and follow-ups.
+
+- Close with the ponytail trailer line the `### Binding and compliance` section requires.
 
 ## Missing-tooling protocol
 
