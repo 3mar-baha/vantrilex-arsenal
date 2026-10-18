@@ -61,7 +61,7 @@ jobs:
         with:
           node-version: '25'
 
-      - name: Catalog mirror is current
+      - name: Generated catalog surfaces are current
         run: node scripts/generate-catalog-json.mjs --check
 
       - name: Registry is internally consistent

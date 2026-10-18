@@ -424,3 +424,65 @@ the ratified list and are left vacant rather than filled.
   stays `warn`. The guard source is `.opencode/plugin/arsenal.ts` and
   the standing-directives procedure is section B.8 of the Doctrine
   skill; neither behavior changes with this entry.
+
+## Documentation census synchronized to live counts
+
+- **Date:** 2026-10-18
+- **Context:** The numbered documentation set carried census figures from
+  earlier generations — a 47-component kit with an empty pending list, an
+  8-sidecar 2804-record catalog, 31 tier core plus 16 tier conditional, 22
+  skill folders, 10 agents, 4 commands — and the FULL-AUDIT read-only pass
+  re-derived every figure from the live trees instead of trusting the prose
+  (findings L13-12-001 through L13-12-023, `.opencode/audit/V-FULL-AUDIT.md`).
+  The ratified snapshot already in this file is history, never the defect:
+  L13-12-023 asks for an appended correction pointer instead of an edit, and
+  editing a ratified entry would falsify the record.
+- **Decision:** Under the FULL-AUDIT and V-REMEDIATE lanes the numbered
+  documentation set's census figures were synchronized on 2026-10-18 to the
+  counts re-derived from `kit/kit.lock`, `registry/catalog.json`, and the live
+  trees: kit lock 157 locked components, 32 tier `core` plus 125 tier
+  `conditional`, with 9 `pending`; registry 2931 records merged from 16
+  sidecars; 27 agent files; 37 skill folders; 22 command files, 18 under
+  `.opencode/commands/` and 4 under `.opencode/command/`; and a catalog whose
+  2931 records carry 20 default-selected components and 82 verified install
+  commands.
+- **Consequences:** A reader can hold the ratified snapshot and this entry side
+  by side and see which figure belongs to which date, so no historical claim is
+  falsified and no current page keeps a stale one.
+  `.opencode/audit/V-FULL-AUDIT.md` is the source of record for every finding
+  above. Nothing in the lock, the registry, the trees, or the plugin changed:
+  this is a reconciliation of figures that had drifted, never a change to what
+  they count, and the counts stay re-derivable from the files they describe
+  rather than from this entry.
+
+## 70 superseded root working files archived, guard allow-lists widened
+
+- **Date:** 2026-10-18
+- **Context:** 56 root working files — 29 `P*.md`, 24 `P*.jsonl`, 1 `P*.log`,
+  and 2 `P*.json` — sat outside the canonical documentation set the
+  docs-discipline guard admits, and `docs/ar/` and `docs/dev/`, the two trees
+  that legitimately hold the mirror and dev pages, were outside the guard's
+  allow-list as well (L13-12-017 and L13-12-016). Neither was a defect in the
+  files: both were a placement rule with no recorded home.
+- **Decision:** 70 superseded root working files were moved into
+  `docs/99-archive/`, bytes and filenames preserved and no moved file
+  rewritten, and the directory carries a `MANIFEST.md` with 70 moved rows plus
+  8 kept rows. The two live owner-queue ledgers, `P4-DEFERRAL-LEDGER.md` and
+  `P5-LOOP-DOSSIER.md`, stay at the root, as do `AGENT.md`, `WORKFLOW.md`,
+  `README.md`, `README.ar.md`, and `LICENSE`; `RESEARCH.md` stays because it
+  never matched a candidate pattern. The docs-discipline guard was then widened
+  for this repository through `.opencode/arsenal.json`: `docs/ar` and `docs/dev`
+  join `allowedDirs`, `AGENT.md` and `WORKFLOW.md` join `allowedFiles`, and
+  every default is preserved, because the project file is read as a union over
+  `DEFAULT_DOCS_GUARD` in `.opencode/plugin/arsenal.ts` and never as a
+  replacement for it.
+- **Consequences:** The post-move relative-link sweep over first-party Markdown
+  reported 0 new broken links across the live documentation set; the archived
+  superseded plan paper `docs/99-archive/VTA-FACTORY-PLAN-SURGICAL.md` keeps 10
+  relative reference occurrences that no longer resolve from the archive
+  location, expected for read-only history and left unrepaired. Two rules are
+  recorded here: superseded lane artifacts live under `docs/99-archive/`, and
+  the state files `AGENT.md` and `WORKFLOW.md` are allow-listed truth-tellers
+  rather than misplaced files. The archive keeps the audit trail instead of
+  deleting it, and `docs/99-archive/MANIFEST.md` is the row-by-row disposition
+  of record for both the 70 moved rows and the 8 kept ones.

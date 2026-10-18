@@ -13,7 +13,7 @@ contradicts them.
 | Part | Location | Role |
 |---|---|---|
 | Plugin | `.opencode/` | Shipped hooks-as-plugin callbacks, role agents, operator commands, transplanted skills |
-| Registry | `registry/` | The 2740-component catalog: human-readable source plus machine mirror |
+| Registry | `registry/` | The 2931-component catalog: human-readable source plus machine mirror |
 | Default kit | Tier-0 set in the catalog | What every project receives without questions asked |
 
 The kit specification is `spec/VANTRILEX_KIT_SPEC.md` (naming, the Tier-0 set
@@ -45,30 +45,41 @@ scout without inheriting the law.
 
 ## Tier-0 census, stated honestly
 
-The default kit as locked in `kit/kit.lock` is 47 components, provisioned on
+The default kit as locked in `kit/kit.lock` is 157 components, provisioned on
 every project:
 
 | Kind | Locked count | Contents |
 |---|---|---|
-| Skills | 25 | Vanguard, Prime, Doctrine, plus 10 upstream skills, plus 12 conditional Arsenal skills |
-| MCP servers | 8 | filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter |
-| Plugins | 0 | No entry locked; the 12 catalog plugin records stay as unverified reference entries |
+| Skills | 27 | Vanguard, Prime, Doctrine, plus 10 upstream skills, plus 14 conditional Arsenal skills |
+| MCP servers | 27 | 8 core servers (filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter) plus 19 conditional candidates held for project-specific need |
+| Plugins | 0 | No entry locked; the 11 catalog plugin records stay as unverified reference entries |
 | Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
-| Agents | 6 | architect, Code Reviewer, AI-Generated Code Security Auditor, Technical Writer, plus red-team and a11y-audit |
-| LSP servers | 1 | typescript-lsp, the TypeScript language server (build phase, tier core, verified) |
-| CLIs | 0 | Kind scaffolded in both schemas and checked by the verifier; no entry locked yet |
+| Agents | 21 | 5 core agents (architect, code-reviewer, aether, pulsar, blazar) plus 16 conditional specialist agents |
+| LSP servers | 1 | typescript-lsp, the TypeScript language server (build phase, tier core, verification `unverified`) |
+| CLIs | 64 | 64 version-pinned command-line tools, every one tier `conditional` and `verified`; installed only where the build needs them |
+| Other kinds | 10 | themes 3, prompts 1, datasets 1, templates 1, policies 1, benchmarks 1, workflows 1, design records 1 |
 
-The honest current count is 31 tier `core` records plus 16 tier `conditional`
-records, which is 47 locked components with an empty `pending` list. The two
-conditional hooks stay locked because `.opencode/plugin/arsenal.ts` already
-implements them, so a separate install would be a second path to the same
-guard. `registry/catalog.json` today carries 2740 records in total.
-The catalog recount stands at 23 default-selected components and 19 verified
-install commands, enriched from 7 sidecars merged by the generator (skills,
-mcp, plugins, hooks, agents, formatting, lsp). Tier-1 components — Python, UI,
-team-flow, and design-system components — are added by Vanguard only when the
-project requires them. The 8-MCP cap and the phase-scoping rule that keep the
-kit affordable are documented in [09-KIT-LOCK.md](09-KIT-LOCK.md).
+The honest current count is 32 tier `core` records plus 125 tier `conditional`
+records, which is 157 locked components, with 9 `pending` entries (per-agent
+theme JSON not yet authored). The two conditional hooks stay locked because
+`.opencode/plugin/arsenal.ts` already implements them, so a separate install
+would be a second path to the same guard. `registry/catalog.json` today carries
+2931 records in total. The catalog recount stands at 20 default-selected
+components and 82 verified install commands, enriched from 16 sidecars merged by
+the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
+lsp, mcp, plugins, policies, prompts, skills, templates, themes, workflows).
+Tier-1 components — Python, UI, team-flow, and design-system components — are
+added by Vanguard only when the project requires them. The 8-MCP cap and the
+phase-scoping rule that keep the kit affordable are documented in
+[09-KIT-LOCK.md](09-KIT-LOCK.md).
+
+Re-derive every figure above from the lock and the catalog:
+
+```
+node -e "const fs=require('fs');const l=JSON.parse(fs.readFileSync('kit/kit.lock','utf8'));console.log('total',l.components.length,'core',l.components.filter(c=>c.tier==='core').length,'conditional',l.components.filter(c=>c.tier==='conditional').length,'pending',l.pending.length);const k={};for(const c of l.components)k[c.kind]=(k[c.kind]||0)+1;console.log('byKind',k)"
+node -e "const c=require('./registry/catalog.json');console.log('records',c.counts.total,'default_selected',c.components.filter(x=>x.default_selected).length,'verified',c.components.filter(x=>x.verification==='verified').length)"
+node -e "console.log('sidecars',require('fs').readdirSync('registry/data').filter(f=>f.endsWith('.jsonl')).length)"
+```
 
 OpenCode has no standalone hooks directory, so hooks are plugin callbacks: the
 7 logical Tier-0 hooks are implemented inside the single plugin file
@@ -77,7 +88,7 @@ OpenCode has no standalone hooks directory, so hooks are plugin callbacks: the
 against the session `prompt` hook — while the other six hooks and the
 docs-discipline guard remain on the V1 `server()` surface and are **inert under
 V2**. That gap is deliberate and unfinished, not a completed port, and it does
-not move the census: 47 locked components, 7 of them hooks. The seventh hook is
+not move the census: 157 locked components, 7 of them hooks. The seventh hook is
 documented in [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 
 ## The Node-only toolchain
@@ -86,7 +97,7 @@ Runtime requirements are `git` and Node 25, with zero dependencies in the
 registry tooling. The catalog generator, the registry verifier, and the plugin
 itself are dependency-free Node ESM. No Python, no bundler, no framework, no
 `jq`, no `tmux` assumptions enter this repository — a shareable plugin must
-not ask a user to install a language runtime just to read a catalog. The 12
+not ask a user to install a language runtime just to read a catalog. The 14
 conditional skills Vanguard equips for a project that needs them — including
 `vantrilex-design-variations`, which fires before any styling work is written —
 are catalog kit components, not a fourth top-level skill. Shell scripts are

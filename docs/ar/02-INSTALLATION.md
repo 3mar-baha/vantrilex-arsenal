@@ -40,11 +40,11 @@ shellcheck scripts/*.sh .githooks/*
 ## ما هي `registry/catalog.json`
 
 `registry/catalog.json` هي النسخة الآلية للفهرس. وهي مولَّدة من
-`registry/VANTRILEX_CATALOG.md` مع الملفات الجانبية الثمانية بصيغة JSONL
+`registry/VANTRILEX_CATALOG.md` مع الملفات الجانبية الستة عشر بصيغة JSONL
 تحت `registry/data/`، ولا تُعدَّل يدويًا أبدًا (انظر
 [07-CATALOG-GENERATION.md](../07-CATALOG-GENERATION.md)). يقرأها Vanguard
 بصيغة JSON وقت الانتقاء؛ ويقرأ البشر صيغة Markdown. والمخطط الذي يجب أن
-يفي به الجانبان هو `registry/schema/catalog-v2.schema.json`، وهو موثّق في
+يفي به الجانبان هو `registry/schema/catalog-v3.schema.json`، وهو موثّق في
 [06-REGISTRY-SCHEMA.md](../06-REGISTRY-SCHEMA.md).
 
 ## كيف يستهلك مشروع هدف الإضافة

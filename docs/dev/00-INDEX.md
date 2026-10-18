@@ -52,11 +52,11 @@ node -p "require('fs').readdirSync('.opencode/skills').length"
 node -p "require('fs').readdirSync('.opencode/agents').length"
 ```
 
-Observed 2026-10-14 on branch `wt/vta-expansion-02`: catalog version 3 carrying
-2805 records, the lock at 113 components and 0 pending with `mcp_cap` 8, and 22
-skill folders against 10 agent entries. The lock moved from 112 to 113 while
-this note was being written, because a sibling lane owns `kit/`. Re-run the
-commands rather than trusting those figures; they move with the branch.
+Observed 2026-10-18 on branch `wt/vta-factory-p0`: catalog version 3 carrying
+2931 records, the lock at 157 components and 9 pending with `mcp_cap` 8, and 37
+skill folders against 27 agent entries. A sibling lane owns `kit/`, so the lock
+figures move independently of this tree. Re-run the commands rather than trusting
+those figures; they move with the branch.
 
 ## Reading order
 

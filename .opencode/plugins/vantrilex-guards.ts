@@ -75,7 +75,7 @@
  *
  * Coexistence note: V2 discovers local plugins from both `.opencode/plugin/`
  * and `.opencode/plugins/`, so a host that loads arsenal.ts and this carrier
- * registers the same four hooks twice, in plugin order. Observed effects are
+ * registers the same five hooks twice, in plugin order. Expected effects are
  * benign: the dispatcher append is idempotent so the second prompt hook sees
  * the instruction already present and skips; a blocking before-guard throws
  * in the first hook so the second never runs for violations; warn-mode lines
@@ -83,6 +83,25 @@
  * twice per edit. No dedupe logic lives here: silencing a sibling instance
  * from inside setup would be behaviour nobody can see, and the duplication
  * degrades to noise, never to a false PASS.
+ *
+ * Scope and status of that note, which must be read as one claim with the
+ * paragraph above. Two paths, two statuses:
+ *
+ *   - Dispatcher path — PROVEN, and the only proven part. The append check
+ *     reads the draft itself, which both plugins share, so the second prompt
+ *     hook sees the instruction already present and skips.
+ *   - Warn-flush path — NOT COVERED. Each plugin builds its own
+ *     ArsenalContext, so each owns a separate pendingWarnings array, and a
+ *     warn-mode docs-discipline or long-running verdict flushed in
+ *     `v2ToolAfter` could append the same WARN line twice. Concrete case: one
+ *     warn-mode write, two identical WARN lines on one tool result. The
+ *     serialised type check running twice per edit sits in the same gap.
+ *
+ * Status: UNVERIFIED HYPOTHESIS. No two-plugin dual-load runtime proof exists,
+ * and the duplicate WARN line has never been reproduced on a host that loads
+ * both plugins; nothing above is an observation. Any dedup is deferred to a
+ * runtime-proof lane: adding it now would change behaviour nobody can see, on
+ * evidence nobody has, and cross-instance state would be equally invisible.
  */
 
 import arsenalPlugin, {
@@ -93,7 +112,7 @@ import arsenalPlugin, {
 } from "../plugin/arsenal.ts";
 
 /**
- * V2 `setup`. Delegates to the proven Stream-G setup first (four hooks, no
+ * V2 `setup`. Delegates to the proven Stream-G setup first (five hooks, no
  * adaptation, no permission access), then registers the plan-guard detective
  * append on session "prompt" (same docs section Sessions, Prompt admission).
  * The five registrations named in the census above are the complete set this

@@ -10,7 +10,7 @@
  * default export and never invokes a V1 plugin function, while V1 reads
  * `server()` and ignores the rest.
  *
- * V2 - `setup()`, four hooks:
+ * V2 - `setup()`, five hooks:
  *
  *   8. taskDispatcher            -> session "prompt"        (per user prompt)
  *   4. longRunningProcessGuard   -> tool "execute.before" + shell "create.before"
@@ -18,8 +18,9 @@
  *   5. typescriptCheck           -> tool "execute.after"    (conditional)
  *   6. prettierFormat            -> tool "execute.after"    (conditional)
  *
- * V1 - `server()`, all eight hooks (6 locked hook components plus the
- * docs-discipline guard, which is not a lock component, plus the dispatcher):
+ * V1 - `server()`, all seven hooks (6 locked hook components plus the
+ * docs-discipline guard, which is not a lock component); the eighth logical
+ * hook, the dispatcher, rides the `chat.message` callback below:
  *
  *   1. sessionStart              -> experimental.chat.system.transform, event
  *   2. preCompact                -> experimental.session.compacting
@@ -192,7 +193,7 @@ export type Plugin = (input: PluginInput) => Promise<Hooks>
  * is equally absent from this dependency-free repository, so the V2 contract is
  * mirrored structurally too.
  *
- * The mirror covers exactly the four hooks this module registers: `prompt`
+ * The mirror covers exactly the four V2 hook keys this module registers: `prompt`
  * from the twelve-entry `SessionHooks` map, `execute.before`/`execute.after`
  * from `ToolHooks`, and `create.before` from `ShellHooks`. Mirroring hooks
  * this module does not register (notably `context` and `compaction`) would be
@@ -2107,7 +2108,7 @@ const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent)
 }
 
 /**
- * V2 `setup()`. Registers the four hooks whose V2 shapes have a correct
+ * V2 `setup()`. Registers the five hooks whose V2 shapes have a correct
  * landing place for an existing guard.
  *
  *   - session "prompt"       -> taskDispatcher (HOOK 8)

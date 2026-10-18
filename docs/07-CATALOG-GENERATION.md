@@ -4,7 +4,7 @@
 hand-edited. The single command that builds them is the dependency-free Node
 module `scripts/generate-catalog-json.mjs`. It reads the Markdown source plus
 the sidecars, validates every record against
-`registry/schema/catalog-v2.schema.json`, and writes byte-deterministic
+`registry/schema/catalog-v3.schema.json`, and writes byte-deterministic
 output. This file documents its real flags and rules; the record contract it
 enforces is in [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md).
 
@@ -33,7 +33,7 @@ declared default-selected count must match the parsed flags.
 
 ## The JSONL sidecar merge rule
 
-Eight sidecars enrich the eight kinds, with explicit plural filenames:
+Sixteen sidecars enrich the sixteen kinds, with explicit plural filenames:
 
 | Kind | Sidecar file |
 |---|---|
@@ -45,6 +45,14 @@ Eight sidecars enrich the eight kinds, with explicit plural filenames:
 | formatting | `registry/data/formatting.jsonl` |
 | lsp | `registry/data/lsp.jsonl` |
 | cli | `registry/data/cli.jsonl` |
+| theme | `registry/data/themes.jsonl` |
+| prompt | `registry/data/prompts.jsonl` |
+| dataset | `registry/data/datasets.jsonl` |
+| template | `registry/data/templates.jsonl` |
+| policy | `registry/data/policies.jsonl` |
+| benchmark | `registry/data/benchmarks.jsonl` |
+| workflow | `registry/data/workflows.jsonl` |
+| design.md | `registry/data/design.jsonl` |
 
 Merge rule, in precedence order:
 
@@ -57,9 +65,10 @@ Merge rule, in precedence order:
 5. A duplicate id inside one sidecar fails the run.
 6. An unknown field in a sidecar entry fails the run.
 
-All 8 sidecars are present today and merge cleanly: 1504 skill, 907 MCP,
-11 plugin, 20 hook, 284 agent, 13 formatting, 1 lsp, and 64 cli entries,
-totaling 2804 records.
+All 16 sidecars are present today and merge cleanly: 1505 skill, 923 MCP,
+11 plugin, 20 hook, 301 agent, 13 formatting, 1 lsp, 64 cli, 3 theme,
+1 prompt, 1 dataset, 1 template, 1 policy, 1 benchmark, 1 workflow, and 84
+design entries, totaling 2931 records.
 
 ## The single-writer law
 

@@ -93,8 +93,8 @@ Pin every install to `version_pin` when the field is set.
 ## Step 6 - Equip and prove
 
 - Write each component into its conventional location: skills under the skill
-  directory, agents under `.opencode/agent/`, commands under
-  `.opencode/command/`, formatting references under the project's design-token
+  directory, agents under `.opencode/agents/`, commands under
+  `.opencode/commands/`, formatting references under the project's design-token
   location, hooks and guards into the existing plugin module rather than into a
   new file. OpenCode has no hooks directory; a hook is a plugin callback.
 - Update `.opencode/opencode.json` so the plugin and the MCP servers the kit
