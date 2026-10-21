@@ -1,278 +1,365 @@
-# RELEASE-BACKFILL-MAP — v0.7.7 → latest completed unit (draft for owner approval)
+# RELEASE-BACKFILL-MAP — v0.7.7 → latest completed unit (owner-approved, 0.8.7 rebase)
 
-- **Workstream:** `rel-map` — owner release ruling §3 (HARD GATE), parallel to `rel-selfpub`; the
-  cluster sequence is untouched.
+- **Workstream:** `rel-map` (owner release ruling §3, HARD GATE) — **§3 GATE SATISFIED: the map is
+  OWNER-APPROVED on the terms recorded below (2026-10-21).** Parallel to `rel-selfpub`; the cluster
+  sequence is untouched.
 - **Node:** `rel-map` · **Owner:** `vantrilex-librarian` (worker-only seat)
-- **Classification:** DIRECTED — Scenario 2 does NOT apply; the brief fixes this artifact and its
-  table.
+- **Classification:** DIRECTED — Scenario 2 does NOT apply. This revision applies owner
+  MAP-RULINGS only: it edits this one artifact and commits once.
 - **Date:** 2026-10-21 · **Effort:** HIGH (evidence judgment, §6)
-- **Status:** **DRAFT FOR OWNER APPROVAL.** No backfill publish is authorized by this file
-  (`AGENT.md:369`). No tag, push, merge or release is made in this lane.
 - **Base tag, verified live:** `v0.7.7` → `3d5d92aa99c2f3140372bc98aad816f1239f244a`
-  (annotated; tag date `2026-10-15T17:29:35+03:00`). It is the highest existing tag under any
-  naming (`git tag` = 12 tags; `gh release list` shows `v0.7.7` as `Latest`).
-- **Release line today:** `main` = `origin/main` = `f3ca04b`; lane HEAD was `cb12407` on
-  `wt/vta-factory-p0` when this map was drafted, **8 commits ahead of `main`** (9 once this map's
-  own single-file commit lands); `main` carries no tag above `v0.7.7`.
-- **Kit version context:** no file stores the kit's own version (`V87-ENUM.md:305`, D10). Every
-  version below is computed from tags plus the §1 law — never read from a lock file (the lock was
-  abolished at S3, commit `6c3852b`).
-- **Scope of write:** this file only. `AGENT.md`, `WORKFLOW.md`, the registry, the RAG files, the
-  CHANGELOG and every historical tree are untouched.
+  (annotated; `2026-10-15T17:29:35+03:00`). Highest tag of 12 under any naming;
+  `gh release list` shows `v0.7.7` = `Latest`.
+- **Release line:** `main` = `origin/main` = `f3ca04b`; the map lives on `wt/vta-factory-p0`
+  alongside 8 unpushed Cluster 1 commits. Nothing in this map is pushed, tagged or published.
+- **No publish is authorized by this file.** Publication conditions are §8.
+- **Scope of write:** this file only.
 
 ---
 
-## 0. Commands run — the evidence base
+## 1. FINAL REBASED TABLE (authoritative)
 
-Every hash and date in this map comes from one of these reads on 2026-10-21. Nothing is recalled.
+Ascending, closure order. `0.8.7` is the owner's **named** release (override under §8.2); every
+other number is the §1 increment applied in order from the previous row.
+
+| Version | Unit | Anchor | Class (owner-ruled) | Package the publish would carry | As-closed evidence — one line |
+|---|---|---|---|---|---|
+| **0.7.7** | base release | tag `v0.7.7` → `3d5d92a` | base | already published | released + tagged before this lane (`AGENT.md:413`) |
+| **0.7.8** | VTA-FACTORY P0 | commit `66d0e45` (2026-10-17T19:07:46) | phase | source tarball at `66d0e45` | `p0-verify` PASS-WITH-DEFERMENT; 4 verifiers green; park pushed (`AGENT.md:193`, `:197`) |
+| **0.7.9** | VTA-FACTORY P1 | **no commit** | phase | evidence package (§7.1) | `p1-verify` PASS-WITH-NOTES; 1,531 / 6 / 1,525; 5 gates exit 0 (`AGENT.md:206`) |
+| **0.7.10** | VTA-FACTORY P2 | **no commit** | phase | evidence package (§7.2) | full battery green after `p2-lockalign`; 330 rows (`AGENT.md:212`) |
+| **0.7.11** | VTA-FACTORY P3 | **no commit** | phase | evidence package — **partial** (§7.3) | `p3-verify2` PASS-WITH-NOTES; soak 5/5; 6 gates + 2 honest SKIPs (`AGENT.md:219`) |
+| — | VTA-FACTORY P4 | `AGENT.md:220` | **excluded — not closed** | none | close gate held; 5 deferrals open (`P4-DEFERRAL-LEDGER.md:32-52`) |
+| **0.7.12** | VTA-FACTORY P5 (closes the program) | **no commit** | phase (program is **not** a mission) | evidence package (§7.4) | `p5-demo` verified; lint + `verify-skills` 10/10 (`AGENT.md:221`) |
+| **0.7.13** | FULL-AUDIT (round 1) | **no commit** | phase-class | **closure record only** (§7.5) | report 1,194 lines / 23 findings; report text since overwritten (`AGENT.md:225`) |
+| **0.7.14** | V-REMEDIATE | commit `c7c762c` (2026-10-18T17:29:58) | phase-class | source tarball at `c7c762c` | 23/23 fixed; two verifiers pass; battery 4/4, guards 6/6 (`AGENT.md:240`, `:248`) |
+| **0.7.15** | FULL-AUDIT-2 | **no commit** | phase-class | **closure record only** (§7.6) | 1,575 lines / 47 findings; report text since overwritten (`AGENT.md:283`) |
+| **0.7.16** | FULL-AUDIT-3 | **no commit** | phase-class | evidence package (§7.7) | 32,128 lines; 155/155 embeds; sha256 `4a0fc30c…` (`AGENT.md:293-296`) |
+| **0.8.7** | **V87 MISSION-PLAN** | **no commit** | **mission — NAMED release** | evidence package (§7.8) | `w3-reverify2` ALL CLEARED; four identities exact (`AGENT.md:270`, `:274`) |
+| **0.8.8** | POST87-APPLY Phase 0 | commit `2b3e66a` (2026-10-21T14:45:16) | phase | source tarball at `2b3e66a` | kit 22/22 · skills 10/10; 16 axes / 55 findings / 33 questions (`AGENT.md:308`) |
+| **0.8.9** | POST87 Phase-1 slice = rulings wave #1 | commit `8312cae` (2026-10-21T15:43:09) | phase-class | source tarball at `8312cae` | 9 gate rows re-run at `7eaae18`; 447-line report (`AGENT.md:327`, `:376`) |
+| **0.8.10** | POST87 rulings wave #2 | commit `f3ca04b` (merge to `main`) | phase-class | source tarball at `f3ca04b` | 0 live singular refs / 3,164 files; merged-tree gates green; dry-run fail-closed (`AGENT.md:336-340`) |
+| — | Cluster 1 (lock abolition) | `AGENT.md:356-365` | **not closed — S6 pending** | none yet | S0–S4 green; S5 no landing record; S6 not run |
+| *(0.8.11)* | *next closure* | — | — | — | **not assigned.** The counter is next free at `0.8.11`; it is assigned only when Cluster 1's S6 gate closes |
+
+**Latest completed unit = `0.8.10` (rulings wave #2, `f3ca04b`).**
+
+Two facts this table exists to state plainly:
+
+1. **`0.7.16` → `0.8.7` is a named value, not arithmetic.** The increment chain would have produced
+   `0.8.0`; the owner named the V87 mission `0.8.7` under §8.2. The draft's arithmetic numbers were
+   never assigned (the map was a draft until this approval), so fixing them now is *not* retroactive
+   renumbering. `0.8.8`, `0.8.9`, `0.8.10` continue +0.0.1 from the named release.
+2. **The counter does not skip for open work.** Cluster 1 gets no number while it is open; the next
+   closure takes `0.8.11` in closure order.
+
+---
+
+## 2. OWNER RULINGS RECORDED (2026-10-21)
+
+The eight draft flags are **closed**. No call below is re-opened by this map.
+
+| ID | Draft call | Ruling | Consequence recorded |
+|---|---|---|---|
+| OD-1 | audit rounds: one unit or three? | **three phase-class units** (`0.7.13`, `0.7.15`, `0.7.16`) | each round keeps its own closure record and its own package |
+| OD-2 | `V-REMEDIATE` class | **its own phase-class unit** (`0.7.14`) | not folded into the R1 audit |
+| OD-3 | V87 mission number | **NAMED `0.8.7`** (override under §8.2); rebase Phase 0 → `0.8.8`, slice/wave #1 → `0.8.9`, wave #2 → `0.8.10` | the named value is an explicit queue-entry value; §8.2's policy file governs increments, not names |
+| OD-4 | slice/wave as units | **phase-class units** | slice and wave #1 remain **one** unit (the slice report is its closure, `POST87-SLICE1.md:30`) |
+| OD-5 | factory P4 | **excluded — not closed** | its close gate was held; the program's completion does not close P4 |
+| OD-6 | factory program as a mission | **NOT a mission unit** — P5 closes it as a phase | no minor bump inside the factory chain |
+| OD-7 | relay lanes of 2026-10-15 | **stay out** unless an evidenced addendum lands before publishing | no numbers reserved for them; an addendum would be filed, not folded in |
+| OD-8 | "v87 plan nodes" granularity | **not units** — they live in `0.8.7`'s release notes | one mission unit, one package |
+
+**STANDING RULE (recorded verbatim, standing from 2026-10-21):**
+
+> numbers assigned at closure, in closure order; no retroactive renumbering, ever.
+
+Reading applied here: a version is assigned when a unit's closure gate passes, at the next counter
+value in closure order. A later discovery never renumbers an assigned or published version; it is
+an erratum in release notes or a forward fix, never a renumber.
+
+---
+
+## 3. Commands run — the evidence base
+
+Tag, ref and commit facts (read 2026-10-21):
 
 ```
 $ git tag --list --format='%(refname:short)|%(creatordate:iso-strict)'
-v0.1.0|2026-10-04T19:18:07+03:00   v0.4.1|2026-10-14T08:19:57+03:00   v0.7.0|2026-10-15T10:11:53+03:00
-v0.2.0|2026-10-04T23:17:32+03:00   v0.5.0|2026-10-15T06:24:32+03:00   v7.5  |2026-10-15T17:21:30+03:00
-v0.3.0|2026-10-12T13:44:18+03:00   v0.6.0|2026-10-15T07:47:27+03:00   v0.7.6|2026-10-15T17:24:56+03:00
-v0.4.0|2026-10-14T07:29:26+03:00   v0.6.5|2026-10-15T08:07:08+03:00   v0.7.7|2026-10-15T17:29:35+03:00
-→ 12 tags. No `v0.8.x`, no `v0.9.x`, no probe tag (`v0.0.98/99-dryrun.1`) is present today.
-
-$ git rev-list -n 1 v0.7.7        → 3d5d92aa99c2f3140372bc98aad816f1239f244a
-$ git rev-parse main              → f3ca04ba4d3426ce20f95d6c5e2a3d70a82f60f3
-$ git rev-parse origin/main       → f3ca04ba4d3426ce20f95d6c5e2a3d70a82f60f3
-$ git rev-parse HEAD              → cb12407cdc7124c535ba4f4303848cd52e37e512
-$ git rev-list --count main..HEAD → 8   (draft-time; 9 after this map's own commit)
-$ git describe --tags --always    → v0.7.7-27-gcb12407   (draft-time reading)
-$ gh release list -L 5
-v0.7.7  Latest  v0.7.7  2026-10-15T14:30:10Z
-v0.7.6          v0.7.6  2026-10-15T14:25:12Z
-v7.5            v7.5    2026-10-15T14:21:39Z
-…
+12 tags, newest v0.7.7|2026-10-15T17:29:35+03:00; no v0.8.x, no v0.9.x, no probe tag today.
+$ git rev-list -n 1 v0.7.7   → 3d5d92aa99c2f3140372bc98aad816f1239f244a
+$ git rev-parse main         → f3ca04ba4d3426ce20f95d6c5e2a3d70a82f60f3   (= origin/main)
+$ gh release list -L 5       → v0.7.7 Latest 2026-10-15T14:30:10Z; v0.7.6; v7.5; v0.7.0; v0.6.5
 ```
 
-Commit dates and subjects of every anchor used below (`git show -s --format='%h|%ad|%s'`):
+Commit anchors (`git show -s --format='%h|%ad|%s'`): `3d5d92a` base · `66d0e45` P0 park ·
+`c7c762c` V-REMEDIATE park · `2b3e66a` Phase 0 · `8312cae` slice report · `e66bf14`/`a95f112`/
+`f90cdb3`/`4b6b05a`/`f3ca04b` wave #2 · `6e5f55c` F-1 (Cluster 1) · `7b41b92`…`cb12407` Cluster 1
+S0–S4.
 
-| commit | date (+03:00) | subject |
-|---|---|---|
-| `3d5d92a` | 2026-10-15T17:27:40 | merge: v0.7.7 program (base) |
-| `0eed6a1` | 2026-10-15 (park) | relay skill v2 — quota-proof polling, sessions, hardening |
-| `772c693` | 2026-10-15T19:06:26 | relay skill v2 fixes — doc/code alignment |
-| `66d0e45` | 2026-10-17T19:07:46 | factory-p0 — charter + makers + probes |
-| `c7c762c` | 2026-10-18T17:29:58 | fix: V-REMEDIATE — census sync, archive, AR mirrors, index gate |
-| `93f5b4e` | 2026-10-21T14:08:22 | docs(post87): blueprint + intake structure map |
-| `e471cba` | 2026-10-21T14:25:58 | feat(release): auto-publish v0.0.x patches |
-| `2b3e66a` | 2026-10-21T14:45:16 | docs(post87): Phase 0 reconciliation report |
-| `c57d9a8` | 2026-10-21T15:07:16 | refactor(plugin): guards merged into arsenal |
-| `5c2dcea` | 2026-10-21T15:25:47 | docs(post87): ruling sheet applied — errata, re-key |
-| `7eaae18` | 2026-10-21T15:28:46 | docs(plugin): plan-guard references repointed |
-| `8312cae` | 2026-10-21T15:43:09 | docs(post87): Phase-1-slice report |
-| `e66bf14` | 2026-10-21T15:51:40 | fix(paths): U4 residual sweep |
-| `a95f112` | 2026-10-21T15:58:14 | feat(release): retire release.yml asset upload |
-| `f90cdb3` | 2026-10-21T16:08:54 | fix(registry): regenerate indexes on main |
-| `4b6b05a` | 2026-10-21T16:09:58 | docs(release): reflect release.yml retirement |
-| `6e5f55c` | 2026-10-21T17:06:46 | docs(v87): file the Ruflo analysis dossier (F-1) |
-| `7b41b92` | 2026-10-21T17:32:11 | fix(registry): S0 registry alignment |
-| `28e7afb` | 2026-10-21T17:42:23 | feat: nine per-agent themes (S1a) |
-| `11e833a` | 2026-10-21T17:42:38 | chore: lock nine themes, empty pending (S1a) |
-| `500ead0` | 2026-10-21T17:55:20 | feat(verify): catalog proofs + parity baseline (S1b) |
-| `d745869` | 2026-10-21T18:04:33 | feat(injection): switch CI + injection (S2) |
-| `6c3852b` | 2026-10-21T18:18:29 | feat(kit): delete kit.lock + verifier (S3) |
-| `cb12407` | 2026-10-21T18:30:27 | fix(manifests): regenerate install profiles (S4) |
+Ancestry (`git merge-base --is-ancestor`): `3d5d92a`, `772c693`, `66d0e45`, `c7c762c`, `2b3e66a`,
+`8312cae`, `f3ca04b` **in** `main`; `6e5f55c`…`cb12407` **not**; `5ace12d` (relay-03) **not**.
 
-Ancestry checks (`git merge-base --is-ancestor <c> main`): `3d5d92a`, `772c693`, `66d0e45`,
-`c7c762c`, `2b3e66a`, `8312cae`, `f3ca04b` are **in** `main`; `6e5f55c`, `7b41b92`…`cb12407` are
-**not**; `5ace12d` (relay-03 park) is **not**.
+Artifact identities re-verified live for the §7 bundles (`bytes` + sha256, no recollection):
 
-Closure records read live: `AGENT.md` (ledger lines cited per row), `WORKFLOW.md` Part B,
-`CHANGELOG.md:1-40`, `.opencode/audit/POST87-PHASE0.md`, `.opencode/audit/POST87-SLICE1.md`,
-`.opencode/audit/POST87-INTAKE.md`, `.opencode/audit/V87-ENUM.md`,
-`.opencode/audit/POST87-BLUEPRINT-ERRATA.md`, `P4-DEFERRAL-LEDGER.md`, and the seven
-`docs/spec/v87/*` inputs.
-
----
-
-## 1. What counts as closure evidence in this map
-
-A unit enters the map only when all three exist:
-
-1. **a closure record** naming the unit as closed, complete or announced (ledger line, audit
-   report, or gate report), and
-2. **an anchor** — a commit that carries the unit's tree, or an explicit `no commit` statement in
-   the record, and
-3. **gate evidence quoted at closure** — the verifier names, results and exits the record states.
-
-A unit with (1) and (3) but no (2) is listed **with the gap stated**; no commit is invented to
-fill it. A unit whose class word is not `phase` or `mission` is **flagged**, never decided here.
-A unit with no closure record is listed in §6 as insufficient, never mapped.
-
-Historical honesty rule: this map records what the records say today. It does not rewrite
-`CHANGELOG.md`, any tag, any commit, or the `PARKED, UNRELEASED` headings that `V87-ENUM.md:296-299`
-(D1–D3) proves stale — those headings stay exactly as they were written.
-
----
-
-## 2. Numbering law as applied
-
-Quoted verbatim from `AGENT.md:367` (= `WORKFLOW.md:93`):
-
-> **§1 NUMBERING LAW (standing):** a completed PHASE publishes as +0.0.1; a completed MISSION
-> publishes as +0.1.0 (minor +1, patch reset). Unit names are the project's own records
-> (MISSION-PLAN = mission; Phase 0/1 = phases; slices/clusters per the records — borderline calls
-> are flagged in the map, §3, not decided silently).
-
-Application rules used here:
-
-- **Base** = the highest existing tag (`v0.7.7` = 0.7.7), verified live. Not a guessed baseline.
-- **Order** = closure order in the project's own records (ledger dates), which agrees with commit
-  order for every unit that has a commit.
-- **Phase** = +0.0.1. **Mission** = +0.1.0 with patch reset (a higher increment resets the lower,
-  `AGENT.md:374` §8.1).
-- **A unit that is not closed gets no number.** Its work may be committed; the unit is still open.
-- **Class ambiguity → flag.** A flagged unit's number is marked provisional because including or
-  excluding it shifts the cascade; each flag states its effect (§4).
-
----
-
-## 3. The map (ascending)
-
-Primary cascade = the units §3 enumerates (factory P0–P5, audit, remediation, the v87 mission,
-POST87 Phase 0 + slice 1 + waves), each completed unit treated as one increment, with the mission
-increment where the record names a mission. Flagged class calls are marked in the class column and
-carry a provisional number.
-
-| # | Unit | Evidence (tag / commit / ledger / file:line) | Unit class | Computed version by §1 | As-closed verification evidence — and the gap |
-|---|---|---|---|---|---|
-| 0 | **`v0.7.7` — base** | tag `v0.7.7` → `3d5d92a` (annotated, 2026-10-15T17:29:35+03:00); `AGENT.md:413`; `gh release list` = Latest | base (shipped release) | **0.7.7** | Released, tagged and published before this lane (run `38751942204` success per `AGENT.md:413`). **Gap:** `CHANGELOG.md:12-18` still reads `PARKED, UNRELEASED` — a stale label proven at `V87-ENUM.md:296` (D1). Not rewritten here. |
-| 1 | **VTA-FACTORY-EXECUTE — phase P0** | commit `66d0e45` (2026-10-17T19:07:46); `AGENT.md:193` (P0 announced), `AGENT.md:197` (park verified) | phase | **0.7.8** | `p0-verify` PASS-WITH-DEFERMENT: charter hashes identical 3/3; makers lint-clean; probes exit 0; registry 7/7 · kit 22/22 · skills 10/10 · mirror ok · lint clean; park `66d0e45` pushed, `ls-remote` == local. **Gaps:** battery entry verified-absent → DEFERRED; independent (vanbu) verify not performed — needs owner mediation. |
-| 2 | VTA-FACTORY-EXECUTE — phase P1 | `AGENT.md:206` (`p1-verify` PASS-WITH-NOTES, P1 ANNOUNCED); **no commit** — record says outputs untracked | phase | **0.7.9** | Tallies recomputed live 1,531 evaluated / 6 green / 1,525 non-green; shapes complete; `vs-*` set == green set; 5 gates exit 0. **Gaps:** no commit anchor (§1 rule 2); battery slot unevaluable; three notes (BOM hygiene, notation, dual-surface) routed to the Guide. |
-| 3 | VTA-FACTORY-EXECUTE — phase P2 | `AGENT.md:212` (P2 ANNOUNCED); **no commit** | phase | **0.7.10** | FULL battery green after `p2-lockalign`: registry 7/7 · kit 22/22 · skills 10/10 · catalog `--check` ok; 330 rows evaluated; lock↔catalog drift rescan 0. **Gaps:** no commit anchor; battery slot open; naming advisory and pointer removals left to owner. |
-| 4 | VTA-FACTORY-EXECUTE — phase P3 | `AGENT.md:219` (`p3-verify2` PASS-WITH-NOTES, P3 ANNOUNCED); **no commit** | phase | **0.7.11** | 6 gates PASS + 2 honest SKIPS; soak 5/5 entries with 0 uncovered; lock 19 conditional + github core-verified. **Gaps:** no commit anchor; plan-vs-live deviation (20 conditional vs 19 + github) flagged for owner amendment. |
-| — | VTA-FACTORY-EXECUTE — phase P4 | `AGENT.md:220`; `P4-DEFERRAL-LEDGER.md:4` | phase — **NOT CLOSED** | **excluded** (§5) | 3 consecutive green battery runs + deferral ledger with 5 OPEN / 2 CLOSED. **Its own close gate was held** ("P4 CLOSE BLOCKED on owner items", `AGENT.md:220`). See §4 OD-5. |
-| 5 | VTA-FACTORY-EXECUTE — phase P5 (program closes) | `AGENT.md:221` (`p5-demo` VERIFIED; "VTA-FACTORY-EXECUTE COMPLETE — FULL STOP"); **no commit** | phase | **0.7.12** | `p5-demo` verified: `vs-ponytail` regraded green on D2/D3/D6/D7 with quotes; 4 live fetches 200; lint + `verify-skills` 10/10 at 37 folders. **Gaps:** no commit anchor; admit parked pending the owner's review; the program's owner-side queue (vanbu P0 verify, battery gate entry, maker naming, gear identities, eval slots, Omar records, kit registration) was still open at closure. |
-| 6 | FULL-AUDIT (round 1) | `AGENT.md:222-225` (lane opened → report landed → COMPLETE); **no commit** | audit lane — **flag OD-1** | **0.7.13** *(prov. — OD-1)* | Report `.opencode/audit/V-FULL-AUDIT.md` 1,194 lines; 14 headings in order; 23 identifiers `L13-12-001…023`; §14 verbatim exits 0. **Gaps:** no commit; the report text was overwritten twice afterwards (R2, R3), so this closure survives only as the ledger record — the artifact itself no longer exists on disk. |
-| 7 | V-REMEDIATE | commit `c7c762c` (2026-10-18T17:29:58), parent `66d0e45`, pushed; `AGENT.md:240` (COMPLETE), `AGENT.md:248` (signed, amended, parked) | remediation lane — **flag OD-2** | **0.7.14** *(prov. — OD-2)* | All 23 findings fixed and independently verified by two verifiers: zero failures, zero unexpected files; addendum battery 4/4 · guard probe 6/6 · typechecks 4/4; park 101 files, `ls-remote` == local. **Gaps:** a fresh clone at `c7c762c` is **not** battery-green (factory registry state uncommitted by ruling); one verifier SKIPPED markdownlint (not a pass). |
-| 8 | FULL-AUDIT-2 | `AGENT.md:275` (opened), `AGENT.md:283` (COMPLETE — ANNOUNCED); **no commit** | audit lane — **flag OD-1** | **0.7.15** *(prov. — OD-1)* | Report rewritten in place, 1,575 lines / 47 findings (15 HIGH / 20 MEDIUM / 12 LOW); Law-13 bijection 47=47=47=47; lint exit 0. **Gaps:** no commit; overwritten again by R3; the 13→3 source-disagreement recount is flagged unreproduced. |
-| 9 | FULL-AUDIT-3 | `AGENT.md:284` (opened), `AGENT.md:293` (report), `AGENT.md:296` (repair re-verify, COMPLETE); **no commit** | audit lane — **flag OD-1** | **0.7.16** *(prov. — OD-1)* | 32,128 lines; 155/155 embeds byte-exact; Law-13 67=67=67=67 (19/31/17); repair re-verify 6/6 PASS; final identity sha256 `4a0fc30c1cfeeca742004064e6806e3dc436160b2bab57c70a27a2c2cc42546e`. **Gaps:** uncommitted at closure (the tracked blob at `.opencode/audit/V-FULL-AUDIT.md` predates it — `git log` shows one commit, `c7c762c`); lint recorded exit 1 over embedded corpora (declared not a hard gate). |
-| 10 | **V87-AETHER-EXECUTE — the V87 MISSION-PLAN** (`v8.7`) | `AGENT.md:249-250` (opened), `AGENT.md:270` (announced), `AGENT.md:274` (final complete); deliverables on disk: `V87-FOUNDATION-DOSSIER.md`, `V87-COLOR-AUDIT.md`, `V87-PLAN-ZERO-TO-87.md`, `V87-DEFECTS.md`; **no commit** | **mission** (`MISSION-PLAN` = mission, `AGENT.md:367`; `WORKFLOW.md:79`) | **0.8.0** *(conflict OD-3: named `0.8.7`)* | `w3-reverify2` FINAL: "ALL CLEARED — yes"; identity 4/4 exact; lint 6/6 exit 0 (one SKIP for an absent bare `markdownlint` binary, npx equivalent exit 0); writer quiescence proven after a confirmed clobber-and-recover cycle. **Gaps:** all four deliverables **uncommitted** (owner orders park if wanted); five plan decisions routed to the owner and unanswered at closure (`V87-PLAN-ZERO-TO-87.md` §9.2). |
-| 11 | **POST87-APPLY — Phase 0** | commit `2b3e66a` (2026-10-21T14:45:16); `AGENT.md:308`; report `.opencode/audit/POST87-PHASE0.md` (681 lines, committed with the phase) | phase | **0.8.1** | Gates quoted in the phase report (`POST87-PHASE0.md:104-105`): `verify-kit` 22/22 · `verify-skills` 10/10; report lint exit 0; 16 axes / 55 findings / 33 owner questions; disclosed corrections recorded at `POST87-PHASE0.md:623`. **Gaps:** the 33 questions were open at that instant (answered later, same date); the report itself is measurement, not a code change. |
-| 12 | **POST87 — Phase-1 slice = rulings wave #1** | commit `8312cae` (2026-10-21T15:43:09); `AGENT.md:327` (wave complete), `AGENT.md:376` (slice report landed, 447 lines); node commits `0c23c7f`, `e215cdc`, `b6659d8`, `c57d9a8`, `5c2dcea`, `7eaae18`, `20866d0`; wave membership proven at `POST87-SLICE1.md:30` ("four U-slice nodes plus three ruling nodes") | slice — **flag OD-4** | **0.8.2** *(prov. — OD-4)* | Every gate re-run live at `7eaae18` (`POST87-SLICE1.md:142-148`): kit 22/22 · skills 10/10 · registry 7/7 · catalog `--check` 17 ok + 1 skip · probe 61/61 · tsc 0 · `opencode plugin list` 1 row · markdownlint 0 · pre-commit hook 0. **Gaps:** `r2-tags` (§3(a) probe-tag deletion) **returned open** — no `git tag -d` was run (the tags are absent today; live `git tag` shows 12 tags); untracked twin held under Q-15; Arabic errata vs rule 5 open; RAG provenance headers stale. |
-| 13 | **POST87 — rulings wave #2** | `AGENT.md:336-340`; commits `e66bf14` (U4 sweep), `a95f112` (release.yml retired), `f90cdb3` (indexes regen), `4b6b05a` (doc drift), merge to `main` `f3ca04b` (2026-10-21) | wave — **flag OD-4** | **0.8.3** *(prov. — OD-4)* | Live sweep: 0 singular refs over 3,164 files; merged-tree gates: catalog `--check` 0 · registry 7/7 (2,915 records) · kit 22/22 · skills 10/10; dry-run `39606624421`: guard PASSED, publish job **failed closed** at checkout of the synthetic tag (`AGENT.md:340`). **Gaps:** markdownlint exit 1 with **16 pre-existing** violations in `docs/spec/VANTRILEX_KIT_SPEC.md` (baseline 16 = merged 16, zero regression, accepted — not a pass); no audit line produced → end-to-end lane **UNPROVEN**; `main` is mixed-generation (2,915 records / 138+9 committed vs 157 / 2,931 in the census texts). |
-
-**Latest completed unit = #13, `2026-10-21` rulings wave #2, computed `0.8.3`** under the primary
-reading (provisional on OD-1/2/4). Everything after it in the tree belongs to Cluster 1, which is
-**not closed** (§5).
-
----
-
-## 4. Borderline calls — owner decisions, not decided here
-
-Each row: the call, the evidence, the two readings, and the exact effect on numbers. The primary
-cascade of §3 uses the reading in the "used here" column.
-
-| ID | Borderline call | Evidence | Used here | Alternative and its effect on numbers |
-|---|---|---|---|---|
-| **OD-1** | Audit rounds: one unit ("audit") or three (R1, R2, R3)? | `AGENT.md:225`, `:283`, `:296` — three separate audits, each with its own report identity and closure record; §3 lists "audit" once | 3 units (0.7.13, 0.7.15, 0.7.16) | 1 unit → pre-mission patches **−2** from FULL-AUDIT on (V-REMEDIATE 0.7.13, mission 0.8.0). Post-mission numbers **unchanged** (mission resets the patch). |
-| **OD-2** | Is `V-REMEDIATE` a unit or a repair round of the R1 audit? | `AGENT.md:226` (new lane), `:240` (COMPLETE), `:248` (signed/parked); §3 lists "remediation" separately from "audit" | 1 unit (0.7.14) | If it is a repair round of R1 → pre-mission **−1** from V-REMEDIATE on; mission and later numbers unchanged. |
-| **OD-3** | The V87 mission's number: §1 arithmetic or the owner's named release? | §1 gives 0.7.7 + mission 0.1.0 = **0.8.0**; the owner's Part 2 says the MISSION-PLAN "ships as release 0.8.7" (`WORKFLOW.md:79`, `AGENT.md:347`), and the ruling says "named releases 0.8.7/0.9 mechanics stay as ruled" (`WORKFLOW.md:91`) | **0.8.0** (arithmetic; the conflict is flagged) | If the owner keeps `0.8.7`, the mission is named, not computed, and the whole post-mission patch sequence renumbers from it (Phase 0 → 0.8.8, slice → 0.8.9, wave #2 → 0.8.10) — i.e. §1's patch counter cannot be used for those units without the owner's re-basing. **This is the single decision that changes the shape of the line.** |
-| **OD-4** | Are a closed *slice* and a closed *wave* units? | §1 names only phase and mission, then says "slices/clusters per the records"; the slice report is explicitly the wave's six-part completion (`POST87-SLICE1.md:1,:5,:30`) | Yes: slice = wave #1 = one unit (0.8.2); wave #2 = one unit (0.8.3) | If neither is a unit → latest completed = POST87 Phase 0 at **0.8.1**, and the map ends there. If slice and wave #1 are counted separately → one extra +0.0.1 (wave #2 = 0.8.4) — the map treats them as **one** unit because the record makes the slice report the wave's closure. |
-| **OD-5** | Factory P4: excluded (close gate held) or counted (program announced complete)? | `AGENT.md:220` — "P4 CLOSE BLOCKED on owner items"; `AGENT.md:221` — "VTA-FACTORY-EXECUTE COMPLETE"; `P4-DEFERRAL-LEDGER.md:32-52` — 5 OPEN / 2 CLOSED | **Excluded** (§5) | If counted → insert one unit at 0.7.13; pre-mission **+1** from FULL-AUDIT on; mission and post-mission numbers unchanged. |
-| **OD-6** | Is the factory *program* itself a mission on top of its phases? | Records call P0–P5 "phases" (`P4-DEFERRAL-LEDGER.md:4`); the plan calls the whole thing "the factory program P0 to v8.6" (`V87-ENUM.md:249`); no record calls it a mission | Phases only | If the program is a mission at P5 → 0.8.0 at P5, V87 mission → **0.9.0**, Phase 0 → 0.9.1, slice → 0.9.2, wave #2 → 0.9.3. This would put the line one minor ahead of the owner's `0.8.7` naming. |
-| **OD-7** | Relay lanes of 2026-10-15 are completed units with commits but are outside §3's enumeration. | `AGENT.md:397` (v2 merged to `main`, `3d5d92a..772c693`), `:400-401` (fixes `772c693`), `:390-393` (relay-03 park `5ace12d`, **not** in `main`) | Not mapped (outside the enumeration) | If counted: relay v2/fixes → +0.0.1 and relay-03 → +0.0.1, i.e. **+2 pre-mission patches** (P0 0.7.10 … FULL-AUDIT-3 0.7.18); mission still 0.8.0. Relay-03's anchor `5ace12d` is **not in `main`**, so its release commit would sit off the release line. |
-| **OD-8** | "v87 plan nodes": one mission unit, or one unit per plan node? | §1 maps `MISSION-PLAN` = mission; the plan executed 4 waves (W0–W3) and closed once (`AGENT.md:270`, `:274`) | One mission unit | If per-node units → no minor bump and a patch per node (the ledger records 13 nodes across W0–W3); the cascade would not reach 0.8.x at all. Not computed further: §1's own mapping and the single closure record both point to one mission. |
-
-**Invariance property (useful for the publish lane):** OD-1, OD-2, OD-5 and OD-7 shift only
-**pre-mission patch numbers**; the mission's minor bump resets the patch, so `0.8.0` and every
-post-mission number are stable under those four calls. Only OD-3, OD-4, OD-6 and OD-8 change the
-post-mission line.
-
----
-
-## 5. Not closed — excluded from the map
-
-| Unit | State now | Evidence | Why excluded |
+| Artifact | lines | bytes | sha256 (first 8) |
 |---|---|---|---|
-| **VTA-FACTORY-EXECUTE — P4** | close gate **held** (5 items open) | `AGENT.md:220`; `P4-DEFERRAL-LEDGER.md:32-52` | §2 rule: a unit with a held close gate gets no number. Flagged OD-5. |
-| **Cluster 1 (lock abolition) — S0→S6** | **NOT CLOSED — S6 pending** | `AGENT.md:356` (order), `:360-365` (S0–S4 landed), `:365` (S4 + S5 dispatched) | The unit is the cluster, not its slices. S5 (docs) has **no landing record** at time of writing; S6 (full battery) has not run. Therefore: **no version is allocated to S0–S4**, even though six commits exist (`7b41b92`, `28e7afb`, `11e833a`, `500ead0`, `d745869`, `6c3852b`, `cb12407`) and all landed gates are green. |
-| **POST87-APPLY — Phase 1** (the phase, as distinct from its slice) | open | `AGENT.md:307`, `:317` — "Phase 1 then opens ONLY on the clusters these rulings unblock"; Aether-first clusters parked pending `V-AETHER` | Not closed; the slice is a wave inside the phase, mapped at #12 with flag OD-4. |
-| **`rel-selfpub` / `rel-map`** (this workstream) | in flight | `AGENT.md:375` | Not closed; this file is the map, not a closure. |
+| `V87-FOUNDATION-DOSSIER.md` | 283 | 54,912 | `03282AE9` |
+| `V87-COLOR-AUDIT.md` | 376 | 30,721 | `9F7DBC7A` |
+| `V87-PLAN-ZERO-TO-87.md` | 720 | 75,855 | `60705971` |
+| `V87-DEFECTS.md` | 311 | 38,649 | `660A610D` |
+| `.opencode/audit/V-FULL-AUDIT.md` | 32,128 | 2,118,431 | `4A0FC30C…2546E` |
+| `P5-LOOP-DOSSIER.md` | 119 | 9,753 | — |
+| `P4-DEFERRAL-LEDGER.md` | 63 | 2,866 | — |
 
-Cluster 1's as-closed evidence, recorded for the day it closes (not a version claim): S0 `7b41b92`
-battery green in **both** the working and the committed tree; S1a `28e7afb`+`11e833a` 12/12 theme
-JSONs, lock 166/0, catalog 2,940; S1b `500ead0` `verify-catalog` 9/9, dual-run PASS, break-verified
-both directions; S2 `d745869` injection parity exact (146 tokens, digest `e9f76f75…`); S3
-`6c3852b` lock abolished with 22 kit checks → replacements, zero unmapped, lock-free battery 17/17;
-S4 `cb12407` 168/168 profile ids resolve.
+Presence checks: `kit/kit.lock` **absent**, `scripts/verify-kit.mjs` **absent** (deleted at S3,
+`6c3852b`); `docs/99-archive/P1-EVAL-7.jsonl` present (484,402,351 B); P2/P5 surfaces present
+(`vantrilex-uploader.md` 5,875 B, `vantrilex-puller.md` 6,191 B, three `vantrilex-intake-*`
+`SKILL.md`, `vs-ponytail/SKILL.md` 11,608 B); `docs/99-archive` holds 71 files.
+
+Closure records: `AGENT.md` (line-cited per row), `WORKFLOW.md` Part B,
+`.opencode/audit/POST87-PHASE0.md`, `POST87-SLICE1.md`, `POST87-INTAKE.md`,
+`POST87-BLUEPRINT-ERRATA.md`, `V87-ENUM.md`, `P4-DEFERRAL-LEDGER.md`, `docs/spec/v87/*`.
 
 ---
 
-## 6. Units with insufficient evidence — stated explicitly
+## 4. What counts as closure evidence
+
+A unit enters the table only with (1) a closure record naming it closed, (2) an anchor — a commit,
+or an explicit "no commit" in the record, and (3) gate evidence quoted at closure. A unit with (1)
+and (3) but no (2) is listed **with the gap stated**; no commit is invented. A unit with no closure
+record is listed as insufficient (§9), never mapped.
+
+Historical honesty: the `PARKED, UNRELEASED` headings for 0.7.5–0.7.7 (`V87-ENUM.md:296-299`, D1–D3)
+stay exactly as written. This map records them as stale; it does not rewrite them.
+
+---
+
+## 5. Full unit table — as-closed evidence and gaps
+
+| Version | Unit | Closure evidence | As-closed verification (quoted/paraphrased from the record) | Gaps stated at closure |
+|---|---|---|---|---|
+| 0.7.7 | base | tag + `AGENT.md:413`; release run `38751942204` | tag pushed, release published with `vantrilex-arsenal-v0.7.7.tar.gz` (2,108,221 B) | `CHANGELOG.md:12-18` says PARKED/UNRELEASED — stale label, not rewritten |
+| 0.7.8 | P0 | `66d0e45`; `AGENT.md:193`, `:197` | `p0-verify` PASS-WITH-DEFERMENT: charter hashes 3/3; makers lint-clean; probes exit 0; registry 7/7 · kit 22/22 · skills 10/10 · mirror ok | battery entry DEFERRED (no battery definition on disk); independent (vanbu) verify not performed |
+| 0.7.9 | P1 | `AGENT.md:206`; **no commit** | tallies recomputed live 1,531 / 6 / 1,525; shapes complete; `vs-*` set == green set; 5 gates exit 0 | no commit; battery slot unevaluable; three notes routed to the Guide |
+| 0.7.10 | P2 | `AGENT.md:212`; **no commit** | full battery green after `p2-lockalign`; 330 rows; lock↔catalog rescan 0 drift | no commit; battery slot open; naming advisory + pointer removals left to owner |
+| 0.7.11 | P3 | `AGENT.md:219`; **no commit** | 6 gates PASS + 2 honest SKIPS; soak 5/5, 0 uncovered; 19 conditional + github core-verified | no commit; plan-vs-live deviation (20 vs 19) flagged |
+| 0.7.12 | P5 | `AGENT.md:221`; **no commit** | `p5-demo` verified; 4 live fetches 200; lint + `verify-skills` 10/10 at 37 folders | no commit; admit parked pending owner; owner-side queue open |
+| 0.7.13 | R1 | `AGENT.md:225`; **no commit** | report 1,194 lines, 14 headings, 23 findings, §14 exits 0 | no commit; **report text overwritten twice since** |
+| 0.7.14 | V-REMEDIATE | `c7c762c`; `AGENT.md:240`, `:248` | 23/23 fixed; two verifiers zero failures / zero unexpected; battery 4/4 · guards 6/6 · typechecks 4/4 | fresh clone not battery-green (factory registry uncommitted by ruling); one markdownlint SKIP |
+| 0.7.15 | R2 | `AGENT.md:283`; **no commit** | 1,575 lines / 47 findings (15/20/12); Law-13 47=47=47=47; lint exit 0 | no commit; **overwritten by R3**; 13→3 recount flagged |
+| 0.7.16 | R3 | `AGENT.md:293-296`; **no commit** | 32,128 lines; 155/155 embeds; Law-13 67; D-1 repair 6/6; sha256 `4a0fc30c…` | uncommitted at closure; lint exit 1 over embedded corpora (declared not a gate) |
+| 0.8.7 | V87 | `AGENT.md:270`, `:274`; **no commit** | `w3-reverify2` ALL CLEARED: identity 4/4, lint 6/6, writer quiescence | four deliverables uncommitted; five decisions unanswered at closure |
+| 0.8.8 | Phase 0 | `2b3e66a`; `AGENT.md:308` | kit 22/22 · skills 10/10 (`POST87-PHASE0.md:104-105`); lint 0; 16 axes / 55 findings / 33 questions | questions open at that instant; measurement, not a code change |
+| 0.8.9 | slice / wave #1 | `8312cae`; `AGENT.md:327`, `:376` | 9 gate rows at `7eaae18` (`POST87-SLICE1.md:142-148`): kit · skills · registry · catalog `--check` · probe 61/61 · tsc · plugin list · markdownlint · hook | `r2-tags` returned open (no tag deletion run); twin held Q-15; Arabic rule-5 tension; RAG headers stale |
+| 0.8.10 | wave #2 | `f3ca04b`; `AGENT.md:336-340` | 0 singular refs / 3,164 files; catalog `--check` 0 · registry 7/7 (2,915) · kit 22/22 · skills 10/10; dry-run `39606624421` guard PASS, publish fail-closed | markdownlint exit 1 with 16 pre-existing violations (zero regression, accepted); **end-to-end UNPROVEN**; mixed-generation main |
+
+Class and numbering follow §2; no unit above is renumbered by a later finding.
+
+---
+
+## 6. Not closed — excluded, with their evidence
+
+| Unit | State | Evidence | Rule applied |
+|---|---|---|---|
+| **VTA-FACTORY P4** | close gate held | `AGENT.md:220`; `P4-DEFERRAL-LEDGER.md:32-52` (5 OPEN / 2 CLOSED) | not closed → no number (OD-5) |
+| **Cluster 1 (S0→S6)** | S6 pending; S5 no landing record | `AGENT.md:356-365`; commits `7b41b92`, `28e7afb`, `11e833a`, `500ead0`, `d745869`, `6c3852b`, `cb12407` | unit = cluster; slices get no numbers; `0.8.11` is the next free value **when** S6 closes |
+| **POST87-APPLY Phase 1** | open (Aether-first clusters parked) | `AGENT.md:307`, `:317` | its slice is mapped at `0.8.9`; the phase itself is not closed |
+| **`rel-selfpub` / `rel-map`** | in flight | `AGENT.md:375` | this file is the map, not a closure |
+
+Cluster 1's landed evidence, for the day S6 closes: S0 `7b41b92` battery green in both trees;
+S1a `28e7afb`+`11e833a` 12/12 themes, lock 166/0, catalog 2,940; S1b `500ead0` `verify-catalog` 9/9,
+dual-run PASS, break-verified; S2 `d745869` parity exact (146 tokens, `e9f76f75…`); S3 `6c3852b`
+22 kit checks → replacements, zero unmapped, lock-free battery 17/17; S4 `cb12407` 168/168 ids.
+
+---
+
+## 7. EVIDENCE-RELEASE BUNDLES (owner ruling §3)
+
+**Policy, verbatim in substance:** for every no-commit unit, enumerate the closure-evidence bundle
+(exact report paths, quoted as-closed verification output, closure-record references) and the
+package manifest it would ship. The notes must state plainly that **no committed source tree
+exists** and that **the package preserves the closure record**. Never invent a tree. Never re-run a
+historical battery as as-closed evidence. Commit-anchored units publish at their own commits
+normally.
+
+Common package shape for every evidence release: `RELEASE-NOTES-<version>.md` (scope, closure
+quote, gaps, the no-tree statement) · `CLOSURE-EVIDENCE/` (the artifacts below) · `MANIFEST.txt`
+(per-file bytes + sha256). Paths are repo-relative.
+
+### 7.1 `0.7.9` — P1 (assemblable)
+
+- Closure refs: `AGENT.md:206`; gate quote: "all 5 gates exit 0", tallies 1,531 / 6 / 1,525.
+- Artifacts: `docs/99-archive/P1-RUBRIC-7DIM.md` (7,826 B) · `P1-SHARDS-MANIFEST.md` (2,362 B) ·
+  `P1-SHARD-1..7.jsonl` (63,519 / 63,881 / 65,521 / 69,174 / 61,514 / 64,260 / 58,602 B) ·
+  `P1-EVAL-1..6.jsonl` (567,798 / 801,001 / 772,995 / 1,126,037 / 781,011 / 784,501 B) ·
+  `P1-EVAL-INSTALLED.jsonl` (60,153 B) · the six admitted `vs-*` `SKILL.md` bodies.
+- **Excluded by the record, named here:** `P1-EVAL-7.jsonl` (484,402,351 B) — out of VCS by ruling
+  (`AGENT.md:248`) and over the 100 MB asset ceiling proven at `vr-park`. Referenced, not shipped.
+- Not in the bundle: the lock state P1 gated (157 · 32/125 · 9) — abolished at S3.
+
+### 7.2 `0.7.10` — P2 (assemblable)
+
+- Closure refs: `AGENT.md:212`; gate quote: "FULL battery ALL exit 0", 330 rows.
+- Artifacts: `P2-R0.md` (21,359) · `P2-INTAKE.md` (12,557) · `P2-SCAN-FIRST.md` (5,267) ·
+  `P2-NEGCTRL.md` (18,707) · `P2-POLISH-CHECKLIST.md` (2,851) · `P2-SHARDS-MANIFEST.md` (1,890) ·
+  `P2-SHARD-1..4.jsonl` (21,067 / 20,731 / 20,522 / 23,040) · `P2-EVAL-1..4.jsonl` (153,989 /
+  258,332 / 249,255 / 95,457) · `P2-EVAL-INSTALLED.jsonl` (51,469) ·
+  `P2-QUARANTINE-TRIAL.log` (733) · surfaces: `.opencode/agents/vantrilex-uploader.md` (5,875) ·
+  `vantrilex-puller.md` (6,191) · `vantrilex-intake-{triage,fetch,send}/SKILL.md` (5,092 / 4,865 /
+  5,057).
+- Gap in the bundle: the sidecar/file rename state P2 produced is not separately recoverable — the
+  bundle carries the P2 ledgers and the ledger record, not a P2 tree.
+
+### 7.3 `0.7.11` — P3 (**partial — the gated artifacts no longer exist**)
+
+- Closure refs: `AGENT.md:219`; gate quote: "6 gates PASS + 2 honest SKIPS", soak 5/5.
+- Artifacts: `P3-R0.md` (24,421) · `P3-MCP-A.json` (3,737) · `P3-MCP-B.json` (5,145) ·
+  `P3-GEAR-01..08.md` (964 / 944 / 912 / 927 / 894 / 911 / 935 / 939) · `P3-SOAK-LOG.md` (20,158) ·
+  `P3-SMITHERY-STARTER-LOG.md` (10,684).
+- **What cannot be shipped:** the 19 conditional lock records and the github update that P3
+  actually verified. `kit/kit.lock` was deleted at S3 (`6c3852b`) and no commit captured the P3
+  lock state (verified absent today). The notes must say the bundle preserves the proposal, soak
+  and gear artifacts plus the ledger quote, and does **not** reproduce the gated lock.
+
+### 7.4 `0.7.12` — P5 (assemblable)
+
+- Closure refs: `AGENT.md:221`; gate quote: "lint + verify-skills 10/10 at 37 folders", 4 fetches 200.
+- Artifacts: `P5-LOOP-DOSSIER.md` (9,753 B / 119 lines) ·
+  `.opencode/skills/vs-ponytail/SKILL.md` (11,608 B).
+- Gap: the admit remained parked pending the owner's review; no committed tree.
+
+### 7.5 `0.7.13` — FULL-AUDIT R1 (**cannot be honestly assembled in full**)
+
+- **What remains:** the ledger record only — `AGENT.md:225`: report 1,194 lines, 14 headings in
+  order, 23 identifiers `L13-12-001…023`, §14 verbatim exits 0.
+- **What is gone:** the report text itself. `.opencode/audit/V-FULL-AUDIT.md` was overwritten in
+  place twice (R2, then R3); the file today is R3's (`4a0fc30c…`). No copy of R1's text exists.
+- Package, if published: notes + that ledger quote, labelled **"closure record only — the report
+  artifact was overwritten in place; no R1 text survives."** The owner may prefer to hold; the
+  number stays allocated either way (standing rule).
+
+### 7.6 `0.7.15` — FULL-AUDIT-2 (**cannot be honestly assembled in full**)
+
+- **What remains:** `AGENT.md:283` — 1,575 lines, 47 findings (15 HIGH / 20 MEDIUM / 12 LOW),
+  Law-13 bijection 47=47=47=47, lint exit 0.
+- **What is gone:** the R2 text (overwritten by R3 at the same path; the R3 file is byte-identical
+  to its own identity, not to R2's). The 13→3 source-disagreement recount was flagged unreproduced.
+- Package, if published: notes + ledger quote, labelled exactly as §7.5.
+
+### 7.7 `0.7.16` — FULL-AUDIT-3 (assemblable)
+
+- Closure refs: `AGENT.md:293`, `:296`; identity: **32,128 lines / 2,118,431 B / sha256
+  `4a0fc30c1cfeeca742004064e6806e3dc436160b2bab57c70a27a2c2cc42546e`** — re-hashed today, identical.
+- Artifacts: `.opencode/audit/V-FULL-AUDIT.md` (the file itself) + the D-1 repair record.
+- Gap: uncommitted at closure; the package carries the file, not a commit.
+
+### 7.8 `0.8.7` — V87 mission (assemblable)
+
+- Closure refs: `AGENT.md:270` (announced), `:274` (final complete); `w3-reverify2` ALL CLEARED.
+- Artifacts, identities re-verified today (lines / bytes / sha256 prefix):
+
+| File | lines | bytes | sha256 |
+|---|---|---|---|
+| `V87-FOUNDATION-DOSSIER.md` | 283 | 54,912 | `03282AE9…` |
+| `V87-COLOR-AUDIT.md` | 376 | 30,721 | `9F7DBC7A…` |
+| `V87-PLAN-ZERO-TO-87.md` | 720 | 75,855 | `60705971…` |
+| `V87-DEFECTS.md` | 311 | 38,649 | `660A610D…` |
+
+- Notes carry the five owner decisions still open at closure (`V87-PLAN-ZERO-TO-87.md` §9.2) and
+  the fact that the **four deliverables are uncommitted** — the package preserves their bytes and
+  hashes, not a source tree.
+- Not in this bundle: `V87-RUFLO-ANALYSIS.md` — F-1, committed at `6e5f55c`, belongs to Cluster 1.
+
+### 7.9 Commit-anchored units (normal publication)
+
+`0.7.8` at `66d0e45` · `0.7.14` at `c7c762c` · `0.8.8` at `2b3e66a` · `0.8.9` at `8312cae` ·
+`0.8.10` at `f3ca04b`. Each publishes as a source tarball of the tree at that commit, with notes
+carrying the as-closed evidence and any gap from §5 — including `0.7.14`'s recorded caveat that a
+fresh clone at `c7c762c` is not battery-green (factory registry state uncommitted by ruling).
+
+**Units whose bundle cannot be honestly assembled in full, named individually: `0.7.13` (R1) and
+`0.7.15` (R2) — report text gone, closure record only. Partial by design: `0.7.11` (P3) — its gated
+lock artifacts were abolished at S3 and are unrecoverable.**
+
+---
+
+## 8. Publication conditions
+
+1. **No publish before `rel-selfpub` lands and its §6 proofs pass review.** No backfill publish in
+   this lane, now or later without that precondition. *Observed 2026-10-21 (not a satisfaction
+   claim): the sibling lane's mechanism commits `8f12b3d` and `52733ea` are on this branch; this
+   map's sources carry no record of the §6 proofs review, so the precondition is recorded as
+   **open**.*
+2. **Ascending version order**, each at its own commit or evidence bundle; tree as it was.
+3. **The first live publish runs monitored**, and its audit line is reported before the rule is
+   called proven (this is also what closes the §2.3 end-to-end debt).
+4. **Never edit a historical tree** to pass today's battery; **never let today's battery block a
+   historical release** — the as-closed evidence is the quoted historical output.
+5. **The map is owner-approved on these terms (2026-10-21); the §3 gate is satisfied.** Numbers are
+   fixed as of this approval; any later finding is an erratum, not a renumber.
+
+---
+
+## 9. Units with insufficient evidence — stated explicitly
 
 | Unit | What exists | What is missing |
 |---|---|---|
-| **`AETHER-INTAKE`** (2026-10-20) | ledger record only (`AGENT.md:297`): intake routed to the Aether seat, nothing read, copied, planned or dispatched | no commit, no artifact, no closure record — and the same blueprint re-arrived with the work order as `POST87-APPLY` (`AGENT.md:378`), superseding it. **Not a unit.** |
-| **Cluster 1 — S5 (docs)** | dispatched in parallel with S4 (`AGENT.md:365`) | no landing record, no commit, no gate report. Status **unknown** — a check that cannot be evaluated is a failed check, not a silent pass. |
-| **Factory P1–P5** | closure records + artifacts on disk + quoted gates | **no commit of their own** (records say outputs were untracked; the next commit to capture any of their state is `c7c762c`, a V-REMEDIATE park, not a factory commit). §4's "each at its own commit, tree as it was" cannot be satisfied for these units without inventing a commit. |
-| **V87 deliverable set** | four files on disk with verified identities; closure record | **uncommitted at closure** (`AGENT.md:270`, `:274`); the bytes exist, the release anchor does not. |
-| **FULL-AUDIT R1 / R2** | closure records + quoted line counts | the report **text no longer exists** (overwritten in place twice); only the ledger record remains. |
-| **`r2-tags`** (inside wave #1) | read-only proofs in `.opencode/audit/r2-tags/`; ledger record `AGENT.md:322` | the ordered act (probe-tag deletion) **was not performed** by that node; the wave closed with it open. The tags are absent live today, but that is a later owner-side fact, not this node's closure. |
+| `AETHER-INTAKE` (2026-10-20) | ledger record only (`AGENT.md:297`) | no commit, no artifact, no closure record; superseded by `POST87-APPLY` (`AGENT.md:378`). **Not a unit.** |
+| Cluster 1 — S5 (docs) | dispatched with S4 (`AGENT.md:365`) | no landing record, no commit, no gate report. Status **unknown** — a check that cannot be evaluated is a failed check, not a pass. |
+| `r2-tags` (node inside `0.8.9`) | read-only proofs `.opencode/audit/r2-tags/`; ledger `AGENT.md:322` | the ordered tag deletion was not performed by that node; the wave closed with it open. The tags are absent live today — a later owner-side fact, not this node's closure. |
+| `F-1` (Ruflo dossier) | commit `6e5f55c`, byte-verified filing | a **node** of Cluster 1, not a closure unit — carries no number under OD-8's logic. |
+| Factory P1–P5, audits R1–R3, V87 | closure records + quoted gates | **no commit anchor**; §7 governs how each publishes or is labelled. |
 
 ---
 
-## 7. What the backfill publish can and cannot do at these anchors
+## 10. What the backfill can and cannot do — standing notes
 
-Recorded here because §4 of the ruling binds the publish lane, and these facts decide per-unit
-feasibility:
-
-1. **Commit anchors exist for:** P0 (`66d0e45`), V-REMEDIATE (`c7c762c`), POST87 Phase 0
-   (`2b3e66a`), Phase-1 slice (`8312cae`), wave #2 (`f3ca04b` on `main`).
-2. **No commit anchor exists for:** factory P1–P5, the three audit rounds, and the V87 mission.
-   Their as-closed evidence is the ledger record plus on-disk artifacts — publishable only at a
-   later commit (which is *not* "the tree as it was") or not at all. The owner must rule.
-3. **The as-closed battery is not re-runnable at HEAD.** P0–V87 closed against
-   `scripts/verify-kit.mjs` (22 checks); S3 retired that verifier and `kit/kit.lock`
-   (`6c3852b`). Re-running "the as-closed battery" today is impossible; the honest record is the
-   **quoted historical output** in the ledger, which is what §4's "never let today's battery block
-   a historical release" anticipates.
-4. **`main` does not carry Cluster 1.** `main` = `f3ca04b`; the eight lane commits from `6e5f55c`
-   through `cb12407` are unpushed. Nothing in this map assumes they are on the release line.
-5. **`CHANGELOG.md` records none of these units.** `[Unreleased]` carries exactly two entries
-   (`CHANGELOG.md:10-26`: auto-publish, one-plugin consolidation). Historical section headings for
-   0.7.5–0.7.7 still read `PARKED, UNRELEASED` (`V87-ENUM.md:296-299`) — stale labels, recorded,
-   **not rewritten**; today's conventions do not rewrite history.
-6. **Exactly one existing tag needs a naming note before any ascending publish:** `v7.5` is the
-   real 0.7.5 release (`V87-ENUM.md:103`, `:299` D4). It sorts after `v0.7.7` lexically and before
-   it semantically; the map's base is still `v0.7.7`, the newest tag by date and by the shipped
-   series (`V87-ENUM.md:234`).
+1. **As-closed batteries are not re-runnable.** Pre-S3 units closed against
+   `scripts/verify-kit.mjs` (22 checks); S3 deleted it and the lock (`6c3852b`, both verified
+   absent today). The as-closed evidence is the quoted output, never a fresh run.
+2. **`main` does not carry Cluster 1.** `main` = `f3ca04b`; the eight cluster commits `6e5f55c`…
+   `cb12407` are unpushed. No row above assumes they are on the release line.
+3. **`CHANGELOG.md` records none of these units.** `[Unreleased]` holds two entries
+   (`CHANGELOG.md:10-26`); 0.7.5–0.7.7 headings still read PARKED/UNRELEASED — stale, recorded, not
+   rewritten.
+4. **`v7.5` naming:** the real 0.7.5 release (`V87-ENUM.md:103`, D4). It sorts after `v0.7.7`
+   lexically; the base is `v0.7.7`, the newest tag by date and by the shipped series
+   (`V87-ENUM.md:234`).
+5. **`0.8.7` is a named value.** A publisher that computes from increments alone would produce
+   `0.8.0`; the queue entry for the V87 mission must carry the explicit value. No increment is
+   hard-coded to force it.
 
 ---
 
-## 8. Handoff
+## 11. Handoff
 
-- **Owner:** approve the map, or rule on §4 (OD-1…OD-8). OD-3 is the load-bearing one — it decides
-  whether the mission is `0.8.0` (§1 arithmetic) or `0.8.7` (the named release in the owner's
-  Part 2), and every post-mission number follows it.
-- **Register/publish lane:** on approval, publish in ascending order, each at its own commit, with
-  the scope + the as-closed evidence above and the gaps quoted as gaps. This lane publishes
-  nothing, tags nothing, pushes nothing.
-- **Kit-maintainer lane:** if the owner wants the stale CHANGELOG labels corrected, that is a
-  forward-only edit with a dated note — never a rewrite of a historical tree.
+- **Owner:** the map stands approved as tabled; the only open publication prerequisite is the
+  `rel-selfpub` landing plus its §6 proofs review (§8.1).
+- **Publish lane:** ascending; commit-anchored units as source tarballs, no-commit units as the §7
+  evidence bundles with the no-tree statement; R1/R2 labelled closure-record-only; P3 labelled
+  partial.
+- **Kit-maintainer lane:** any CHANGELOG correction for the stale 0.7.x labels is a forward-only
+  edit with a dated note — never a rewrite.
 
 ---
 
-## 9. Bounds observed
+## 12. Bounds observed
 
-- Wrote exactly one file: `.opencode/audit/RELEASE-BACKFILL-MAP.md`. No other path was modified,
-  staged or committed by this node.
-- Zero tags created, zero pushes, zero merges, zero releases, zero publishes, zero force-ops.
-- Zero invented tags or commits: every hash above was printed by `git show -s` / `git rev-list`
-  in this session; every unit without a commit says "no commit".
+- Wrote exactly one file (this map) and committed it once. No other path modified, staged or
+  committed by this node.
+- Zero tags, zero pushes, zero merges, zero releases, zero publishes, zero force-ops.
+- Zero invented tags, commits, numbers or trees: every hash printed in this session; every
+  no-commit unit says "no commit"; every bundle lists only artifacts verified present today.
 - Zero secrets; zero model pins; zero color or routing-identity fields.
-- Lint: reported in the return report with its actual runner and exit code — a check that cannot
-  run is reported failed, not skipped.
+- Lint: reported with its actual runner and exit code in the return report.
 
-**Routing used:** cheap path for tag/commit/date extraction and the closing-record sweep;
-escalated reasoning only for four judgments — the slice/wave identity read against
-`POST87-SLICE1.md:30`, the P4 held-gate exclusion, the `0.8.0`-vs-`0.8.7` conflict, and the
-audit-rounds count.
+**Routing used:** cheap path for the tag/commit/hash/probe sweep; escalated reasoning only where
+the ruling meets evidence — the named-release rebase, the P3 partial bundle, and the R1/R2
+"closure record only" call.
 
 Ponytail: curation spirit binding (FULL binds code-writing nodes only; this node wrote no code) —
-evidence: 12/12 tags enumerated, 24/24 anchor commits date-stamped, 14 map rows (base + 13 numbered
-units + the excluded P4 row) each tied to a ledger line or a commit, 8 borderline calls flagged
-rather than decided, one artifact written, zero drift repaired, zero publishes.
+evidence: 17 table rows covering the base, all 13 completed units, the excluded P4, the open cluster
+and the unassigned next value; 8 rulings recorded as decided; 8 evidence bundles enumerated with
+bytes; 3 bundles named as not-fully-assemblable (2 closure-record-only, 1 partial); one artifact
+rewritten, zero renumbering, zero publishes.
