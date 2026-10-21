@@ -215,9 +215,10 @@ disagrees with that policy can turn it off without unpacking the plugin.
 
 The hook is the trigger; Vanguard's Task dispatch section is the response. The
 hook fires before Vanguard is loaded, names one of five scenarios, and stops.
-Vanguard then owns the single decision dispatch makes — which locked components
-are injected in which phase — read from the `phase` field of every entry in
-`kit/kit.lock` at dispatch time. The lock entry for this hook carries
+Vanguard then owns the single decision dispatch makes — which selected components
+are injected in which phase — read from the `phase` field of every catalog row
+and the tokens in `.opencode/equip.manifest.json` at dispatch time. The catalog
+row for this hook carries
 `phase scout`, so it sits in the scout lane beside `session-start`,
 `vantrilex-prime` and `vantrilex-vanguard`, and it is injected with them
 rather than held across later phases.
@@ -228,11 +229,11 @@ time the lock changed. Nothing here injects a component, ranks a phase, or
 restates Doctrine's phase map.
 
 Verification of the wiring is mechanical and lives in
-[08-VERIFICATION.md](08-VERIFICATION.md): `node scripts/verify-kit.mjs`
-resolves every locked hook id against a registered function in the plugin file
-and fails when one does not, and the lock-versus-catalog check requires the
-two records to agree on `kind`, `phase`, `tier`, `install_cmd` and
-`verification`. The census that follows from this entry is in
+[08-VERIFICATION.md](08-VERIFICATION.md): `node scripts/verify-catalog.mjs`
+resolves every catalog hook row against a registered function in the plugin file
+and fails when one does not, and the selection check requires every selected
+token to resolve in the catalog and its sidecar, agreeing on `kind`, `phase`,
+`tier`, `install_cmd` and `verification`. The census that follows from this entry is in
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 The migration to V2 changed which runtime surface registers this hook, not what

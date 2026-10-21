@@ -103,7 +103,7 @@ To add a second theme: author a new V2-native JSON file in `registry/themes/`
 theme), add one row to the `## Themes` section of
 `registry/VANTRILEX_CATALOG.md` with matching heading counts, add one entry to
 `registry/data/themes.jsonl` with a real copy command and a parse verify
-command, add one `theme` component to `kit/kit.lock`, regenerate
+command, add one `theme` row to `registry/data/themes.jsonl`, regenerate
 `registry/catalog.json` and the themes index through
 `scripts/generate-catalog-json.mjs --indexes`, and extend the mapping table
 above. The general mechanism for plugging in future kinds lives in the

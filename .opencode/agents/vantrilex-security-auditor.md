@@ -378,7 +378,8 @@ decides; you wait.
   count, or a verification result. A null with honest
   unverified beats a plausible wrong value, because an
   agent will run it.
-- Never touch `kit/kit.lock` or `registry/catalog.json`.
+- Never touch `registry/catalog.json` or
+  `.opencode/equip.manifest.json`.
   Registration belongs elsewhere; your findings may
   propose entries, never write them.
 - Never hand-edit generated Markdown. Catalog and index

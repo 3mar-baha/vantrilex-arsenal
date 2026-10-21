@@ -1,7 +1,8 @@
 # Architecture
 
 Vantrilex Arsenal layers as a shipped surface (`.opencode/`), a data plane
-(`registry/`), tooling (`scripts/`), a pinned kit (`kit/`), and documentation
+(`registry/`), tooling (`scripts/`), a selection record
+(`.opencode/equip.manifest.json`), and documentation
 (`docs/`). This file says what each layer holds and what reads what. The
 canonical layout statement is [README.md](../README.md); the hard rules that
 constrain every layer are [AGENTS.md](../AGENTS.md).
@@ -37,8 +38,9 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (157 components, 9 pending)
-  kit.lock                      Pinned Tier-0 versions (9 pending per-agent themes)
+kit/                          ABSENT since S3 — no lockfile and no lock schema; the
+                              catalog is the sole kit source and the selection lives
+                              at `.opencode/equip.manifest.json`
 
 docs/                         THIS DOCUMENTATION SET plus provenance
   00-INDEX.md ... 21-PONYTAIL-COMPLIANCE.md
@@ -51,7 +53,7 @@ docs/                         THIS DOCUMENTATION SET plus provenance
 |---|---|---|
 | `scripts/generate-catalog-json.mjs` | `registry/VANTRILEX_CATALOG.md` plus `registry/data/*.jsonl` | `registry/catalog.json`, the Markdown table, per-kind indexes |
 | `scripts/verify-registry.mjs` | Catalog Markdown, sidecars, `registry/data/overlaps.yaml`, schema | PASS, FAIL, or SKIPPED per check; a skip is never a pass |
-| Prime (shipped) | This repository's tree, `kit/kit.lock`, `.opencode/skills/` | Orientation: canonical URL, clone and pin, what is on disk, the order Prime, Vanguard, Workflow-Forge, Doctrine run in |
+| Prime (shipped) | This repository's tree, `registry/catalog.json`, `.opencode/skills/` | Orientation: canonical URL, clone and pin, what is on disk, the order Prime, Vanguard, Workflow-Forge, Doctrine run in |
 | Vanguard (specified) | `registry/catalog.json`, skills.sh, Smithery, Context7, project files | Kit selection, lock entries, verification report, target docs |
 | `.opencode/plugin/arsenal.ts` | V2 session prompt hook, session events, tool calls, project config | Guard verdicts: PASS, FAIL, SKIPPED, WARN, BLOCKED |
 | `scripts/dispatch-worktrees.sh` | Checkpoint labeled fields (target-project scope) | Isolated worktree on `wt/<concern-slug>` with phase kit injected |

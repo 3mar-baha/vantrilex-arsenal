@@ -12,7 +12,7 @@ publishing script is
 | Job | Steps |
 |---|---|
 | `lint` | `bash -n` over `scripts/*.sh` and `.githooks/*`; `shellcheck` over the same; `node --check` over every `.mjs` file |
-| `verify` | `node scripts/generate-catalog-json.mjs --check`; `node scripts/verify-registry.mjs`; `node scripts/verify-kit.mjs` |
+| `verify` | `node scripts/generate-catalog-json.mjs --check`; `node scripts/verify-registry.mjs`; `node scripts/verify-catalog.mjs` |
 | `types` | Pinned `tsc --noEmit` when a `tsconfig.json` exists; SKIPPED with the reason when none exists, never PASS |
 | `build` | Bash shebang plus executable bit on all seven orchestration scripts; checkpoint labeled-field contract when the checkpoint exists; tarball packaging smoke test |
 
@@ -95,7 +95,7 @@ The gate is two proofs and both are required:
    exact commit into a temporary directory and runs
    `node scripts/generate-catalog-json.mjs --check`,
    `node scripts/verify-registry.mjs`, `node scripts/verify-skills.mjs`,
-   `node scripts/verify-kit.mjs`, and `tsc --noEmit -p tsconfig.json` there.
+   `node scripts/verify-catalog.mjs`, and `tsc --noEmit -p tsconfig.json` there.
 
 Both proofs are always evaluated, so one refusal names every failing check.
 Missing tooling and an absent verifier are failures, never skips: a check that

@@ -88,7 +88,7 @@ A task is not finished because the code runs. It is finished when the thing is p
   per-kind `registry/<dir>/_index.md`; run it BEFORE
   `node scripts/verify-registry.mjs`.
 - **Skill format** — `node scripts/verify-skills.mjs` exits 0 (skill-format gate).
-- **Kit components** — `node scripts/verify-kit.mjs` proves each component loads.
+- **Catalog and selection** — `node scripts/verify-catalog.mjs` proves every catalog row is honest and each selected component resolves.
   Conditional: when the script is absent the CI reports NOTICE as a passthrough,
   not a pass.
 - **Shell and Node syntax** — `bash -n` plus `shellcheck` over `scripts/*.sh` and

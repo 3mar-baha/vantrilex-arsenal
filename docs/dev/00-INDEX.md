@@ -15,7 +15,7 @@ two disagree, the file wins and the note is stale.
 | 02 | `02-SCRIPTS-VERIFY.md` | The three verifier scripts, check by check |
 | 03 | `03-SCRIPTS-GENERATE.md` | The catalog generation pipeline |
 | 04 | `04-SCRIPTS-OPS.md` | The eight operations scripts |
-| 05 | `05-KIT-LOCK.md` | Lock structure, invariants, phase scoping |
+| 05 | `05-KIT-LOCK.md` | Selection-record structure, invariants, phase scoping |
 | 06 | `06-REGISTRY.md` | Sidecars, overlap map, schema validation |
 | 07 | `07-SKILLS-AGENTS.md` | Skill contract and the agent roster |
 | 08 | `08-WORKFLOWS-GATES.md` | Root files, the six gates, release |
@@ -27,7 +27,7 @@ repository root with Node on `PATH`; the shell is `bash`.
 
 ```bash
 node scripts/verify-registry.mjs
-node scripts/verify-kit.mjs
+node scripts/verify-catalog.mjs
 node scripts/verify-skills.mjs
 node scripts/generate-catalog-json.mjs --check
 ```
@@ -38,11 +38,11 @@ Catalog census — the kind breakdown and the total:
 node -p "JSON.stringify(require('./registry/catalog.json').counts)"
 ```
 
-Lock census — how many entries are pinned, and the MCP cap:
+Selection census — how many tokens are selected, and the MCP cap:
 
 ```bash
-LOCK=kit/kit.lock
-node -p "JSON.parse(require('fs').readFileSync('$LOCK')).components.length"
+MANIFEST=.opencode/equip.manifest.json
+node -p "Object.values(JSON.parse(require('fs').readFileSync('$MANIFEST','utf8')).phases).flat().length"
 ```
 
 Roster census — skill folders and entries in the agents directory:

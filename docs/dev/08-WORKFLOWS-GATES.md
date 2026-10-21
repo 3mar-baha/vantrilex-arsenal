@@ -43,7 +43,7 @@ zero before a change is called done:
 ```bash
 node scripts/verify-registry.mjs
 node scripts/generate-catalog-json.mjs --check
-node scripts/verify-kit.mjs
+node scripts/verify-catalog.mjs
 node scripts/verify-skills.mjs
 shellcheck scripts/*.sh .githooks/*
 npx tsc --noEmit

@@ -43,10 +43,9 @@ changelog (see [14-CI-RELEASE.md](14-CI-RELEASE.md)).
    If it cannot be verified, set `install_cmd` to null with verification
    `unverified` (see [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md)).
 3. Fill `when_to_use`, `phase`, and `tier`. Tier `core` is Tier-0 only and
-   needs a free tier-core slot in the live lock — `kit/kit.lock` holds 157
-   components (32 tier core plus 125 tier conditional) with 9 pending — and an
-   MCP addition must stay inside the lock's `mcp_cap` of 8. There is no fixed
-   component total to size a proposal against.
+   pre-provisioned for every project; the catalog carries 39 `core` rows, and an
+   MCP addition must stay inside `MCP_CAP` 8 as `scripts/verify-catalog.mjs`
+   enforces it. There is no fixed component total to size a proposal against.
 4. If the component overlaps an existing one, record `supersedes` or
    `pairs_with` in `registry/data/overlaps.yaml`.
 5. Update `CHANGELOG.md` in the same change.
@@ -55,7 +54,7 @@ changelog (see [14-CI-RELEASE.md](14-CI-RELEASE.md)).
 ```bash
 node scripts/verify-registry.mjs
 node scripts/generate-catalog-json.mjs --check
-node scripts/verify-kit.mjs
+node scripts/verify-catalog.mjs
 node scripts/verify-skills.mjs
 shellcheck scripts/*.sh .githooks/*
 npx tsc --noEmit

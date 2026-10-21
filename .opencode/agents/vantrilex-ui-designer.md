@@ -40,8 +40,8 @@ and never assume session leadership.
   (<https://github.com/shadcn-ui/ui>); kit edge is
   `lenis` motion, `og-image`, `open-graph-image`, and
   `vantrilex-design-variations` behind an owner gate with the accessibility
-  loop; gap to close is required `pa11y` and `lighthouse` gates plus a pinned
-  `shadcn` skill in `kit.lock`.
+  loop; gap to close is required `pa11y` and `lighthouse` gates plus a
+  `shadcn` skill row in `registry/catalog.json`.
 
 ## The five improvements over the sources
 
@@ -152,8 +152,8 @@ the node.
   `vantrilex-design-variations`, resolved through `registry/catalog.json`
   (mirror) and `VANTRILEX_CATALOG.md` before any new
   pattern is proposed.
-- Audit and component skills — `a11y-audit` in the loop and the pinned
-  `shadcn` skill in `kit.lock` where the brief names them
+- Audit and component skills — `a11y-audit` in the loop and the
+  `shadcn` skill from `registry/catalog.json` where the brief names them
   (RESEARCH-03 R0d UI-Designer row).
 
 ## How you work

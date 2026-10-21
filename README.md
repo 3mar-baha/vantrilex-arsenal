@@ -43,12 +43,12 @@ Two parts, with one boundary between them:
 - **A shareable OpenCode plugin** — `.opencode/` ships the plugin, the four
   top-level skills, ten agent files, and four operator commands.
 - **A component system** — `registry/` is the catalog the plugin draws from,
-  and `kit/kit.lock` is the pinned, verified subset of that catalog every
-  project receives.
+  and `.opencode/equip.manifest.json` records the phase selection over that
+  catalog which every project receives.
 
 The plugin provisions; it does not decide. Selection lives in the Registry and
-`kit/kit.lock`, conduct lives in Doctrine, and the plugin only enforces what
-those two declare. That is why the kit is *version-pinned*: a project that
+`.opencode/equip.manifest.json`, conduct lives in Doctrine, and the plugin only enforces what
+those two declare. That is why the kit is *recorded*: a project that
 equipped last quarter gets the same components it got last quarter.
 
 ---
@@ -127,7 +127,7 @@ and repeating work. Read them with one rule in mind.
 benchmark.** This repository has never benchmarked itself. Where a cell or a
 label carries a `~`, it is a guess at rough order of magnitude. Where a figure
 carries no `~`, it is a verified count you can read straight out of
-`kit/kit.lock`, `registry/`, or the gate scripts. The only measured claim in
+`registry/catalog.json`, `.opencode/equip.manifest.json`, or the gate scripts. The only measured claim in
 this README is the gate suite itself: the six gates below are real, runnable,
 and green — a check that cannot be evaluated is recorded as a failed check, not
 a skipped one.
@@ -237,7 +237,7 @@ kind — each with exactly one owning branch at a time. Every record carries a
 `install_cmd`, a `verification` state, and a `default_selected` flag. **20
 components are default-selected.**
 
-**The honesty rule.** 82 components carry a verified install command: 10 skills, 8 MCP servers, and 64 CLI tools. Every
+**The honesty rule.** 91 components carry a verified install command: 10 skills, 8 MCP servers, 64 CLI tools, and 9 per-agent themes. Every
 remaining install command is mechanically derived from the component's source
 repository and is marked `verification: unverified` rather than presented as
 checked. Agents, plugins, and hooks are recorded with a `null` `install_cmd`
@@ -249,20 +249,23 @@ run it.
 
 ## Kit census
 
-`kit/kit.lock` pins **112 components with an empty `pending` list**: 31 tier
-`core` and 81 tier `conditional`.
+`.opencode/equip.manifest.json` selects **146 components with no `pending`
+state**: 30 tier `core` and 116 tier `conditional`, drawn from the 2,941-row
+catalog as observed 2026-10-21.
 
 ![Table of the kit census by kind: skill 26 locked, 13 tier core, 13 tier conditional; mcp 8, 8, 0; lsp 1, 1, 0; hook 7, 5, 2; agent 6, 4, 2; cli 64 locked, 0 tier core, 64 tier conditional; Total 112 locked, 31 tier core, 81 tier conditional](docs/assets/tables/kit-census.svg)
 
-By verification: **80 `verified`** and **32 `unverified`**. The 80 verified
-entries are the 10 upstream skills installed by `npx skills add`, the six
+By verification: **91 `verified`** and **2,850 `unverified`**. The 91 verified
+rows are the 10 upstream skills installed by `npx skills add`, the eight
 version-pinned MCP servers (`context7`, `firecrawl`, `filesystem`, `memory`,
-`sequential-thinking`, and `github`), and the 64 `cli` tools. The 32
-unverified entries are the 16 in-repo skills, the `fetch` and `openrouter` MCP
-servers, the language server, the 7 hooks, and the 6 agents — every one of
-them recorded with a `null` `install_cmd`.
+`sequential-thinking`, and `github` among them), the 64 `cli` tools, and the 9
+per-agent themes. The 2,850 unverified rows are the rest of the catalog — the
+16 in-repo skills, the `fetch` and `openrouter` MCP servers, the language
+server, the 7 hooks, the agents, and the bulk of the upstream records — every
+one carrying its honest command state, and 1,691 of them carrying a `null`
+`install_cmd`.
 
-The lock breaks down by kind into skills, MCP servers, the language server,
+The selection breaks down by kind into skills, MCP servers, the language server,
 hooks, agents, and CLI tools:
 
 ![Table of what the 112 locked components are: 26 skills, 8 MCP servers, 1 language server, 7 hooks, 6 agents, and 64 CLI tools, with each group's contents listed](docs/assets/tables/locked-contents.svg)
@@ -312,7 +315,7 @@ A task is not finished because the code runs; it is finished when the thing is
 proven. Every gate below is runnable from the repository root and every one must
 exit 0.
 
-![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs for seven checks; catalog mirror runs node scripts/generate-catalog-json.mjs --check; kit runs node scripts/verify-kit.mjs for fourteen checks; skills runs node scripts/verify-skills.mjs for ten checks; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
+![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs for seven checks; catalog mirror runs node scripts/generate-catalog-json.mjs --check; catalog proofs run node scripts/verify-catalog.mjs for seventeen checks; skills runs node scripts/verify-skills.mjs for ten checks; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
 
 If a check cannot be evaluated, that is a **failed** check, not a skipped one.
 Say so in the change description rather than leaving the gate green-looking;
@@ -343,10 +346,10 @@ vantrilex-arsenal/
 ├── scripts/                      Node ESM, zero dependencies
 │   ├── generate-catalog-json.mjs Generator for the mirror and the tables
 │   ├── verify-registry.mjs       Registry consistency checks
-│   ├── verify-kit.mjs            Kit lockfile checks
+│   ├── verify-catalog.mjs        Catalog and selection proofs
 │   ├── verify-skills.mjs         Skill-file format checks
 │   └── *.sh                      Worktree orchestration, git hooks, release
-├── kit/kit.lock                  The pinned 112-component kit
+├── .opencode/equip.manifest.json The phase selection over the catalog
 └── docs/                         00-INDEX.md … 17-V2-HOOK-GAP.md, plus
                                   docs/spec/ — the two canonical input specs
 ```

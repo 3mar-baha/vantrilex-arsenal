@@ -6,7 +6,7 @@ SKIPPED with a detail line, per-finding lines on stderr, a totals line and an
 explicit verdict on stdout, and exit 0 only when no check fails. A skipped check
 is never reported as a pass.
 
-The check counts below were observed 2026-10-14. These scripts are owned by
+The check counts below were observed 2026-10-21. These scripts are owned by
 other lanes on this branch and their check sets grow with the components they
 cover, so re-run a script and read its own totals line rather than quoting the
 count from here.
@@ -43,53 +43,57 @@ remaining checks report SKIPPED carrying the parse error as the reason.
 `registry/schema/catalog-v3.schema.json`. The check proves conformance to the
 schema the generator actually loads; only the printed label is stale.
 
-## `scripts/verify-kit.mjs` — 15 checks
+## `scripts/verify-catalog.mjs` — 17 checks
 
-Proves `kit/kit.lock` against its schema, the catalog mirror, and the live
-plugin surface.
+Proves `registry/catalog.json` for honesty and shape, and
+`.opencode/equip.manifest.json` for a selection that resolves. Nothing here reads
+a lockfile: the catalog rows are the inputs.
 
 | # | Check | Proves |
 |---|---|---|
-| 1 | `lockfile-validates` | Lock conforms to `kit.lock.schema.json` |
-| 2 | `per-kind/skills-in-repo` | In-repo skills have a matching `SKILL.md` |
-| 3 | `per-kind/skills-upstream` | Install-command shape, and gh resolves |
-| 4 | `per-kind/mcp-npm` | Pinned npm MCPs exist and expose a bin |
-| 5 | `per-kind/mcp-builtin` | Built-in MCPs are null cmd plus unverified |
-| 6 | `per-kind/plugins` | Plugins are native records, no invented spec |
-| 7 | `per-kind/hooks` | Every hook maps to a function in `arsenal.ts` |
-| 8 | `per-kind/agents` | Agents carry null cmd plus unverified |
-| 9 | `per-kind/cli` | Each cli entry names a real installer |
-| 10 | `per-kind/lsp` | The lsp entry is valid and honest |
-| 11 | `per-kind/theme` | The theme ships V2-native JSON, no image keys |
-| 12 | `agent-mode-explicit` | Every agent file declares `mode` |
-| 13 | `catalog-agreement` | Lock and mirror agree per `(id, kind)` |
-| 14 | `mcp-cap` | Tier-core MCP count is within `mcp_cap` |
-| 15 | `pending-integrity` | Pending ids are absent from components |
+| 1 | `command-honesty/verified-requires-command` | Every `verified` row carries an install command |
+| 2 | `command-honesty/null-requires-unverified` | Every command-less row is recorded `unverified` |
+| 3 | `command-honesty/no-pending` | No row carries a pending state; only `verified` or `unverified` |
+| 4 | `loadability/hooks` | Every hook row maps to an exported, wired callback in `arsenal.ts` |
+| 5 | `loadability/agents` | Every local agent file declares a valid `mode`; selected agents resolve to a file |
+| 6 | `loadability/skills` | Every selected skill resolves to a local folder or an install command |
+| 7 | `loadability/registers` | Every selected token resolves in `catalog.json` and `registry/data/<kind>.jsonl` |
+| 8 | `mcp-cap` | Selected tier-core MCPs sit within `MCP_CAP` 8 |
+| 9 | `phase-sets` | Every selected token places into one of the six orchestrated phases |
+| 10 | `command-shape/cli` | Each `cli` row names a real installer with valid phase, tier, verification |
+| 11 | `command-shape/lsp` | The `lsp` row is valid and its provisioning label is honest |
+| 12 | `command-shape/theme` | Each theme ships V2-native JSON, no image keys, no model keys |
+| 13 | `file-copy/shape` | Shipped file kinds land by plain copy and pass their kind invariant |
+| 14 | `command-shape/skills-upstream` | Upstream skill commands hold the install shape and gh resolves |
+| 15 | `command-shape/mcp-npm` | Version-pinned npm MCPs match the registry and expose a bin |
+| 16 | `agent-hygiene` | Selected agents carry no model pin; leaders alone carry color |
+| 17 | `selection/top-level-skills` | The selection carries Prime, Vanguard, and Doctrine |
 
-The per-kind rows grow with the lock's kinds: `per-kind/theme` appeared with the
-`theme` kind, and a further kind adds a further row rather than a further check
-name pattern.
+The per-kind rows grow with the catalog's selectable kinds: a new kind adds a
+further shape row rather than a further check name pattern. New-kind onboarding
+is frozen until catalog v4, so the set is stable for now.
 
-Two failure-only rows exist ahead of these: `schema-load` and `lockfile-load`,
-raised when a file cannot be read, which then cascade the per-kind rows to FAIL
-with "cannot be evaluated".
+Two failure paths exist ahead of these: an unreadable `catalog.json` fails
+`command-honesty/*` with the parse error, and a selection record without a
+`phases` object fails `phase-sets` naming the missing key. Neither cascades into
+a silent pass.
 
-Checks 3 and 4 are the only network-dependent rows. Check 3 reports SKIPPED
-when `gh` is not authenticated; check 4 reports SKIPPED when npm resolution is
+Checks 14 and 15 are the only network-dependent rows. Check 14 reports SKIPPED
+when `gh` is not authenticated; check 15 reports SKIPPED when npm resolution is
 offline, naming how many packages were proven and how many were skipped. Both
-are environment conditions, not kit defects.
+are environment conditions, not catalog defects.
 
-Check 12 exists because OpenCode V2 defaults an omitted `mode` to `primary`, so
+Check 16 exists because OpenCode V2 defaults an omitted `mode` to `primary`, so
 a subagent file without a mode line would silently be promoted to session
 leadership. It requires an explicit `primary`, `subagent`, or `all`, and proves
-each self-sourced lock agent resolves to a file.
+each self-sourced selected agent resolves to a file.
 
-Check 9 accepts only a real package-manager invocation or the vendor's own
+Check 10 accepts only a real package-manager invocation or the vendor's own
 installer. A bare package name, a curl-piped installer, or a shell metacharacter
 is refused rather than trusted, because an agent downstream executes the string.
 
-Verdict line on success: `VERDICT: PASS - kit proven (15 passed, 0 skipped, 0
-failed).`
+Verdict line on success: `VERDICT: PASS - catalog proven (17 passed, 0 skipped,
+0 failed).`
 
 ## `scripts/verify-skills.mjs` — 10 checks
 

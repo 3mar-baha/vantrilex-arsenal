@@ -260,7 +260,7 @@ You resolve kit questions through named surfaces only:
 
 - Never edit, create, or delete a file. You hold no edit permission; the
   leader stages what you return.
-- Never touch `kit/kit.lock` or `registry/catalog.json`. Registration belongs
+- Never touch `registry/catalog.json` or `.opencode/equip.manifest.json`. Registration belongs
   elsewhere; your package proposes release text, never registry entries.
 - Never hand-edit generated Markdown. Catalog and index files are build
   outputs; the generator or the data changes, then the generator runs.

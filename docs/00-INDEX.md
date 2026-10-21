@@ -36,7 +36,7 @@ provenance: read them, never rewrite them.
 | [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md) | What a catalog v2 record carries, and what each field means |
 | [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md) | How the catalog mirror and indexes are generated, and the merge rules |
 | [08-VERIFICATION.md](08-VERIFICATION.md) | Which gates must pass before any change is called done |
-| [09-KIT-LOCK.md](09-KIT-LOCK.md) | What the kit lock pins, and how the kit is scoped per phase |
+| [09-KIT-LOCK.md](09-KIT-LOCK.md) | What the catalog records, and how the selection is scoped per phase |
 | [10-ROLE-MODEL.md](10-ROLE-MODEL.md) | Who decides what: Leader, Guide, Implementer |
 | [11-WORKTREES.md](11-WORKTREES.md) | How parallel work is isolated, one concern per worktree |
 | [12-QUALITY-GATES.md](12-QUALITY-GATES.md) | Which second-pass guards protect a release, and the halt rule |
@@ -66,7 +66,7 @@ An operator reads for running projects:
 
 1. [02-INSTALLATION.md](02-INSTALLATION.md) for prerequisites and setup.
 2. [04-VANGUARD.md](04-VANGUARD.md) for equipping a target project.
-3. [09-KIT-LOCK.md](09-KIT-LOCK.md) for what is pinned and how the kit is scoped.
+3. [09-KIT-LOCK.md](09-KIT-LOCK.md) for what the catalog records and how the kit is scoped.
 4. [08-VERIFICATION.md](08-VERIFICATION.md) for proving the kit works.
 5. [11-WORKTREES.md](11-WORKTREES.md) for isolating parallel work.
 6. [14-CI-RELEASE.md](14-CI-RELEASE.md) for shipping a version.

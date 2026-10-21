@@ -66,7 +66,7 @@ Each row is conditional on the project actually using that toolchain.
 |---|---|---|---|
 | D1 | Worktree is clean | MEDIUM | `git status --short` prints nothing |
 | D2 | Registry verifier passes | HIGH | `node scripts/verify-registry.mjs` exits 0 |
-| D3 | Kit verifier passes | HIGH | `node scripts/verify-kit.mjs` exits 0 |
+| D3 | Catalog verifier passes | HIGH | `node scripts/verify-catalog.mjs` exits 0 |
 | D4 | Skills verifier passes | MEDIUM | `node scripts/verify-skills.mjs` exits 0 |
 | D5 | Changelog skeleton present | LOW | `CHANGELOG.md` exists with an `## [Unreleased]` heading |
 

@@ -124,11 +124,11 @@ Print, in this order and nothing else:
 6. **Failed proofs** — with errors.
 7. **Next step** — one sentence naming the first thing the operator should do.
 
-Then write the selection and the proof results to the project's kit lock file
-using the path the project already uses for it, or `kit.lock` at the repo root
-when none exists. Include every selected id with its pinned version, its
-`install_cmd`, and its `verification` state, so the next run is a diff rather
-than a fresh guess.
+Then write the selection to the project's selection record at
+`.opencode/equip.manifest.json`, creating it when absent. Include every selected
+`kind/id` token under its phase, with its `install_cmd` and its `verification`
+state read from `registry/catalog.json`, so the next run is a diff rather than a
+fresh guess.
 
 After writing any file under `.opencode/`, tell the operator that OpenCode must
 be quit and restarted before the change takes effect. Running sessions keep the

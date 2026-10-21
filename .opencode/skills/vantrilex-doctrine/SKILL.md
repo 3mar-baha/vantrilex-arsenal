@@ -81,7 +81,8 @@ once in the file the OpenCode V2 runtime auto-loads instead of being repeated in
 - The strike ledger for any live defect id, and the owner's recorded decisions.
 - For the standing-directive run: the target project's root directory, the current contents of that
   project's `AGENTS.md` and its generated `CLAUDE.md` mirror when each file exists, and the deployed
-  kit and spec marker stated in `kit/kit.lock`, read there rather than remembered.
+  kit stated in `.opencode/equip.manifest.json` plus the catalog version in `registry/catalog.json`,
+  read there rather than remembered.
 
 ## Parallel execution first
 

@@ -46,14 +46,15 @@ hand-authored `registry/formatting/_index.md` is reported as skipped, never
 regenerated. Regeneration details are in
 [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md).
 
-## Kit component check
+## Catalog and selection check
 
-`CONTRIBUTING.md` and CI name `scripts/verify-kit.mjs` as the gate that
-proves each Tier-0 component resolves and loads. That script exists and
-passes 22/22 against `kit/kit.lock` (157 components, 9 pending), including a
-per-kind check for each locked kind — the `per-kind/cli` check passing on 64
-`cli` entries is reported as such rather than as a silent vacuous pass. See
-[09-KIT-LOCK.md](09-KIT-LOCK.md).
+`AGENTS.md` and CI name `scripts/verify-catalog.mjs` as the gate that proves
+every catalog row is honest and every selected component resolves. That script
+exists and passes 17/17 against `registry/catalog.json` (2,941 rows, no
+`pending` state) and `.opencode/equip.manifest.json` (146 selected tokens),
+including a shape check per selectable kind — the `command-shape/cli` check
+passing on 64 `cli` rows is reported as such rather than as a silent vacuous
+pass. See [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## Skill-format check
 

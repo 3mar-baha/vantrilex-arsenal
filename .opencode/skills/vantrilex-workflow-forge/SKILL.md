@@ -74,9 +74,9 @@ this file states neither, and carries no copy of either.
   its text.
 - The canonical Part A text beside this skill at
   `assets/workflow-md-template.md`, read live at seed time.
-- The kit in force, read from `kit/kit.lock`: the phase and tier of every
-  entry the workflow may load. The lock decides; no printed table in any
-  skill file overrules it.
+- The kit in force, read from `registry/catalog.json` and `.opencode/equip.manifest.json`: the phase
+  and tier of every entry the workflow may load. The catalog decides; no printed
+  table in any skill file overrules it.
 - Owner decisions at the gates the workflow names. No gate is assumed
   approved.
 

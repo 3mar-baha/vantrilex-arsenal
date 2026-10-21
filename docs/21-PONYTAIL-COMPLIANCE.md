@@ -123,8 +123,8 @@ A change is non-trivial when ANY row below holds:
 2. Two or more files changed.
 3. One or more files added or deleted.
 4. Any changed path is a trust boundary: `scripts/`,
-   `.opencode/plugin/`, `kit/kit.lock`,
-   `kit/kit.lock.schema.json`, `registry/data/`,
+   `.opencode/plugin/`, `registry/catalog.json`,
+   `.opencode/equip.manifest.json`, `registry/data/`,
    `registry/schema/`, `schemas/`, `manifests/`,
    `registry/policies/`, or any file carrying an install command
    or a permission rule.

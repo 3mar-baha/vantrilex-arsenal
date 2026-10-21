@@ -29,7 +29,7 @@ say so in the PR description rather than leaving it green-looking.
 ```bash
 node scripts/verify-registry.mjs      # registry integrity: schema + UTF-8 + orphan references
 node scripts/generate-catalog-json.mjs # catalog mirror: catalog.json and _index.md regenerate cleanly
-node scripts/verify-kit.mjs            # the kit: each Tier-0 component resolves
+node scripts/verify-catalog.mjs        # the catalog: every row honest, the selection resolves
 node scripts/verify-skills.mjs         # skill format contract across every skill folder
 shellcheck scripts/*.sh                # POSIX shell correctness
 npx tsc --noEmit                       # plugin TypeScript

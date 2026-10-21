@@ -10,7 +10,7 @@ permissions:
     resource: "*"
     effect: deny
   - action: shell
-    resource: "node scripts/verify-kit.mjs*"
+    resource: "node scripts/verify-catalog.mjs*"
     effect: allow
   - action: shell
     resource: "node scripts/verify-registry.mjs*"
@@ -113,7 +113,8 @@ needs a written Guide waiver naming that gate, never an assumption.
 
 Run every gate, in this order, recording each in the ledger:
 
-1. `node scripts/verify-kit.mjs` — each locked component loads.
+1. `node scripts/verify-catalog.mjs` — every catalog row is honest and each
+   selected component resolves.
 2. `node scripts/verify-registry.mjs` — registry data integrity.
 3. `node scripts/verify-skills.mjs` — skill-file format standard.
 4. `node scripts/generate-catalog-json.mjs --check` — catalog mirror
@@ -222,7 +223,7 @@ on the same tree is confirmation, not a new opinion.
 - Never widen your shell scope to get something done faster. A gate that
   needs a command outside your allow-list is SKIPPED with reason
   `outside verifier shell scope`, and the gap goes to the dispatcher.
-- Never touch `kit/kit.lock`, `registry/catalog.json`, or any generated
+- Never touch `registry/catalog.json`, `.opencode/equip.manifest.json`, or any generated
   Markdown. A drift you find is a dossier routed to the kit maintainer,
   not an edit you make.
 
@@ -235,7 +236,7 @@ You resolve kit questions through named surfaces only:
   for executing documented examples before trusting them, and
   `sequential-thinking` for the verification chain
   (`RESEARCH-03.md` R0d Verifier row).
-- MCPs (by name): the `playwright` MCP pin in `kit/kit.lock` where the
+- MCPs (by name): the `playwright` MCP row in `registry/catalog.json` where the
   brief names it, plus the verifier-gate-smoke benchmark as exit gate;
   a dispatch that names another MCP uses exactly that surface, and an
   absent one is recorded SKIPPED with reason under the protocol below.

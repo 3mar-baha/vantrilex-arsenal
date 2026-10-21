@@ -48,11 +48,12 @@ Mitigations already in place, and the ones you should hold us to:
   record **what** it was checked against — the catalog has no field for that, so
   the evidence trail does not exist yet. Treat a `verified` flag as an assertion
   to re-test, not as proof you can audit later.
-- `kit/kit.lock` pins versions only where a pin exists. **2 of 52** entries carry
-  a `version_pin` — `context7` and `firecrawl`. The other 50 are `null`, including
+- `registry/catalog.json` records a version only where a pin exists. **72 of
+  2,941** rows carry a `version_pin` — the 64 `cli` tools and 8 MCP servers,
+  including `context7` and `firecrawl`. The other 2,869 are `null`, including
   all ten installable skills, so a floating upstream *can* silently change the kit
-  today. Do not read a lock entry as immutable unless its `version_pin` is set.
-- `scripts/verify-kit.mjs` re-proves that each Tier-0 component resolves.
+  today. Do not read a catalog row as immutable unless its `version_pin` is set.
+- `scripts/verify-catalog.mjs` re-proves that each selected component resolves.
 - Known defect, closed: 36 records in `registry/data/skills.jsonl` named a
   skill with a multi-word, unquoted `--skill` value, so the shell split it and the
   command installed something other than what it named. All 36 turned out to
@@ -72,8 +73,8 @@ Mitigations already in place, and the ones you should hold us to:
   `install_cmd: null` with `verification: unverified`, because no provable
   command exists: 262 name a skill absent from their origin repository, 22 name
   an origin repository that no longer exists, and 3 (`lenis`, `og-image`,
-  `open-graph-image`) are locked in `kit.lock` with an intentional null
-  `install_cmd`, so the lock's null governs. Three further records
+  `open-graph-image`) are selected with an intentional null
+  `install_cmd`, so the catalog's null governs. Three further records
   (`adversary-in-the-middle`, `phishing`, `structuring`) named skills that do
   not exist even in their real upstream repository and were nulled on the same
   rule. Repointing was done by proving each skill's directory exists upstream,

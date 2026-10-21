@@ -144,9 +144,9 @@ is not measured rather than guessed.
 
 ## What proves this
 
-`node scripts/verify-kit.mjs` runs `per-kind/hooks`, which maps every locked
-`hook` id to its exported function in `arsenal.ts` and fails when a function is
-not registered. See `02-SCRIPTS-VERIFY.md`.
+`node scripts/verify-catalog.mjs` runs `loadability/hooks`, which maps every
+`hook` row to its exported, wired function in `arsenal.ts` and fails when a
+function is not registered. See `02-SCRIPTS-VERIFY.md`.
 
 `node .opencode/plugin/arsenal.findings-probe.mjs` carries the behavioural
 battery, including the merge, probe, kill-switch and diff-guard cases. It exits

@@ -109,7 +109,7 @@ that sprawls across two attacks is split, not shipped.
    hotfix wins for a version it was never written for. Probe with the version
    string plus the hotfix file as fixture and show which entry wins.
 5. **Install-profile integrity** — a profile in `manifests/install-profiles.json`
-   that names an identifier resolving nowhere in `kit/kit.lock`, or that
+   that names an identifier resolving nowhere in `registry/catalog.json`, or that
    selects a set whose composition violates its own contract. Probe with the
    profile name as input and list the unresolvable identifiers.
 6. **Agent files with omitted mode** — an agent file with no `mode` line, which
@@ -242,10 +242,11 @@ procedure name into a synonym the owner cannot grep.
 - **Golden probes** — the `stream-g-guard-probes` dataset (45 probe records):
   score guard behaviour against it where the attack overlaps; never present a
   static warning or a capsule receipt as containment evidence.
-- **Verifiers** — `node scripts/verify-kit.mjs` proves each locked component
-  loads; `node scripts/verify-skills.mjs` enforces the skill-file format
-  contract; `node scripts/verify-registry.mjs` proves the registry data. The
-  check catalogue and its conventions live in `docs/dev/02-SCRIPTS-VERIFY.md`.
+- **Verifiers** — `node scripts/verify-catalog.mjs` proves the catalog is honest
+  and every selected component resolves; `node scripts/verify-skills.mjs` enforces
+  the skill-file format contract; `node scripts/verify-registry.mjs` proves the
+  registry data. The check catalogue and its conventions live in
+  `docs/dev/02-SCRIPTS-VERIFY.md`.
   A check that cannot be evaluated is a failed check, never a skipped one.
 - **Lane instruments** — `task-dispatcher` hook, `forge-dag-exemplar`
   workflow, session hooks, `persist-on-end`, `long-running-process-guard`;
@@ -286,7 +287,7 @@ decides; you wait.
   ran, what held, and what remains unprobed.
 - Never edit, create, or delete a file. You have no edit permission; do not
   ask for it.
-- Never touch `kit/kit.lock` or `registry/catalog.json`. Registration belongs
+- Never touch `registry/catalog.json` or `.opencode/equip.manifest.json`. Registration belongs
   to the register node; your reports may propose entries, never write them.
 - Never invent an install command, an identifier, a count, or a verification
   result. A null with honest unverified beats a plausible wrong value, because

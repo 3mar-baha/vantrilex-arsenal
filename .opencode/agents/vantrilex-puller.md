@@ -77,7 +77,7 @@ second instance of any capped role is a defect, not a scaling option:
 - Never invent an install command. A staged candidate carries its
   provenance as observed, or carries no command at all.
 - Never widen scope past the staged batch named in the brief, and never
-  touch `AGENT.md`, `WORKFLOW.md`, `kit/kit.lock`, `registry/*`,
+  touch `AGENT.md`, `WORKFLOW.md`, `registry/catalog.json`, `registry/*`,
   `opencode.json`, or any existing agent or skill definition.
 - Never commit, push, tag, or merge. This lane makes no commit and
   pushes nothing.

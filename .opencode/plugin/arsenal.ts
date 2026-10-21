@@ -2030,10 +2030,11 @@ export const prettierFormat = async (
 }
 
 /**
- * HOOK 8 in this file's original V1 enumeration, which is not the locked-hook
- * count: the seventh hook in `kit/kit.lock` is `docsDisciplineGuard` (HOOK 7
- * below), and it is not a lock component, so the census every document quotes
- * is seven locked hooks. The dispatcher is the eighth enumerated callback and
+ * HOOK 8 in this file's original V1 enumeration, which is not the catalog-hook
+ * count: the seventh hook in the hook enumeration is `docsDisciplineGuard`
+ * (HOOK 7 below), and it carries no catalog row, so the census every document
+ * quotes is seven catalog hooks. The dispatcher is the eighth enumerated
+ * callback and
  * one of the five guards that run on V2 (dispatcher, docs-discipline,
  * long-running, typescript-check, prettier-format); the three
  * session-lifecycle hooks remain V1-only by design (see the module header).

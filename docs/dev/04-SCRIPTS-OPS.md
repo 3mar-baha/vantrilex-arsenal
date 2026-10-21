@@ -43,8 +43,9 @@ failure. Exit 0 means merged and pruned; exit 1 means nothing was merged.
 
 Given a phase, it purges every previously injected component and injects
 exactly the ones that phase needs, so context spend tracks the work instead of
-keeping the whole kit hot. Inputs are `kit/kit.lock` and
-`registry/catalog.json`, which supplies each component's `phase` and `kind`.
+keeping the whole kit hot. Inputs are `.opencode/equip.manifest.json`, which
+names the selected tokens, and `registry/catalog.json`, which supplies each
+component's `phase` and `kind`.
 
 The phase vocabulary is the catalog enum: `scout`, `docs`, `plan`, `build`,
 `review`, `operate`, `on-demand`. `on-demand` is a catalog value but not an

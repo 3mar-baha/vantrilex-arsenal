@@ -45,27 +45,26 @@ scout without inheriting the law.
 
 ## Tier-0 census, stated honestly
 
-The default kit as locked in `kit/kit.lock` is 157 components, provisioned on
-every project:
+The selection record at `.opencode/equip.manifest.json` carries 146 tokens,
+placed over the catalog and provisioned per phase:
 
-| Kind | Locked count | Contents |
+| Kind | Selected count | Contents |
 |---|---|---|
-| Skills | 27 | Vanguard, Prime, Doctrine, plus 10 upstream skills, plus 14 conditional Arsenal skills |
+| Skills | 25 | Vanguard, Prime, Doctrine, plus upstream and conditional Arsenal skills |
 | MCP servers | 27 | 8 core servers (filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter) plus 19 conditional candidates held for project-specific need |
-| Plugins | 0 | No entry locked; the 11 catalog plugin records stay as unverified reference entries |
+| Plugins | 0 | No plugin selected; the 11 catalog plugin records stay as unverified reference entries |
 | Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
 | Agents | 21 | 5 core agents (architect, code-reviewer, aether, pulsar, blazar) plus 16 conditional specialist agents |
 | LSP servers | 1 | typescript-lsp, the TypeScript language server (build phase, tier core, verification `unverified`) |
-| CLIs | 64 | 64 version-pinned command-line tools, every one tier `conditional` and `verified`; installed only where the build needs them |
-| Other kinds | 10 | themes 3, prompts 1, datasets 1, templates 1, policies 1, benchmarks 1, workflows 1, design records 1 |
+| CLIs | 58 | 58 selected command-line tools, every one `verified`; the catalog carries 64, installed only where the build needs them |
+| Other kinds | 7 | prompts 1, templates 1, workflows 1, design records 1, benchmarks 1, datasets 1, policies 1 |
 
-The honest current count is 32 tier `core` records plus 125 tier `conditional`
-records, which is 157 locked components, with 9 `pending` entries (per-agent
-theme JSON not yet authored). The two conditional hooks stay locked because
-`.opencode/plugin/arsenal.ts` already implements them, so a separate install
-would be a second path to the same guard. `registry/catalog.json` today carries
-2931 records in total. The catalog recount stands at 20 default-selected
-components and 82 verified install commands, enriched from 16 sidecars merged by
+The honest current count is 30 tier `core` records plus 116 tier `conditional`
+records, which is 146 selected components, with no `pending` state: every catalog
+row is `verified` or `unverified`. `registry/catalog.json` today carries 2,941
+records in total (39 tier `core`, 235 tier `conditional`, the remainder untiered
+and never injected). The catalog recount stands at 20 default-selected
+components and 91 verified install commands, enriched from 16 sidecars merged by
 the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
 lsp, mcp, plugins, policies, prompts, skills, templates, themes, workflows).
 Tier-1 components — Python, UI, team-flow, and design-system components — are
@@ -73,10 +72,10 @@ added by Vanguard only when the project requires them. The 8-MCP cap and the
 phase-scoping rule that keep the kit affordable are documented in
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
-Re-derive every figure above from the lock and the catalog:
+Re-derive every figure above from the selection record and the catalog:
 
 ```
-node -e "const fs=require('fs');const l=JSON.parse(fs.readFileSync('kit/kit.lock','utf8'));console.log('total',l.components.length,'core',l.components.filter(c=>c.tier==='core').length,'conditional',l.components.filter(c=>c.tier==='conditional').length,'pending',l.pending.length);const k={};for(const c of l.components)k[c.kind]=(k[c.kind]||0)+1;console.log('byKind',k)"
+node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('.opencode/equip.manifest.json','utf8'));const c=require('./registry/catalog.json');const i=new Map(c.components.map(e=>[e.kind+'/'+e.id,e]));const f=Object.values(m.phases).flat();console.log('selected',f.length);const t={};const k={};for(const x of f){const e=i.get(x);t[e.tier]=t[e.tier]||0,t[e.tier]++;k[e.kind]=k[e.kind]||0,k[e.kind]++;}console.log('tiers',t,'byKind',k)"
 node -e "const c=require('./registry/catalog.json');console.log('records',c.counts.total,'default_selected',c.components.filter(x=>x.default_selected).length,'verified',c.components.filter(x=>x.verification==='verified').length)"
 node -e "console.log('sidecars',require('fs').readdirSync('registry/data').filter(f=>f.endsWith('.jsonl')).length)"
 ```

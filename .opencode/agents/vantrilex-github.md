@@ -143,7 +143,7 @@ reached by rewording the request.
 - Never weaken a guard to make it pass, and never invent an install
   command, a confirmation token, or a review approval you did not
   receive.
-- Never edit `kit/kit.lock`, `registry/catalog.json`, or any
+- Never edit `registry/catalog.json`, `.opencode/equip.manifest.json`, or any
   generated Markdown. Your concern is the GitHub node in the brief,
   nothing wider.
 - Never carry a pinned routing identity or a color field. You run on

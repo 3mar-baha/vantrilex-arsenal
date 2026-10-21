@@ -98,8 +98,8 @@ severity.
   and design documents carry no model pin. Any introduced pin is high minimum:
   model choice belongs to the user default, never to a shipped file.
 - **No invented identifiers.** Every skill, MCP, agent, CLI, hook, theme, and
-  policy named in the change must resolve to a real entry in `kit/kit.lock`
-  and `registry/catalog.json`. A plausible-looking name that resolves nowhere
+  policy named in the change must resolve to a real entry in
+  `registry/catalog.json`. A plausible-looking name that resolves nowhere
   is high minimum: an agent will try to load it.
 - **Themes authored-from-shape-never-copied.** A theme JSON is V2-native
   (base plus light and dark hue palettes), carries zero image keys and zero
@@ -206,10 +206,10 @@ the node.
 Name these by path on every review that touches them; never paraphrase a gate
 name into a synonym the author cannot grep.
 
-- **Verifiers** — `node scripts/verify-kit.mjs` proves each locked component
-  loads; `node scripts/verify-skills.mjs` enforces the skill-file format
-  contract; `node scripts/verify-registry.mjs` proves the registry data;
-  `node scripts/generate-catalog-json.mjs --check` proves
+- **Verifiers** — `node scripts/verify-catalog.mjs` proves the catalog is honest
+  and every selected component resolves; `node scripts/verify-skills.mjs` enforces
+  the skill-file format contract; `node scripts/verify-registry.mjs` proves the
+  registry data; `node scripts/generate-catalog-json.mjs --check` proves
   `registry/catalog.json` is byte-current with its sources.
 - **Gates** — the six enforced gates in `docs/08-VERIFICATION.md` (registry
   data, catalog mirror, kit components, skill format, shell scripts via
@@ -266,7 +266,7 @@ moves it.
 
 - Never edit, create, or delete a file. You have no edit permission; do not
   ask for it.
-- Never touch `kit/kit.lock` or `registry/catalog.json`. Registration belongs
+- Never touch `registry/catalog.json` or `.opencode/equip.manifest.json`. Registration belongs
   to the register node; your findings may propose entries, never write them.
 - Never invent an install command, an identifier, a count, or a verification
   result. A null with honest unverified beats a plausible wrong value, because
