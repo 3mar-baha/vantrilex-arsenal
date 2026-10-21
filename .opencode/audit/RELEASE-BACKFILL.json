@@ -2,8 +2,9 @@
   "manifest": "RELEASE-BACKFILL",
   "schema": 1,
   "approved_map": ".opencode/audit/RELEASE-BACKFILL-MAP.md",
-  "map_sha256": "ade4484f1e08b34feb4873dd3b0deeedbe8b687e7d615ec26fd906ac3ba3af72",
+  "map_sha256": "1bda7e2d9f4f2d84d815f1825906ca3f8f9efee96ac8d9f0b72486a8748c77c4",
   "map_commit": "5a28f6e",
+  "map_amendment": "owner renumbering 2026-10-21 (pre-publication §8.2 override, NOT a §1 derivation): 0.7.10→0.8.0, 0.7.11→0.8.1, 0.7.12→0.8.2, 0.7.13→0.8.3, 0.7.14→0.8.4, 0.7.15→0.8.5, 0.7.16→0.8.6. Modes, refs, assets and bundles unchanged; all other numbers stand; Cluster 1 takes 0.8.11 at its S6 closure. Publishing stays held.",
   "approved_by": "owner, 2026-10-21 (map §3 gate satisfied on the terms recorded in the map)",
   "publication_precondition": "Map §8.1: no backfill publish before rel-selfpub lands and its §6 proofs pass review. This manifest authorizes no publish on its own.",
   "notes_policy": "Commit units: as-closed evidence quoted from the closure record, never a battery re-run today (map §4/§8.4). Evidence units: the enumerated bundle plus the no-source-tree statement. Closure-record units: the surviving ledger passage quoted verbatim, labelled \"closure-record release\".",
@@ -85,7 +86,7 @@
       ]
     },
     {
-      "version": "0.7.10",
+      "version": "0.8.0",
       "unit": "VTA-FACTORY P2",
       "mode": "evidence",
       "ref": null,
@@ -124,7 +125,7 @@
       ]
     },
     {
-      "version": "0.7.11",
+      "version": "0.8.1",
       "unit": "VTA-FACTORY P3",
       "mode": "evidence",
       "ref": null,
@@ -154,7 +155,7 @@
       ]
     },
     {
-      "version": "0.7.12",
+      "version": "0.8.2",
       "unit": "VTA-FACTORY P5 (closes the program)",
       "mode": "evidence",
       "ref": null,
@@ -174,7 +175,7 @@
       ]
     },
     {
-      "version": "0.7.13",
+      "version": "0.8.3",
       "unit": "FULL-AUDIT (round 1)",
       "mode": "closure-record",
       "ref": null,
@@ -195,7 +196,7 @@
       ]
     },
     {
-      "version": "0.7.14",
+      "version": "0.8.4",
       "unit": "V-REMEDIATE",
       "mode": "commit",
       "ref": "c7c762c21f12e2dccba32611d990ad8a0f059b80",
@@ -227,7 +228,7 @@
       ]
     },
     {
-      "version": "0.7.15",
+      "version": "0.8.5",
       "unit": "FULL-AUDIT-2",
       "mode": "closure-record",
       "ref": null,
@@ -249,7 +250,7 @@
       ]
     },
     {
-      "version": "0.7.16",
+      "version": "0.8.6",
       "unit": "FULL-AUDIT-3",
       "mode": "evidence",
       "ref": null,

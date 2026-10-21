@@ -27,14 +27,14 @@ other number is the §1 increment applied in order from the previous row.
 | **0.7.7** | base release | tag `v0.7.7` → `3d5d92a` | base | already published | released + tagged before this lane (`AGENT.md:413`) |
 | **0.7.8** | VTA-FACTORY P0 | commit `66d0e45` (2026-10-17T19:07:46) | phase | source tarball at `66d0e45` | `p0-verify` PASS-WITH-DEFERMENT; 4 verifiers green; park pushed (`AGENT.md:193`, `:197`) |
 | **0.7.9** | VTA-FACTORY P1 | **no commit** | phase | evidence package (§7.1) | `p1-verify` PASS-WITH-NOTES; 1,531 / 6 / 1,525; 5 gates exit 0 (`AGENT.md:206`) |
-| **0.7.10** | VTA-FACTORY P2 | **no commit** | phase | evidence package (§7.2) | full battery green after `p2-lockalign`; 330 rows (`AGENT.md:212`) |
-| **0.7.11** | VTA-FACTORY P3 | **no commit** | phase | evidence package — **partial** (§7.3) | `p3-verify2` PASS-WITH-NOTES; soak 5/5; 6 gates + 2 honest SKIPs (`AGENT.md:219`) |
+| **0.8.0** | VTA-FACTORY P2 | **no commit** | phase | evidence package (§7.2) | full battery green after `p2-lockalign`; 330 rows (`AGENT.md:212`) |
+| **0.8.1** | VTA-FACTORY P3 | **no commit** | phase | evidence package — **partial** (§7.3) | `p3-verify2` PASS-WITH-NOTES; soak 5/5; 6 gates + 2 honest SKIPs (`AGENT.md:219`) |
 | — | VTA-FACTORY P4 | `AGENT.md:220` | **excluded — not closed** | none | close gate held; 5 deferrals open (`P4-DEFERRAL-LEDGER.md:32-52`) |
-| **0.7.12** | VTA-FACTORY P5 (closes the program) | **no commit** | phase (program is **not** a mission) | evidence package (§7.4) | `p5-demo` verified; lint + `verify-skills` 10/10 (`AGENT.md:221`) |
-| **0.7.13** | FULL-AUDIT (round 1) | **no commit** | phase-class | **closure record only** (§7.5) | report 1,194 lines / 23 findings; report text since overwritten (`AGENT.md:225`) |
-| **0.7.14** | V-REMEDIATE | commit `c7c762c` (2026-10-18T17:29:58) | phase-class | source tarball at `c7c762c` | 23/23 fixed; two verifiers pass; battery 4/4, guards 6/6 (`AGENT.md:240`, `:248`) |
-| **0.7.15** | FULL-AUDIT-2 | **no commit** | phase-class | **closure record only** (§7.6) | 1,575 lines / 47 findings; report text since overwritten (`AGENT.md:283`) |
-| **0.7.16** | FULL-AUDIT-3 | **no commit** | phase-class | evidence package (§7.7) | 32,128 lines; 155/155 embeds; sha256 `4a0fc30c…` (`AGENT.md:293-296`) |
+| **0.8.2** | VTA-FACTORY P5 (closes the program) | **no commit** | phase (program is **not** a mission) | evidence package (§7.4) | `p5-demo` verified; lint + `verify-skills` 10/10 (`AGENT.md:221`) |
+| **0.8.3** | FULL-AUDIT (round 1) | **no commit** | phase-class | **closure record only** (§7.5) | report 1,194 lines / 23 findings; report text since overwritten (`AGENT.md:225`) |
+| **0.8.4** | V-REMEDIATE | commit `c7c762c` (2026-10-18T17:29:58) | phase-class | source tarball at `c7c762c` | 23/23 fixed; two verifiers pass; battery 4/4, guards 6/6 (`AGENT.md:240`, `:248`) |
+| **0.8.5** | FULL-AUDIT-2 | **no commit** | phase-class | **closure record only** (§7.6) | 1,575 lines / 47 findings; report text since overwritten (`AGENT.md:283`) |
+| **0.8.6** | FULL-AUDIT-3 | **no commit** | phase-class | evidence package (§7.7) | 32,128 lines; 155/155 embeds; sha256 `4a0fc30c…` (`AGENT.md:293-296`) |
 | **0.8.7** | **V87 MISSION-PLAN** | **no commit** | **mission — NAMED release** | evidence package (§7.8) | `w3-reverify2` ALL CLEARED; four identities exact (`AGENT.md:270`, `:274`) |
 | **0.8.8** | POST87-APPLY Phase 0 | commit `2b3e66a` (2026-10-21T14:45:16) | phase | source tarball at `2b3e66a` | kit 22/22 · skills 10/10; 16 axes / 55 findings / 33 questions (`AGENT.md:308`) |
 | **0.8.9** | POST87 Phase-1 slice = rulings wave #1 | commit `8312cae` (2026-10-21T15:43:09) | phase-class | source tarball at `8312cae` | 9 gate rows re-run at `7eaae18`; 447-line report (`AGENT.md:327`, `:376`) |
@@ -52,6 +52,32 @@ Two facts this table exists to state plainly:
    renumbering. `0.8.8`, `0.8.9`, `0.8.10` continue +0.0.1 from the named release.
 2. **The counter does not skip for open work.** Cluster 1 gets no number while it is open; the next
    closure takes `0.8.11` in closure order.
+
+**DATED NOTE — 2026-10-21 · OWNER RENUMBERING (pre-publication, §8.2 policy override).**
+This is an **owner renumbering of the unpublished backfill map — a §8.2 policy override applied
+before any publication, NOT a §1 derivation.** The seven post-`0.7.9` pre-mission units move, in
+unchanged closure order:
+
+| was | now | unit |
+|---|---|---|
+| 0.7.10 | **0.8.0** | VTA-FACTORY P2 |
+| 0.7.11 | **0.8.1** | VTA-FACTORY P3 |
+| 0.7.12 | **0.8.2** | VTA-FACTORY P5 (closes the program) |
+| 0.7.13 | **0.8.3** | FULL-AUDIT (round 1) |
+| 0.7.14 | **0.8.4** | V-REMEDIATE |
+| 0.7.15 | **0.8.5** | FULL-AUDIT-2 |
+| 0.7.16 | **0.8.6** | FULL-AUDIT-3 |
+
+Everything else stands: `0.7.8`, `0.7.9`, the named `0.8.7`, `0.8.8`, `0.8.9`, `0.8.10`; P4 stays
+excluded; Cluster 1 still takes **0.8.11** at its S6 closure. Modes, anchors, packages and evidence
+are unchanged — only the numbers move.
+
+Scope of this amendment: the FINAL table above and this note. The rows in §5 and the bundle headings
+in §7 keep the numbers they were written with; the table is authoritative, and the mapping above
+resolves every occurrence. This note also supersedes the two pre-amendment sentences it invalidates:
+the §1 header's "every other number is the §1 increment applied in order from the previous row", and
+fact (1)'s "the increment chain would have produced `0.8.0`" — both described the arithmetic before
+this override. No publication is authorized here (see §8.1).
 
 ---
 
