@@ -1,0 +1,7 @@
+# AUTO-PUBLISH.log — one machine-readable line per auto-publish run.
+# Fields, in order: version | commit | timestamp (UTC) | artifacts | channels | result
+# result carries the gate verdict as a subfield: result=<verdict>;gate=<verdict>
+# Written by scripts/auto-publish.sh and .github/workflows/auto-publish.yml.
+v0.0.99-dryrun.1 | 93f5b4e762f03e767a3dcf246038c1aa8d7fbb5c | 2026-10-21T11:28:53Z | vantrilex-arsenal-v0.0.99-dryrun.1.tar.gz sha256=3f2be6f310c3caf00ce76947c63f17dff068550be08871432d479caefb5e4cb2 bytes=2550525 | github-release:3mar-baha/vantrilex-arsenal,git-tag:v0.0.99-dryrun.1 | refused-verification;gate=FAIL(ci-evidence:commit-unknown-on-remote battery:generate-catalog)
+v0.0.98-dryrun.1 | 3d5d92aa99c2f3140372bc98aad816f1239f244a | 2026-10-21T11:29:38Z | vantrilex-arsenal-v0.0.98-dryrun.1.tar.gz sha256=b3332122d799dfdf69020a9747c0d7f46b693bb95661df4a792ef51b1887897d bytes=2043813 | github-release:3mar-baha/vantrilex-arsenal,git-tag:v0.0.98-dryrun.1 | dry-run-would-publish;gate=PASS;action=upload
+v0.7.7 | - | 2026-10-21T11:30:15Z | none | github-release:3mar-baha/vantrilex-arsenal,git-tag:v0.7.7 | owner-gated;gate=not-evaluated

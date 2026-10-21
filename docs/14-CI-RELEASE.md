@@ -2,8 +2,10 @@
 
 Continuous integration proves every change; the release lane ships versions.
 CI runs on `ubuntu-latest` with Node 25. The workflow files are
-`.github/workflows/ci.yml` and `.github/workflows/release.yml`; the
-publishing script is `scripts/release.sh`.
+`.github/workflows/ci.yml`, `.github/workflows/release.yml`, and
+`.github/workflows/auto-publish.yml`; the publishing script is
+`scripts/release.sh`, and the post-release publisher is
+`scripts/auto-publish.sh`.
 
 ## What CI runs
 
@@ -67,3 +69,81 @@ registry .opencode scripts kit docs
 If the tag landed before its release was created, the workflow creates the
 release from the changelog notes first, then uploads the artifact with
 overwrite enabled, so the upload always has a target.
+
+## Auto-publish for v0.0.x patches
+
+A published `v0.0.x` patch release publishes its own distributable. No manual
+upload step follows the release. `.github/workflows/auto-publish.yml` triggers
+on `release: types: [published]` and runs `scripts/auto-publish.sh`, which is
+also the local entry point.
+
+The guard is strictly `^v0\.0\.[0-9]+$`: no prerelease suffix, no build
+metadata, no `0.x.0` minor, no `x.0.0` major. Anything outside that shape ends
+the run with an owner-gated notice and exit 0, so a minor or major release
+publishes only after the owner's named go. A release flagged prerelease is
+treated the same way.
+
+The gate is two proofs and both are required:
+
+1. **CI evidence for the exact commit** — the `ci` workflow's runs for the
+   tagged commit's SHA are all `completed` with conclusion `success`, and at
+   least one exists. A commit with no `ci` run has no evidence and fails, and a
+   commit the remote does not know is refused by name. Only
+   `.github/workflows/ci.yml` runs are read, so the auto-publish workflow's own
+   job on that commit is never counted against it.
+2. **The battery, re-run at the tagged tree** — `git archive` extracts the
+   exact commit into a temporary directory and runs
+   `node scripts/generate-catalog-json.mjs --check`,
+   `node scripts/verify-registry.mjs`, `node scripts/verify-skills.mjs`,
+   `node scripts/verify-kit.mjs`, and `tsc --noEmit -p tsconfig.json` there.
+
+Both proofs are always evaluated, so one refusal names every failing check.
+Missing tooling and an absent verifier are failures, never skips: a check that
+cannot be evaluated is a failed check, and a failed gate uploads nothing.
+
+The artifact is built from the tagged commit, not from a worktree, and carries
+the established name and path set:
+
+```text
+vantrilex-arsenal-v<0.0.x>.tar.gz
+```
+
+`git archive` is deterministic for a commit, so a re-run rebuilds identical
+bytes. The upload is idempotent by name and sha256: an identical asset is
+skipped, a same-named asset with different bytes is replaced with `--clobber`,
+and a new name is uploaded. Re-running therefore never leaves two copies of one
+artifact. On success the release is marked latest.
+
+Every run appends one machine-readable line to
+`.opencode/audit/AUTO-PUBLISH.log`:
+
+```text
+version | commit | timestamp (UTC) | artifacts (name, sha256, bytes) | channels | result
+```
+
+`result` carries the gate verdict as a subfield, for example
+`published;gate=PASS`. In CI the same line is written to the job summary and
+the log file is kept as a run artifact; the workflow commits nothing back to
+the repository.
+
+Channels this plugin ships through, and what auto-publish does for each:
+
+| Channel | Auto-publish action |
+|---|---|
+| GitHub release asset (`vantrilex-arsenal-v<tag>.tar.gz`) | Uploaded, or skipped when identical |
+| Git tag (`refs/tags/v<tag>`, the clone channel) | Already published by the release itself; no upload step |
+
+Dry-run is the default for the local script and for manual dispatches:
+
+```bash
+DRY_RUN=1 ./scripts/auto-publish.sh v0.0.99
+```
+
+`DRY_RUN=1` resolves the tag, builds the artifact, runs the full gate, and
+prints the artifact identity, the decision per channel, and the audit line. It
+uploads nothing and marks no release latest. Publishing requires `DRY_RUN=0`
+explicitly.
+
+`release.yml` still uploads on a `v*` tag push. When both workflows run for one
+release, each uses one asset name, so the release keeps exactly one artifact;
+the last writer wins.

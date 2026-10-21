@@ -1,0 +1,108 @@
+name: auto-publish
+
+# Owner rule: the moment a v0.0.x release is published, it publishes its own
+# distributable — built from the exact tagged commit, verification-gated,
+# idempotent. Minor and major releases never auto-publish; they print an
+# owner-gated notice and publish nothing.
+#
+# The gate is fail-closed. A tagged commit with no CI evidence, a failing CI
+# run, or a failing battery check uploads nothing and reports why.
+#
+# A workflow_dispatch run defaults to dry_run=true, which builds and gates but
+# uploads nothing.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to run the pipeline for (v0.0.x patch only)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Build and gate only; never upload'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  checks: read
+  actions: read
+
+concurrency:
+  group: auto-publish-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    name: Guard (v0.0.x patches only)
+    runs-on: ubuntu-latest
+    outputs:
+      publishable: ${{ steps.guard.outputs.publishable }}
+      tag: ${{ steps.guard.outputs.tag }}
+    steps:
+      - name: Apply the patch-only tag guard
+        id: guard
+        env:
+          EVENT_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+          EVENT_PRERELEASE: ${{ github.event.release.prerelease }}
+        run: |
+          set -euo pipefail
+          tag="${EVENT_TAG:-${INPUT_TAG:-}}"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          if [ -z "$tag" ]; then
+            echo "::error title=no-tag::No release tag on the event and no tag input."
+            echo "publishable=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+          if [ "${EVENT_PRERELEASE:-false}" = "true" ]; then
+            echo "::notice title=owner-gated::${tag} is marked prerelease; prereleases never auto-publish."
+            echo "publishable=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ ! "$tag" =~ ^v0\.0\.[0-9]+$ ]]; then
+            echo "::notice title=owner-gated::${tag} is not a v0.0.x patch release; minor and major releases stay owner-gated (the owner's named go is required). Nothing was published."
+            echo "publishable=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "publishable=true" >> "$GITHUB_OUTPUT"
+
+  publish:
+    name: Verify, package, publish
+    needs: guard
+    if: needs.guard.outputs.publishable == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the tagged commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.guard.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+
+      - name: Install the pinned type checker
+        run: npm --yes install --no-save --no-audit --no-fund typescript@5
+
+      - name: Verify, package and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # Live on a published release; on a manual dispatch the input decides,
+          # and its default is dry-run.
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '1' || '0' }}
+        run: ./scripts/auto-publish.sh "${{ needs.guard.outputs.tag }}"
+
+      - name: Keep the audit line as a run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-publish-audit-${{ needs.guard.outputs.tag }}
+          path: .opencode/audit/AUTO-PUBLISH.log
+          if-no-files-found: warn
+          retention-days: 90
