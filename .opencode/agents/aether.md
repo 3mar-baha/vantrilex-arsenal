@@ -219,7 +219,7 @@ owner brief, the brief wins and the conflict is named in the plan.
 
 ## Section 1 — Ranks (decided — do not rename; these are RANKS, not personal names)
 
-- Rank Zenith (/ˈziː.nɪθ/ — highest point of the celestial sphere) → the supreme, named Vantrilex (arrives v0.8).
+- Rank Zenith (/ˈziː.nɪθ/ — highest point of the celestial sphere) → the supreme, named Vantrilex (arrives v0.9).
 - Rank Syzygy (/ˈsɪz.ɪ.dʒi/ — alignment of three celestial bodies) → the three leaders: Blazar, Aether, Pulsar.
 - Rank Asterism (/ˈæs.tə.rɪz.əm/ — distinctive star pattern) → side agents, ids vantrilex-* lowercase (naming law stands).
 
