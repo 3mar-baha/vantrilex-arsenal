@@ -92,7 +92,7 @@ earlier drafts was a stale reference and is superseded by this list):
 - `12-SECURITY-MODEL.md` — Security Model
 - `13-ARCHITECTURE-DECISION-RECORD.md` — Architecture Decision Record
 - `14-KIT-INVENTORY.md` — Kit Inventory
-- `15-kit.lock` — kit.lock (lockfile, not Markdown)
+- `15-SELECTION-RECORD.json` — Selection Record (JSON, not Markdown)
 - `16-AGENT-REGISTRY.md` — Agent Registry
 - `17-CHECKPOINT.md` — Checkpoint (living state file, updated every session)
 - `18-WORKFLOW.md` — Main Workflow (left EMPTY for Doctrine to fill)

@@ -344,7 +344,7 @@ node scripts/generate-catalog-json.mjs
 
 Record one token per installed component in the project's selection record at
 `.opencode/equip.manifest.json`, under the phase the catalog row declares, and let the docs phase
-carry the same inventory at `docs/04-kit/15-kit.lock`:
+carry the same inventory at `docs/04-kit/15-SELECTION-RECORD.json`:
 
 ```json
 {
@@ -455,7 +455,7 @@ below is explicit and complete:
 | `docs/01-vision/` | 01, 02, 05, 06, 23, 24 | Vision, language, people, scope, roadmap, risks |
 | `docs/02-requirements/` | 03, 04, 07 | Functional, non-functional, and success criteria |
 | `docs/03-architecture/` | 08, 09, 10, 11, 12, 13 | Architecture, stack, data, contracts, security, ADR |
-| `docs/04-kit/` | 14, 15, 16 | Kit inventory, lockfile mirror, and agent registry |
+| `docs/04-kit/` | 14, 15, 16 | Kit inventory, selection record mirror, and agent registry |
 | `docs/05-workflows/` | 18, 19, 20, 21, 22 | Main lane plus feature, review, audit, and bugfix lanes |
 | `docs/06-governance/` | 25, 26, 27 | Constitution, antipatterns, and the problems ledger |
 | `docs/99-archive/` | superseded docs plus manifest | Retired docs with reasons, never deleted |
@@ -479,7 +479,7 @@ Write one contract row per file, all twenty-eight, with no row added or removed:
 | 12 | `12-SECURITY-MODEL.md` | Security Model |
 | 13 | `13-ARCHITECTURE-DECISION-RECORD.md` | Architecture Decision Record |
 | 14 | `14-KIT-INVENTORY.md` | Kit Inventory |
-| 15 | `15-kit.lock` | Selection record mirror (JSON, not Markdown) |
+| 15 | `15-SELECTION-RECORD.json` | Selection record mirror (JSON, not Markdown) |
 | 16 | `16-AGENT-REGISTRY.md` | Agent Registry |
 | 17 | `17-CHECKPOINT.md` | Checkpoint (living state file, updated every session) |
 | 18 | `18-WORKFLOW.md` | Main Workflow (left EMPTY for Doctrine to fill) |
@@ -712,7 +712,7 @@ first, then proceeds on that stated reason.
 - The verification report table with tool, kind, status, evidence, and how to fix, consumable as the
   sign-off sheet for every installed component.
 - The selected tokens with id, kind, source, install command, phase, verify
-  note, and status read from `registry/catalog.json`, mirrored at `docs/04-kit/15-kit.lock` with the kit inventory beside it at
+  note, and status read from `registry/catalog.json`, mirrored at `docs/04-kit/15-SELECTION-RECORD.json` with the kit inventory beside it at
   `docs/04-kit/14-KIT-INVENTORY.md`.
 - For any proposed `cli` entry, the approval record with the tool's recorded pricing, free-tier
   limits, licence, and date recorded, so a later audit can tell what the terms were when the owner
