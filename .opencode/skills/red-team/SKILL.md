@@ -12,7 +12,7 @@ fails. The owner idea (وكيل الفريق الأحمر) is an adversary, not 
 whether the work is good, an attacker asks what the work is assuming and then attacks each
 assumption.
 
-This skill has two halves. `.opencode/agent/red-team.md` is the adversarial **role** — it holds
+This skill has two halves. `.opencode/agents/vantrilex-red-team.md` is the adversarial **role** — it holds
 no edit permission and produces findings only. This skill is the **procedure** that decides when
 to run that role, what to hand it, and what to do with what comes back.
 
@@ -61,7 +61,7 @@ concrete path that makes it real.
 4. **Choose the lens** and hand it to the subagent together with the target, the invariants, the
    assumptions, and the lens. Do not summarise the target; hand over the artefact itself, because
    a summary hides exactly what the attack needs.
-5. **Dispatch the red-team subagent** (`.opencode/agent/red-team.md`). It holds `edit: deny`, so
+5. **Dispatch the red-team subagent** (`.opencode/agents/vantrilex-red-team.md`). It holds `edit: deny`, so
    it can read, run, and observe but cannot change the work.
 6. **Demand the finding shape.** Every finding names the invariant or assumption it breaks, the
    concrete path that triggers it, and the damage if it fires. A finding without a triggering

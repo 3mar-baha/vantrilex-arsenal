@@ -2,9 +2,9 @@
 
 Three named roles with decision rights replace the vague "agent directs
 subagents". The contract is section B.2 of the skills spec; the role agents
-that implement it ship as `.opencode/agent/vantrilex-leader.md`,
-`.opencode/agent/vantrilex-guide.md`, and
-`.opencode/agent/vantrilex-implementer.md`. The coding agent acts as Leader
+that implement it ship as `.opencode/agents/vantrilex-leader.md`,
+`.opencode/agents/vantrilex-guide.md`, and
+`.opencode/agents/vantrilex-implementer.md`. The coding agent acts as Leader
 plus Guide; subagents act as Implementers.
 
 ## Decision rights
