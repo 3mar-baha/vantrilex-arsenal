@@ -2917,11 +2917,12 @@ Consolidated reference of every system component with its folder path.
 |---|------|-------------|--------|--------|
 | 1 | target-project-docs-scaffold | Manifest of the 28-file target-project docs scaffold in 8 folders with fixed numbers; 18-WORKFLOW.md stays reserved for Doctrine. |  | `cp registry/templates/target-project-docs-scaffold.json docs/target-project-docs-scaffold.json` |
 
-## Policies (1 — 0 default-selected)
+## Policies (2 — 0 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
 | 1 | allow-all-pack | Owner global allow-all pack for opencode.json: every permission effect is allow; never becomes deny or ask by stealth. |  | `cp registry/policies/allow-all-pack.json ~/.config/opencode/opencode.json` |
+| 2 | release-policy | Release increment policy read in place at release time by the self-publish path: a completed phase and a completed mission each name one component to bump, cascade resets the lower components, and a malformed policy fails the release closed. |  |  |
 
 ## Benchmarks (1 — 0 default-selected)
 

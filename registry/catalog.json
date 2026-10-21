@@ -15,11 +15,11 @@
     "prompt": 1,
     "dataset": 1,
     "template": 1,
-    "policy": 1,
+    "policy": 2,
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2940
+    "total": 2941
   },
   "components": [
     {
@@ -62438,6 +62438,30 @@
       "phase": "operate",
       "tier": "conditional",
       "verify_cmd": "node -e \"const p=require('./registry/policies/allow-all-pack.json');const bad=p.permissions.filter(function(r){return r.effect!=='allow'});if(bad.length>0)throw new Error('non-allow effect present');console.log('allow-all-pack: all effects are allow')\"",
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "release-policy",
+      "name": "release-policy",
+      "kind": "policy",
+      "description": "Release increment policy read in place at release time by the self-publish path: a completed phase and a completed mission each name one component to bump, cascade resets the lower components, and a malformed policy fails the release closed.",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": "release",
+      "tags": [
+        "policy",
+        "release",
+        "versioning",
+        "self-publish"
+      ],
+      "when_to_use": "Use when the release increments must be read, proven, or restyled: the self-publish path reads this file at release time and refuses to publish on a malformed policy.",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const p=require('./registry/policies/release-policy.json');const u=p.increments||{};if(!u.phase||!u.mission)throw new Error('phase and mission increments are both required');console.log('release-policy: phase and mission increments present')\"",
       "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
