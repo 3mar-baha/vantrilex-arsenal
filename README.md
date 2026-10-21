@@ -110,10 +110,10 @@ npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-doctrine
 The separation is deliberate: **orientation, then selection, then workflow design, then conduct.**
 Prime does not duplicate Vanguard's four project states, Vanguard does not author the per-task workflow — the forge does that at each task start — and the forge does not govern it; Doctrine does. A project can therefore run the scout without
 inheriting the law, and can be re-equipped on new terms without renegotiating
-its conduct rules. Only those four are top-level skills. The other **17 skill
-folders** on disk under `.opencode/skills/` split into the 12 conditional components
-Vanguard equips and five transplanted mechanisms that ship on disk without being
-locked into the kit.
+its conduct rules. Only those four are top-level skills. The other **26 skill
+folders** tracked under `.opencode/skills/` split into the 18 the selection
+record equips from disk and eight transplanted mechanisms that ship on disk
+without being selected.
 
 ---
 
@@ -161,11 +161,11 @@ repository has never benchmarked itself.*
 two rows carrying `~` — first-time setup and setup again — are rough
 illustrative estimates, not measured benchmarks; this repository has never
 benchmarked itself. Every unmarked cell is a verified
-count, not an estimate: 2,804 catalog records over eight kinds, 82 verified
-install commands with the rest marked `unverified`, the same 112 pinned
-components from a pinned commit, seven registry checks plus fourteen kit checks,
-six gates each required to exit 0, four top-level skills and ten agent
-files, the generated 28-file doc system, and `mcp_cap` = 8. The table image
+count, not an estimate: 2,941 catalog records over sixteen kinds, 91 verified
+install commands with the rest marked `unverified`, 146 selected components
+(30 tier `core` and 116 tier `conditional`), seventeen catalog proofs beside
+seven registry checks, six gates each required to exit 0, 27 agent files, the
+generated 28-file doc system, and `mcp_cap` = 8. The table image
 above still renders the prior census; the prose figures in this caption are
 the live verified counts.*
 
