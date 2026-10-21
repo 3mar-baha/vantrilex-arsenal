@@ -11,7 +11,7 @@
     "formatting": 13,
     "lsp": 1,
     "cli": 64,
-    "theme": 3,
+    "theme": 12,
     "prompt": 1,
     "dataset": 1,
     "template": 1,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2931
+    "total": 2940
   },
   "components": [
     {
@@ -62095,6 +62095,29 @@
       "default_selected": false
     },
     {
+      "id": "vantrilex-architect",
+      "name": "vantrilex-architect",
+      "kind": "theme",
+      "description": "Dark blue Vantrilex theme for the OpenCode CLI, built around architect blue (#3A86FF).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-architect.json ~/.config/opencode/themes/vantrilex-architect.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark blue Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-architect.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-architect.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#3a86ff')throw new Error('accent drift');console.log('vantrilex-architect: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
       "id": "vantrilex-blazar",
       "name": "vantrilex-blazar",
       "kind": "theme",
@@ -62118,6 +62141,121 @@
       "default_selected": false
     },
     {
+      "id": "vantrilex-code-reviewer",
+      "name": "vantrilex-code-reviewer",
+      "kind": "theme",
+      "description": "Dark cobalt-blue Vantrilex theme for the OpenCode CLI, built around code-reviewer cobalt (#2F6BFF).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-code-reviewer.json ~/.config/opencode/themes/vantrilex-code-reviewer.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark cobalt-blue Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-code-reviewer.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-code-reviewer.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#2f6bff')throw new Error('accent drift');console.log('vantrilex-code-reviewer: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-guide",
+      "name": "vantrilex-guide",
+      "kind": "theme",
+      "description": "Dark brick-red Vantrilex theme for the OpenCode CLI, built around guide brick red (#C9331A).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-guide.json ~/.config/opencode/themes/vantrilex-guide.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark brick-red Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-guide.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-guide.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#c9331a')throw new Error('accent drift');console.log('vantrilex-guide: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-implementer",
+      "name": "vantrilex-implementer",
+      "kind": "theme",
+      "description": "Dark slate-blue Vantrilex theme for the OpenCode CLI, built around implementer slate (#5B8DEF).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-implementer.json ~/.config/opencode/themes/vantrilex-implementer.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark slate-blue Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-implementer.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-implementer.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#5b8def')throw new Error('accent drift');console.log('vantrilex-implementer: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-kit-maintainer",
+      "name": "vantrilex-kit-maintainer",
+      "kind": "theme",
+      "description": "Dark flame-orange Vantrilex theme for the OpenCode CLI, built around kit-maintainer flame (#E63E21).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-kit-maintainer.json ~/.config/opencode/themes/vantrilex-kit-maintainer.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark flame-orange Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-kit-maintainer.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-kit-maintainer.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#e63e21')throw new Error('accent drift');console.log('vantrilex-kit-maintainer: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-leader",
+      "name": "vantrilex-leader",
+      "kind": "theme",
+      "description": "Dark oxide-red Vantrilex theme for the OpenCode CLI, built around leader oxide red (#A82A16).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-leader.json ~/.config/opencode/themes/vantrilex-leader.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark oxide-red Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-leader.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-leader.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#a82a16')throw new Error('accent drift');console.log('vantrilex-leader: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
       "id": "vantrilex-pulsar",
       "name": "vantrilex-pulsar",
       "kind": "theme",
@@ -62138,6 +62276,75 @@
       "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-pulsar.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-pulsar.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');console.log('vantrilex-pulsar: V2 theme parses from '+f)\"",
       "cost_note": "light",
       "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-red-team",
+      "name": "vantrilex-red-team",
+      "kind": "theme",
+      "description": "Dark signal-red Vantrilex theme for the OpenCode CLI, built around red-team signal red (#FF4D2E).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-red-team.json ~/.config/opencode/themes/vantrilex-red-team.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark signal-red Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-red-team.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-red-team.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#ff4d2e')throw new Error('accent drift');console.log('vantrilex-red-team: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-scribe",
+      "name": "vantrilex-scribe",
+      "kind": "theme",
+      "description": "Dark emerald-green Vantrilex theme for the OpenCode CLI, built around scribe emerald (#22C55E).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-scribe.json ~/.config/opencode/themes/vantrilex-scribe.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark emerald-green Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-scribe.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-scribe.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#22c55e')throw new Error('accent drift');console.log('vantrilex-scribe: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-security-auditor",
+      "name": "vantrilex-security-auditor",
+      "kind": "theme",
+      "description": "Dark violet Vantrilex theme for the OpenCode CLI, built around security-auditor violet (#8B5CF6).",
+      "source": null,
+      "origin": null,
+      "install_cmd": "cp registry/themes/vantrilex-security-auditor.json ~/.config/opencode/themes/vantrilex-security-auditor.json",
+      "version_pin": null,
+      "category": "appearance",
+      "tags": [
+        "theme",
+        "dark",
+        "cli"
+      ],
+      "when_to_use": "Use when the operator wants the dark violet Vantrilex CLI theme active in OpenCode.",
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": "node -e \"const fs=require('fs'),os=require('os');const p=os.homedir()+'/.config/opencode/themes/vantrilex-security-auditor.json';const f=fs.existsSync(p)?p:'registry/themes/vantrilex-security-auditor.json';const t=JSON.parse(fs.readFileSync(f,'utf8'));if(!t.base||(!t.dark&&!t.light))throw new Error('not a V2 theme');const h=t.dark.hue;const fam=h.accent.slice(5);if(h[fam]['500'].toLowerCase()!=='#8b5cf6')throw new Error('accent drift');console.log('vantrilex-security-auditor: V2 theme parses from '+f)\"",
+      "cost_note": "light",
+      "verification": "verified",
       "default_selected": false
     },
     {

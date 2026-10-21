@@ -2882,13 +2882,22 @@ Consolidated reference of every system component with its folder path.
 | 63 | Trash CLI | Moves files to the system trash instead of deleting them. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/trash-cli | `npm i -g trash-cli` |
 | 64 | Kill Port | Frees a TCP port by killing whatever process holds it. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | tiaanduplessis/kill-port | `npm i -g kill-port` |
 
-## Themes (3 — 0 default-selected)
+## Themes (12 — 0 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
 | 1 | vantrilex-blazar | Dark royal-blue Vantrilex theme for the OpenCode CLI, built around blazar blue (#4169E1). |  | `cp registry/themes/vantrilex-blazar.json ~/.config/opencode/themes/vantrilex-blazar.json` |
 | 2 | vantrilex-aether | Dark teal Vantrilex theme for the OpenCode CLI, built around aether teal (#14B8A6). |  | `cp registry/themes/vantrilex-aether.json ~/.config/opencode/themes/vantrilex-aether.json` |
 | 3 | vantrilex-pulsar | Dark fuchsia Vantrilex theme for the OpenCode CLI, built around pulsar fuchsia (#C026D3). |  | `cp registry/themes/vantrilex-pulsar.json ~/.config/opencode/themes/vantrilex-pulsar.json` |
+| 4 | vantrilex-architect | Dark blue Vantrilex theme for the OpenCode CLI, built around architect blue (#3A86FF). |  | `cp registry/themes/vantrilex-architect.json ~/.config/opencode/themes/vantrilex-architect.json` |
+| 5 | vantrilex-code-reviewer | Dark cobalt-blue Vantrilex theme for the OpenCode CLI, built around code-reviewer cobalt (#2F6BFF). |  | `cp registry/themes/vantrilex-code-reviewer.json ~/.config/opencode/themes/vantrilex-code-reviewer.json` |
+| 6 | vantrilex-security-auditor | Dark violet Vantrilex theme for the OpenCode CLI, built around security-auditor violet (#8B5CF6). |  | `cp registry/themes/vantrilex-security-auditor.json ~/.config/opencode/themes/vantrilex-security-auditor.json` |
+| 7 | vantrilex-kit-maintainer | Dark flame-orange Vantrilex theme for the OpenCode CLI, built around kit-maintainer flame (#E63E21). |  | `cp registry/themes/vantrilex-kit-maintainer.json ~/.config/opencode/themes/vantrilex-kit-maintainer.json` |
+| 8 | vantrilex-red-team | Dark signal-red Vantrilex theme for the OpenCode CLI, built around red-team signal red (#FF4D2E). |  | `cp registry/themes/vantrilex-red-team.json ~/.config/opencode/themes/vantrilex-red-team.json` |
+| 9 | vantrilex-scribe | Dark emerald-green Vantrilex theme for the OpenCode CLI, built around scribe emerald (#22C55E). |  | `cp registry/themes/vantrilex-scribe.json ~/.config/opencode/themes/vantrilex-scribe.json` |
+| 10 | vantrilex-guide | Dark brick-red Vantrilex theme for the OpenCode CLI, built around guide brick red (#C9331A). |  | `cp registry/themes/vantrilex-guide.json ~/.config/opencode/themes/vantrilex-guide.json` |
+| 11 | vantrilex-implementer | Dark slate-blue Vantrilex theme for the OpenCode CLI, built around implementer slate (#5B8DEF). |  | `cp registry/themes/vantrilex-implementer.json ~/.config/opencode/themes/vantrilex-implementer.json` |
+| 12 | vantrilex-leader | Dark oxide-red Vantrilex theme for the OpenCode CLI, built around leader oxide red (#A82A16). |  | `cp registry/themes/vantrilex-leader.json ~/.config/opencode/themes/vantrilex-leader.json` |
 
 ## Prompts (1 — 0 default-selected)
 
