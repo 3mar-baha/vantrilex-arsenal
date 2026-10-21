@@ -17,19 +17,33 @@
  *   .opencode/release-queue.jsonl        one JSON object per closed unit:
  *                                        {unit_type, scope, base_commit,
  *                                         status, published_version,
- *                                         published_at}
+ *                                         published_at[, intended_version]}
  *   registry/policies/release-policy.json the increment policy — the ONLY place
  *                                        an increment value lives
  *   .opencode/auto-release.enabled       the kill switch; absent ⇒ this whole
  *                                        path does nothing
+ *
+ * intended_version (OPTIONAL, owner sequencing ruling §1) is the number a
+ * closure record assigned before the line could produce it. Its canonical form
+ * is the tag form the publisher itself computes — `vX.Y.Z` — so an owner's
+ * "0.8.11" is queued as "v0.8.11" and the two numbers compare as one string
+ * with no second parser; `null` (or an absent key) means "no declared intent,
+ * the computed number stands". A declared intent is a guard, not a hint: the
+ * entry publishes ONLY when the number computed from the policy and the highest
+ * existing tag is exactly that version. On a mismatch the run REFUSES before
+ * the commit check, the battery, the tag, the release and the queue rewrite —
+ * nothing is created and nothing is consumed, the entry stays pending, and one
+ * refusal audit line names both numbers. The already-released arm stays ahead of
+ * the guard: a tag that already sits on the queued commit creates nothing
+ * either, and refusing there would hold the FIFO line forever.
  *
  * Usage:
  *   scripts/self-publish.mjs [--self-test] [-h | --help]
  *
  *   --self-test  Prove the four §6 behaviours (would publish, refuses on a red
  *                gate, skips an existing tag, does nothing without the switch)
- *                against injected dependencies. No git, no gh, no network, no
- *                write of any kind.
+ *                plus the declared-intent guard, against injected dependencies.
+ *                No git, no gh, no network, no write of any kind.
  *
  * Environment:
  *   DRY_RUN=1|0              Default 1. Dry-run reads, computes, runs the real
@@ -52,9 +66,10 @@
  *   0  published, skipped (existing tag / already released at that commit),
  *      disabled by the kill switch, no pending entry, or a dry-run whose gate
  *      passed
- *   1  refused or failed — no base tag, unreadable queue or policy, a commit
- *      that is not an ancestor of HEAD, a red battery, or a failed create.
- *      Fail closed: a check that cannot be evaluated is a failed check.
+ *   1  refused or failed — no base tag, unreadable queue or policy, an invalid
+ *      declared intent, a declared intent the computed number does not match, a
+ *      commit that is not an ancestor of HEAD, a red battery, or a failed
+ *      create. Fail closed: a check that cannot be evaluated is a failed check.
  */
 
 import { spawnSync } from 'node:child_process';
@@ -107,6 +122,11 @@ const COMPONENTS = ['major', 'minor', 'patch'];
 const SEMVER_TAG_RE = /^v(\d+)\.(\d+)\.(\d+)$/;
 const BASE_COMMIT_RE = /^[0-9a-f]{7,40}$/;
 const QUEUE_KEYS = ['unit_type', 'scope', 'base_commit', 'status', 'published_version', 'published_at'];
+/* The one OPTIONAL queue key: absent or null means "no declared intent", so it
+   stays out of QUEUE_KEYS — a missing key is not an error here. When present it
+   must already be in canonical `vX.Y.Z` form; the publisher never normalizes a
+   human's shorthand, because a release number is not a guess. */
+const QUEUE_INTENT_KEY = 'intended_version';
 
 /* ---------- the increment policy (§8.2: the single source) ---------- */
 
@@ -186,8 +206,9 @@ export function nextVersion(version, policy, unitType) {
 /*
   parseQueue <text> — {ok: true, entries} | {ok: false, error}.
   One JSON object per line, in closure order. A published entry must name the
-  version and the UTC timestamp it was published with; anything else fails
-  closed instead of being repaired by guesswork.
+  version and the UTC timestamp it was published with; an optional
+  intended_version, when present, must be a canonical vX.Y.Z tag or null.
+  Anything else fails closed instead of being repaired by guesswork.
 */
 export function parseQueue(text) {
   const lines = text.split('\n');
@@ -227,6 +248,11 @@ export function parseQueue(text) {
     }
     if (parsed.published_at !== null && (typeof parsed.published_at !== 'string' || parsed.published_at.trim() === '')) {
       return { ok: false, error: `${where}: published_at must be null or a UTC timestamp string, got ${JSON.stringify(parsed.published_at)}` };
+    }
+    if (Object.prototype.hasOwnProperty.call(parsed, QUEUE_INTENT_KEY)
+      && parsed[QUEUE_INTENT_KEY] !== null
+      && (typeof parsed[QUEUE_INTENT_KEY] !== 'string' || !SEMVER_TAG_RE.test(parsed[QUEUE_INTENT_KEY]))) {
+      return { ok: false, error: `${where}: ${QUEUE_INTENT_KEY} must be null or a canonical vX.Y.Z tag, got ${JSON.stringify(parsed[QUEUE_INTENT_KEY])}` };
     }
     if (parsed.status === 'published' && (parsed.published_version === null || parsed.published_at === null)) {
       return { ok: false, error: `${where}: a published entry must carry both published_version and published_at` };
@@ -294,17 +320,29 @@ export function highestVersion(tags) {
 
 /*
   planEntry <{entry, policy, tags, tagsAtCommit}> — the pure decision:
-    publish                the next number, computed from the highest tag
+    publish                the next number, computed from the highest tag, and —
+                           when the entry declares an intended_version — that
+                           number equals the declared one
     skip-already-released  a strict vX.Y.Z tag already points at this entry's
                            commit — a previous run tagged and then died before
                            marking the queue, or the commit was released
                            another way. Nothing is created twice.
+    intended-mismatch      the entry declares an intended_version and the next
+                           number is not it. Nothing is created and nothing is
+                           consumed: the entry stays pending for the run that can
+                           produce the declared number.
     blocked                no base tag, or no policy increment for this unit type
   The computed tag itself cannot already exist: it is always higher than the
   highest tag, so the idempotency that matters is "this commit is tagged".
   Two runs racing the same computed number are stopped by the workflow's
   single-flight group, and then by git itself, which refuses a second tag with
   the same name.
+
+  Order matters twice here. The already-released arm runs BEFORE the intent
+  guard: it creates nothing, so a declared intent cannot be violated by it, and
+  refusing an already-tagged commit would hold the FIFO line on a number that
+  was, in fact, published. The intent guard runs BEFORE the commit check, the
+  battery and every write: a mismatch must cost nothing but one audit line.
 */
 export function planEntry({ entry, policy, tags, tagsAtCommit }) {
   const highest = highestVersion(tags);
@@ -323,7 +361,18 @@ export function planEntry({ entry, policy, tags, tagsAtCommit }) {
   if (!next.ok) {
     return { action: 'blocked', reason: 'policy-incomplete', detail: next.error };
   }
-  return { action: 'publish', tag: next.version.tag, version: next.version, highest, unit: entry.unit_type };
+  const intended = entry[QUEUE_INTENT_KEY] ?? null;
+  if (intended !== null && intended !== next.version.tag) {
+    return {
+      action: 'intended-mismatch',
+      intended,
+      computed: next.version.tag,
+      tag: next.version.tag,
+      version: next.version,
+      highest,
+    };
+  }
+  return { action: 'publish', tag: next.version.tag, version: next.version, highest, unit: entry.unit_type, intended };
 }
 
 /* assetName <tag> — the one tarball name per release, same shape as the asset
@@ -430,8 +479,20 @@ export function selfPublish(input) {
     return { exitCode: 1, action: 'blocked', reason: plan.reason };
   }
 
+  // 4b. The declared-intent guard (owner sequencing ruling §1). A closure record
+  //     may assign a number before the line can produce it; when it has, this
+  //     run publishes that number and no other. The refusal is deliberately
+  //     placed before the commit check, the battery and every write: nothing is
+  //     created, nothing is consumed, the entry stays pending, and the single
+  //     audit line names both numbers so the mismatch is readable in the log.
+  if (plan.action === 'intended-mismatch') {
+    log(`REFUSED: queue entry ${record.line} declares intended_version ${plan.intended}, but the line computes ${plan.computed} (${plan.highest.tag} + policy.increments.${entry.unit_type}). Nothing is created, nothing is consumed, entry ${record.line} stays pending.`);
+    deps.appendAudit(auditLine({ version: plan.computed, commit: entry.base_commit, timestamp: now(), artifacts: 'none', channels: `github-release:${repo},git-tag:${plan.computed}`, result: `refused-intent;gate=not-evaluated;intended=${plan.intended};computed=${plan.computed}` }));
+    return { exitCode: 1, action: 'refused-intent', reason: `intended_version ${plan.intended} != computed ${plan.computed}`, tag: plan.computed };
+  }
+
   const sha = entry.base_commit;
-  log(`plan: ${plan.tag} = ${plan.highest.tag} + policy.increments.${entry.unit_type} (cascade=${policy.policy.cascade})`);
+  log(`plan: ${plan.tag} = ${plan.highest.tag} + policy.increments.${entry.unit_type} (cascade=${policy.policy.cascade})${plan.intended === null ? '' : `; declared intended_version ${plan.intended} matches`}`);
   log(`plan: release point ${sha} (the queued closure commit), asset ${assetName(plan.tag)}`);
   log(`plan: release notes = queue entry ${record.line} scope, ${entry.scope.length} characters`);
 
@@ -713,6 +774,13 @@ const FIXTURE_QUEUE = `${JSON.stringify({
 
 const FIXTURE_NOW = '2026-10-21T12:00:00Z';
 
+/* fixtureQueueWithIntent <intended> — the phase fixture plus the optional
+   declared-intent key, so the match and mismatch proofs differ only in that
+   one value. */
+function fixtureQueueWithIntent(intended) {
+  return `${JSON.stringify({ ...JSON.parse(FIXTURE_QUEUE.trim()), intended_version: intended })}\n`;
+}
+
 function fakeDeps({ batteryOk = true } = {}) {
   const calls = [];
   const lines = [];
@@ -862,11 +930,46 @@ export function selfTest(log = (message) => process.stdout.write(`${message}\n`)
     check('(e) cascade off keeps the lower components', flat.result.tag === 'v1.7.7', flat.result.tag);
   }
 
+  // A declared intent is a guard: equal ⇒ publish that number; different ⇒
+  // refuse with zero creates and zero consumption.
+  {
+    const matched = runFixture({ queueText: fixtureQueueWithIntent('v0.7.8') });
+    log('');
+    log('[proof g] intended_version == computed ⇒ WOULD publish');
+    log('  declared intent  : v0.7.8');
+    log(`  computed version : ${matched.result.tag}`);
+    log(`  action           : ${matched.result.action}`);
+    log(`  creates          : ${creates(matched.calls).length} (dry run: none)`);
+    log(`  queue writes     : ${matched.calls.filter(([name]) => name === 'writeQueue').length}`);
+    for (const line of matched.lines) log(`    ${line}`);
+    check('(g) a matching intent publishes the computed number', matched.result.exitCode === 0 && matched.result.action === 'dry-run-would-publish' && matched.result.tag === 'v0.7.8', JSON.stringify(matched.result));
+    check('(g) a matching intent creates nothing in dry run', creates(matched.calls).length === 0 && matched.calls.filter(([name]) => name === 'writeQueue').length === 0, 'no side effects');
+
+    const mismatch = runFixture({ queueText: fixtureQueueWithIntent('v0.8.11') });
+    log('');
+    log('[proof h] intended_version != computed ⇒ REFUSES (creates nothing, consumes nothing)');
+    log('  declared intent  : v0.8.11');
+    log(`  computed version : ${mismatch.result.tag}`);
+    log(`  action           : ${mismatch.result.action}`);
+    log(`  reason           : ${mismatch.result.reason}`);
+    log(`  creates          : ${creates(mismatch.calls).length}`);
+    log(`  queue writes     : ${mismatch.calls.filter(([name]) => name === 'writeQueue').length}`);
+    log(`  battery calls    : ${mismatch.calls.filter(([name]) => name === 'battery').length}`);
+    log(`  dependency calls : ${mismatch.calls.map(([name]) => name).join(', ') || 'none'}`);
+    log(`  audit line       : ${mismatch.calls.filter(([name]) => name === 'appendAudit').map(([, line]) => line).join('') || 'none'}`);
+    for (const line of mismatch.lines) log(`    ${line}`);
+    check('(h) a mismatched intent refuses', mismatch.result.exitCode === 1 && mismatch.result.action === 'refused-intent', JSON.stringify(mismatch.result));
+    check('(h) the refusal creates nothing and rewrites no queue entry', creates(mismatch.calls).length === 0 && mismatch.calls.filter(([name]) => name === 'writeQueue').length === 0, 'no creates, no queue write');
+    check('(h) the refusal consumes nothing — no battery, no commit check, no asset, no tag, no release, no commit-back', mismatch.calls.every(([name]) => name === 'tagsAtCommit' || name === 'appendAudit'), mismatch.calls.map(([name]) => name).join(', '));
+    check('(h) the audit line names both numbers', mismatch.calls.some(([name, line]) => name === 'appendAudit' && String(line).includes('refused-intent;gate=not-evaluated;intended=v0.8.11;computed=v0.7.8')), 'audit');
+  }
+
   // Malformed inputs and a broken package shape refuse instead of guessing.
   {
     const badPolicy = runFixture({ policyText: JSON.stringify({ increments: { phase: { patch: 1 } } }) });
     const badQueue = runFixture({ queueText: '{"unit_type":"phase"}\n' });
     const noTags = runFixture({ tags: ['v7.5'] });
+    const shorthandIntent = runFixture({ queueText: fixtureQueueWithIntent('0.8.11') });
     const badPackage = runFixture({
       deps: {
         buildAsset: () => {
@@ -879,10 +982,12 @@ export function selfTest(log = (message) => process.stdout.write(`${message}\n`)
     log(`  missing mission increment : ${badPolicy.result.action} — ${badPolicy.result.reason}`);
     log(`  incomplete queue entry    : ${badQueue.result.action} — ${badQueue.result.reason}`);
     log(`  no strict semver tag      : ${noTags.result.action} — ${noTags.result.reason}`);
+    log(`  non-canonical intent      : ${shorthandIntent.result.action} — ${shorthandIntent.result.reason}`);
     log(`  missing packaged path     : ${badPackage.result.action} — ${badPackage.result.reason}`);
     check('(f) policy without both units refuses', badPolicy.result.exitCode === 1 && badPolicy.result.action === 'refused-policy', badPolicy.result.action);
     check('(f) an incomplete queue entry refuses', badQueue.result.exitCode === 1 && badQueue.result.action === 'refused-queue', badQueue.result.action);
     check('(f) v7.5 is not a base tag', noTags.result.exitCode === 1 && noTags.result.action === 'blocked' && noTags.result.reason === 'no-existing-tag', noTags.result.action);
+    check('(f) a non-canonical intended_version refuses', shorthandIntent.result.exitCode === 1 && shorthandIntent.result.action === 'refused-queue', shorthandIntent.result.action);
     check('(f) a missing packaged path refuses', badPackage.result.exitCode === 1 && badPackage.result.action === 'refused-package', badPackage.result.action);
   }
 
@@ -890,7 +995,7 @@ export function selfTest(log = (message) => process.stdout.write(`${message}\n`)
   log('');
   for (const result of results) log(`${result.ok ? 'PASS' : 'FAIL'} ${result.name} (${result.detail})`);
   if (failures.length === 0) {
-    log(`self-test PASS: ${results.length} assertions across the four §6 proofs and the policy/input guards.`);
+    log(`self-test PASS: ${results.length} assertions across the four §6 proofs, the declared-intent guard and the policy/input guards.`);
     return 0;
   }
   log(`self-test FAILED: ${failures.length} of ${results.length} assertion(s).`);
@@ -907,7 +1012,7 @@ function usage() {
       'Usage:',
       '  scripts/self-publish.mjs [--self-test]',
       '',
-      '  --self-test  Prove the four §6 behaviours offline. No git, gh, network or write.',
+      '  --self-test  Prove the four §6 behaviours and the declared-intent guard offline. No git, gh, network or write.',
       '',
       'Environment:',
       '  DRY_RUN=1|0            Default 1: report the exact release, create nothing.',
