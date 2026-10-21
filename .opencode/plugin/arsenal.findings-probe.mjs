@@ -1,6 +1,8 @@
 ﻿/**
  * NODE P1 findings probe for .opencode/plugin/arsenal.ts
- * (F1/F3/F4/F5/F7/F8 + M-1 tee prefixes + V2 surface + argv/egress).
+ * (F1/F3/F4/F5/F7/F8 + M-1 tee prefixes + V2 surface + argv/egress)
+ * plus the POST87 §2 U-slice battery: ق-6 plan-guard merge, م-3 six-hook
+ * capability probe, م-4 kill switch (four signals), Diff Size Guard.
  *
  * Run: node .opencode/plugin/arsenal.findings-probe.mjs
  * Exit 0 when every probe passes, 1 with the failing probe named otherwise.
@@ -11,18 +13,23 @@
  * plugin directory observes a inert module here, not a second plugin.
  */
 import assert from "node:assert/strict";
+import { execFile, execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import pluginModule, {
   DEFAULT_DOCS_GUARD,
+  PLAN_DRIFT_TAG,
   bashMarkdownTargets,
+  diffSizeGuard,
   docsDisciplineGuard,
   findDispatcherAppendTarget,
   firstUsableRoot,
+  formatCapabilityLines,
   isBareRoot,
   preCompact,
+  probeHookCapabilities,
   sanitizeSessionId,
   v2ToolBefore,
 } from "./arsenal.ts";
@@ -122,6 +129,68 @@ const captureV2 = async (dir) => {
   await pluginModule.setup(fake);
   return seen;
 };
+
+/**
+ * Capture the prompt registration(s) a setup call performs, so a test can
+ * prove the merge: exactly one `prompt` hook, not one dispatcher hook plus a
+ * carrier hook.
+ */
+const capturePrompt = async (dir) => {
+  const registered = [];
+  let callback = null;
+  const fake = {
+    location: { directory: dir },
+    session: {
+      hook: async (name, cb) => {
+        registered.push(name);
+        if (name === "prompt") callback = cb;
+      },
+    },
+  };
+  await pluginModule.setup(fake);
+  return { registered, call: callback };
+};
+
+/** Run one warn-mode docs write through the V1 hooks and return the result text. */
+const docsWarningThrough = async (dir) => {
+  const hooks = await pluginModule.server({ directory: dir });
+  const args = { filePath: "docs/KILL-SWITCH.md" };
+  const output = { title: "", output: "prior", metadata: {} };
+  await hooks["tool.execute.before"]({ tool: "write", sessionID: "ses_kill", callID: "c1" }, { args });
+  await hooks["tool.execute.after"](
+    { tool: "write", sessionID: "ses_kill", callID: "c1", args },
+    output,
+  );
+  return output.output;
+};
+
+/** Scratch project carrying only the config a case needs. */
+const killProject = (name, config) => {
+  const dir = path.join(PROBE_ROOT, name);
+  fs.mkdirSync(path.join(dir, ".opencode"), { recursive: true });
+  if (config) fs.writeFileSync(path.join(dir, ".opencode", "config.json"), JSON.stringify(config), "utf8");
+  return dir;
+};
+
+/** The plugin context shape the exported guards take. */
+const makeGuardCtx = (root, overrides) => ({
+  rt: { fs, path, execFile, os, proc: process, loadErrors: [] },
+  root,
+  client: undefined,
+  sessions: new Map(),
+  anchors: new Map(),
+  config: {
+    docsGuard: { ...DEFAULT_DOCS_GUARD, mode: "off", enabled: false },
+    taskDispatcher: { enabled: true },
+    vantrilex: { enabled: true, excludedProjects: [] },
+  },
+  tscChain: Promise.resolve(),
+  pendingWarnings: [],
+  lastLogTarget: null,
+  capabilityLines: [],
+  capabilitiesFlushed: false,
+  ...(overrides ?? {}),
+});
 
 const throwsV2Tool = async (seen, event, mustName) => {
   let message = "";
@@ -536,6 +605,218 @@ const main = async () => {
   });
   await check("F6 CLAUDE.md stays allow-listed", async () => {
     assert.equal(await silent(makeDocsCtx(), "edit", { filePath: "CLAUDE.md" }), 0);
+  });
+
+  // ---- ق-6: plan-guard append merged into the single prompt registration ----
+  const planPrompt = [
+    "Plan-Doc-Begin: MISSION-PLAN.md",
+    "Lane VTA-PLAN-01 opens with node p1-kept.",
+    "Plan-Doc-End",
+    "Brief: lane VTA-PLAN-01 node p9-nowhere.",
+  ].join("\n");
+
+  await check("Q6 setup registers exactly one prompt hook (carrier merge)", async () => {
+    const { registered } = await capturePrompt(proj);
+    assert.deepEqual(registered, ["prompt"], "one prompt registration :: " + JSON.stringify(registered));
+  });
+  await check("Q6 plan-guard text is appended by that one prompt hook", async () => {
+    const { call } = await capturePrompt(proj);
+    const event = { sessionID: "ses_q6", prompt: { text: planPrompt } };
+    await call(event);
+    const text = event.prompt.text;
+    assert.ok(text.includes(PLAN_DRIFT_TAG), "drift tag present :: " + text);
+    assert.ok(text.includes("p9-nowhere"), "drifting token named :: " + text);
+    assert.ok(text.includes("task-dispatcher"), "dispatcher still appended by the same hook");
+    assert.ok(
+      text.includes("Plan-guard fallback (detective-only, non-blocking)"),
+      "honesty note travels with the report",
+    );
+  });
+  await check("Q6 plan-guard append stays idempotent within a turn", async () => {
+    const { call } = await capturePrompt(proj);
+    const first = { sessionID: "ses_q6b", prompt: { text: planPrompt } };
+    await call(first);
+    const once = first.prompt.text;
+    const second = { sessionID: "ses_q6b", prompt: { text: once } };
+    await call(second);
+    assert.equal(second.prompt.text, once, "second pass rewrote the draft");
+    assert.equal((once.match(/\[plan-guard\] plan-drift report/g) || []).length, 1, "one report");
+  });
+  await check("Q6 plan-guard stays silent without plan markers", async () => {
+    const { call } = await capturePrompt(proj);
+    const event = { sessionID: "ses_q6c", prompt: { text: "plain brief without markers" } };
+    await call(event);
+    assert.ok(!event.prompt.text.includes(PLAN_DRIFT_TAG), "no report without markers");
+    assert.ok(event.prompt.text.includes("task-dispatcher"), "dispatcher unaffected");
+  });
+  await check("Q6 plan-guard appends even when the dispatcher is disabled", async () => {
+    const dir = path.join(PROBE_ROOT, "proj-q6-off");
+    fs.mkdirSync(path.join(dir, ".opencode"), { recursive: true });
+    fs.writeFileSync(
+      path.join(dir, ".opencode", "arsenal.json"),
+      JSON.stringify({ taskDispatcher: { enabled: false } }),
+      "utf8",
+    );
+    const { call } = await capturePrompt(dir);
+    const event = { sessionID: "ses_q6d", prompt: { text: planPrompt } };
+    await call(event);
+    assert.ok(!event.prompt.text.includes("task-dispatcher"), "dispatcher disarmed");
+    assert.ok(event.prompt.text.includes(PLAN_DRIFT_TAG), "plan guard is independent of the dispatcher flag");
+  });
+
+  // ---- م-3: six-hook capability probe ----
+  await check("M3 capability probe reports six hooks, absent by default", () => {
+    const report = probeHookCapabilities({});
+    assert.equal(report.length, 6, "six documented hooks");
+    assert.deepEqual(
+      report.map((entry) => entry.hook),
+      ["sessionStart", "preCompact", "sessionEnd", "model.request", "ctx.permission", "ctx.storage"],
+    );
+    assert.ok(report.every((entry) => entry.available === false), "nothing claimed without observation");
+    const lines = formatCapabilityLines(report);
+    assert.equal(lines.length, 7, "one line per hook plus the gate");
+    assert.ok(lines[6].includes("gate = 0/6"), "gate line :: " + lines[6]);
+    assert.deepEqual(lines, formatCapabilityLines(probeHookCapabilities({})), "deterministic output");
+  });
+  await check("M3 capability probe observes only the registrars the host exposes", () => {
+    const host = {
+      session: { hook() {} },
+      model: { hook() {} },
+      permission: { hook() {} },
+      storage: { get() {}, set() {} },
+    };
+    const report = probeHookCapabilities(host);
+    const byHook = Object.fromEntries(report.map((entry) => [entry.hook, entry.available]));
+    assert.equal(byHook["model.request"], true);
+    assert.equal(byHook["ctx.permission"], true);
+    assert.equal(byHook["ctx.storage"], true);
+    assert.equal(byHook.sessionStart, false, "lifecycle hooks are never inferred from a session registrar");
+    assert.equal(byHook.preCompact, false);
+    assert.equal(byHook.sessionEnd, false);
+    assert.ok(formatCapabilityLines(report)[6].includes("gate = 3/6"));
+  });
+  await check("M3 capability lines flush once on the first V2 tool result", async () => {
+    const seen = await captureV2(proj);
+    const first = { content: "first" };
+    await seen["tool:execute.after"]({ tool: "read", sessionID: "ses_cap", id: "c1", input: {}, status: "completed", result: first });
+    assert.equal((String(first.content).match(/capability-probe: gate =/g) || []).length, 1, "gate line emitted once");
+    const second = { content: "second" };
+    await seen["tool:execute.after"]({ tool: "read", sessionID: "ses_cap", id: "c2", input: {}, status: "completed", result: second });
+    assert.equal(second.content, "second", "no second emission");
+  });
+
+  // ---- م-4: per-project kill switch, one test per signal ----
+  await check("M4 arm control: no signal, the docs guard still warns", async () => {
+    const dir = killProject("proj-kill-on");
+    const text = await docsWarningThrough(dir);
+    assert.ok(text.includes("docs-discipline-guard"), "positive control :: " + text);
+  });
+  await check("M4 signal 1: vantrilex.enabled=false in .opencode/config.json", async () => {
+    const dir = killProject("proj-kill-config", { vantrilex: { enabled: false } });
+    const text = await docsWarningThrough(dir);
+    assert.equal(text, "prior", "no verdict appended :: " + text);
+  });
+  await check("M4 signal 2: .opencode/.vantrilex-disable exists", async () => {
+    const dir = killProject("proj-kill-file");
+    fs.writeFileSync(path.join(dir, ".opencode", ".vantrilex-disable"), "", "utf8");
+    const text = await docsWarningThrough(dir);
+    assert.equal(text, "prior", "no verdict appended :: " + text);
+  });
+  await check("M4 signal 3: VANTRILEX_DISABLED=1 in the environment", async () => {
+    const dir = killProject("proj-kill-env");
+    const previous = process.env.VANTRILEX_DISABLED;
+    process.env.VANTRILEX_DISABLED = "1";
+    try {
+      const text = await docsWarningThrough(dir);
+      assert.equal(text, "prior", "no verdict appended :: " + text);
+    } finally {
+      if (previous === undefined) delete process.env.VANTRILEX_DISABLED;
+      else process.env.VANTRILEX_DISABLED = previous;
+    }
+  });
+  await check("M4 signal 4: excludedProjects in the global config", async () => {
+    const dir = killProject("proj-kill-excluded");
+    const configHome = path.join(PROBE_ROOT, "xdg-kill");
+    fs.mkdirSync(path.join(configHome, "opencode"), { recursive: true });
+    fs.writeFileSync(
+      path.join(configHome, "opencode", "opencode.json"),
+      JSON.stringify({ vantrilex: { excludedProjects: [path.resolve(dir).replace(/\\/g, "/")] } }),
+      "utf8",
+    );
+    const previous = process.env.XDG_CONFIG_HOME;
+    process.env.XDG_CONFIG_HOME = configHome;
+    try {
+      const text = await docsWarningThrough(dir);
+      assert.equal(text, "prior", "no verdict appended :: " + text);
+    } finally {
+      if (previous === undefined) delete process.env.XDG_CONFIG_HOME;
+      else process.env.XDG_CONFIG_HOME = previous;
+    }
+  });
+
+  // ---- Diff Size Guard: 120 lines / 4 files, one warning per HEAD ----
+  const git = (cwd, args) =>
+    execFileSync(
+      "git",
+      ["-c", "user.email=probe@example.invalid", "-c", "user.name=arsenal-probe", ...args],
+      { cwd, encoding: "utf8" },
+    );
+  const seedRepo = (name) => {
+    const repo = path.join(PROBE_ROOT, name);
+    fs.rmSync(repo, { recursive: true, force: true });
+    fs.mkdirSync(repo, { recursive: true });
+    git(repo, ["init", "-q"]);
+    return repo;
+  };
+  const names = ["a.txt", "b.txt", "c.txt", "d.txt", "e.txt"];
+  const appendLines = (repo, perFile) => {
+    names.forEach((entry, index) => {
+      const count = Array.isArray(perFile) ? perFile[index] : perFile;
+      fs.appendFileSync(path.join(repo, entry), Array.from({ length: count }, (_, line) => `line ${line}\n`).join(""), "utf8");
+    });
+  };
+  const commitAll = (repo, message) => {
+    git(repo, ["add", "."]);
+    git(repo, ["commit", "-q", "-m", message]);
+  };
+
+  await check("D diff-size-guard fires at 121 lines over 5 files, once per HEAD", async () => {
+    const repo = seedRepo("diff-repo");
+    names.forEach((entry) => fs.writeFileSync(path.join(repo, entry), "base\n", "utf8"));
+    commitAll(repo, "base");
+    appendLines(repo, [25, 25, 25, 23, 23]);
+    const ctx = makeGuardCtx(repo);
+    await diffSizeGuard(ctx, "ses_diff", "write");
+    assert.equal(ctx.pendingWarnings.length, 1, "one warning :: " + JSON.stringify(ctx.pendingWarnings));
+    const line = ctx.pendingWarnings[0];
+    assert.ok(line.includes("diff-size-guard: BLOCKED"), "guard named :: " + line);
+    assert.ok(line.includes("121 uncommitted line(s)"), "line count measured :: " + line);
+    assert.ok(line.includes("5 file(s)"), "file count measured :: " + line);
+    assert.ok(line.includes("atomic commit"), "remedy named :: " + line);
+    await diffSizeGuard(ctx, "ses_diff", "write");
+    assert.equal(ctx.pendingWarnings.length, 1, "same HEAD does not re-warn");
+    commitAll(repo, "atomic");
+    appendLines(repo, 2);
+    await diffSizeGuard(ctx, "ses_diff", "write");
+    assert.equal(ctx.pendingWarnings.length, 2, "a commit re-arms the guard (5 files again)");
+  });
+  await check("D diff-size-guard stays silent at exactly 120 lines / 4 files", async () => {
+    const repo = seedRepo("diff-repo-edge");
+    const four = names.slice(0, 4);
+    four.forEach((entry) => fs.writeFileSync(path.join(repo, entry), "base\n", "utf8"));
+    commitAll(repo, "base");
+    four.forEach((entry) => fs.appendFileSync(path.join(repo, entry), "line\n".repeat(30), "utf8"));
+    const ctx = makeGuardCtx(repo);
+    await diffSizeGuard(ctx, "ses_diff_edge", "write");
+    assert.equal(ctx.pendingWarnings.length, 0, "at the ceiling, no warning :: " + JSON.stringify(ctx.pendingWarnings));
+  });
+
+  // ---- ق-6 single-plugin load smoke ----
+  await check("Q6 the retired carrier is gone (one plugin file loads)", () => {
+    const carrier = new URL("../plugins/vantrilex-guards.ts", import.meta.url);
+    assert.equal(fs.existsSync(carrier), false, "carrier file must not exist");
+    const source = fs.readFileSync(new URL("./arsenal.ts", import.meta.url), "utf8");
+    assert.ok(source.includes("appendPlanDriftReport"), "plan guard lives in arsenal.ts");
   });
 
   console.log("probe: " + passed + " checks passed");

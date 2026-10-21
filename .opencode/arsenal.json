@@ -1,0 +1,28 @@
+{
+  "docsGuard": {
+    "mode": "warn",
+    "enabled": true,
+    "allowedDirs": [
+      "docs/99-archive",
+      "docs/spec",
+      "registry",
+      ".opencode",
+      "brand",
+      "docs/ar",
+      "docs/dev"
+    ],
+    "allowedFiles": [
+      "CLAUDE.md",
+      "README.md",
+      "README.ar.md",
+      "AI_GUIDE.md",
+      "AGENTS.md",
+      "CHANGELOG.md",
+      "CONTRIBUTING.md",
+      "SECURITY.md",
+      "AGENT.md",
+      "WORKFLOW.md"
+    ],
+    "series": [{ "dir": "docs", "from": 0, "to": 27 }]
+  }
+}

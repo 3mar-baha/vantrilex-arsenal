@@ -11,7 +11,7 @@
 #   - an empty .worktrees/      left behind after every concern was pruned
 #
 # It never touches project code, registry data, documentation, or the shipped
-# .opencode/plugin, .opencode/command, .opencode/skills, or .opencode/agent
+# .opencode/plugin, .opencode/command, .opencode/skills, or .opencode/agents
 # trees. Safe to run repeatedly and from any directory.
 #
 # Usage:

@@ -248,7 +248,7 @@ draw the lines so each decision is made once, by its owner.
 
 ### Leader
 
-Implemented as `.opencode/agent/vantrilex-leader.md`. Owns the outcome.
+Implemented as `.opencode/agents/vantrilex-leader.md`. Owns the outcome.
 Decides: **routing, sequencing**, and abort; which workstreams run, at what concurrency, in which
 worktrees; the dispatch shape.
 **Does not decide:** the technical approach, code quality, guard verdicts, gate passage, or
@@ -256,7 +256,7 @@ acceptance criteria. A decision made at the wrong level is a decision that will 
 
 ### Guide
 
-Implemented as `.opencode/agent/vantrilex-guide.md`. Owns quality.
+Implemented as `.opencode/agents/vantrilex-guide.md`. Owns quality.
 Decides: the **specification and its acceptance criteria**, what each gate requires and what evidence
 proves it, phase-exit sign-off and its refusal; invokes the circuit breaker; escalates scope and
 sequencing decisions, unresolvable conflicts, resource and tooling gaps, and every circuit-breaker
@@ -265,7 +265,7 @@ halt to the Leader.
 
 ### Implementer
 
-Implemented as `.opencode/agent/vantrilex-implementer.md`. Owns the build inside one concern.
+Implemented as `.opencode/agents/vantrilex-implementer.md`. Owns the build inside one concern.
 Decides: the **technical approach and internal design within the spec**, the fix hypothesis for one
 attempt, refactoring inside the concern. Works TDD micro-cycles in an isolated worktree. **Never
 widen scope. Never redefine acceptance criteria.**

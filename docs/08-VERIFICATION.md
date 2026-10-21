@@ -19,12 +19,12 @@ node scripts/verify-registry.mjs
 | Check | What it proves |
 |---|---|
 | `utf8-validity` | The catalog Markdown decodes as strict UTF-8 with no malformed sequence |
-| `schema-conformance` | All 2804 records satisfy `registry/schema/catalog-v2.schema.json` |
+| `schema-conformance` | All 2931 records satisfy `registry/schema/catalog-v3.schema.json` |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
 | `install-command-invariant` | No record claims `verified` with a null `install_cmd` |
 | `orphan-references` | All 48 id references across 60 overlap entries resolve |
 | `duplicate-ids` | No id collides within its kind |
-| `mcp-name-normalization` | All 907 MCP server names stay unique after catalog v2 normalization |
+| `mcp-name-normalization` | All 923 MCP server names stay unique after V2 normalization (867 normalize away out-of-range characters; every MCP record carries a name) |
 
 Verdicts are PASS, FAIL, or SKIPPED. A skipped check is reported as a skip,
 never as a pass. The run exits non-zero on any FAIL. When the catalog cannot
@@ -37,16 +37,20 @@ SKIPPED with the parse error as the reason.
 node scripts/generate-catalog-json.mjs --check
 ```
 
-Proves `registry/catalog.json` (and, with `--markdown` / `--indexes`, the
-table and indexes) are byte-current with the sources. Any drift fails with
-the exact repair command. Regeneration details are in
+Proves every generated surface — `registry/catalog.json`, the
+`registry/VANTRILEX_CATALOG.md` table, and each per-kind
+`registry/<dir>/_index.md` — is byte-current with the sources. Any drift
+fails naming the drifted file and printing the exact repair command
+(`node scripts/generate-catalog-json.mjs --markdown --indexes`). The
+hand-authored `registry/formatting/_index.md` is reported as skipped, never
+regenerated. Regeneration details are in
 [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md).
 
 ## Kit component check
 
 `CONTRIBUTING.md` and CI name `scripts/verify-kit.mjs` as the gate that
 proves each Tier-0 component resolves and loads. That script exists and
-passes 14/14 against `kit/kit.lock` (112 components, 0 pending), including a
+passes 22/22 against `kit/kit.lock` (157 components, 9 pending), including a
 per-kind check for each locked kind — the `per-kind/cli` check passing on 64
 `cli` entries is reported as such rather than as a silent vacuous pass. See
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
@@ -62,7 +66,7 @@ lowercase-hyphenated folder shape, frontmatter keys, the frontmatter name
 matching its folder, the one-sentence third-person description with a
 front-loaded trigger, the seven required body headings in order, no placeholders,
 no excluded toolchains, file hygiene, the single-home rule for shared mechanism
-blocks, and the phase-map cross-check. It currently evaluates 21 skill folders
+blocks, and the phase-map cross-check. It currently evaluates 37 skill folders
 and passes 10/10.
 
 ## Shell scripts
@@ -102,13 +106,14 @@ in fenced blocks, and each document opens with a single top-level heading.
 ## The per-branch allowlist rule
 
 The docs-discipline guard in `.opencode/plugin/arsenal.ts` keeps
-documentation inside the canonical set: the numbered `docs/` series, the
-archive and spec directories, the registry, `.opencode`, `brand` (allowed
-because the visual identity specification lives there), and the seven named
-root files. A Markdown write outside that allow-list is BLOCKED (or WARNed in
-warn mode), with a message naming the allowed set and how to widen it. The
-numbered target-project series runs `00` through `27`; this Arsenal set's own
-`00` through `17` numbering is the repo-docs analogue, not the same series.
+documentation inside the canonical set: the numbered `docs/` series, the five
+allow-listed directories `docs/99-archive`, `docs/spec`, `registry`,
+`.opencode`, and `brand` (allowed because the visual identity specification
+lives there), and the eight named root files. A Markdown write outside that
+allow-list is BLOCKED (or WARNed in warn mode), with a message naming the
+allowed set and how to widen it. The numbered target-project series runs `00`
+through `27`; this Arsenal set's own `00` through `21` numbering is the
+repo-docs analogue, not the same series.
 
 ## The landing law
 

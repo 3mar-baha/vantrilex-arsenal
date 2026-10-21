@@ -129,7 +129,7 @@ Report these component homes, each with its observed presence:
 ```text
 | Path                | Holds                                                      |
 | `.opencode/skills/` | Every skill folder, one SKILL.md each                     |
-| `.opencode/agent/`  | Agent definitions: roles, reviewers, guards — read live    |
+| `.opencode/agents/` | Agent definitions: roles, reviewers, guards — read live    |
 | `.opencode/plugin/` | The plugin source that installs the Arsenal into a project |
 | `registry/`         | The Registry: catalog, data sidecars, and schema           |
 ```

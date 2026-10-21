@@ -43,8 +43,10 @@ changelog (see [14-CI-RELEASE.md](14-CI-RELEASE.md)).
    If it cannot be verified, set `install_cmd` to null with verification
    `unverified` (see [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md)).
 3. Fill `when_to_use`, `phase`, and `tier`. Tier `core` is Tier-0 only and
-   needs a slot in the 47-component budget (31 tier core records plus 16
-   tier conditional entries, all locked).
+   needs a free tier-core slot in the live lock — `kit/kit.lock` holds 157
+   components (32 tier core plus 125 tier conditional) with 9 pending — and an
+   MCP addition must stay inside the lock's `mcp_cap` of 8. There is no fixed
+   component total to size a proposal against.
 4. If the component overlaps an existing one, record `supersedes` or
    `pairs_with` in `registry/data/overlaps.yaml`.
 5. Update `CHANGELOG.md` in the same change.

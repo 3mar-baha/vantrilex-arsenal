@@ -38,7 +38,7 @@ breaker halt block and its incident-report banner live only in
 `.opencode/skills/vantrilex-doctrine/SKILL.md` names skills in backticks; every
 name must resolve either as a local skill folder or as a catalog id.
 
-Observed live: 22 skill folders, and `verify-skills.mjs` passing 10 of 10
+Observed live: 37 skill folders, and `verify-skills.mjs` passing 10 of 10
 checks.
 
 ## The four top-level skills
@@ -52,9 +52,9 @@ checks.
 
 ## The agent roster
 
-Ten files in `.opencode/agents/`. Each declares `name` equal to its filename
-stem, a `description`, and an explicit `mode`. Nine are `subagent`; one is
-`primary`.
+27 files in `.opencode/agents/`. Each declares `name` equal to its filename
+stem, a `description`, and an explicit `mode`. Twenty-four are `subagent`; three
+are `primary`.
 
 | Agent | Role |
 |---|---|
@@ -73,14 +73,15 @@ stem, a `description`, and an explicit `mode`. Nine are `subagent`; one is
 so a file without a mode line would silently promote a subagent to session
 leadership. `verify-kit.mjs`'s `agent-mode-explicit` check requires `primary`,
 `subagent`, or `all` in every file and proves each self-sourced lock agent
-resolves to a file. Observed live: 10 files declare mode, 9 as subagent.
+resolves to a file. Observed live: 27 files declare mode, 24 as subagent.
 
 ## BLAZAR, the primary orchestrator
 
-`blazar.md` is the only primary agent and the default orchestrator. Its stated
-job is to plan once, decompose into a DAG, dispatch every node to a named
-Arsenal specialist, verify, integrate, and maintain `AGENT.md` and
-`WORKFLOW.md` — and never to execute node work itself.
+`blazar.md` is one of three primary agents — the other two are `aether` and
+`pulsar` — and the default orchestrator. Its stated job is to plan once,
+decompose into a DAG, dispatch every node to a named Arsenal specialist, verify,
+integrate, and maintain `AGENT.md` and `WORKFLOW.md` — and never to execute node
+work itself.
 
 Its permission block is deny-then-allow on both surfaces: `subagent: *` is
 denied and then named subagents are allowed individually, and `skill: *` is
@@ -89,6 +90,8 @@ denied and then named skills are allowed individually. That shape is what makes
 
 ## Slash commands
 
-Four command files sit in `.opencode/command/`: `prime`, `equip`, `doctor`, and
-`release`. They wrap the matching skill or script — orientation, equipping, the
-preflight doctor, and the release lane — as one-line entry points.
+The command surface spans two trees: 18 files under `.opencode/commands/` and
+four under `.opencode/command/` — 22 command files in total. The singular tree
+holds `prime`, `equip`, `doctor`, and `release`, which wrap the matching skill or
+script — orientation, equipping, the preflight doctor, and the release lane — as
+one-line entry points. The plural tree holds the 18 `V-*` operator commands.

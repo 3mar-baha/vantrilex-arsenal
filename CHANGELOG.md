@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Auto-publish for `v0.0.x` patch releases (`feat(release)`).** Publishing
+  a GitHub release triggers `.github/workflows/auto-publish.yml`, which builds
+  the distributable from the exact tagged commit and gates the upload
+  fail-closed on the mission battery plus that commit's CI evidence — a failed
+  gate refuses the upload. The upload is idempotent by name and sha256, and the
+  latest pointer is updated on success. Every run appends one machine-readable
+  line to `.opencode/audit/AUTO-PUBLISH.log`. Minor and major releases remain
+  owner-gated (owner ruling §3c). Proven by two dry-runs: the green path
+  (`dry-run-would-publish;gate=PASS`) and the fail-closed path
+  (`refused-verification;gate=FAIL`). See `docs/14-CI-RELEASE.md`.
+- **One-plugin consolidation (`refactor(plugin)`).** The Tier-0 guards now live in the single `.opencode/plugin/arsenal.ts` — eight logical hooks across the two runtime surfaces, with the plan-guard append riding the dispatcher's own `prompt` registration so no prompt hook runs twice; `setup()` runs a six-hook capability probe and reports only what it observes, every registered callback checks the per-project kill switch at its head and no-ops when one of its four signals is set (م-4), and the new Diff Size Guard warns once per HEAD when uncommitted work exceeds 120 lines or 4 files (blueprint `:200`).
+
 ## [0.7.7] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
 
 > Status: this section is a parked draft, not a release. No `v0.7.7` tag

@@ -18,26 +18,35 @@ Two things follow from that, and they govern everything below:
    `verification: unverified`. A plausible-looking wrong command is worse than an
    admission of ignorance, because an agent will run it.
 
+Scope facts: no root `package.json` (plugin manifest `.opencode/package.json`
+only); runtime is Node 25, ESM, zero dependencies; `tsconfig.json` files
+exactly [`.opencode/plugin/arsenal.ts`]; scripts carry `#!/usr/bin/env bash` +
+mode 100755 + `Usage:` lines; releases are strict on `v*` tags.
+
 ---
 
 ## Hard rules
 
 1. **Node-only toolchain.** Runtime is Node 25, ESM, zero dependencies. Do not add a
    `package.json` dependency without stating why the standard library is insufficient.
-2. **Markdown is a build artifact of the catalog.** `VANTRILEX_CATALOG.md` and the
-   per-kind `_index.md` files are generated. Edit the generator or the JSONL sidecars,
-   never the generated table by hand.
-3. **The catalog Markdown stays the source of truth.** `registry/catalog.json` is a
-   derived mirror. It is regenerated, never hand-edited.
+2. **Markdown is a build artifact of the catalog.** `registry/VANTRILEX_CATALOG.md`
+   is the source of truth. Edit the generator or the JSONL sidecars, never the
+   generated table by hand.
+3. **The catalog JSON is a derived mirror.** `registry/catalog.json` is regenerated
+   via `node scripts/generate-catalog-json.mjs` and never hand-edited.
 4. **Single-writer law.** Each `registry/data/*.jsonl` sidecar has exactly one owning
    branch at a time. Never two branches writing one file — that is how merges conflict
    and data gets lost.
 5. **English only.** All documentation, skill files, and registry content are English.
+   The sole on-disk exception is the README pair (`README.md` + `README.ar.md`);
+   there is no `AGENTS.ar.md`.
 6. **No placeholders.** No `TODO`, no `FIXME`, no stub sections, no "coming soon". If
    something is unverified, say `unverified` and move on.
-7. **Secrets never enter the repository.** No committed file carries a real value,
-   and the pre-commit hook refuses a staged `.env`. A leaked credential is revoked
-   first, then removed.
+7. **Secrets never enter the repository.** No committed file carries a real value.
+   The pre-commit hook is a secret scanner plus a `.env` guard plus an
+   AI-attribution gate, activated with `bash scripts/setup-git-hooks.sh`. This
+   repository ships zero AI attribution: the commit-msg hook rejects AI trailers.
+   A leaked credential is revoked first, then removed.
 
 ---
 
@@ -74,11 +83,18 @@ description: <third person, one sentence, what it does AND when to trigger it>
 A task is not finished because the code runs. It is finished when the thing is proven:
 
 - **Registry data** — `node scripts/verify-registry.mjs` exits 0.
-- **Catalog mirror** — `node scripts/generate-catalog-json.mjs` regenerates cleanly and
-  the entry count is unchanged.
+- **Catalog mirror** — `node scripts/generate-catalog-json.mjs --check` exits 0,
+  covering `registry/catalog.json`, the `VANTRILEX_CATALOG.md` table, and every
+  per-kind `registry/<dir>/_index.md`; run it BEFORE
+  `node scripts/verify-registry.mjs`.
+- **Skill format** — `node scripts/verify-skills.mjs` exits 0 (skill-format gate).
 - **Kit components** — `node scripts/verify-kit.mjs` proves each component loads.
-- **Shell scripts** — `shellcheck` clean (enforced in CI).
-- **Plugin TypeScript** — `tsc --noEmit` clean.
+  Conditional: when the script is absent the CI reports NOTICE as a passthrough,
+  not a pass.
+- **Shell and Node syntax** — `bash -n` plus `shellcheck` over `scripts/*.sh` and
+  `.githooks/*`, plus `node --check` over every `*.mjs`.
+- **Plugin TypeScript** — `tsc --noEmit` clean. Conditional: SKIPPED without a
+  `tsconfig.json`; a skipped check is never a pass.
 - **Docs** — every relative link resolves; no link points at a file that does not exist.
 
 If a check cannot be evaluated, that is a **failed** check, not a skipped one. Say so.

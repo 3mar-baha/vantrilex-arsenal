@@ -1,7 +1,10 @@
 # Vantrilex Arsenal Documentation Index
 
-This index maps the seventeen-file documentation set for the Vantrilex Arsenal
-repository itself: the OpenCode plugin plus the component registry. It does not
+This index maps the documentation set for the Vantrilex Arsenal repository
+itself: the OpenCode plugin plus the component registry. The numbered series
+runs `00` through `21` — 22 files — and the `docs/` tree holds 41 markdown
+files in all: the numbered series (22), the Arabic mirror set (`ar/`, 8 files),
+the developer set (`dev/`, 9 files), and the two `spec/` inputs. It does not
 document any target project. Target-project documentation is a separate,
 runtime-generated set (the 28-file system described by reference in
 [04-VANGUARD.md](04-VANGUARD.md)); nothing in this set duplicates it.
@@ -42,6 +45,10 @@ provenance: read them, never rewrite them.
 | [15-DECISIONS.md](15-DECISIONS.md) | Which decisions are already ratified, with date, context, and consequences |
 | [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md) | What the task-dispatcher hook is, the OpenCode V2 `prompt` hook it binds to, the six hooks that stayed on V1, and its kill switch |
 | [17-V2-HOOK-GAP.md](17-V2-HOOK-GAP.md) | Which plugin callbacks have a real OpenCode V2 landing site and which two lose their blocking teeth, with the evidence from the published types |
+| [18-THEMES.md](18-THEMES.md) | Which OpenCode theme each agent maps to, and how a theme is installed, selected, and verified |
+| [19-HARNESS-MATRIX.md](19-HARNESS-MATRIX.md) | Which harness is supported today and which are named-but-future, with no adapter promised |
+| [20-WAKE-OVERRIDE.md](20-WAKE-OVERRIDE.md) | What the WAKE-REQUEST channel and OVERRIDE event logging are, and how far their enforcement reaches |
+| [21-PONYTAIL-COMPLIANCE.md](21-PONYTAIL-COMPLIANCE.md) | What the build-lane ponytail compliance machinery requires: the dispatch line, the report trailer, and the Verifier and Reviewer checklists |
 | [spec/VANTRILEX_KIT_SPEC.md](spec/VANTRILEX_KIT_SPEC.md) | Provenance, read-only: naming, the specified Tier-0 set, catalog v2, the transplant manifest |
 | [spec/VANTRILEX_SKILLS_SPEC.md](spec/VANTRILEX_SKILLS_SPEC.md) | Provenance, read-only: Vanguard in Part A, Doctrine in Part B, the phase map, the 28-file target-project set |
 
@@ -80,9 +87,9 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2804 catalog records, 36 records with tier
+- Counts are honest and checkable: 2931 catalog records, 39 records with tier
   `core` including Prime, Vanguard, and Doctrine, 20 default-selected components,
-  82 verified install commands, 8 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
+  82 verified install commands, 16 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
 - Every relative link resolves to a file that exists. The `spec/` inputs are

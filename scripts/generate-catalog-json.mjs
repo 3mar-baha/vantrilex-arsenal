@@ -826,13 +826,23 @@ function run(argv, { stdout, log }) {
     return 0;
   }
 
+  /*
+    Check mode validates every generated surface, not just catalog.json. The
+    single `--check` invocation CI and the docs cite must exit non-zero when
+    the Markdown table or any per-kind `_index.md` has drifted as well. The
+    write flags keep their meaning in write mode, so the canonical full
+    regeneration stays `--markdown --indexes`.
+  */
+  const checkMarkdown = flags.has('--markdown') || check;
+  const checkIndexes = flags.has('--indexes') || check;
+
   const targets = [[CATALOG_JSON, json]];
 
-  if (flags.has('--markdown')) {
+  if (checkMarkdown) {
     targets.push([CATALOG_MD, renderMarkdownDocument(parsed)]);
   }
 
-  if (flags.has('--indexes')) {
+  if (checkIndexes) {
     for (const kind of KINDS) {
       const dir = INDEX_DIRS.get(kind) ?? kind;
       // The formatting index is a hand-authored essay that catalog records
@@ -859,7 +869,7 @@ function run(argv, { stdout, log }) {
   }
 
   if (drifted.length > 0) {
-    fail(`generated output is out of date: ${drifted.join(', ')}. Run: node scripts/generate-catalog-json.mjs${flags.has('--markdown') ? ' --markdown' : ''}${flags.has('--indexes') ? ' --indexes' : ''}`);
+    fail(`generated output is out of date: ${drifted.join(', ')}. Run: node scripts/generate-catalog-json.mjs${checkMarkdown ? ' --markdown' : ''}${checkIndexes ? ' --indexes' : ''}`);
   }
 
   if (!check) {

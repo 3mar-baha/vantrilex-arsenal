@@ -26,7 +26,7 @@ the whole tree yourself:
 - `registry` — sidecar rows, catalog mirror agreement, per-kind indexes.
 - `agents` — definition files, frontmatter, load conventions.
 - `skills` — definition files, frontmatter, trigger descriptions.
-- `commands` — command files under `.opencode/commands/`.
+- `commands` — command files under `.opencode/commands/` (18) and `.opencode/command/` (4).
 - `plugin` — plugin module surface and hook wiring.
 - `docs` — relative links, census claims, canonical placement.
 
@@ -84,8 +84,9 @@ Section contents:
   frontmatter holds with no extra keys.
 - **7. Skill definitions** — every skill file loads; name matches folder;
   the trigger sentence is present and front-loaded.
-- **8. Command surface** — every command file under `.opencode/commands/`
-  expands; frontmatter holds; no two commands claim one name.
+- **8. Command surface** — every command file under `.opencode/commands/` (18)
+  and `.opencode/command/` (4) expands; frontmatter holds; no two commands
+  claim one name.
 - **9. Plugin and hooks** — the plugin module loads; each hook states its
   surface and its firing condition honestly.
 - **10. Documentation links** — every relative link in changed or audited

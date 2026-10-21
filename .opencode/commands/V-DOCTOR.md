@@ -17,6 +17,12 @@ a section (`environment`, `runtimes`, `configuration`, `workspace`), run
 that section and mark the others `SKIPPED (not requested)`. If it carries
 `--fix`, apply the safe-repair allow-list after reporting.
 
+## Which doctor, and where commands live
+
+- Read-only preflight — `.opencode/command/doctor.md` (**System Doctor**) measures the machine and never fixes or installs.
+- Opt-in repair — this file, `.opencode/commands/V-DOCTOR.md` (**Environment Triage Doctor**), adds the `--fix` safe-repair allow-list to the same sections.
+- Canonical location — `.opencode/commands/` is authoritative for the 18 V-commands; the four root-scope commands (`doctor.md`, `equip.md`, `prime.md`, `release.md`) live under `.opencode/command/`.
+
 ## Section A - Environment
 
 | # | Check | Severity | How to measure |
@@ -48,7 +54,7 @@ Each row is conditional on the project actually using that toolchain.
 | # | Check | Severity | Pass condition |
 |---|---|---|---|
 | C1 | Tier-0 plugin present | HIGH | `.opencode/plugin/arsenal.ts` exists |
-| C2 | Operator commands present | HIGH | `.opencode/commands/` holds the six V-commands |
+| C2 | Operator commands present | HIGH | `.opencode/commands/` holds at least 18 V-commands (18 counted 2026-10-18) |
 | C3 | Command frontmatter valid | HIGH | every command file has a `description` and a non-empty body |
 | C4 | Guard configuration parses | MEDIUM | `.opencode/arsenal.json` absent (`SKIPPED (defaults in use)`) or parses as JSON |
 | C5 | Catalog mirror in sync | HIGH | the generator reproduces `registry/catalog.json` with no diff |

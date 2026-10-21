@@ -134,9 +134,9 @@ reporting as much as about selection: silence is the correct output for a
 marginal replacement, and a silence is not an oversight to be corrected by
 reporting it next time.
 
-Tier 0 (112 locked components: 31 tier core plus 81 tier conditional, 0
-pending) is pre-approved. Tier 1 is per-project and always needs owner
-approval.
+Tier 0 (157 locked components: 32 tier core plus 125 tier conditional, 9
+pending, as locked in `kit/kit.lock`) is pre-approved. Tier 1 is per-project
+and always needs owner approval.
 
 ### Step 4 — Install, verify, report
 

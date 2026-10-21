@@ -14,14 +14,14 @@ constrain every layer are [AGENTS.md](../AGENTS.md).
   skills/                       Prime, Vanguard, Doctrine on disk (Workflow-Forge
                                 installs at equip time), plus 12 conditional
                                 kit components and transplanted mechanisms
-  agent/                        Leader / Guide / Implementer role agents
+  agents/                       Leader / Guide / Implementer role agents
   command/                      Operator entry points (equip, doctor, prime, release)
 
 registry/                     DATA PLANE (the component catalog)
   VANTRILEX_CATALOG.md          Human-readable source of truth (generated table)
   catalog.json                  Machine mirror Vanguard reads (generated)
   schema/catalog-v2.schema.json Record contract every entry must satisfy
-  data/*.jsonl                  Eight enrichment sidecars, one writer each
+  data/*.jsonl                  Sixteen enrichment sidecars, one writer each
   data/overlaps.yaml            Supersedes / pairs-with relations
   skills, mcp, ...              Per-kind records and generated _index.md files
   formatting/                   Vendored design-system documents + attribution
@@ -37,11 +37,11 @@ scripts/                      TOOLING (Node ESM, zero dependencies)
   release.sh                    Tag, push, and publish a release
   record-decision.sh            Appends one decision record
 
-kit/                          PINNED KIT (112 components, 0 pending)
-  kit.lock                      Pinned Tier-0 versions (pending list empty)
+kit/                          PINNED KIT (157 components, 9 pending)
+  kit.lock                      Pinned Tier-0 versions (9 pending per-agent themes)
 
 docs/                         THIS DOCUMENTATION SET plus provenance
-  00-INDEX.md ... 16-TASK-DISPATCH.md
+  00-INDEX.md ... 21-PONYTAIL-COMPLIANCE.md
   spec/                         The two authoritative input specs (read-only)
 ```
 

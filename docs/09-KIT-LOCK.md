@@ -4,8 +4,9 @@ The kit lock is the pinned record of what a project actually received: every
 provisioned component at an exact version, plus the approved-but-not-yet-fit
 remainder. Its contract comes from Vanguard Step 4 in
 [04-VANGUARD.md](04-VANGUARD.md). The lock manifest (`kit/kit.lock`) holds
-47 components (31 tier core plus 16 tier conditional) with an empty pending
-list; this file states what it pins and the rules that govern it.
+157 components (32 tier core plus 125 tier conditional) with a pending list of
+9 per-agent theme entries; this file states what it pins and the rules that
+govern it.
 
 ## What the lock pins
 
@@ -35,6 +36,19 @@ and the gate that clears them. A pending entry is never installed silently
 later; it is either pinned on a later Vanguard pass or removed with the
 owner's decision recorded in the ledger.
 
+The list is not empty today. It carries 9 entries, every one of kind `theme`
+— the per-agent theme for each of the nine role agents (`vantrilex-architect`,
+`vantrilex-code-reviewer`, `vantrilex-ai-generated-code-security-auditor`,
+`vantrilex-kit-maintainer`, `vantrilex-red-team`, `vantrilex-technical-writer`,
+`vantrilex-vantrilex-guide`, `vantrilex-vantrilex-implementer`,
+`vantrilex-vantrilex-leader`). Each is pending on one stated reason: its
+per-agent theme JSON has not been authored, so no file-copy install command can
+be registered for a file that does not exist; each ships through the
+`vantrilex-atomic-switch` install skill once its
+`registry/themes/<agent-id>.json` lands. That is the state
+`scripts/verify-kit.mjs` reports under `pending-integrity`: 157 pinned plus 9
+pending.
+
 ## The 8-MCP cap
 
 At most 8 MCP servers sit in the Tier-0 set. The cap is a context-budget
@@ -50,17 +64,17 @@ Install once centrally; inject per phase, prune after. Context spend tracks
 the work being done:
 
 Every locked component carries a `phase`, and that field is the whole of the
-assignment. Read from `kit/kit.lock`, the 47 components group as:
+assignment. Read from `kit/kit.lock`, the 157 components group as:
 
 | Phase | Resident components |
 |---|---|
-| scout | `fetch`, `context7` (mcp), `firecrawl`, `session-start`, `task-dispatcher`, `vantrilex-prime`, `vantrilex-vanguard` |
-| docs | `grill-me`, `technical-writer`, `documentation-as-tests` |
-| plan | `ask-matt`, `wayfinder`, `sequential-thinking`, `architect`, `babel-bridge` |
-| build | `tdd`, `ponytail`, `openrouter`, `typescript-lsp`, `long-running-process-guard`, `typescript-check-after-editing-ts-tsx-files`, `auto-format-js-ts-files-with-prettier-after-edits`, `lenis`, `og-image`, `open-graph-image`, `time-capsule-test`, `vantrilex-design-variations` |
-| review | `code-review` (skill), `ponytail-review`, `github`, `code-reviewer`, `ai-generated-code-security-auditor`, `red-team` (skill, agent), `skill-shadow`, `a11y-audit` |
-| operate | `ponytail-audit`, `filesystem`, `memory`, `pre-compact`, `persist-session-state-on-end`, `vantrilex-doctrine`, `kit-evaluation-journal`, `kit-evolution-log`, `kill-switch-document` |
-| on-demand | `find-skills`, `skill-creator` |
+| scout | `fetch` (mcp), `context7` (mcp), `firecrawl` (mcp), `brave` (mcp), `exa` (mcp), `steadyfetch` (mcp), `context7-mcp` (mcp), `googledrive` (mcp), `notion` (mcp), `deepwiki` (mcp), `mem0-memory-mcp` (mcp), `reference-sequential` (mcp), `gmail` (mcp), `session-start` (hook), `task-dispatcher` (hook), `vantrilex-vanguard` (skill), `vantrilex-prime` (skill), `vantrilex-workflow-forge` (skill), `vantrilex-scout` (agent), `pulsar` (agent), `tldr` (cli), `fx` (cli), `vantrilex-install-prompt` (prompt) |
+| docs | `grill-me` (skill), `documentation-as-tests` (skill), `vantrilex-librarian` (agent), `vantrilex-scribe` (agent), `md-to-pdf` (cli), `mermaid-cli` (cli), `target-project-docs-scaffold` (template) |
+| plan | `ask-matt` (skill), `wayfinder` (skill), `babel-bridge` (skill), `sequential-thinking` (mcp), `vantrilex-architect` (agent), `aether` (agent), `forge-dag-exemplar` (workflow) |
+| build | `tdd` (skill), `ponytail` (skill), `lenis` (skill), `og-image` (skill), `open-graph-image` (skill), `time-capsule-test` (skill), `vantrilex-design-variations` (skill), `openrouter` (mcp), `typescript-lsp` (lsp), `long-running-process-guard` (hook), `typescript-check-after-editing-ts-tsx-files` (hook), `auto-format-js-ts-files-with-prettier-after-edits` (hook), `vantrilex-typescript` (agent), `vantrilex-python` (agent), `vantrilex-fixer` (agent), `vantrilex-ui-designer` (agent), `vantrilex-ux-designer` (agent), `blazar` (agent), `openpencil` (cli), `typescript` (cli), `tsx` (cli), `esbuild` (cli), `vite` (cli), `prettier` (cli), `eslint` (cli), `stylelint` (cli), `cspell` (cli), `markdownlint-cli` (cli), `remark-cli` (cli), `alex` (cli), `write-good` (cli), `typedoc` (cli), `openapi-typescript` (cli), `npm-check-updates` (cli), `depcheck` (cli), `knip` (cli), `madge` (cli), `dependency-cruiser` (cli), `license-checker` (cli), `audit-ci` (cli), `publint` (cli), `attw` (cli), `jscpd` (cli), `commitizen` (cli), `commitlint` (cli), `lint-staged` (cli), `sort-package-json` (cli), `release-it` (cli), `changesets` (cli), `concurrently` (cli), `cross-env` (cli), `dotenv-cli` (cli), `rimraf` (cli), `turbo` (cli), `np` (cli), `stripe` (design.md) |
+| review | `code-review` (skill), `ponytail-review` (skill), `red-team` (skill), `skill-shadow` (skill), `github` (mcp), `vantrilex-code-reviewer` (agent), `vantrilex-red-team` (agent), `vantrilex-a11y-audit` (agent), `vantrilex-reviewer` (agent), `vantrilex-verifier` (agent), `vantrilex-harness` (agent), `vantrilex-security-auditor` (agent), `snyk` (cli), `lighthouse` (cli), `pa11y` (cli), `stream-g-guard-probes` (dataset), `verifier-gate-smoke` (benchmark) |
+| operate | `ponytail-audit` (skill), `vantrilex-doctrine` (skill), `kit-evaluation-journal` (skill), `kit-evolution-log` (skill), `kill-switch-document` (skill), `vantrilex-atomic-switch` (skill), `filesystem` (mcp), `memory` (mcp), `neon` (mcp), `supabase` (mcp), `vercel` (mcp), `cloudflare` (mcp), `browserbase` (mcp), `slack` (mcp), `discord` (mcp), `stripe` (mcp), `figma-context-mcp` (mcp), `pre-compact` (hook), `persist-session-state-on-end` (hook), `vantrilex-github` (agent), `vantrilex-releaser` (agent), `vercel` (cli), `netlify-cli` (cli), `wrangler` (cli), `supabase` (cli), `prisma` (cli), `drizzle-kit` (cli), `json-server` (cli), `localtunnel` (cli), `newman` (cli), `autocannon` (cli), `artillery` (cli), `envinfo` (cli), `local-web-server` (cli), `prism` (cli), `allow-all-pack` (policy) |
+| on-demand | `find-skills` (skill), `skill-creator` (skill), `svgo` (cli), `sharp-cli` (cli), `pwa-asset-generator` (cli), `fkill-cli` (cli), `trash-cli` (cli), `kill-port` (cli), `vantrilex-blazar` (theme), `vantrilex-aether` (theme), `vantrilex-pulsar` (theme) |
 
 `on-demand` sits outside every phase and is never injected by phase: discovery
 and forging load on demand instead. An id recorded at two kinds is injected as
@@ -78,8 +92,9 @@ subprocess. It is the one kind whose payoff is a binary rather than prose in
 context, which is what makes it cheap — a CLI costs a process spawn and the
 tokens of its output, while an MCP server holds context for the whole session.
 The kind is scaffolded in both schemas and checked by the kit verifier; the
-lock currently holds **zero** `cli` entries, which is a valid state and not a
-gap in the kit.
+lock currently holds **64** `cli` entries — 2 scout, 2 docs, 37 build, 3 review,
+14 operate, and 6 on-demand — each carrying a real installer command recorded
+as `verified`.
 
 | Pinned fact | Source field | What a cli entry states |
 |---|---|---|
