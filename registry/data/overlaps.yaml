@@ -1,6 +1,6 @@
 # Registry overlap map for Vantrilex Vanguard: the relations that stop two colliding components being installed together.
 # supersedes means the members are alternatives and exactly one is chosen; pairs_with means the members are complementary and are installed together when both apply.
-# Id resolution rule used throughout this file: the first catalog row holding a slug keeps the plain id, and a later row with the same slug is addressed as slug-row-N. Only one id in the whole catalog needs that form, code-reviewer-row-48.
+# Id resolution rule used throughout this file: the first catalog row holding a slug keeps the plain id, and a later row with the same slug is addressed as slug-row-N. Only one id in the whole catalog needs that form, vantrilex-code-reviewer-row-48.
 # Four slugs are reused across two different kinds (code-review, frontend-design, mcp-builder, postgres), so every member below also carries an explicit kind and the kind decides which row the id resolves to.
 schema_version: 1
 generated_for: "vantrilex-arsenal"
@@ -54,7 +54,7 @@ supersedes:
       - id: "mcp-builder"
         kind: "skill"
         reason: "Skill (catalog row 862) teaching the design and quality bar for a new MCP server."
-      - id: "mcp-builder"
+      - id: "vantrilex-mcp-builder"
         kind: "agent"
         reason: "Agent (catalog row 147) that designs, builds and tests the server end to end."
 
@@ -96,12 +96,12 @@ supersedes:
 
   - group: "code-reviewer-duplicate-row-48"
     note: "The catalog carries two agents whose names differ only by case and therefore slugify to one id. Provenance shows they are two components from two different upstreams, not one component listed twice, so a human must confirm the merge before either is provisioned."
-    winner: "code-reviewer"
+    winner: "vantrilex-code-reviewer"
     members:
-      - id: "code-reviewer"
+      - id: "vantrilex-code-reviewer"
         kind: "agent"
         reason: "Catalog row 47, spelled Code Reviewer, from msitarzewski/agency-agents; its description excludes style preferences, which is the narrower contract, and the kit spec promotes this row to the review lane."
-      - id: "code-reviewer-row-48"
+      - id: "vantrilex-code-reviewer-row-48"
         kind: "agent"
         reason: "Catalog row 48, spelled code-reviewer, from worldflowai/everything-claude-code; it demands a review after every code change, which overlaps the whole review phase."
 
@@ -202,7 +202,7 @@ pairs_with:
       - id: "code-review"
         kind: "skill"
         role: "doctrine, the two-axis standard the review must meet"
-      - id: "code-reviewer"
+      - id: "vantrilex-code-reviewer"
         kind: "agent"
         role: "delegated lane, the agent that reviews against that standard"
 
@@ -212,6 +212,6 @@ pairs_with:
       - id: "security-review"
         kind: "skill"
         role: "doctrine, consulted while adding auth, input handling, secrets or endpoints"
-      - id: "security-reviewer"
+      - id: "vantrilex-security-reviewer"
         kind: "agent"
         role: "delegated auditor, dispatched once the change exists"

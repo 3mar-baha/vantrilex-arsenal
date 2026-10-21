@@ -1514,7 +1514,7 @@ Consolidated reference of every system component with its folder path.
 | 1504 | vantrilex-workflow-forge | Authors the standing methodology at each task start — use when a new task begins, befo… | 3mar-baha/vantrilex-arsenal | `` |
 | 1505 | vantrilex-atomic-switch | Use when the operator installs per-agent themes, so the atomic switch commands resolve to a real theme file. | 3mar-baha/vantrilex-arsenal | `` |
 
-## MCP Servers (907 — 8 default-selected)
+## MCP Servers (923 — 8 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2425,6 +2425,22 @@ Consolidated reference of every system component with its folder path.
 | 905 | lenis-mcp-server | Lenis smooth-scroll MCP server. The npm package is NOT published as of 2026-10-0… |  | `` |
 | 906 | supabase/mcp | Official Supabase MCP server. Connect via the hosted remote server at `https://mcp.supabase.com/mcp` (OAuth 2.1, no PAT) or install locally with `npx -y @supabase/mcp-server-supabase` and a personal access token. | supabase/mcp | `npx -y @supabase/mcp-server-supabase` |
 | 907 | vercel-mcp | Official Vercel MCP server, remote-only at `https://mcp.vercel.com` with OAuth. There is no self-hostable package; install the client config with `npx -y add-mcp https://mcp.vercel.com`. | vercel/vercel-mcp-overview | `npx -y add-mcp@2.4.1 https://mcp.vercel.com` |
+| 908 | neon | serverless-Postgres PRIMARY |  | `` |
+| 909 | supabase | Postgres FALLBACK |  | `` |
+| 910 | vercel | hosting PRIMARY |  | `` |
+| 911 | cloudflare | hosting FALLBACK |  | `` |
+| 912 | browserbase | cloud-browser |  | `` |
+| 913 | brave | search PRIMARY |  | `` |
+| 914 | exa | search FALLBACK |  | `` |
+| 915 | steadyfetch | fast-fetch (intake-triage/steadyfetch) |  | `` |
+| 916 | context7-mcp | library-docs (upstash/context7-mcp) |  | `` |
+| 917 | googledrive | Drive |  | `` |
+| 918 | deepwiki | repo-intelligence |  | `` |
+| 919 | mem0-memory-mcp | persistent-memory (mem0ai/mem0-memory-mcp) |  | `` |
+| 920 | reference-sequential | sequential-thinking (kiennd/reference-servers) |  | `` |
+| 921 | discord | comms FALLBACK |  | `` |
+| 922 | gmail | email |  | `` |
+| 923 | figma-context-mcp | Figma layout (@Zwe1/figma-context-mcp) |  | `` |
 
 ## Plugins (11 — 0 default-selected)
 
@@ -2471,290 +2487,290 @@ Consolidated reference of every system component with its folder path.
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
-| 1 | 3D & Scene Developer | Web 3D visualization specialist who creates immersive 3D scenes, terrain models,… |  | `` |
-| 2 | Accessibility Auditor | Expert accessibility specialist who audits interfaces against WCAG standards, te… |  | `` |
-| 3 | Account Strategist | Expert post-sale account strategist specializing in land-and-expand execution, s… |  | `` |
-| 4 | Accounts Payable Agent | Autonomous payment processing specialist that executes vendor payments, contract… |  | `` |
-| 5 | Ad Creative Strategist | Paid media creative specialist focused on ad copywriting, RSA optimization, asse… |  | `` |
-| 6 | AEO Foundations Architect | Expert in AI Engine Optimization infrastructure — implements llms.txt, AI-awar… |  | `` |
-| 7 | Agentic Identity & Trust Architect | Designs identity, authentication, and trust verification systems for autonomous … |  | `` |
-| 8 | Agentic Search Optimizer | Expert in WebMCP readiness and agentic task completion — audits whether AI age… |  | `` |
-| 9 | Agents Orchestrator | Autonomous pipeline manager that orchestrates the entire development workflow. Y… |  | `` |
-| 10 | Aging Parent Care Companion | Compassionate, HIPAA-aligned care coordination and decision-support agent for fa… |  | `` |
-| 11 | AI Citation Strategist | Expert in AI recommendation engine optimization (AEO/GEO) — audits brand visib… |  | `` |
-| 12 | AI Data Remediation Engineer | Specialist in self-healing data pipelines — uses air-gapped local SLMs and sem… |  | `` |
-| 13 | AI Engineer | Expert AI/ML engineer specializing in machine learning model development, deploy… |  | `` |
-| 14 | AI-Generated Code Security Auditor | Security reviewer for AI-generated and vibe-coded apps — hunts the hardcoded s… |  | `` |
-| 15 | Analytics Reporter | Expert data analyst transforming raw data into actionable business insights. Cre… |  | `` |
-| 16 | Anthropologist | Expert in cultural systems, rituals, kinship, belief systems, and ethnographic m… |  | `` |
-| 17 | API Platform Engineer | Expert API platform engineer for public and partner APIs — contract-first desi… |  | `` |
-| 18 | API Tester | Expert API testing specialist focused on comprehensive API validation, performan… |  | `` |
-| 19 | App Store Optimizer | Expert app store marketing specialist focused on App Store Optimization (ASO), c… |  | `` |
-| 20 | Application Security Engineer | AppSec specialist who secures the software development lifecycle through threat … |  | `` |
-| 21 | architect ✅ | Software architecture specialist for system design, scalability, and technical d… |  | `` |
-| 22 | Automation Governance Architect | Governance-first architect for business automations (n8n-first) who audits value… |  | `` |
-| 23 | Autonomous Optimization Architect | Intelligent system governor that continuously shadow-tests APIs for performance … |  | `` |
-| 24 | Backend Architect | Senior backend architect specializing in scalable system design, database archit… |  | `` |
-| 25 | Baidu SEO Specialist | Expert Baidu search optimization specialist focused on Chinese search engine ran… |  | `` |
-| 26 | Behavioral Nudge Engine | Behavioral psychology specialist that adapts software interaction cadences and s… |  | `` |
-| 27 | Bilibili Content Strategist | Expert Bilibili marketing specialist focused on UP主 growth, danmaku culture ma… |  | `` |
-| 28 | BIM/GIS Specialist | Integration specialist who bridges Building Information Modeling and Geographic … |  | `` |
-| 29 | Blender Add-on Engineer | Blender tooling specialist - Builds Python add-ons, asset validators, exporters,… |  | `` |
-| 30 | Blockchain Security Auditor | Expert smart contract security auditor specializing in vulnerability detection, … |  | `` |
-| 31 | Book Co-Author | Strategic thought-leadership book collaborator for founders, experts, and operat… |  | `` |
-| 32 | Bookkeeper & Controller | Expert bookkeeper and controller specializing in day-to-day accounting operation… |  | `` |
-| 33 | Brand Guardian | Expert brand strategist and guardian specializing in brand identity development,… |  | `` |
-| 34 | build-error-resolver | Build and TypeScript error resolution specialist. Use PROACTIVELY when build fai… |  | `` |
-| 35 | Business Strategist | Senior management consulting specialist for competitive analysis, market entry s… |  | `` |
-| 36 | Carousel Growth Engine | Autonomous TikTok and Instagram carousel generation specialist. Analyzes any web… |  | `` |
-| 37 | Cartography Designer |  Map aesthetics specialist who designs beautiful, readable, and effective maps — … |  | `` |
-| 38 | Change Management Consultant | Expert change management specialist using ADKAR, Kotter, and Prosci frameworks t… |  | `` |
-| 39 | Chief Financial Officer | Strategic finance executive who governs capital allocation, treasury operations,… |  | `` |
-| 40 | Chief of Staff | Master coordinator for founders and executives — filters noise, owns processes… |  | `` |
-| 41 | China E-Commerce Operator | Expert China e-commerce operations specialist covering Taobao, Tmall, Pinduoduo,… |  | `` |
-| 42 | China Market Localization Strategist | Full-stack China market localization expert who transforms real-time trend signa… |  | `` |
-| 43 | Civil Engineer | Expert civil and structural engineer with global standards coverage — Eurocode… |  | `` |
-| 44 | Clinical Evidence Agent | Evidence standards and clinical credibility framework for AI agents |  | `` |
-| 45 | Cloud Security Architect | Cloud-native security specialist designing zero trust architectures, implementin… |  | `` |
-| 46 | CMS Developer | Drupal and WordPress specialist for theme development, custom plugins/modules, c… |  | `` |
-| 47 | Code Reviewer | Expert code reviewer who provides constructive, actionable feedback focused on c… |  | `` |
-| 48 | code-reviewer | Expert code review specialist. Proactively reviews code for quality, security, a… |  | `` |
-| 49 | Codebase Archaeologist | Multi-session, multi-tool drift detection specialist who audits codebases touche… |  | `` |
-| 50 | Codebase Onboarding Engineer | Expert developer onboarding specialist who helps new engineers understand unfami… |  | `` |
-| 51 | Compliance Auditor | Expert technical compliance auditor specializing in SOC 2, ISO 27001, HIPAA, and… |  | `` |
-| 52 | Content Creator | Expert content strategist and creator for multi-platform campaigns. Develops edi… |  | `` |
-| 53 | Corporate Training Designer | Expert in enterprise training system design and curriculum development — profi… |  | `` |
-| 54 | Cross-Border E-Commerce Specialist | Full-funnel cross-border e-commerce strategist covering Amazon, Shopee, Lazada, … |  | `` |
-| 55 | Cultural Intelligence Strategist | CQ specialist that detects invisible exclusion, researches global context, and e… |  | `` |
-| 56 | Customer Service | Friendly, professional customer service specialist for any industry — handling… |  | `` |
-| 57 | Customer Success Manager | Strategic customer success specialist for onboarding, health scoring, QBR facili… |  | `` |
-| 58 | Data Consolidation Agent | AI agent that consolidates extracted sales data into live reporting dashboards w… |  | `` |
-| 59 | Data Engineer | Expert data engineer specializing in building reliable data pipelines, lakehouse… |  | `` |
-| 60 | Data Privacy Officer | Corporate data privacy specialist and DPO who builds GDPR, CCPA, and global priv… |  | `` |
-| 61 | Data Visualization Engineer | Expert data visualization engineer — chart-type selection by data and question… |  | `` |
-| 62 | Database Optimizer | Expert database specialist focusing on schema design, query optimization, indexi… |  | `` |
-| 63 | Database Reliability Engineer | Expert database reliability engineer (DBRE) — high availability and replicatio… |  | `` |
-| 64 | Deal Strategist | Senior deal strategist specializing in MEDDPICC qualification, competitive posit… |  | `` |
-| 65 | Desktop App Engineer | Expert desktop application engineer for Electron and Tauri — secure IPC and pr… |  | `` |
-| 66 | Developer Advocate | Expert developer advocate specializing in building developer communities, creati… |  | `` |
-| 67 | Developer Tooling Engineer | Expert developer-tooling and CLI engineer — building command-line tools and in… |  | `` |
-| 68 | DevOps Automator | Expert DevOps engineer specializing in infrastructure automation, CI/CD pipeline… |  | `` |
-| 69 | Discovery Coach | Coaches sales teams on elite discovery methodology — question design, current-… |  | `` |
-| 70 | doc-updater | Documentation and codemap specialist. Use PROACTIVELY for updating codemaps and … |  | `` |
-| 71 | Document Generator | Expert document creation specialist who generates professional PDF, PPTX, DOCX, … |  | `` |
-| 72 | Douyin Strategist | Short-video marketing expert specializing in the Douyin platform, with deep expe… |  | `` |
-| 73 | Drone/Reality Mapping Specialist | Photogrammetry and reality capture expert who processes drone imagery into ortho… |  | `` |
-| 74 | Drupal Performance Engineer | Expert Drupal 10/11 performance engineer specializing in Core Web Vitals, render… |  | `` |
-| 75 | Drupal Shopping Cart Engineer | Expert Drupal e-commerce engineer specializing in Drupal Commerce for product ca… |  | `` |
-| 76 | e2e-runner | End-to-end testing specialist using Playwright. Use PROACTIVELY for generating, … |  | `` |
-| 77 | Economy Designer | Virtual economy architect - Masters currency systems, sources and sinks, monetiz… |  | `` |
-| 78 | Email Intelligence Engineer | Expert in extracting structured, reasoning-ready data from raw email threads for… |  | `` |
-| 79 | Email Marketing Strategist | Expert email marketing strategist for CRM-driven campaigns, lifecycle automation… |  | `` |
-| 80 | Embedded Firmware Engineer | Specialist in bare-metal and RTOS firmware - ESP32/ESP-IDF, PlatformIO, Arduino,… |  | `` |
-| 81 | ESG & Sustainability Officer | Corporate sustainability strategist and ESG reporting specialist who builds envi… |  | `` |
-| 82 | Evidence Collector | Screenshot-obsessed, fantasy-allergic QA specialist - Default to finding 3-5 iss… |  | `` |
-| 83 | Executive Summary Generator | Consultant-grade AI specialist trained to think and communicate like a senior st… |  | `` |
-| 84 | Experiment Tracker | Expert project manager specializing in experiment design, execution tracking, an… |  | `` |
-| 85 | FedRAMP & RMF Compliance Engineer | Expert FedRAMP and NIST Risk Management Framework compliance engineer specializi… |  | `` |
-| 86 | Feedback Synthesizer | Expert in collecting, analyzing, and synthesizing user feedback from multiple ch… |  | `` |
-| 87 | Feishu Integration Developer |  Full-stack integration expert specializing in the Feishu (Lark) Open Platform — … |  | `` |
-| 88 | Filament Optimization Specialist | Expert in restructuring and optimizing Filament PHP admin interfaces for maximum… |  | `` |
-| 89 | Finance Tracker | Expert financial analyst and controller specializing in financial planning, budg… |  | `` |
-| 90 | Financial Analyst | Expert financial analyst specializing in financial modeling, forecasting, scenar… |  | `` |
-| 91 | FinOps Engineer | Expert cloud cost engineer for AWS/GCP/Azure — cost allocation and tagging, ri… |  | `` |
-| 92 | FP&A Analyst | Expert Financial Planning & Analysis (FP&A) analyst specializing in budgeting, v… |  | `` |
-| 93 | French Consulting Market Navigator | Navigate the French ESN/SI freelance ecosystem — margin models, platform mecha… |  | `` |
-| 94 | Frontend Developer | Expert frontend developer specializing in modern web technologies, React/Vue/Ang… |  | `` |
-| 95 | Game Audio Engineer | Interactive audio specialist - Masters FMOD/Wwise integration, adaptive music sy… |  | `` |
-| 96 | Game Designer | Systems and mechanics architect - Masters GDD authorship, player psychology, eco… |  | `` |
-| 97 | GaussDB Expert Engineer | Expert database specialist focusing on GaussDB OLTP — Huawei's self-developed … |  | `` |
-| 98 | GeoAI/ML Engineer | Geospatial machine learning specialist who builds models for feature extraction,… |  | `` |
-| 99 | Geographer | Expert in physical and human geography, climate systems, cartography, and spatia… |  | `` |
-| 100 | Geoprocessing Specialist | ArcPy and Python toolbox expert who automates spatial workflows — builds .pyt … |  | `` |
-| 101 | GIS Analyst | Day-to-day GIS operator who creates maps, manages layers, performs spatial queri… |  | `` |
-| 102 | GIS QA Engineer | Quality assurance specialist who validates geospatial data integrity — topolog… |  | `` |
-| 103 | Git Workflow Master | Expert in Git workflows, branching strategies, and version control best practice… |  | `` |
-| 104 | Global Podcast Strategist | Expert podcast growth specialist focused on show positioning, audience developme… |  | `` |
-| 105 | Godot Gameplay Scripter | Composition and signal integrity specialist - Masters GDScript 2.0, C# integrati… |  | `` |
-| 106 | Godot Multiplayer Engineer | Godot 4 networking specialist - Masters the MultiplayerAPI, scene replication, E… |  | `` |
-| 107 | Godot Shader Developer | Godot 4 visual effects specialist - Masters the Godot Shading Language (GLSL-lik… |  | `` |
-| 108 | Government Digital Presales Consultant | Presales expert for China's government digital transformation market (ToG), prof… |  | `` |
-| 109 | Grant Writer | Expert grant writing specialist for nonprofits, research institutions, and socia… |  | `` |
-| 110 | Growth Hacker | Expert growth strategist specializing in rapid user acquisition through data-dri… |  | `` |
-| 111 | Healthcare Customer Service | Empathetic healthcare customer service specialist for patient support, billing i… |  | `` |
-| 112 | Healthcare Innovation Strategist | Strategic narrative architect for healthcare founders operating at |  | `` |
-| 113 | Healthcare Marketing Compliance Specialist | Expert in healthcare marketing compliance in China, proficient in the Advertisin… |  | `` |
-| 114 | Historian | Expert in historical analysis, periodization, material culture, and historiograp… |  | `` |
-| 115 | Hospitality Guest Services | Comprehensive hospitality guest services specialist for hotels, resorts, restaur… |  | `` |
-| 116 | HR Onboarding | Comprehensive HR onboarding specialist for employee orientation, documentation m… |  | `` |
-| 117 | Identity & Access Engineer | Expert identity engineer for OAuth 2.0/OIDC flows, enterprise SSO (SAML/OIDC) an… |  | `` |
-| 118 | Identity Graph Operator | Operates a shared identity graph that multiple AI agents resolve against. Ensure… |  | `` |
-| 119 | Image Prompt Engineer | Expert photography prompt engineer specializing in crafting detailed, evocative … |  | `` |
-| 120 | Incident Responder | Digital forensics and incident response specialist who leads breach investigatio… |  | `` |
-| 121 | Incident Response Commander | Expert incident commander specializing in production incident management, struct… |  | `` |
-| 122 | Inclusive Visuals Specialist | Representation expert who defeats systemic AI biases to generate culturally accu… |  | `` |
-| 123 | Infrastructure Maintainer | Expert infrastructure specialist focused on system reliability, performance opti… |  | `` |
-| 124 | Instagram Curator | Expert Instagram marketing specialist focused on visual storytelling, community … |  | `` |
-| 125 | Internationalization Engineer | Expert i18n engineer for ICU MessageFormat, CLDR plural rules, RTL and bidirecti… |  | `` |
-| 126 | Investment Researcher | Expert investment researcher specializing in market research, due diligence, por… |  | `` |
-| 127 | IoT Fleet Engineer | Expert IoT and edge fleet engineer — device provisioning and identity, MQTT/te… |  | `` |
-| 128 | IT Service Manager | Expert IT service management specialist using ITIL 4 framework for service catal… |  | `` |
-| 129 | Jira Workflow Steward | Expert delivery operations specialist who enforces Jira-linked Git workflows, tr… |  | `` |
-| 130 | Knowledge Graph Engineer | Structures information and capabilities into interconnected nodes (entities) and… |  | `` |
-| 131 | Korean Business Navigator | Korean business culture for foreign professionals — 품의 decision process, n… |  | `` |
-| 132 | Kuaishou Strategist | Expert Kuaishou marketing strategist specializing in short-video content for Chi… |  | `` |
-| 133 | Language Translator | Real-time Spanish ↔ English translation specialist with cultural context, regi… |  | `` |
-| 134 | Legal Billing & Time Tracking | Comprehensive legal billing and time tracking specialist for accurate time captu… |  | `` |
-| 135 | Legal Client Intake | Comprehensive legal client intake specialist for qualifying prospects, collectin… |  | `` |
-| 136 | Legal Compliance Checker | Expert legal and compliance specialist ensuring business operations, data handli… |  | `` |
-| 137 | Legal Document Review | Comprehensive legal document review specialist for contracts, litigation documen… |  | `` |
-| 138 | Level Designer | Spatial storytelling and flow specialist - Masters layout theory, pacing archite… |  | `` |
-| 139 | LinkedIn Content Creator | Expert LinkedIn content strategist focused on thought leadership, personal brand… |  | `` |
-| 140 | Livestream Commerce Coach | Veteran livestream e-commerce coach specializing in host training and live room … |  | `` |
-| 141 | LLM Post-Training Engineer | Evidence-driven owner for SFT, preference optimization, RLHF/RLVR, MoE post-trai… |  | `` |
-| 142 | Loan Officer Assistant | Comprehensive loan officer assistant for mortgage and lending professionals — … |  | `` |
-| 143 | LSP/Index Engineer | Language Server Protocol specialist building unified code intelligence systems t… |  | `` |
-| 144 | M&A Integration Manager | Mergers and acquisitions integration specialist who designs and executes post-me… |  | `` |
-| 145 | macOS Spatial/Metal Engineer | Native Swift and Metal specialist building high-performance 3D rendering systems… |  | `` |
-| 146 | Master Plan Architect | Master planning architect, technical educator, and ruthless plan critic who spec… |  | `` |
-| 147 | MCP Builder | Expert Model Context Protocol developer who designs, builds, and tests MCP serve… |  | `` |
-| 148 | Medical Billing & Coding Specialist | Expert medical billing and coding specialist for ICD-10-CM/PCS, CPT, and HCPCS c… |  | `` |
-| 149 | Meeting Notes Specialist | Extract structured decisions, action items, and open questions from meeting tran… |  | `` |
-| 150 | Minimal Change Engineer | Engineering specialist focused on minimum-viable diffs — fixes only what was a… |  | `` |
-| 151 | Mobile App Builder | Specialized mobile application developer with expertise in native iOS/Android de… |  | `` |
-| 152 | Mobile Release Engineer | Expert mobile release and distribution engineer for iOS and Android — code sig… |  | `` |
-| 153 | Model QA Specialist | Independent model QA expert who audits ML and statistical models end-to-end - fr… |  | `` |
-| 154 | Multi-Agent Systems Architect | Systems architect specializing in the design, coordination, and governance of mu… |  | `` |
-| 155 | Multi-Platform Publisher | Expert orchestrator for one-click Chinese blog publishing. Routes a single artic… |  | `` |
-| 156 | Narrative Designer | Story systems and dialogue architect - Masters GDD-aligned narrative design, bra… |  | `` |
-| 157 | Narratologist | Expert in narrative theory, story structure, character arcs, and literary analys… |  | `` |
-| 158 | Network Engineer | Expert network engineer for Cisco IOS/IOS-XE, Cisco ASA/FTD, Juniper Junos, and … |  | `` |
-| 159 | Offer & Lead Gen Strategist | Top-of-funnel architect who designs irresistible offers and lead magnets that at… |  | `` |
-| 160 | Operations Manager | Business operations specialist who applies Lean, Six Sigma, and systems thinking… |  | `` |
-| 161 | Organizational Psychologist | Applied organizational psychologist who diagnoses team dynamics, psychological s… |  | `` |
-| 162 | OrgScript Engineer | Expert in designing, parsing, and implementing OrgScript grammar, AST validation… |  | `` |
-| 163 | Outbound Strategist | Signal-based outbound specialist who designs multi-channel prospecting sequences… |  | `` |
-| 164 | Paid Media Auditor | Comprehensive paid media auditor who systematically evaluates Google Ads, Micros… |  | `` |
-| 165 | Paid Social Strategist | Cross-platform paid social advertising specialist covering Meta (Facebook/Instag… |  | `` |
-| 166 | Payments & Billing Engineer | Expert payments engineer for PSP integrations (Stripe, Adyen, Braintree, PayPal)… |  | `` |
-| 167 | Penetration Tester | Offensive security specialist conducting authorized penetration tests, red team … |  | `` |
-| 168 | Performance Benchmarker | Expert performance testing and optimization specialist focused on measuring, ana… |  | `` |
-| 169 | Persona Walkthrough Specialist | Simulate cognitive walkthroughs of web pages from a defined persona's psychologi… |  | `` |
-| 170 | Personal Growth Mentor | Cross-domain personal development mentor for goal clarity, habit design, strateg… |  | `` |
-| 171 | Pipeline Analyst | Revenue operations analyst specializing in pipeline health diagnostics, deal vel… |  | `` |
-| 172 | planner | Expert planning specialist for complex features and refactoring. Use PROACTIVELY… |  | `` |
-| 173 | Podcast Strategist | Content strategy and operations expert for the Chinese podcast market, with deep… |  | `` |
-| 174 | PPC Campaign Strategist | Senior paid media strategist specializing in large-scale search, shopping, and p… |  | `` |
-| 175 | PR & Communications Manager | Strategic public relations and communications specialist for media relations, pr… |  | `` |
-| 176 | Pricing Analyst | Specialized pricing analyst who develops optimal pricing models through market r… |  | `` |
-| 177 | Privacy Engineer | Expert privacy engineer who implements privacy in code — PII discovery and cla… |  | `` |
-| 178 | Private Domain Operator | Expert in building enterprise WeChat (WeCom) private domain ecosystems, with dee… |  | `` |
-| 179 | Product Manager | Holistic product leader who owns the full product lifecycle — from discovery a… |  | `` |
-| 180 | Programmatic & Display Buyer | Display advertising and programmatic media buying specialist covering managed pl… |  | `` |
-| 181 | Project Shepherd | Expert project manager specializing in cross-functional project coordination, ti… |  | `` |
-| 182 | Prompt Engineer | Specialist in crafting, testing, and systematically optimizing prompts for LLMs … |  | `` |
-| 183 | Proposal Strategist | Strategic proposal architect who transforms RFPs and sales opportunities into co… |  | `` |
-| 184 | Psychologist | Expert in human behavior, personality theory, motivation, and cognitive patterns… |  | `` |
-| 185 | RAG Pipeline Engineer | Production RAG specialist focused on chunking strategy, retrieval quality, hybri… |  | `` |
-| 186 | Rapid Prototyper | Specialized in ultra-fast proof-of-concept development and MVP creation using ef… |  | `` |
-| 187 | Real Estate Buyer & Seller | Comprehensive real estate agent assistant for buyer representation, seller repre… |  | `` |
-| 188 | Reality Checker | Stops fantasy approvals, evidence-based certification - Default to "NEEDS WORK",… |  | `` |
-| 189 | Realtime Collaboration Engineer | Expert realtime systems engineer for WebSocket/SSE infrastructure, presence, CRD… |  | `` |
-| 190 | Recruitment Specialist | Expert recruitment operations and talent acquisition specialist — skilled in C… |  | `` |
-| 191 | Reddit Community Builder | Expert Reddit marketing specialist focused on authentic community engagement, va… |  | `` |
-| 192 | refactor-cleaner | Dead code cleanup and consolidation specialist. Use PROACTIVELY for removing unu… |  | `` |
-| 193 | Report Distribution Agent | AI agent that automates distribution of consolidated sales reports to representa… |  | `` |
-| 194 | Research Synthesist | Expert in literature review, source evaluation, and evidence synthesis — turns… |  | `` |
-| 195 | Resume Tailor | Candidate-side resume optimization specialist who analyzes job descriptions, map… |  | `` |
-| 196 | Retail Customer Returns | Comprehensive retail customer returns specialist for processing returns, exchang… |  | `` |
-| 197 | Roblox Avatar Creator | Roblox UGC and avatar pipeline specialist - Masters Roblox's avatar system, UGC … |  | `` |
-| 198 | Roblox Experience Designer | Roblox platform UX and monetization specialist - Masters engagement loop design,… |  | `` |
-| 199 | Roblox Systems Scripter | Roblox platform engineering specialist - Masters Luau, the client-server securit… |  | `` |
-| 200 | Rust Refactoring Specialist | Expert Rust engineer for repository-scale refactoring, safe renames, module rest… |  | `` |
-| 201 | Sales Coach | Expert sales coaching specialist focused on rep development, pipeline review fac… |  | `` |
-| 202 | Sales Data Extraction Agent | AI agent specialized in monitoring Excel files and extracting key sales metrics … |  | `` |
-| 203 | Sales Engineer | Senior pre-sales engineer specializing in technical discovery, demo engineering,… |  | `` |
-| 204 | Sales Outreach | Consultative B2B sales outreach specialist for cold prospecting, lead follow-up,… |  | `` |
-| 205 | Salesforce Architect | Solution architecture for Salesforce platform — multi-cloud design, integratio… |  | `` |
-| 206 | Search Query Analyst | Specialist in search term analysis, negative keyword architecture, and query-to-… |  | `` |
-| 207 | Search Relevance Engineer | Expert search engineer for Elasticsearch and OpenSearch — index and analyzer d… |  | `` |
-| 208 | Secrets & Credential Hygiene Engineer | Owns the full lifecycle of secrets and credentials — detection, prevention, va… |  | `` |
-| 209 | Section 508 Accessibility Specialist | Expert U.S. federal Section 508 accessibility engineer (the 508 legal baseline i… |  | `` |
-| 210 | Security Architect | Expert security architect specializing in threat modeling, secure-by-design arch… |  | `` |
-| 211 | security-reviewer | Security vulnerability detection and remediation specialist. Use PROACTIVELY aft… |  | `` |
-| 212 | Senior Developer | Premium implementation specialist - Masters Laravel/Livewire/FluxUI, advanced CS… |  | `` |
-| 213 | Senior Project Manager | Converts specs to tasks and remembers previous projects. Focused on realistic sc… |  | `` |
-| 214 | Senior SecOps Engineer | Defensive application security specialist who scans every code submission for se… |  | `` |
-| 215 | SEO Specialist | Expert search engine optimization strategist specializing in technical SEO, cont… |  | `` |
-| 216 | Short-Video Editing Coach | Hands-on short-video editing coach covering the full post-production pipeline, w… |  | `` |
-| 217 | Social Media Strategist | Expert social media strategist for LinkedIn, Twitter, and professional platforms… |  | `` |
-| 218 | Software Architect | Expert software architect specializing in system design, domain-driven design, a… |  | `` |
-| 219 | Solidity Smart Contract Engineer | Expert Solidity developer specializing in EVM smart contract architecture, gas o… |  | `` |
-| 220 | Solution Engineer | Hands-on GIS prototype builder who takes strategy from Technical Consultant and … |  | `` |
-| 221 | Sovereign Health Systems Agent | Government health mandate engagement framework for AI agents |  | `` |
-| 222 | Spatial Data Engineer | ETL specialist who transforms messy geospatial data from any source into clean, … |  | `` |
-| 223 | Spatial Data Scientist | Advanced spatial analytics specialist who applies statistical modeling, spatial … |  | `` |
-| 224 | Sprint Prioritizer | Expert product manager specializing in agile sprint planning, feature prioritiza… |  | `` |
-| 225 | SRE (Site Reliability Engineer) | Expert site reliability engineer specializing in SLOs, error budgets, observabil… |  | `` |
-| 226 | Statistician | Expert in quantitative research methodology, experimental design, and statistica… |  | `` |
-| 227 | Strategy Duel Agent | Conducts live strategy duels using game theory and the 36 Chinese stratagems |  | `` |
-| 228 | Studio Operations | Expert operations manager specializing in day-to-day studio efficiency, process … |  | `` |
-| 229 | Studio Producer | Senior strategic leader specializing in high-level creative and technical projec… |  | `` |
-| 230 | Study Abroad Advisor | Full-spectrum study abroad planning expert covering the US, UK, Canada, Australi… |  | `` |
-| 231 | Supply Chain Strategist | Expert supply chain management and procurement strategy specialist — skilled i… |  | `` |
-| 232 | Support Responder | Expert customer support specialist delivering exceptional customer service, issu… |  | `` |
-| 233 | Tax Strategist | Expert tax strategist specializing in tax optimization, multi-jurisdictional com… |  | `` |
-| 234 | tdd-guide | Test-Driven Development specialist enforcing write-tests-first methodology. Use … |  | `` |
-| 235 | Technical Artist | Art-to-engine pipeline specialist - Masters shaders, VFX systems, LOD pipelines,… |  | `` |
-| 236 | Technical Consultant | Strategic GIS advisor who translates business problems into geospatial solutions… |  | `` |
-| 237 | Technical Writer | Expert technical writer specializing in developer documentation, API references,… |  | `` |
-| 238 | Terminal Integration Specialist | Terminal emulation, text rendering optimization, and SwiftTerm integration for m… |  | `` |
-| 239 | Test Automation Engineer | Expert end-to-end test automation engineer for Playwright and Cypress — resili… |  | `` |
-| 240 | Test Results Analyzer | Expert test analysis specialist focused on comprehensive test result evaluation,… |  | `` |
-| 241 | Threat Detection Engineer | Expert detection engineer specializing in SIEM rule development, MITRE ATT&CK co… |  | `` |
-| 242 | Threat Intelligence Analyst | Cyber threat intelligence specialist who tracks adversary groups, maps attack ca… |  | `` |
-| 243 | TikTok Strategist | Expert TikTok marketing specialist focused on viral content creation, algorithm … |  | `` |
-| 244 | Tool Evaluator | Expert technology assessment specialist focused on evaluating, testing, and reco… |  | `` |
-| 245 | Tracking & Measurement Specialist | Expert in conversion tracking architecture, tag management, and attribution mode… |  | `` |
-| 246 | Trend Researcher | Expert market intelligence analyst specializing in identifying emerging trends, … |  | `` |
-| 247 | Twitter Engager | Expert Twitter marketing specialist focused on real-time engagement, thought lea… |  | `` |
-| 248 | UI Designer | Expert UI designer specializing in visual design systems, component libraries, a… |  | `` |
-| 249 | UI Finish-Gate Reviewer | Product-interface reviewer who catches generic, interchangeable UI before it shi… |  | `` |
-| 250 | Unity Architect | Data-driven modularity specialist - Masters ScriptableObjects, decoupled systems… |  | `` |
-| 251 | Unity Editor Tool Developer | Unity editor automation specialist - Masters custom EditorWindows, PropertyDrawe… |  | `` |
-| 252 | Unity Multiplayer Engineer | Networked gameplay specialist - Masters Netcode for GameObjects, Unity Gaming Se… |  | `` |
-| 253 | Unity Shader Graph Artist | Visual effects and material specialist - Masters Unity Shader Graph, HLSL, URP/H… |  | `` |
-| 254 | Unreal Multiplayer Architect | Unreal Engine networking specialist - Masters Actor replication, GameMode/GameSt… |  | `` |
-| 255 | Unreal Systems Engineer | Performance and hybrid architecture specialist - Masters C++/Blueprint continuum… |  | `` |
-| 256 | Unreal Technical Artist | Unreal Engine visual pipeline specialist - Masters the Material Editor, Niagara … |  | `` |
-| 257 | Unreal World Builder | Open-world and environment specialist - Masters UE5 World Partition, Landscape, … |  | `` |
-| 258 | USWDS Developer | Expert U.S. Web Design System frontend developer specializing in USWDS component… |  | `` |
-| 259 | UX Architect | Technical architecture and UX specialist who provides developers with solid foun… |  | `` |
-| 260 | UX Researcher | Expert user experience researcher specializing in user behavior analysis, usabil… |  | `` |
-| 261 | Video Optimization Specialist | Video marketing strategist specializing in YouTube algorithm optimization, audie… |  | `` |
-| 262 | Video Streaming Engineer | Expert video streaming engineer for adaptive bitrate delivery — HLS/DASH packa… |  | `` |
-| 263 | visionOS Spatial Engineer | Native visionOS spatial computing, SwiftUI volumetric interfaces, and Liquid Gla… |  | `` |
-| 264 | Visual Storyteller | Expert visual communication specialist focused on creating compelling visual nar… |  | `` |
-| 265 | Voice AI Integration Engineer | Expert in building end-to-end speech transcription pipelines using Whisper-style… |  | `` |
-| 266 | Web GIS Developer | Full-stack web GIS engineer who builds interactive mapping applications — MapL… |  | `` |
-| 267 | WebAssembly Engineer | Expert WebAssembly engineer — compiling Rust/C++/Go to Wasm, JS interop and th… |  | `` |
-| 268 | WeChat Mini Program Developer | Expert WeChat Mini Program developer specializing in 小程序 development with … |  | `` |
-| 269 | WeChat Official Account Manager | Expert WeChat Official Account (OA) strategist specializing in content marketing… |  | `` |
-| 270 | Weibo Strategist | Full-spectrum operations expert for Sina Weibo, with deep expertise in trending … |  | `` |
-| 271 | Whimsy Injector | Expert creative specialist focused on adding personality, delight, and playful e… |  | `` |
-| 272 | WordPress Performance Engineer | Expert WordPress performance engineer specializing in Core Web Vitals, object ca… |  | `` |
-| 273 | WordPress Shopping Cart Engineer | Expert WordPress e-commerce engineer specializing in WooCommerce for product cat… |  | `` |
-| 274 | Workflow Architect | Workflow design specialist who maps complete workflow trees for every system, us… |  | `` |
-| 275 | Workflow Optimizer | Expert process improvement specialist focused on analyzing, optimizing, and auto… |  | `` |
-| 276 | X/Twitter Intelligence Analyst | Social intelligence specialist for X/Twitter research, trend detection, account … |  | `` |
-| 277 | Xiaohongshu Specialist | Expert Xiaohongshu marketing specialist focused on lifestyle content, trend-driv… |  | `` |
-| 278 | XR Cockpit Interaction Specialist | Specialist in designing and developing immersive cockpit-based control systems f… |  | `` |
-| 279 | XR Immersive Developer | Expert WebXR and immersive technology developer with specialization in browser-b… |  | `` |
-| 280 | XR Interface Architect | Spatial interaction designer and interface strategist for immersive AR/VR/XR env… |  | `` |
-| 281 | Zhihu Strategist | Expert Zhihu marketing specialist focused on thought leadership, community credi… |  | `` |
-| 282 | ZK Steward | Knowledge-base steward in the spirit of Niklas Luhmann's Zettelkasten. Default p… |  | `` |
-| 283 | red-team | Adversarial attacker that tries to break a plan, design, or diff before it ships… | 3mar-baha/vantrilex-arsenal | `` |
-| 284 | a11y-audit | Accessibility auditing agent from rksekar5/a11y-audit (MIT, 1 star, last push 20… | rksekar5/a11y-audit | `` |
+| 1 | vantrilex-3d-scene-developer | Web 3D visualization specialist who creates immersive 3D scenes, terrain models,… |  | `` |
+| 2 | vantrilex-accessibility-auditor | Expert accessibility specialist who audits interfaces against WCAG standards, te… |  | `` |
+| 3 | vantrilex-account-strategist | Expert post-sale account strategist specializing in land-and-expand execution, s… |  | `` |
+| 4 | vantrilex-accounts-payable-agent | Autonomous payment processing specialist that executes vendor payments, contract… |  | `` |
+| 5 | vantrilex-ad-creative-strategist | Paid media creative specialist focused on ad copywriting, RSA optimization, asse… |  | `` |
+| 6 | vantrilex-aeo-foundations-architect | Expert in AI Engine Optimization infrastructure — implements llms.txt, AI-awar… |  | `` |
+| 7 | vantrilex-agentic-identity-trust-architect | Designs identity, authentication, and trust verification systems for autonomous … |  | `` |
+| 8 | vantrilex-agentic-search-optimizer | Expert in WebMCP readiness and agentic task completion — audits whether AI age… |  | `` |
+| 9 | vantrilex-agents-orchestrator | Autonomous pipeline manager that orchestrates the entire development workflow. Y… |  | `` |
+| 10 | vantrilex-aging-parent-care-companion | Compassionate, HIPAA-aligned care coordination and decision-support agent for fa… |  | `` |
+| 11 | vantrilex-ai-citation-strategist | Expert in AI recommendation engine optimization (AEO/GEO) — audits brand visib… |  | `` |
+| 12 | vantrilex-ai-data-remediation-engineer | Specialist in self-healing data pipelines — uses air-gapped local SLMs and sem… |  | `` |
+| 13 | vantrilex-ai-engineer | Expert AI/ML engineer specializing in machine learning model development, deploy… |  | `` |
+| 14 | vantrilex-ai-generated-code-security-auditor | Security reviewer for AI-generated and vibe-coded apps — hunts the hardcoded s… |  | `` |
+| 15 | vantrilex-analytics-reporter | Expert data analyst transforming raw data into actionable business insights. Cre… |  | `` |
+| 16 | vantrilex-anthropologist | Expert in cultural systems, rituals, kinship, belief systems, and ethnographic m… |  | `` |
+| 17 | vantrilex-api-platform-engineer | Expert API platform engineer for public and partner APIs — contract-first desi… |  | `` |
+| 18 | vantrilex-api-tester | Expert API testing specialist focused on comprehensive API validation, performan… |  | `` |
+| 19 | vantrilex-app-store-optimizer | Expert app store marketing specialist focused on App Store Optimization (ASO), c… |  | `` |
+| 20 | vantrilex-application-security-engineer | AppSec specialist who secures the software development lifecycle through threat … |  | `` |
+| 21 | vantrilex-architect ✅ | Software architecture specialist for system design, scalability, and technical d… |  | `` |
+| 22 | vantrilex-automation-governance-architect | Governance-first architect for business automations (n8n-first) who audits value… |  | `` |
+| 23 | vantrilex-autonomous-optimization-architect | Intelligent system governor that continuously shadow-tests APIs for performance … |  | `` |
+| 24 | vantrilex-backend-architect | Senior backend architect specializing in scalable system design, database archit… |  | `` |
+| 25 | vantrilex-baidu-seo-specialist | Expert Baidu search optimization specialist focused on Chinese search engine ran… |  | `` |
+| 26 | vantrilex-behavioral-nudge-engine | Behavioral psychology specialist that adapts software interaction cadences and s… |  | `` |
+| 27 | vantrilex-bilibili-content-strategist | Expert Bilibili marketing specialist focused on UP主 growth, danmaku culture ma… |  | `` |
+| 28 | vantrilex-bim-gis-specialist | Integration specialist who bridges Building Information Modeling and Geographic … |  | `` |
+| 29 | vantrilex-blender-add-on-engineer | Blender tooling specialist - Builds Python add-ons, asset validators, exporters,… |  | `` |
+| 30 | vantrilex-blockchain-security-auditor | Expert smart contract security auditor specializing in vulnerability detection, … |  | `` |
+| 31 | vantrilex-book-co-author | Strategic thought-leadership book collaborator for founders, experts, and operat… |  | `` |
+| 32 | vantrilex-bookkeeper-controller | Expert bookkeeper and controller specializing in day-to-day accounting operation… |  | `` |
+| 33 | vantrilex-brand-guardian | Expert brand strategist and guardian specializing in brand identity development,… |  | `` |
+| 34 | vantrilex-build-error-resolver | Build and TypeScript error resolution specialist. Use PROACTIVELY when build fai… |  | `` |
+| 35 | vantrilex-business-strategist | Senior management consulting specialist for competitive analysis, market entry s… |  | `` |
+| 36 | vantrilex-carousel-growth-engine | Autonomous TikTok and Instagram carousel generation specialist. Analyzes any web… |  | `` |
+| 37 | vantrilex-cartography-designer |  Map aesthetics specialist who designs beautiful, readable, and effective maps — … |  | `` |
+| 38 | vantrilex-change-management-consultant | Expert change management specialist using ADKAR, Kotter, and Prosci frameworks t… |  | `` |
+| 39 | vantrilex-chief-financial-officer | Strategic finance executive who governs capital allocation, treasury operations,… |  | `` |
+| 40 | vantrilex-chief-of-staff | Master coordinator for founders and executives — filters noise, owns processes… |  | `` |
+| 41 | vantrilex-china-e-commerce-operator | Expert China e-commerce operations specialist covering Taobao, Tmall, Pinduoduo,… |  | `` |
+| 42 | vantrilex-china-market-localization-strategist | Full-stack China market localization expert who transforms real-time trend signa… |  | `` |
+| 43 | vantrilex-civil-engineer | Expert civil and structural engineer with global standards coverage — Eurocode… |  | `` |
+| 44 | vantrilex-clinical-evidence-agent | Evidence standards and clinical credibility framework for AI agents |  | `` |
+| 45 | vantrilex-cloud-security-architect | Cloud-native security specialist designing zero trust architectures, implementin… |  | `` |
+| 46 | vantrilex-cms-developer | Drupal and WordPress specialist for theme development, custom plugins/modules, c… |  | `` |
+| 47 | vantrilex-code-reviewer | Expert code reviewer who provides constructive, actionable feedback focused on c… |  | `` |
+| 48 | vantrilex-code-reviewer-row-48 | Expert code review specialist. Proactively reviews code for quality, security, a… |  | `` |
+| 49 | vantrilex-codebase-archaeologist | Multi-session, multi-tool drift detection specialist who audits codebases touche… |  | `` |
+| 50 | vantrilex-codebase-onboarding-engineer | Expert developer onboarding specialist who helps new engineers understand unfami… |  | `` |
+| 51 | vantrilex-compliance-auditor | Expert technical compliance auditor specializing in SOC 2, ISO 27001, HIPAA, and… |  | `` |
+| 52 | vantrilex-content-creator | Expert content strategist and creator for multi-platform campaigns. Develops edi… |  | `` |
+| 53 | vantrilex-corporate-training-designer | Expert in enterprise training system design and curriculum development — profi… |  | `` |
+| 54 | vantrilex-cross-border-e-commerce-specialist | Full-funnel cross-border e-commerce strategist covering Amazon, Shopee, Lazada, … |  | `` |
+| 55 | vantrilex-cultural-intelligence-strategist | CQ specialist that detects invisible exclusion, researches global context, and e… |  | `` |
+| 56 | vantrilex-customer-service | Friendly, professional customer service specialist for any industry — handling… |  | `` |
+| 57 | vantrilex-customer-success-manager | Strategic customer success specialist for onboarding, health scoring, QBR facili… |  | `` |
+| 58 | vantrilex-data-consolidation-agent | AI agent that consolidates extracted sales data into live reporting dashboards w… |  | `` |
+| 59 | vantrilex-data-engineer | Expert data engineer specializing in building reliable data pipelines, lakehouse… |  | `` |
+| 60 | vantrilex-data-privacy-officer | Corporate data privacy specialist and DPO who builds GDPR, CCPA, and global priv… |  | `` |
+| 61 | vantrilex-data-visualization-engineer | Expert data visualization engineer — chart-type selection by data and question… |  | `` |
+| 62 | vantrilex-database-optimizer | Expert database specialist focusing on schema design, query optimization, indexi… |  | `` |
+| 63 | vantrilex-database-reliability-engineer | Expert database reliability engineer (DBRE) — high availability and replicatio… |  | `` |
+| 64 | vantrilex-deal-strategist | Senior deal strategist specializing in MEDDPICC qualification, competitive posit… |  | `` |
+| 65 | vantrilex-desktop-app-engineer | Expert desktop application engineer for Electron and Tauri — secure IPC and pr… |  | `` |
+| 66 | vantrilex-developer-advocate | Expert developer advocate specializing in building developer communities, creati… |  | `` |
+| 67 | vantrilex-developer-tooling-engineer | Expert developer-tooling and CLI engineer — building command-line tools and in… |  | `` |
+| 68 | vantrilex-devops-automator | Expert DevOps engineer specializing in infrastructure automation, CI/CD pipeline… |  | `` |
+| 69 | vantrilex-discovery-coach | Coaches sales teams on elite discovery methodology — question design, current-… |  | `` |
+| 70 | vantrilex-doc-updater | Documentation and codemap specialist. Use PROACTIVELY for updating codemaps and … |  | `` |
+| 71 | vantrilex-document-generator | Expert document creation specialist who generates professional PDF, PPTX, DOCX, … |  | `` |
+| 72 | vantrilex-douyin-strategist | Short-video marketing expert specializing in the Douyin platform, with deep expe… |  | `` |
+| 73 | vantrilex-drone-reality-mapping-specialist | Photogrammetry and reality capture expert who processes drone imagery into ortho… |  | `` |
+| 74 | vantrilex-drupal-performance-engineer | Expert Drupal 10/11 performance engineer specializing in Core Web Vitals, render… |  | `` |
+| 75 | vantrilex-drupal-shopping-cart-engineer | Expert Drupal e-commerce engineer specializing in Drupal Commerce for product ca… |  | `` |
+| 76 | vantrilex-e2e-runner | End-to-end testing specialist using Playwright. Use PROACTIVELY for generating, … |  | `` |
+| 77 | vantrilex-economy-designer | Virtual economy architect - Masters currency systems, sources and sinks, monetiz… |  | `` |
+| 78 | vantrilex-email-intelligence-engineer | Expert in extracting structured, reasoning-ready data from raw email threads for… |  | `` |
+| 79 | vantrilex-email-marketing-strategist | Expert email marketing strategist for CRM-driven campaigns, lifecycle automation… |  | `` |
+| 80 | vantrilex-embedded-firmware-engineer | Specialist in bare-metal and RTOS firmware - ESP32/ESP-IDF, PlatformIO, Arduino,… |  | `` |
+| 81 | vantrilex-esg-sustainability-officer | Corporate sustainability strategist and ESG reporting specialist who builds envi… |  | `` |
+| 82 | vantrilex-evidence-collector | Screenshot-obsessed, fantasy-allergic QA specialist - Default to finding 3-5 iss… |  | `` |
+| 83 | vantrilex-executive-summary-generator | Consultant-grade AI specialist trained to think and communicate like a senior st… |  | `` |
+| 84 | vantrilex-experiment-tracker | Expert project manager specializing in experiment design, execution tracking, an… |  | `` |
+| 85 | vantrilex-fedramp-rmf-compliance-engineer | Expert FedRAMP and NIST Risk Management Framework compliance engineer specializi… |  | `` |
+| 86 | vantrilex-feedback-synthesizer | Expert in collecting, analyzing, and synthesizing user feedback from multiple ch… |  | `` |
+| 87 | vantrilex-feishu-integration-developer |  Full-stack integration expert specializing in the Feishu (Lark) Open Platform — … |  | `` |
+| 88 | vantrilex-filament-optimization-specialist | Expert in restructuring and optimizing Filament PHP admin interfaces for maximum… |  | `` |
+| 89 | vantrilex-finance-tracker | Expert financial analyst and controller specializing in financial planning, budg… |  | `` |
+| 90 | vantrilex-financial-analyst | Expert financial analyst specializing in financial modeling, forecasting, scenar… |  | `` |
+| 91 | vantrilex-finops-engineer | Expert cloud cost engineer for AWS/GCP/Azure — cost allocation and tagging, ri… |  | `` |
+| 92 | vantrilex-fp-a-analyst | Expert Financial Planning & Analysis (FP&A) analyst specializing in budgeting, v… |  | `` |
+| 93 | vantrilex-french-consulting-market-navigator | Navigate the French ESN/SI freelance ecosystem — margin models, platform mecha… |  | `` |
+| 94 | vantrilex-frontend-developer | Expert frontend developer specializing in modern web technologies, React/Vue/Ang… |  | `` |
+| 95 | vantrilex-game-audio-engineer | Interactive audio specialist - Masters FMOD/Wwise integration, adaptive music sy… |  | `` |
+| 96 | vantrilex-game-designer | Systems and mechanics architect - Masters GDD authorship, player psychology, eco… |  | `` |
+| 97 | vantrilex-gaussdb-expert-engineer | Expert database specialist focusing on GaussDB OLTP — Huawei's self-developed … |  | `` |
+| 98 | vantrilex-geoai-ml-engineer | Geospatial machine learning specialist who builds models for feature extraction,… |  | `` |
+| 99 | vantrilex-geographer | Expert in physical and human geography, climate systems, cartography, and spatia… |  | `` |
+| 100 | vantrilex-geoprocessing-specialist | ArcPy and Python toolbox expert who automates spatial workflows — builds .pyt … |  | `` |
+| 101 | vantrilex-gis-analyst | Day-to-day GIS operator who creates maps, manages layers, performs spatial queri… |  | `` |
+| 102 | vantrilex-gis-qa-engineer | Quality assurance specialist who validates geospatial data integrity — topolog… |  | `` |
+| 103 | vantrilex-git-workflow-master | Expert in Git workflows, branching strategies, and version control best practice… |  | `` |
+| 104 | vantrilex-global-podcast-strategist | Expert podcast growth specialist focused on show positioning, audience developme… |  | `` |
+| 105 | vantrilex-godot-gameplay-scripter | Composition and signal integrity specialist - Masters GDScript 2.0, C# integrati… |  | `` |
+| 106 | vantrilex-godot-multiplayer-engineer | Godot 4 networking specialist - Masters the MultiplayerAPI, scene replication, E… |  | `` |
+| 107 | vantrilex-godot-shader-developer | Godot 4 visual effects specialist - Masters the Godot Shading Language (GLSL-lik… |  | `` |
+| 108 | vantrilex-government-digital-presales-consultant | Presales expert for China's government digital transformation market (ToG), prof… |  | `` |
+| 109 | vantrilex-grant-writer | Expert grant writing specialist for nonprofits, research institutions, and socia… |  | `` |
+| 110 | vantrilex-growth-hacker | Expert growth strategist specializing in rapid user acquisition through data-dri… |  | `` |
+| 111 | vantrilex-healthcare-customer-service | Empathetic healthcare customer service specialist for patient support, billing i… |  | `` |
+| 112 | vantrilex-healthcare-innovation-strategist | Strategic narrative architect for healthcare founders operating at |  | `` |
+| 113 | vantrilex-healthcare-marketing-compliance-specialist | Expert in healthcare marketing compliance in China, proficient in the Advertisin… |  | `` |
+| 114 | vantrilex-historian | Expert in historical analysis, periodization, material culture, and historiograp… |  | `` |
+| 115 | vantrilex-hospitality-guest-services | Comprehensive hospitality guest services specialist for hotels, resorts, restaur… |  | `` |
+| 116 | vantrilex-hr-onboarding | Comprehensive HR onboarding specialist for employee orientation, documentation m… |  | `` |
+| 117 | vantrilex-identity-access-engineer | Expert identity engineer for OAuth 2.0/OIDC flows, enterprise SSO (SAML/OIDC) an… |  | `` |
+| 118 | vantrilex-identity-graph-operator | Operates a shared identity graph that multiple AI agents resolve against. Ensure… |  | `` |
+| 119 | vantrilex-image-prompt-engineer | Expert photography prompt engineer specializing in crafting detailed, evocative … |  | `` |
+| 120 | vantrilex-incident-responder | Digital forensics and incident response specialist who leads breach investigatio… |  | `` |
+| 121 | vantrilex-incident-response-commander | Expert incident commander specializing in production incident management, struct… |  | `` |
+| 122 | vantrilex-inclusive-visuals-specialist | Representation expert who defeats systemic AI biases to generate culturally accu… |  | `` |
+| 123 | vantrilex-infrastructure-maintainer | Expert infrastructure specialist focused on system reliability, performance opti… |  | `` |
+| 124 | vantrilex-instagram-curator | Expert Instagram marketing specialist focused on visual storytelling, community … |  | `` |
+| 125 | vantrilex-internationalization-engineer | Expert i18n engineer for ICU MessageFormat, CLDR plural rules, RTL and bidirecti… |  | `` |
+| 126 | vantrilex-investment-researcher | Expert investment researcher specializing in market research, due diligence, por… |  | `` |
+| 127 | vantrilex-iot-fleet-engineer | Expert IoT and edge fleet engineer — device provisioning and identity, MQTT/te… |  | `` |
+| 128 | vantrilex-it-service-manager | Expert IT service management specialist using ITIL 4 framework for service catal… |  | `` |
+| 129 | vantrilex-jira-workflow-steward | Expert delivery operations specialist who enforces Jira-linked Git workflows, tr… |  | `` |
+| 130 | vantrilex-knowledge-graph-engineer | Structures information and capabilities into interconnected nodes (entities) and… |  | `` |
+| 131 | vantrilex-korean-business-navigator | Korean business culture for foreign professionals — 품의 decision process, n… |  | `` |
+| 132 | vantrilex-kuaishou-strategist | Expert Kuaishou marketing strategist specializing in short-video content for Chi… |  | `` |
+| 133 | vantrilex-language-translator | Real-time Spanish ↔ English translation specialist with cultural context, regi… |  | `` |
+| 134 | vantrilex-legal-billing-time-tracking | Comprehensive legal billing and time tracking specialist for accurate time captu… |  | `` |
+| 135 | vantrilex-legal-client-intake | Comprehensive legal client intake specialist for qualifying prospects, collectin… |  | `` |
+| 136 | vantrilex-legal-compliance-checker | Expert legal and compliance specialist ensuring business operations, data handli… |  | `` |
+| 137 | vantrilex-legal-document-review | Comprehensive legal document review specialist for contracts, litigation documen… |  | `` |
+| 138 | vantrilex-level-designer | Spatial storytelling and flow specialist - Masters layout theory, pacing archite… |  | `` |
+| 139 | vantrilex-linkedin-content-creator | Expert LinkedIn content strategist focused on thought leadership, personal brand… |  | `` |
+| 140 | vantrilex-livestream-commerce-coach | Veteran livestream e-commerce coach specializing in host training and live room … |  | `` |
+| 141 | vantrilex-llm-post-training-engineer | Evidence-driven owner for SFT, preference optimization, RLHF/RLVR, MoE post-trai… |  | `` |
+| 142 | vantrilex-loan-officer-assistant | Comprehensive loan officer assistant for mortgage and lending professionals — … |  | `` |
+| 143 | vantrilex-lsp-index-engineer | Language Server Protocol specialist building unified code intelligence systems t… |  | `` |
+| 144 | vantrilex-m-a-integration-manager | Mergers and acquisitions integration specialist who designs and executes post-me… |  | `` |
+| 145 | vantrilex-macos-spatial-metal-engineer | Native Swift and Metal specialist building high-performance 3D rendering systems… |  | `` |
+| 146 | vantrilex-master-plan-architect | Master planning architect, technical educator, and ruthless plan critic who spec… |  | `` |
+| 147 | vantrilex-mcp-builder | Expert Model Context Protocol developer who designs, builds, and tests MCP serve… |  | `` |
+| 148 | vantrilex-medical-billing-coding-specialist | Expert medical billing and coding specialist for ICD-10-CM/PCS, CPT, and HCPCS c… |  | `` |
+| 149 | vantrilex-meeting-notes-specialist | Extract structured decisions, action items, and open questions from meeting tran… |  | `` |
+| 150 | vantrilex-minimal-change-engineer | Engineering specialist focused on minimum-viable diffs — fixes only what was a… |  | `` |
+| 151 | vantrilex-mobile-app-builder | Specialized mobile application developer with expertise in native iOS/Android de… |  | `` |
+| 152 | vantrilex-mobile-release-engineer | Expert mobile release and distribution engineer for iOS and Android — code sig… |  | `` |
+| 153 | vantrilex-model-qa-specialist | Independent model QA expert who audits ML and statistical models end-to-end - fr… |  | `` |
+| 154 | vantrilex-multi-agent-systems-architect | Systems architect specializing in the design, coordination, and governance of mu… |  | `` |
+| 155 | vantrilex-multi-platform-publisher | Expert orchestrator for one-click Chinese blog publishing. Routes a single artic… |  | `` |
+| 156 | vantrilex-narrative-designer | Story systems and dialogue architect - Masters GDD-aligned narrative design, bra… |  | `` |
+| 157 | vantrilex-narratologist | Expert in narrative theory, story structure, character arcs, and literary analys… |  | `` |
+| 158 | vantrilex-network-engineer | Expert network engineer for Cisco IOS/IOS-XE, Cisco ASA/FTD, Juniper Junos, and … |  | `` |
+| 159 | vantrilex-offer-lead-gen-strategist | Top-of-funnel architect who designs irresistible offers and lead magnets that at… |  | `` |
+| 160 | vantrilex-operations-manager | Business operations specialist who applies Lean, Six Sigma, and systems thinking… |  | `` |
+| 161 | vantrilex-organizational-psychologist | Applied organizational psychologist who diagnoses team dynamics, psychological s… |  | `` |
+| 162 | vantrilex-orgscript-engineer | Expert in designing, parsing, and implementing OrgScript grammar, AST validation… |  | `` |
+| 163 | vantrilex-outbound-strategist | Signal-based outbound specialist who designs multi-channel prospecting sequences… |  | `` |
+| 164 | vantrilex-paid-media-auditor | Comprehensive paid media auditor who systematically evaluates Google Ads, Micros… |  | `` |
+| 165 | vantrilex-paid-social-strategist | Cross-platform paid social advertising specialist covering Meta (Facebook/Instag… |  | `` |
+| 166 | vantrilex-payments-billing-engineer | Expert payments engineer for PSP integrations (Stripe, Adyen, Braintree, PayPal)… |  | `` |
+| 167 | vantrilex-penetration-tester | Offensive security specialist conducting authorized penetration tests, red team … |  | `` |
+| 168 | vantrilex-performance-benchmarker | Expert performance testing and optimization specialist focused on measuring, ana… |  | `` |
+| 169 | vantrilex-persona-walkthrough-specialist | Simulate cognitive walkthroughs of web pages from a defined persona's psychologi… |  | `` |
+| 170 | vantrilex-personal-growth-mentor | Cross-domain personal development mentor for goal clarity, habit design, strateg… |  | `` |
+| 171 | vantrilex-pipeline-analyst | Revenue operations analyst specializing in pipeline health diagnostics, deal vel… |  | `` |
+| 172 | vantrilex-planner | Expert planning specialist for complex features and refactoring. Use PROACTIVELY… |  | `` |
+| 173 | vantrilex-podcast-strategist | Content strategy and operations expert for the Chinese podcast market, with deep… |  | `` |
+| 174 | vantrilex-ppc-campaign-strategist | Senior paid media strategist specializing in large-scale search, shopping, and p… |  | `` |
+| 175 | vantrilex-pr-communications-manager | Strategic public relations and communications specialist for media relations, pr… |  | `` |
+| 176 | vantrilex-pricing-analyst | Specialized pricing analyst who develops optimal pricing models through market r… |  | `` |
+| 177 | vantrilex-privacy-engineer | Expert privacy engineer who implements privacy in code — PII discovery and cla… |  | `` |
+| 178 | vantrilex-private-domain-operator | Expert in building enterprise WeChat (WeCom) private domain ecosystems, with dee… |  | `` |
+| 179 | vantrilex-product-manager | Holistic product leader who owns the full product lifecycle — from discovery a… |  | `` |
+| 180 | vantrilex-programmatic-display-buyer | Display advertising and programmatic media buying specialist covering managed pl… |  | `` |
+| 181 | vantrilex-project-shepherd | Expert project manager specializing in cross-functional project coordination, ti… |  | `` |
+| 182 | vantrilex-prompt-engineer | Specialist in crafting, testing, and systematically optimizing prompts for LLMs … |  | `` |
+| 183 | vantrilex-proposal-strategist | Strategic proposal architect who transforms RFPs and sales opportunities into co… |  | `` |
+| 184 | vantrilex-psychologist | Expert in human behavior, personality theory, motivation, and cognitive patterns… |  | `` |
+| 185 | vantrilex-rag-pipeline-engineer | Production RAG specialist focused on chunking strategy, retrieval quality, hybri… |  | `` |
+| 186 | vantrilex-rapid-prototyper | Specialized in ultra-fast proof-of-concept development and MVP creation using ef… |  | `` |
+| 187 | vantrilex-real-estate-buyer-seller | Comprehensive real estate agent assistant for buyer representation, seller repre… |  | `` |
+| 188 | vantrilex-reality-checker | Stops fantasy approvals, evidence-based certification - Default to "NEEDS WORK",… |  | `` |
+| 189 | vantrilex-realtime-collaboration-engineer | Expert realtime systems engineer for WebSocket/SSE infrastructure, presence, CRD… |  | `` |
+| 190 | vantrilex-recruitment-specialist | Expert recruitment operations and talent acquisition specialist — skilled in C… |  | `` |
+| 191 | vantrilex-reddit-community-builder | Expert Reddit marketing specialist focused on authentic community engagement, va… |  | `` |
+| 192 | vantrilex-refactor-cleaner | Dead code cleanup and consolidation specialist. Use PROACTIVELY for removing unu… |  | `` |
+| 193 | vantrilex-report-distribution-agent | AI agent that automates distribution of consolidated sales reports to representa… |  | `` |
+| 194 | vantrilex-research-synthesist | Expert in literature review, source evaluation, and evidence synthesis — turns… |  | `` |
+| 195 | vantrilex-resume-tailor | Candidate-side resume optimization specialist who analyzes job descriptions, map… |  | `` |
+| 196 | vantrilex-retail-customer-returns | Comprehensive retail customer returns specialist for processing returns, exchang… |  | `` |
+| 197 | vantrilex-roblox-avatar-creator | Roblox UGC and avatar pipeline specialist - Masters Roblox's avatar system, UGC … |  | `` |
+| 198 | vantrilex-roblox-experience-designer | Roblox platform UX and monetization specialist - Masters engagement loop design,… |  | `` |
+| 199 | vantrilex-roblox-systems-scripter | Roblox platform engineering specialist - Masters Luau, the client-server securit… |  | `` |
+| 200 | vantrilex-rust-refactoring-specialist | Expert Rust engineer for repository-scale refactoring, safe renames, module rest… |  | `` |
+| 201 | vantrilex-sales-coach | Expert sales coaching specialist focused on rep development, pipeline review fac… |  | `` |
+| 202 | vantrilex-sales-data-extraction-agent | AI agent specialized in monitoring Excel files and extracting key sales metrics … |  | `` |
+| 203 | vantrilex-sales-engineer | Senior pre-sales engineer specializing in technical discovery, demo engineering,… |  | `` |
+| 204 | vantrilex-sales-outreach | Consultative B2B sales outreach specialist for cold prospecting, lead follow-up,… |  | `` |
+| 205 | vantrilex-salesforce-architect | Solution architecture for Salesforce platform — multi-cloud design, integratio… |  | `` |
+| 206 | vantrilex-search-query-analyst | Specialist in search term analysis, negative keyword architecture, and query-to-… |  | `` |
+| 207 | vantrilex-search-relevance-engineer | Expert search engineer for Elasticsearch and OpenSearch — index and analyzer d… |  | `` |
+| 208 | vantrilex-secrets-credential-hygiene-engineer | Owns the full lifecycle of secrets and credentials — detection, prevention, va… |  | `` |
+| 209 | vantrilex-section-508-accessibility-specialist | Expert U.S. federal Section 508 accessibility engineer (the 508 legal baseline i… |  | `` |
+| 210 | vantrilex-security-architect | Expert security architect specializing in threat modeling, secure-by-design arch… |  | `` |
+| 211 | vantrilex-security-reviewer | Security vulnerability detection and remediation specialist. Use PROACTIVELY aft… |  | `` |
+| 212 | vantrilex-senior-developer | Premium implementation specialist - Masters Laravel/Livewire/FluxUI, advanced CS… |  | `` |
+| 213 | vantrilex-senior-project-manager | Converts specs to tasks and remembers previous projects. Focused on realistic sc… |  | `` |
+| 214 | vantrilex-senior-secops-engineer | Defensive application security specialist who scans every code submission for se… |  | `` |
+| 215 | vantrilex-seo-specialist | Expert search engine optimization strategist specializing in technical SEO, cont… |  | `` |
+| 216 | vantrilex-short-video-editing-coach | Hands-on short-video editing coach covering the full post-production pipeline, w… |  | `` |
+| 217 | vantrilex-social-media-strategist | Expert social media strategist for LinkedIn, Twitter, and professional platforms… |  | `` |
+| 218 | vantrilex-software-architect | Expert software architect specializing in system design, domain-driven design, a… |  | `` |
+| 219 | vantrilex-solidity-smart-contract-engineer | Expert Solidity developer specializing in EVM smart contract architecture, gas o… |  | `` |
+| 220 | vantrilex-solution-engineer | Hands-on GIS prototype builder who takes strategy from Technical Consultant and … |  | `` |
+| 221 | vantrilex-sovereign-health-systems-agent | Government health mandate engagement framework for AI agents |  | `` |
+| 222 | vantrilex-spatial-data-engineer | ETL specialist who transforms messy geospatial data from any source into clean, … |  | `` |
+| 223 | vantrilex-spatial-data-scientist | Advanced spatial analytics specialist who applies statistical modeling, spatial … |  | `` |
+| 224 | vantrilex-sprint-prioritizer | Expert product manager specializing in agile sprint planning, feature prioritiza… |  | `` |
+| 225 | vantrilex-sre-site-reliability-engineer | Expert site reliability engineer specializing in SLOs, error budgets, observabil… |  | `` |
+| 226 | vantrilex-statistician | Expert in quantitative research methodology, experimental design, and statistica… |  | `` |
+| 227 | vantrilex-strategy-duel-agent | Conducts live strategy duels using game theory and the 36 Chinese stratagems |  | `` |
+| 228 | vantrilex-studio-operations | Expert operations manager specializing in day-to-day studio efficiency, process … |  | `` |
+| 229 | vantrilex-studio-producer | Senior strategic leader specializing in high-level creative and technical projec… |  | `` |
+| 230 | vantrilex-study-abroad-advisor | Full-spectrum study abroad planning expert covering the US, UK, Canada, Australi… |  | `` |
+| 231 | vantrilex-supply-chain-strategist | Expert supply chain management and procurement strategy specialist — skilled i… |  | `` |
+| 232 | vantrilex-support-responder | Expert customer support specialist delivering exceptional customer service, issu… |  | `` |
+| 233 | vantrilex-tax-strategist | Expert tax strategist specializing in tax optimization, multi-jurisdictional com… |  | `` |
+| 234 | vantrilex-tdd-guide | Test-Driven Development specialist enforcing write-tests-first methodology. Use … |  | `` |
+| 235 | vantrilex-technical-artist | Art-to-engine pipeline specialist - Masters shaders, VFX systems, LOD pipelines,… |  | `` |
+| 236 | vantrilex-technical-consultant | Strategic GIS advisor who translates business problems into geospatial solutions… |  | `` |
+| 237 | vantrilex-technical-writer | Expert technical writer specializing in developer documentation, API references,… |  | `` |
+| 238 | vantrilex-terminal-integration-specialist | Terminal emulation, text rendering optimization, and SwiftTerm integration for m… |  | `` |
+| 239 | vantrilex-test-automation-engineer | Expert end-to-end test automation engineer for Playwright and Cypress — resili… |  | `` |
+| 240 | vantrilex-test-results-analyzer | Expert test analysis specialist focused on comprehensive test result evaluation,… |  | `` |
+| 241 | vantrilex-threat-detection-engineer | Expert detection engineer specializing in SIEM rule development, MITRE ATT&CK co… |  | `` |
+| 242 | vantrilex-threat-intelligence-analyst | Cyber threat intelligence specialist who tracks adversary groups, maps attack ca… |  | `` |
+| 243 | vantrilex-tiktok-strategist | Expert TikTok marketing specialist focused on viral content creation, algorithm … |  | `` |
+| 244 | vantrilex-tool-evaluator | Expert technology assessment specialist focused on evaluating, testing, and reco… |  | `` |
+| 245 | vantrilex-tracking-measurement-specialist | Expert in conversion tracking architecture, tag management, and attribution mode… |  | `` |
+| 246 | vantrilex-trend-researcher | Expert market intelligence analyst specializing in identifying emerging trends, … |  | `` |
+| 247 | vantrilex-twitter-engager | Expert Twitter marketing specialist focused on real-time engagement, thought lea… |  | `` |
+| 248 | vantrilex-ui-designer-reg | Expert UI designer specializing in visual design systems, component libraries, a… |  | `` |
+| 249 | vantrilex-ui-finish-gate-reviewer | Product-interface reviewer who catches generic, interchangeable UI before it shi… |  | `` |
+| 250 | vantrilex-unity-architect | Data-driven modularity specialist - Masters ScriptableObjects, decoupled systems… |  | `` |
+| 251 | vantrilex-unity-editor-tool-developer | Unity editor automation specialist - Masters custom EditorWindows, PropertyDrawe… |  | `` |
+| 252 | vantrilex-unity-multiplayer-engineer | Networked gameplay specialist - Masters Netcode for GameObjects, Unity Gaming Se… |  | `` |
+| 253 | vantrilex-unity-shader-graph-artist | Visual effects and material specialist - Masters Unity Shader Graph, HLSL, URP/H… |  | `` |
+| 254 | vantrilex-unreal-multiplayer-architect | Unreal Engine networking specialist - Masters Actor replication, GameMode/GameSt… |  | `` |
+| 255 | vantrilex-unreal-systems-engineer | Performance and hybrid architecture specialist - Masters C++/Blueprint continuum… |  | `` |
+| 256 | vantrilex-unreal-technical-artist | Unreal Engine visual pipeline specialist - Masters the Material Editor, Niagara … |  | `` |
+| 257 | vantrilex-unreal-world-builder | Open-world and environment specialist - Masters UE5 World Partition, Landscape, … |  | `` |
+| 258 | vantrilex-uswds-developer | Expert U.S. Web Design System frontend developer specializing in USWDS component… |  | `` |
+| 259 | vantrilex-ux-architect | Technical architecture and UX specialist who provides developers with solid foun… |  | `` |
+| 260 | vantrilex-ux-researcher | Expert user experience researcher specializing in user behavior analysis, usabil… |  | `` |
+| 261 | vantrilex-video-optimization-specialist | Video marketing strategist specializing in YouTube algorithm optimization, audie… |  | `` |
+| 262 | vantrilex-video-streaming-engineer | Expert video streaming engineer for adaptive bitrate delivery — HLS/DASH packa… |  | `` |
+| 263 | vantrilex-visionos-spatial-engineer | Native visionOS spatial computing, SwiftUI volumetric interfaces, and Liquid Gla… |  | `` |
+| 264 | vantrilex-visual-storyteller | Expert visual communication specialist focused on creating compelling visual nar… |  | `` |
+| 265 | vantrilex-voice-ai-integration-engineer | Expert in building end-to-end speech transcription pipelines using Whisper-style… |  | `` |
+| 266 | vantrilex-web-gis-developer | Full-stack web GIS engineer who builds interactive mapping applications — MapL… |  | `` |
+| 267 | vantrilex-webassembly-engineer | Expert WebAssembly engineer — compiling Rust/C++/Go to Wasm, JS interop and th… |  | `` |
+| 268 | vantrilex-wechat-mini-program-developer | Expert WeChat Mini Program developer specializing in 小程序 development with … |  | `` |
+| 269 | vantrilex-wechat-official-account-manager | Expert WeChat Official Account (OA) strategist specializing in content marketing… |  | `` |
+| 270 | vantrilex-weibo-strategist | Full-spectrum operations expert for Sina Weibo, with deep expertise in trending … |  | `` |
+| 271 | vantrilex-whimsy-injector | Expert creative specialist focused on adding personality, delight, and playful e… |  | `` |
+| 272 | vantrilex-wordpress-performance-engineer | Expert WordPress performance engineer specializing in Core Web Vitals, object ca… |  | `` |
+| 273 | vantrilex-wordpress-shopping-cart-engineer | Expert WordPress e-commerce engineer specializing in WooCommerce for product cat… |  | `` |
+| 274 | vantrilex-workflow-architect | Workflow design specialist who maps complete workflow trees for every system, us… |  | `` |
+| 275 | vantrilex-workflow-optimizer | Expert process improvement specialist focused on analyzing, optimizing, and auto… |  | `` |
+| 276 | vantrilex-x-twitter-intelligence-analyst | Social intelligence specialist for X/Twitter research, trend detection, account … |  | `` |
+| 277 | vantrilex-xiaohongshu-specialist | Expert Xiaohongshu marketing specialist focused on lifestyle content, trend-driv… |  | `` |
+| 278 | vantrilex-xr-cockpit-interaction-specialist | Specialist in designing and developing immersive cockpit-based control systems f… |  | `` |
+| 279 | vantrilex-xr-immersive-developer | Expert WebXR and immersive technology developer with specialization in browser-b… |  | `` |
+| 280 | vantrilex-xr-interface-architect | Spatial interaction designer and interface strategist for immersive AR/VR/XR env… |  | `` |
+| 281 | vantrilex-zhihu-strategist | Expert Zhihu marketing specialist focused on thought leadership, community credi… |  | `` |
+| 282 | vantrilex-zk-steward | Knowledge-base steward in the spirit of Niklas Luhmann's Zettelkasten. Default p… |  | `` |
+| 283 | vantrilex-red-team | Adversarial attacker that tries to break a plan, design, or diff before it ships… | 3mar-baha/vantrilex-arsenal | `` |
+| 284 | vantrilex-a11y-audit | Accessibility auditing agent from rksekar5/a11y-audit (MIT, 1 star, last push 20… | rksekar5/a11y-audit | `` |
 | 285 | vantrilex-typescript | Strict TypeScript specialist that masters advanced types and enterprise-grade… | 3mar-baha/vantrilex-arsenal | `` |
 | 286 | vantrilex-python | Builds type-safe production Python with ruff, uv, and pytest; use when Python… | 3mar-baha/vantrilex-arsenal | `` |
 | 287 | vantrilex-fixer | Diagnoses and repairs defects with reproduce-first debugging; use when a build… | 3mar-baha/vantrilex-arsenal | `` |

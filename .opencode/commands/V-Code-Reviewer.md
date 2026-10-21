@@ -20,7 +20,7 @@ question, answer from the definition file only.
 
 ## Step 1 - Read the definition
 
-Answer only from `.opencode/agents/code-reviewer.md`, quoted — never
+Answer only from `.opencode/agents/vantrilex-code-reviewer.md`, quoted — never
 from memory. Name the file and the section that answers the question.
 A claim without a `file:line` citation is not an answer.
 
@@ -48,7 +48,7 @@ Side agents never switch sessions; only leaders switch — dispatch through the 
 Print, in this order:
 
 1. **Answer** — the quoted definition text that answers the question.
-2. **Source** — `.opencode/agents/code-reviewer.md` with the section
+2. **Source** — `.opencode/agents/vantrilex-code-reviewer.md` with the section
    name.
 3. **Reminders** — no switch happened, no theme was applied, no work
    executed.

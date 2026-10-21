@@ -79,8 +79,8 @@ tests; categorise failures as fix-related, pre-existing, flaky or env;
 write TEST_REPORT.md), T2-07 obra/superpowers (requesting-code-review and
 verification-before-completion: verify before declaring success). Method
 debts to the kit's own reviewers, both read from disk:
-`.opencode/agents/code-reviewer.md` (evidence first, analysis labelled;
-recommend, never move the gate) and `.opencode/agents/red-team.md`
+`.opencode/agents/vantrilex-code-reviewer.md` (evidence first, analysis labelled;
+recommend, never move the gate) and `.opencode/agents/vantrilex-red-team.md`
 (every finding carries its triggering path; a claim without evidence is a
 hunch and is labelled one). Order-spec source: `RESEARCH-03.md` R0d
 Verifier row (<https://github.com/microsoft/playwright>).

@@ -4,7 +4,7 @@
   "catalog_version": 3,
   "counts": {
     "skill": 1505,
-    "mcp": 907,
+    "mcp": 923,
     "plugin": 11,
     "hook": 20,
     "agent": 301,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2915
+    "total": 2931
   },
   "components": [
     {
@@ -40462,6 +40462,25 @@
       "default_selected": false
     },
     {
+      "id": "brave",
+      "name": "brave",
+      "kind": "mcp",
+      "description": "search PRIMARY",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "brave-search",
       "name": "brave-search",
       "kind": "mcp",
@@ -40500,6 +40519,25 @@
       "when_to_use": null,
       "phase": null,
       "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "browserbase",
+      "name": "browserbase",
+      "kind": "mcp",
+      "description": "cloud-browser",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -41056,6 +41094,25 @@
       "default_selected": false
     },
     {
+      "id": "cloudflare",
+      "name": "cloudflare",
+      "kind": "mcp",
+      "description": "hosting FALLBACK",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "cmcgrabby-hue-syndicate-links",
       "name": "cmcgrabby-hue/syndicate-links",
       "kind": "mcp",
@@ -41183,6 +41240,25 @@
       "cost_note": null,
       "verification": "verified",
       "default_selected": true
+    },
+    {
+      "id": "context7-mcp",
+      "name": "context7-mcp",
+      "kind": "mcp",
+      "description": "library-docs (upstash/context7-mcp)",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
     },
     {
       "id": "contextium-io-contextium-mcp-server",
@@ -41471,6 +41547,25 @@
       "default_selected": false
     },
     {
+      "id": "deepwiki",
+      "name": "deepwiki",
+      "kind": "mcp",
+      "description": "repo-intelligence",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "deficlow-hyperstore-mcp",
       "name": "deficlow/HyperStore-MCP",
       "kind": "mcp",
@@ -41685,6 +41780,25 @@
       "when_to_use": null,
       "phase": null,
       "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "discord",
+      "name": "discord",
+      "kind": "mcp",
+      "description": "comms FALLBACK",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -42461,6 +42575,25 @@
       "default_selected": false
     },
     {
+      "id": "exa",
+      "name": "exa",
+      "kind": "mcp",
+      "description": "search FALLBACK",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "extentos-mcp-server",
       "name": "extentos/mcp-server",
       "kind": "mcp",
@@ -42653,6 +42786,25 @@
       "when_to_use": null,
       "phase": null,
       "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "figma-context-mcp",
+      "name": "figma-context-mcp",
+      "kind": "mcp",
+      "description": "Figma layout (@Zwe1/figma-context-mcp)",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -43316,6 +43468,25 @@
       "default_selected": false
     },
     {
+      "id": "gmail",
+      "name": "gmail",
+      "kind": "mcp",
+      "description": "email",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "gofrantic-frantic-mcp",
       "name": "gofrantic/frantic-mcp",
       "kind": "mcp",
@@ -43442,6 +43613,25 @@
       "when_to_use": null,
       "phase": null,
       "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "googledrive",
+      "name": "googledrive",
+      "kind": "mcp",
+      "description": "Drive",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -46639,6 +46829,25 @@
       "default_selected": false
     },
     {
+      "id": "mem0-memory-mcp",
+      "name": "mem0-memory-mcp",
+      "kind": "mcp",
+      "description": "persistent-memory (mem0ai/mem0-memory-mcp)",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "memebo-at-memeboat-mcp",
       "name": "memebo-at/memeboat-mcp",
       "kind": "mcp",
@@ -47563,6 +47772,25 @@
       "default_selected": false
     },
     {
+      "id": "neon",
+      "name": "neon",
+      "kind": "mcp",
+      "description": "serverless-Postgres PRIMARY",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "newageflyfish-max-volthq",
       "name": "newageflyfish-max/volthq",
       "kind": "mcp",
@@ -47995,8 +48223,8 @@
         "notes"
       ],
       "when_to_use": null,
-      "phase": null,
-      "tier": null,
+      "phase": "scout",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -49149,6 +49377,25 @@
       "default_selected": false
     },
     {
+      "id": "reference-sequential",
+      "name": "reference-sequential",
+      "kind": "mcp",
+      "description": "sequential-thinking (kiennd/reference-servers)",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "rejifald-stitchapi",
       "name": "rejifald/StitchAPI",
       "kind": "mcp",
@@ -50197,8 +50444,8 @@
         "comms"
       ],
       "when_to_use": null,
-      "phase": null,
-      "tier": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -51107,6 +51354,25 @@
       "default_selected": false
     },
     {
+      "id": "steadyfetch",
+      "name": "steadyfetch",
+      "kind": "mcp",
+      "description": "fast-fetch (intake-triage/steadyfetch)",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "stevejford-shiply-mcp",
       "name": "stevejford/shiply-mcp",
       "kind": "mcp",
@@ -51165,8 +51431,8 @@
         "finance"
       ],
       "when_to_use": null,
-      "phase": null,
-      "tier": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -51233,6 +51499,25 @@
       "when_to_use": null,
       "phase": null,
       "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "supabase",
+      "name": "supabase",
+      "kind": "mcp",
+      "description": "Postgres FALLBACK",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -52311,6 +52596,25 @@
       "when_to_use": null,
       "phase": null,
       "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vercel",
+      "name": "vercel",
+      "kind": "mcp",
+      "description": "hosting PRIMARY",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "unverified",
@@ -53699,7 +54003,7 @@
       "default_selected": false
     },
     {
-      "id": "3d-scene-developer",
+      "id": "vantrilex-3d-scene-developer",
       "name": "3D & Scene Developer",
       "kind": "agent",
       "description": "Web 3D visualization specialist who creates immersive 3D scenes, terrain models,…",
@@ -53720,7 +54024,7 @@
       "default_selected": false
     },
     {
-      "id": "aeo-foundations-architect",
+      "id": "vantrilex-aeo-foundations-architect",
       "name": "AEO Foundations Architect",
       "kind": "agent",
       "description": "Expert in AI Engine Optimization infrastructure — implements llms.txt, AI-awar…",
@@ -53741,7 +54045,7 @@
       "default_selected": false
     },
     {
-      "id": "ai-citation-strategist",
+      "id": "vantrilex-ai-citation-strategist",
       "name": "AI Citation Strategist",
       "kind": "agent",
       "description": "Expert in AI recommendation engine optimization (AEO/GEO) — audits brand visib…",
@@ -53762,7 +54066,7 @@
       "default_selected": false
     },
     {
-      "id": "ai-data-remediation-engineer",
+      "id": "vantrilex-ai-data-remediation-engineer",
       "name": "AI Data Remediation Engineer",
       "kind": "agent",
       "description": "Specialist in self-healing data pipelines — uses air-gapped local SLMs and sem…",
@@ -53783,7 +54087,7 @@
       "default_selected": false
     },
     {
-      "id": "ai-engineer",
+      "id": "vantrilex-ai-engineer",
       "name": "AI Engineer",
       "kind": "agent",
       "description": "Expert AI/ML engineer specializing in machine learning model development, deploy…",
@@ -53804,7 +54108,7 @@
       "default_selected": false
     },
     {
-      "id": "ai-generated-code-security-auditor",
+      "id": "vantrilex-ai-generated-code-security-auditor",
       "name": "AI-Generated Code Security Auditor",
       "kind": "agent",
       "description": "Security reviewer for AI-generated and vibe-coded apps — hunts the hardcoded s…",
@@ -53825,7 +54129,7 @@
       "default_selected": false
     },
     {
-      "id": "api-platform-engineer",
+      "id": "vantrilex-api-platform-engineer",
       "name": "API Platform Engineer",
       "kind": "agent",
       "description": "Expert API platform engineer for public and partner APIs — contract-first desi…",
@@ -53846,7 +54150,7 @@
       "default_selected": false
     },
     {
-      "id": "api-tester",
+      "id": "vantrilex-api-tester",
       "name": "API Tester",
       "kind": "agent",
       "description": "Expert API testing specialist focused on comprehensive API validation, performan…",
@@ -53867,7 +54171,7 @@
       "default_selected": false
     },
     {
-      "id": "accessibility-auditor",
+      "id": "vantrilex-accessibility-auditor",
       "name": "Accessibility Auditor",
       "kind": "agent",
       "description": "Expert accessibility specialist who audits interfaces against WCAG standards, te…",
@@ -53888,7 +54192,7 @@
       "default_selected": false
     },
     {
-      "id": "account-strategist",
+      "id": "vantrilex-account-strategist",
       "name": "Account Strategist",
       "kind": "agent",
       "description": "Expert post-sale account strategist specializing in land-and-expand execution, s…",
@@ -53909,7 +54213,7 @@
       "default_selected": false
     },
     {
-      "id": "accounts-payable-agent",
+      "id": "vantrilex-accounts-payable-agent",
       "name": "Accounts Payable Agent",
       "kind": "agent",
       "description": "Autonomous payment processing specialist that executes vendor payments, contract…",
@@ -53930,7 +54234,7 @@
       "default_selected": false
     },
     {
-      "id": "ad-creative-strategist",
+      "id": "vantrilex-ad-creative-strategist",
       "name": "Ad Creative Strategist",
       "kind": "agent",
       "description": "Paid media creative specialist focused on ad copywriting, RSA optimization, asse…",
@@ -53951,7 +54255,7 @@
       "default_selected": false
     },
     {
-      "id": "agentic-identity-trust-architect",
+      "id": "vantrilex-agentic-identity-trust-architect",
       "name": "Agentic Identity & Trust Architect",
       "kind": "agent",
       "description": "Designs identity, authentication, and trust verification systems for autonomous …",
@@ -53972,7 +54276,7 @@
       "default_selected": false
     },
     {
-      "id": "agentic-search-optimizer",
+      "id": "vantrilex-agentic-search-optimizer",
       "name": "Agentic Search Optimizer",
       "kind": "agent",
       "description": "Expert in WebMCP readiness and agentic task completion — audits whether AI age…",
@@ -53993,7 +54297,7 @@
       "default_selected": false
     },
     {
-      "id": "agents-orchestrator",
+      "id": "vantrilex-agents-orchestrator",
       "name": "Agents Orchestrator",
       "kind": "agent",
       "description": "Autonomous pipeline manager that orchestrates the entire development workflow. Y…",
@@ -54014,7 +54318,7 @@
       "default_selected": false
     },
     {
-      "id": "aging-parent-care-companion",
+      "id": "vantrilex-aging-parent-care-companion",
       "name": "Aging Parent Care Companion",
       "kind": "agent",
       "description": "Compassionate, HIPAA-aligned care coordination and decision-support agent for fa…",
@@ -54035,7 +54339,7 @@
       "default_selected": false
     },
     {
-      "id": "analytics-reporter",
+      "id": "vantrilex-analytics-reporter",
       "name": "Analytics Reporter",
       "kind": "agent",
       "description": "Expert data analyst transforming raw data into actionable business insights. Cre…",
@@ -54056,7 +54360,7 @@
       "default_selected": false
     },
     {
-      "id": "anthropologist",
+      "id": "vantrilex-anthropologist",
       "name": "Anthropologist",
       "kind": "agent",
       "description": "Expert in cultural systems, rituals, kinship, belief systems, and ethnographic m…",
@@ -54077,7 +54381,7 @@
       "default_selected": false
     },
     {
-      "id": "app-store-optimizer",
+      "id": "vantrilex-app-store-optimizer",
       "name": "App Store Optimizer",
       "kind": "agent",
       "description": "Expert app store marketing specialist focused on App Store Optimization (ASO), c…",
@@ -54098,7 +54402,7 @@
       "default_selected": false
     },
     {
-      "id": "application-security-engineer",
+      "id": "vantrilex-application-security-engineer",
       "name": "Application Security Engineer",
       "kind": "agent",
       "description": "AppSec specialist who secures the software development lifecycle through threat …",
@@ -54119,7 +54423,7 @@
       "default_selected": false
     },
     {
-      "id": "automation-governance-architect",
+      "id": "vantrilex-automation-governance-architect",
       "name": "Automation Governance Architect",
       "kind": "agent",
       "description": "Governance-first architect for business automations (n8n-first) who audits value…",
@@ -54140,7 +54444,7 @@
       "default_selected": false
     },
     {
-      "id": "autonomous-optimization-architect",
+      "id": "vantrilex-autonomous-optimization-architect",
       "name": "Autonomous Optimization Architect",
       "kind": "agent",
       "description": "Intelligent system governor that continuously shadow-tests APIs for performance …",
@@ -54161,7 +54465,7 @@
       "default_selected": false
     },
     {
-      "id": "bim-gis-specialist",
+      "id": "vantrilex-bim-gis-specialist",
       "name": "BIM/GIS Specialist",
       "kind": "agent",
       "description": "Integration specialist who bridges Building Information Modeling and Geographic …",
@@ -54182,7 +54486,7 @@
       "default_selected": false
     },
     {
-      "id": "backend-architect",
+      "id": "vantrilex-backend-architect",
       "name": "Backend Architect",
       "kind": "agent",
       "description": "Senior backend architect specializing in scalable system design, database archit…",
@@ -54203,7 +54507,7 @@
       "default_selected": false
     },
     {
-      "id": "baidu-seo-specialist",
+      "id": "vantrilex-baidu-seo-specialist",
       "name": "Baidu SEO Specialist",
       "kind": "agent",
       "description": "Expert Baidu search optimization specialist focused on Chinese search engine ran…",
@@ -54224,7 +54528,7 @@
       "default_selected": false
     },
     {
-      "id": "behavioral-nudge-engine",
+      "id": "vantrilex-behavioral-nudge-engine",
       "name": "Behavioral Nudge Engine",
       "kind": "agent",
       "description": "Behavioral psychology specialist that adapts software interaction cadences and s…",
@@ -54245,7 +54549,7 @@
       "default_selected": false
     },
     {
-      "id": "bilibili-content-strategist",
+      "id": "vantrilex-bilibili-content-strategist",
       "name": "Bilibili Content Strategist",
       "kind": "agent",
       "description": "Expert Bilibili marketing specialist focused on UP主 growth, danmaku culture ma…",
@@ -54266,7 +54570,7 @@
       "default_selected": false
     },
     {
-      "id": "blender-add-on-engineer",
+      "id": "vantrilex-blender-add-on-engineer",
       "name": "Blender Add-on Engineer",
       "kind": "agent",
       "description": "Blender tooling specialist - Builds Python add-ons, asset validators, exporters,…",
@@ -54287,7 +54591,7 @@
       "default_selected": false
     },
     {
-      "id": "blockchain-security-auditor",
+      "id": "vantrilex-blockchain-security-auditor",
       "name": "Blockchain Security Auditor",
       "kind": "agent",
       "description": "Expert smart contract security auditor specializing in vulnerability detection, …",
@@ -54308,7 +54612,7 @@
       "default_selected": false
     },
     {
-      "id": "book-co-author",
+      "id": "vantrilex-book-co-author",
       "name": "Book Co-Author",
       "kind": "agent",
       "description": "Strategic thought-leadership book collaborator for founders, experts, and operat…",
@@ -54329,7 +54633,7 @@
       "default_selected": false
     },
     {
-      "id": "bookkeeper-controller",
+      "id": "vantrilex-bookkeeper-controller",
       "name": "Bookkeeper & Controller",
       "kind": "agent",
       "description": "Expert bookkeeper and controller specializing in day-to-day accounting operation…",
@@ -54350,7 +54654,7 @@
       "default_selected": false
     },
     {
-      "id": "brand-guardian",
+      "id": "vantrilex-brand-guardian",
       "name": "Brand Guardian",
       "kind": "agent",
       "description": "Expert brand strategist and guardian specializing in brand identity development,…",
@@ -54371,7 +54675,7 @@
       "default_selected": false
     },
     {
-      "id": "business-strategist",
+      "id": "vantrilex-business-strategist",
       "name": "Business Strategist",
       "kind": "agent",
       "description": "Senior management consulting specialist for competitive analysis, market entry s…",
@@ -54392,7 +54696,7 @@
       "default_selected": false
     },
     {
-      "id": "cms-developer",
+      "id": "vantrilex-cms-developer",
       "name": "CMS Developer",
       "kind": "agent",
       "description": "Drupal and WordPress specialist for theme development, custom plugins/modules, c…",
@@ -54413,7 +54717,7 @@
       "default_selected": false
     },
     {
-      "id": "carousel-growth-engine",
+      "id": "vantrilex-carousel-growth-engine",
       "name": "Carousel Growth Engine",
       "kind": "agent",
       "description": "Autonomous TikTok and Instagram carousel generation specialist. Analyzes any web…",
@@ -54434,7 +54738,7 @@
       "default_selected": false
     },
     {
-      "id": "cartography-designer",
+      "id": "vantrilex-cartography-designer",
       "name": "Cartography Designer",
       "kind": "agent",
       "description": "Map aesthetics specialist who designs beautiful, readable, and effective maps — …",
@@ -54455,7 +54759,7 @@
       "default_selected": false
     },
     {
-      "id": "change-management-consultant",
+      "id": "vantrilex-change-management-consultant",
       "name": "Change Management Consultant",
       "kind": "agent",
       "description": "Expert change management specialist using ADKAR, Kotter, and Prosci frameworks t…",
@@ -54476,7 +54780,7 @@
       "default_selected": false
     },
     {
-      "id": "chief-financial-officer",
+      "id": "vantrilex-chief-financial-officer",
       "name": "Chief Financial Officer",
       "kind": "agent",
       "description": "Strategic finance executive who governs capital allocation, treasury operations,…",
@@ -54497,7 +54801,7 @@
       "default_selected": false
     },
     {
-      "id": "chief-of-staff",
+      "id": "vantrilex-chief-of-staff",
       "name": "Chief of Staff",
       "kind": "agent",
       "description": "Master coordinator for founders and executives — filters noise, owns processes…",
@@ -54518,7 +54822,7 @@
       "default_selected": false
     },
     {
-      "id": "china-e-commerce-operator",
+      "id": "vantrilex-china-e-commerce-operator",
       "name": "China E-Commerce Operator",
       "kind": "agent",
       "description": "Expert China e-commerce operations specialist covering Taobao, Tmall, Pinduoduo,…",
@@ -54539,7 +54843,7 @@
       "default_selected": false
     },
     {
-      "id": "china-market-localization-strategist",
+      "id": "vantrilex-china-market-localization-strategist",
       "name": "China Market Localization Strategist",
       "kind": "agent",
       "description": "Full-stack China market localization expert who transforms real-time trend signa…",
@@ -54560,7 +54864,7 @@
       "default_selected": false
     },
     {
-      "id": "civil-engineer",
+      "id": "vantrilex-civil-engineer",
       "name": "Civil Engineer",
       "kind": "agent",
       "description": "Expert civil and structural engineer with global standards coverage — Eurocode…",
@@ -54581,7 +54885,7 @@
       "default_selected": false
     },
     {
-      "id": "clinical-evidence-agent",
+      "id": "vantrilex-clinical-evidence-agent",
       "name": "Clinical Evidence Agent",
       "kind": "agent",
       "description": "Evidence standards and clinical credibility framework for AI agents",
@@ -54602,7 +54906,7 @@
       "default_selected": false
     },
     {
-      "id": "cloud-security-architect",
+      "id": "vantrilex-cloud-security-architect",
       "name": "Cloud Security Architect",
       "kind": "agent",
       "description": "Cloud-native security specialist designing zero trust architectures, implementin…",
@@ -54623,7 +54927,7 @@
       "default_selected": false
     },
     {
-      "id": "code-reviewer",
+      "id": "vantrilex-code-reviewer",
       "name": "Code Reviewer",
       "kind": "agent",
       "description": "Expert code reviewer who provides constructive, actionable feedback focused on c…",
@@ -54644,7 +54948,7 @@
       "default_selected": false
     },
     {
-      "id": "codebase-archaeologist",
+      "id": "vantrilex-codebase-archaeologist",
       "name": "Codebase Archaeologist",
       "kind": "agent",
       "description": "Multi-session, multi-tool drift detection specialist who audits codebases touche…",
@@ -54665,7 +54969,7 @@
       "default_selected": false
     },
     {
-      "id": "codebase-onboarding-engineer",
+      "id": "vantrilex-codebase-onboarding-engineer",
       "name": "Codebase Onboarding Engineer",
       "kind": "agent",
       "description": "Expert developer onboarding specialist who helps new engineers understand unfami…",
@@ -54686,7 +54990,7 @@
       "default_selected": false
     },
     {
-      "id": "compliance-auditor",
+      "id": "vantrilex-compliance-auditor",
       "name": "Compliance Auditor",
       "kind": "agent",
       "description": "Expert technical compliance auditor specializing in SOC 2, ISO 27001, HIPAA, and…",
@@ -54707,7 +55011,7 @@
       "default_selected": false
     },
     {
-      "id": "content-creator",
+      "id": "vantrilex-content-creator",
       "name": "Content Creator",
       "kind": "agent",
       "description": "Expert content strategist and creator for multi-platform campaigns. Develops edi…",
@@ -54728,7 +55032,7 @@
       "default_selected": false
     },
     {
-      "id": "corporate-training-designer",
+      "id": "vantrilex-corporate-training-designer",
       "name": "Corporate Training Designer",
       "kind": "agent",
       "description": "Expert in enterprise training system design and curriculum development — profi…",
@@ -54749,7 +55053,7 @@
       "default_selected": false
     },
     {
-      "id": "cross-border-e-commerce-specialist",
+      "id": "vantrilex-cross-border-e-commerce-specialist",
       "name": "Cross-Border E-Commerce Specialist",
       "kind": "agent",
       "description": "Full-funnel cross-border e-commerce strategist covering Amazon, Shopee, Lazada, …",
@@ -54770,7 +55074,7 @@
       "default_selected": false
     },
     {
-      "id": "cultural-intelligence-strategist",
+      "id": "vantrilex-cultural-intelligence-strategist",
       "name": "Cultural Intelligence Strategist",
       "kind": "agent",
       "description": "CQ specialist that detects invisible exclusion, researches global context, and e…",
@@ -54791,7 +55095,7 @@
       "default_selected": false
     },
     {
-      "id": "customer-service",
+      "id": "vantrilex-customer-service",
       "name": "Customer Service",
       "kind": "agent",
       "description": "Friendly, professional customer service specialist for any industry — handling…",
@@ -54812,7 +55116,7 @@
       "default_selected": false
     },
     {
-      "id": "customer-success-manager",
+      "id": "vantrilex-customer-success-manager",
       "name": "Customer Success Manager",
       "kind": "agent",
       "description": "Strategic customer success specialist for onboarding, health scoring, QBR facili…",
@@ -54833,7 +55137,7 @@
       "default_selected": false
     },
     {
-      "id": "data-consolidation-agent",
+      "id": "vantrilex-data-consolidation-agent",
       "name": "Data Consolidation Agent",
       "kind": "agent",
       "description": "AI agent that consolidates extracted sales data into live reporting dashboards w…",
@@ -54854,7 +55158,7 @@
       "default_selected": false
     },
     {
-      "id": "data-engineer",
+      "id": "vantrilex-data-engineer",
       "name": "Data Engineer",
       "kind": "agent",
       "description": "Expert data engineer specializing in building reliable data pipelines, lakehouse…",
@@ -54875,7 +55179,7 @@
       "default_selected": false
     },
     {
-      "id": "data-privacy-officer",
+      "id": "vantrilex-data-privacy-officer",
       "name": "Data Privacy Officer",
       "kind": "agent",
       "description": "Corporate data privacy specialist and DPO who builds GDPR, CCPA, and global priv…",
@@ -54896,7 +55200,7 @@
       "default_selected": false
     },
     {
-      "id": "data-visualization-engineer",
+      "id": "vantrilex-data-visualization-engineer",
       "name": "Data Visualization Engineer",
       "kind": "agent",
       "description": "Expert data visualization engineer — chart-type selection by data and question…",
@@ -54917,7 +55221,7 @@
       "default_selected": false
     },
     {
-      "id": "database-optimizer",
+      "id": "vantrilex-database-optimizer",
       "name": "Database Optimizer",
       "kind": "agent",
       "description": "Expert database specialist focusing on schema design, query optimization, indexi…",
@@ -54938,7 +55242,7 @@
       "default_selected": false
     },
     {
-      "id": "database-reliability-engineer",
+      "id": "vantrilex-database-reliability-engineer",
       "name": "Database Reliability Engineer",
       "kind": "agent",
       "description": "Expert database reliability engineer (DBRE) — high availability and replicatio…",
@@ -54959,7 +55263,7 @@
       "default_selected": false
     },
     {
-      "id": "deal-strategist",
+      "id": "vantrilex-deal-strategist",
       "name": "Deal Strategist",
       "kind": "agent",
       "description": "Senior deal strategist specializing in MEDDPICC qualification, competitive posit…",
@@ -54980,7 +55284,7 @@
       "default_selected": false
     },
     {
-      "id": "desktop-app-engineer",
+      "id": "vantrilex-desktop-app-engineer",
       "name": "Desktop App Engineer",
       "kind": "agent",
       "description": "Expert desktop application engineer for Electron and Tauri — secure IPC and pr…",
@@ -55001,7 +55305,7 @@
       "default_selected": false
     },
     {
-      "id": "devops-automator",
+      "id": "vantrilex-devops-automator",
       "name": "DevOps Automator",
       "kind": "agent",
       "description": "Expert DevOps engineer specializing in infrastructure automation, CI/CD pipeline…",
@@ -55022,7 +55326,7 @@
       "default_selected": false
     },
     {
-      "id": "developer-advocate",
+      "id": "vantrilex-developer-advocate",
       "name": "Developer Advocate",
       "kind": "agent",
       "description": "Expert developer advocate specializing in building developer communities, creati…",
@@ -55043,7 +55347,7 @@
       "default_selected": false
     },
     {
-      "id": "developer-tooling-engineer",
+      "id": "vantrilex-developer-tooling-engineer",
       "name": "Developer Tooling Engineer",
       "kind": "agent",
       "description": "Expert developer-tooling and CLI engineer — building command-line tools and in…",
@@ -55064,7 +55368,7 @@
       "default_selected": false
     },
     {
-      "id": "discovery-coach",
+      "id": "vantrilex-discovery-coach",
       "name": "Discovery Coach",
       "kind": "agent",
       "description": "Coaches sales teams on elite discovery methodology — question design, current-…",
@@ -55085,7 +55389,7 @@
       "default_selected": false
     },
     {
-      "id": "document-generator",
+      "id": "vantrilex-document-generator",
       "name": "Document Generator",
       "kind": "agent",
       "description": "Expert document creation specialist who generates professional PDF, PPTX, DOCX, …",
@@ -55106,7 +55410,7 @@
       "default_selected": false
     },
     {
-      "id": "douyin-strategist",
+      "id": "vantrilex-douyin-strategist",
       "name": "Douyin Strategist",
       "kind": "agent",
       "description": "Short-video marketing expert specializing in the Douyin platform, with deep expe…",
@@ -55127,7 +55431,7 @@
       "default_selected": false
     },
     {
-      "id": "drone-reality-mapping-specialist",
+      "id": "vantrilex-drone-reality-mapping-specialist",
       "name": "Drone/Reality Mapping Specialist",
       "kind": "agent",
       "description": "Photogrammetry and reality capture expert who processes drone imagery into ortho…",
@@ -55148,7 +55452,7 @@
       "default_selected": false
     },
     {
-      "id": "drupal-performance-engineer",
+      "id": "vantrilex-drupal-performance-engineer",
       "name": "Drupal Performance Engineer",
       "kind": "agent",
       "description": "Expert Drupal 10/11 performance engineer specializing in Core Web Vitals, render…",
@@ -55169,7 +55473,7 @@
       "default_selected": false
     },
     {
-      "id": "drupal-shopping-cart-engineer",
+      "id": "vantrilex-drupal-shopping-cart-engineer",
       "name": "Drupal Shopping Cart Engineer",
       "kind": "agent",
       "description": "Expert Drupal e-commerce engineer specializing in Drupal Commerce for product ca…",
@@ -55190,7 +55494,7 @@
       "default_selected": false
     },
     {
-      "id": "esg-sustainability-officer",
+      "id": "vantrilex-esg-sustainability-officer",
       "name": "ESG & Sustainability Officer",
       "kind": "agent",
       "description": "Corporate sustainability strategist and ESG reporting specialist who builds envi…",
@@ -55211,7 +55515,7 @@
       "default_selected": false
     },
     {
-      "id": "economy-designer",
+      "id": "vantrilex-economy-designer",
       "name": "Economy Designer",
       "kind": "agent",
       "description": "Virtual economy architect - Masters currency systems, sources and sinks, monetiz…",
@@ -55232,7 +55536,7 @@
       "default_selected": false
     },
     {
-      "id": "email-intelligence-engineer",
+      "id": "vantrilex-email-intelligence-engineer",
       "name": "Email Intelligence Engineer",
       "kind": "agent",
       "description": "Expert in extracting structured, reasoning-ready data from raw email threads for…",
@@ -55253,7 +55557,7 @@
       "default_selected": false
     },
     {
-      "id": "email-marketing-strategist",
+      "id": "vantrilex-email-marketing-strategist",
       "name": "Email Marketing Strategist",
       "kind": "agent",
       "description": "Expert email marketing strategist for CRM-driven campaigns, lifecycle automation…",
@@ -55274,7 +55578,7 @@
       "default_selected": false
     },
     {
-      "id": "embedded-firmware-engineer",
+      "id": "vantrilex-embedded-firmware-engineer",
       "name": "Embedded Firmware Engineer",
       "kind": "agent",
       "description": "Specialist in bare-metal and RTOS firmware - ESP32/ESP-IDF, PlatformIO, Arduino,…",
@@ -55295,7 +55599,7 @@
       "default_selected": false
     },
     {
-      "id": "evidence-collector",
+      "id": "vantrilex-evidence-collector",
       "name": "Evidence Collector",
       "kind": "agent",
       "description": "Screenshot-obsessed, fantasy-allergic QA specialist - Default to finding 3-5 iss…",
@@ -55316,7 +55620,7 @@
       "default_selected": false
     },
     {
-      "id": "executive-summary-generator",
+      "id": "vantrilex-executive-summary-generator",
       "name": "Executive Summary Generator",
       "kind": "agent",
       "description": "Consultant-grade AI specialist trained to think and communicate like a senior st…",
@@ -55337,7 +55641,7 @@
       "default_selected": false
     },
     {
-      "id": "experiment-tracker",
+      "id": "vantrilex-experiment-tracker",
       "name": "Experiment Tracker",
       "kind": "agent",
       "description": "Expert project manager specializing in experiment design, execution tracking, an…",
@@ -55358,7 +55662,7 @@
       "default_selected": false
     },
     {
-      "id": "fp-a-analyst",
+      "id": "vantrilex-fp-a-analyst",
       "name": "FP&A Analyst",
       "kind": "agent",
       "description": "Expert Financial Planning & Analysis (FP&A) analyst specializing in budgeting, v…",
@@ -55379,7 +55683,7 @@
       "default_selected": false
     },
     {
-      "id": "fedramp-rmf-compliance-engineer",
+      "id": "vantrilex-fedramp-rmf-compliance-engineer",
       "name": "FedRAMP & RMF Compliance Engineer",
       "kind": "agent",
       "description": "Expert FedRAMP and NIST Risk Management Framework compliance engineer specializi…",
@@ -55400,7 +55704,7 @@
       "default_selected": false
     },
     {
-      "id": "feedback-synthesizer",
+      "id": "vantrilex-feedback-synthesizer",
       "name": "Feedback Synthesizer",
       "kind": "agent",
       "description": "Expert in collecting, analyzing, and synthesizing user feedback from multiple ch…",
@@ -55421,7 +55725,7 @@
       "default_selected": false
     },
     {
-      "id": "feishu-integration-developer",
+      "id": "vantrilex-feishu-integration-developer",
       "name": "Feishu Integration Developer",
       "kind": "agent",
       "description": "Full-stack integration expert specializing in the Feishu (Lark) Open Platform — …",
@@ -55442,7 +55746,7 @@
       "default_selected": false
     },
     {
-      "id": "filament-optimization-specialist",
+      "id": "vantrilex-filament-optimization-specialist",
       "name": "Filament Optimization Specialist",
       "kind": "agent",
       "description": "Expert in restructuring and optimizing Filament PHP admin interfaces for maximum…",
@@ -55463,7 +55767,7 @@
       "default_selected": false
     },
     {
-      "id": "finops-engineer",
+      "id": "vantrilex-finops-engineer",
       "name": "FinOps Engineer",
       "kind": "agent",
       "description": "Expert cloud cost engineer for AWS/GCP/Azure — cost allocation and tagging, ri…",
@@ -55484,7 +55788,7 @@
       "default_selected": false
     },
     {
-      "id": "finance-tracker",
+      "id": "vantrilex-finance-tracker",
       "name": "Finance Tracker",
       "kind": "agent",
       "description": "Expert financial analyst and controller specializing in financial planning, budg…",
@@ -55505,7 +55809,7 @@
       "default_selected": false
     },
     {
-      "id": "financial-analyst",
+      "id": "vantrilex-financial-analyst",
       "name": "Financial Analyst",
       "kind": "agent",
       "description": "Expert financial analyst specializing in financial modeling, forecasting, scenar…",
@@ -55526,7 +55830,7 @@
       "default_selected": false
     },
     {
-      "id": "french-consulting-market-navigator",
+      "id": "vantrilex-french-consulting-market-navigator",
       "name": "French Consulting Market Navigator",
       "kind": "agent",
       "description": "Navigate the French ESN/SI freelance ecosystem — margin models, platform mecha…",
@@ -55547,7 +55851,7 @@
       "default_selected": false
     },
     {
-      "id": "frontend-developer",
+      "id": "vantrilex-frontend-developer",
       "name": "Frontend Developer",
       "kind": "agent",
       "description": "Expert frontend developer specializing in modern web technologies, React/Vue/Ang…",
@@ -55568,7 +55872,7 @@
       "default_selected": false
     },
     {
-      "id": "gis-analyst",
+      "id": "vantrilex-gis-analyst",
       "name": "GIS Analyst",
       "kind": "agent",
       "description": "Day-to-day GIS operator who creates maps, manages layers, performs spatial queri…",
@@ -55589,7 +55893,7 @@
       "default_selected": false
     },
     {
-      "id": "gis-qa-engineer",
+      "id": "vantrilex-gis-qa-engineer",
       "name": "GIS QA Engineer",
       "kind": "agent",
       "description": "Quality assurance specialist who validates geospatial data integrity — topolog…",
@@ -55610,7 +55914,7 @@
       "default_selected": false
     },
     {
-      "id": "game-audio-engineer",
+      "id": "vantrilex-game-audio-engineer",
       "name": "Game Audio Engineer",
       "kind": "agent",
       "description": "Interactive audio specialist - Masters FMOD/Wwise integration, adaptive music sy…",
@@ -55631,7 +55935,7 @@
       "default_selected": false
     },
     {
-      "id": "game-designer",
+      "id": "vantrilex-game-designer",
       "name": "Game Designer",
       "kind": "agent",
       "description": "Systems and mechanics architect - Masters GDD authorship, player psychology, eco…",
@@ -55652,7 +55956,7 @@
       "default_selected": false
     },
     {
-      "id": "gaussdb-expert-engineer",
+      "id": "vantrilex-gaussdb-expert-engineer",
       "name": "GaussDB Expert Engineer",
       "kind": "agent",
       "description": "Expert database specialist focusing on GaussDB OLTP — Huawei's self-developed …",
@@ -55673,7 +55977,7 @@
       "default_selected": false
     },
     {
-      "id": "geoai-ml-engineer",
+      "id": "vantrilex-geoai-ml-engineer",
       "name": "GeoAI/ML Engineer",
       "kind": "agent",
       "description": "Geospatial machine learning specialist who builds models for feature extraction,…",
@@ -55694,7 +55998,7 @@
       "default_selected": false
     },
     {
-      "id": "geographer",
+      "id": "vantrilex-geographer",
       "name": "Geographer",
       "kind": "agent",
       "description": "Expert in physical and human geography, climate systems, cartography, and spatia…",
@@ -55715,7 +56019,7 @@
       "default_selected": false
     },
     {
-      "id": "geoprocessing-specialist",
+      "id": "vantrilex-geoprocessing-specialist",
       "name": "Geoprocessing Specialist",
       "kind": "agent",
       "description": "ArcPy and Python toolbox expert who automates spatial workflows — builds .pyt …",
@@ -55736,7 +56040,7 @@
       "default_selected": false
     },
     {
-      "id": "git-workflow-master",
+      "id": "vantrilex-git-workflow-master",
       "name": "Git Workflow Master",
       "kind": "agent",
       "description": "Expert in Git workflows, branching strategies, and version control best practice…",
@@ -55757,7 +56061,7 @@
       "default_selected": false
     },
     {
-      "id": "global-podcast-strategist",
+      "id": "vantrilex-global-podcast-strategist",
       "name": "Global Podcast Strategist",
       "kind": "agent",
       "description": "Expert podcast growth specialist focused on show positioning, audience developme…",
@@ -55778,7 +56082,7 @@
       "default_selected": false
     },
     {
-      "id": "godot-gameplay-scripter",
+      "id": "vantrilex-godot-gameplay-scripter",
       "name": "Godot Gameplay Scripter",
       "kind": "agent",
       "description": "Composition and signal integrity specialist - Masters GDScript 2.0, C# integrati…",
@@ -55799,7 +56103,7 @@
       "default_selected": false
     },
     {
-      "id": "godot-multiplayer-engineer",
+      "id": "vantrilex-godot-multiplayer-engineer",
       "name": "Godot Multiplayer Engineer",
       "kind": "agent",
       "description": "Godot 4 networking specialist - Masters the MultiplayerAPI, scene replication, E…",
@@ -55820,7 +56124,7 @@
       "default_selected": false
     },
     {
-      "id": "godot-shader-developer",
+      "id": "vantrilex-godot-shader-developer",
       "name": "Godot Shader Developer",
       "kind": "agent",
       "description": "Godot 4 visual effects specialist - Masters the Godot Shading Language (GLSL-lik…",
@@ -55841,7 +56145,7 @@
       "default_selected": false
     },
     {
-      "id": "government-digital-presales-consultant",
+      "id": "vantrilex-government-digital-presales-consultant",
       "name": "Government Digital Presales Consultant",
       "kind": "agent",
       "description": "Presales expert for China's government digital transformation market (ToG), prof…",
@@ -55862,7 +56166,7 @@
       "default_selected": false
     },
     {
-      "id": "grant-writer",
+      "id": "vantrilex-grant-writer",
       "name": "Grant Writer",
       "kind": "agent",
       "description": "Expert grant writing specialist for nonprofits, research institutions, and socia…",
@@ -55883,7 +56187,7 @@
       "default_selected": false
     },
     {
-      "id": "growth-hacker",
+      "id": "vantrilex-growth-hacker",
       "name": "Growth Hacker",
       "kind": "agent",
       "description": "Expert growth strategist specializing in rapid user acquisition through data-dri…",
@@ -55904,7 +56208,7 @@
       "default_selected": false
     },
     {
-      "id": "hr-onboarding",
+      "id": "vantrilex-hr-onboarding",
       "name": "HR Onboarding",
       "kind": "agent",
       "description": "Comprehensive HR onboarding specialist for employee orientation, documentation m…",
@@ -55925,7 +56229,7 @@
       "default_selected": false
     },
     {
-      "id": "healthcare-customer-service",
+      "id": "vantrilex-healthcare-customer-service",
       "name": "Healthcare Customer Service",
       "kind": "agent",
       "description": "Empathetic healthcare customer service specialist for patient support, billing i…",
@@ -55946,7 +56250,7 @@
       "default_selected": false
     },
     {
-      "id": "healthcare-innovation-strategist",
+      "id": "vantrilex-healthcare-innovation-strategist",
       "name": "Healthcare Innovation Strategist",
       "kind": "agent",
       "description": "Strategic narrative architect for healthcare founders operating at",
@@ -55967,7 +56271,7 @@
       "default_selected": false
     },
     {
-      "id": "healthcare-marketing-compliance-specialist",
+      "id": "vantrilex-healthcare-marketing-compliance-specialist",
       "name": "Healthcare Marketing Compliance Specialist",
       "kind": "agent",
       "description": "Expert in healthcare marketing compliance in China, proficient in the Advertisin…",
@@ -55988,7 +56292,7 @@
       "default_selected": false
     },
     {
-      "id": "historian",
+      "id": "vantrilex-historian",
       "name": "Historian",
       "kind": "agent",
       "description": "Expert in historical analysis, periodization, material culture, and historiograp…",
@@ -56009,7 +56313,7 @@
       "default_selected": false
     },
     {
-      "id": "hospitality-guest-services",
+      "id": "vantrilex-hospitality-guest-services",
       "name": "Hospitality Guest Services",
       "kind": "agent",
       "description": "Comprehensive hospitality guest services specialist for hotels, resorts, restaur…",
@@ -56030,7 +56334,7 @@
       "default_selected": false
     },
     {
-      "id": "it-service-manager",
+      "id": "vantrilex-it-service-manager",
       "name": "IT Service Manager",
       "kind": "agent",
       "description": "Expert IT service management specialist using ITIL 4 framework for service catal…",
@@ -56051,7 +56355,7 @@
       "default_selected": false
     },
     {
-      "id": "identity-access-engineer",
+      "id": "vantrilex-identity-access-engineer",
       "name": "Identity & Access Engineer",
       "kind": "agent",
       "description": "Expert identity engineer for OAuth 2.0/OIDC flows, enterprise SSO (SAML/OIDC) an…",
@@ -56072,7 +56376,7 @@
       "default_selected": false
     },
     {
-      "id": "identity-graph-operator",
+      "id": "vantrilex-identity-graph-operator",
       "name": "Identity Graph Operator",
       "kind": "agent",
       "description": "Operates a shared identity graph that multiple AI agents resolve against. Ensure…",
@@ -56093,7 +56397,7 @@
       "default_selected": false
     },
     {
-      "id": "image-prompt-engineer",
+      "id": "vantrilex-image-prompt-engineer",
       "name": "Image Prompt Engineer",
       "kind": "agent",
       "description": "Expert photography prompt engineer specializing in crafting detailed, evocative …",
@@ -56114,7 +56418,7 @@
       "default_selected": false
     },
     {
-      "id": "incident-responder",
+      "id": "vantrilex-incident-responder",
       "name": "Incident Responder",
       "kind": "agent",
       "description": "Digital forensics and incident response specialist who leads breach investigatio…",
@@ -56135,7 +56439,7 @@
       "default_selected": false
     },
     {
-      "id": "incident-response-commander",
+      "id": "vantrilex-incident-response-commander",
       "name": "Incident Response Commander",
       "kind": "agent",
       "description": "Expert incident commander specializing in production incident management, struct…",
@@ -56156,7 +56460,7 @@
       "default_selected": false
     },
     {
-      "id": "inclusive-visuals-specialist",
+      "id": "vantrilex-inclusive-visuals-specialist",
       "name": "Inclusive Visuals Specialist",
       "kind": "agent",
       "description": "Representation expert who defeats systemic AI biases to generate culturally accu…",
@@ -56177,7 +56481,7 @@
       "default_selected": false
     },
     {
-      "id": "infrastructure-maintainer",
+      "id": "vantrilex-infrastructure-maintainer",
       "name": "Infrastructure Maintainer",
       "kind": "agent",
       "description": "Expert infrastructure specialist focused on system reliability, performance opti…",
@@ -56198,7 +56502,7 @@
       "default_selected": false
     },
     {
-      "id": "instagram-curator",
+      "id": "vantrilex-instagram-curator",
       "name": "Instagram Curator",
       "kind": "agent",
       "description": "Expert Instagram marketing specialist focused on visual storytelling, community …",
@@ -56219,7 +56523,7 @@
       "default_selected": false
     },
     {
-      "id": "internationalization-engineer",
+      "id": "vantrilex-internationalization-engineer",
       "name": "Internationalization Engineer",
       "kind": "agent",
       "description": "Expert i18n engineer for ICU MessageFormat, CLDR plural rules, RTL and bidirecti…",
@@ -56240,7 +56544,7 @@
       "default_selected": false
     },
     {
-      "id": "investment-researcher",
+      "id": "vantrilex-investment-researcher",
       "name": "Investment Researcher",
       "kind": "agent",
       "description": "Expert investment researcher specializing in market research, due diligence, por…",
@@ -56261,7 +56565,7 @@
       "default_selected": false
     },
     {
-      "id": "iot-fleet-engineer",
+      "id": "vantrilex-iot-fleet-engineer",
       "name": "IoT Fleet Engineer",
       "kind": "agent",
       "description": "Expert IoT and edge fleet engineer — device provisioning and identity, MQTT/te…",
@@ -56282,7 +56586,7 @@
       "default_selected": false
     },
     {
-      "id": "jira-workflow-steward",
+      "id": "vantrilex-jira-workflow-steward",
       "name": "Jira Workflow Steward",
       "kind": "agent",
       "description": "Expert delivery operations specialist who enforces Jira-linked Git workflows, tr…",
@@ -56303,7 +56607,7 @@
       "default_selected": false
     },
     {
-      "id": "knowledge-graph-engineer",
+      "id": "vantrilex-knowledge-graph-engineer",
       "name": "Knowledge Graph Engineer",
       "kind": "agent",
       "description": "Structures information and capabilities into interconnected nodes (entities) and…",
@@ -56324,7 +56628,7 @@
       "default_selected": false
     },
     {
-      "id": "korean-business-navigator",
+      "id": "vantrilex-korean-business-navigator",
       "name": "Korean Business Navigator",
       "kind": "agent",
       "description": "Korean business culture for foreign professionals — 품의 decision process, n…",
@@ -56345,7 +56649,7 @@
       "default_selected": false
     },
     {
-      "id": "kuaishou-strategist",
+      "id": "vantrilex-kuaishou-strategist",
       "name": "Kuaishou Strategist",
       "kind": "agent",
       "description": "Expert Kuaishou marketing strategist specializing in short-video content for Chi…",
@@ -56366,7 +56670,7 @@
       "default_selected": false
     },
     {
-      "id": "llm-post-training-engineer",
+      "id": "vantrilex-llm-post-training-engineer",
       "name": "LLM Post-Training Engineer",
       "kind": "agent",
       "description": "Evidence-driven owner for SFT, preference optimization, RLHF/RLVR, MoE post-trai…",
@@ -56387,7 +56691,7 @@
       "default_selected": false
     },
     {
-      "id": "lsp-index-engineer",
+      "id": "vantrilex-lsp-index-engineer",
       "name": "LSP/Index Engineer",
       "kind": "agent",
       "description": "Language Server Protocol specialist building unified code intelligence systems t…",
@@ -56408,7 +56712,7 @@
       "default_selected": false
     },
     {
-      "id": "language-translator",
+      "id": "vantrilex-language-translator",
       "name": "Language Translator",
       "kind": "agent",
       "description": "Real-time Spanish ↔ English translation specialist with cultural context, regi…",
@@ -56429,7 +56733,7 @@
       "default_selected": false
     },
     {
-      "id": "legal-billing-time-tracking",
+      "id": "vantrilex-legal-billing-time-tracking",
       "name": "Legal Billing & Time Tracking",
       "kind": "agent",
       "description": "Comprehensive legal billing and time tracking specialist for accurate time captu…",
@@ -56450,7 +56754,7 @@
       "default_selected": false
     },
     {
-      "id": "legal-client-intake",
+      "id": "vantrilex-legal-client-intake",
       "name": "Legal Client Intake",
       "kind": "agent",
       "description": "Comprehensive legal client intake specialist for qualifying prospects, collectin…",
@@ -56471,7 +56775,7 @@
       "default_selected": false
     },
     {
-      "id": "legal-compliance-checker",
+      "id": "vantrilex-legal-compliance-checker",
       "name": "Legal Compliance Checker",
       "kind": "agent",
       "description": "Expert legal and compliance specialist ensuring business operations, data handli…",
@@ -56492,7 +56796,7 @@
       "default_selected": false
     },
     {
-      "id": "legal-document-review",
+      "id": "vantrilex-legal-document-review",
       "name": "Legal Document Review",
       "kind": "agent",
       "description": "Comprehensive legal document review specialist for contracts, litigation documen…",
@@ -56513,7 +56817,7 @@
       "default_selected": false
     },
     {
-      "id": "level-designer",
+      "id": "vantrilex-level-designer",
       "name": "Level Designer",
       "kind": "agent",
       "description": "Spatial storytelling and flow specialist - Masters layout theory, pacing archite…",
@@ -56534,7 +56838,7 @@
       "default_selected": false
     },
     {
-      "id": "linkedin-content-creator",
+      "id": "vantrilex-linkedin-content-creator",
       "name": "LinkedIn Content Creator",
       "kind": "agent",
       "description": "Expert LinkedIn content strategist focused on thought leadership, personal brand…",
@@ -56555,7 +56859,7 @@
       "default_selected": false
     },
     {
-      "id": "livestream-commerce-coach",
+      "id": "vantrilex-livestream-commerce-coach",
       "name": "Livestream Commerce Coach",
       "kind": "agent",
       "description": "Veteran livestream e-commerce coach specializing in host training and live room …",
@@ -56576,7 +56880,7 @@
       "default_selected": false
     },
     {
-      "id": "loan-officer-assistant",
+      "id": "vantrilex-loan-officer-assistant",
       "name": "Loan Officer Assistant",
       "kind": "agent",
       "description": "Comprehensive loan officer assistant for mortgage and lending professionals — …",
@@ -56597,7 +56901,7 @@
       "default_selected": false
     },
     {
-      "id": "m-a-integration-manager",
+      "id": "vantrilex-m-a-integration-manager",
       "name": "M&A Integration Manager",
       "kind": "agent",
       "description": "Mergers and acquisitions integration specialist who designs and executes post-me…",
@@ -56618,7 +56922,7 @@
       "default_selected": false
     },
     {
-      "id": "mcp-builder",
+      "id": "vantrilex-mcp-builder",
       "name": "MCP Builder",
       "kind": "agent",
       "description": "Expert Model Context Protocol developer who designs, builds, and tests MCP serve…",
@@ -56639,7 +56943,7 @@
       "default_selected": false
     },
     {
-      "id": "master-plan-architect",
+      "id": "vantrilex-master-plan-architect",
       "name": "Master Plan Architect",
       "kind": "agent",
       "description": "Master planning architect, technical educator, and ruthless plan critic who spec…",
@@ -56660,7 +56964,7 @@
       "default_selected": false
     },
     {
-      "id": "medical-billing-coding-specialist",
+      "id": "vantrilex-medical-billing-coding-specialist",
       "name": "Medical Billing & Coding Specialist",
       "kind": "agent",
       "description": "Expert medical billing and coding specialist for ICD-10-CM/PCS, CPT, and HCPCS c…",
@@ -56681,7 +56985,7 @@
       "default_selected": false
     },
     {
-      "id": "meeting-notes-specialist",
+      "id": "vantrilex-meeting-notes-specialist",
       "name": "Meeting Notes Specialist",
       "kind": "agent",
       "description": "Extract structured decisions, action items, and open questions from meeting tran…",
@@ -56702,7 +57006,7 @@
       "default_selected": false
     },
     {
-      "id": "minimal-change-engineer",
+      "id": "vantrilex-minimal-change-engineer",
       "name": "Minimal Change Engineer",
       "kind": "agent",
       "description": "Engineering specialist focused on minimum-viable diffs — fixes only what was a…",
@@ -56723,7 +57027,7 @@
       "default_selected": false
     },
     {
-      "id": "mobile-app-builder",
+      "id": "vantrilex-mobile-app-builder",
       "name": "Mobile App Builder",
       "kind": "agent",
       "description": "Specialized mobile application developer with expertise in native iOS/Android de…",
@@ -56744,7 +57048,7 @@
       "default_selected": false
     },
     {
-      "id": "mobile-release-engineer",
+      "id": "vantrilex-mobile-release-engineer",
       "name": "Mobile Release Engineer",
       "kind": "agent",
       "description": "Expert mobile release and distribution engineer for iOS and Android — code sig…",
@@ -56765,7 +57069,7 @@
       "default_selected": false
     },
     {
-      "id": "model-qa-specialist",
+      "id": "vantrilex-model-qa-specialist",
       "name": "Model QA Specialist",
       "kind": "agent",
       "description": "Independent model QA expert who audits ML and statistical models end-to-end - fr…",
@@ -56786,7 +57090,7 @@
       "default_selected": false
     },
     {
-      "id": "multi-agent-systems-architect",
+      "id": "vantrilex-multi-agent-systems-architect",
       "name": "Multi-Agent Systems Architect",
       "kind": "agent",
       "description": "Systems architect specializing in the design, coordination, and governance of mu…",
@@ -56807,7 +57111,7 @@
       "default_selected": false
     },
     {
-      "id": "multi-platform-publisher",
+      "id": "vantrilex-multi-platform-publisher",
       "name": "Multi-Platform Publisher",
       "kind": "agent",
       "description": "Expert orchestrator for one-click Chinese blog publishing. Routes a single artic…",
@@ -56828,7 +57132,7 @@
       "default_selected": false
     },
     {
-      "id": "narrative-designer",
+      "id": "vantrilex-narrative-designer",
       "name": "Narrative Designer",
       "kind": "agent",
       "description": "Story systems and dialogue architect - Masters GDD-aligned narrative design, bra…",
@@ -56849,7 +57153,7 @@
       "default_selected": false
     },
     {
-      "id": "narratologist",
+      "id": "vantrilex-narratologist",
       "name": "Narratologist",
       "kind": "agent",
       "description": "Expert in narrative theory, story structure, character arcs, and literary analys…",
@@ -56870,7 +57174,7 @@
       "default_selected": false
     },
     {
-      "id": "network-engineer",
+      "id": "vantrilex-network-engineer",
       "name": "Network Engineer",
       "kind": "agent",
       "description": "Expert network engineer for Cisco IOS/IOS-XE, Cisco ASA/FTD, Juniper Junos, and …",
@@ -56891,7 +57195,7 @@
       "default_selected": false
     },
     {
-      "id": "offer-lead-gen-strategist",
+      "id": "vantrilex-offer-lead-gen-strategist",
       "name": "Offer & Lead Gen Strategist",
       "kind": "agent",
       "description": "Top-of-funnel architect who designs irresistible offers and lead magnets that at…",
@@ -56912,7 +57216,7 @@
       "default_selected": false
     },
     {
-      "id": "operations-manager",
+      "id": "vantrilex-operations-manager",
       "name": "Operations Manager",
       "kind": "agent",
       "description": "Business operations specialist who applies Lean, Six Sigma, and systems thinking…",
@@ -56933,7 +57237,7 @@
       "default_selected": false
     },
     {
-      "id": "orgscript-engineer",
+      "id": "vantrilex-orgscript-engineer",
       "name": "OrgScript Engineer",
       "kind": "agent",
       "description": "Expert in designing, parsing, and implementing OrgScript grammar, AST validation…",
@@ -56954,7 +57258,7 @@
       "default_selected": false
     },
     {
-      "id": "organizational-psychologist",
+      "id": "vantrilex-organizational-psychologist",
       "name": "Organizational Psychologist",
       "kind": "agent",
       "description": "Applied organizational psychologist who diagnoses team dynamics, psychological s…",
@@ -56975,7 +57279,7 @@
       "default_selected": false
     },
     {
-      "id": "outbound-strategist",
+      "id": "vantrilex-outbound-strategist",
       "name": "Outbound Strategist",
       "kind": "agent",
       "description": "Signal-based outbound specialist who designs multi-channel prospecting sequences…",
@@ -56996,7 +57300,7 @@
       "default_selected": false
     },
     {
-      "id": "ppc-campaign-strategist",
+      "id": "vantrilex-ppc-campaign-strategist",
       "name": "PPC Campaign Strategist",
       "kind": "agent",
       "description": "Senior paid media strategist specializing in large-scale search, shopping, and p…",
@@ -57017,7 +57321,7 @@
       "default_selected": false
     },
     {
-      "id": "pr-communications-manager",
+      "id": "vantrilex-pr-communications-manager",
       "name": "PR & Communications Manager",
       "kind": "agent",
       "description": "Strategic public relations and communications specialist for media relations, pr…",
@@ -57038,7 +57342,7 @@
       "default_selected": false
     },
     {
-      "id": "paid-media-auditor",
+      "id": "vantrilex-paid-media-auditor",
       "name": "Paid Media Auditor",
       "kind": "agent",
       "description": "Comprehensive paid media auditor who systematically evaluates Google Ads, Micros…",
@@ -57059,7 +57363,7 @@
       "default_selected": false
     },
     {
-      "id": "paid-social-strategist",
+      "id": "vantrilex-paid-social-strategist",
       "name": "Paid Social Strategist",
       "kind": "agent",
       "description": "Cross-platform paid social advertising specialist covering Meta (Facebook/Instag…",
@@ -57080,7 +57384,7 @@
       "default_selected": false
     },
     {
-      "id": "payments-billing-engineer",
+      "id": "vantrilex-payments-billing-engineer",
       "name": "Payments & Billing Engineer",
       "kind": "agent",
       "description": "Expert payments engineer for PSP integrations (Stripe, Adyen, Braintree, PayPal)…",
@@ -57101,7 +57405,7 @@
       "default_selected": false
     },
     {
-      "id": "penetration-tester",
+      "id": "vantrilex-penetration-tester",
       "name": "Penetration Tester",
       "kind": "agent",
       "description": "Offensive security specialist conducting authorized penetration tests, red team …",
@@ -57122,7 +57426,7 @@
       "default_selected": false
     },
     {
-      "id": "performance-benchmarker",
+      "id": "vantrilex-performance-benchmarker",
       "name": "Performance Benchmarker",
       "kind": "agent",
       "description": "Expert performance testing and optimization specialist focused on measuring, ana…",
@@ -57143,7 +57447,7 @@
       "default_selected": false
     },
     {
-      "id": "persona-walkthrough-specialist",
+      "id": "vantrilex-persona-walkthrough-specialist",
       "name": "Persona Walkthrough Specialist",
       "kind": "agent",
       "description": "Simulate cognitive walkthroughs of web pages from a defined persona's psychologi…",
@@ -57164,7 +57468,7 @@
       "default_selected": false
     },
     {
-      "id": "personal-growth-mentor",
+      "id": "vantrilex-personal-growth-mentor",
       "name": "Personal Growth Mentor",
       "kind": "agent",
       "description": "Cross-domain personal development mentor for goal clarity, habit design, strateg…",
@@ -57185,7 +57489,7 @@
       "default_selected": false
     },
     {
-      "id": "pipeline-analyst",
+      "id": "vantrilex-pipeline-analyst",
       "name": "Pipeline Analyst",
       "kind": "agent",
       "description": "Revenue operations analyst specializing in pipeline health diagnostics, deal vel…",
@@ -57206,7 +57510,7 @@
       "default_selected": false
     },
     {
-      "id": "podcast-strategist",
+      "id": "vantrilex-podcast-strategist",
       "name": "Podcast Strategist",
       "kind": "agent",
       "description": "Content strategy and operations expert for the Chinese podcast market, with deep…",
@@ -57227,7 +57531,7 @@
       "default_selected": false
     },
     {
-      "id": "pricing-analyst",
+      "id": "vantrilex-pricing-analyst",
       "name": "Pricing Analyst",
       "kind": "agent",
       "description": "Specialized pricing analyst who develops optimal pricing models through market r…",
@@ -57248,7 +57552,7 @@
       "default_selected": false
     },
     {
-      "id": "privacy-engineer",
+      "id": "vantrilex-privacy-engineer",
       "name": "Privacy Engineer",
       "kind": "agent",
       "description": "Expert privacy engineer who implements privacy in code — PII discovery and cla…",
@@ -57269,7 +57573,7 @@
       "default_selected": false
     },
     {
-      "id": "private-domain-operator",
+      "id": "vantrilex-private-domain-operator",
       "name": "Private Domain Operator",
       "kind": "agent",
       "description": "Expert in building enterprise WeChat (WeCom) private domain ecosystems, with dee…",
@@ -57290,7 +57594,7 @@
       "default_selected": false
     },
     {
-      "id": "product-manager",
+      "id": "vantrilex-product-manager",
       "name": "Product Manager",
       "kind": "agent",
       "description": "Holistic product leader who owns the full product lifecycle — from discovery a…",
@@ -57311,7 +57615,7 @@
       "default_selected": false
     },
     {
-      "id": "programmatic-display-buyer",
+      "id": "vantrilex-programmatic-display-buyer",
       "name": "Programmatic & Display Buyer",
       "kind": "agent",
       "description": "Display advertising and programmatic media buying specialist covering managed pl…",
@@ -57332,7 +57636,7 @@
       "default_selected": false
     },
     {
-      "id": "project-shepherd",
+      "id": "vantrilex-project-shepherd",
       "name": "Project Shepherd",
       "kind": "agent",
       "description": "Expert project manager specializing in cross-functional project coordination, ti…",
@@ -57353,7 +57657,7 @@
       "default_selected": false
     },
     {
-      "id": "prompt-engineer",
+      "id": "vantrilex-prompt-engineer",
       "name": "Prompt Engineer",
       "kind": "agent",
       "description": "Specialist in crafting, testing, and systematically optimizing prompts for LLMs …",
@@ -57374,7 +57678,7 @@
       "default_selected": false
     },
     {
-      "id": "proposal-strategist",
+      "id": "vantrilex-proposal-strategist",
       "name": "Proposal Strategist",
       "kind": "agent",
       "description": "Strategic proposal architect who transforms RFPs and sales opportunities into co…",
@@ -57395,7 +57699,7 @@
       "default_selected": false
     },
     {
-      "id": "psychologist",
+      "id": "vantrilex-psychologist",
       "name": "Psychologist",
       "kind": "agent",
       "description": "Expert in human behavior, personality theory, motivation, and cognitive patterns…",
@@ -57416,7 +57720,7 @@
       "default_selected": false
     },
     {
-      "id": "rag-pipeline-engineer",
+      "id": "vantrilex-rag-pipeline-engineer",
       "name": "RAG Pipeline Engineer",
       "kind": "agent",
       "description": "Production RAG specialist focused on chunking strategy, retrieval quality, hybri…",
@@ -57437,7 +57741,7 @@
       "default_selected": false
     },
     {
-      "id": "rapid-prototyper",
+      "id": "vantrilex-rapid-prototyper",
       "name": "Rapid Prototyper",
       "kind": "agent",
       "description": "Specialized in ultra-fast proof-of-concept development and MVP creation using ef…",
@@ -57458,7 +57762,7 @@
       "default_selected": false
     },
     {
-      "id": "real-estate-buyer-seller",
+      "id": "vantrilex-real-estate-buyer-seller",
       "name": "Real Estate Buyer & Seller",
       "kind": "agent",
       "description": "Comprehensive real estate agent assistant for buyer representation, seller repre…",
@@ -57479,7 +57783,7 @@
       "default_selected": false
     },
     {
-      "id": "reality-checker",
+      "id": "vantrilex-reality-checker",
       "name": "Reality Checker",
       "kind": "agent",
       "description": "Stops fantasy approvals, evidence-based certification - Default to \"NEEDS WORK\",…",
@@ -57500,7 +57804,7 @@
       "default_selected": false
     },
     {
-      "id": "realtime-collaboration-engineer",
+      "id": "vantrilex-realtime-collaboration-engineer",
       "name": "Realtime Collaboration Engineer",
       "kind": "agent",
       "description": "Expert realtime systems engineer for WebSocket/SSE infrastructure, presence, CRD…",
@@ -57521,7 +57825,7 @@
       "default_selected": false
     },
     {
-      "id": "recruitment-specialist",
+      "id": "vantrilex-recruitment-specialist",
       "name": "Recruitment Specialist",
       "kind": "agent",
       "description": "Expert recruitment operations and talent acquisition specialist — skilled in C…",
@@ -57542,7 +57846,7 @@
       "default_selected": false
     },
     {
-      "id": "reddit-community-builder",
+      "id": "vantrilex-reddit-community-builder",
       "name": "Reddit Community Builder",
       "kind": "agent",
       "description": "Expert Reddit marketing specialist focused on authentic community engagement, va…",
@@ -57563,7 +57867,7 @@
       "default_selected": false
     },
     {
-      "id": "report-distribution-agent",
+      "id": "vantrilex-report-distribution-agent",
       "name": "Report Distribution Agent",
       "kind": "agent",
       "description": "AI agent that automates distribution of consolidated sales reports to representa…",
@@ -57584,7 +57888,7 @@
       "default_selected": false
     },
     {
-      "id": "research-synthesist",
+      "id": "vantrilex-research-synthesist",
       "name": "Research Synthesist",
       "kind": "agent",
       "description": "Expert in literature review, source evaluation, and evidence synthesis — turns…",
@@ -57605,7 +57909,7 @@
       "default_selected": false
     },
     {
-      "id": "resume-tailor",
+      "id": "vantrilex-resume-tailor",
       "name": "Resume Tailor",
       "kind": "agent",
       "description": "Candidate-side resume optimization specialist who analyzes job descriptions, map…",
@@ -57626,7 +57930,7 @@
       "default_selected": false
     },
     {
-      "id": "retail-customer-returns",
+      "id": "vantrilex-retail-customer-returns",
       "name": "Retail Customer Returns",
       "kind": "agent",
       "description": "Comprehensive retail customer returns specialist for processing returns, exchang…",
@@ -57647,7 +57951,7 @@
       "default_selected": false
     },
     {
-      "id": "roblox-avatar-creator",
+      "id": "vantrilex-roblox-avatar-creator",
       "name": "Roblox Avatar Creator",
       "kind": "agent",
       "description": "Roblox UGC and avatar pipeline specialist - Masters Roblox's avatar system, UGC …",
@@ -57668,7 +57972,7 @@
       "default_selected": false
     },
     {
-      "id": "roblox-experience-designer",
+      "id": "vantrilex-roblox-experience-designer",
       "name": "Roblox Experience Designer",
       "kind": "agent",
       "description": "Roblox platform UX and monetization specialist - Masters engagement loop design,…",
@@ -57689,7 +57993,7 @@
       "default_selected": false
     },
     {
-      "id": "roblox-systems-scripter",
+      "id": "vantrilex-roblox-systems-scripter",
       "name": "Roblox Systems Scripter",
       "kind": "agent",
       "description": "Roblox platform engineering specialist - Masters Luau, the client-server securit…",
@@ -57710,7 +58014,7 @@
       "default_selected": false
     },
     {
-      "id": "rust-refactoring-specialist",
+      "id": "vantrilex-rust-refactoring-specialist",
       "name": "Rust Refactoring Specialist",
       "kind": "agent",
       "description": "Expert Rust engineer for repository-scale refactoring, safe renames, module rest…",
@@ -57731,7 +58035,7 @@
       "default_selected": false
     },
     {
-      "id": "seo-specialist",
+      "id": "vantrilex-seo-specialist",
       "name": "SEO Specialist",
       "kind": "agent",
       "description": "Expert search engine optimization strategist specializing in technical SEO, cont…",
@@ -57752,7 +58056,7 @@
       "default_selected": false
     },
     {
-      "id": "sre-site-reliability-engineer",
+      "id": "vantrilex-sre-site-reliability-engineer",
       "name": "SRE (Site Reliability Engineer)",
       "kind": "agent",
       "description": "Expert site reliability engineer specializing in SLOs, error budgets, observabil…",
@@ -57773,7 +58077,7 @@
       "default_selected": false
     },
     {
-      "id": "sales-coach",
+      "id": "vantrilex-sales-coach",
       "name": "Sales Coach",
       "kind": "agent",
       "description": "Expert sales coaching specialist focused on rep development, pipeline review fac…",
@@ -57794,7 +58098,7 @@
       "default_selected": false
     },
     {
-      "id": "sales-data-extraction-agent",
+      "id": "vantrilex-sales-data-extraction-agent",
       "name": "Sales Data Extraction Agent",
       "kind": "agent",
       "description": "AI agent specialized in monitoring Excel files and extracting key sales metrics …",
@@ -57815,7 +58119,7 @@
       "default_selected": false
     },
     {
-      "id": "sales-engineer",
+      "id": "vantrilex-sales-engineer",
       "name": "Sales Engineer",
       "kind": "agent",
       "description": "Senior pre-sales engineer specializing in technical discovery, demo engineering,…",
@@ -57836,7 +58140,7 @@
       "default_selected": false
     },
     {
-      "id": "sales-outreach",
+      "id": "vantrilex-sales-outreach",
       "name": "Sales Outreach",
       "kind": "agent",
       "description": "Consultative B2B sales outreach specialist for cold prospecting, lead follow-up,…",
@@ -57857,7 +58161,7 @@
       "default_selected": false
     },
     {
-      "id": "salesforce-architect",
+      "id": "vantrilex-salesforce-architect",
       "name": "Salesforce Architect",
       "kind": "agent",
       "description": "Solution architecture for Salesforce platform — multi-cloud design, integratio…",
@@ -57878,7 +58182,7 @@
       "default_selected": false
     },
     {
-      "id": "search-query-analyst",
+      "id": "vantrilex-search-query-analyst",
       "name": "Search Query Analyst",
       "kind": "agent",
       "description": "Specialist in search term analysis, negative keyword architecture, and query-to-…",
@@ -57899,7 +58203,7 @@
       "default_selected": false
     },
     {
-      "id": "search-relevance-engineer",
+      "id": "vantrilex-search-relevance-engineer",
       "name": "Search Relevance Engineer",
       "kind": "agent",
       "description": "Expert search engineer for Elasticsearch and OpenSearch — index and analyzer d…",
@@ -57920,7 +58224,7 @@
       "default_selected": false
     },
     {
-      "id": "secrets-credential-hygiene-engineer",
+      "id": "vantrilex-secrets-credential-hygiene-engineer",
       "name": "Secrets & Credential Hygiene Engineer",
       "kind": "agent",
       "description": "Owns the full lifecycle of secrets and credentials — detection, prevention, va…",
@@ -57941,7 +58245,7 @@
       "default_selected": false
     },
     {
-      "id": "section-508-accessibility-specialist",
+      "id": "vantrilex-section-508-accessibility-specialist",
       "name": "Section 508 Accessibility Specialist",
       "kind": "agent",
       "description": "Expert U.S. federal Section 508 accessibility engineer (the 508 legal baseline i…",
@@ -57962,7 +58266,7 @@
       "default_selected": false
     },
     {
-      "id": "security-architect",
+      "id": "vantrilex-security-architect",
       "name": "Security Architect",
       "kind": "agent",
       "description": "Expert security architect specializing in threat modeling, secure-by-design arch…",
@@ -57983,7 +58287,7 @@
       "default_selected": false
     },
     {
-      "id": "senior-developer",
+      "id": "vantrilex-senior-developer",
       "name": "Senior Developer",
       "kind": "agent",
       "description": "Premium implementation specialist - Masters Laravel/Livewire/FluxUI, advanced CS…",
@@ -58004,7 +58308,7 @@
       "default_selected": false
     },
     {
-      "id": "senior-project-manager",
+      "id": "vantrilex-senior-project-manager",
       "name": "Senior Project Manager",
       "kind": "agent",
       "description": "Converts specs to tasks and remembers previous projects. Focused on realistic sc…",
@@ -58025,7 +58329,7 @@
       "default_selected": false
     },
     {
-      "id": "senior-secops-engineer",
+      "id": "vantrilex-senior-secops-engineer",
       "name": "Senior SecOps Engineer",
       "kind": "agent",
       "description": "Defensive application security specialist who scans every code submission for se…",
@@ -58046,7 +58350,7 @@
       "default_selected": false
     },
     {
-      "id": "short-video-editing-coach",
+      "id": "vantrilex-short-video-editing-coach",
       "name": "Short-Video Editing Coach",
       "kind": "agent",
       "description": "Hands-on short-video editing coach covering the full post-production pipeline, w…",
@@ -58067,7 +58371,7 @@
       "default_selected": false
     },
     {
-      "id": "social-media-strategist",
+      "id": "vantrilex-social-media-strategist",
       "name": "Social Media Strategist",
       "kind": "agent",
       "description": "Expert social media strategist for LinkedIn, Twitter, and professional platforms…",
@@ -58088,7 +58392,7 @@
       "default_selected": false
     },
     {
-      "id": "software-architect",
+      "id": "vantrilex-software-architect",
       "name": "Software Architect",
       "kind": "agent",
       "description": "Expert software architect specializing in system design, domain-driven design, a…",
@@ -58109,7 +58413,7 @@
       "default_selected": false
     },
     {
-      "id": "solidity-smart-contract-engineer",
+      "id": "vantrilex-solidity-smart-contract-engineer",
       "name": "Solidity Smart Contract Engineer",
       "kind": "agent",
       "description": "Expert Solidity developer specializing in EVM smart contract architecture, gas o…",
@@ -58130,7 +58434,7 @@
       "default_selected": false
     },
     {
-      "id": "solution-engineer",
+      "id": "vantrilex-solution-engineer",
       "name": "Solution Engineer",
       "kind": "agent",
       "description": "Hands-on GIS prototype builder who takes strategy from Technical Consultant and …",
@@ -58151,7 +58455,7 @@
       "default_selected": false
     },
     {
-      "id": "sovereign-health-systems-agent",
+      "id": "vantrilex-sovereign-health-systems-agent",
       "name": "Sovereign Health Systems Agent",
       "kind": "agent",
       "description": "Government health mandate engagement framework for AI agents",
@@ -58172,7 +58476,7 @@
       "default_selected": false
     },
     {
-      "id": "spatial-data-engineer",
+      "id": "vantrilex-spatial-data-engineer",
       "name": "Spatial Data Engineer",
       "kind": "agent",
       "description": "ETL specialist who transforms messy geospatial data from any source into clean, …",
@@ -58193,7 +58497,7 @@
       "default_selected": false
     },
     {
-      "id": "spatial-data-scientist",
+      "id": "vantrilex-spatial-data-scientist",
       "name": "Spatial Data Scientist",
       "kind": "agent",
       "description": "Advanced spatial analytics specialist who applies statistical modeling, spatial …",
@@ -58214,7 +58518,7 @@
       "default_selected": false
     },
     {
-      "id": "sprint-prioritizer",
+      "id": "vantrilex-sprint-prioritizer",
       "name": "Sprint Prioritizer",
       "kind": "agent",
       "description": "Expert product manager specializing in agile sprint planning, feature prioritiza…",
@@ -58235,7 +58539,7 @@
       "default_selected": false
     },
     {
-      "id": "statistician",
+      "id": "vantrilex-statistician",
       "name": "Statistician",
       "kind": "agent",
       "description": "Expert in quantitative research methodology, experimental design, and statistica…",
@@ -58256,7 +58560,7 @@
       "default_selected": false
     },
     {
-      "id": "strategy-duel-agent",
+      "id": "vantrilex-strategy-duel-agent",
       "name": "Strategy Duel Agent",
       "kind": "agent",
       "description": "Conducts live strategy duels using game theory and the 36 Chinese stratagems",
@@ -58277,7 +58581,7 @@
       "default_selected": false
     },
     {
-      "id": "studio-operations",
+      "id": "vantrilex-studio-operations",
       "name": "Studio Operations",
       "kind": "agent",
       "description": "Expert operations manager specializing in day-to-day studio efficiency, process …",
@@ -58298,7 +58602,7 @@
       "default_selected": false
     },
     {
-      "id": "studio-producer",
+      "id": "vantrilex-studio-producer",
       "name": "Studio Producer",
       "kind": "agent",
       "description": "Senior strategic leader specializing in high-level creative and technical projec…",
@@ -58319,7 +58623,7 @@
       "default_selected": false
     },
     {
-      "id": "study-abroad-advisor",
+      "id": "vantrilex-study-abroad-advisor",
       "name": "Study Abroad Advisor",
       "kind": "agent",
       "description": "Full-spectrum study abroad planning expert covering the US, UK, Canada, Australi…",
@@ -58340,7 +58644,7 @@
       "default_selected": false
     },
     {
-      "id": "supply-chain-strategist",
+      "id": "vantrilex-supply-chain-strategist",
       "name": "Supply Chain Strategist",
       "kind": "agent",
       "description": "Expert supply chain management and procurement strategy specialist — skilled i…",
@@ -58361,7 +58665,7 @@
       "default_selected": false
     },
     {
-      "id": "support-responder",
+      "id": "vantrilex-support-responder",
       "name": "Support Responder",
       "kind": "agent",
       "description": "Expert customer support specialist delivering exceptional customer service, issu…",
@@ -58382,7 +58686,7 @@
       "default_selected": false
     },
     {
-      "id": "tax-strategist",
+      "id": "vantrilex-tax-strategist",
       "name": "Tax Strategist",
       "kind": "agent",
       "description": "Expert tax strategist specializing in tax optimization, multi-jurisdictional com…",
@@ -58403,7 +58707,7 @@
       "default_selected": false
     },
     {
-      "id": "technical-artist",
+      "id": "vantrilex-technical-artist",
       "name": "Technical Artist",
       "kind": "agent",
       "description": "Art-to-engine pipeline specialist - Masters shaders, VFX systems, LOD pipelines,…",
@@ -58424,7 +58728,7 @@
       "default_selected": false
     },
     {
-      "id": "technical-consultant",
+      "id": "vantrilex-technical-consultant",
       "name": "Technical Consultant",
       "kind": "agent",
       "description": "Strategic GIS advisor who translates business problems into geospatial solutions…",
@@ -58445,7 +58749,7 @@
       "default_selected": false
     },
     {
-      "id": "technical-writer",
+      "id": "vantrilex-technical-writer",
       "name": "Technical Writer",
       "kind": "agent",
       "description": "Expert technical writer specializing in developer documentation, API references,…",
@@ -58466,7 +58770,7 @@
       "default_selected": false
     },
     {
-      "id": "terminal-integration-specialist",
+      "id": "vantrilex-terminal-integration-specialist",
       "name": "Terminal Integration Specialist",
       "kind": "agent",
       "description": "Terminal emulation, text rendering optimization, and SwiftTerm integration for m…",
@@ -58487,7 +58791,7 @@
       "default_selected": false
     },
     {
-      "id": "test-automation-engineer",
+      "id": "vantrilex-test-automation-engineer",
       "name": "Test Automation Engineer",
       "kind": "agent",
       "description": "Expert end-to-end test automation engineer for Playwright and Cypress — resili…",
@@ -58508,7 +58812,7 @@
       "default_selected": false
     },
     {
-      "id": "test-results-analyzer",
+      "id": "vantrilex-test-results-analyzer",
       "name": "Test Results Analyzer",
       "kind": "agent",
       "description": "Expert test analysis specialist focused on comprehensive test result evaluation,…",
@@ -58529,7 +58833,7 @@
       "default_selected": false
     },
     {
-      "id": "threat-detection-engineer",
+      "id": "vantrilex-threat-detection-engineer",
       "name": "Threat Detection Engineer",
       "kind": "agent",
       "description": "Expert detection engineer specializing in SIEM rule development, MITRE ATT&CK co…",
@@ -58550,7 +58854,7 @@
       "default_selected": false
     },
     {
-      "id": "threat-intelligence-analyst",
+      "id": "vantrilex-threat-intelligence-analyst",
       "name": "Threat Intelligence Analyst",
       "kind": "agent",
       "description": "Cyber threat intelligence specialist who tracks adversary groups, maps attack ca…",
@@ -58571,7 +58875,7 @@
       "default_selected": false
     },
     {
-      "id": "tiktok-strategist",
+      "id": "vantrilex-tiktok-strategist",
       "name": "TikTok Strategist",
       "kind": "agent",
       "description": "Expert TikTok marketing specialist focused on viral content creation, algorithm …",
@@ -58592,7 +58896,7 @@
       "default_selected": false
     },
     {
-      "id": "tool-evaluator",
+      "id": "vantrilex-tool-evaluator",
       "name": "Tool Evaluator",
       "kind": "agent",
       "description": "Expert technology assessment specialist focused on evaluating, testing, and reco…",
@@ -58613,7 +58917,7 @@
       "default_selected": false
     },
     {
-      "id": "tracking-measurement-specialist",
+      "id": "vantrilex-tracking-measurement-specialist",
       "name": "Tracking & Measurement Specialist",
       "kind": "agent",
       "description": "Expert in conversion tracking architecture, tag management, and attribution mode…",
@@ -58634,7 +58938,7 @@
       "default_selected": false
     },
     {
-      "id": "trend-researcher",
+      "id": "vantrilex-trend-researcher",
       "name": "Trend Researcher",
       "kind": "agent",
       "description": "Expert market intelligence analyst specializing in identifying emerging trends, …",
@@ -58655,7 +58959,7 @@
       "default_selected": false
     },
     {
-      "id": "twitter-engager",
+      "id": "vantrilex-twitter-engager",
       "name": "Twitter Engager",
       "kind": "agent",
       "description": "Expert Twitter marketing specialist focused on real-time engagement, thought lea…",
@@ -58676,7 +58980,7 @@
       "default_selected": false
     },
     {
-      "id": "ui-designer",
+      "id": "vantrilex-ui-designer-reg",
       "name": "UI Designer",
       "kind": "agent",
       "description": "Expert UI designer specializing in visual design systems, component libraries, a…",
@@ -58697,7 +59001,7 @@
       "default_selected": false
     },
     {
-      "id": "ui-finish-gate-reviewer",
+      "id": "vantrilex-ui-finish-gate-reviewer",
       "name": "UI Finish-Gate Reviewer",
       "kind": "agent",
       "description": "Product-interface reviewer who catches generic, interchangeable UI before it shi…",
@@ -58718,7 +59022,7 @@
       "default_selected": false
     },
     {
-      "id": "uswds-developer",
+      "id": "vantrilex-uswds-developer",
       "name": "USWDS Developer",
       "kind": "agent",
       "description": "Expert U.S. Web Design System frontend developer specializing in USWDS component…",
@@ -58739,7 +59043,7 @@
       "default_selected": false
     },
     {
-      "id": "ux-architect",
+      "id": "vantrilex-ux-architect",
       "name": "UX Architect",
       "kind": "agent",
       "description": "Technical architecture and UX specialist who provides developers with solid foun…",
@@ -58760,7 +59064,7 @@
       "default_selected": false
     },
     {
-      "id": "ux-researcher",
+      "id": "vantrilex-ux-researcher",
       "name": "UX Researcher",
       "kind": "agent",
       "description": "Expert user experience researcher specializing in user behavior analysis, usabil…",
@@ -58781,7 +59085,7 @@
       "default_selected": false
     },
     {
-      "id": "unity-architect",
+      "id": "vantrilex-unity-architect",
       "name": "Unity Architect",
       "kind": "agent",
       "description": "Data-driven modularity specialist - Masters ScriptableObjects, decoupled systems…",
@@ -58802,7 +59106,7 @@
       "default_selected": false
     },
     {
-      "id": "unity-editor-tool-developer",
+      "id": "vantrilex-unity-editor-tool-developer",
       "name": "Unity Editor Tool Developer",
       "kind": "agent",
       "description": "Unity editor automation specialist - Masters custom EditorWindows, PropertyDrawe…",
@@ -58823,7 +59127,7 @@
       "default_selected": false
     },
     {
-      "id": "unity-multiplayer-engineer",
+      "id": "vantrilex-unity-multiplayer-engineer",
       "name": "Unity Multiplayer Engineer",
       "kind": "agent",
       "description": "Networked gameplay specialist - Masters Netcode for GameObjects, Unity Gaming Se…",
@@ -58844,7 +59148,7 @@
       "default_selected": false
     },
     {
-      "id": "unity-shader-graph-artist",
+      "id": "vantrilex-unity-shader-graph-artist",
       "name": "Unity Shader Graph Artist",
       "kind": "agent",
       "description": "Visual effects and material specialist - Masters Unity Shader Graph, HLSL, URP/H…",
@@ -58865,7 +59169,7 @@
       "default_selected": false
     },
     {
-      "id": "unreal-multiplayer-architect",
+      "id": "vantrilex-unreal-multiplayer-architect",
       "name": "Unreal Multiplayer Architect",
       "kind": "agent",
       "description": "Unreal Engine networking specialist - Masters Actor replication, GameMode/GameSt…",
@@ -58886,7 +59190,7 @@
       "default_selected": false
     },
     {
-      "id": "unreal-systems-engineer",
+      "id": "vantrilex-unreal-systems-engineer",
       "name": "Unreal Systems Engineer",
       "kind": "agent",
       "description": "Performance and hybrid architecture specialist - Masters C++/Blueprint continuum…",
@@ -58907,7 +59211,7 @@
       "default_selected": false
     },
     {
-      "id": "unreal-technical-artist",
+      "id": "vantrilex-unreal-technical-artist",
       "name": "Unreal Technical Artist",
       "kind": "agent",
       "description": "Unreal Engine visual pipeline specialist - Masters the Material Editor, Niagara …",
@@ -58928,7 +59232,7 @@
       "default_selected": false
     },
     {
-      "id": "unreal-world-builder",
+      "id": "vantrilex-unreal-world-builder",
       "name": "Unreal World Builder",
       "kind": "agent",
       "description": "Open-world and environment specialist - Masters UE5 World Partition, Landscape, …",
@@ -58949,7 +59253,7 @@
       "default_selected": false
     },
     {
-      "id": "video-optimization-specialist",
+      "id": "vantrilex-video-optimization-specialist",
       "name": "Video Optimization Specialist",
       "kind": "agent",
       "description": "Video marketing strategist specializing in YouTube algorithm optimization, audie…",
@@ -58970,7 +59274,7 @@
       "default_selected": false
     },
     {
-      "id": "video-streaming-engineer",
+      "id": "vantrilex-video-streaming-engineer",
       "name": "Video Streaming Engineer",
       "kind": "agent",
       "description": "Expert video streaming engineer for adaptive bitrate delivery — HLS/DASH packa…",
@@ -58991,7 +59295,7 @@
       "default_selected": false
     },
     {
-      "id": "visual-storyteller",
+      "id": "vantrilex-visual-storyteller",
       "name": "Visual Storyteller",
       "kind": "agent",
       "description": "Expert visual communication specialist focused on creating compelling visual nar…",
@@ -59012,7 +59316,7 @@
       "default_selected": false
     },
     {
-      "id": "voice-ai-integration-engineer",
+      "id": "vantrilex-voice-ai-integration-engineer",
       "name": "Voice AI Integration Engineer",
       "kind": "agent",
       "description": "Expert in building end-to-end speech transcription pipelines using Whisper-style…",
@@ -59033,7 +59337,7 @@
       "default_selected": false
     },
     {
-      "id": "wechat-mini-program-developer",
+      "id": "vantrilex-wechat-mini-program-developer",
       "name": "WeChat Mini Program Developer",
       "kind": "agent",
       "description": "Expert WeChat Mini Program developer specializing in 小程序 development with …",
@@ -59054,7 +59358,7 @@
       "default_selected": false
     },
     {
-      "id": "wechat-official-account-manager",
+      "id": "vantrilex-wechat-official-account-manager",
       "name": "WeChat Official Account Manager",
       "kind": "agent",
       "description": "Expert WeChat Official Account (OA) strategist specializing in content marketing…",
@@ -59075,7 +59379,7 @@
       "default_selected": false
     },
     {
-      "id": "web-gis-developer",
+      "id": "vantrilex-web-gis-developer",
       "name": "Web GIS Developer",
       "kind": "agent",
       "description": "Full-stack web GIS engineer who builds interactive mapping applications — MapL…",
@@ -59096,7 +59400,7 @@
       "default_selected": false
     },
     {
-      "id": "webassembly-engineer",
+      "id": "vantrilex-webassembly-engineer",
       "name": "WebAssembly Engineer",
       "kind": "agent",
       "description": "Expert WebAssembly engineer — compiling Rust/C++/Go to Wasm, JS interop and th…",
@@ -59117,7 +59421,7 @@
       "default_selected": false
     },
     {
-      "id": "weibo-strategist",
+      "id": "vantrilex-weibo-strategist",
       "name": "Weibo Strategist",
       "kind": "agent",
       "description": "Full-spectrum operations expert for Sina Weibo, with deep expertise in trending …",
@@ -59138,7 +59442,7 @@
       "default_selected": false
     },
     {
-      "id": "whimsy-injector",
+      "id": "vantrilex-whimsy-injector",
       "name": "Whimsy Injector",
       "kind": "agent",
       "description": "Expert creative specialist focused on adding personality, delight, and playful e…",
@@ -59159,7 +59463,7 @@
       "default_selected": false
     },
     {
-      "id": "wordpress-performance-engineer",
+      "id": "vantrilex-wordpress-performance-engineer",
       "name": "WordPress Performance Engineer",
       "kind": "agent",
       "description": "Expert WordPress performance engineer specializing in Core Web Vitals, object ca…",
@@ -59180,7 +59484,7 @@
       "default_selected": false
     },
     {
-      "id": "wordpress-shopping-cart-engineer",
+      "id": "vantrilex-wordpress-shopping-cart-engineer",
       "name": "WordPress Shopping Cart Engineer",
       "kind": "agent",
       "description": "Expert WordPress e-commerce engineer specializing in WooCommerce for product cat…",
@@ -59201,7 +59505,7 @@
       "default_selected": false
     },
     {
-      "id": "workflow-architect",
+      "id": "vantrilex-workflow-architect",
       "name": "Workflow Architect",
       "kind": "agent",
       "description": "Workflow design specialist who maps complete workflow trees for every system, us…",
@@ -59222,7 +59526,7 @@
       "default_selected": false
     },
     {
-      "id": "workflow-optimizer",
+      "id": "vantrilex-workflow-optimizer",
       "name": "Workflow Optimizer",
       "kind": "agent",
       "description": "Expert process improvement specialist focused on analyzing, optimizing, and auto…",
@@ -59243,7 +59547,7 @@
       "default_selected": false
     },
     {
-      "id": "x-twitter-intelligence-analyst",
+      "id": "vantrilex-x-twitter-intelligence-analyst",
       "name": "X/Twitter Intelligence Analyst",
       "kind": "agent",
       "description": "Social intelligence specialist for X/Twitter research, trend detection, account …",
@@ -59264,7 +59568,7 @@
       "default_selected": false
     },
     {
-      "id": "xr-cockpit-interaction-specialist",
+      "id": "vantrilex-xr-cockpit-interaction-specialist",
       "name": "XR Cockpit Interaction Specialist",
       "kind": "agent",
       "description": "Specialist in designing and developing immersive cockpit-based control systems f…",
@@ -59285,7 +59589,7 @@
       "default_selected": false
     },
     {
-      "id": "xr-immersive-developer",
+      "id": "vantrilex-xr-immersive-developer",
       "name": "XR Immersive Developer",
       "kind": "agent",
       "description": "Expert WebXR and immersive technology developer with specialization in browser-b…",
@@ -59306,7 +59610,7 @@
       "default_selected": false
     },
     {
-      "id": "xr-interface-architect",
+      "id": "vantrilex-xr-interface-architect",
       "name": "XR Interface Architect",
       "kind": "agent",
       "description": "Spatial interaction designer and interface strategist for immersive AR/VR/XR env…",
@@ -59327,7 +59631,7 @@
       "default_selected": false
     },
     {
-      "id": "xiaohongshu-specialist",
+      "id": "vantrilex-xiaohongshu-specialist",
       "name": "Xiaohongshu Specialist",
       "kind": "agent",
       "description": "Expert Xiaohongshu marketing specialist focused on lifestyle content, trend-driv…",
@@ -59348,7 +59652,7 @@
       "default_selected": false
     },
     {
-      "id": "zk-steward",
+      "id": "vantrilex-zk-steward",
       "name": "ZK Steward",
       "kind": "agent",
       "description": "Knowledge-base steward in the spirit of Niklas Luhmann's Zettelkasten. Default p…",
@@ -59369,7 +59673,7 @@
       "default_selected": false
     },
     {
-      "id": "zhihu-strategist",
+      "id": "vantrilex-zhihu-strategist",
       "name": "Zhihu Strategist",
       "kind": "agent",
       "description": "Expert Zhihu marketing specialist focused on thought leadership, community credi…",
@@ -59386,29 +59690,6 @@
       "tier": null,
       "verify_cmd": null,
       "cost_note": null,
-      "verification": "unverified",
-      "default_selected": false
-    },
-    {
-      "id": "a11y-audit",
-      "name": "a11y-audit",
-      "kind": "agent",
-      "description": "Accessibility auditing agent from rksekar5/a11y-audit (MIT, 1 star, last push 20…",
-      "source": "rksekar5/a11y-audit",
-      "origin": null,
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "agent",
-        "accessibility",
-        "review"
-      ],
-      "when_to_use": "When an interface needs an accessibility pass; the upstream project is young (1 star, last push 2026-06-01), so verify each finding against WCAG rather than trusting it",
-      "phase": "review",
-      "tier": "conditional",
-      "verify_cmd": null,
-      "cost_note": "light",
       "verification": "unverified",
       "default_selected": false
     },
@@ -59435,27 +59716,6 @@
       "default_selected": false
     },
     {
-      "id": "architect",
-      "name": "architect",
-      "kind": "agent",
-      "description": "Software architecture specialist for system design, scalability, and technical d…",
-      "source": null,
-      "origin": "worldflowai/everything-claude-code",
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "general"
-      ],
-      "when_to_use": "When system design, scalability, or a technical decision is needed",
-      "phase": "plan",
-      "tier": "core",
-      "verify_cmd": null,
-      "cost_note": null,
-      "verification": "unverified",
-      "default_selected": true
-    },
-    {
       "id": "blazar",
       "name": "blazar",
       "kind": "agent",
@@ -59478,28 +59738,7 @@
       "default_selected": false
     },
     {
-      "id": "build-error-resolver",
-      "name": "build-error-resolver",
-      "kind": "agent",
-      "description": "Build and TypeScript error resolution specialist. Use PROACTIVELY when build fai…",
-      "source": null,
-      "origin": "worldflowai/everything-claude-code",
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "general"
-      ],
-      "when_to_use": null,
-      "phase": null,
-      "tier": null,
-      "verify_cmd": null,
-      "cost_note": null,
-      "verification": "unverified",
-      "default_selected": false
-    },
-    {
-      "id": "code-reviewer-row-48",
+      "id": "vantrilex-code-reviewer-row-48",
       "name": "code-reviewer",
       "kind": "agent",
       "description": "Expert code review specialist. Proactively reviews code for quality, security, a…",
@@ -59520,49 +59759,7 @@
       "default_selected": false
     },
     {
-      "id": "doc-updater",
-      "name": "doc-updater",
-      "kind": "agent",
-      "description": "Documentation and codemap specialist. Use PROACTIVELY for updating codemaps and …",
-      "source": null,
-      "origin": "worldflowai/everything-claude-code",
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "general"
-      ],
-      "when_to_use": null,
-      "phase": null,
-      "tier": null,
-      "verify_cmd": null,
-      "cost_note": null,
-      "verification": "unverified",
-      "default_selected": false
-    },
-    {
-      "id": "e2e-runner",
-      "name": "e2e-runner",
-      "kind": "agent",
-      "description": "End-to-end testing specialist using Playwright. Use PROACTIVELY for generating, …",
-      "source": null,
-      "origin": "worldflowai/everything-claude-code",
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "general"
-      ],
-      "when_to_use": null,
-      "phase": null,
-      "tier": null,
-      "verify_cmd": null,
-      "cost_note": null,
-      "verification": "unverified",
-      "default_selected": false
-    },
-    {
-      "id": "macos-spatial-metal-engineer",
+      "id": "vantrilex-macos-spatial-metal-engineer",
       "name": "macOS Spatial/Metal Engineer",
       "kind": "agent",
       "description": "Native Swift and Metal specialist building high-performance 3D rendering systems…",
@@ -59573,27 +59770,6 @@
       "category": null,
       "tags": [
         "spatial-computing"
-      ],
-      "when_to_use": null,
-      "phase": null,
-      "tier": null,
-      "verify_cmd": null,
-      "cost_note": null,
-      "verification": "unverified",
-      "default_selected": false
-    },
-    {
-      "id": "planner",
-      "name": "planner",
-      "kind": "agent",
-      "description": "Expert planning specialist for complex features and refactoring. Use PROACTIVELY…",
-      "source": null,
-      "origin": "worldflowai/everything-claude-code",
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "general"
       ],
       "when_to_use": null,
       "phase": null,
@@ -59626,21 +59802,21 @@
       "default_selected": false
     },
     {
-      "id": "red-team",
-      "name": "red-team",
+      "id": "vantrilex-a11y-audit",
+      "name": "vantrilex-a11y-audit",
       "kind": "agent",
-      "description": "Adversarial attacker that tries to break a plan, design, or diff before it ships…",
-      "source": "3mar-baha/vantrilex-arsenal",
+      "description": "Accessibility auditing agent from rksekar5/a11y-audit (MIT, 1 star, last push 20…",
+      "source": "rksekar5/a11y-audit",
       "origin": null,
       "install_cmd": null,
       "version_pin": null,
       "category": null,
       "tags": [
         "agent",
-        "review",
-        "adversarial"
+        "accessibility",
+        "review"
       ],
-      "when_to_use": "When a plan, design or diff needs an independent attacker before it ships, holding no edit permission and returning ranked findings only",
+      "when_to_use": "When an interface needs an accessibility pass; the upstream project is young (1 star, last push 2026-06-01), so verify each finding against WCAG rather than trusting it",
       "phase": "review",
       "tier": "conditional",
       "verify_cmd": null,
@@ -59649,10 +59825,31 @@
       "default_selected": false
     },
     {
-      "id": "refactor-cleaner",
-      "name": "refactor-cleaner",
+      "id": "vantrilex-architect",
+      "name": "vantrilex-architect",
       "kind": "agent",
-      "description": "Dead code cleanup and consolidation specialist. Use PROACTIVELY for removing unu…",
+      "description": "Software architecture specialist for system design, scalability, and technical d…",
+      "source": null,
+      "origin": "worldflowai/everything-claude-code",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "general"
+      ],
+      "when_to_use": "When system design, scalability, or a technical decision is needed",
+      "phase": "plan",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": true
+    },
+    {
+      "id": "vantrilex-build-error-resolver",
+      "name": "vantrilex-build-error-resolver",
+      "kind": "agent",
+      "description": "Build and TypeScript error resolution specialist. Use PROACTIVELY when build fai…",
       "source": null,
       "origin": "worldflowai/everything-claude-code",
       "install_cmd": null,
@@ -59670,10 +59867,10 @@
       "default_selected": false
     },
     {
-      "id": "security-reviewer",
-      "name": "security-reviewer",
+      "id": "vantrilex-doc-updater",
+      "name": "vantrilex-doc-updater",
       "kind": "agent",
-      "description": "Security vulnerability detection and remediation specialist. Use PROACTIVELY aft…",
+      "description": "Documentation and codemap specialist. Use PROACTIVELY for updating codemaps and …",
       "source": null,
       "origin": "worldflowai/everything-claude-code",
       "install_cmd": null,
@@ -59691,10 +59888,10 @@
       "default_selected": false
     },
     {
-      "id": "tdd-guide",
-      "name": "tdd-guide",
+      "id": "vantrilex-e2e-runner",
+      "name": "vantrilex-e2e-runner",
       "kind": "agent",
-      "description": "Test-Driven Development specialist enforcing write-tests-first methodology. Use …",
+      "description": "End-to-end testing specialist using Playwright. Use PROACTIVELY for generating, …",
       "source": null,
       "origin": "worldflowai/everything-claude-code",
       "install_cmd": null,
@@ -59800,6 +59997,27 @@
       "default_selected": false
     },
     {
+      "id": "vantrilex-planner",
+      "name": "vantrilex-planner",
+      "kind": "agent",
+      "description": "Expert planning specialist for complex features and refactoring. Use PROACTIVELY…",
+      "source": null,
+      "origin": "worldflowai/everything-claude-code",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "general"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "vantrilex-python",
       "name": "vantrilex-python",
       "kind": "agent",
@@ -59818,6 +60036,50 @@
       "tier": "conditional",
       "verify_cmd": null,
       "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-red-team",
+      "name": "vantrilex-red-team",
+      "kind": "agent",
+      "description": "Adversarial attacker that tries to break a plan, design, or diff before it ships…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "agent",
+        "review",
+        "adversarial"
+      ],
+      "when_to_use": "When a plan, design or diff needs an independent attacker before it ships, holding no edit permission and returning ranked findings only",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-refactor-cleaner",
+      "name": "vantrilex-refactor-cleaner",
+      "kind": "agent",
+      "description": "Dead code cleanup and consolidation specialist. Use PROACTIVELY for removing unu…",
+      "source": null,
+      "origin": "worldflowai/everything-claude-code",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "general"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
       "verification": "unverified",
       "default_selected": false
     },
@@ -59932,6 +60194,48 @@
       "default_selected": false
     },
     {
+      "id": "vantrilex-security-reviewer",
+      "name": "vantrilex-security-reviewer",
+      "kind": "agent",
+      "description": "Security vulnerability detection and remediation specialist. Use PROACTIVELY aft…",
+      "source": null,
+      "origin": "worldflowai/everything-claude-code",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "general"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-tdd-guide",
+      "name": "vantrilex-tdd-guide",
+      "kind": "agent",
+      "description": "Test-Driven Development specialist enforcing write-tests-first methodology. Use …",
+      "source": null,
+      "origin": "worldflowai/everything-claude-code",
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "general"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "unverified",
+      "default_selected": false
+    },
+    {
       "id": "vantrilex-typescript",
       "name": "vantrilex-typescript",
       "kind": "agent",
@@ -60020,7 +60324,7 @@
       "default_selected": false
     },
     {
-      "id": "visionos-spatial-engineer",
+      "id": "vantrilex-visionos-spatial-engineer",
       "name": "visionOS Spatial Engineer",
       "kind": "agent",
       "description": "Native visionOS spatial computing, SwiftUI volumetric interfaces, and Liquid Gla…",

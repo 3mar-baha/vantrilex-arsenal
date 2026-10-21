@@ -12,21 +12,21 @@
 | Code Reviewer | agent | core | After a feature, for the standards review lane |  |
 | Technical Writer | agent | core | During the docs phase, to produce the numbered documentation set |  |
 | aether | agent | core | When a task must be planned before anything executes, to produce a veri… |  |
-| architect | agent | core | When system design, scalability, or a technical decision is needed |  |
 | blazar | agent | core | When a verified plan is ready to execute, to derive waves, dispatch eve… |  |
 | pulsar | agent | core | When post-P0 exploration must precede a plan revision, to test plan ass… |  |
+| vantrilex-architect | agent | core | When system design, scalability, or a technical decision is needed |  |
 
 ## Tier 1 — Conditional (16)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| a11y-audit | agent | conditional | When an interface needs an accessibility pass; the upstream project is… |  |
-| red-team | agent | conditional | When a plan, design or diff needs an independent attacker before it shi… |  |
+| vantrilex-a11y-audit | agent | conditional | When an interface needs an accessibility pass; the upstream project is… |  |
 | vantrilex-fixer | agent | conditional | When a build fails, a test breaks, or a verified fault needs a minimal… |  |
 | vantrilex-github | agent | conditional | When the brief names a GitHub issue, pull request, or release operation… |  |
 | vantrilex-harness | agent | conditional | When a kit component needs an adversarial probe with an executable mini… |  |
 | vantrilex-librarian | agent | conditional | When catalog knowledge needs version-qualified curation, drift reportin… |  |
 | vantrilex-python | agent | conditional | When Python code, tests, or packaging need writing, repair, or review [… |  |
+| vantrilex-red-team | agent | conditional | When a plan, design or diff needs an independent attacker before it shi… |  |
 | vantrilex-releaser | agent | conditional | When a release needs terminal prep staging a versioned handoff package… |  |
 | vantrilex-reviewer | agent | conditional | When a diff, branch, or pull request needs a read-only kit-law review w… |  |
 | vantrilex-scout | agent | conditional | When planning must start from observed fact rather than assumption [SOU… |  |
@@ -313,13 +313,13 @@ _None._
 | Xiaohongshu Specialist | agent |  |  |  |
 | ZK Steward | agent |  |  |  |
 | Zhihu Strategist | agent |  |  |  |
-| build-error-resolver | agent |  |  |  |
 | code-reviewer | agent |  |  |  |
-| doc-updater | agent |  |  |  |
-| e2e-runner | agent |  |  |  |
 | macOS Spatial/Metal Engineer | agent |  |  |  |
-| planner | agent |  |  |  |
-| refactor-cleaner | agent |  |  |  |
-| security-reviewer | agent |  |  |  |
-| tdd-guide | agent |  |  |  |
+| vantrilex-build-error-resolver | agent |  |  |  |
+| vantrilex-doc-updater | agent |  |  |  |
+| vantrilex-e2e-runner | agent |  |  |  |
+| vantrilex-planner | agent |  |  |  |
+| vantrilex-refactor-cleaner | agent |  |  |  |
+| vantrilex-security-reviewer | agent |  |  |  |
+| vantrilex-tdd-guide | agent |  |  |  |
 | visionOS Spatial Engineer | agent |  |  |  |

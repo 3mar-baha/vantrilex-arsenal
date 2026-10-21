@@ -63,6 +63,14 @@
           "verification": {
             "type": "string",
             "enum": ["verified", "unverified"]
+          },
+          "redundancy_pair": {
+            "type": ["string", "null"],
+            "minLength": 1
+          },
+          "evaluator": {
+            "type": "string",
+            "minLength": 1
           }
         },
         "allOf": [
