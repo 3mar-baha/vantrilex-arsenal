@@ -148,7 +148,8 @@ jobs:
 
       - name: Package release artifact
         # Smoke-test artifact only; paths that have not landed on this branch
-        # are reported and skipped. release.yml is the strict packaging gate.
+        # are reported and skipped. release.yml is retired: auto-publish.yml is
+        # the sole asset writer, and a v* tag push starts no CI run.
         run: |
           set -euo pipefail
           tarfile="vantrilex-arsenal-${GITHUB_SHA::7}.tar.gz"

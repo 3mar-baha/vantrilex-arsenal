@@ -428,8 +428,8 @@ main() {
     sha="$(git -C "$REPO_ROOT" rev-parse "${tag}^{commit}")"
     log "tag ${tag} -> commit ${sha}"
 
-    # 4. Every packaged path must exist at that commit, exactly as release.yml
-    #    demands. A missing path fails the run before an artifact is built.
+    # 4. Every packaged path must exist at that commit, exactly as the retired
+    #    release.yml demanded. A missing path fails the run before an artifact is built.
     local p missing=""
     for p in "${PACKAGE_PATHS[@]}"; do
         git -C "$REPO_ROOT" cat-file -e "${sha}:${p}" 2>/dev/null || missing="${missing} ${p}"

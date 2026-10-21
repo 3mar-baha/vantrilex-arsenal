@@ -2,8 +2,8 @@
 
 Continuous integration proves every change; the release lane ships versions.
 CI runs on `ubuntu-latest` with Node 25. The workflow files are
-`.github/workflows/ci.yml`, `.github/workflows/release.yml`, and
-`.github/workflows/auto-publish.yml`; the publishing script is
+`.github/workflows/ci.yml` and `.github/workflows/auto-publish.yml`; the
+publishing script is
 `scripts/release.sh`, and the post-release publisher is
 `scripts/auto-publish.sh`.
 
@@ -144,6 +144,6 @@ prints the artifact identity, the decision per channel, and the audit line. It
 uploads nothing and marks no release latest. Publishing requires `DRY_RUN=0`
 explicitly.
 
-`release.yml` still uploads on a `v*` tag push. When both workflows run for one
-release, each uses one asset name, so the release keeps exactly one artifact;
-the last writer wins.
+`release.yml` is retired. `auto-publish.yml` is the sole asset writer: it runs
+when a release is published, uploads exactly one artifact, and a `v*` tag push
+starts no CI run.
