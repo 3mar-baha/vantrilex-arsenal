@@ -26,11 +26,20 @@
  *                                          from the one the manifest recorded.
  *
  * Usage:
- *   scripts/backfill-publish.mjs [--one <version>] [-h | --help]
+ *   scripts/backfill-publish.mjs [--one <version>] [--self-test] [-h | --help]
  *
  *   --one <version>  Publish exactly one manifest entry (the §5 rule: the first
  *                    live publish runs monitored). A held version is refused.
  *                    Without it, every entry is processed in order.
+ *   --self-test      Run the pure-helper checks. Creates nothing, no network.
+ *
+ * Post-upload guard (live runs only): a tag push can start a second writer — a
+ * workflow defined at the tagged commit — and that writer clobbered the v0.7.8
+ * asset after it published. So after the release upload the run waits (bounded,
+ * 3 minutes) for the runs the tag started to settle, reads the attached asset
+ * back, and re-uploads the bytes it built when the digest differs. A digest
+ * that still differs fails the run closed, and the audit line records the
+ * attached digest and size rather than only the built ones.
  *
  * Environment:
  *   DRY_RUN=1|0  Default 1. A dry run verifies the map hash, validates the
@@ -452,6 +461,14 @@ const GIT_IDENTITY = [
   '-c', 'user.email=release@vantrilex.local',
 ];
 
+/* The tag push itself can start a second writer: a workflow defined at the
+   tagged commit, which is what clobbered v0.7.8 after it published. The guard
+   below waits for those runs, so the wait and the settlement window are fixed
+   constants rather than operator knobs. */
+const TAG_RUN_POLL_MS = 5 * 1000;
+const TAG_RUN_LOOKUP_GRACE_MS = 30 * 1000;
+const TAG_RUN_SETTLE_LIMIT_MS = 3 * 60 * 1000;
+
 function createTag(tag, ref) {
   const created = git([...GIT_IDENTITY, 'tag', '-a', tag, '-m', tag, ref]);
   if (!created.ok) return { ok: false, detail: created.stderr.trim() || created.error || 'git tag failed' };
@@ -467,6 +484,144 @@ function createRelease(tag, notes, assetPath, scratch) {
   if (!created.ok) return { ok: false, detail: created.stderr.trim() || created.error || 'gh release create failed' };
   return { ok: true, detail: `release ${tag} created with one asset` };
 }
+
+function sleepSync(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
+/*
+  tagRuns <sha> — the workflow runs the tag push started for that commit. An
+  unqueryable answer is returned as such and never read as "no runs", because a
+  silent zero would skip the very wait this guard exists for.
+*/
+function tagRuns(sha) {
+  const listed = run('gh', ['run', 'list', '--commit', sha, '--limit', '20', '--json', 'databaseId,status,name']);
+  if (!listed.ok) {
+    return { ok: false, runs: [], detail: listed.stderr.trim() || listed.error || 'gh run list failed' };
+  }
+  let runs;
+  try {
+    runs = JSON.parse(listed.stdout);
+  } catch (error) {
+    return { ok: false, runs: [], detail: `unreadable gh run list output — ${errorText(error)}` };
+  }
+  if (!Array.isArray(runs)) return { ok: false, runs: [], detail: 'gh run list carried no array' };
+  return { ok: true, runs };
+}
+
+/*
+  settleTagRuns <sha> <log> — bounded wait for the runs the tag push started.
+  The lookup gets a grace window before "no runs yet" is accepted as "no runs
+  will come": GitHub registers a run a few seconds after the push, and reading
+  an empty list too early would inspect the asset before the second writer
+  finished. A run still going at the limit is reported, never waited out
+  forever.
+*/
+function settleTagRuns(sha, log) {
+  const startedAt = Date.now();
+  const deadline = startedAt + TAG_RUN_SETTLE_LIMIT_MS;
+  for (;;) {
+    const listed = tagRuns(sha);
+    if (!listed.ok) {
+      log(`    settle: run list unavailable (${listed.detail}); verifying the asset anyway`);
+      return { settled: false, reason: 'unqueryable' };
+    }
+    const pending = listed.runs.filter((entry) => entry.status !== 'completed');
+    if (pending.length === 0) {
+      if (listed.runs.length > 0 || Date.now() - startedAt >= TAG_RUN_LOOKUP_GRACE_MS) {
+        log(`    settle: ${listed.runs.length} run(s) for ${sha.slice(0, 7)} completed`);
+        return { settled: true, runs: listed.runs.length };
+      }
+    } else if (Date.now() >= deadline) {
+      log(`    settle: ${pending.length} run(s) still ${pending.map((entry) => entry.status).join(', ')} at the ${TAG_RUN_SETTLE_LIMIT_MS / 1000}s limit (${pending.map((entry) => entry.name || 'unnamed').join(', ')})`);
+      return { settled: false, reason: 'timeout' };
+    }
+    if (Date.now() >= deadline) {
+      log(`    settle: no completed run list within the ${TAG_RUN_SETTLE_LIMIT_MS / 1000}s limit; verifying the asset anyway`);
+      return { settled: false, reason: 'timeout' };
+    }
+    sleepSync(TAG_RUN_POLL_MS);
+  }
+}
+
+/* attachedAsset <tag> <name> — the asset record GitHub reports for that name. */
+function attachedAsset(tag, name) {
+  const viewed = run('gh', ['release', 'view', tag, '--json', 'assets']);
+  if (!viewed.ok) return { ok: false, detail: viewed.stderr.trim() || viewed.error || 'gh release view failed' };
+  let assets;
+  try {
+    assets = JSON.parse(viewed.stdout).assets;
+  } catch (error) {
+    return { ok: false, detail: `unreadable gh release view output — ${errorText(error)}` };
+  }
+  if (!Array.isArray(assets)) return { ok: false, detail: 'gh release view carried no assets array' };
+  return { ok: true, asset: assets.find((entry) => entry.name === name) ?? null };
+}
+
+/*
+  attachedMatches <attached> <asset> — the pure comparison the guard decides
+  on. A missing record, a different size, or a present-but-different digest is a
+  mismatch. A gh too old to report a digest leaves size as the only evidence,
+  which is stated rather than invented.
+*/
+export function attachedMatches(attached, asset) {
+  if (attached === null || typeof attached !== 'object' || Array.isArray(attached)) return false;
+  if (attached.size !== asset.bytes) return false;
+  if (typeof attached.digest === 'string' && attached.digest !== '') return attached.digest === `sha256:${asset.sha256}`;
+  return true;
+}
+
+/*
+  ensureAttachedAsset <tag> <tagSource> <asset> <log> — the post-upload clobber
+  guard. After the release upload: wait for the tag's runs, read the attached
+  asset back, and answer a mismatch by re-uploading the bytes this run built.
+  A mismatch that survives the re-upload fails closed. Returns the digest and
+  size that are actually attached, so the audit line records the final state and
+  not only the built one.
+*/
+function ensureAttachedAsset(tag, tagSource, asset, log) {
+  const expected = `sha256:${asset.sha256}`;
+  const settle = settleTagRuns(tagSource, log);
+  const inspect = () => {
+    const found = attachedAsset(tag, asset.name);
+    if (!found.ok) return { ok: false, detail: found.detail };
+    const record = found.asset;
+    const shown = record === null ? 'absent' : `${record.digest ?? 'no-digest'} bytes=${record.size}`;
+    return { ok: true, matches: attachedMatches(record, asset), record, shown };
+  };
+  const result = (current, restored) => ({
+    ok: true,
+    restored,
+    digest: current.record?.digest ?? expected,
+    size: current.record?.size ?? asset.bytes,
+    settle,
+  });
+
+  let current = inspect();
+  if (!current.ok) return { ok: false, detail: current.detail };
+  if (current.matches) {
+    log(`    attached asset verified: ${current.shown}`);
+    return result(current, false);
+  }
+
+  log(`    attached asset differs (${current.shown}); re-uploading the executor bytes with --clobber`);
+  const upload = run('gh', ['release', 'upload', tag, asset.path, '--clobber']);
+  if (!upload.ok) return { ok: false, detail: `re-upload failed: ${upload.stderr.trim() || upload.error || 'gh release upload failed'}` };
+  const deadline = Date.now() + TAG_RUN_SETTLE_LIMIT_MS;
+  for (;;) {
+    sleepSync(TAG_RUN_POLL_MS);
+    current = inspect();
+    if (!current.ok) return { ok: false, detail: current.detail };
+    if (current.matches) {
+      log(`    attached asset restored: ${current.shown}`);
+      return result(current, true);
+    }
+    if (Date.now() >= deadline) {
+      return { ok: false, detail: `attached asset still differs after re-upload (${current.shown})` };
+    }
+  }
+}
+
 
 /* auditLine <six fields> — the same machine-readable schema the other release
    lanes write, so one log answers for all of them. */
@@ -596,7 +751,31 @@ function processEntry(entry, context) {
     appendAudit(auditLine({ version: tag, commit: tagTarget, timestamp: context.now, artifacts, channels, result: `failed-release;gate=as-closed;mode=${entry.mode}` }));
     return { status: 'failed', tag, reason: releaseResult.detail };
   }
-  appendAudit(auditLine({ version: tag, commit: tagTarget, timestamp: context.now, artifacts, channels, result: `published;gate=as-closed;mode=${entry.mode}` }));
+  const guard = ensureAttachedAsset(tag, tagTarget, asset, log);
+  if (!guard.ok) {
+    log(`    FAILED — ${guard.detail}. The tag and release exist; a re-run skips them loudly instead of publishing twice.`);
+    appendAudit(
+      auditLine({
+        version: tag,
+        commit: tagTarget,
+        timestamp: context.now,
+        artifacts,
+        channels,
+        result: `failed-attached-digest;gate=as-closed;mode=${entry.mode};attached-error=${guard.detail.replace(/\s+/g, '-')}`,
+      }),
+    );
+    return { status: 'failed', tag, reason: guard.detail };
+  }
+  appendAudit(
+    auditLine({
+      version: tag,
+      commit: tagTarget,
+      timestamp: context.now,
+      artifacts,
+      channels,
+      result: `published;gate=as-closed;mode=${entry.mode};attached=${guard.digest};attached-bytes=${guard.size}${guard.restored ? ';clobber-restored=yes' : ''}`,
+    }),
+  );
   log(`    PUBLISHED ${tag}.`);
   return { status: 'published', tag, asset };
 }
@@ -610,13 +789,19 @@ function usage() {
       '',
       'Usage:',
       '  scripts/backfill-publish.mjs [--one <version>]',
+      '  scripts/backfill-publish.mjs --self-test',
       '',
       '  --one <version>  Process exactly one manifest entry (monitored publish).',
       '                   A held version is refused.',
+      '  --self-test      Run the pure-helper checks; creates nothing, calls no network.',
       '',
       'Environment:',
       '  DRY_RUN=1|0            Default 1: build, print the plan, create nothing.',
       '  PUBLISH_REPO=owner/name Default: the origin remote slug (audit line only).',
+      '',
+      'A live publish waits up to 3 minutes for the runs the tag push started, then',
+      'verifies the attached asset digest and re-uploads on a clobber. A digest that',
+      'still differs fails the run closed.',
       '',
       'Exit status:',
       '  0  planned (dry run), published, skipped, or held-and-refused in a full run.',
@@ -625,10 +810,64 @@ function usage() {
   );
 }
 
+function selfTest() {
+  const checks = [];
+  const check = (name, actual, expected) => {
+    const ok = JSON.stringify(actual) === JSON.stringify(expected);
+    checks.push(ok);
+    process.stdout.write(`  ${ok ? 'PASS' : 'FAIL'} ${name} — ${JSON.stringify(actual)}${ok ? '' : ` (expected ${JSON.stringify(expected)})`}\n`);
+  };
+
+  check('compareVersions 0.7.9 before 0.8.0', compareVersions([0, 7, 9], [0, 8, 0]), -1);
+  check('compareVersions 0.8.10 after 0.8.9', compareVersions([0, 8, 10], [0, 8, 9]), 1);
+  check('compareVersions equal', compareVersions([0, 8, 0], [0, 8, 0]), 0);
+  check('planAction refuses a held unit', planAction({ version: '0.9.0', status: 'held' }, []), 'refused-held');
+  check('planAction skips an existing tag', planAction({ version: '0.8.0', status: 'ready' }, ['v0.8.0']), 'skip-existing-tag');
+  check('planAction publishes a fresh tag', planAction({ version: '0.8.1', status: 'ready' }, ['v0.8.0']), 'publish');
+
+  const entry = (version) => ({
+    version,
+    unit: 'SELF-TEST',
+    mode: 'evidence',
+    ref: null,
+    assets: ['AGENTS.md'],
+    notes_ref: 'self-test',
+    status: 'ready',
+    hold_reason: null,
+    as_closed: 'self-test',
+    gaps: [],
+  });
+  const manifest = (entries) => JSON.stringify({ approved_map: 'map.md', map_sha256: 'a'.repeat(64), entries });
+  check('parseManifest accepts an ascending manifest', parseManifest(manifest([entry('0.8.0'), entry('0.8.1')])).ok, true);
+  check('parseManifest refuses descending versions', parseManifest(manifest([entry('0.8.1'), entry('0.8.0')])).ok, false);
+  check('parseManifest refuses a duplicated version', parseManifest(manifest([entry('0.8.0'), entry('0.8.0')])).ok, false);
+  check('verifyMapHash refuses drift', verifyMapHash({ map_sha256: 'a'.repeat(64) }, 'b'.repeat(64)).ok, false);
+
+  const built = { bytes: 2059067, sha256: 'b'.repeat(64) };
+  check('attachedMatches accepts identical bytes', attachedMatches({ size: 2059067, digest: `sha256:${'b'.repeat(64)}` }, built), true);
+  check('attachedMatches rejects a clobbered digest', attachedMatches({ size: 2059067, digest: `sha256:${'c'.repeat(64)}` }, built), false);
+  check('attachedMatches rejects a clobbered size', attachedMatches({ size: 2130798, digest: `sha256:${'b'.repeat(64)}` }, built), false);
+  check('attachedMatches rejects a missing record', attachedMatches(null, built), false);
+  check('attachedMatches falls back to size when gh reports no digest', attachedMatches({ size: 2059067 }, built), true);
+
+  check(
+    'auditLine keeps six pipe-separated fields',
+    auditLine({ version: 'v0.0.0', commit: 'c', timestamp: 't', artifacts: 'a', channels: 'ch', result: 'r' }).split(' | ').length,
+    6,
+  );
+
+  const failed = checks.filter((ok) => !ok).length;
+  process.stdout.write(`self-test: ${checks.length - failed}/${checks.length} PASS, ${failed} FAIL\n`);
+  return failed === 0 ? 0 : 1;
+}
+
 function main(argv) {
   if (argv.includes('-h') || argv.includes('--help')) {
     usage();
     return 0;
+  }
+  if (argv.includes('--self-test')) {
+    return selfTest();
   }
 
   let one = null;
