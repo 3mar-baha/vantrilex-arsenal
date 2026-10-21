@@ -10,13 +10,21 @@
  * default export and never invokes a V1 plugin function, while V1 reads
  * `server()` and ignores the rest.
  *
- * V2 - `setup()`, five hooks:
+ * V2 - `setup()`, five hooks plus the merged plan-guard append:
  *
  *   8. taskDispatcher            -> session "prompt"        (per user prompt)
+ *   +  plan-guard append         -> session "prompt"        (same registration)
  *   4. longRunningProcessGuard   -> tool "execute.before" + shell "create.before"
+ *   +  diffSizeGuard             -> tool "execute.before"   (write calls only)
  *   7. docsDisciplineGuard       -> tool "execute.before" + shell "create.before"
  *   5. typescriptCheck           -> tool "execute.after"    (conditional)
  *   6. prettierFormat            -> tool "execute.after"    (conditional)
+ *
+ * The plan-guard append (ق-6) is registered by the SAME `prompt` callback as the
+ * dispatcher, so exactly one plugin file loads and no prompt hook runs twice.
+ * Every registered callback checks the per-project kill switch (م-4) at its head
+ * and no-ops entirely when a signal is set. `setup()` also probes the six
+ * documented hooks once (م-3) and reports what it observed, never more.
  *
  * V1 - `server()`, all seven hooks (6 locked hook components plus the
  * docs-discipline guard, which is not a lock component); the eighth logical
@@ -462,6 +470,26 @@ const CONSTITUTION_PATH = "docs/25-AI-CONSTITUTION.md"
 const SUMMARY_PATH = "docs/00-PROJECT-SUMMARY.md"
 const CONFIG_PATH = ".opencode/arsenal.json"
 
+/**
+ * Per-project kill switch (م-4). Four signals, resolved in this order:
+ *
+ *   1. `VANTRILEX_DISABLED=1` in the process environment (read per hook).
+ *   2. `vantrilex.enabled: false` in `.opencode/config.json` (read at setup).
+ *   3. `excludedProjects` listing this project in the global OpenCode config
+ *      (`$XDG_CONFIG_HOME/opencode/opencode.json`, else `$HOME/.config/...`).
+ *   4. The file `.opencode/.vantrilex-disable` existing (read per hook).
+ *
+ * A missing, unreadable or malformed signal file never disables anything: the
+ * switch fails towards armed, exactly like the docs-guard and dispatcher flags.
+ */
+const PROJECT_SWITCH_PATH = ".opencode/config.json"
+const DISABLE_FILE_PATH = ".opencode/.vantrilex-disable"
+const DISABLE_ENV_NAME = "VANTRILEX_DISABLED"
+
+/** Diff Size Guard thresholds (blueprint `:200`): lines OR files, not both. */
+const DIFF_LINE_LIMIT = 120
+const DIFF_FILE_LIMIT = 4
+
 const TSC_TIMEOUT_MS = 120_000
 const PRETTIER_TIMEOUT_MS = 60_000
 const GIT_TIMEOUT_MS = 15_000
@@ -581,6 +609,19 @@ export type TaskDispatcherConfig = {
 
 export const DEFAULT_TASK_DISPATCHER: TaskDispatcherConfig = { enabled: true }
 
+/**
+ * Resolved per-project kill switch (م-4). `enabled` comes from the project's
+ * `.opencode/config.json`; `excludedProjects` from the global config. The two
+ * live signals (`VANTRILEX_DISABLED=1` and the disable file) are read at hook
+ * time instead of being snapshotted here, so an emergency stop works mid-session.
+ */
+export type VantrilexSwitch = {
+  enabled: boolean
+  excludedProjects: string[]
+}
+
+export const DEFAULT_VANTRILEX_SWITCH: VantrilexSwitch = { enabled: true, excludedProjects: [] }
+
 /* ===========================================================================
  * 4. Result plumbing
  * ========================================================================= */
@@ -609,6 +650,8 @@ type SessionState = {
   touchedFiles: Set<string>
   guardOutcomes: string[]
   circuit: { failures: number; openedAt?: number }
+  /** HEAD the Diff Size Guard last warned about; a new commit re-arms it. */
+  warnedDiffHead: string
 }
 
 type ArsenalContext = {
@@ -621,11 +664,15 @@ type ArsenalContext = {
   tscChain: Promise<void>
   pendingWarnings: string[]
   lastLogTarget: string | null
+  /** One line per documented hook, from the setup-time capability probe. */
+  capabilityLines: string[]
+  capabilitiesFlushed: boolean
 }
 
 type ArsenalConfig = {
   docsGuard: DocsGuardConfig
   taskDispatcher: TaskDispatcherConfig
+  vantrilex: VantrilexSwitch
 }
 
 type ContextAnchor = {
@@ -646,6 +693,7 @@ const sessionState = (ctx: ArsenalContext, sessionId: string): SessionState => {
     touchedFiles: new Set<string>(),
     guardOutcomes: [],
     circuit: { failures: 0 },
+    warnedDiffHead: "",
   }
   ctx.sessions.set(sessionId, created)
   return created
@@ -913,9 +961,20 @@ type GitFacts = {
   branch: string
   worktrees: string
   dirty: string
+  /** HEAD commit; present only when the caller asked for diff facts. */
+  head?: string
+  /** Changed path count; `null` when git status could not be read. */
+  changedFiles?: number | null
+  /** Tracked added+removed lines vs HEAD; `null` when git diff could not run. */
+  changedLines?: number | null
 }
 
-const readGitFacts = async (rt: Runtime, root: string, deadline: Deadline): Promise<Attempt<GitFacts>> => {
+const readGitFacts = async (
+  rt: Runtime,
+  root: string,
+  deadline: Deadline,
+  withDiff = false,
+): Promise<Attempt<GitFacts>> => {
   if (!budgetAllows(deadline, COST_GIT_MS)) return fail("read budget exhausted before git state")
   const binary = resolveLocalBinary(rt, root, "git") ?? "git"
   const branchRun = await runCommand(rt, binary, ["rev-parse", "--abbrev-ref", "HEAD"], {
@@ -961,14 +1020,45 @@ const readGitFacts = async (rt: Runtime, root: string, deadline: Deadline): Prom
   })
   // A non-zero exit means the state is unknown. Reporting it as clean would be a
   // false PASS, which is worse than an honest unknown.
+  const statusLines = statusRun.spawnFailed || statusRun.code !== 0
+    ? null
+    : statusRun.stdout.split("\n").filter((line) => line.trim().length > 0)
   const dirty =
-    statusRun.spawnFailed || statusRun.code !== 0
-      ? "unknown"
-      : statusRun.stdout.split("\n").filter((line) => line.trim().length > 0).length === 0
-        ? "clean"
-        : `${statusRun.stdout.split("\n").filter((line) => line.trim().length > 0).length} changed path(s)`
+    statusLines === null ? "unknown" : statusLines.length === 0 ? "clean" : `${statusLines.length} changed path(s)`
 
-  return ok({ branch, worktrees, dirty })
+  const facts: GitFacts = { branch, worktrees, dirty }
+  if (!withDiff) return ok(facts)
+
+  // Diff facts for the Diff Size Guard. File count comes from `git status`,
+  // which includes untracked paths; line count comes from `git diff --numstat
+  // HEAD`, which covers staged and unstaged tracked changes only. Untracked
+  // files therefore count toward the four-file ceiling and contribute zero
+  // lines: their size is not measured rather than guessed.
+  facts.changedFiles = statusLines === null ? null : statusLines.length
+  if (!budgetAllows(deadline, COST_GIT_MS / 2)) return ok(facts)
+  const headRun = await runCommand(rt, binary, ["rev-parse", "HEAD"], { cwd: root, timeoutMs: GIT_TIMEOUT_MS })
+  facts.head = headRun.spawnFailed || headRun.code !== 0 ? "" : headRun.stdout.trim()
+  if (facts.head.length === 0 || !budgetAllows(deadline, COST_GIT_MS / 2)) {
+    facts.changedLines = null
+    return ok(facts)
+  }
+  const diffRun = await runCommand(rt, binary, ["diff", "--numstat", "HEAD"], { cwd: root, timeoutMs: GIT_TIMEOUT_MS })
+  if (diffRun.spawnFailed || diffRun.code !== 0) {
+    facts.changedLines = null
+    return ok(facts)
+  }
+  let changedLines = 0
+  for (const row of diffRun.stdout.split("\n")) {
+    const columns = row.split("\t")
+    if (columns.length < 2) continue
+    const added = Number.parseInt(columns[0], 10)
+    const removed = Number.parseInt(columns[1], 10)
+    // Binary rows report "-" in both columns and carry no line count.
+    if (Number.isNaN(added) || Number.isNaN(removed)) continue
+    changedLines += added + removed
+  }
+  facts.changedLines = changedLines
+  return ok(facts)
 }
 
 /* ===========================================================================
@@ -1026,6 +1116,58 @@ const firstSentence = (markdown: string): string => {
  * 13. Configuration
  * ========================================================================= */
 
+/** Parse a JSON config file into a record; any failure yields `{}`. */
+const readJsonConfig = (rt: Runtime, target: string): Record<string, unknown> => {
+  const attempt = readTextFile(rt, target, 64 * 1024)
+  if (attempt.status !== "ok") return {}
+  try {
+    return asRecord(JSON.parse(attempt.value))
+  } catch {
+    return {}
+  }
+}
+
+/**
+ * The global OpenCode config directory, or `null` when no home directory is
+ * resolvable. The path is the one the host documents and this repository
+ * already cites: `$XDG_CONFIG_HOME/opencode/opencode.json`, falling back to
+ * `$HOME/.config/opencode/opencode.json` (`USERPROFILE` on Windows).
+ */
+const globalConfigRoot = (rt: Runtime): string | null => {
+  const env = rt.proc.env
+  const xdg = typeof env.XDG_CONFIG_HOME === "string" ? env.XDG_CONFIG_HOME.trim() : ""
+  if (xdg.length > 0) return xdg
+  const home =
+    typeof env.HOME === "string" && env.HOME.trim().length > 0
+      ? env.HOME.trim()
+      : typeof env.USERPROFILE === "string" && env.USERPROFILE.trim().length > 0
+        ? env.USERPROFILE.trim()
+        : ""
+  return home.length > 0 ? `${toPosix(home).replace(/\/+$/, "")}/.config` : null
+}
+
+/**
+ * Read both snapshotted kill-switch signals (م-4). Malformed or absent files
+ * resolve to the armed default in both directions; only an explicit
+ * `vantrilex.enabled === false` disarms, and only exact path matches exclude.
+ */
+const readVantrilexSwitch = (rt: Runtime, root: string): VantrilexSwitch => {
+  const join = rt.path?.join ?? EMPTY_PATH.join
+  const projectFlag = asRecord(readJsonConfig(rt, join(root, PROJECT_SWITCH_PATH)).vantrilex)
+  const enabled = typeof projectFlag.enabled === "boolean" ? projectFlag.enabled : DEFAULT_VANTRILEX_SWITCH.enabled
+
+  const configRoot = globalConfigRoot(rt)
+  if (configRoot === null) return { enabled, excludedProjects: [] }
+  const globalConfig = readJsonConfig(rt, join(configRoot, "opencode", "opencode.json"))
+  const nested = asRecord(globalConfig.vantrilex).excludedProjects
+  const flat = globalConfig.excludedProjects
+  const declared = Array.isArray(nested) ? nested : Array.isArray(flat) ? flat : []
+  return {
+    enabled,
+    excludedProjects: declared.filter((entry): entry is string => typeof entry === "string"),
+  }
+}
+
 const readConfig = (rt: Runtime, root: string): ArsenalConfig => {
   const join = rt.path?.join ?? EMPTY_PATH.join
   const attempt = readTextFile(rt, join(root, CONFIG_PATH), 64 * 1024)
@@ -1073,7 +1215,44 @@ const readConfig = (rt: Runtime, root: string): ArsenalConfig => {
       series: series.length > 0 ? series : DEFAULT_DOCS_GUARD.series,
     },
     taskDispatcher: { enabled },
+    vantrilex: readVantrilexSwitch(rt, root),
   }
+}
+
+/**
+ * The kill switch, evaluated at the head of every registered hook (م-4).
+ * Returns the observed signal, or `null` when the guard is armed.
+ *
+ * Signals are named so a probe can assert which one suppressed behaviour; a
+ * reason string is not user-facing copy, it is evidence.
+ */
+export const killSwitchReason = (ctx: ArsenalContext): string | null => {
+  const env = ctx.rt.proc.env
+  if (env[DISABLE_ENV_NAME] === "1") return `${DISABLE_ENV_NAME}=1 in the environment`
+
+  const project = ctx.config?.vantrilex
+  if (!project) return null
+  if (project.enabled === false) return `vantrilex.enabled=false in ${PROJECT_SWITCH_PATH}`
+
+  const join = ctx.rt.path?.join ?? EMPTY_PATH.join
+  const caseFold = ctx.rt.proc.platform === "win32"
+  const normalize = (value: string): string => {
+    const posix = toPosix(value).replace(/\/+$/, "")
+    return caseFold ? posix.toLowerCase() : posix
+  }
+  const root = normalize(ctx.root)
+  if (project.excludedProjects.some((entry) => normalize(entry) === root)) {
+    return `excludedProjects lists ${toPosix(ctx.root)} in the global config`
+  }
+
+  if (ctx.rt.fs) {
+    try {
+      if (ctx.rt.fs.existsSync(join(ctx.root, DISABLE_FILE_PATH))) return `${DISABLE_FILE_PATH} exists`
+    } catch {
+      // An unreadable marker directory cannot prove exclusion: stay armed.
+    }
+  }
+  return null
 }
 
 /* ===========================================================================
@@ -1913,7 +2092,308 @@ export const taskDispatcher = (ctx: ArsenalContext): string | null =>
 const hasDispatchInstruction = (text: string): boolean => text.includes(TASK_DISPATCH_INSTRUCTION)
 
 /* ===========================================================================
- * 21. Wiring
+ * 21. Plan-guard detective append (ق-6 merge)
+ * ===========================================================================
+ *
+ * Merged from the retired `.opencode/plugins/vantrilex-guards.ts` carrier so
+ * exactly one plugin file loads. Binding: P1-R0.md verdict (1) rules the hard
+ * admission gate IMPOSSIBLE on the current host, so nothing here claims to
+ * refuse a brief. The functions below compare the dispatch brief against the
+ * plan excerpt attached to the same prompt and append a dated plan-drift
+ * report when brief identifiers have no match in the plan. Findings are
+ * observations for the leader, never verdicts, and the turn always proceeds.
+ *
+ * Prompt convention (attached by leader-discipline, read by `splitBriefAndPlan`):
+ *
+ *   Plan-Doc-Begin: <plan label, e.g. MISSION-PLAN.md>
+ *   <actual plan doc lines, 1-based for citations>
+ *   Plan-Doc-End
+ *   <dispatch brief lines>
+ *
+ * A prompt without both markers is left untouched. A prompt that already
+ * carries a report is left untouched, so the append stays idempotent within a
+ * turn. An empty brief, an empty plan excerpt, and a brief whose tokens all
+ * match are likewise left untouched.
+ * ========================================================================= */
+
+/** Tag heading every emitted report; also the idempotency marker. */
+export const PLAN_DRIFT_TAG = "[plan-guard] plan-drift report"
+
+/** Opening plan-attachment marker; the label follows the colon. */
+export const PLAN_DOC_BEGIN = "Plan-Doc-Begin:"
+
+/** Closing plan-attachment marker; the line must carry nothing else. */
+export const PLAN_DOC_END = "Plan-Doc-End"
+
+/**
+ * The honestly-documented fallback: states the missing typed-rejection
+ * surface and that enforcement is leader-discipline plus Verifier gates.
+ */
+export const PLAN_GUARD_FALLBACK =
+  "Plan-guard fallback (detective-only, non-blocking): per P1-R0.md verdict (1) " +
+  "the session prompt hook exposes no typed rejection API for prompt admission, " +
+  "so this extension only observes the brief against the attached plan excerpt " +
+  "and appends a dated plan-drift report; the turn always proceeds. Enforcement " +
+  "stays with leader-discipline plus the Verifier gates, not with this hook."
+
+/** A plan excerpt with its real label, so citations point at file:line. */
+export type PlanDoc = {
+  readonly label: string
+  readonly lines: readonly string[]
+}
+
+/** One brief identifier with no match anywhere in the attached plan. */
+export type PlanDriftFinding = {
+  readonly briefLine: number
+  readonly briefToken: string
+  readonly planLabel: string
+  readonly planLinesChecked: number
+}
+
+/** Identifier-shaped tokens: dash- or slash-joined runs carrying a digit. */
+const IDENTIFIER_PATTERN = /[A-Za-z0-9]+(?:[-/][A-Za-z0-9]+)+/g
+
+/** Pure digit-and-dash runs (UTC dates, numeric ranges) are never findings. */
+const DATE_LIKE_PATTERN = /^\d+(?:-\d+)+$/
+
+/**
+ * Collects the distinct identifier tokens of a brief, in first-seen order.
+ * Tokens without a digit are ordinary hyphenated words and are skipped, as
+ * are date-like runs; both would otherwise read as drift on every brief.
+ */
+export const extractBriefTokens = (briefText: string): string[] => {
+  if (typeof briefText !== "string" || briefText.length === 0) return []
+  const seen = new Set<string>()
+  const ordered: string[] = []
+  for (const match of briefText.matchAll(IDENTIFIER_PATTERN)) {
+    const token = match[0]
+    if (!/\d/.test(token)) continue
+    if (DATE_LIKE_PATTERN.test(token)) continue
+    const key = token.toLowerCase()
+    if (seen.has(key)) continue
+    seen.add(key)
+    ordered.push(token)
+  }
+  return ordered
+}
+
+/**
+ * Splits a prompt into its brief and its attached plan excerpt. Returns a
+ * null plan when either marker is absent, so the caller stays silent then.
+ */
+export const splitBriefAndPlan = (promptText: string): { briefText: string; plan: PlanDoc | null } => {
+  if (typeof promptText !== "string" || promptText.length === 0) return { briefText: "", plan: null }
+  const lines = promptText.split("\n")
+  const beginIndex = lines.findIndex((line) => line.trimStart().startsWith(PLAN_DOC_BEGIN))
+  if (beginIndex < 0) return { briefText: promptText, plan: null }
+  const endIndex = lines.findIndex((line, index) => index > beginIndex && line.trim() === PLAN_DOC_END)
+  if (endIndex < 0) return { briefText: promptText, plan: null }
+  const rawLabel = lines[beginIndex].slice(PLAN_DOC_BEGIN.length).trim()
+  const label = rawLabel.length > 0 ? rawLabel : "plan-doc"
+  const plan: PlanDoc = { label, lines: lines.slice(beginIndex + 1, endIndex) }
+  const briefText = [...lines.slice(0, beginIndex), ...lines.slice(endIndex + 1)].join("\n")
+  return { briefText, plan }
+}
+
+/**
+ * Reports every brief token with no case-insensitive match in the plan,
+ * citing the brief line of first sighting and the plan line range checked.
+ * An empty plan excerpt yields no findings: drift cannot be judged without it.
+ */
+export const detectPlanDrift = (briefText: string, plan: PlanDoc): PlanDriftFinding[] => {
+  const findings: PlanDriftFinding[] = []
+  if (plan === null || plan === undefined) return findings
+  if (plan.lines.length === 0) return findings
+  const haystack = plan.lines.join("\n").toLowerCase()
+  const briefLines = briefText.split("\n")
+  for (const token of extractBriefTokens(briefText)) {
+    const lowered = token.toLowerCase()
+    if (haystack.includes(lowered)) continue
+    let briefLine = 0
+    for (let index = 0; index < briefLines.length; index += 1) {
+      if (briefLines[index].toLowerCase().includes(lowered)) {
+        briefLine = index + 1
+        break
+      }
+    }
+    findings.push({ briefLine, briefToken: token, planLabel: plan.label, planLinesChecked: plan.lines.length })
+  }
+  return findings
+}
+
+/**
+ * Formats the dated plan-drift report. Each finding cites its brief line and
+ * the plan file:line range checked, and the fallback paragraph closes the
+ * report so the non-blocking nature travels with every emission.
+ */
+export const formatPlanDriftReport = (
+  plan: PlanDoc,
+  findings: readonly PlanDriftFinding[],
+  todayUtc: string,
+): string => {
+  const cited = findings
+    .map((finding) => `- \`${finding.briefToken}\` (brief line ${finding.briefLine}) — no match in ${finding.planLabel}:1-${finding.planLinesChecked}`)
+    .join("\n")
+  return (
+    `${PLAN_DRIFT_TAG} — ${todayUtc} (detective, non-blocking)\n` +
+    `Plan checked: ${plan.label} (${plan.lines.length} lines)\n` +
+    `Brief tokens with no plan match:\n` +
+    `${cited}\n` +
+    PLAN_GUARD_FALLBACK
+  )
+}
+
+/**
+ * Appends the drift report to a prompt when the brief drifts from the
+ * attached plan, and returns the prompt unchanged otherwise. Append-only:
+ * the input text is never shortened and admission is never touched.
+ */
+export const appendPlanDriftReport = (promptText: string, todayUtc?: string): string => {
+  if (typeof promptText !== "string" || promptText.length === 0) return promptText
+  if (promptText.includes(PLAN_DRIFT_TAG)) return promptText
+  const { briefText, plan } = splitBriefAndPlan(promptText)
+  if (plan === null) return promptText
+  const findings = detectPlanDrift(briefText, plan)
+  if (findings.length === 0) return promptText
+  const today = typeof todayUtc === "string" && todayUtc.length > 0 ? todayUtc : new Date().toISOString().slice(0, 10)
+  return `${promptText}\n\n${formatPlanDriftReport(plan, findings, today)}`
+}
+
+/* ===========================================================================
+ * 22. Six-hook capability probe (م-3)
+ * ===========================================================================
+ *
+ * Read-only: it inspects the setup context it was handed and reports what it
+ * observed. It registers nothing, probes nothing twice, and never upgrades an
+ * unobserved hook to available. The lines are emitted once at setup through the
+ * plugin logger (a no-op under V2, which carries no client) and flushed once on
+ * the first `execute.after` result, which is the only visible V2 surface.
+ * ========================================================================= */
+
+export type DocumentedHook =
+  | "sessionStart"
+  | "preCompact"
+  | "sessionEnd"
+  | "model.request"
+  | "ctx.permission"
+  | "ctx.storage"
+
+export type HookCapability = {
+  hook: DocumentedHook
+  available: boolean
+  evidence: string
+  fallback: string
+}
+
+/**
+ * Deterministic fallback gate: what runs when a hook is absent. Every entry is
+ * a SKIPPED path, never a silent PASS.
+ */
+const CAPABILITY_FALLBACK: Record<DocumentedHook, string> = {
+  sessionStart: "V1 transform only; under V2 no anchor is emitted and the guard degrades to SKIPPED",
+  preCompact: "V1 compacting only; under V2 no handoff is written and the guard degrades to SKIPPED",
+  sessionEnd: "V1 event only; under V2 no learnings are persisted and the guard degrades to SKIPPED",
+  "model.request": "model requests run unwrapped; no guard depends on this surface",
+  "ctx.permission": "permission evaluation stays host-owned; the owner allow-all policy forbids registering it",
+  "ctx.storage": "guards stay stateless across runs; no durable key is read or written",
+}
+
+const hasHookRegistrar = (value: unknown): boolean => {
+  const scope = asRecord(value)
+  return typeof scope.hook === "function"
+}
+
+export const probeHookCapabilities = (host: unknown): HookCapability[] => {
+  const scope = asRecord(host)
+  const modelHook = hasHookRegistrar(scope.model)
+  const permissionHook = hasHookRegistrar(scope.permission)
+  const storage = asRecord(scope.storage)
+  const storageObserved = typeof storage.get === "function" && typeof storage.set === "function"
+  // The three lifecycle hooks have no V2 registrar in this context: the session
+  // scope exposes `prompt` only. They are reported absent by observation, never
+  // by assumption, and nothing here registers a name the host might drop.
+  const lifecycle = "the V2 setup context exposes session \"prompt\" only; the V1 callback is inert under V2"
+  const entry = (hook: DocumentedHook, available: boolean, evidence: string): HookCapability => ({
+    hook,
+    available,
+    evidence,
+    fallback: CAPABILITY_FALLBACK[hook],
+  })
+  return [
+    entry("sessionStart", false, lifecycle),
+    entry("preCompact", false, lifecycle),
+    entry("sessionEnd", false, lifecycle),
+    entry("model.request", modelHook, modelHook ? "ctx.model.hook is a function" : "no ctx.model.hook registrar"),
+    entry("ctx.permission", permissionHook, permissionHook ? "ctx.permission.hook is a function" : "no ctx.permission.hook registrar"),
+    entry("ctx.storage", storageObserved, storageObserved ? "ctx.storage exposes get and set" : "no ctx.storage get/set pair"),
+  ]
+}
+
+/** One line per hook, then the gate line. Same report in, same lines out. */
+export const formatCapabilityLines = (report: readonly HookCapability[]): string[] => {
+  const lines = report.map(
+    (entry) =>
+      `[arsenal] capability-probe: ${entry.hook} = ${entry.available ? "available" : "absent"} — ${entry.evidence}; fallback: ${entry.fallback}`,
+  )
+  const available = report.filter((entry) => entry.available).length
+  const absent = report.filter((entry) => !entry.available).map((entry) => entry.hook)
+  lines.push(
+    `[arsenal] capability-probe: gate = ${available}/${report.length} available — ${
+      absent.length === 0
+        ? "every documented hook observed on this host"
+        : `${absent.join(", ")} unwired; absent hooks are never registered and their guards degrade to SKIPPED`
+    }`,
+  )
+  return lines
+}
+
+/* ===========================================================================
+ * 23. Diff Size Guard
+ * =========================================================================
+ *
+ * Blueprint `:200`: uncommitted work above 120 lines or 4 files, with no
+ * atomic commit in between, means the next edit piles onto an unverified
+ * change. The guard warns before write-capable calls only, once per HEAD: a
+ * commit re-arms it, which is exactly the atomic-commit behaviour it demands.
+ * The warning travels through `pendingWarnings`, the same channel every other
+ * non-throwing verdict uses, and is delivered on the next tool result.
+ * ========================================================================= */
+
+export const diffSizeGuard = async (
+  arsenal: ArsenalContext,
+  sessionId: string,
+  toolName: string,
+): Promise<void> => {
+  if (killSwitchReason(arsenal) !== null) return
+  if (!WRITE_TOOLS.has(toolName) && toolName !== "bash") return
+
+  const state = sessionState(arsenal, sessionId)
+  const deadline = createDeadline(GIT_TIMEOUT_MS)
+  const attempt = await readGitFacts(arsenal.rt, arsenal.root, deadline, true)
+  if (attempt.status !== "ok") return
+  const facts = attempt.value
+  if (typeof facts.changedFiles !== "number" || typeof facts.changedLines !== "number") return
+  if (typeof facts.head !== "string" || facts.head.length === 0) return
+  // One warning per HEAD: the same uncommitted pile does not nag every call,
+  // while a new commit makes the next excess observable again.
+  if (state.warnedDiffHead === facts.head) return
+  if (facts.changedLines <= DIFF_LINE_LIMIT && facts.changedFiles <= DIFF_FILE_LIMIT) return
+
+  state.warnedDiffHead = facts.head
+  const line = formatGuardLine(
+    "diff-size-guard",
+    "BLOCKED",
+    `${facts.changedLines} uncommitted line(s) across ${facts.changedFiles} file(s) exceed ${DIFF_LINE_LIMIT} lines / ${DIFF_FILE_LIMIT} files since ${facts.head.slice(0, 8)}`,
+  )
+  state.guardOutcomes.push(line)
+  arsenal.pendingWarnings.push(
+    `${line}. Verify this slice and land one atomic commit before starting new work; ` +
+      "untracked files count toward the file ceiling and contribute no line count.",
+  )
+}
+
+/* ===========================================================================
+ * 24. Wiring
  * ========================================================================= */
 
 /**
@@ -1981,6 +2461,8 @@ const createContext = (
   tscChain: Promise.resolve(),
   pendingWarnings: [],
   lastLogTarget: null,
+  capabilityLines: [],
+  capabilitiesFlushed: false,
 })
 
 const reportRuntimeDegradation = (ctx: ArsenalContext): void => {
@@ -2002,12 +2484,14 @@ const reportRuntimeDegradation = (ctx: ArsenalContext): void => {
  * writes exactly like V1 ones.
  */
 export const v2ToolBefore = async (arsenal: ArsenalContext, event: V2ToolBeforeEvent): Promise<void> => {
+  if (killSwitchReason(arsenal) !== null) return
   const toolName = typeof event?.tool === "string" ? event.tool : ""
   if (toolName.length === 0) return
   const sessionId =
     typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
   const callId = typeof event?.id === "string" && event.id.length > 0 ? event.id : "v2-before"
   recordTouchedFiles(arsenal, sessionId, candidatePathsFrom(arsenal.root, event?.input))
+  await diffSizeGuard(arsenal, sessionId, toolName)
   const input: ToolExecuteBeforeInput = { tool: toolName, sessionID: sessionId, callID: callId }
   const output: ToolExecuteBeforeOutput = { args: event?.input }
   await longRunningProcessGuard(arsenal, input, output)
@@ -2054,11 +2538,19 @@ const appendV2ResultLine = (result: unknown, line: string): void => {
  * a warning would be a silent PASS for work the guard actually flagged.
  */
 const v2ToolAfter = async (arsenal: ArsenalContext, event: V2ToolAfterEvent): Promise<void> => {
+  if (killSwitchReason(arsenal) !== null) return
   const sessionId =
     typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
   const callId = typeof event?.id === "string" && event.id.length > 0 ? event.id : "v2-after"
   const toolName = typeof event?.tool === "string" ? event.tool : ""
   const shim: ToolExecuteAfterOutput = { title: "", output: "", metadata: {} }
+  // First tool result of the session carries the capability probe lines once.
+  // Under V2 the plugin logger has no client, so this is the only visible
+  // surface; a second flush would duplicate lines nobody asked to see twice.
+  if (!arsenal.capabilitiesFlushed && arsenal.capabilityLines.length > 0) {
+    arsenal.capabilitiesFlushed = true
+    shim.output = `${shim.output}\n${arsenal.capabilityLines.join("\n")}`
+  }
   if (arsenal.pendingWarnings.length > 0) {
     shim.output = `${shim.output}\n${arsenal.pendingWarnings.join("\n")}`
     arsenal.pendingWarnings = []
@@ -2099,6 +2591,7 @@ const v2ToolAfter = async (arsenal: ArsenalContext, event: V2ToolAfterEvent): Pr
  * provenance the event does not carry.
  */
 const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent): Promise<void> => {
+  if (killSwitchReason(arsenal) !== null) return
   const command = typeof event?.command === "string" ? event.command : ""
   if (command.trim().length === 0) return
   const input: ToolExecuteBeforeInput = { tool: "bash", sessionID: "anonymous", callID: "shell" }
@@ -2147,30 +2640,44 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
   const arsenal = createContext(rt, root, undefined)
   reportRuntimeDegradation(arsenal)
 
+  // Six-hook capability probe (م-3): observe the context once, log one line per
+  // hook, and queue the same lines for the first tool result. Registration
+  // continues regardless: a probe never gates a guard, it only reports.
+  arsenal.capabilityLines = formatCapabilityLines(probeHookCapabilities(ctx))
+  for (const line of arsenal.capabilityLines) log(arsenal, "info", line)
+
   // Each domain registers independently: a context missing one domain still
   // arms the others. A guard that silently did nothing would be worse than one
   // that says so, so every callback below degrades to a no-op only for the
-  // cases its own comments name (kill switch off, empty draft,
+  // cases its own comments name (kill switch set, empty draft,
   // already-dispatched draft, unknown tool, empty command).
+  //
+  // One prompt callback carries both append-only rewrites: the dispatcher
+  // instruction and then the plan-guard report. Two registrations would be two
+  // append paths on one event; one path keeps ordering and idempotence obvious.
   const sessionRegister = ctx?.session?.hook
   if (typeof sessionRegister === "function") {
     await sessionRegister.call(ctx.session, "prompt", (event: SessionPromptEvent): void => {
-      const instruction = taskDispatcher(arsenal)
-      if (instruction === null) return
+      if (killSwitchReason(arsenal) !== null) return
 
       const draft = event?.prompt
       const userText = typeof draft?.text === "string" ? draft.text : ""
       // An empty draft carries no intent to classify, so injecting a five-line
       // instruction into it would add cost and teach the model nothing.
       if (userText.length === 0) return
-      if (hasDispatchInstruction(userText)) return
 
-      // Captured before the rewrite so `lastIntent` stays the user's own words
-      // and never the instruction this hook appends.
-      const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
-      state.lastIntent = clip(userText, MAX_CAPTURED_INTENT_CHARS)
-
-      draft.text = `${userText}\n\n${instruction}`
+      const instruction = taskDispatcher(arsenal)
+      if (instruction !== null && !hasDispatchInstruction(userText)) {
+        // Captured before the rewrite so `lastIntent` stays the user's own words
+        // and never the instruction this hook appends.
+        const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
+        state.lastIntent = clip(userText, MAX_CAPTURED_INTENT_CHARS)
+        draft.text = `${userText}\n\n${instruction}`
+      }
+      // Plan-guard append runs on the resulting draft, exactly where the retired
+      // carrier ran it, and only rewrites when the brief drifts from the plan.
+      const annotated = appendPlanDriftReport(draft.text)
+      if (annotated !== draft.text) draft.text = annotated
       // V2's plugin context has no `client.app.log`, so `log` is a no-op here by
       // design rather than by accident. The V1 surface still records the
       // injection; under V2 the persisted prompt is the evidence.
@@ -2252,6 +2759,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
     },
 
     event: async (envelope: EventEnvelope): Promise<void> => {
+      if (killSwitchReason(ctx) !== null) return
       const type = typeof envelope?.event?.type === "string" ? envelope.event.type : ""
       const properties = envelope?.event?.properties
       const props =
@@ -2280,6 +2788,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
     },
 
     "chat.message": async (msgInput: ChatMessageInput, msgOutput: ChatMessageOutput): Promise<void> => {
+      if (killSwitchReason(ctx) !== null) return
       const parts = msgOutput?.parts
       if (!Array.isArray(parts)) return
       const text = extractText(parts)
@@ -2315,6 +2824,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       systemInput: SystemTransformInput,
       systemOutput: SystemTransformOutput,
     ): Promise<void> => {
+      if (killSwitchReason(ctx) !== null) return
       await sessionStart(ctx, systemInput, systemOutput)
     },
 
@@ -2322,6 +2832,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       compactInput: CompactingInput,
       compactOutput: CompactingOutput,
     ): Promise<void> => {
+      if (killSwitchReason(ctx) !== null) return
       await preCompact(ctx, compactInput, compactOutput)
     },
 
@@ -2329,7 +2840,9 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       toolInput: ToolExecuteBeforeInput,
       toolOutput: ToolExecuteBeforeOutput,
     ): Promise<void> => {
+      if (killSwitchReason(ctx) !== null) return
       recordTouchedFiles(ctx, toolInput.sessionID, candidatePathsFrom(root, toolOutput?.args))
+      await diffSizeGuard(ctx, toolInput.sessionID, toolInput.tool)
       await longRunningProcessGuard(ctx, toolInput, toolOutput)
       await docsDisciplineGuard(ctx, toolInput, toolOutput)
     },
@@ -2338,6 +2851,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       toolInput: ToolExecuteAfterInput,
       toolOutput: ToolExecuteAfterOutput,
     ): Promise<void> => {
+      if (killSwitchReason(ctx) !== null) return
       if (ctx.pendingWarnings.length > 0 && typeof toolOutput?.output === "string") {
         toolOutput.output = `${toolOutput.output}\n${ctx.pendingWarnings.join("\n")}`
         ctx.pendingWarnings = []
