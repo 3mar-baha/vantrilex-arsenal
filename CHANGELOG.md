@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   owner-gated (owner ruling §3c). Proven by two dry-runs: the green path
   (`dry-run-would-publish;gate=PASS`) and the fail-closed path
   (`refused-verification;gate=FAIL`). See `docs/14-CI-RELEASE.md`.
+- **One-plugin consolidation (`refactor(plugin)`).** The Tier-0 guards now live in the single `.opencode/plugin/arsenal.ts` — eight logical hooks across the two runtime surfaces, with the plan-guard append riding the dispatcher's own `prompt` registration so no prompt hook runs twice; `setup()` runs a six-hook capability probe and reports only what it observes, every registered callback checks the per-project kill switch at its head and no-ops when one of its four signals is set (م-4), and the new Diff Size Guard warns once per HEAD when uncommitted work exceeds 120 lines or 4 files (blueprint `:200`).
 
 ## [0.7.7] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
 
