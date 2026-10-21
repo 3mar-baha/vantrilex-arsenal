@@ -807,8 +807,8 @@ function usage() {
       '  DRY_RUN=1|0            Default 1: build, print the plan, create nothing.',
       '  PUBLISH_REPO=owner/name Default: the origin remote slug (audit line only).',
       '',
-      'A live publish waits up to 3 minutes for the runs the tag started (tag push and the
-release-published lane), then',
+      'A live publish waits up to 3 minutes for the runs the tag started',
+      '(tag push and the release-published lane), then',
       'verifies the attached asset digest and re-uploads on a clobber. A digest that',
       'still differs fails the run closed.',
       '',
