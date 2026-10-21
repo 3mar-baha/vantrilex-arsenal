@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Auto-publish for `v0.0.x` patch releases (`feat(release)`).** Publishing
+  a GitHub release triggers `.github/workflows/auto-publish.yml`, which builds
+  the distributable from the exact tagged commit and gates the upload
+  fail-closed on the mission battery plus that commit's CI evidence — a failed
+  gate refuses the upload. The upload is idempotent by name and sha256, and the
+  latest pointer is updated on success. Every run appends one machine-readable
+  line to `.opencode/audit/AUTO-PUBLISH.log`. Minor and major releases remain
+  owner-gated (owner ruling §3c). Proven by two dry-runs: the green path
+  (`dry-run-would-publish;gate=PASS`) and the fail-closed path
+  (`refused-verification;gate=FAIL`). See `docs/14-CI-RELEASE.md`.
+
 ## [0.7.7] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
 
 > Status: this section is a parked draft, not a release. No `v0.7.7` tag
