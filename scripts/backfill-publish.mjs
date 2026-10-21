@@ -12,7 +12,9 @@
  * battery never blocks a historical release (map §8.4). Held units are refused.
  * A commit unit is tagged at its own commit. An evidence unit has no commit of
  * its own, so its tag names the publication point (HEAD) and the notes state
- * plainly that no source tree exists for the unit.
+ * plainly that no source tree exists for the unit. A closure-record unit is the
+ * same, except its bundle quotes the surviving ledger passage verbatim from the
+ * uncommitted live state file at build time; nothing is re-run or reconstructed.
  *
  * Inputs, both read from disk:
  *   .opencode/audit/RELEASE-BACKFILL.json  the machine manifest derived from the
@@ -76,7 +78,7 @@ const PATHS = {
   audit: join(ROOT, '.opencode', 'audit', 'AUTO-PUBLISH.log'),
 };
 
-const MODES = ['commit', 'evidence'];
+const MODES = ['commit', 'evidence', 'closure-record'];
 const STATUSES = ['ready', 'held'];
 const VERSION_RE = /^(\d+)\.(\d+)\.(\d+)$/;
 const COMMIT_RE = /^[0-9a-f]{40}$/;
@@ -179,7 +181,24 @@ export function parseManifest(text) {
         return { ok: false, error: `${where}: a commit entry must carry a full 40-character lowercase ref` };
       }
     } else if (raw.ref !== null) {
-      return { ok: false, error: `${where}: an evidence entry must carry ref null; no commit is invented` };
+      return { ok: false, error: `${where}: a ${raw.mode} entry must carry ref null; no commit is invented` };
+    }
+    if (raw.mode === 'closure-record') {
+      const record = raw.record;
+      if (record === null || typeof record !== 'object' || Array.isArray(record)) {
+        return { ok: false, error: `${where}: a closure-record entry must carry a "record" object naming the surviving closure record` };
+      }
+      if (typeof record.file !== 'string' || record.file.trim() === '' || isAbsolute(record.file) || record.file.split('/').includes('..')) {
+        return { ok: false, error: `${where}: record.file must be a repo-relative path` };
+      }
+      if (!Number.isInteger(record.line) || record.line < 1) {
+        return { ok: false, error: `${where}: record.line must be a positive integer` };
+      }
+      if (typeof record.must_contain !== 'string' || record.must_contain.trim() === '') {
+        return { ok: false, error: `${where}: record.must_contain must name the fingerprint the cited line must carry` };
+      }
+    } else if (Object.prototype.hasOwnProperty.call(raw, 'record')) {
+      return { ok: false, error: `${where}: only a closure-record entry may carry "record"` };
     }
     if (!Array.isArray(raw.assets) || raw.assets.some((path) => typeof path !== 'string' || path.trim() === '')) {
       return { ok: false, error: `${where}: assets must be an array of non-empty repo-relative paths` };
@@ -203,8 +222,8 @@ export function parseManifest(text) {
       if (raw.hold_reason !== null) {
         return { ok: false, error: `${where}: a ready entry must carry hold_reason null` };
       }
-      if (raw.assets.length === 0) {
-        return { ok: false, error: `${where}: a ready entry must enumerate at least one asset` };
+      if (raw.assets.length === 0 && raw.mode !== 'closure-record') {
+        return { ok: false, error: `${where}: a ready ${raw.mode} entry must enumerate at least one asset` };
       }
     }
     if (typeof raw.as_closed !== 'string' || raw.as_closed.trim() === '') {
@@ -248,6 +267,10 @@ export function renderNotes(entry, mapHash) {
   const lines = [`## v${entry.version} — ${entry.unit}`, ''];
   if (entry.mode === 'commit') {
     lines.push(`Commit-anchored release: the package is the tree as it was at \`${entry.ref}\`.`);
+  } else if (entry.mode === 'closure-record') {
+    lines.push('**Closure-record release.**');
+    lines.push('');
+    lines.push("This unit's report artifact was overwritten in place in its own era and no copy of that text survives. No source tree exists for this unit. Nothing was re-run or reconstructed: the package preserves the surviving closure record exactly as the ledger holds it.");
   } else {
     lines.push('No committed source tree exists for this unit; this package preserves its closure record.');
   }
@@ -274,10 +297,14 @@ function renderArtifactSection(entry, asset) {
     if (asset.absent.length > 0) {
       lines.push('', `Paths in the release path set that this commit did not carry: ${asset.absent.map((path) => `\`${path}\``).join(', ')}.`);
     }
-  } else {
+  } else if (entry.mode === 'evidence') {
     lines.push('### Package', '');
     lines.push(`\`${asset.name}\` — ${entry.assets.length} evidence file(s), sha256 \`${asset.sha256}\`, ${asset.bytes} bytes.`);
     lines.push('', `Layout: \`RELEASE-NOTES-v${entry.version}.md\`, \`CLOSURE-EVIDENCE/\` (repo-relative copies), \`MANIFEST.txt\` (per-file bytes + sha256).`);
+  } else {
+    lines.push('### Package', '');
+    lines.push(`\`${asset.name}\` — closure-record bundle, sha256 \`${asset.sha256}\`, ${asset.bytes} bytes.`);
+    lines.push('', `Layout: \`CLOSURE-RECORD.md\` (the ledger passage quoted verbatim from \`${entry.record.file}\` line ${entry.record.line}), \`RELEASE-NOTES-v${entry.version}.md\`, \`MANIFEST.txt\` (per-file bytes + sha256).`);
   }
   lines.push('');
   return lines.join('\n');
@@ -350,6 +377,72 @@ function buildEvidenceAsset(entry, scratch, notes) {
     throw new Error(`tar failed to package the evidence bundle: ${archived.stderr.trim() || archived.error || 'unknown error'}`);
   }
   return { name, path, bytes: statSync(path).size, sha256: sha256File(path), present: entry.assets, absent: [] };
+}
+
+/*
+  buildClosureRecordAsset <entry> <scratch> <notes> — the surviving closure
+  record. The record is one ledger line in an uncommitted live state file, so it
+  is quoted from the worktree at build time. The cited line must exist and carry
+  the manifest's fingerprint, or the run refuses: a moved ledger is a refused
+  record, never a guessed one. Nothing is reconstructed.
+*/
+function buildClosureRecordAsset(entry, scratch, notes) {
+  const sourcePath = join(ROOT, entry.record.file);
+  if (!existsSync(sourcePath)) {
+    throw new Error(`closure-record source ${entry.record.file} is absent from the worktree`);
+  }
+  const buffer = readFileSync(sourcePath);
+  const lines = buffer.toString('utf8').split('\n');
+  const cited = lines[entry.record.line - 1];
+  if (typeof cited !== 'string' || cited.trim() === '') {
+    throw new Error(`${entry.record.file}:${entry.record.line} is empty; the closure record cannot be quoted`);
+  }
+  if (!cited.includes(entry.record.must_contain)) {
+    throw new Error(`${entry.record.file}:${entry.record.line} does not carry the expected fingerprint ${JSON.stringify(entry.record.must_contain)}; the ledger moved, so the record is refused rather than guessed`);
+  }
+
+  const stage = join(scratch, `bundle-v${entry.version}`);
+  mkdirSync(stage, { recursive: true });
+  const sourceSha = createHash('sha256').update(buffer).digest('hex');
+  const recordText = [
+    `# CLOSURE-RECORD — v${entry.version} (${entry.unit})`,
+    '',
+    `Source: \`${entry.record.file}\`, line ${entry.record.line} — the citation the approved map records.`,
+    'That file is an uncommitted live state file. This passage was quoted from the worktree at build time and is reproduced verbatim below: nothing was edited, re-run or reconstructed.',
+    `Source identity at build time: sha256 \`${sourceSha}\`, ${buffer.length} bytes.`,
+    '',
+    '## Ledger passage (verbatim)',
+    '',
+    cited,
+    '',
+  ].join('\n');
+  writeFileSync(join(stage, 'CLOSURE-RECORD.md'), recordText, 'utf8');
+  writeFileSync(join(stage, `RELEASE-NOTES-v${entry.version}.md`), notes, 'utf8');
+
+  const generated = ['CLOSURE-RECORD.md', `RELEASE-NOTES-v${entry.version}.md`];
+  const rows = generated.map((name) => {
+    const file = join(stage, name);
+    return `${sha256File(file)}  ${statSync(file).size}  ${name}`;
+  });
+  writeFileSync(
+    join(stage, 'MANIFEST.txt'),
+    [
+      `# CLOSURE-RECORD manifest — v${entry.version} (${entry.unit})`,
+      '# Fields, in order: sha256 | bytes | file in this bundle',
+      ...rows,
+      `# source: ${entry.record.file} line ${entry.record.line} (uncommitted live state file, quoted at build time) sha256=${sourceSha} bytes=${buffer.length}`,
+      '',
+    ].join('\n'),
+    'utf8',
+  );
+
+  const name = `vantrilex-arsenal-v${entry.version}-closure-record.tar.gz`;
+  const path = join(scratch, name);
+  const archived = run('tar', ['-czf', path, '-C', stage, '.']);
+  if (!archived.ok) {
+    throw new Error(`tar failed to package the closure-record bundle: ${archived.stderr.trim() || archived.error || 'unknown error'}`);
+  }
+  return { name, path, bytes: statSync(path).size, sha256: sha256File(path), present: generated, absent: [] };
 }
 
 /* ---------- the real create path (never reached by a dry run) ---------- */
@@ -454,13 +547,18 @@ function processEntry(entry, context) {
   let asset;
   try {
     const notes = renderNotes(entry, mapHash);
-    asset = entry.mode === 'commit' ? buildCommitAsset(entry, scratch) : buildEvidenceAsset(entry, scratch, notes);
+    if (entry.mode === 'commit') asset = buildCommitAsset(entry, scratch);
+    else if (entry.mode === 'evidence') asset = buildEvidenceAsset(entry, scratch, notes);
+    else asset = buildClosureRecordAsset(entry, scratch, notes);
     if (entry.mode === 'commit') {
       log(`    asset=${asset.name} bytes=${asset.bytes} sha256=${asset.sha256}`);
       log(`    pathspec: ${asset.present.length} present, ${asset.absent.length} absent at the commit${asset.absent.length > 0 ? ` (${asset.absent.join(', ')})` : ''}`);
-    } else {
+    } else if (entry.mode === 'evidence') {
       log(`    asset=${asset.name} bytes=${asset.bytes} sha256=${asset.sha256}`);
       log(`    evidence files: ${asset.present.length}/${entry.assets.length} present and packaged`);
+    } else {
+      log(`    asset=${asset.name} bytes=${asset.bytes} sha256=${asset.sha256}`);
+      log(`    closure record: ${entry.record.file}:${entry.record.line} quoted verbatim (fingerprint verified); ${asset.present.length} generated file(s)`);
     }
     log(`    notes source: map ${entry.notes_ref} — as-closed quote (${entry.as_closed.length} chars) + ${entry.gaps.length} stated gap(s)`);
   } catch (error) {

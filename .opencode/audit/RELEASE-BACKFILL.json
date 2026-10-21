@@ -6,7 +6,8 @@
   "map_commit": "5a28f6e",
   "approved_by": "owner, 2026-10-21 (map §3 gate satisfied on the terms recorded in the map)",
   "publication_precondition": "Map §8.1: no backfill publish before rel-selfpub lands and its §6 proofs pass review. This manifest authorizes no publish on its own.",
-  "notes_policy": "Commit units: as-closed evidence quoted from the closure record, never a battery re-run today (map §4/§8.4). Evidence units: the enumerated bundle plus the no-source-tree statement.",
+  "notes_policy": "Commit units: as-closed evidence quoted from the closure record, never a battery re-run today (map §4/§8.4). Evidence units: the enumerated bundle plus the no-source-tree statement. Closure-record units: the surviving ledger passage quoted verbatim, labelled \"closure-record release\".",
+  "closure_record_policy": "AGENT.md is an uncommitted live state file. For a closure-record unit the surviving ledger passage is quoted from the worktree at build time into a generated CLOSURE-RECORD.md; the executor refuses if the cited line no longer carries its fingerprint. Nothing is re-run or reconstructed, and no source tree is invented.",
   "base": {
     "version": "0.7.7",
     "tag": "v0.7.7",
@@ -175,17 +176,22 @@
     {
       "version": "0.7.13",
       "unit": "FULL-AUDIT (round 1)",
-      "mode": "evidence",
+      "mode": "closure-record",
       "ref": null,
       "assets": [],
       "notes_ref": "§5 as-closed · §7.5 closure record only",
-      "status": "held",
-      "hold_reason": "closure record only — the report text was overwritten in place twice and no R1 copy survives (map §7.5). The number stays allocated; nothing honest can be assembled in full.",
+      "status": "ready",
+      "hold_reason": null,
+      "record": {
+        "file": "AGENT.md",
+        "line": 225,
+        "must_contain": "`a-report` LANDED"
+      },
       "as_closed": "report 1,194 lines, 14 headings in order, 23 findings (L13-12-001…023), §14 verbatim exits 0",
       "gaps": [
         "no commit",
         "report text overwritten twice since closure — the file today is R3's",
-        "HELD: closure-record-only unit; named individually by the map (§7.5)"
+        "the report artifact itself does not survive; this package carries the surviving ledger record only"
       ]
     },
     {
@@ -223,18 +229,23 @@
     {
       "version": "0.7.15",
       "unit": "FULL-AUDIT-2",
-      "mode": "evidence",
+      "mode": "closure-record",
       "ref": null,
       "assets": [],
       "notes_ref": "§5 as-closed · §7.6 closure record only",
-      "status": "held",
-      "hold_reason": "closure record only — the R2 text was overwritten by R3 at the same path and does not survive (map §7.6). The number stays allocated; nothing honest can be assembled in full.",
+      "status": "ready",
+      "hold_reason": null,
+      "record": {
+        "file": "AGENT.md",
+        "line": 283,
+        "must_contain": "`a2-report` COMPLETE"
+      },
       "as_closed": "1,575 lines / 47 findings (15 HIGH / 20 MEDIUM / 12 LOW); Law-13 47=47=47=47; lint exit 0",
       "gaps": [
         "no commit",
         "overwritten by R3 at the same path",
         "the 13→3 source-disagreement recount was flagged unreproduced",
-        "HELD: closure-record-only unit; named individually by the map (§7.6)"
+        "the R2 report artifact itself does not survive; this package carries the surviving ledger record only"
       ]
     },
     {
