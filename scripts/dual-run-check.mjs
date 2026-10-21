@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 /**
- * Vantrilex dual-run harness — the S1 gate before any lock deletion.
+ * Vantrilex dual-run harness — the S1 gate, retired to a single runner by S3.
  *
- * Runs the two verifiers on the same tree and then proves that the catalog-only
- * phase sets reproduce the selection record that the lock currently drives:
+ * Runs the verifiers on the same tree and then proves that the catalog-only
+ * phase sets reproduce the selection record that the lock used to drive:
  *
- *   scripts/verify-kit.mjs       the lock's proofs, still in force until S3
+ *   scripts/verify-kit.mjs       the lock's proofs — RETIRED in S3 (optional)
  *   scripts/verify-catalog.mjs   the catalog-only replacement proofs (P1–P8)
+ *
+ * With the lock deleted the kit runner is absent, so the harness prints the
+ * retirement line, runs the catalog verifier alone, and keeps the parity check
+ * that the switch depended on:
  *
  * The parity ledger compares .opencode/equip.manifest.json (measured from
  * kit/kit.lock as the pre-abolition baseline) against catalogPhaseSets(), which
@@ -16,11 +20,12 @@
  * fails this gate.
  *
  * This harness reads the lock only through verify-kit and the manifest; it
- * never derives a phase set from the lock itself. Deleting the lock after S3
- * leaves the dual run with one runner and one selection source, by design.
+ * never derives a phase set from the lock itself. A missing kit runner is the
+ * expected post-S3 state, not a skipped pass: the catalog runner and the parity
+ * ledger still decide the verdict.
  *
  * Runtime: Node 25, ESM, zero dependencies.
- * Exit 0 when both runners exit 0 and the ledger is empty, 1 otherwise.
+ * Exit 0 when every present runner exits 0 and the ledger is empty, 1 otherwise.
  */
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -33,7 +38,7 @@ const MANIFEST_PATH = path.join(ROOT, ".opencode", "equip.manifest.json");
 const PHASES = ["scout", "docs", "plan", "build", "review", "operate"];
 
 const RUNNERS = [
-  { label: "verify-kit", file: path.join("scripts", "verify-kit.mjs") },
+  { label: "verify-kit", file: path.join("scripts", "verify-kit.mjs"), optional: true },
   { label: "verify-catalog", file: path.join("scripts", "verify-catalog.mjs") }
 ];
 
@@ -65,7 +70,16 @@ try {
   failures.push("cannot read .opencode/equip.manifest.json: " + String(error.message));
 }
 
-for (const runner of RUNNERS) run(runner);
+let ran = 0;
+for (const runner of RUNNERS) {
+  if (runner.optional === true && fs.existsSync(path.join(ROOT, runner.file)) === false) {
+    console.log("[dual-run] " + runner.label + ": RETIRED (S3) — catalog-only run");
+    console.log("");
+    continue;
+  }
+  run(runner);
+  ran += 1;
+}
 
 if (recorded !== null) {
   const derived = catalogPhaseSets();
@@ -107,7 +121,8 @@ if (recorded !== null) {
 
 console.log("");
 if (failures.length === 0) {
-  console.log("[dual-run] VERDICT: PASS - dual run green (2/2 runners exit 0), parity ledger empty.");
+  const scope = ran === RUNNERS.length ? "dual run" : "catalog-only run";
+  console.log("[dual-run] VERDICT: PASS - " + scope + " green (" + ran + "/" + ran + " runners exit 0), parity ledger empty.");
 } else {
   console.log("[dual-run] VERDICT: FAIL - " + failures.join("; ") + ".");
 }

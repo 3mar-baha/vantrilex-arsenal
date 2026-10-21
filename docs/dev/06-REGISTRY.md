@@ -5,6 +5,8 @@ truth; the JSONL sidecars under `registry/data/`, which enrich the parsed rows;
 and `registry/catalog.json`, the generated mirror. Schema validation ties the
 layers together.
 
+2026-10-21 — **New-kind onboarding is FROZEN between S3 (lock deletion) and the catalog-v4 publish**; register no new kind until v4 ships.
+
 ## The sidecars
 
 One JSONL file per kind under `registry/data/`. Each non-blank line is one JSON

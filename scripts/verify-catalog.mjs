@@ -1,10 +1,28 @@
 #!/usr/bin/env node
 /**
- * Vantrilex catalog verifier — the catalog-only replacement proofs (P1–P8).
+ * Vantrilex catalog verifier — the catalog-only replacement proofs (P1–P8)
+ * plus the per-kind shape proofs the retired lock verifier used to carry.
  *
  * Proves the kit from registry/catalog.json and registry/data/*.jsonl without
  * reading kit/kit.lock. The lock's own proofs are what this script replaces;
- * reading the lock here would make the replacement circular.
+ * reading the lock here would make the replacement circular. S3 deleted the
+ * lock, its schema and scripts/verify-kit.mjs, so this script is the sole
+ * component gate; the per-kind checks below are the ported coverage map:
+ *
+ *   per-kind/cli           -> command-shape/cli
+ *   per-kind/lsp           -> command-shape/lsp
+ *   per-kind/theme         -> command-shape/theme
+ *   per-kind/skills-upstream -> command-shape/skills-upstream
+ *   per-kind/mcp-npm       -> command-shape/mcp-npm
+ *   per-kind/prompt|dataset|template|policy|benchmark|workflow|design.md
+ *                          -> file-copy/shape
+ *   per-kind/agents        -> agent-hygiene (+ loadability/agents)
+ *   pending-integrity      -> selection/top-level-skills
+ *
+ * The ported checks read catalog rows, not lock entries. Network legs keep the
+ * retired verifier's contract: an unreachable registry or an unauthenticated gh
+ * reports SKIPPED with the reason, and the verdict counts it as skipped rather
+ * than passed.
  *
  * Proof inputs, and nothing else:
  *   registry/catalog.json            the generated machine mirror
@@ -57,6 +75,7 @@
  * Runtime: Node 25, ESM, zero dependencies.
  * Exit 0 when every proof holds, 1 when any proof fails.
  */
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -101,7 +120,71 @@ const SIDECAR_FILES = {
 
 const rows = [];
 const record = (check, status, detail) => rows.push({ check, status, detail });
+const recordResult = (check, result) => record(check, result.status, result.detail);
 const pad = (value, width) => String(value).padEnd(width, " ");
+
+// Per-kind shape vocabulary, ported verbatim from the retired lock verifier so
+// the tightened command rules survive the lock's deletion.
+const CATALOG_PHASES = new Set(["scout", "docs", "plan", "build", "review", "operate", "on-demand"]);
+const CATALOG_TIERS = new Set(["core", "conditional", "extended"]);
+const NETWORK_TIMEOUT_MS = 20000;
+const SKILL_CMD = /^npx skills add (\S+) --skill (\S+) -a opencode( -y)?$/;
+const NPM_CMD = /^npx -y (\S+)$/;
+const CLI_PKG_MANAGERS = [
+  /^npm (?:i|install) -g (\S+)(?:@\S+)?$/,
+  /^pnpm (?:i|install) -g (\S+)(?:@\S+)?$/,
+  /^yarn global add (\S+)(?:@\S+)?$/,
+  /^bun (?:i|add) -g (\S+)(?:@\S+)?$/,
+  /^brew install (\S+)$/,
+  /^brew tap (\S+)$/,
+  /^scoop install (\S+)$/,
+  /^choco install (\S+)$/,
+  /^winget install (?:--id )?(\S+)$/,
+  /^apt(?:-get)? install (\S+)$/,
+  /^dnf install (\S+)$/,
+  /^pacman -S (\S+)$/,
+  /^cargo install (\S+)$/,
+  /^go install (\S+)$/,
+  /^pipx install (\S+)$/,
+  /^uv tool install (\S+)$/
+];
+const CLI_VENDOR_INSTALLERS = [/^gh (\S+)$/, /^mise (?:install|use|exec) (\S+)$/, /^rustup-init\b.*$/, /^op install (\S+)$/, /^docker-plugin-install (\S+)$/];
+const CLI_PIPE_FORBIDDEN = /\||\|\||&&|;|`|\$\(|\$\{/;
+const THEME_COPY_RE = /^cp (registry\/themes\/[A-Za-z0-9._-]+\.json) (\S+)$/;
+const DESIGN_COPY_RE = /^cp registry\/design\/([A-Za-z0-9._-]+)\/DESIGN\.md (\S+)$/;
+const FILE_COPY_PIPE_FORBIDDEN = /\||\|\||&&|;|`|\$\(|\$\{/;
+const OFFLINE_MARKERS = [
+  "ENOENT",
+  "ENOTFOUND",
+  "EAI_AGAIN",
+  "ECONNREFUSED",
+  "ETIMEDOUT",
+  "timed out",
+  "network",
+  "Network",
+  "offline",
+  "Offline",
+  "getaddrinfo",
+  "proxy",
+  "Proxy",
+  "certificate",
+  "CERTIFICATE",
+  "SSL",
+  "HTTP 401",
+  "HTTP 403",
+  "HTTP 429",
+  "HTTP 5",
+  "Bad credentials",
+  "Not authenticated",
+  "authentication required",
+  "rate limit",
+  "Rate limit",
+  "connection reset",
+  "Connection reset",
+  "socket hang up",
+  "is not recognized"
+];
+const TOP_LEVEL_SKILLS = ["skill/vantrilex-vanguard", "skill/vantrilex-doctrine", "skill/vantrilex-prime"];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 
@@ -274,6 +357,689 @@ const kindTally = (components) => {
     tally.set(entry.kind, bucket);
   }
   return tally;
+};
+
+// --- ported per-kind shape proofs -------------------------------------------
+// These helpers come from the retired scripts/verify-kit.mjs. Their inputs are
+// catalog rows now, and their enum sets accept the catalog's vocabulary
+// (`on-demand`, `extended`) because the catalog, not the lock, defines it.
+
+const isPlainObject = (value) => typeof value === "object" && value !== null && Array.isArray(value) === false;
+
+const windowsSpawn = (command, args) => {
+  const parts = [command].concat(args);
+  for (const part of parts) {
+    if (/[\s"]/.test(part)) throw new Error("refusing to spawn a token carrying whitespace or quotes: " + part);
+  }
+  return { command: "cmd.exe", args: ["/d", "/s", "/c", parts.join(" ")] };
+};
+
+const runCapture = (command, args) => {
+  const spawn = process.platform === "win32" ? windowsSpawn(command, args) : { command, args };
+  try {
+    const out = execFileSync(spawn.command, spawn.args, {
+      cwd: ROOT,
+      timeout: NETWORK_TIMEOUT_MS,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    return { ok: true, stdout: typeof out === "string" ? out : String(out), stderr: "", code: "" };
+  } catch (error) {
+    const stderr = error && error.stderr ? String(error.stderr) : "";
+    const stdout = error && error.stdout ? String(error.stdout) : "";
+    const code = error && error.code !== undefined ? String(error.code) : "error";
+    const message = error && error.message ? String(error.message) : "";
+    return { ok: false, stdout, stderr, code, message };
+  }
+};
+
+const offlineReason = (result) => {
+  if (result.code === "ENOENT") return "tool not on PATH (ENOENT)";
+  const hay = result.stderr + "\n" + result.stdout + "\n" + result.code + "\n" + (result.message || "");
+  const marker = OFFLINE_MARKERS.find((candidate) => hay.includes(candidate));
+  return marker === undefined ? null : "network or credentials unavailable (" + marker + ")";
+};
+
+const cliCommandReason = (cmd) => {
+  if (typeof cmd !== "string" || cmd.trim() === "") {
+    return "install_cmd is empty; a cli entry carries the command that installs the tool";
+  }
+  const text = cmd.trim();
+  if (CLI_PIPE_FORBIDDEN.test(text)) {
+    return "install_cmd chains shell operators or pipes remote code (" + JSON.stringify(cmd) + "); use a package-manager invocation or the vendor installer";
+  }
+  for (const pattern of CLI_PKG_MANAGERS) {
+    const match = text.match(pattern);
+    if (match !== null) {
+      const target = match[1];
+      if (target === undefined || /^[<>{}\[\]()|&;]$/.test(target)) return "install_cmd names no package (" + JSON.stringify(cmd) + ")";
+      return null;
+    }
+  }
+  for (const pattern of CLI_VENDOR_INSTALLERS) {
+    if (pattern.test(text)) return null;
+  }
+  if (/\.sh\b|\.ps1\b|\.bat\b|\.cmd\b|\.py\b|\.rb\b/.test(text)) {
+    return "install_cmd runs a script file (" + JSON.stringify(cmd) + "); use a package-manager invocation or the vendor installer";
+  }
+  return "install_cmd matches no package-manager invocation and no known vendor installer (" + JSON.stringify(cmd) + ")";
+};
+
+const phaseReason = (entry) =>
+  CATALOG_PHASES.has(entry.phase) ? null : entry.id + ": phase " + JSON.stringify(entry.phase) + " is outside the catalog phase enum";
+
+const tierReason = (entry) =>
+  CATALOG_TIERS.has(entry.tier) ? null : entry.id + ": tier " + JSON.stringify(entry.tier) + " is outside the catalog tier enum";
+
+const verificationReason = (entry) => {
+  if (VERIFICATIONS.has(entry.verification) === false) {
+    return entry.id + ": verification " + JSON.stringify(entry.verification) + " is not verified or unverified";
+  }
+  if (entry.verification === "verified" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
+    return entry.id + ": verification is verified but install_cmd is null or empty";
+  }
+  return null;
+};
+
+const collectThemeKeyPaths = (value, atPath, out) => {
+  if (value === null || typeof value !== "object") return out;
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i++) collectThemeKeyPaths(value[i], atPath + "[" + i + "]", out);
+    return out;
+  }
+  for (const key of Object.keys(value)) {
+    const lower = key.toLowerCase();
+    const markdownImageToken = atPath.endsWith(".markdown") && (lower === "image" || lower === "imagetext");
+    if (markdownImageToken === false && /image|wallpaper/.test(lower)) out.push(atPath + "." + key);
+    if (lower === "model") out.push(atPath + "." + key);
+    collectThemeKeyPaths(value[key], atPath + "." + key, out);
+  }
+  return out;
+};
+
+const checkCliRows = (components) => {
+  const clis = components.filter((entry) => entry.kind === "cli");
+  if (clis.length === 0) return { status: "PASS", detail: "0 cli rows; the kind carries no entry yet" };
+  const failures = [];
+  for (const entry of clis) {
+    const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
+    if (reason !== null) {
+      failures.push(reason);
+      if (typeof entry.install_cmd !== "string" || entry.install_cmd === "") continue;
+    }
+    if (typeof entry.install_cmd !== "string" || entry.install_cmd.trim() === "") {
+      failures.push(entry.id + ": install_cmd is null; a cli entry must carry a real installer command");
+      continue;
+    }
+    const commandReason = cliCommandReason(entry.install_cmd);
+    if (commandReason !== null) failures.push(entry.id + ": " + commandReason);
+  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  return {
+    status: "PASS",
+    detail: clis.length + " cli rows carry a real installer command with valid phase, tier and verification (" + clis.filter((entry) => entry.verification === "verified").length + " verified)"
+  };
+};
+
+const readLspSidecar = () => {
+  try {
+    const byId = new Map();
+    for (const line of fs.readFileSync(path.join(DATA_DIR, "lsp.jsonl"), "utf8").split(/\r?\n/)) {
+      if (line.trim() === "") continue;
+      const parsed = JSON.parse(line);
+      if (typeof parsed.id === "string") byId.set(parsed.id, parsed);
+    }
+    return byId;
+  } catch (error) {
+    return null;
+  }
+};
+
+const checkLspRows = (components) => {
+  const lsps = components.filter((entry) => entry.kind === "lsp");
+  if (lsps.length === 0) return { status: "PASS", detail: "0 lsp rows; the kind carries no entry yet" };
+  const sidecar = readLspSidecar();
+  const failures = [];
+  let provisioned = 0;
+  let needLabels = 0;
+  for (const entry of lsps) {
+    const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
+    if (reason !== null) failures.push(reason);
+    if (entry.install_cmd === null || entry.install_cmd === undefined) {
+      if (entry.verification !== "unverified") {
+        failures.push(entry.id + ": install_cmd is null but verification is not unverified; a null command is only honest as unverified");
+        continue;
+      }
+      if (sidecar === null) {
+        failures.push(entry.id + ": need-label cannot be evaluated: registry/data/lsp.jsonl is unreadable");
+        continue;
+      }
+      const side = sidecar.get(entry.id);
+      if (side === undefined) {
+        failures.push(entry.id + ": need-label has no matching record in registry/data/lsp.jsonl");
+        continue;
+      }
+      if (typeof side.when_to_use !== "string" || side.when_to_use.trim() === "") {
+        failures.push(entry.id + ": need-label carries no when_to_use instruction pointing at the project's own typecheck/lint");
+        continue;
+      }
+      needLabels++;
+      continue;
+    }
+    const commandReason = cliCommandReason(entry.install_cmd);
+    if (commandReason !== null) failures.push(entry.id + ": " + commandReason);
+    else provisioned++;
+  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  return {
+    status: "PASS",
+    detail: lsps.length + " lsp row(s) valid with correct phase, tier and verification (" + provisioned + " provisioned with a real installer, " + needLabels + " need-label pointing at project typecheck/lint)"
+  };
+};
+
+const checkThemeRows = (components) => {
+  const themes = components.filter((entry) => entry.kind === "theme");
+  if (themes.length === 0) return { status: "PASS", detail: "0 theme rows; the kind carries no entry yet" };
+  const failures = [];
+  for (const entry of themes) {
+    const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
+    if (reason !== null) failures.push(reason);
+    if (typeof entry.install_cmd !== "string" || entry.install_cmd.trim() === "") {
+      failures.push(entry.id + ": install_cmd is empty; a theme entry must carry the file-copy command that installs the JSON");
+      continue;
+    }
+    const text = entry.install_cmd.trim();
+    if (FILE_COPY_PIPE_FORBIDDEN.test(text)) {
+      failures.push(entry.id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
+      continue;
+    }
+    const match = text.match(THEME_COPY_RE);
+    if (match === null) {
+      failures.push(entry.id + ": install_cmd is not a `cp registry/themes/<id>.json <themes-dir>/<id>.json` file copy (" + JSON.stringify(entry.install_cmd) + ")");
+      continue;
+    }
+    const src = match[1];
+    const dest = match[2];
+    const expectedSrc = "registry/themes/" + entry.id + ".json";
+    if (src !== expectedSrc) {
+      failures.push(entry.id + ": install_cmd copies " + JSON.stringify(src) + " but the theme ships at " + expectedSrc);
+      continue;
+    }
+    if (dest.endsWith("/" + entry.id + ".json") === false) {
+      failures.push(entry.id + ": install_cmd copies to " + JSON.stringify(dest) + " but the target filename must be " + entry.id + ".json, which V2 turns into the theme name");
+      continue;
+    }
+    const filePath = path.join(ROOT, src);
+    if (fs.existsSync(filePath) === false) {
+      failures.push(entry.id + ": theme file " + src + " does not exist");
+      continue;
+    }
+    let theme = null;
+    try {
+      theme = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    } catch (error) {
+      failures.push(entry.id + ": " + src + " is not valid JSON (" + String(error.message) + ")");
+      continue;
+    }
+    if (isPlainObject(theme) === false) {
+      failures.push(entry.id + ": " + src + " is not a JSON object");
+      continue;
+    }
+    if (theme.defs !== undefined || theme.theme !== undefined) {
+      failures.push(entry.id + ": " + src + " carries V1 keys (defs/theme); a V2 theme is base plus light/dark");
+      continue;
+    }
+    if (isPlainObject(theme.base) === false) {
+      failures.push(entry.id + ": " + src + " has no base object");
+      continue;
+    }
+    const modes = ["dark", "light"].filter((mode) => isPlainObject(theme[mode]));
+    if (modes.length === 0) {
+      failures.push(entry.id + ": " + src + " defines no dark or light mode palette");
+      continue;
+    }
+    const missingHue = modes.find((mode) => isPlainObject(theme[mode].hue) === false);
+    if (missingHue !== undefined) {
+      failures.push(entry.id + ": " + src + " mode " + missingHue + " carries no hue palette");
+      continue;
+    }
+    const keyDefects = [];
+    collectThemeKeyPaths(theme, "$", keyDefects);
+    if (keyDefects.length > 0) failures.push(entry.id + ": " + src + " carries image or model keys: " + keyDefects.join(", "));
+  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  return {
+    status: "PASS",
+    detail: themes.length + " theme row(s) ship a V2-native JSON (base plus mode hue palette) installed by a real file copy; zero image keys, zero model keys"
+  };
+};
+
+const checkSkillsUpstream = (components) => {
+  const skills = components.filter(
+    (entry) => entry.kind === "skill" && entry.verification === "verified" && typeof entry.source === "string" && entry.source !== SELF_SOURCE
+  );
+  if (skills.length === 0) return { status: "PASS", detail: "0 verified upstream skills; nothing to resolve" };
+  const failures = [];
+  const repos = new Map();
+  for (const entry of skills) {
+    const match = typeof entry.install_cmd === "string" ? entry.install_cmd.match(SKILL_CMD) : null;
+    if (match === null || match[1] !== entry.source || match[2] !== entry.id) {
+      failures.push(entry.id + ": install_cmd does not match the npx skills add <owner>/<repo> --skill <name> -a opencode shape for source " + entry.source);
+      continue;
+    }
+    if (repos.has(entry.source) === false) repos.set(entry.source, []);
+    repos.get(entry.source).push(entry.id);
+  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  const auth = runCapture("gh", ["auth", "status"]);
+  if (auth.ok === false) {
+    return { status: "SKIPPED", detail: skills.length + " install_cmd shapes hold; gh not authenticated — upstream resolution not evaluated" };
+  }
+  const resolved = [];
+  const skipped = [];
+  for (const source of repos.keys()) {
+    const result = runCapture("gh", ["repo", "view", source, "--json", "nameWithOwner"]);
+    if (result.ok) {
+      let remote = "";
+      try {
+        remote = JSON.parse(result.stdout).nameWithOwner;
+      } catch (error) {
+        failures.push(source + ": gh output is not JSON (" + String(error.message) + ")");
+        continue;
+      }
+      if (typeof remote === "string" && remote.toLowerCase() === source.toLowerCase()) resolved.push(source);
+      else failures.push(source + ": remote reports " + JSON.stringify(remote));
+      continue;
+    }
+    const reason = offlineReason(result);
+    if (reason === null) {
+      failures.push(source + ": gh repo view failed: " + (result.stderr + " " + result.stdout).trim().slice(0, 160));
+    } else {
+      skipped.push(source + " (" + reason + ")");
+    }
+  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  if (skipped.length > 0) {
+    return {
+      status: "SKIPPED",
+      detail: skills.length + " install_cmd shapes hold; gh resolution skipped offline for " + skipped.length + " repo(s) (" + resolved.length + " resolved): " + skipped.join("; ")
+    };
+  }
+  return {
+    status: "PASS",
+    detail: skills.length + " verified upstream skill commands hold the install_cmd shape and gh resolves every owner/repo (" + resolved.length + " repos resolved)"
+  };
+};
+
+const checkMcpNpm = (selected, index) => {
+  const rows = [];
+  for (const token of selected) {
+    const entry = index.get(token);
+    if (entry === undefined || entry.kind !== "mcp" || entry.version_pin === null || entry.version_pin === undefined) continue;
+    rows.push(entry);
+  }
+  if (rows.length === 0) return { status: "PASS", detail: "0 selected version-pinned npm MCPs; nothing to resolve" };
+  const failures = [];
+  const skipped = [];
+  let passed = 0;
+  for (const entry of rows) {
+    const match = typeof entry.install_cmd === "string" ? entry.install_cmd.match(NPM_CMD) : null;
+    if (match === null) {
+      failures.push(entry.id + ": install_cmd is not an npx -y <pkg> command");
+      continue;
+    }
+    const pkg = match[1];
+    const versioned = runCapture("npm", ["view", pkg + "@" + entry.version_pin, "version", "--ignore-scripts"]);
+    if (versioned.ok === false) {
+      const reason = offlineReason(versioned);
+      if (reason === null) failures.push(entry.id + ": npm has no " + pkg + "@" + entry.version_pin);
+      else skipped.push(entry.id + " (" + reason + ")");
+      continue;
+    }
+    if (versioned.stdout.trim() !== entry.version_pin) {
+      failures.push(entry.id + ": registry reports " + versioned.stdout.trim() + ", catalog pins " + entry.version_pin);
+      continue;
+    }
+    const bin = runCapture("npm", ["view", pkg + "@" + entry.version_pin, "bin", "--json", "--ignore-scripts"]);
+    if (bin.ok === false) {
+      const reason = offlineReason(bin);
+      if (reason === null) failures.push(entry.id + ": npm reports no bin entry for " + pkg);
+      else skipped.push(entry.id + " (" + reason + ")");
+      continue;
+    }
+    let parsed = null;
+    try {
+      parsed = JSON.parse(bin.stdout);
+    } catch (error) {
+      failures.push(entry.id + ": npm bin output is not JSON");
+      continue;
+    }
+    const hasBin = typeof parsed === "string" ? parsed.length > 0 : isPlainObject(parsed) && Object.keys(parsed).length > 0;
+    if (hasBin) passed++;
+    else failures.push(entry.id + ": npm reports an empty bin entry for " + pkg);
+  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  if (skipped.length > 0) {
+    return { status: "SKIPPED", detail: "npm resolution skipped offline for " + skipped.length + " package(s) (" + passed + " proven): " + skipped.join("; ") };
+  }
+  return { status: "PASS", detail: passed + " version-pinned npm MCPs match the registry and expose a bin entry" };
+};
+
+const provePrompt = (id, shipped, src) => {
+  for (const marker of ["[INSTALLED]", "[VERIFIED]", "[OPEN ITEMS]", "vantrilex-prime", "vantrilex-vanguard"]) {
+    if (shipped.includes(marker) === false) return src + " carries no " + marker + " marker";
+  }
+  if (/^\s*model\s*:/m.test(shipped)) return src + " pins a model; prompts carry no model pins";
+  if (/TODO|FIXME/.test(shipped)) return src + " carries a TODO or FIXME placeholder";
+  return null;
+};
+
+const proveDataset = (id, shipped, src) => {
+  let records = null;
+  try {
+    records = JSON.parse(shipped);
+  } catch (error) {
+    return src + " is not valid JSON (" + String(error.message) + ")";
+  }
+  if (Array.isArray(records) === false) return src + " is not a JSON array";
+  if (records.length !== 45) return src + " carries " + records.length + " records, expected the 45 Stream-G probe checks";
+  const seen = new Set();
+  for (let i = 0; i < records.length; i++) {
+    const entry = records[i];
+    for (const field of ["id", "category", "description", "assertion"]) {
+      if (isPlainObject(entry) === false || typeof entry[field] !== "string" || entry[field] === "") {
+        return src + "[" + i + "] carries no non-empty " + JSON.stringify(field);
+      }
+    }
+    if (seen.has(entry.id)) return src + " repeats id " + JSON.stringify(entry.id);
+    seen.add(entry.id);
+  }
+  return null;
+};
+
+const proveTemplate = (id, shipped, src) => {
+  let manifest = null;
+  try {
+    manifest = JSON.parse(shipped);
+  } catch (error) {
+    return src + " is not valid JSON (" + String(error.message) + ")";
+  }
+  if (isPlainObject(manifest) === false) return src + " is not a JSON object";
+  if (Array.isArray(manifest.files) === false || manifest.files.length !== 28) {
+    return src + " lists " + (Array.isArray(manifest.files) ? manifest.files.length : "no") + " files, expected the fixed 28";
+  }
+  if (Array.isArray(manifest.folders) === false || manifest.folders.length !== 8) {
+    return src + " lists " + (Array.isArray(manifest.folders) ? manifest.folders.length : "no") + " folders, expected 8";
+  }
+  const reserved = manifest.files.find((file) => isPlainObject(file) && file.number === 18);
+  if (reserved === undefined || typeof reserved.note !== "string" || /reserved/i.test(reserved.note) === false) {
+    return src + " file 18 carries no reserved-for-Doctrine marker";
+  }
+  if (shipped.includes("{{")) return src + " carries an unsubstituted {{...}} template variable";
+  if (/<[^<>\n]*>/.test(shipped)) return src + " carries an unsubstituted <...> template variable";
+  return null;
+};
+
+const provePolicy = (id, shipped, src) => {
+  let pack = null;
+  try {
+    pack = JSON.parse(shipped);
+  } catch (error) {
+    return src + " is not valid JSON (" + String(error.message) + ")";
+  }
+  if (isPlainObject(pack) === false || Array.isArray(pack.permissions) === false) return src + " carries no permissions array";
+  if (pack.permissions.length === 0) return src + " carries an empty permissions array";
+  for (let i = 0; i < pack.permissions.length; i++) {
+    const rule = pack.permissions[i];
+    if (isPlainObject(rule) === false || rule.effect !== "allow") {
+      return src + " rule " + i + " carries effect " + JSON.stringify(isPlainObject(rule) ? rule.effect : rule) + "; the allow-all pack never becomes deny or ask by stealth";
+    }
+  }
+  return null;
+};
+
+const proveBenchmark = (id, shipped, src) => {
+  let spec = null;
+  try {
+    spec = JSON.parse(shipped);
+  } catch (error) {
+    return src + " is not valid JSON (" + String(error.message) + ")";
+  }
+  if (isPlainObject(spec) === false || Array.isArray(spec.checks) === false) return src + " carries no checks array";
+  if (spec.checks.length !== 1) return src + " carries " + spec.checks.length + " checks; the Goodhart guard keeps this benchmark at exactly one";
+  if (typeof spec.goodhart_guard !== "string" || spec.goodhart_guard === "") return src + " carries no Goodhart guard note";
+  if (typeof spec.output_note !== "string" || spec.output_note.includes("~") === false || /never a target metric/.test(spec.output_note) === false) {
+    return src + " output_note does not state that outputs are illustrative (~) and never a target metric";
+  }
+  return null;
+};
+
+const proveWorkflow = (id, shipped, src) => {
+  for (const field of ["id", "concern", "owner", "inputs", "acceptance", "verification", "artifact", "wave", "depends_on"]) {
+    if (shipped.includes(field) === false) return src + " carries no node field " + JSON.stringify(field);
+  }
+  for (const section of ["Methodology", "Roles", "Precautions", "Repair states", "Research", "Expanded thinking", "Kit loadout"]) {
+    if (shipped.includes(section) === false) return src + " carries no Forge section " + JSON.stringify(section);
+  }
+  if (shipped.includes("no native YAML workflow runner") === false) return src + " states no BLAZAR consumption contract: OpenCode V2 has no native YAML workflow runner";
+  if (shipped.includes("subagent") === false) return src + " names no subagent-dispatch execution path";
+  if (/^\s*model\s*:/m.test(shipped)) return src + " pins a model; workflows carry no model pins";
+  return null;
+};
+
+const designSlug = (brand) =>
+  brand
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+const FILE_LAYOUT = {
+  benchmark: { dir: "benchmarks", ext: "json" },
+  dataset: { dir: "datasets", ext: "json" },
+  policy: { dir: "policies", ext: "json" },
+  prompt: { dir: "prompts", ext: "md" },
+  template: { dir: "templates", ext: "json" },
+  workflow: { dir: "workflows", ext: "yaml" }
+};
+
+const fileLayout = (kind) => FILE_LAYOUT[kind];
+
+const checkFileCopyShape = (components, selectedSet, family) => {  const failures = [];
+  let proven = 0;
+  const skipNull = (entry) => {
+    if (entry.install_cmd === null || entry.install_cmd === undefined) {
+      if (selectedSet.has(componentToken(entry.kind, entry.id))) {
+        failures.push(entry.id + ": selected " + entry.kind + " row carries no install command");
+      }
+      return true;
+    }
+    return false;
+  };
+
+  for (const kind of family) {
+    for (const entry of components.filter((candidate) => candidate.kind === kind)) {
+      const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
+      if (reason !== null) failures.push(reason);
+      if (skipNull(entry)) continue;
+      const text = entry.install_cmd.trim();
+      if (FILE_COPY_PIPE_FORBIDDEN.test(text)) {
+        failures.push(entry.id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
+        continue;
+      }
+      const match = text.match(/^cp (\S+) (\S+)$/);
+      if (match === null) {
+        failures.push(entry.id + ": install_cmd is not a `cp <src> <dest>` file copy (" + JSON.stringify(entry.install_cmd) + ")");
+        continue;
+      }
+      const files = fileLayout(entry.kind);
+      const expectedSrc = "registry/" + files.dir + "/" + entry.id + "." + files.ext;
+      if (match[1] !== expectedSrc) {
+        failures.push(entry.id + ": install_cmd copies " + JSON.stringify(match[1]) + " but the component ships at " + expectedSrc);
+        continue;
+      }
+      const filePath = path.join(ROOT, expectedSrc);
+      if (fs.existsSync(filePath) === false) {
+        failures.push(entry.id + ": shipped file " + expectedSrc + " does not exist");
+        continue;
+      }
+      let shipped = null;
+      try {
+        shipped = fs.readFileSync(filePath, "utf8");
+      } catch (error) {
+        failures.push(entry.id + ": " + expectedSrc + " is unreadable (" + String(error.message) + ")");
+        continue;
+      }
+      const defect = PROVERS[entry.kind](entry.id, shipped, expectedSrc);
+      if (defect !== null) failures.push(entry.id + ": " + defect);
+      else proven++;
+    }
+  }
+
+  for (const entry of components.filter((candidate) => candidate.kind === "design.md")) {
+    const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
+    if (reason !== null) failures.push(reason);
+    if (skipNull(entry)) continue;
+    const text = entry.install_cmd.trim();
+    if (FILE_COPY_PIPE_FORBIDDEN.test(text)) {
+      failures.push(entry.id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
+      continue;
+    }
+    const match = text.match(DESIGN_COPY_RE);
+    if (match === null) {
+      failures.push(entry.id + ": install_cmd is not a `cp registry/design/<brand>/DESIGN.md <dest>` file copy (" + JSON.stringify(entry.install_cmd) + ")");
+      continue;
+    }
+    const brand = match[1];
+    if (designSlug(brand) !== entry.id) {
+      failures.push(entry.id + ": install_cmd names brand " + JSON.stringify(brand) + " but the slugified brand does not equal the entry id");
+      continue;
+    }
+    const expectedSrc = "registry/design/" + brand + "/DESIGN.md";
+    const filePath = path.join(ROOT, expectedSrc);
+    if (fs.existsSync(filePath) === false) {
+      failures.push(entry.id + ": shipped file " + expectedSrc + " does not exist");
+      continue;
+    }
+    const shipped = fs.readFileSync(filePath, "utf8");
+    if (/^\s*model\s*:/m.test(shipped)) {
+      failures.push(entry.id + ": " + expectedSrc + " pins a model; design documents carry no model pins");
+      continue;
+    }
+    if (/TODO|FIXME/.test(shipped)) {
+      failures.push(entry.id + ": " + expectedSrc + " carries a TODO or FIXME placeholder");
+      continue;
+    }
+    let companions = 0;
+    for (const companion of ["registry/design/LICENSE.voltagent-MIT", "registry/design/ATTRIBUTION.md"]) {
+      if (fs.existsSync(path.join(ROOT, companion)) === false) {
+        failures.push(entry.id + ": MIT companion " + companion + " does not exist; the license travels with the content");
+      } else {
+        companions++;
+      }
+    }
+    if (companions === 2) proven++;
+  }
+
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  return {
+    status: "PASS",
+    detail: proven + " shipped " + family.concat("design.md").join("/") + " file(s) install by a plain file copy, land at registry/<kind>/<id>.<ext>, and pass their kind invariant"
+  };
+};
+
+const checkAgentHygiene = (selected, index) => {
+  const leaders = new Set(["aether", "pulsar", "blazar"]);
+  const failures = [];
+  let local = 0;
+  let leaderFiles = 0;
+  for (const token of selected) {
+    const entry = index.get(token);
+    if (entry === undefined || entry.kind !== "agent") continue;
+    if (entry.install_cmd !== null && entry.install_cmd !== undefined) {
+      failures.push(entry.id + ": agent rows carry null install_cmd; fabricated spawn commands are refused");
+      continue;
+    }
+    if (entry.verification !== "unverified") {
+      failures.push(entry.id + ": null-command agent row is not recorded unverified");
+      continue;
+    }
+    const isLocal = entry.source === null || entry.source === undefined || entry.source === SELF_SOURCE;
+    if (isLocal === false) continue;
+    let text = null;
+    try {
+      text = fs.readFileSync(path.join(AGENTS_DIR, entry.id + ".md"), "utf8");
+    } catch (error) {
+      failures.push(entry.id + ": selected agent has no .opencode/agents/" + entry.id + ".md");
+      continue;
+    }
+    const lines = frontmatterLines(text);
+    if (lines === null) {
+      failures.push(entry.id + ": no frontmatter fence");
+      continue;
+    }
+    if (frontmatterValue(lines, "model") !== null) {
+      failures.push(entry.id + ": frontmatter pins a model; agents carry no model pins");
+      continue;
+    }
+    const mode = frontmatterValue(lines, "mode");
+    const color = frontmatterValue(lines, "color");
+    if (leaders.has(entry.id)) {
+      if (mode !== "primary") {
+        failures.push(entry.id + ": leader mode " + JSON.stringify(mode) + " is not primary per triumvirate design D1 + owner ruling (a) 2026-10-15");
+        continue;
+      }
+      if (color === null || color === "") {
+        failures.push(entry.id + ": leader carries no non-empty color field; leaders require mode primary plus a color");
+        continue;
+      }
+      leaderFiles++;
+    } else {
+      if (mode !== "subagent") {
+        failures.push(entry.id + ": mode " + JSON.stringify(mode) + " is not subagent");
+        continue;
+      }
+      if (color !== null) {
+        failures.push(entry.id + ": frontmatter carries a color field");
+        continue;
+      }
+    }
+    local++;
+  }
+  for (const kind of ["hook", "plugin"]) {
+    for (const token of selected) {
+      const entry = index.get(token);
+      if (entry === undefined || entry.kind !== kind) continue;
+      if (entry.install_cmd !== null && entry.install_cmd !== undefined) failures.push(entry.id + ": " + kind + " rows carry null install_cmd");
+      else if (entry.verification !== "unverified") failures.push(entry.id + ": null-command " + kind + " row is not recorded unverified");
+    }
+  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
+  return {
+    status: "PASS",
+    detail: local + " selected local agents resolve with no model pin (" + leaderFiles + " named leaders mode primary plus color; the rest mode subagent with no color); selected agent, hook and plugin rows carry null install_cmd + unverified"
+  };
+};
+
+const checkTopLevelSkills = (selectedSet) => {
+  const missing = TOP_LEVEL_SKILLS.filter((token) => selectedSet.has(token) === false);
+  if (missing.length > 0) {
+    return { status: "FAIL", detail: "the selection record omits the top-level skills: " + missing.join(", ") };
+  }
+  return {
+    status: "PASS",
+    detail: "the selection record carries all three top-level skills: " + TOP_LEVEL_SKILLS.join(", ")
+  };
+};
+
+const PROVERS = {
+  benchmark: proveBenchmark,
+  dataset: proveDataset,
+  policy: provePolicy,
+  prompt: provePrompt,
+  template: proveTemplate,
+  workflow: proveWorkflow
 };
 
 const main = () => {
@@ -590,6 +1356,29 @@ const main = () => {
     );
   }
 
+  // Per-kind shape proofs: the retired lock verifier's remaining checks, run
+  // against catalog rows. Deterministic checks cover phase/tier honesty, real
+  // installer shapes and shipped files; the upstream-resolution legs keep the
+  // retired SKIPPED contract for network and gh authentication.
+  const selectedSet = new Set(selectedTokens);
+  recordResult("command-shape/cli", checkCliRows(components));
+  recordResult("command-shape/lsp", checkLspRows(components));
+  recordResult("command-shape/theme", checkThemeRows(components));
+  recordResult(
+    "file-copy/shape",
+    checkFileCopyShape(components, selectedSet, ["benchmark", "dataset", "policy", "prompt", "template", "workflow"])
+  );
+  recordResult("command-shape/skills-upstream", checkSkillsUpstream(components));
+  if (selection === null) {
+    for (const check of ["command-shape/mcp-npm", "agent-hygiene", "selection/top-level-skills"]) {
+      record(check, "FAIL", "cannot be evaluated: selection record unreadable (" + selectionProblem + ")");
+    }
+  } else {
+    recordResult("command-shape/mcp-npm", checkMcpNpm(selectedTokens, index));
+    recordResult("agent-hygiene", checkAgentHygiene(selectedTokens, index));
+    recordResult("selection/top-level-skills", checkTopLevelSkills(selectedSet));
+  }
+
   // Table.
   let checkWidth = "check".length;
   let statusWidth = "status".length;
@@ -666,16 +1455,18 @@ const main = () => {
   }
 
   let passed = 0;
+  let skipped = 0;
   let failed = 0;
   for (const row of rows) {
     if (row.status === "PASS") passed += 1;
+    else if (row.status === "SKIPPED") skipped += 1;
     else failed += 1;
   }
   console.log("");
   if (failed === 0) {
-    console.log("VERDICT: PASS - catalog proven (" + passed + " passed, 0 failed).");
+    console.log("VERDICT: PASS - catalog proven (" + passed + " passed, " + skipped + " skipped, 0 failed).");
   } else {
-    console.log("VERDICT: FAIL - catalog not proven (" + passed + " passed, " + failed + " failed).");
+    console.log("VERDICT: FAIL - catalog not proven (" + passed + " passed, " + skipped + " skipped, " + failed + " failed).");
   }
   process.exitCode = failed === 0 ? 0 : 1;
 };

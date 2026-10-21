@@ -67,20 +67,11 @@ jobs:
       - name: Registry is internally consistent
         run: node scripts/verify-registry.mjs
 
-      - name: Kit components load
-        run: |
-          set -euo pipefail
-          if [ ! -f scripts/verify-kit.mjs ]; then
-            echo "NOTICE: scripts/verify-kit.mjs is absent from this branch."
-            echo "The kit gate lands with the kit manifest; it is not counted as a pass."
-            exit 0
-          fi
-          node scripts/verify-kit.mjs
-
       - name: Catalog proofs hold
-        # The catalog-only proofs run beside the kit step until S3 removes the
-        # lock; scripts/dual-run-check.mjs is the harness proving the two
-        # selections agree.
+        # The sole component gate after S3 deleted the lock and its verifier.
+        # scripts/dual-run-check.mjs stays as the parity harness: with the kit
+        # runner retired it proves the selection record against the catalog
+        # phase sets alone.
         run: node scripts/verify-catalog.mjs
 
   types:

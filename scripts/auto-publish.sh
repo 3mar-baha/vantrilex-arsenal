@@ -251,15 +251,16 @@ battery() {
     fi
 
     # Absent is a failure here, not a notice: a publish gate may not read a
-    # skipped check as a passing one.
-    if [ ! -f "${tree}/scripts/verify-kit.mjs" ]; then
-        printf 'FAIL(verify-kit:absent)\n'
+    # skipped check as a passing one. The catalog proofs are the sole component
+    # gate since S3 deleted kit/kit.lock and scripts/verify-kit.mjs.
+    if [ ! -f "${tree}/scripts/verify-catalog.mjs" ]; then
+        printf 'FAIL(verify-catalog:absent)\n'
         status=1
-    elif ( cd "$tree" && node scripts/verify-kit.mjs ) > "${logs}/verify-kit.log" 2>&1; then
-        printf 'PASS(verify-kit)\n'
+    elif ( cd "$tree" && node scripts/verify-catalog.mjs ) > "${logs}/verify-catalog.log" 2>&1; then
+        printf 'PASS(verify-catalog)\n'
     else
-        printf 'FAIL(verify-kit)\n'
-        tail -n 6 "${logs}/verify-kit.log" >&2
+        printf 'FAIL(verify-catalog)\n'
+        tail -n 6 "${logs}/verify-catalog.log" >&2
         status=1
     fi
 
