@@ -247,7 +247,7 @@ Rule: ADAPT from Claude Code → OpenCode plugin format. Never copy blindly, nev
 `session-context-primer.md`, `github-release-packager.md`
 **TRANSPLANT — scripts:** `dispatch-worktrees.sh`, `merge-worktrees.sh`, `orchestrate-stage.sh`,
 `teardown-stage.sh`, `setup-git-hooks.sh`, `release.sh`, `record-decision.sh`
-**TRANSPLANT — CI/hooks:** `.github/workflows/ci.yml`, `.github/workflows/release.yml`, `.githooks/`
+**TRANSPLANT — CI/hooks:** `.github/workflows/ci.yml`, `.githooks/` (release.yml retired; auto-publish.yml is the sole asset writer)
 **REFERENCE for Doctrine:** `docs/04-QUALITY-GATES-AND-SAFETY.md`,
 `docs/03-ORCA-WORKTREES-AND-PARALLEL-AGENTS.md`, `docs/03-DECISIONS.md`
 **BUILD NEW:** Vantrilex Vanguard SKILL.md, Vantrilex Doctrine SKILL.md, Registry v2
