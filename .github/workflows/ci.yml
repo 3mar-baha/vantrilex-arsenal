@@ -77,6 +77,12 @@ jobs:
           fi
           node scripts/verify-kit.mjs
 
+      - name: Catalog proofs hold
+        # The catalog-only proofs run beside the kit step until S3 removes the
+        # lock; scripts/dual-run-check.mjs is the harness proving the two
+        # selections agree.
+        run: node scripts/verify-catalog.mjs
+
   types:
     name: Types
     runs-on: ubuntu-latest
