@@ -490,12 +490,15 @@ function sleepSync(ms) {
 }
 
 /*
-  tagRuns <sha> — the workflow runs the tag push started for that commit. An
-  unqueryable answer is returned as such and never read as "no runs", because a
-  silent zero would skip the very wait this guard exists for.
+  tagRuns <tag> — the workflow runs that belong to this tag. Filtered by
+  headBranch from the run list rather than by `gh run list --commit`, because
+  the commit filter answers empty for a tag-pushed commit whose sha is not a
+  branch head, and an empty answer would read as "nothing to wait for" while a
+  second writer was still queued. An unqueryable answer is returned as such and
+  never read as "no runs".
 */
-function tagRuns(sha) {
-  const listed = run('gh', ['run', 'list', '--commit', sha, '--limit', '20', '--json', 'databaseId,status,name']);
+function tagRuns(tag) {
+  const listed = run('gh', ['run', 'list', '--limit', '50', '--json', 'databaseId,status,conclusion,headBranch,event']);
   if (!listed.ok) {
     return { ok: false, runs: [], detail: listed.stderr.trim() || listed.error || 'gh run list failed' };
   }
@@ -506,38 +509,43 @@ function tagRuns(sha) {
     return { ok: false, runs: [], detail: `unreadable gh run list output — ${errorText(error)}` };
   }
   if (!Array.isArray(runs)) return { ok: false, runs: [], detail: 'gh run list carried no array' };
-  return { ok: true, runs };
+  return { ok: true, runs: runs.filter((entry) => entry.headBranch === tag) };
 }
 
 /*
-  settleTagRuns <sha> <log> — bounded wait for the runs the tag push started.
-  The lookup gets a grace window before "no runs yet" is accepted as "no runs
-  will come": GitHub registers a run a few seconds after the push, and reading
-  an empty list too early would inspect the asset before the second writer
-  finished. A run still going at the limit is reported, never waited out
-  forever.
+  settleTagRuns <tag> <log> — bounded wait for the runs this tag started: the
+  tag push itself and the release-published lane. The lookup gets a grace window
+  before "no run yet" is accepted as "no workflow at this commit", because
+  GitHub registers a run seconds after the event and reading an empty list too
+  early would inspect the asset before the second writer finished. A run still
+  going at the limit is reported, never waited out forever.
 */
-function settleTagRuns(sha, log) {
+function settleTagRuns(tag, log) {
   const startedAt = Date.now();
   const deadline = startedAt + TAG_RUN_SETTLE_LIMIT_MS;
   for (;;) {
-    const listed = tagRuns(sha);
+    const listed = tagRuns(tag);
     if (!listed.ok) {
       log(`    settle: run list unavailable (${listed.detail}); verifying the asset anyway`);
       return { settled: false, reason: 'unqueryable' };
     }
     const pending = listed.runs.filter((entry) => entry.status !== 'completed');
     if (pending.length === 0) {
-      if (listed.runs.length > 0 || Date.now() - startedAt >= TAG_RUN_LOOKUP_GRACE_MS) {
-        log(`    settle: ${listed.runs.length} run(s) for ${sha.slice(0, 7)} completed`);
+      if (listed.runs.length > 0) {
+        const names = [...new Set(listed.runs.map((entry) => entry.name || 'unnamed'))].join(', ');
+        log(`    settle: ${listed.runs.length} run(s) for ${tag} completed (${names})`);
         return { settled: true, runs: listed.runs.length };
+      }
+      if (Date.now() - startedAt >= TAG_RUN_LOOKUP_GRACE_MS) {
+        log(`    settle: no run for ${tag} within the ${TAG_RUN_LOOKUP_GRACE_MS / 1000}s grace (no workflow at this commit); verifying the asset`);
+        return { settled: true, runs: 0 };
       }
     } else if (Date.now() >= deadline) {
       log(`    settle: ${pending.length} run(s) still ${pending.map((entry) => entry.status).join(', ')} at the ${TAG_RUN_SETTLE_LIMIT_MS / 1000}s limit (${pending.map((entry) => entry.name || 'unnamed').join(', ')})`);
       return { settled: false, reason: 'timeout' };
     }
     if (Date.now() >= deadline) {
-      log(`    settle: no completed run list within the ${TAG_RUN_SETTLE_LIMIT_MS / 1000}s limit; verifying the asset anyway`);
+      log(`    settle: no completed run for ${tag} within the ${TAG_RUN_SETTLE_LIMIT_MS / 1000}s limit; verifying the asset anyway`);
       return { settled: false, reason: 'timeout' };
     }
     sleepSync(TAG_RUN_POLL_MS);
@@ -572,16 +580,16 @@ export function attachedMatches(attached, asset) {
 }
 
 /*
-  ensureAttachedAsset <tag> <tagSource> <asset> <log> — the post-upload clobber
+  ensureAttachedAsset <tag> <asset> <log> — the post-upload clobber
   guard. After the release upload: wait for the tag's runs, read the attached
   asset back, and answer a mismatch by re-uploading the bytes this run built.
   A mismatch that survives the re-upload fails closed. Returns the digest and
   size that are actually attached, so the audit line records the final state and
   not only the built one.
 */
-function ensureAttachedAsset(tag, tagSource, asset, log) {
+function ensureAttachedAsset(tag, asset, log) {
   const expected = `sha256:${asset.sha256}`;
-  const settle = settleTagRuns(tagSource, log);
+  const settle = settleTagRuns(tag, log);
   const inspect = () => {
     const found = attachedAsset(tag, asset.name);
     if (!found.ok) return { ok: false, detail: found.detail };
@@ -751,7 +759,7 @@ function processEntry(entry, context) {
     appendAudit(auditLine({ version: tag, commit: tagTarget, timestamp: context.now, artifacts, channels, result: `failed-release;gate=as-closed;mode=${entry.mode}` }));
     return { status: 'failed', tag, reason: releaseResult.detail };
   }
-  const guard = ensureAttachedAsset(tag, tagTarget, asset, log);
+  const guard = ensureAttachedAsset(tag, asset, log);
   if (!guard.ok) {
     log(`    FAILED — ${guard.detail}. The tag and release exist; a re-run skips them loudly instead of publishing twice.`);
     appendAudit(
@@ -799,7 +807,8 @@ function usage() {
       '  DRY_RUN=1|0            Default 1: build, print the plan, create nothing.',
       '  PUBLISH_REPO=owner/name Default: the origin remote slug (audit line only).',
       '',
-      'A live publish waits up to 3 minutes for the runs the tag push started, then',
+      'A live publish waits up to 3 minutes for the runs the tag started (tag push and the
+release-published lane), then',
       'verifies the attached asset digest and re-uploads on a clobber. A digest that',
       'still differs fails the run closed.',
       '',
