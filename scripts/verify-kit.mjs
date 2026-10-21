@@ -27,17 +27,7 @@ const SKILLS_DIR = path.join(ROOT, ".opencode", "skills");
 const AGENTS_DIR = path.join(ROOT, ".opencode", "agents");
 const LSP_SIDECAR_PATH = path.join(ROOT, "registry", "data", "lsp.jsonl");
 
-const EXPECTED_PENDING = [
-  "vantrilex-architect",
-  "vantrilex-code-reviewer",
-  "vantrilex-ai-generated-code-security-auditor",
-  "vantrilex-kit-maintainer",
-  "vantrilex-red-team",
-  "vantrilex-technical-writer",
-  "vantrilex-vantrilex-guide",
-  "vantrilex-vantrilex-implementer",
-  "vantrilex-vantrilex-leader"
-];
+const EXPECTED_PENDING = [];
 const EXPECTED_LOCKED_SKILLS = ["vantrilex-vanguard", "vantrilex-doctrine", "vantrilex-prime"];
 
 const HOOK_FUNCTIONS = {
