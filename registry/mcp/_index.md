@@ -16,7 +16,7 @@
 | memory | mcp | core | When facts must persist across sessions as a knowledge graph | `npx -y @modelcontextprotocol/server-memory` |
 | sequential-thinking | mcp | core | When a problem needs structured step-by-step reasoning | `npx -y @modelcontextprotocol/server-sequential-thinking` |
 
-## Tier 1 — Conditional (15)
+## Tier 1 — Conditional (16)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
@@ -35,12 +35,13 @@
 | slack | mcp | conditional |  |  |
 | steadyfetch | mcp | conditional |  |  |
 | stripe | mcp | conditional |  |  |
+| supabase/mcp | mcp | conditional | When a Supabase project tables, config, or data must be queried or mana… | `npx -y @supabase/mcp-server-supabase` |
 
 ## Tier 2 — Extended (0)
 
 _None._
 
-## Untiered (878)
+## Untiered (877)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
@@ -839,7 +840,6 @@ _None._
 | sthan-io/mcp-server | mcp |  |  |  |
 | sturs49/cryptotaxedge-mcp | mcp |  |  |  |
 | sukrutkrdg/x402-bazaar-mcp | mcp |  |  |  |
-| supabase/mcp | mcp |  | When a Supabase project tables, config, or data must be queried or mana… | `npx -y @supabase/mcp-server-supabase` |
 | supertone-inc/supertone-mcp | mcp |  |  |  |
 | swaltersjrtest/microtap-mcp | mcp |  |  |  |
 | swapnanil/vectr | mcp |  |  |  |

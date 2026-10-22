@@ -74412,8 +74412,8 @@
         "remote"
       ],
       "when_to_use": "When a Supabase project tables, config, or data must be queried or managed from an agent",
-      "phase": null,
-      "tier": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",

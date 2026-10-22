@@ -11,7 +11,6 @@
       "hook/task-dispatcher",
       "mcp/brave",
       "mcp/context7",
-      "mcp/context7-mcp",
       "mcp/deepwiki",
       "mcp/exa",
       "mcp/fetch",
@@ -20,7 +19,6 @@
       "mcp/googledrive",
       "mcp/mem0-memory-mcp",
       "mcp/notion",
-      "mcp/reference-sequential",
       "mcp/steadyfetch",
       "prompt/vantrilex-install-prompt",
       "skill/vantrilex-prime",
@@ -150,7 +148,7 @@
       "mcp/neon",
       "mcp/slack",
       "mcp/stripe",
-      "mcp/supabase",
+      "mcp/supabase-mcp",
       "mcp/vercel",
       "policy/allow-all-pack",
       "skill/kill-switch-document",
@@ -162,16 +160,7 @@
     ]
   },
   "suspended": [
-    { "token": "mcp/context7-mcp", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
     { "token": "mcp/openrouter", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
-    {
-      "token":
-        "mcp/reference-sequential",
-      "reason": "missing-address",
-      "since": "2026-10-22",
-      "document": ".opencode/audit/MISSING-ADDRESS.md"
-    },
-    { "token": "mcp/supabase", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
     { "token": "mcp/vercel", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" }
   ],
   "notes": "S2 will switch injection to catalogPhaseSets() and this record"

@@ -305,3 +305,61 @@ for the owner's explicit remove/keep ruling, exactly as the standing flow states
   this run, never a carried date.
 - **Append-only.** This section amends no earlier section and later runs append
   their own.
+
+## c2-merge-dupes — 2026-10-22 (Cluster 2 post-readmit duplicate ruling; node `c2-merge-dupes`, base `95cb0bf`)
+
+Owner ruling POST87-APPLY §1 and §2 (2026-10-22) orders the four duplicate
+candidates merged into their live siblings and `redesign-existing-projects`
+retired ABSORBED. This section records the applied state. It amends no earlier
+section and touches no row outside the ruling.
+
+### 1. Merges applied (3)
+
+| duplicate retired | live sibling | sibling selection | candidate row | suspension |
+|---|---|---|---|---|
+| `mcp/context7-mcp` | `mcp/context7` | already carried in `scout`; left as is | deleted | removed |
+| `mcp/reference-sequential` | `mcp/sequential-thinking` | already carried in `plan`; left as is | deleted | removed |
+| `mcp/supabase` | `mcp/supabase-mcp` | added to `operate`; the live row's `phase`/`tier` moved `null`/`null` → `operate`/`conditional` so the intent can place, its evidence and class untouched | deleted | removed |
+
+The three suspensions were single-line and multi-line entries in
+`.opencode/equip.manifest.json`; all three are gone from `suspended`, and the
+selection arrays carry the sibling tokens above.
+
+### 2. Absorbed retirement (1)
+
+`skill/redesign-existing-projects` — retired ABSORBED on 2026-10-22 into live
+`skill/design-taste-frontend` (the recovered `SKILL.md` carries frontmatter
+`name: design-taste-frontend`, so one artifact would have had two live rows).
+Ruling POST87-APPLY §2, 2026-10-22. The candidate row is deleted; the successor
+row is untouched.
+
+### 3. Blocked — `mcp/vercel` not merged (escalation)
+
+The ruling assumes a live `mcp/vercel-mcp` row. No such row exists:
+`registry/data/mcp.jsonl` carries no vercel row, `registry/catalog.json` carries
+no `mcp/vercel-mcp` component, and `registry/VANTRILEX_CATALOG.md` lists none.
+The only artifacts are the candidate row `vercel-mcp` (`reason.code:
+load-proof-failed` — remote-only at `https://mcp.vercel.com`, so no local server
+executable exists for a `server-bin` proof) and the hand-authored card
+`registry/mcp/vercel_mcp.md`. Admitting a live row is excluded by POST87-APPLY §7
+("DO NOT admit new rows") and would require inventing the load proof the server
+cannot have. The `mcp/vercel` candidate and its suspension are therefore left
+untouched, and the selection keeps the token suspended. Owner options: (a) rule
+`mcp/vercel` retired with its intent dropped, or (b) authorise a live `upstream`
+row for `vercel-mcp` (null command, `source_proof` over
+`vercel/vercel-mcp-overview`) before the token is re-pointed.
+
+### 4. Untouched by this run
+
+`mcp/ebbfijsf-agent-reader`, `mcp/infai-tech-vulnfeed-mcp`, the candidate
+`vercel-mcp`, and the 18 still-unresolvable rows named in §5 of the `c2-readmit`
+section keep their bytes. No new row was admitted and no coordinate was invented.
+
+### 5. Counts after this run
+
+| surface | before | after |
+|---|---:|---:|
+| candidate rows | 63 | 58 (mcp 19, skill 27, hook 12) |
+| selection tokens | 146 | 144 |
+| suspended selection tokens | 5 | 2 (`openrouter`, `vercel`) |
+| resolving selected tokens | 141 | 142 |
