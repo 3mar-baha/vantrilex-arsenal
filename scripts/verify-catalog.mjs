@@ -72,6 +72,30 @@
  * not across kinds (`supabase` and `vercel` are both an mcp and a cli in the
  * `operate` phase), so an id-only set could hide a kind swap.
  *
+ * Selection suspension (P4, owner ruling §1)
+ * -------------------------------------------
+ * A selected token whose correct source coordinate cannot be found is recorded
+ * in the selection record's `suspended` list with its reason (`missing-address`),
+ * the date the disposition was taken, and the document that carries the hunt.
+ * The token stays in its phase array: nothing is deleted and nothing is
+ * re-pointed. The gate holds a suspended token out of `loadability/registers`
+ * and `phase-sets` and reports the count instead, so catalog and selection agree
+ * that the component is not presently verified-equipped.
+ *
+ * The suspension is not a blanket allow-list. It is valid only while the token
+ * has no catalog row; a token that is live again is no longer suspended, it is
+ * treated as an ordinary selected token, and the gate reports the record as a
+ * stale suspension (auto-restored). Recovery therefore needs no manifest edit:
+ * the address hunt returns evidence, the row is re-admitted, and the suspension
+ * stops applying on its own.
+ *
+ * Evidence TTL (P4, R7)
+ * ---------------------
+ * Every proof is a dated observation, so every proof ages out: command_registry
+ * after 90 days, load_proof after 180, source_proof after 365. A proof past its
+ * window fails with `evidence-lapsed` semantics instead of passing on a stale
+ * date. A state with no checked_at is an evaluation failure, never a pass.
+ *
  * Runtime: Node 25, ESM, zero dependencies.
  * Exit 0 when every proof holds, 1 when any proof fails.
  */
@@ -80,9 +104,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { loadSchema, validateRecord } from "./generate-catalog-json.mjs";
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CATALOG_PATH = path.join(ROOT, "registry", "catalog.json");
 const DATA_DIR = path.join(ROOT, "registry", "data");
+const CANDIDATES_DIR = path.join(ROOT, "registry", "candidates");
 const MANIFEST_PATH = path.join(ROOT, ".opencode", "equip.manifest.json");
 const ARSENAL_PATH = path.join(ROOT, ".opencode", "plugin", "arsenal.ts");
 const AGENTS_DIR = path.join(ROOT, ".opencode", "agents");
@@ -187,6 +214,15 @@ const OFFLINE_MARKERS = [
 ];
 const TOP_LEVEL_SKILLS = ["skill/vantrilex-vanguard", "skill/vantrilex-doctrine", "skill/vantrilex-prime"];
 
+// P4 suspension record (owner ruling §1). The fields are fixed so a suspension
+// cannot be recorded as a free-form note nothing reads.
+const SUSPENSION_REASON = "missing-address";
+const SUSPENSION_FIELDS = ["token", "reason", "since", "document"];
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// P4 evidence TTL (R7): the window each proof leg stays valid.
+export const EVIDENCE_TTL_DAYS = Object.freeze({ command_registry: 90, load_proof: 180, source_proof: 365 });
+
 const readJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 
 const componentToken = (kind, id) => kind + "/" + id;
@@ -206,17 +242,76 @@ const readSelection = () => {
   if (manifest === null || typeof manifest !== "object" || manifest.phases === null || typeof manifest.phases !== "object") {
     throw new Error(".opencode/equip.manifest.json carries no phases object");
   }
-  return manifest.phases;
+  if (manifest.suspended !== undefined && Array.isArray(manifest.suspended) === false) {
+    throw new Error(".opencode/equip.manifest.json carries a suspended value that is not an array");
+  }
+  return { phases: manifest.phases, suspended: manifest.suspended === undefined ? [] : manifest.suspended };
+};
+
+/**
+ * Validates the suspension record and splits it in two: tokens that are still
+ * missing from the catalog (the suspension applies), and tokens that are live
+ * again (the record is stale and the token is auto-restored). A malformed entry
+ * is a failure — a suspension nobody can audit is not a disposition.
+ */
+const suspensionLedger = (suspended, phases, index) => {
+  const failures = [];
+  const active = [];
+  const stale = [];
+  const selectionTokens = new Set();
+  for (const key of Object.keys(phases)) {
+    if (Array.isArray(phases[key])) for (const token of phases[key]) selectionTokens.add(token);
+  }
+  const seen = new Set();
+  for (let i = 0; i < suspended.length; i++) {
+    const entry = suspended[i];
+    const where = "suspended[" + i + "]";
+    if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
+      failures.push(where + " is not an object");
+      continue;
+    }
+    const unknown = Object.keys(entry).filter((key) => SUSPENSION_FIELDS.includes(key) === false);
+    if (unknown.length > 0) failures.push(where + " carries unknown field(s): " + unknown.join(", "));
+    if (typeof entry.token !== "string" || entry.token === "") {
+      failures.push(where + " carries no token");
+      continue;
+    }
+    if (seen.has(entry.token)) {
+      failures.push(entry.token + " is suspended more than once");
+      continue;
+    }
+    seen.add(entry.token);
+    if (entry.reason !== SUSPENSION_REASON) {
+      failures.push(entry.token + ": reason " + JSON.stringify(entry.reason) + " is not " + JSON.stringify(SUSPENSION_REASON));
+    }
+    if (typeof entry.since !== "string" || ISO_DATE_RE.test(entry.since) === false) {
+      failures.push(entry.token + ": since " + JSON.stringify(entry.since) + " is not an ISO date");
+    }
+    if (typeof entry.document !== "string" || entry.document === "") {
+      failures.push(entry.token + ": carries no document reference");
+    } else if (fs.existsSync(path.join(ROOT, entry.document)) === false) {
+      failures.push(entry.token + ": document " + entry.document + " does not exist");
+    }
+    if (selectionTokens.has(entry.token) === false) {
+      failures.push(entry.token + " is suspended but is not a token in the selection record");
+    }
+    if (index.has(entry.token)) stale.push(entry.token);
+    else active.push(entry.token);
+  }
+  return { failures, active, stale };
 };
 
 /**
  * Places every selected token in the phase the catalog declares, after the kit
  * tier gate. Returns the sets plus the tokens that could not be placed, so the
- * caller can fail loudly instead of reporting a smaller-but-green kit.
+ * caller can fail loudly instead of reporting a smaller-but-green kit. Tokens
+ * held by an active suspension are counted and left out: they have no catalog
+ * row to place by, and the suspension is the recorded reason.
  */
-const derivePhaseSets = (selection, index) => {
+const derivePhaseSets = (selection, index, suspendedSet) => {
   const sets = {};
   const dropped = [];
+  let suspended = 0;
   for (const phase of ORCHESTRATED_PHASES) sets[phase] = [];
   for (const key of Object.keys(selection)) {
     if (ORCHESTRATED_PHASES.includes(key) === false) {
@@ -240,6 +335,10 @@ const derivePhaseSets = (selection, index) => {
         continue;
       }
       seen.add(token);
+      if (suspendedSet !== undefined && suspendedSet.has(token)) {
+        suspended += 1;
+        continue;
+      }
       const entry = index.get(token);
       if (entry === undefined) {
         dropped.push(token + " (no catalog row)");
@@ -257,12 +356,16 @@ const derivePhaseSets = (selection, index) => {
     }
   }
   for (const phase of ORCHESTRATED_PHASES) sets[phase] = [...new Set(sets[phase])].sort();
-  return { sets, dropped };
+  return { sets, dropped, suspended };
 };
 
 /** Phase set ledger — the shape scripts/orchestrate-stage.sh consumes. */
-export const catalogPhaseSets = () =>
-  derivePhaseSets(readSelection(), catalogIndex(readJson(CATALOG_PATH))).sets;
+export const catalogPhaseSets = () => {
+  const selection = readSelection();
+  const index = catalogIndex(readJson(CATALOG_PATH));
+  const ledger = suspensionLedger(selection.suspended, selection.phases, index);
+  return derivePhaseSets(selection.phases, index, new Set(ledger.active)).sets;
+};
 
 const loadSidecars = () => {
   const byKind = new Map();
@@ -625,19 +728,65 @@ const checkThemeRows = (components) => {
   };
 };
 
-const checkSkillsUpstream = (components) => {
+/**
+ * P4 restore of live resolution (owner ruling §2). The command coordinate and
+ * the source coordinate are separate claims: a command naming `origin` does not
+ * satisfy `source`, so when the command does not name the source, the source is
+ * resolved on its own. A dated skills-registry proof is still required as the
+ * record of the command, but it never substitutes for the live check.
+ */
+const skillCommandShape = (entry) => {
+  const match = typeof entry.install_cmd === "string" ? entry.install_cmd.match(SKILL_CMD) : null;
+  if (match === null) {
+    return {
+      failure: entry.id + ": install_cmd does not match the npx skills add <owner>/<repo> --skill <name> -a opencode shape",
+      repos: []
+    };
+  }
+  if (match[2] !== entry.id) {
+    return {
+      failure: entry.id + ": install_cmd installs skill " + JSON.stringify(match[2]) + " but the row id is " + JSON.stringify(entry.id),
+      repos: []
+    };
+  }
+  const commandRepo = match[1];
+  const source = typeof entry.source === "string" && entry.source !== "" ? entry.source : null;
+  const origin = typeof entry.origin === "string" && entry.origin !== "" ? entry.origin : null;
+  if (source === null) {
+    return {
+      failure: entry.id + ": row carries no source coordinate; an install command naming " + JSON.stringify(commandRepo) + " cannot prove one",
+      repos: []
+    };
+  }
+  if (commandRepo !== source && commandRepo !== origin) {
+    return {
+      failure:
+        entry.id +
+        ": install_cmd names " +
+        JSON.stringify(commandRepo) +
+        " but the row's source/origin is " +
+        JSON.stringify(source) +
+        "/" +
+        JSON.stringify(origin),
+      repos: []
+    };
+  }
+  const repos = [commandRepo];
+  if (commandRepo !== source) repos.push(source);
+  return { failure: null, commandRepo, source, origin, repos };
+};
+
+export const checkSkillsUpstream = (components) => {
   const skills = components.filter((entry) => entry.kind === "skill" && entry.class === "installable");
   if (skills.length === 0) return { status: "PASS", detail: "0 installable skill rows; nothing to resolve" };
   const failures = [];
-  const repos = new Set();
+  const repos = new Map();
+  const commandRepos = new Set();
+  const sourceOnly = new Set();
   for (const entry of skills) {
-    const match = typeof entry.install_cmd === "string" ? entry.install_cmd.match(SKILL_CMD) : null;
-    if (match === null) {
-      failures.push(entry.id + ": install_cmd does not match the npx skills add <owner>/<repo> --skill <name> -a opencode shape");
-      continue;
-    }
-    if (match[1] !== entry.source && match[1] !== entry.origin) {
-      failures.push(entry.id + ": install_cmd names " + JSON.stringify(match[1]) + " but the row's source/origin is " + JSON.stringify(entry.source) + "/" + JSON.stringify(entry.origin));
+    const shape = skillCommandShape(entry);
+    if (shape.failure !== null) {
+      failures.push(shape.failure);
       continue;
     }
     const registry = entry.evidence !== null && typeof entry.evidence === "object" ? entry.evidence.command_registry : null;
@@ -647,17 +796,97 @@ const checkSkillsUpstream = (components) => {
       registry.registry !== "skills-registry" ||
       registry.command !== entry.install_cmd ||
       typeof registry.checked_at !== "string" ||
-      /^\d{4}-\d{2}-\d{2}$/.test(registry.checked_at) === false
+      ISO_DATE_RE.test(registry.checked_at) === false
     ) {
       failures.push(entry.id + ": evidence.command_registry does not carry this exact command under skills-registry with a dated proof");
       continue;
     }
-    repos.add(match[1]);
+    commandRepos.add(shape.commandRepo);
+    if (shape.commandRepo !== shape.source) sourceOnly.add(shape.source);
+    for (const repo of shape.repos) {
+      if (repos.has(repo) === false) repos.set(repo, []);
+      repos.get(repo).push(entry.id);
+    }
   }
-  if (failures.length > 0) return { status: "FAIL", detail: failures.slice(0, 12).join("; ") + (failures.length > 12 ? "; ... and " + (failures.length - 12) + " more" : "") };
+  if (failures.length > 0) {
+    return { status: "FAIL", detail: failures.slice(0, 12).join("; ") + (failures.length > 12 ? "; ... and " + (failures.length - 12) + " more" : "") };
+  }
+  const auth = runCapture("gh", ["auth", "status"]);
+  if (auth.ok === false) {
+    const reason = offlineReason(auth) ?? "gh is not authenticated";
+    return {
+      status: "SKIPPED",
+      detail:
+        skills.length +
+        " install_cmd shapes hold; " +
+        repos.size +
+        " coordinate(s) were not resolved live (" +
+        reason +
+        "). A dated proof alone never passes this check."
+    };
+  }
+  const resolved = [];
+  const redirects = [];
+  const skipped = [];
+  for (const repo of [...repos.keys()].sort()) {
+    const result = runCapture("gh", ["repo", "view", repo, "--json", "nameWithOwner"]);
+    if (result.ok) {
+      let remote = "";
+      try {
+        remote = JSON.parse(result.stdout).nameWithOwner;
+      } catch (error) {
+        failures.push(repo + ": gh output is not JSON (" + String(error.message) + ")");
+        continue;
+      }
+      if (typeof remote !== "string" || remote === "") {
+        failures.push(repo + ": gh returned no nameWithOwner");
+        continue;
+      }
+      if (remote.toLowerCase() === repo.toLowerCase()) resolved.push(repo);
+      else {
+        // GitHub answers a renamed repository with a redirect. The coordinate
+        // is real (gh only succeeds for an existing repository), but the name
+        // moved, so the redirect is reported rather than flattened into a pass.
+        resolved.push(repo);
+        redirects.push(repo + " -> " + remote);
+      }
+      continue;
+    }
+    const reason = offlineReason(result);
+    if (reason === null) failures.push(repo + ": gh repo view failed: " + (result.stderr + " " + result.stdout).trim().slice(0, 160));
+    else skipped.push(repo + " (" + reason + ")");
+  }
+  if (failures.length > 0) {
+    return { status: "FAIL", detail: failures.slice(0, 12).join("; ") + (failures.length > 12 ? "; ... and " + (failures.length - 12) + " more" : "") };
+  }
+  if (skipped.length > 0) {
+    return {
+      status: "SKIPPED",
+      detail:
+        skills.length +
+        " install_cmd shapes hold; gh resolution skipped offline for " +
+        skipped.length +
+        " coordinate(s) (" +
+        resolved.length +
+        " resolved): " +
+        skipped.join("; ")
+    };
+  }
   return {
     status: "PASS",
-    detail: skills.length + " installable skill commands hold the install_cmd shape, name the row's origin or source, and carry a dated skills-registry proof (" + repos.size + " repos)"
+    detail:
+      skills.length +
+      " installable skill commands name a source or origin coordinate and " +
+      resolved.length +
+      " coordinate(s) resolve live with gh (" +
+      commandRepos.size +
+      " command coordinates plus " +
+      sourceOnly.size +
+      " source coordinates no command names; " +
+      redirects.length +
+      " answered by a GitHub redirect" +
+      (redirects.length === 0 ? "" : ": " + redirects.join(", ")) +
+      "); every row carries a dated skills-registry proof, and the live resolution alone decides"
   };
 };
 
@@ -1078,6 +1307,161 @@ const checkTopLevelSkills = (selectedSet) => {
   };
 };
 
+const startOfDayMs = (value) =>
+  value instanceof Date
+    ? Date.parse(value.toISOString().slice(0, 10) + "T00:00:00Z")
+    : Date.parse(String(value) + "T00:00:00Z");
+
+/**
+ * R7 TTL: a proof is a dated observation. Returns null while the proof is
+ * inside its window, and an `evidence-lapsed` reason once it is past it. A
+ * malformed date is a reason too, so an unreadable timestamp cannot pass.
+ */
+export const evidenceTtlReason = (leg, checkedAt, today = new Date()) => {
+  const window = EVIDENCE_TTL_DAYS[leg];
+  if (window === undefined) return "unknown evidence leg " + JSON.stringify(leg);
+  if (typeof checkedAt !== "string" || ISO_DATE_RE.test(checkedAt) === false || Number.isNaN(startOfDayMs(checkedAt))) {
+    return "evidence-lapsed: " + leg + " carries checked_at " + JSON.stringify(checkedAt) + ", which is not an ISO date, so its window cannot be evaluated";
+  }
+  const age = Math.floor((startOfDayMs(today) - startOfDayMs(checkedAt)) / 86400000);
+  if (age > window) {
+    return "evidence-lapsed: " + leg + " checked_at " + checkedAt + " is " + age + " days old, past the " + window + "-day window";
+  }
+  return null;
+};
+
+export const checkEvidenceTtl = (components, today = new Date()) => {
+  const legs = Object.keys(EVIDENCE_TTL_DAYS);
+  const counts = {};
+  const oldest = {};
+  for (const leg of legs) {
+    counts[leg] = 0;
+    oldest[leg] = 0;
+  }
+  const failures = [];
+  for (const entry of components) {
+    const evidence = entry.evidence !== null && typeof entry.evidence === "object" ? entry.evidence : null;
+    if (evidence === null) continue;
+    for (const leg of legs) {
+      const proof = evidence[leg];
+      if (proof === null || proof === undefined || typeof proof !== "object") continue;
+      counts[leg] += 1;
+      const reason = evidenceTtlReason(leg, proof.checked_at, today);
+      if (reason !== null) {
+        failures.push(entry.kind + "/" + entry.id + ": " + reason);
+        continue;
+      }
+      const age = Math.floor((startOfDayMs(today) - startOfDayMs(proof.checked_at)) / 86400000);
+      oldest[leg] = Math.max(oldest[leg], age);
+    }
+  }
+  if (failures.length > 0) {
+    return {
+      status: "FAIL",
+      detail:
+        failures.length +
+        " proof(s) lapsed and must become candidates at the next audit: " +
+        samples(failures, (failure) => failure) +
+        (failures.length > 8 ? " ...(" + (failures.length - 8) + " more)" : "")
+    };
+  }
+  return {
+    status: "PASS",
+    detail:
+      components.length +
+      " records: " +
+      legs
+        .map((leg) => counts[leg] + " " + leg + " within " + EVIDENCE_TTL_DAYS[leg] + "d (oldest " + oldest[leg] + "d)")
+        .join(", ") +
+      "; 0 lapsed"
+  };
+};
+
+/**
+ * V4-3 candidate surface: every row in registry/candidates/<kind>.jsonl is
+ * validated against $defs.candidate, the shape the schema publishes for a
+ * record that failed even its class evidence. A candidate is never a live row;
+ * validating it here keeps the rejected surface as honest as the live one.
+ */
+const checkCandidates = () => {
+  let schema = null;
+  try {
+    schema = loadSchema();
+  } catch (error) {
+    return { status: "FAIL", detail: "cannot load registry/schema/catalog-v4.schema.json: " + String(error.message) };
+  }
+  const candidateDef = schema.$defs === undefined ? undefined : schema.$defs.candidate;
+  if (candidateDef === undefined) {
+    return { status: "FAIL", detail: "registry/schema/catalog-v4.schema.json carries no $defs.candidate" };
+  }
+  const candidateSchema = { ...candidateDef, $defs: schema.$defs };
+  let files = [];
+  try {
+    files = fs.readdirSync(CANDIDATES_DIR).filter((file) => file.endsWith(".jsonl")).sort();
+  } catch (error) {
+    return { status: "FAIL", detail: "cannot read registry/candidates/: " + String(error.message) };
+  }
+  if (files.length === 0) {
+    return { status: "FAIL", detail: "registry/candidates/ holds no .jsonl file, so the candidate surface evaluated nothing" };
+  }
+  const perKind = [];
+  const failures = [];
+  let rows = 0;
+  let quiet = 0;
+  for (const file of files) {
+    let text = null;
+    try {
+      text = fs.readFileSync(path.join(CANDIDATES_DIR, file), "utf8");
+    } catch (error) {
+      failures.push(file + ": unreadable (" + String(error.message) + ")");
+      continue;
+    }
+    let count = 0;
+    for (const line of text.split(/\r?\n/)) {
+      if (line.trim() === "") continue;
+      let entry = null;
+      try {
+        entry = JSON.parse(line);
+      } catch (error) {
+        failures.push(file + ": unparseable line (" + String(error.message) + ")");
+        continue;
+      }
+      count += 1;
+      rows += 1;
+      if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
+        failures.push(file + ": row " + count + " is not an object");
+        continue;
+      }
+      if (typeof entry.id !== "string" || entry.kind + ".jsonl" !== file) {
+        failures.push(file + ": row " + JSON.stringify(entry.id ?? "<none>") + " carries kind " + JSON.stringify(entry.kind) + ", which does not match its file");
+      }
+      if (Array.isArray(entry.attempted) === false || entry.attempted.length === 0) quiet += 1;
+      for (const problem of validateRecord(entry, candidateSchema)) failures.push(file + ": " + problem);
+    }
+    perKind.push(file.replace(/\.jsonl$/, "") + " " + count);
+  }
+  if (failures.length > 0) {
+    return {
+      status: "FAIL",
+      detail: failures.slice(0, 12).join("; ") + (failures.length > 12 ? "; ... and " + (failures.length - 12) + " more" : "")
+    };
+  }
+  return {
+    status: "PASS",
+    detail:
+      rows +
+      " candidate rows across " +
+      files.length +
+      " files (" +
+      perKind.join(", ") +
+      ") validate against $defs.candidate: id, kind, name, class, reason.code plus reason.detail and checked_at are present and well-formed; " +
+      (rows - quiet) +
+      " carry attempted probes and " +
+      quiet +
+      " carry none because nothing addressable was authored"
+  };
+};
+
 const PROVERS = {
   benchmark: proveBenchmark,
   dataset: proveDataset,
@@ -1168,9 +1552,35 @@ const main = () => {
   const selectedTokens = [];
   if (selection !== null) {
     for (const phase of ORCHESTRATED_PHASES) {
-      if (Array.isArray(selection[phase]) === false) continue;
-      for (const token of selection[phase]) selectedTokens.push(token);
+      if (Array.isArray(selection.phases[phase]) === false) continue;
+      for (const token of selection.phases[phase]) selectedTokens.push(token);
     }
+  }
+
+  // P4 (owner ruling §1): the suspension record is validated and reported, and
+  // only its still-missing tokens are held out of the placement proofs.
+  let suspension = null;
+  if (selection !== null) {
+    suspension = suspensionLedger(selection.suspended, selection.phases, index);
+    const documents = [...new Set(selection.suspended.map((entry) => (entry !== null && typeof entry === "object" ? entry.document : null)).filter((value) => typeof value === "string"))];
+    record(
+      "selection/suspension",
+      suspension.failures.length === 0 ? "PASS" : "FAIL",
+      suspension.failures.length === 0
+        ? suspension.active.length +
+          " selected token(s) suspended with reason " +
+          JSON.stringify(SUSPENSION_REASON) +
+          " (document " +
+          (documents.join(", ") || "(none)") +
+          ") and reported, not missing: " +
+          samples(suspension.active, (token) => token) +
+          "; " +
+          suspension.stale.length +
+          " stale suspension(s) auto-restored (" +
+          (suspension.stale.length === 0 ? "none" : "token is live again: " + samples(suspension.stale, (token) => token)) +
+          ")"
+        : suspension.failures.join("; ")
+    );
   }
 
   // P4: every selected hook row maps to a callback the plugin exports and wires.
@@ -1331,13 +1741,17 @@ const main = () => {
   }
 
   // Registers: every selected token exists in its canonical sidecar, not only
-  // in the generated mirror.
+  // in the generated mirror. A token held by an active suspension is not
+  // missing: it is counted and reported, and the suspension record above is
+  // what has to stay honest about it.
   if (selection === null) {
     record("loadability/registers", "FAIL", "cannot be evaluated: selection record unreadable (" + selectionProblem + ")");
   } else {
     const { byKind, problems } = loadSidecars();
+    const suspendedSet = new Set(suspension === null ? [] : suspension.active);
     const unresolved = [];
     for (const token of selectedTokens) {
+      if (suspendedSet.has(token)) continue;
       const entry = index.get(token);
       if (entry === undefined) {
         unresolved.push(token + " (no catalog row)");
@@ -1351,11 +1765,19 @@ const main = () => {
       if (ids.has(entry.id) === false) unresolved.push(token + " (absent from " + SIDECAR_FILES[entry.kind] + ")");
     }
     const failures = [...problems, ...unresolved];
+    const placable = selectedTokens.length - suspendedSet.size;
     record(
       "loadability/registers",
       failures.length === 0 ? "PASS" : "FAIL",
       failures.length === 0
-        ? selectedTokens.length + " selected tokens resolve in catalog.json and in registry/data/<kind>.jsonl"
+        ? placable +
+          " of " +
+          selectedTokens.length +
+          " selected tokens resolve in catalog.json and in registry/data/<kind>.jsonl; " +
+          suspendedSet.size +
+          " suspended token(s) are held out with reason " +
+          JSON.stringify(SUSPENSION_REASON) +
+          " and are reported as suspended, not missing"
         : failures.join("; ")
     );
   }
@@ -1386,22 +1808,29 @@ const main = () => {
   if (selection === null) {
     record("phase-sets", "FAIL", "cannot be evaluated: selection record unreadable (" + selectionProblem + ")");
   } else {
-    const { sets, dropped } = derivePhaseSets(selection, index);
+    const suspendedSet = new Set(suspension === null ? [] : suspension.active);
+    const derived = derivePhaseSets(selection.phases, index, suspendedSet);
+    const { sets, dropped } = derived;
     phaseSets = sets;
     const placed = ORCHESTRATED_PHASES.reduce((total, phase) => total + sets[phase].length, 0);
+    const placeable = selectedTokens.length - derived.suspended;
     record(
       "phase-sets",
-      dropped.length === 0 && placed === selectedTokens.length ? "PASS" : "FAIL",
+      dropped.length === 0 && placed === placeable ? "PASS" : "FAIL",
       dropped.length !== 0
         ? dropped.length + " selected token(s) cannot be placed from the catalog: " + dropped.join("; ")
-        : placed === selectedTokens.length
+        : placed === placeable
           ? placed +
-            " selected tokens place into " +
+            " of " +
+            placeable +
+            " placeable selected tokens place into " +
             ORCHESTRATED_PHASES.length +
             " orchestrated phases (" +
             ORCHESTRATED_PHASES.map((phase) => phase + " " + sets[phase].length).join(", ") +
-            "); on-demand never injects and is absent by design"
-          : "derivation placed " + placed + " of " + selectedTokens.length + " selected tokens"
+            "); " +
+            derived.suspended +
+            " suspended token(s) never inject; on-demand never injects and is absent by design"
+          : "derivation placed " + placed + " of " + placeable + " placeable selected tokens"
     );
   }
 
@@ -1418,6 +1847,8 @@ const main = () => {
     checkFileCopyShape(components, selectedSet, ["benchmark", "dataset", "policy", "prompt", "template", "workflow"])
   );
   recordResult("command-shape/skills-upstream", checkSkillsUpstream(components));
+  recordResult("candidates/schema", checkCandidates());
+  recordResult("evidence/ttl", checkEvidenceTtl(components));
   if (selection === null) {
     for (const check of ["command-shape/mcp-npm", "agent-hygiene", "selection/top-level-skills"]) {
       record(check, "FAIL", "cannot be evaluated: selection record unreadable (" + selectionProblem + ")");
@@ -1480,6 +1911,23 @@ const main = () => {
     for (const phase of ORCHESTRATED_PHASES) {
       console.log("  " + phase + " [" + phaseSets[phase].length + "]: " + (phaseSets[phase].join(", ") || "(empty)"));
     }
+  }
+
+  // Ledger 4: the suspension record, separated from the phase sets it holds out.
+  if (suspension !== null) {
+    const activeList = [...suspension.active].sort();
+    console.log("");
+    console.log(
+      "suspension ledger: " +
+        activeList.length +
+        " active (" +
+        (activeList.join(", ") || "none") +
+        "); " +
+        suspension.stale.length +
+        " stale auto-restored (" +
+        ([...suspension.stale].sort().join(", ") || "none") +
+        ")"
+    );
   }
 
   let passed = 0;

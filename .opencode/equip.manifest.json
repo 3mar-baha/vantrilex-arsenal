@@ -161,5 +161,30 @@
       "skill/vantrilex-doctrine"
     ]
   },
+  "suspended": [
+    { "token": "mcp/brave", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/browserbase", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/cloudflare", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/context7-mcp", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/deepwiki", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/discord", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/exa", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/figma-context-mcp", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/gmail", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/googledrive", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/mem0-memory-mcp", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/neon", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/openrouter", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    {
+      "token":
+        "mcp/reference-sequential",
+      "reason": "missing-address",
+      "since": "2026-10-22",
+      "document": ".opencode/audit/MISSING-ADDRESS.md"
+    },
+    { "token": "mcp/steadyfetch", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/supabase", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
+    { "token": "mcp/vercel", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" }
+  ],
   "notes": "S2 will switch injection to catalogPhaseSets() and this record"
 }
