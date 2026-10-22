@@ -60,8 +60,11 @@ Recorded from the P3 migration run, not reconstructed:
   carry. The 16 rows below have no `<id>/SKILL.md` anywhere in the tree; 13 other misses were
   found in the tree and are live, not listed here.
 
-The `attempted` field per row below is copied from `registry/candidates/<kind>.jsonl`. No probe
-is inferred from a name.
+**Provenance of the `attempted` cells.** The MCP cells name the target recorded in
+`registry/candidates/mcp.jsonl` and the two probes §3 records for it. The 16 skill cells are
+rendered from the probe method in §3, because their candidate arrays record the repository and
+the finding ("absent from the repository tree"), not the command strings. No probe is inferred
+from a name, and no cell claims a probe the migration did not run.
 
 ### 4. MCP rows inside the 146-token selection (17) — flagged, manifest untouched
 
@@ -162,9 +165,11 @@ it is not. No skill row is in the selection record (measured against the manifes
 
 ### 8. Limits and status
 
-- **No row is `unrecorded`.** Every attempted-probe list in this section comes from its
-  candidate row. The 18 coordinate-less MCP rows carry an **empty** list because there was
-  nothing addressable to probe, not because a probe record was lost.
+- **No row is `unrecorded`.** Every attempted-probe list traces to a recorded artefact: the MCP
+  cells to the candidate array's target, the skill cells to the probe method in §3 (their
+  candidate arrays record the repository and the finding, not the command strings). The 18
+  coordinate-less MCP rows carry an **empty** candidate list because there was nothing
+  addressable to probe, not because a probe record was lost.
 - **No re-point and no edit.** No `source`, `origin`, `install_cmd`, candidate file, or
   equip-manifest entry was changed to produce this section. The rows remain candidates exactly
   as P3 left them.
