@@ -363,3 +363,56 @@ section keep their bytes. No new row was admitted and no coordinate was invented
 | selection tokens | 146 | 144 |
 | suspended selection tokens | 5 | 2 (`openrouter`, `vercel`) |
 | resolving selected tokens | 141 | 142 |
+
+## c2-vercel-row — 2026-10-22 (Cluster 2 option (b); node `c2-vercel-row`, base `1be2ac1`)
+
+Owner ruling POST87-APPLY option (b) (2026-10-22): authorise a live `upstream`
+row for the Vercel MCP (null command, class `upstream`, `source_proof` over
+`vercel/vercel-mcp-overview` plus the official endpoint `https://mcp.vercel.com`,
+fresh `checked_at`), re-point the suspended `mcp/vercel` selection token onto it
+so the intent places, and retire the `vercel-mcp` candidate row into it. This
+section records the applied state. It amends no earlier section; §3 of
+`c2-merge-dupes` (the escalation this ruling answers) stands as history.
+
+### 1. Live row admitted (1)
+
+| id | class | source | source_proof | install_cmd |
+|---|---|---|---|---|
+| `mcp/vercel-mcp` | `upstream` | `vercel/vercel-mcp-overview` | `target: vercel/vercel-mcp-overview`, `method: repo-resolves`, `checked_at: 2026-10-22` | `null` |
+
+Live resolution, this run: `gh repo view vercel/vercel-mcp-overview --json
+nameWithOwner` → exit 0, `{"nameWithOwner":"vercel/vercel-mcp-overview"}`; the
+official endpoint `https://mcp.vercel.com` answered `HTTP 401`
+`{"error":"invalid_token","error_description":"No authorization provided"}` — it
+is present and answering, with no credential supplied. No command was authored:
+the class is `upstream`, so `install_cmd` is null by contract. The row carries
+`phase: operate` / `tier: conditional` so the re-pointed selection token can
+place (the same move `c2-merge-dupes` made for `supabase-mcp`).
+
+### 2. Retirement line — `vercel-mcp` candidate
+
+`mcp/vercel-mcp` — retired on 2026-10-22 into live row `mcp/vercel-mcp` (ruling
+POST87-APPLY option (b), 2026-10-22). Its history is preserved here and not
+overwritten: the candidate was assessed under class `loadable` and failed
+**`load-proof-failed`** — the MCP is **remote-only** at `https://mcp.vercel.com`,
+so no local server executable exists for a `server-bin` proof (the `attempted`
+array recorded `npx -y add-mcp@2.4.1 https://mcp.vercel.com` and the endpoint).
+Remote-only is the reason the load proof could not exist; the live row therefore
+carries the weaker `upstream` class bar it can actually meet, never a fabricated
+load proof. The candidate row is deleted; no other candidate was touched.
+
+### 3. Selection re-point (1)
+
+| before | after |
+|---|---|
+| `mcp/vercel` carried in `operate` and listed as suspended (`missing-address`) | `mcp/vercel-mcp` carried in `operate` and not suspended |
+
+### 4. Counts after this run
+
+| surface | before | after |
+|---|---:|---:|
+| live rows | 2,878 | 2,879 (mcp 900 → 901) |
+| candidate rows | 58 | 57 (mcp 19 → 18, skill 27, hook 12) |
+| selection tokens | 144 | 144 |
+| suspended selection tokens | 2 (`openrouter`, `vercel`) | 1 (`openrouter`) |
+| resolving selected tokens | 142 | 143 |

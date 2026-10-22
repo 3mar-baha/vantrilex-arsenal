@@ -1486,7 +1486,7 @@ Consolidated reference of every system component with its folder path.
 | 1476 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
 | 1477 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
 
-## MCP Servers (900 — 7 default-selected)
+## MCP Servers (901 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2390,6 +2390,7 @@ Consolidated reference of every system component with its folder path.
 | 898 | Scottcjn/rustchain-mcp | AI-agent tools for the RustChain ecosystem: blockchain, video platform and wallet, published on PyPI |  |  |
 | 899 | supertone-inc/supertone-mcp | MCP server for the Supertone TTS API: voice synthesis, discovery, cloning and usage tools across 31 languages |  |  |
 | 900 | Yarmoluk/ckg-mcp | Context optimization for AI agents: domain knowledge graphs with MCP-native traversal |  |  |
+| 901 | vercel-mcp | Official Vercel MCP overview; the hosted endpoint is `https://mcp.vercel.com` (remote-only, no local server executable) | vercel/vercel-mcp-overview |  |
 
 ## Plugins (11 — 0 default-selected)
 

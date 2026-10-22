@@ -149,7 +149,7 @@
       "mcp/slack",
       "mcp/stripe",
       "mcp/supabase-mcp",
-      "mcp/vercel",
+      "mcp/vercel-mcp",
       "policy/allow-all-pack",
       "skill/kill-switch-document",
       "skill/kit-evaluation-journal",
@@ -160,8 +160,7 @@
     ]
   },
   "suspended": [
-    { "token": "mcp/openrouter", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" },
-    { "token": "mcp/vercel", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" }
+    { "token": "mcp/openrouter", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" }
   ],
   "notes": "S2 will switch injection to catalogPhaseSets() and this record"
 }

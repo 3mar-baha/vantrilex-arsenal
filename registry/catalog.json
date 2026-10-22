@@ -4,7 +4,7 @@
   "catalog_version": 4,
   "counts": {
     "skill": 1477,
-    "mcp": 900,
+    "mcp": 901,
     "plugin": 11,
     "hook": 8,
     "agent": 301,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2878
+    "total": 2879
   },
   "components": [
     {
@@ -75833,6 +75833,37 @@
       "evidence": {
         "source_proof": {
           "target": "vdalhambra/axiom-calculator-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vercel-mcp",
+      "name": "vercel-mcp",
+      "kind": "mcp",
+      "description": "Official Vercel MCP overview; the hosted endpoint is `https://mcp.vercel.com` (remote-only, no local server executable)",
+      "source": "vercel/vercel-mcp-overview",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "deploy",
+        "hosting",
+        "remote"
+      ],
+      "when_to_use": "When deploying to or managing Vercel projects from an agent",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "vercel/vercel-mcp-overview",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
