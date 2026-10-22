@@ -112,9 +112,15 @@ release notes describe:
 ```text
 AGENTS.md AI_GUIDE.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md
 README.ar.md SECURITY.md
-registry .opencode scripts kit docs
+registry .opencode scripts docs
 .editorconfig .gitattributes .gitignore .markdownlint.jsonc
 ```
+
+`kit` is an **optional** path, not a required one: `scripts/self-publish.mjs`
+declares it in `PACKAGE_OPTIONAL_PATHS`, so it is packaged when the released
+commit still carries it and skipped with a log line when it does not. The lock
+era ended at S3, so current commits do not carry it while historical commits
+keep their original shape.
 
 If the tag landed before its release was created, the workflow creates the
 release from the changelog notes first, then uploads the artifact with

@@ -217,7 +217,7 @@ All six must exit 0 before a change is claimed done. A skip is a failure.
 |---|---|---|
 | Registry data | `node scripts/verify-registry.mjs` | 7 checks: strict UTF-8, schema conformance, row-count integrity against the generated tables, the install-command invariant, orphan references, duplicate ids, MCP name normalization |
 | Catalog mirror | `node scripts/generate-catalog-json.mjs --check` | the generated machine mirror matches the Markdown source of truth |
-| Catalog and selection | `node scripts/verify-catalog.mjs` | 17 checks: every catalog row is honest and shape-checked by kind, every selected token resolves, phases place, the MCP cap holds, and no row carries a pending state |
+| Catalog and selection | `node scripts/verify-catalog.mjs` | 20 checks: every live row is `verified` under a declared class, shape-checked by kind; every selected token resolves or is suspended; phases place; the MCP cap holds; candidate rows validate; evidence sits inside its TTL |
 | Skills | `node scripts/verify-skills.mjs` | 10 checks: the skill-file format contract |
 | Plugin typecheck | `npx tsc --noEmit -p tsconfig.json` | `.opencode/plugin/arsenal.ts` typechecks under `strict` |
 | Shell lint | `shellcheck scripts/*.sh .githooks/*` | the orchestration scripts and git hooks are lint-clean |
@@ -243,14 +243,14 @@ green-looking.
 | `brand/` | The visual identity assets: five static logo files in `logo/`, nine static icons in `icons/`, nine animated icons in `animated/` | No |
 | `brand/IDENTITY.md` | The visual identity: concept, palette, asset list, and usage rules | No |
 | `scripts/` | The verification scripts (`verify-registry.mjs`, `generate-catalog-json.mjs`, `verify-catalog.mjs`, `verify-skills.mjs`) and the seven orchestration shell scripts | No |
-| `docs/` | This repository's documentation series, numbered `00` through `17`, plus `spec/` | No |
+| `docs/` | This repository's documentation series, numbered `00` through `21`, plus `spec/` | No |
 | `AGENTS.md` | The repository constitution for any coding agent | No |
 | `CHANGELOG.md` | The release notes, extracted verbatim at release | No |
 
 Never hand-edit the generated catalog table in `registry/VANTRILEX_CATALOG.md` or the mirror at
 `registry/catalog.json`. Edit the generator or the JSONL sidecar, then regenerate.
 
-The `docs/` series in this repository runs `00` through `17`. It is not the target-project series,
+The `docs/` series in this repository runs `00` through `21`. It is not the target-project series,
 which runs `00` through `27` and is written by Vanguard into the equipped project.
 
 ### The seven hooks

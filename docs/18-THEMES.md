@@ -25,9 +25,11 @@ plus **1 atomic-switch map**.
 | `vantrilex-leader` | oxide red `#A82A16` | vantrilex-leader | yes |
 | `vantrilex-atomic-switch` | — | (a map, not a palette) | **no** |
 
-Every palette file carries uppercase `accentHex` values; the normalization
-landed at `790ef85` and left zero lowercase values. `vantrilex-aether` uses
-`#14B8A6`.
+Every palette file ships its hex inside the `base`/`dark` trees, and that hex is
+lowercase. The one `accentHex` surface in the directory is the **atomic-switch
+map**, whose twelve values are uppercase and were normalized at `790ef85`
+(`vantrilex-aether` is `#14B8A6`). Do not expect one casing across both: the map
+is normalized, the palettes are not.
 
 ## Native shape
 

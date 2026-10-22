@@ -49,11 +49,13 @@ shellcheck scripts/*.sh .githooks/*
 npx tsc --noEmit
 ```
 
-The gate that proves the registry and the mirror is the first two; the kit is
-the third; the skill format is the fourth; the shell scripts are the fifth, and
+The gate that proves the registry and the mirror is the first two; the catalog
+and selection proofs are the third; the skill format is the fourth; the shell
+scripts are the fifth, and
 CI additionally runs `bash -n` over every script and git hook and `node --check`
 over every `.mjs` file; the plugin's TypeScript is the sixth, and CI reports
-SKIPPED rather than PASS when the tree carries no `tsconfig.json`.
+SKIPPED rather than PASS when the tree carries no `tsconfig.json`. The lock and
+its verifier were abolished at S3, so there is no kit gate to name.
 
 Documentation lint, `npx markdownlint-cli "**/*.md"`, is **not** one of the six.
 It is an additional lint step; CI does not run it, and its absence from a run is
@@ -97,9 +99,11 @@ major bump. Any user-visible edit updates `CHANGELOG.md` in the same change.
 
 The docs-discipline guard in `.opencode/plugin/arsenal.ts` keeps documentation
 inside a canonical set: the numbered `docs/` series, the archive and spec
-directories, the registry, `.opencode`, `brand`, and seven named root files. A
-Markdown write outside that list is BLOCKED, or WARNed in warn mode, with a
-message naming the allowed set.
+directories, the registry, `.opencode`, `brand`, and eight named root files —
+`CLAUDE.md`, `README.md`, `README.ar.md`, `AI_GUIDE.md`, `AGENTS.md`,
+`CHANGELOG.md`, `CONTRIBUTING.md` and `SECURITY.md`. A Markdown write outside
+that list is BLOCKED, or WARNed in warn mode, with a message naming the allowed
+set.
 
 **Observed drift.** This directory, `docs/dev/`, is not in that allow-list, so
 every write here raises the guard's WARN line. The writes land because the guard

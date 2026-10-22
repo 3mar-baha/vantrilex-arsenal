@@ -79,8 +79,12 @@ shellcheck scripts/*.sh .githooks/*
 ```
 
 CI additionally runs `bash -n` over every script and git hook, then
-`node --check` over every `.mjs` file. All nine shell scripts carry a
-`#!/usr/bin/env bash` shebang and the executable bit; CI asserts both.
+`node --check` over every `.mjs` file. The seven orchestration scripts carry a
+`#!/usr/bin/env bash` shebang and the executable bit, and CI asserts both. The
+directory holds nine shell scripts: `scripts/migrate-to-opencode-v2.sh` is
+committed mode 100644, so the executable-bit assertion does not cover it, and
+`scripts/auto-publish.sh` sits outside the seven-script loop because the release
+workflow invokes it directly.
 
 ## Plugin TypeScript
 

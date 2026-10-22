@@ -51,7 +51,7 @@ placed over the catalog and provisioned per phase:
 | Kind | Selected count | Contents |
 |---|---|---|
 | Skills | 25 | Vanguard, Prime, Doctrine, plus upstream and conditional Arsenal skills |
-| MCP servers | 27 | 8 core servers (filesystem, fetch, memory, sequential-thinking, github, context7, firecrawl, openrouter) plus 19 conditional candidates held for project-specific need |
+| MCP servers | 27 | 7 core servers (context7, fetch, filesystem, firecrawl, github, memory, sequential-thinking) plus 3 conditional; the remaining 17 are suspended pending a source address, `openrouter` among them |
 | Plugins | 0 | No plugin selected; the 11 catalog plugin records stay as unverified reference entries |
 | Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
 | Agents | 21 | 5 core agents (architect, code-reviewer, aether, pulsar, blazar) plus 16 conditional specialist agents |

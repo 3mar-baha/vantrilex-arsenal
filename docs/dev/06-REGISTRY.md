@@ -9,10 +9,12 @@ failed its class evidence.
 Catalog v4 is live. `catalog_version` is `4` in the mirror, and every live row
 is validated against `registry/schema/catalog-v4.schema.json`.
 
-2026-10-22 — **New-kind onboarding stays FROZEN until the P6 sign-off.** v4
-publishes with the same sixteen kinds v3 carried; no new kind is registered
-before the P6 publish. The freeze is about kinds, not rows: existing kinds keep
-gaining and losing records.
+2026-10-22 — **New-kind onboarding stays FROZEN until the P6 sign-off**, which
+is the same event the v4 schema's own `$comment` names when it says onboarding
+is "FROZEN until this v4 file publishes": the file exists on this branch as the
+migration target, and P6 sign-off publishes it as the schema of record. Until
+then no new kind is registered. The freeze is about kinds, not rows: existing
+kinds keep gaining and losing records.
 
 ## The sixteen kinds
 
@@ -36,7 +38,7 @@ gaining and losing records.
 | `design.md` | `registry/design/` | `design.jsonl` | `data` only |
 
 The kind bound is applied before any evidence is judged: a record may not pick a
-class its kind does not admit. That is why the eight command-carrying MCP rows
+class its kind does not admit. That is why the seven command-carrying MCP rows
 are `loadable` records with a command leg, never `installable` — an MCP server
 is a process-resident surface, not a provisioned binary.
 
@@ -117,12 +119,14 @@ enters through the generator like any other record.
 
 ## The version pointer
 
-`catalog_version` is `4`. Two schema files sit in `registry/schema/`:
+`catalog_version` is `4`. Three schema files sit in `registry/schema/`:
 
 - `catalog-v4.schema.json` — current; sixteen kinds, the class-evidence
-  contract, the candidate definition.
-- `catalog-v3.schema.json` — retained as published history. It is never edited
-  in place, and the generator does not read it.
+  contract, the candidate definition. It is the file the generator loads.
+- `catalog-v3.schema.json` — the previous version. Published history, never
+  edited in place, and no longer read by the generator.
+- `catalog-v2.schema.json` — the earliest version still on disk. Same rule:
+  history, not a live contract.
 
 A new kind is added by publishing a **new** schema version file, never by
 editing a published version in place. The v4 file's own `$comment` lists
@@ -265,9 +269,14 @@ disposition is **option (c)**:
   invented to make the row fit. A fabricated palette would have been a
   documented lie about what the file contains.
 
-Theme colour normalization (F-COLOR-09) landed separately at `790ef85`: all 12
-theme files carry uppercase `accentHex` values, with `vantrilex-aether` at
-`#14B8A6`. Zero lowercase values remain.
+Theme colour normalization (F-COLOR-09) landed at `790ef85`, and it touched the
+**map**, not the palettes: `vantrilex-atomic-switch.json` carries twelve
+`accentHex` values, one per mapped agent, and all twelve are uppercase
+(`vantrilex-aether` is `#14B8A6`). The twelve palette files carry no `accentHex`
+field at all; their hex lives inside the `base`/`dark` trees and stays
+lowercase, untouched. The two surfaces are therefore different claims: the map's
+accent column is normalized, the palette trees are not, and a reader must not
+expect one casing across both.
 
 ## The MISSING-ADDRESS flow
 

@@ -315,7 +315,7 @@ A task is not finished because the code runs; it is finished when the thing is
 proven. Every gate below is runnable from the repository root and every one must
 exit 0.
 
-![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs for seven checks; catalog mirror runs node scripts/generate-catalog-json.mjs --check; catalog proofs run node scripts/verify-catalog.mjs for seventeen checks; skills runs node scripts/verify-skills.mjs for ten checks; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
+![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs; catalog mirror runs node scripts/generate-catalog-json.mjs --check; catalog proofs run node scripts/verify-catalog.mjs; skills runs node scripts/verify-skills.mjs; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
 
 If a check cannot be evaluated, that is a **failed** check, not a skipped one.
 Say so in the change description rather than leaving the gate green-looking;
@@ -338,8 +338,8 @@ vantrilex-arsenal/
 ├── registry/                     Data plane — the component catalog
 │   ├── VANTRILEX_CATALOG.md      Source of truth (generated table)
 │   ├── catalog.json              Generated machine mirror
-│   ├── schema/catalog-v2.schema.json   The record contract
-│   ├── data/                     Eight per-kind JSONL sidecars + overlaps.yaml
+│   ├── schema/catalog-v4.schema.json   The record contract
+│   ├── data/                     Sixteen per-kind JSONL sidecars + overlaps.yaml
 │   ├── formatting/               Curated design-system documents + ATTRIBUTION.md
 │   └── {skills,mcp,plugins,hooks,agents,formatting,lsp,cli}/
 │                                  Per-kind records and generated _index.md
@@ -350,12 +350,12 @@ vantrilex-arsenal/
 │   ├── verify-skills.mjs         Skill-file format checks
 │   └── *.sh                      Worktree orchestration, git hooks, release
 ├── .opencode/equip.manifest.json The phase selection over the catalog
-└── docs/                         00-INDEX.md … 17-V2-HOOK-GAP.md, plus
+└── docs/                         00-INDEX.md … 21-PONYTAIL-COMPLIANCE.md, plus
                                   docs/spec/ — the two canonical input specs
 ```
 
-`docs/` holds an 18-file numbered set from `00-INDEX.md` through
-`17-V2-HOOK-GAP.md`, plus `docs/spec/` which holds the two canonical input
+`docs/` holds a 22-file numbered set from `00-INDEX.md` through
+`21-PONYTAIL-COMPLIANCE.md`, plus `docs/spec/` which holds the two canonical input
 specifications, `VANTRILEX_KIT_SPEC.md` and `VANTRILEX_SKILLS_SPEC.md`. The
 28-file documentation system Vanguard prepares is generated into the *target*
 project at runtime and is deliberately not part of this repository's layout.
