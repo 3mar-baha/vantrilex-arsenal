@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1464 — 7 default-selected)
+## Skills (1477 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1472,8 +1472,21 @@ Consolidated reference of every system component with its folder path.
 | 1462 | vantrilex-design-variations | Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi… | 3mar-baha/vantrilex-arsenal | `` |
 | 1463 | vantrilex-workflow-forge | Authors the standing methodology at each task start — use when a new task begins, befo… | 3mar-baha/vantrilex-arsenal | `` |
 | 1464 | vantrilex-atomic-switch | Use when the operator installs per-agent themes, so the atomic switch commands resolve to a real theme file. | 3mar-baha/vantrilex-arsenal | `` |
+| 1465 | agent-md-setup | Use when a repository needs one canonical instruction file shared by coding agents, when AGENTS.md or CLAUDE.md is missing, or when their guidance has diverged. | ismail9k/skills |  |
+| 1466 | configure-issue-tracker | Use when a repository needs to choose or change where issues and feature intents live, or when docs/agents/issue-tracker.md is missing or stale. | ismail9k/skills |  |
+| 1467 | fetch-github-issues | Use when the user asks to list, show, or review open issues from the tracker recorded in docs/agents/issue-tracker.md. | ismail9k/skills |  |
+| 1468 | brandkit | Premium brand-kit image generation skill for high-end brand-guidelines boards, logo systems, identity decks and visual-world presentations. | Leonxlnx/imagegen-skills |  |
+| 1469 | image-to-code | Elite website image-to-code skill for Codex: generate the design image(s) first, analyze them, then implement the website to match. | Leonxlnx/imagegen-skills |  |
+| 1470 | imagegen-frontend-mobile | Elite mobile app image-generation skill for premium, app-native screen concepts and flows across iOS, Android and cross-platform products. | Leonxlnx/imagegen-skills |  |
+| 1471 | imagegen-frontend-web | Elite frontend image-direction skill for generating premium, conversion-aware website design references. | Leonxlnx/imagegen-skills |  |
+| 1472 | design-taste-frontend-v1 | The original taste-skill v1, kept for projects that depend on its exact behaviour. Opt-in: it runs only when called by name. | Leonxlnx/taste-skill-classics |  |
+| 1473 | gpt-taste | Classic skill for GPT and Codex, opt-in: layout variance, a strict AIDA page structure and GSAP scroll motion. | Leonxlnx/taste-skill-classics |  |
+| 1474 | high-end-visual-design | Classic style skill, opt-in: a calm, polished look with soft contrast, generous whitespace and spring motion. | Leonxlnx/taste-skill-classics |  |
+| 1475 | industrial-brutalist-ui | Classic style skill, opt-in: a hard mechanical look with Swiss type, rigid grids, extreme scale contrast and utilitarian colour. | Leonxlnx/taste-skill-classics |  |
+| 1476 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
+| 1477 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
 
-## MCP Servers (872 — 7 default-selected)
+## MCP Servers (900 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2349,6 +2362,34 @@ Consolidated reference of every system component with its folder path.
 | 870 | context7 ✅ | Live library and framework documentation lookup by package and version | upstash/context7 | `` |
 | 871 | firecrawl ✅ | Deep web scrape, crawl and extract with LLM-powered content analysis | firecrawl/firecrawl-mcp | `` |
 | 872 | supabase/mcp | Official Supabase MCP server. Connect via the hosted remote server at `https://mcp.supabase.com/mcp` (OAuth 2.1, no PAT) or install locally with `npx -y @supabase/mcp-server-supabase` and a personal access token. | supabase/mcp | `npx -y @supabase/mcp-server-supabase` |
+| 873 | brave |  | brave/brave-search-mcp-server |  |
+| 874 | browserbase | Allow LLMs to control a browser with Browserbase and Stagehand | browserbase/mcp-server-browserbase |  |
+| 875 | cloudflare | Product specific Cloudflare MCP servers | cloudflare/mcp-server-cloudflare |  |
+| 876 | deepwiki | Hosted DeepWiki MCP endpoint (`https://mcp.deepwiki.com/mcp)` |  |  |
+| 877 | discord | A MCP server for the Discord integration. Enable your AI assistants to seamlessly interact with Discord. | SaseQ/discord-mcp |  |
+| 878 | exa | Exa MCP for web search and web crawling | exa-labs/exa-mcp-server |  |
+| 879 | figma-context-mcp | MCP server to provide Figma layout information to AI coding agents like Cursor | GLips/Figma-Context-MCP |  |
+| 880 | gmail | A Model Context Protocol (MCP) server for Gmail integration with auto authentication support | GongRzhe/Gmail-MCP-Server |  |
+| 881 | googledrive | Archived reference MCP server for Google Drive (src/gdrive) | modelcontextprotocol/servers-archived |  |
+| 882 | mem0-memory-mcp |  | mem0ai/mem0-mcp |  |
+| 883 | neon | MCP server for interacting with Neon Management API and databases | neondatabase/mcp-server-neon |  |
+| 884 | steadyfetch | Reliable web fetching MCP server, hosted on Smithery (intake-triage/steadyfetch) |  |  |
+| 885 | lenis-mcp-server | MCP server providing Lenis smooth scroll expertise to AI assistants. Knowledge-based, no external API calls. | devAndreotti/lenis-mcp-server |  |
+| 886 | Agent-Prod/muze-mcp | Public connector manifest and docs for the hosted Muze MCP server | Agent-Prod/muze-mcp-connector |  |
+| 887 | AMKRS3/keycae-mcp | Official packages, SDKs, CLI and MCP tools for the KeyCAE.ar Argentine electronic invoicing API | AMKRS3/keycae-packages |  |
+| 888 | codeislaw101/katzilla | Official SDK, MCP server and Python client for Katzilla government data | codeislaw101/katzilla-sdk |  |
+| 889 | Darko893/haunt-mcp-server | MCP web extraction for permitted public pages: no-key demo plus live URL-to-JSON and Markdown output | Darko893/haunt-mcp-server |  |
+| 890 | dolphinquant/echolon | Market-agnostic quantitative trading engine, published with MCP support on PyPI |  |  |
+| 891 | donnywin85/arb-dex-mcp | MCP server for live cross-DEX crypto prices: per-venue pool price, liquidity and gross cross-venue spread on six EVM chains | donnywin85/arb-dex-mcp |  |
+| 892 | donnywin85/dex-data-mcp | DEX market data, SEC EDGAR change oracles, LEI and US Treasury yield curve as MCP tools | donnywin85/dex-data-mcp |  |
+| 893 | flovoice53-tech/sms-florin-mcp | MCP server for sms-florin: rent a real UK phone number and receive SMS/OTP codes during automated testing | flovoice53-tech/sms-florin-mcp |  |
+| 894 | aarsiv-groups/shipi-mcp-server | Archival mirror of the shipi MCP server (mcp-research); hosted twin on Smithery | mcp-research/aarsiv-groups__shipi-mcp-server |  |
+| 895 | alexcloudstar/makers.page-mcp | Third-party copy of the makers.page MCP server | Uni0Satyam/makers.page-mcp |  |
+| 896 | Correctover/mcp-server |  | correctover-labs/correctover-mcp-server |  |
+| 897 | livetennisapi/livetennisapi-mcp | MCP server for the Live Tennis API: real-time tennis scores, players and fixtures (npm livetennisapi-mcp) |  |  |
+| 898 | Scottcjn/rustchain-mcp | AI-agent tools for the RustChain ecosystem: blockchain, video platform and wallet, published on PyPI |  |  |
+| 899 | supertone-inc/supertone-mcp | MCP server for the Supertone TTS API: voice synthesis, discovery, cloning and usage tools across 31 languages |  |  |
+| 900 | Yarmoluk/ckg-mcp | Context optimization for AI agents: domain knowledge graphs with MCP-native traversal |  |  |
 
 ## Plugins (11 — 0 default-selected)
 

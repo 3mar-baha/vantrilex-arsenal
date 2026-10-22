@@ -3,8 +3,8 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 4,
   "counts": {
-    "skill": 1464,
-    "mcp": 872,
+    "skill": 1477,
+    "mcp": 900,
     "plugin": 11,
     "hook": 8,
     "agent": 301,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2837
+    "total": 2878
   },
   "components": [
     {
@@ -2427,6 +2427,34 @@
         "source_proof": {
           "target": "VoltAgent/awesome-agent-skills",
           "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "agent-md-setup",
+      "name": "agent-md-setup",
+      "kind": "skill",
+      "description": "Use when a repository needs one canonical instruction file shared by coding agents, when AGENTS.md or CLAUDE.md is missing, or when their guidance has diverged.",
+      "source": "ismail9k/skills",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "ismail9k/skills",
+          "path": "skills/setup-agent-md/SKILL.md",
+          "method": "file-resolves",
           "checked_at": "2026-10-22"
         }
       },
@@ -6829,6 +6857,34 @@
       "default_selected": false
     },
     {
+      "id": "brandkit",
+      "name": "brandkit",
+      "kind": "skill",
+      "description": "Premium brand-kit image generation skill for high-end brand-guidelines boards, logo systems, identity decks and visual-world presentations.",
+      "source": "Leonxlnx/imagegen-skills",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/imagegen-skills",
+          "path": "skills/brandkit/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "brev-etiquette",
       "name": "brev-etiquette",
       "kind": "skill",
@@ -10459,6 +10515,34 @@
       "default_selected": false
     },
     {
+      "id": "configure-issue-tracker",
+      "name": "configure-issue-tracker",
+      "kind": "skill",
+      "description": "Use when a repository needs to choose or change where issues and feature intents live, or when docs/agents/issue-tracker.md is missing or stale.",
+      "source": "ismail9k/skills",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "ismail9k/skills",
+          "path": "skills/setup-issue-tracker/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "configuring-active-directory-tiered-model",
       "name": "configuring-active-directory-tiered-model",
       "kind": "skill",
@@ -13253,6 +13337,34 @@
         "command_registry": {
           "command": "npx skills add leonxlnx/taste-skill --skill design-taste-frontend -a opencode -y",
           "registry": "skills-registry",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "design-taste-frontend-v1",
+      "name": "design-taste-frontend-v1",
+      "kind": "skill",
+      "description": "The original taste-skill v1, kept for projects that depend on its exact behaviour. Opt-in: it runs only when called by name.",
+      "source": "Leonxlnx/taste-skill-classics",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/taste-skill-classics",
+          "path": "skills/taste-skill-v1/SKILL.md",
+          "method": "file-resolves",
           "checked_at": "2026-10-22"
         }
       },
@@ -18910,6 +19022,34 @@
       "default_selected": false
     },
     {
+      "id": "fetch-github-issues",
+      "name": "fetch-github-issues",
+      "kind": "skill",
+      "description": "Use when the user asks to list, show, or review open issues from the tracker recorded in docs/agents/issue-tracker.md.",
+      "source": "ismail9k/skills",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "ismail9k/skills",
+          "path": "skills/fetch-issues/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "ffuf-claude-skill",
       "name": "ffuf-claude-skill",
       "kind": "skill",
@@ -20250,6 +20390,34 @@
       "default_selected": false
     },
     {
+      "id": "gpt-taste",
+      "name": "gpt-taste",
+      "kind": "skill",
+      "description": "Classic skill for GPT and Codex, opt-in: layout variance, a strict AIDA page structure and GSAP scroll motion.",
+      "source": "Leonxlnx/taste-skill-classics",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/taste-skill-classics",
+          "path": "skills/gpt-tasteskill/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "grammar-check",
       "name": "grammar-check",
       "kind": "skill",
@@ -20819,6 +20987,34 @@
         "source_proof": {
           "target": "VoltAgent/awesome-agent-skills",
           "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "high-end-visual-design",
+      "name": "high-end-visual-design",
+      "kind": "skill",
+      "description": "Classic style skill, opt-in: a calm, polished look with soft contrast, generous whitespace and spring motion.",
+      "source": "Leonxlnx/taste-skill-classics",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/taste-skill-classics",
+          "path": "skills/soft-skill/SKILL.md",
+          "method": "file-resolves",
           "checked_at": "2026-10-22"
         }
       },
@@ -22339,6 +22535,90 @@
         "command_registry": {
           "command": "npx skills add phuryn/pm-skills --skill identify-assumptions-new -a opencode -y",
           "registry": "skills-registry",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "image-to-code",
+      "name": "image-to-code",
+      "kind": "skill",
+      "description": "Elite website image-to-code skill for Codex: generate the design image(s) first, analyze them, then implement the website to match.",
+      "source": "Leonxlnx/imagegen-skills",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/imagegen-skills",
+          "path": "skills/image-to-code/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "imagegen-frontend-mobile",
+      "name": "imagegen-frontend-mobile",
+      "kind": "skill",
+      "description": "Elite mobile app image-generation skill for premium, app-native screen concepts and flows across iOS, Android and cross-platform products.",
+      "source": "Leonxlnx/imagegen-skills",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/imagegen-skills",
+          "path": "skills/imagegen-frontend-mobile/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "imagegen-frontend-web",
+      "name": "imagegen-frontend-web",
+      "kind": "skill",
+      "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references.",
+      "source": "Leonxlnx/imagegen-skills",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/imagegen-skills",
+          "path": "skills/imagegen-frontend-web/SKILL.md",
+          "method": "file-resolves",
           "checked_at": "2026-10-22"
         }
       },
@@ -27555,6 +27835,34 @@
       "default_selected": false
     },
     {
+      "id": "industrial-brutalist-ui",
+      "name": "industrial-brutalist-ui",
+      "kind": "skill",
+      "description": "Classic style skill, opt-in: a hard mechanical look with Swiss type, rigid grids, extreme scale contrast and utilitarian colour.",
+      "source": "Leonxlnx/taste-skill-classics",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/taste-skill-classics",
+          "path": "skills/brutalist-skill/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "integrate-whatsapp",
       "name": "integrate-whatsapp",
       "kind": "skill",
@@ -29679,6 +29987,34 @@
         "command_registry": {
           "command": "npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill migrating-to-post-quantum-cryptography -a opencode -y",
           "registry": "skills-registry",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "minimalist-ui",
+      "name": "minimalist-ui",
+      "kind": "skill",
+      "description": "Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids.",
+      "source": "Leonxlnx/taste-skill-classics",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/taste-skill-classics",
+          "path": "skills/minimalist-skill/SKILL.md",
+          "method": "file-resolves",
           "checked_at": "2026-10-22"
         }
       },
@@ -44514,6 +44850,34 @@
       "default_selected": false
     },
     {
+      "id": "stitch-design-taste",
+      "name": "stitch-design-taste",
+      "kind": "skill",
+      "description": "Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules.",
+      "source": "Leonxlnx/taste-skill-classics",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Leonxlnx/taste-skill-classics",
+          "path": "skills/stitch-skill/SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "storyboard",
       "name": "storyboard",
       "kind": "skill",
@@ -50126,6 +50490,34 @@
       "default_selected": false
     },
     {
+      "id": "amkrs3-keycae-mcp",
+      "name": "AMKRS3/keycae-mcp",
+      "kind": "mcp",
+      "description": "Official packages, SDKs, CLI and MCP tools for the KeyCAE.ar Argentine electronic invoicing API",
+      "source": "AMKRS3/keycae-packages",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "AMKRS3/keycae-packages",
+          "path": "keycae-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "adesiahq-bangermap-integrations",
       "name": "AdesiaHQ/bangermap-integrations",
       "kind": "mcp",
@@ -50179,6 +50571,33 @@
       "evidence": {
         "source_proof": {
           "target": "AetherWave-Studio/aetherwave-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "agent-prod-muze-mcp",
+      "name": "Agent-Prod/muze-mcp",
+      "kind": "mcp",
+      "description": "Public connector manifest and docs for the hosted Muze MCP server",
+      "source": "Agent-Prod/muze-mcp-connector",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Agent-Prod/muze-mcp-connector",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
@@ -51206,6 +51625,33 @@
       "default_selected": false
     },
     {
+      "id": "correctover-mcp-server",
+      "name": "Correctover/mcp-server",
+      "kind": "mcp",
+      "description": "",
+      "source": "correctover-labs/correctover-mcp-server",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "codeberg.org/correctover-labs/correctover-mcp-server",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "cubiczan-governed-mcp-gateway",
       "name": "Cubiczan/governed-mcp-gateway",
       "kind": "mcp",
@@ -51320,6 +51766,38 @@
         "source_proof": {
           "target": "DanMat/create-packkit",
           "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "darko893-haunt-mcp-server",
+      "name": "Darko893/haunt-mcp-server",
+      "kind": "mcp",
+      "description": "MCP web extraction for permitted public pages: no-key demo plus live URL-to-JSON and Markdown output",
+      "source": "Darko893/haunt-mcp-server",
+      "origin": null,
+      "install_cmd": "npx -y @hauntapi/mcp-server",
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": "@hauntapi/mcp-server",
+          "method": "server-bin",
+          "checked_at": "2026-10-22"
+        },
+        "command_registry": {
+          "command": "npx -y @hauntapi/mcp-server",
+          "registry": "npm",
           "checked_at": "2026-10-22"
         }
       },
@@ -55016,6 +55494,33 @@
       "default_selected": false
     },
     {
+      "id": "scottcjn-rustchain-mcp",
+      "name": "Scottcjn/rustchain-mcp",
+      "kind": "mcp",
+      "description": "AI-agent tools for the RustChain ecosystem: blockchain, video platform and wallet, published on PyPI",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "pypi:rustchain-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "scrapeunblocker-scrapeunblocker-mcp",
       "name": "ScrapeUnblocker/scrapeunblocker-mcp",
       "kind": "mcp",
@@ -56516,6 +57021,33 @@
       "default_selected": false
     },
     {
+      "id": "yarmoluk-ckg-mcp",
+      "name": "Yarmoluk/ckg-mcp",
+      "kind": "mcp",
+      "description": "Context optimization for AI agents: domain knowledge graphs with MCP-native traversal",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "pypi:ckg-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "yocoolab-mcp-server",
       "name": "Yocoolab/mcp-server",
       "kind": "mcp",
@@ -56629,6 +57161,33 @@
       "evidence": {
         "source_proof": {
           "target": "Zsadigzade/trainbud",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "aarsiv-groups-shipi-mcp-server",
+      "name": "aarsiv-groups/shipi-mcp-server",
+      "kind": "mcp",
+      "description": "Archival mirror of the shipi MCP server (mcp-research); hosted twin on Smithery",
+      "source": "mcp-research/aarsiv-groups__shipi-mcp-server",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "mcp-research/aarsiv-groups__shipi-mcp-server",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
@@ -57379,6 +57938,33 @@
       "evidence": {
         "source_proof": {
           "target": "alexar76/aimarket-plugins",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "alexcloudstar-makers-page-mcp",
+      "name": "alexcloudstar/makers.page-mcp",
+      "kind": "mcp",
+      "description": "Third-party copy of the makers.page MCP server",
+      "source": "Uni0Satyam/makers.page-mcp",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "Uni0Satyam/makers.page-mcp",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
@@ -59158,6 +59744,33 @@
       "default_selected": false
     },
     {
+      "id": "brave",
+      "name": "brave",
+      "kind": "mcp",
+      "description": "",
+      "source": "brave/brave-search-mcp-server",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "brave/brave-search-mcp-server",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "brave-search",
       "name": "brave-search",
       "kind": "mcp",
@@ -59211,6 +59824,33 @@
       "evidence": {
         "source_proof": {
           "target": "bridgenode-ai/bridgenode-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "browserbase",
+      "name": "browserbase",
+      "kind": "mcp",
+      "description": "Allow LLMs to control a browser with Browserbase and Stagehand",
+      "source": "browserbase/mcp-server-browserbase",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "browserbase/mcp-server-browserbase",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
@@ -59938,6 +60578,60 @@
       "default_selected": false
     },
     {
+      "id": "cloudflare",
+      "name": "cloudflare",
+      "kind": "mcp",
+      "description": "Product specific Cloudflare MCP servers",
+      "source": "cloudflare/mcp-server-cloudflare",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "cloudflare/mcp-server-cloudflare",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "codeislaw101-katzilla",
+      "name": "codeislaw101/katzilla",
+      "kind": "mcp",
+      "description": "Official SDK, MCP server and Python client for Katzilla government data",
+      "source": "codeislaw101/katzilla-sdk",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "codeislaw101/katzilla-sdk",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "codeofaxel-kiln",
       "name": "codeofaxel/Kiln",
       "kind": "mcp",
@@ -60450,6 +61144,33 @@
       "default_selected": false
     },
     {
+      "id": "deepwiki",
+      "name": "deepwiki",
+      "kind": "mcp",
+      "description": "Hosted DeepWiki MCP endpoint (`https://mcp.deepwiki.com/mcp)`",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "https://mcp.deepwiki.com/mcp",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "deficlow-hyperstore-mcp",
       "name": "deficlow/HyperStore-MCP",
       "kind": "mcp",
@@ -60750,6 +61471,33 @@
       "default_selected": false
     },
     {
+      "id": "discord",
+      "name": "discord",
+      "kind": "mcp",
+      "description": "A MCP server for the Discord integration. Enable your AI assistants to seamlessly interact with Discord.",
+      "source": "SaseQ/discord-mcp",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "SaseQ/discord-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "dizpers-polystrike-examples",
       "name": "dizpers/polystrike-examples",
       "kind": "mcp",
@@ -61014,6 +61762,97 @@
         "source_proof": {
           "target": "NicolasMartalog/docweave-mcp",
           "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "dolphinquant-echolon",
+      "name": "dolphinquant/echolon",
+      "kind": "mcp",
+      "description": "Market-agnostic quantitative trading engine, published with MCP support on PyPI",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "pypi:echolon",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "donnywin85-arb-dex-mcp",
+      "name": "donnywin85/arb-dex-mcp",
+      "kind": "mcp",
+      "description": "MCP server for live cross-DEX crypto prices: per-venue pool price, liquidity and gross cross-venue spread on six EVM chains",
+      "source": "donnywin85/arb-dex-mcp",
+      "origin": null,
+      "install_cmd": "npx -y arb-dex-mcp",
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": "arb-dex-mcp",
+          "method": "server-bin",
+          "checked_at": "2026-10-22"
+        },
+        "command_registry": {
+          "command": "npx -y arb-dex-mcp",
+          "registry": "npm",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "donnywin85-dex-data-mcp",
+      "name": "donnywin85/dex-data-mcp",
+      "kind": "mcp",
+      "description": "DEX market data, SEC EDGAR change oracles, LEI and US Treasury yield curve as MCP tools",
+      "source": "donnywin85/dex-data-mcp",
+      "origin": null,
+      "install_cmd": "npx -y dex-data-mcp",
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": "dex-data-mcp",
+          "method": "server-bin",
+          "checked_at": "2026-10-22"
+        },
+        "command_registry": {
+          "command": "npx -y dex-data-mcp",
+          "registry": "npm",
           "checked_at": "2026-10-22"
         }
       },
@@ -61680,6 +62519,33 @@
       "default_selected": false
     },
     {
+      "id": "exa",
+      "name": "exa",
+      "kind": "mcp",
+      "description": "Exa MCP for web search and web crawling",
+      "source": "exa-labs/exa-mcp-server",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "exa-labs/exa-mcp-server",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "extentos-mcp-server",
       "name": "extentos/mcp-server",
       "kind": "mcp",
@@ -61950,6 +62816,33 @@
       "default_selected": false
     },
     {
+      "id": "figma-context-mcp",
+      "name": "figma-context-mcp",
+      "kind": "mcp",
+      "description": "MCP server to provide Figma layout information to AI coding agents like Cursor",
+      "source": "GLips/Figma-Context-MCP",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "GLips/Figma-Context-MCP",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "filesystem",
       "name": "filesystem",
       "kind": "mcp",
@@ -62071,6 +62964,38 @@
         "source_proof": {
           "target": "flexorch/flexorch-mcp",
           "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "flovoice53-tech-sms-florin-mcp",
+      "name": "flovoice53-tech/sms-florin-mcp",
+      "kind": "mcp",
+      "description": "MCP server for sms-florin: rent a real UK phone number and receive SMS/OTP codes during automated testing",
+      "source": "flovoice53-tech/sms-florin-mcp",
+      "origin": null,
+      "install_cmd": "npx -y sms-florin-mcp",
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": "sms-florin-mcp",
+          "method": "server-bin",
+          "checked_at": "2026-10-22"
+        },
+        "command_registry": {
+          "command": "npx -y sms-florin-mcp",
+          "registry": "npm",
           "checked_at": "2026-10-22"
         }
       },
@@ -62832,6 +63757,33 @@
       "default_selected": false
     },
     {
+      "id": "gmail",
+      "name": "gmail",
+      "kind": "mcp",
+      "description": "A Model Context Protocol (MCP) server for Gmail integration with auto authentication support",
+      "source": "GongRzhe/Gmail-MCP-Server",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "GongRzhe/Gmail-MCP-Server",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "gofrantic-frantic-mcp",
       "name": "gofrantic/frantic-mcp",
       "kind": "mcp",
@@ -63005,6 +63957,34 @@
       "evidence": {
         "source_proof": {
           "target": "modelcontextprotocol/servers",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "googledrive",
+      "name": "googledrive",
+      "kind": "mcp",
+      "description": "Archived reference MCP server for Google Drive (src/gdrive)",
+      "source": "modelcontextprotocol/servers-archived",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "modelcontextprotocol/servers-archived",
+          "path": "src/gdrive",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
@@ -66342,6 +67322,33 @@
       "default_selected": false
     },
     {
+      "id": "lenis-mcp-server",
+      "name": "lenis-mcp-server",
+      "kind": "mcp",
+      "description": "MCP server providing Lenis smooth scroll expertise to AI assistants. Knowledge-based, no external API calls.",
+      "source": "devAndreotti/lenis-mcp-server",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "devAndreotti/lenis-mcp-server",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "lennney-agent-search-mcp",
       "name": "lennney/agent-search-mcp",
       "kind": "mcp",
@@ -66516,6 +67523,33 @@
         "source_proof": {
           "target": "live-direct-marketing/ldm-inbox-check-mcp",
           "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "livetennisapi-livetennisapi-mcp",
+      "name": "livetennisapi/livetennisapi-mcp",
+      "kind": "mcp",
+      "description": "MCP server for the Live Tennis API: real-time tennis scores, players and fixtures (npm livetennisapi-mcp)",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "https://mcp.livetennisapi.com/mcp",
+          "method": "file-resolves",
           "checked_at": "2026-10-22"
         }
       },
@@ -67235,6 +68269,33 @@
       "evidence": {
         "source_proof": {
           "target": "meloliva14/verity-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "mem0-memory-mcp",
+      "name": "mem0-memory-mcp",
+      "kind": "mcp",
+      "description": "",
+      "source": "mem0ai/mem0-mcp",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "mem0ai/mem0-mcp",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
@@ -68470,6 +69531,33 @@
       "evidence": {
         "source_proof": {
           "target": "ncosic/webotee-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "neon",
+      "name": "neon",
+      "kind": "mcp",
+      "description": "MCP server for interacting with Neon Management API and databases",
+      "source": "neondatabase/mcp-server-neon",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "neondatabase/mcp-server-neon",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
@@ -73133,6 +74221,33 @@
       "default_selected": false
     },
     {
+      "id": "steadyfetch",
+      "name": "steadyfetch",
+      "kind": "mcp",
+      "description": "Reliable web fetching MCP server, hosted on Smithery (intake-triage/steadyfetch)",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "smithery:intake-triage/steadyfetch",
+          "method": "file-resolves",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "stevejford-shiply-mcp",
       "name": "stevejford/shiply-mcp",
       "kind": "mcp",
@@ -73312,6 +74427,33 @@
         "command_registry": {
           "command": "npx -y @supabase/mcp-server-supabase",
           "registry": "npm",
+          "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "supertone-inc-supertone-mcp",
+      "name": "supertone-inc/supertone-mcp",
+      "kind": "mcp",
+      "description": "MCP server for the Supertone TTS API: voice synthesis, discovery, cloning and usage tools across 31 languages",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "pypi:supertone-mcp",
+          "method": "repo-resolves",
           "checked_at": "2026-10-22"
         }
       },
