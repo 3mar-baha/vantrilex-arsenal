@@ -1,18 +1,18 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vantrilex.dev/schema/catalog-v4.schema.json",
-  "$comment": "KIND MECHANISM (v4, unchanged from v3): 'kind' is a closed enum per schema version, extended by publishing a NEW schema version file, never by editing a published version in place. New-kind onboarding is FROZEN until this v4 file publishes (owner ruling 2026-10-21), so the 16-kind enum below is carried unchanged from v3. Plugging in a future kind still touches exactly these places: 1) the new schema file's 'kind' enum plus its description and its entry in the per-kind class mapping below; 2) scripts/generate-catalog-json.mjs: KINDS, SECTION_KINDS, SECTION_LABELS, SIDECAR_FILES, INDEX_DIRS, and SCHEMA_PATH plus buildCatalog's '$schema'/catalog_version pointer; 3) a new '## <Label> (N — M default-selected)' section in registry/VANTRILEX_CATALOG.md plus the Summary counts and folder paths; 4) the new sidecar and component files; 5) regeneration through the generator. v3's checklist also named kit/kit.lock.schema.json and scripts/verify-kit.mjs; both were deleted in S3, so that step is gone and this file does not repeat it. THE CLASS-EVIDENCE MODEL (owner ruling, OPTION A, V4-1): every record declares 'class', and the class fixes which evidence proves it. 'upstream' and 'data' records are proven by source_proof. 'loadable' records are proven by load_proof, which source_proof can never substitute. 'installable' records are proven by install_cmd plus command_registry plus load_proof. No dilution: a loadable or installable record may not be verified on source evidence alone, and any non-null install_cmd must name the registry that proved it. CANDIDATE SURFACE (V4-3): a record that fails even its class evidence is not a live record. It becomes a row in registry/candidates/<kind>.jsonl matching $defs.candidate, which carries the class it was assessed under and a reason. This schema file also carries that candidate shape; live records and candidate rows are validated against different roots ($ and $defs.candidate).",
+  "$comment": "KIND MECHANISM (v4, unchanged from v3): 'kind' is a closed enum per schema version, extended by publishing a NEW schema version file, never by editing a published version in place. New-kind onboarding is FROZEN until this v4 file publishes (owner ruling 2026-10-21), so the 16-kind enum below is carried unchanged from v3. Plugging in a future kind still touches exactly these places: 1) the new schema file's 'kind' enum plus its description and its entry in the per-kind class mapping below; 2) scripts/generate-catalog-json.mjs: KINDS, SECTION_KINDS, SECTION_LABELS, SIDECAR_FILES, INDEX_DIRS, and SCHEMA_PATH plus buildCatalog's '$schema'/catalog_version pointer; 3) a new '## <Label> (N — M default-selected)' section in registry/VANTRILEX_CATALOG.md plus the Summary counts and folder paths; 4) the new sidecar and component files; 5) regeneration through the generator. v3's checklist also named kit/kit.lock.schema.json and scripts/verify-kit.mjs; both were deleted in S3, so that step is gone and this file does not repeat it. THE CLASS-EVIDENCE MODEL (owner ruling, OPTION A, V4-1): every record declares 'class', and the class fixes which evidence proves it. 'upstream' and 'data' records are proven by source_proof. 'loadable' records are proven by load_proof, which source_proof can never substitute. 'installable' records are proven by install_cmd plus command_registry plus load_proof. No dilution: a loadable or installable record may not be verified on source evidence alone, and any non-null install_cmd must name the registry that proved it. CANDIDATE SURFACE (V4-3): a record that fails even its class evidence is not a live record. It becomes a row in registry/candidates/<kind>.jsonl matching $defs.candidate, which carries the class it was assessed under and a reason. This schema file also carries that candidate shape; live records and candidate rows are validated against different roots ($ and $defs.candidate). DATA IS COMMAND-FREE (R3, owner ruling): a 'data' record installs nothing, so its install_cmd is null, and the one generic equip copy that provisions shipped artifacts is documented once in V4-5 rather than repeated per record. ID IS REQUIRED (R6, owner ruling): every live record carries its merge key, so a standalone record can be validated under its own identity. EVIDENCE TTL (R7, owner ruling): a proof ages out — command_registry 90 days, load_proof 180 days, source_proof 365 days. A record whose proof has lapsed past its class window becomes a candidate with reason code 'evidence-lapsed' at the next audit. This file records the policy; the clock is enforced by the P4 verifier, not by JSON Schema.",
   "title": "Vantrilex Catalog v4 Record",
   "description": "One component record in the Vantrilex Registry, under the v4 class-evidence contract. A record is live only when it is verified, and 'verified' now means its declared class evidence exists: source_proof for 'upstream' and 'data', load_proof for 'loadable', and install_cmd plus command_registry plus load_proof for 'installable'. V3 allowed 'unverified' as a carried state; v4 does not. A record that cannot produce its class evidence is not carried here — it moves to registry/candidates/<kind>.jsonl ($defs.candidate) with its reason. This is a migration target, not the shape of the live registry during the migration: registry/data/*.jsonl and registry/catalog.json reach it in P2/P3.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["kind", "class", "verification", "evidence"],
+  "required": ["id", "kind", "verification", "class", "evidence"],
   "properties": {
     "id": {
       "type": "string",
       "minLength": 1,
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
-      "description": "Stable lowercase-hyphenated slug derived from the display name, and the merge key against registry/data/<kind>.jsonl. An MCP row whose display name is already 'owner/repo' slugs by joining both segments, so '06ketan/slideshot' becomes '06ketan-slideshot'. Must be unique within its kind."
+      "description": "V4 CONTRACT (R6, owner ruling): every live record carries an id and it is required. The id is the merge key against registry/data/<kind>.jsonl and the identity a standalone record is validated under, so a record that cannot be addressed cannot be live: the generator always emits it, and a hand-authored or candidate document must state it. Stable lowercase-hyphenated slug derived from the display name. An MCP row whose display name is already 'owner/repo' slugs by joining both segments, so '06ketan/slideshot' becomes '06ketan-slideshot'. Must be unique within its kind."
     },
     "name": {
       "type": "string",
@@ -41,7 +41,7 @@
     "install_cmd": {
       "type": ["string", "null"],
       "minLength": 1,
-      "description": "A REAL, runnable shell command that provisions this component, or null when the class permits no command. Never a bare repository slug, never a guess: a plausible-looking wrong command is worse than an admission of ignorance, because an agent will run it. Required (non-null) for class 'installable'. Null by contract for class 'upstream' and for a loadable record whose source is null (self-shipped). Optional for class 'data'. Whenever it is non-null, evidence.command_registry must name the registry that proved it."
+      "description": "A REAL, runnable shell command that provisions this component, or null when the class permits no command. Never a bare repository slug, never a guess: a plausible-looking wrong command is worse than an admission of ignorance, because an agent will run it. Required (non-null) for class 'installable'. Null by contract for class 'upstream', for class 'data' (R3: a data record installs nothing, and the one generic equip copy that provisions shipped artifacts is documented once in V4-5 rather than repeated per record), and for a loadable record whose source is null (self-shipped). Whenever it is non-null, evidence.command_registry must name the registry that proved it."
     },
     "version_pin": {
       "type": ["string", "null"],
@@ -91,7 +91,7 @@
     "class": {
       "type": "string",
       "enum": ["loadable", "installable", "upstream", "data"],
-      "description": "Evidence class, from the owner-ruled class-evidence model (OPTION A, V4-1). 'upstream' names an external artifact whose only claim is that it exists at its source. 'data' covers a data artifact (dataset, template, policy pack, benchmark spec, workflow spec, design document) proven by provenance. 'loadable' covers a component OpenCode or its host consumes at runtime, proven by a load surface. 'installable' covers a component provisioned by a command, proven by the command plus the registry that carries it plus the provisioned surface. The kind bounds the permitted classes (see the per-kind mapping in allOf); a record may not pick a class its kind does not admit, and a loadable or installable record may never be verified on source evidence alone."
+      "description": "Evidence class, from the owner-ruled class-evidence model (OPTION A, V4-1). 'upstream' names an external artifact whose only claim is that it exists at its source. 'data' covers a data artifact (dataset, template, policy pack, benchmark spec, workflow spec, design document) proven by provenance; a data record is command-free, so its install_cmd is null (R3) and its provisioning is the one generic equip copy documented in V4-5. 'loadable' covers a component OpenCode or its host consumes at runtime, proven by a load surface. 'installable' covers a component provisioned by a command, proven by the command plus the registry that carries it plus the provisioned surface. The kind bounds the permitted classes (see the per-kind mapping in allOf); a record may not pick a class its kind does not admit, and a loadable or installable record may never be verified on source evidence alone."
     },
     "evidence": {
       "type": "object",
@@ -139,7 +139,7 @@
         "checked_at": {
           "type": "string",
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-          "description": "Calendar date of the check, ISO 8601 date form. A proof is a dated observation, never a standing claim."
+          "description": "Calendar date of the check, ISO 8601 date form. A proof is a dated observation, never a standing claim. R7 TTL: a source_proof stays valid for 365 days from this date; past the window the record is evidence-lapsed and becomes a candidate at the next audit."
         }
       }
     },
@@ -162,7 +162,7 @@
         "checked_at": {
           "type": "string",
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-          "description": "Calendar date of the check, ISO 8601 date form."
+          "description": "Calendar date of the check, ISO 8601 date form. A proof is a dated observation, never a standing claim. R7 TTL: a load_proof stays valid for 180 days from this date; past the window the record is evidence-lapsed and becomes a candidate at the next audit."
         }
       }
     },
@@ -185,7 +185,7 @@
         "checked_at": {
           "type": "string",
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-          "description": "Calendar date of the check, ISO 8601 date form."
+          "description": "Calendar date of the check, ISO 8601 date form. A proof is a dated observation, never a standing claim. R7 TTL: a command_registry proof is the shortest-lived of the three and stays valid for 90 days from this date, because registries and package versions move; past the window the record is evidence-lapsed and becomes a candidate at the next audit."
         }
       }
     },
@@ -239,8 +239,8 @@
           "properties": {
             "code": {
               "type": "string",
-              "enum": ["source-proof-failed", "load-proof-failed", "command-registry-failed", "install-command-absent", "shape-invalid"],
-              "description": "The failed evidence family. 'source-proof-failed' means the source or file did not resolve. 'load-proof-failed' means no runtime surface could be proven. 'command-registry-failed' means a command exists but no registry or installer resolves it. 'install-command-absent' means the class requires a command and none was ever authored. 'shape-invalid' means the row itself violates the kind's shape contract, such as a forbidden shell pipe in a cli command."
+              "enum": ["source-proof-failed", "load-proof-failed", "command-registry-failed", "install-command-absent", "shape-invalid", "evidence-lapsed"],
+              "description": "The failed evidence family. 'source-proof-failed' means the source or file did not resolve. 'load-proof-failed' means no runtime surface could be proven. 'command-registry-failed' means a command exists but no registry or installer resolves it. 'install-command-absent' means the class requires a command and none was ever authored. 'shape-invalid' means the row itself violates the kind's shape contract, such as a forbidden shell pipe in a cli command. 'evidence-lapsed' means the proof once existed but aged past its R7 window — command_registry 90 days, load_proof 180 days, source_proof 365 days — so the record becomes a candidate at the next audit rather than claiming a stale proof."
             },
             "detail": {
               "type": "string",
@@ -391,6 +391,11 @@
     {
       "$comment": "UPSTREAM INSTALLS NOTHING: an upstream record names an artefact it does not provision, so its install_cmd is null. A runnable command would make it installable and demand the full command-registry evidence.",
       "if": { "properties": { "class": { "const": "upstream" } } },
+      "then": { "properties": { "install_cmd": { "type": "null" } } }
+    },
+    {
+      "$comment": "DATA IS COMMAND-FREE (R3, owner ruling): a data record installs nothing, so its install_cmd is null. The one generic equip copy that provisions shipped artifacts is documented once in V4-5, not repeated per record; a per-record command would be that same copy restated and would drag a data record into installable evidence it does not need.",
+      "if": { "properties": { "class": { "const": "data" } } },
       "then": { "properties": { "install_cmd": { "type": "null" } } }
     },
     {
