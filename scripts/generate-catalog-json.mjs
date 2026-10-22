@@ -415,8 +415,18 @@ export function loadSidecar(kind, dataDir = DATA_DIR) {
         fail(`${path}:${i + 1}: unknown field "${key}" (allowed: ${RECORD_FIELDS.join(', ')})`);
       }
     }
-    if (parsed.kind !== undefined && parsed.kind !== kind) {
-      fail(`${path}:${i + 1}: id "${parsed.id}" declares kind "${parsed.kind}" inside ${kind}.jsonl`);
+    /*
+      F-P6-1: every sidecar line declares the kind of the file that holds it.
+      The declaration is required (a line without it is a defect, not an
+      omission to paper over) and it must name this file's kind — a row whose
+      line-kind disagrees with its file-kind is a misplaced entry, and merging
+      it would silently attach one kind's evidence to another kind's record.
+    */
+    if (parsed.kind === undefined) {
+      fail(`${path}:${i + 1}: id "${parsed.id}" is missing "kind" — every ${kind}.jsonl line declares "kind": ${JSON.stringify(kind)}`);
+    }
+    if (parsed.kind !== kind) {
+      fail(`${path}:${i + 1}: id "${parsed.id}" declares kind "${parsed.kind}" inside ${kind}.jsonl — line kind must equal file kind`);
     }
     entries.push({ id: parsed.id, patch: parsed, line: i + 1, path });
   }
@@ -427,6 +437,9 @@ function applyPatch(base, patch) {
   const merged = { ...base };
   LINE_OF.set(merged, lineOf(base));
   for (const field of RECORD_FIELDS) {
+    // `id` is the merge key and `kind` is the catalog section's kind; the
+    // sidecar's kind declaration is proven equal to the file kind in
+    // loadSidecar(), so neither is ever taken from the patch as a value.
     if (field === 'id' || field === 'kind') continue;
     if (Object.prototype.hasOwnProperty.call(patch, field)) merged[field] = patch[field];
   }
