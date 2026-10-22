@@ -112,9 +112,6 @@ supersedes:
       - id: "pre-compact"
         kind: "hook"
         reason: "Default-selected PreCompact hook; the catalog and the kit spec both keep this row."
-      - id: "save-state-before-context-compaction"
-        kind: "hook"
-        reason: "Same trigger described in plain words, with no default selection and no extra behaviour."
 
   - group: "session-end-vs-persist-session-state-on-end"
     note: "Both hooks fire on SessionEnd and persist learnings, so installing both runs the persistence routine twice at teardown and risks duplicate or interleaved writes to the same state."
@@ -126,17 +123,6 @@ supersedes:
       - id: "session-end"
         kind: "hook"
         reason: "Stop hook doing the same persistence; only wins where the Stop event is the one the harness actually emits."
-
-  - group: "suggest-compact-vs-suggest-manual-compaction-at-logical-intervals"
-    note: "Both implement the strategic-compact trigger and both prompt the operator to compact at a phase boundary, so running both double-prompts and trains the operator to ignore the prompt. There is no evidence in the catalog that either is the maintained one."
-    members:
-      - id: "suggest-compact"
-        kind: "hook"
-        reason: "Named after the strategic-compact skill it belongs to, so it is the hook that skill expects."
-      - id: "suggest-manual-compaction-at-logical-intervals"
-        kind: "hook"
-        reason: "Generic re-implementation of the same suggestion with no owner skill attached in the catalog."
-
   - group: "design-system-choice"
     note: "Design-system documents are alternatives by nature, so a project selects exactly one design system and never several; two installed at once produce conflicting tokens and components. No winner is declared because no design system dominates every project, and this template currently holds only the curated set entry point."
     members:

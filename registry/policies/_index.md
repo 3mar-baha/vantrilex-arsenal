@@ -12,7 +12,7 @@ _None._
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| allow-all-pack | policy | conditional | Use when the owner global allow-all permission pack must be installed o… | `cp registry/policies/allow-all-pack.json ~/.config/opencode/opencode.js…` |
+| allow-all-pack | policy | conditional | Use when the owner global allow-all permission pack must be installed o… |  |
 | release-policy | policy | conditional | Use when the release increments must be read, proven, or restyled: the… |  |
 
 ## Tier 2 — Extended (0)

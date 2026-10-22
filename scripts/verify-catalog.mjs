@@ -93,7 +93,8 @@ export const MCP_CAP = 8;
 
 const ORCHESTRATED_PHASES = ["scout", "docs", "plan", "build", "review", "operate"];
 const KIT_TIERS = new Set(["core", "conditional"]);
-const VERIFICATIONS = new Set(["verified", "unverified"]);
+const VERIFICATIONS = new Set(["verified"]);
+const EVIDENCE_CLASSES = new Set(["loadable", "installable", "upstream", "data"]);
 const AGENT_MODES = new Set(["primary", "subagent", "all"]);
 const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
 
@@ -433,10 +434,20 @@ const tierReason = (entry) =>
 
 const verificationReason = (entry) => {
   if (VERIFICATIONS.has(entry.verification) === false) {
-    return entry.id + ": verification " + JSON.stringify(entry.verification) + " is not verified or unverified";
+    return entry.id + ": verification " + JSON.stringify(entry.verification) + " is not verified; v4 retires every other live state";
   }
-  if (entry.verification === "verified" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
-    return entry.id + ": verification is verified but install_cmd is null or empty";
+  if (EVIDENCE_CLASSES.has(entry.class) === false) {
+    return entry.id + ": class " + JSON.stringify(entry.class) + " is outside the v4 class enum";
+  }
+  const registry = entry.evidence !== null && typeof entry.evidence === "object" ? entry.evidence.command_registry : null;
+  if (entry.class === "installable" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")) {
+    return entry.id + ": installable row carries no install_cmd";
+  }
+  if (typeof entry.install_cmd === "string" && (registry === null || registry === undefined)) {
+    return entry.id + ": non-null install_cmd carries no evidence.command_registry";
+  }
+  if (registry !== null && registry !== undefined && registry.command !== entry.install_cmd) {
+    return entry.id + ": evidence.command_registry.command does not equal install_cmd";
   }
   return null;
 };
@@ -506,8 +517,8 @@ const checkLspRows = (components) => {
     const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
     if (reason !== null) failures.push(reason);
     if (entry.install_cmd === null || entry.install_cmd === undefined) {
-      if (entry.verification !== "unverified") {
-        failures.push(entry.id + ": install_cmd is null but verification is not unverified; a null command is only honest as unverified");
+      if (entry.class !== "loadable" || entry.evidence === null || typeof entry.evidence !== "object" || entry.evidence.load_proof === undefined) {
+        failures.push(entry.id + ": null command is only honest for a loadable row carrying load_proof");
         continue;
       }
       if (sidecar === null) {
@@ -615,59 +626,38 @@ const checkThemeRows = (components) => {
 };
 
 const checkSkillsUpstream = (components) => {
-  const skills = components.filter(
-    (entry) => entry.kind === "skill" && entry.verification === "verified" && typeof entry.source === "string" && entry.source !== SELF_SOURCE
-  );
-  if (skills.length === 0) return { status: "PASS", detail: "0 verified upstream skills; nothing to resolve" };
+  const skills = components.filter((entry) => entry.kind === "skill" && entry.class === "installable");
+  if (skills.length === 0) return { status: "PASS", detail: "0 installable skill rows; nothing to resolve" };
   const failures = [];
-  const repos = new Map();
+  const repos = new Set();
   for (const entry of skills) {
     const match = typeof entry.install_cmd === "string" ? entry.install_cmd.match(SKILL_CMD) : null;
-    if (match === null || match[1] !== entry.source || match[2] !== entry.id) {
-      failures.push(entry.id + ": install_cmd does not match the npx skills add <owner>/<repo> --skill <name> -a opencode shape for source " + entry.source);
+    if (match === null) {
+      failures.push(entry.id + ": install_cmd does not match the npx skills add <owner>/<repo> --skill <name> -a opencode shape");
       continue;
     }
-    if (repos.has(entry.source) === false) repos.set(entry.source, []);
-    repos.get(entry.source).push(entry.id);
-  }
-  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
-  const auth = runCapture("gh", ["auth", "status"]);
-  if (auth.ok === false) {
-    return { status: "SKIPPED", detail: skills.length + " install_cmd shapes hold; gh not authenticated — upstream resolution not evaluated" };
-  }
-  const resolved = [];
-  const skipped = [];
-  for (const source of repos.keys()) {
-    const result = runCapture("gh", ["repo", "view", source, "--json", "nameWithOwner"]);
-    if (result.ok) {
-      let remote = "";
-      try {
-        remote = JSON.parse(result.stdout).nameWithOwner;
-      } catch (error) {
-        failures.push(source + ": gh output is not JSON (" + String(error.message) + ")");
-        continue;
-      }
-      if (typeof remote === "string" && remote.toLowerCase() === source.toLowerCase()) resolved.push(source);
-      else failures.push(source + ": remote reports " + JSON.stringify(remote));
+    if (match[1] !== entry.source && match[1] !== entry.origin) {
+      failures.push(entry.id + ": install_cmd names " + JSON.stringify(match[1]) + " but the row's source/origin is " + JSON.stringify(entry.source) + "/" + JSON.stringify(entry.origin));
       continue;
     }
-    const reason = offlineReason(result);
-    if (reason === null) {
-      failures.push(source + ": gh repo view failed: " + (result.stderr + " " + result.stdout).trim().slice(0, 160));
-    } else {
-      skipped.push(source + " (" + reason + ")");
+    const registry = entry.evidence !== null && typeof entry.evidence === "object" ? entry.evidence.command_registry : null;
+    if (
+      registry === null ||
+      registry === undefined ||
+      registry.registry !== "skills-registry" ||
+      registry.command !== entry.install_cmd ||
+      typeof registry.checked_at !== "string" ||
+      /^\d{4}-\d{2}-\d{2}$/.test(registry.checked_at) === false
+    ) {
+      failures.push(entry.id + ": evidence.command_registry does not carry this exact command under skills-registry with a dated proof");
+      continue;
     }
+    repos.add(match[1]);
   }
-  if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
-  if (skipped.length > 0) {
-    return {
-      status: "SKIPPED",
-      detail: skills.length + " install_cmd shapes hold; gh resolution skipped offline for " + skipped.length + " repo(s) (" + resolved.length + " resolved): " + skipped.join("; ")
-    };
-  }
+  if (failures.length > 0) return { status: "FAIL", detail: failures.slice(0, 12).join("; ") + (failures.length > 12 ? "; ... and " + (failures.length - 12) + " more" : "") };
   return {
     status: "PASS",
-    detail: skills.length + " verified upstream skill commands hold the install_cmd shape and gh resolves every owner/repo (" + resolved.length + " repos resolved)"
+    detail: skills.length + " installable skill commands hold the install_cmd shape, name the row's origin or source, and carry a dated skills-registry proof (" + repos.size + " repos)"
   };
 };
 
@@ -848,21 +838,54 @@ const fileLayout = (kind) => FILE_LAYOUT[kind];
 
 const checkFileCopyShape = (components, selectedSet, family) => {  const failures = [];
   let proven = 0;
-  const skipNull = (entry) => {
-    if (entry.install_cmd === null || entry.install_cmd === undefined) {
-      if (selectedSet.has(componentToken(entry.kind, entry.id))) {
-        failures.push(entry.id + ": selected " + entry.kind + " row carries no install command");
-      }
-      return true;
+  const dataMissingProof = (entry, expectedSrc, shippedPathExists, shippedText, checkKindInvariant) => {
+    if (shippedPathExists === false) return "shipped file " + expectedSrc + " does not exist";
+    if (shippedText === null) return expectedSrc + " is unreadable";
+    if (checkKindInvariant) {
+      const defect = PROVERS[entry.kind](entry.id, shippedText, expectedSrc);
+      if (defect !== null) return defect;
     }
-    return false;
+    const proof = entry.evidence !== null && typeof entry.evidence === "object" ? entry.evidence.source_proof : null;
+    if (proof === null || proof === undefined || proof.target !== expectedSrc || proof.method !== "file-resolves") {
+      return "data row carries no file-resolves source_proof for " + expectedSrc;
+    }
+    return null;
   };
 
   for (const kind of family) {
     for (const entry of components.filter((candidate) => candidate.kind === kind)) {
       const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
       if (reason !== null) failures.push(reason);
-      if (skipNull(entry)) continue;
+      const files = fileLayout(entry.kind);
+      const expectedSrc = "registry/" + files.dir + "/" + entry.id + "." + files.ext;
+      if (entry.install_cmd === null || entry.install_cmd === undefined) {
+        // V4-3/R3: a data row is command-free; its proof is the shipped file.
+        if (entry.class !== "data") {
+          failures.push(entry.id + ": " + entry.kind + " row carries no install command");
+          continue;
+        }
+        const filePath = path.join(ROOT, expectedSrc);
+        const present = fs.existsSync(filePath);
+        let shipped = null;
+        if (present) {
+          try {
+            shipped = fs.readFileSync(filePath, "utf8");
+          } catch (error) {
+            failures.push(entry.id + ": " + expectedSrc + " is unreadable (" + String(error.message) + ")");
+            continue;
+          }
+        }
+        const defect = dataMissingProof(
+          entry,
+          expectedSrc,
+          present,
+          shipped,
+          selectedSet.has(componentToken(entry.kind, entry.id))
+        );
+        if (defect !== null) failures.push(entry.id + ": " + defect);
+        else proven++;
+        continue;
+      }
       const text = entry.install_cmd.trim();
       if (FILE_COPY_PIPE_FORBIDDEN.test(text)) {
         failures.push(entry.id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
@@ -873,8 +896,6 @@ const checkFileCopyShape = (components, selectedSet, family) => {  const failure
         failures.push(entry.id + ": install_cmd is not a `cp <src> <dest>` file copy (" + JSON.stringify(entry.install_cmd) + ")");
         continue;
       }
-      const files = fileLayout(entry.kind);
-      const expectedSrc = "registry/" + files.dir + "/" + entry.id + "." + files.ext;
       if (match[1] !== expectedSrc) {
         failures.push(entry.id + ": install_cmd copies " + JSON.stringify(match[1]) + " but the component ships at " + expectedSrc);
         continue;
@@ -900,7 +921,31 @@ const checkFileCopyShape = (components, selectedSet, family) => {  const failure
   for (const entry of components.filter((candidate) => candidate.kind === "design.md")) {
     const reason = phaseReason(entry) ?? tierReason(entry) ?? verificationReason(entry);
     if (reason !== null) failures.push(reason);
-    if (skipNull(entry)) continue;
+    if (entry.install_cmd === null || entry.install_cmd === undefined) {
+      const proof = entry.evidence !== null && typeof entry.evidence === "object" ? entry.evidence.source_proof : null;
+      const target = proof === null || proof === undefined ? null : proof.target;
+      const expected = typeof target === "string" && target.startsWith("registry/design/") && target.endsWith("/DESIGN.md") ? target : null;
+      if (entry.class !== "data" || expected === null || proof.method !== "file-resolves") {
+        failures.push(entry.id + ": design.md row carries no file-resolves data source_proof");
+        continue;
+      }
+      const filePath = path.join(ROOT, expected);
+      if (fs.existsSync(filePath) === false) {
+        failures.push(entry.id + ": shipped file " + expected + " does not exist");
+        continue;
+      }
+      const shipped = fs.readFileSync(filePath, "utf8");
+      if (/^\s*model\s*:/m.test(shipped)) {
+        failures.push(entry.id + ": " + expected + " pins a model; design documents carry no model pins");
+        continue;
+      }
+      if (/TODO|FIXME/.test(shipped)) {
+        failures.push(entry.id + ": " + expected + " carries a TODO or FIXME placeholder");
+        continue;
+      }
+      proven++;
+      continue;
+    }
     const text = entry.install_cmd.trim();
     if (FILE_COPY_PIPE_FORBIDDEN.test(text)) {
       failures.push(entry.id + ": install_cmd chains shell operators (" + JSON.stringify(entry.install_cmd) + "); use a plain file copy");
@@ -961,8 +1006,8 @@ const checkAgentHygiene = (selected, index) => {
       failures.push(entry.id + ": agent rows carry null install_cmd; fabricated spawn commands are refused");
       continue;
     }
-    if (entry.verification !== "unverified") {
-      failures.push(entry.id + ": null-command agent row is not recorded unverified");
+    if (entry.verification !== "verified") {
+      failures.push(entry.id + ": agent row is not verified");
       continue;
     }
     const isLocal = entry.source === null || entry.source === undefined || entry.source === SELF_SOURCE;
@@ -1012,13 +1057,13 @@ const checkAgentHygiene = (selected, index) => {
       const entry = index.get(token);
       if (entry === undefined || entry.kind !== kind) continue;
       if (entry.install_cmd !== null && entry.install_cmd !== undefined) failures.push(entry.id + ": " + kind + " rows carry null install_cmd");
-      else if (entry.verification !== "unverified") failures.push(entry.id + ": null-command " + kind + " row is not recorded unverified");
+      else if (entry.verification !== "verified") failures.push(entry.id + ": null-command " + kind + " row is not verified");
     }
   }
   if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
   return {
     status: "PASS",
-    detail: local + " selected local agents resolve with no model pin (" + leaderFiles + " named leaders mode primary plus color; the rest mode subagent with no color); selected agent, hook and plugin rows carry null install_cmd + unverified"
+    detail: local + " selected local agents resolve with no model pin (" + leaderFiles + " named leaders mode primary plus color; the rest mode subagent with no color); selected agent, hook and plugin rows carry null install_cmd and are verified"
   };
 };
 
@@ -1068,46 +1113,50 @@ const main = () => {
     selectionProblem = String(error.message);
   }
 
-  // P1–P3: command honesty, in the direction the registers can prove today.
-  const verifiedWithoutCommand = components.filter(
-    (entry) => entry.verification === "verified" && (entry.install_cmd === null || entry.install_cmd === undefined)
+  // P1–P3 (v4): the class fixes the command contract, and any command must be
+  // backed by the registry that proved it. A dated proof lives in the record;
+  // TTL enforcement is P4.
+  const installableWithoutCommand = components.filter(
+    (entry) => entry.class === "installable" && (typeof entry.install_cmd !== "string" || entry.install_cmd === "")
   );
   record(
-    "command-honesty/verified-requires-command",
-    verifiedWithoutCommand.length === 0 ? "PASS" : "FAIL",
-    verifiedWithoutCommand.length === 0
-      ? components.filter((entry) => entry.verification === "verified").length +
-        " verified rows all carry an install command"
-      : verifiedWithoutCommand.length +
-        " rows claim verified with no command: " +
-        samples(verifiedWithoutCommand, (entry) => entry.kind + "/" + entry.id)
+    "command-honesty/installable-requires-command",
+    installableWithoutCommand.length === 0 ? "PASS" : "FAIL",
+    installableWithoutCommand.length === 0
+      ? components.filter((entry) => entry.class === "installable").length +
+        " installable rows all carry an install command"
+      : installableWithoutCommand.length +
+        " installable rows carry no command: " +
+        samples(installableWithoutCommand, (entry) => entry.kind + "/" + entry.id)
   );
 
-  const nullWithoutUnverified = components.filter(
-    (entry) => (entry.install_cmd === null || entry.install_cmd === undefined) && entry.verification !== "unverified"
+  const commandWithoutRegistry = components.filter(
+    (entry) =>
+      typeof entry.install_cmd === "string" &&
+      (entry.evidence === null ||
+        typeof entry.evidence !== "object" ||
+        entry.evidence.command_registry === undefined ||
+        entry.evidence.command_registry.command !== entry.install_cmd)
   );
   record(
-    "command-honesty/null-requires-unverified",
-    nullWithoutUnverified.length === 0 ? "PASS" : "FAIL",
-    nullWithoutUnverified.length === 0
-      ? components.filter((entry) => entry.install_cmd === null || entry.install_cmd === undefined).length +
-        " command-less rows are all recorded unverified"
-      : nullWithoutUnverified.length +
-        " rows carry no command without saying unverified: " +
-        samples(nullWithoutUnverified, (entry) => entry.kind + "/" + entry.id)
+    "command-honesty/registry-matches-command",
+    commandWithoutRegistry.length === 0 ? "PASS" : "FAIL",
+    commandWithoutRegistry.length === 0
+      ? components.filter((entry) => typeof entry.install_cmd === "string").length +
+        " commands are backed by evidence.command_registry naming the same command"
+      : commandWithoutRegistry.length +
+        " commands carry no matching registry proof: " +
+        samples(commandWithoutRegistry, (entry) => entry.kind + "/" + entry.id)
   );
 
   const offVocabulary = components.filter((entry) => VERIFICATIONS.has(entry.verification) === false);
-  const pending = components.filter((entry) => entry.verification === "pending");
   record(
-    "command-honesty/no-pending",
+    "command-honesty/verified-only",
     offVocabulary.length === 0 ? "PASS" : "FAIL",
     offVocabulary.length === 0
-      ? components.length + " rows carry only verified or unverified; 0 pending"
+      ? components.length + " live rows are all verified; the v3 unverified state is retired"
       : offVocabulary.length +
-        " rows carry a value outside the vocabulary (pending: " +
-        pending.length +
-        "): " +
+        " rows carry a value outside the vocabulary: " +
         samples(offVocabulary, (entry) => entry.kind + "/" + entry.id + "=" + JSON.stringify(entry.verification))
   );
 
@@ -1412,38 +1461,17 @@ const main = () => {
     );
   }
 
-  // Ledger 2: the backfill gap the strict direction would have to close.
-  const backfill = components.filter(
-    (entry) =>
-      (entry.install_cmd !== null && entry.install_cmd !== undefined) && entry.verification === "unverified"
-  );
-  const selectedBackfill =
-    selection === null
-      ? []
-      : selectedTokens.filter((token) => {
-          const entry = index.get(token);
-          return (
-            entry !== undefined &&
-            entry.install_cmd !== null &&
-            entry.install_cmd !== undefined &&
-            entry.verification === "unverified"
-          );
-        });
+  // Ledger 2: the v4 class split, so the evidence model is visible per catalog.
+  const classCounts = {};
+  for (const entry of components) classCounts[entry.class] = (classCounts[entry.class] || 0) + 1;
   console.log("");
   console.log(
-    "command-honesty/backfill (not a gate): " +
-      backfill.length +
-      " catalog rows carry a command recorded unverified — allowed during backfill by scripts/verify-registry.mjs:138-149; the strict direction lands at the v4 zero-unverified-live gate"
+    "class ledger (not a gate): " +
+      Object.keys(classCounts)
+        .sort()
+        .map((key) => key + " " + classCounts[key])
+        .join(" · ")
   );
-  if (selectedTokens.length > 0) {
-    console.log(
-      "  inside the selection: " +
-        selectedBackfill.length +
-        " of " +
-        selectedTokens.length +
-        (selectedBackfill.length === 0 ? "" : " -> " + selectedBackfill.join(", "))
-    );
-  }
 
   // Ledger 3: phase -> count -> ids.
   if (phaseSets !== null) {

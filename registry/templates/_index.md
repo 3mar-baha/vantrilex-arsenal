@@ -12,7 +12,7 @@ _None._
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| target-project-docs-scaffold | template | conditional | Use when Vanguard seeds the 28-file target-project docs scaffold with f… | `cp registry/templates/target-project-docs-scaffold.json docs/target-pro…` |
+| target-project-docs-scaffold | template | conditional | Use when Vanguard seeds the 28-file target-project docs scaffold with f… |  |
 
 ## Tier 2 — Extended (0)
 

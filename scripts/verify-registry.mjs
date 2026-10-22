@@ -85,7 +85,7 @@ function checkSchema(records, schema) {
   }
 
   if (total === 0) {
-    return { status: 'PASS', detail: `${records.length} records conform to registry/schema/catalog-v3.schema.json` };
+    return { status: 'PASS', detail: `${records.length} records conform to registry/schema/catalog-v4.schema.json` };
   }
   return {
     status: 'FAIL',
@@ -126,36 +126,51 @@ function checkRowCounts(parsed) {
 
 function checkInstallInvariant(records) {
   const errors = [];
-  const unverifiedSamples = [];
-  let unverifiedWithCommand = 0;
+  const EVIDENCE_CLASSES = new Set(['loadable', 'installable', 'upstream', 'data']);
 
   for (const record of records) {
-    if (record.verification === 'verified' && record.install_cmd === null) {
+    if (record.verification !== 'verified') {
       errors.push(
-        `id "${record.id}" (line ${lineOf(record)}): verification "verified" but install_cmd is null — the schema invariant forbids this`,
+        `id "${record.id}" (line ${lineOf(record)}): verification ${JSON.stringify(record.verification)} — a live v4 record is verified and nothing else`,
       );
+      continue;
     }
-    if (record.install_cmd !== null && record.verification === 'unverified') {
-      unverifiedWithCommand += 1;
-      if (unverifiedSamples.length < 5) unverifiedSamples.push(`${record.id} (line ${lineOf(record)})`);
+    if (!EVIDENCE_CLASSES.has(record.class)) {
+      errors.push(`id "${record.id}" (line ${lineOf(record)}): class ${JSON.stringify(record.class)} is outside the v4 class enum`);
+      continue;
+    }
+    const evidence = record.evidence !== null && typeof record.evidence === 'object' ? record.evidence : null;
+    const registry = evidence === null ? null : evidence.command_registry;
+    if (record.class === 'installable' && (typeof record.install_cmd !== 'string' || record.install_cmd === '')) {
+      errors.push(`id "${record.id}" (line ${lineOf(record)}): class "installable" requires a non-null install_cmd`);
+      continue;
+    }
+    if (typeof record.install_cmd === 'string' && (registry === null || registry === undefined)) {
+      errors.push(`id "${record.id}" (line ${lineOf(record)}): non-null install_cmd carries no evidence.command_registry`);
+      continue;
+    }
+    if (registry !== null && registry !== undefined && registry.command !== record.install_cmd) {
+      errors.push(`id "${record.id}" (line ${lineOf(record)}): evidence.command_registry.command does not equal install_cmd`);
+      continue;
+    }
+    if ((record.class === 'upstream' || record.class === 'data') && record.install_cmd !== null) {
+      errors.push(`id "${record.id}" (line ${lineOf(record)}): class ${JSON.stringify(record.class)} is command-free by contract`);
+      continue;
+    }
+    if (record.class === 'loadable' && record.source === null && record.install_cmd !== null) {
+      errors.push(`id "${record.id}" (line ${lineOf(record)}): self-shipped loadable record carries an install command`);
     }
   }
 
-  const warning =
-    unverifiedWithCommand === 0
-      ? null
-      : `${unverifiedWithCommand} record${unverifiedWithCommand === 1 ? '' : 's'} with a non-null install_cmd but verification "unverified" (allowed during backfill): ${unverifiedSamples.join(', ')}${unverifiedWithCommand > unverifiedSamples.length ? ', ...' : ''}`;
-
-  const summary = warning ?? 'no record has a non-null install_cmd while unverified';
+  const summary = 'every live row is verified, its class evidence is present, and each command names the registry that proved it';
   if (errors.length > 0) {
     return {
       status: 'FAIL',
       detail: `${errors.length} invariant violation${errors.length === 1 ? '' : 's'}; ${summary}`,
       lines: errors.slice(0, MAX_REPORTED),
-      warning,
     };
   }
-  return { status: 'PASS', detail: `0 invariant violations; ${summary}`, warning };
+  return { status: 'PASS', detail: `0 invariant violations; ${summary}` };
 }
 
 /* ---------- check 5: orphan references ---------- */

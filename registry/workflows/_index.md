@@ -12,7 +12,7 @@ _None._
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| forge-dag-exemplar | workflow | conditional | Use when BLAZAR must dispatch a Forge-authored DAG of nodes with owners… | `cp registry/workflows/forge-dag-exemplar.yaml .opencode/workflows/forge…` |
+| forge-dag-exemplar | workflow | conditional | Use when BLAZAR must dispatch a Forge-authored DAG of nodes with owners… |  |
 
 ## Tier 2 — Extended (0)
 

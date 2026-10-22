@@ -80,7 +80,7 @@ _None._
 | spacex | design.md | conditional | When the project is UI-heavy and references the spacex interface design… |  |
 | spotify | design.md | conditional | When the project is UI-heavy and references the spotify interface desig… |  |
 | starbucks | design.md | conditional | When the project is UI-heavy and references the starbucks interface des… |  |
-| stripe | design.md | conditional | When the project is UI-heavy and references the stripe interface design… | `cp registry/design/stripe/DESIGN.md docs/design/stripe-DESIGN.md` |
+| stripe | design.md | conditional | When the project is UI-heavy and references the stripe interface design… |  |
 | supabase | design.md | conditional | When the project is UI-heavy and references the supabase interface desi… |  |
 | superhuman | design.md | conditional | When the project is UI-heavy and references the superhuman interface de… |  |
 | tesla | design.md | conditional | When the project is UI-heavy and references the tesla interface design… |  |
