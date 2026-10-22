@@ -279,7 +279,7 @@ servers are the most expensive components to keep resident, so the kit refuses
 to grow past that ceiling and, on ties, prefers a skill or a CLI over an MCP
 server.
 
-**25 skill components** are selected out of the **37 folders** on disk under
+**18 skill components** are selected out of the **26 folders** on disk under
 `.opencode/skills/`: the four top-level skills (Prime, Vanguard, Doctrine,
 Workflow-Forge) plus the conditional ones. Workflow-Forge ships on disk in this
 tree; Vanguard still proves it by read-back in the Step 4 lane (see above). A

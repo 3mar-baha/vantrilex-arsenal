@@ -118,9 +118,12 @@ registry .opencode scripts docs
 
 `kit` is an **optional** path, not a required one: `scripts/self-publish.mjs`
 declares it in `PACKAGE_OPTIONAL_PATHS`, so it is packaged when the released
-commit still carries it and skipped with a log line when it does not. The lock
-era ended at S3, so current commits do not carry it while historical commits
-keep their original shape.
+commit still carries it and left out when it does not. Leaving it out is silent:
+the log line that names packaged optional paths prints only when
+`asset.optional.length > 0` (`scripts/self-publish.mjs:533`), and a commit with
+no `kit` yields an empty list, so no line is emitted. The lock era ended at S3,
+so current commits do not carry it while historical commits keep their original
+shape.
 
 If the tag landed before its release was created, the workflow creates the
 release from the changelog notes first, then uploads the artifact with

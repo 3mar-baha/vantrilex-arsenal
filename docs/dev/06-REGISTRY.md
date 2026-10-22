@@ -270,13 +270,18 @@ disposition is **option (c)**:
   documented lie about what the file contains.
 
 Theme colour normalization (F-COLOR-09) landed at `790ef85`, and it touched the
-**map**, not the palettes: `vantrilex-atomic-switch.json` carries twelve
-`accentHex` values, one per mapped agent, and all twelve are uppercase
-(`vantrilex-aether` is `#14B8A6`). The twelve palette files carry no `accentHex`
-field at all; their hex lives inside the `base`/`dark` trees and stays
-lowercase, untouched. The two surfaces are therefore different claims: the map's
-accent column is normalized, the palette trees are not, and a reader must not
-expect one casing across both.
+**map**, not the palettes: `vantrilex-atomic-switch.json` carries thirteen
+`accentHex` fields — twelve per-agent values, one per mapped agent, plus a
+reserved duplicate on `reserved` that repeats blazar's `#4169E1` — and all of
+them are uppercase today (`vantrilex-aether` is `#14B8A6`; that one value was
+the last lowercase one, fixed by `790ef85`). The twelve palette files
+carry no `accentHex` field at all; their hex lives inside the `base`/`dark` trees
+and is mixed-case, not lowercase: ten palettes carry an uppercase
+`dark.hue.*.500` value (`#3A86FF` in `vantrilex-architect`, `#8B5CF6` in
+`vantrilex-security-auditor`), the remaining two are lowercase, and none of that
+hex was touched at `790ef85`. The two surfaces are therefore different claims:
+the map's accent column is normalized, the palette trees are not, and a reader
+must not expect one casing across both.
 
 ## The MISSING-ADDRESS flow
 
