@@ -34,16 +34,56 @@ by the verifier rather than injected.
 
 ## The one hard invariant
 
-A catalog row may claim `verified` only with a non-null `install_cmd`, and a null
-command forces `unverified`. The selection does not restate that rule; it
-inherits it from the catalog row, because `verified` asserts the command was run
-against a real registry.
+A catalog row is live only with the evidence its class requires: `source_proof`
+for `upstream` and `data`, `load_proof` for `loadable`, and `install_cmd` plus
+`command_registry` plus `load_proof` for `installable`. The selection does not
+restate that rule; it inherits it from the catalog row, because `verified` now
+asserts that the class evidence exists and was checked. A token whose catalog row
+is missing is either dropped (a gate failure) or suspended (below) — never
+silently resolved.
 
 ## No `pending`
 
 Neither file carries a `pending` state. A token either resolves to a catalog row
-or the verifier reports it as dropped and fails; nothing waits between approval
-and installation.
+or it does not; nothing waits between approval and installation. The two honest
+exceptions are a **suspension** on the selection side and a **candidate** on the
+catalog side, and neither is a pending approval — both are recorded dispositions
+with their own evidence.
+
+## Suspended entries
+
+The record may carry one extra top-level array, `suspended`, holding a
+disposition per selected token whose catalog row is missing:
+
+```json
+"token": "mcp/brave",
+"reason": "missing-address",
+"since": "2026-10-22",
+"document": ".opencode/audit/MISSING-ADDRESS.md"
+```
+
+| Field | Contract |
+|---|---|
+| `token` | A `kind/id` token exactly as it appears in a `phases` array. The token stays there; the suspension adds a disposition, it does not remove the entry |
+| `reason` | Closed to `missing-address`. A suspension cannot absorb a load, shape or command failure |
+| `since` | ISO `YYYY-MM-DD` date the disposition was taken |
+| `document` | Repository-relative path that must exist, so a suspension cannot point at a document nobody wrote |
+
+No other field is read and no other field is accepted. The gate fails an entry
+carrying an unknown key.
+
+Semantics, resolved on every `verify-catalog.mjs` run:
+
+- **Active** — the token still has no catalog row. It is held out of
+  `loadability/registers` and `phase-sets`, counted, and reported as suspended,
+  never as missing.
+- **Stale** — the token is live again. The entry stops applying automatically,
+  the token becomes an ordinary selected token, and it must resolve and place
+  again. Recovery needs no manifest edit: address → evidence → re-proof →
+  re-admission, and the suspension lapses on its own.
+- Reversibility was proven byte-identically at P4: adding an eighteenth entry,
+  running the gate, and removing that line returned the manifest to its original
+  SHA-256.
 
 ## Phase and tier scoping
 
@@ -58,15 +98,19 @@ identity.
 
 ## Live census
 
-Observed 2026-10-21 with the recount command from `00-INDEX.md`: 146 tokens
+Observed 2026-10-22 with the recount command from `00-INDEX.md`: 146 tokens
 across six phases (scout 23, docs 7, plan 7, build 56, review 17, operate 36),
-30 tier `core` plus 116 tier `conditional`, no dropped tokens. Re-run the recount
-rather than quoting this line.
+of which 17 are suspended by missing address and 129 resolve to live catalog
+rows (0 dangling, 0 stale suspensions). The pre-suspension tier split was 30
+tier `core` plus 116 tier `conditional`; the 17 suspended tokens are among them
+and restore automatically when their rows return. Re-run the recount rather than
+quoting this line.
 
 ## What proves it
 
-Four `verify-catalog.mjs` checks cover this file: `loadability/registers` for
-every token resolving in `registry/catalog.json` and its sidecar, `phase-sets`
-for every token placing into an orchestrated phase, `mcp-cap` for the Tier-0 MCP
-budget, and `selection/top-level-skills` for the three top-level skills being
-carried. See `02-SCRIPTS-VERIFY.md`.
+Five `verify-catalog.mjs` checks cover this file: `loadability/registers` for
+every token resolving in `registry/catalog.json` and its sidecar (or being
+suspended), `phase-sets` for every resolvable token placing into an orchestrated
+phase, `selection/suspension` for the disposition record, `mcp-cap` for the
+Tier-0 MCP budget, and `selection/top-level-skills` for the three top-level
+skills being carried. See `02-SCRIPTS-VERIFY.md`.

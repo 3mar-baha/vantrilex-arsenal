@@ -18,23 +18,25 @@ One row per catalogued component:
 | Identity | `kind` plus `id` | Exactly which component, in which kind |
 | Version | `version_pin` | Exact tag or version where one exists; null is honest and common |
 | Command | `install_cmd` | The real command that installs it, reproducible later |
-| Verification | `verification` plus `verify_cmd` | `verified` or `unverified`, with the proof recorded when one exists |
+| Verification | `verification`, `class`, `evidence` | The constant `verified`, plus the class evidence that proves the row |
 | Phase scope | `phase` | The phase the component is injected into, or null when never injected |
 | Tier | `tier` | `core`, `conditional`, or null for a row no selection may inject |
 
-A `verified` row asserts that its command was checked against a real registry;
-it stays an assertion to re-test, never auditable proof. A null `install_cmd`
-forces `unverified`.
+A live row is `verified` only when its declared class evidence exists: source
+provenance for `upstream` and `data`, a load surface for `loadable`, and a real
+command plus its registry for `installable`. A row that cannot produce that
+evidence is not a weaker catalog row — it is a candidate under
+`registry/candidates/<kind>.jsonl`.
 
 ## No `pending` state
 
-The catalog carries no `pending` list. Every row is `verified` or `unverified`
-and nothing waits between approval and installation; a component either has a
-row or it does not. The nine per-agent themes that were once pending are
-authored and verified: nine of the twelve `theme` rows carry
-`verification: verified`, and the three unverified rows are honestly recorded as
-such. `scripts/verify-catalog.mjs` reports the count as
-`command-honesty/no-pending`.
+The catalog carries no `pending` list. Every live row is `verified` under a
+declared class and nothing waits between approval and installation; a component
+either has a live row or it does not. v4 retires the `unverified` state that v3
+carried: unproven rows are candidates, and a selected token whose row is missing
+is suspended rather than left pending. `scripts/verify-catalog.mjs` reports the
+live count under `command-honesty/verified-only`, the candidates under
+`candidates/schema`, and the dispositions under `selection/suspension`.
 
 ## The 8-MCP cap
 
@@ -90,7 +92,7 @@ as `verified`.
 | Identity | `id` plus `kind` `cli` | Which tool, and that it is installed as an executable |
 | Install command | `install_cmd` | The real command that puts the binary on `PATH` |
 | Version | `version_pin` | Exact version or tag, when the installer can pin one |
-| Verification | `verification` | `verified` only when the command was run against a real registry |
+| Verification | `verification` plus `evidence` | `verified` only when the command and its registry were both proven |
 | Phase scope | `phase` | The phases in which the agent may invoke it |
 | Tier | `tier` | `conditional` for a new entry — per-project opt-in, owner approval required |
 
@@ -103,12 +105,13 @@ managers the verifier recognises — or the vendor's own official installer.
 Two things are never acceptable: a bare package name, which is a noun and not
 an instruction, and a `curl … | sh` pipe, which runs unreviewed remote code on
 the owner's machine. A command that cannot be verified against a real registry
-does not get a plausible substitute; the entry is recorded unverified or left
-out, per [08-VERIFICATION.md](08-VERIFICATION.md).
+does not get a plausible substitute; the row is not carried live at all, per
+[08-VERIFICATION.md](08-VERIFICATION.md).
 
-The consistency rule is the schema's: a `cli` row claiming `verified` must
-carry a non-null `install_cmd`, and a null command is only honest as
-`unverified`. `scripts/verify-catalog.mjs` asserts both halves.
+The consistency rule is the schema's: a `cli` row is `installable`, so it must
+carry a non-null `install_cmd` and a `command_registry` proof whose command
+equals it. A `cli` row with no command fails its class evidence and becomes a
+candidate. `scripts/verify-catalog.mjs` asserts every half.
 
 ### Verification protocol
 

@@ -36,23 +36,23 @@ instructions to an automated agent that will typically run them. Two failure mod
 
 Mitigations already in place, and the ones you should hold us to:
 
-- An install command is never invented. It is either verified against a real
-  registry and marked `verification: verified`, or it is marked
-  `verification: unverified`, which may still carry a command mechanically
-  derived from the component's source repository, or it is `null`. Components
-  that ship as agents, plugins, and hooks carry `null` plus
-  `verification: unverified`. A derived command is never presented as checked,
-  because a plausible-looking wrong command is worse than an admission of
-  ignorance: an agent will run it.
-- `verification: verified` records **that** a command was checked. It does not
-  record **what** it was checked against — the catalog has no field for that, so
-  the evidence trail does not exist yet. Treat a `verified` flag as an assertion
-  to re-test, not as proof you can audit later.
-- `registry/catalog.json` records a version only where a pin exists. **72 of
-  2,941** rows carry a `version_pin` — the 64 `cli` tools and 8 MCP servers,
-  including `context7` and `firecrawl`. The other 2,869 are `null`, including
-  all ten installable skills, so a floating upstream *can* silently change the kit
-  today. Do not read a catalog row as immutable unless its `version_pin` is set.
+- An install command is never invented. A live row is `verified`, which now means
+  its declared class evidence exists: `source_proof` for `upstream` and `data`,
+  `load_proof` for `loadable`, and `install_cmd` plus `command_registry` plus
+  `load_proof` for `installable`. A row that cannot produce that evidence is not
+  carried live — it becomes a candidate in `registry/candidates/<kind>.jsonl`. A
+  plausible-looking wrong command is worse than an admission of ignorance,
+  because an agent will run it.
+- `verification: verified` now records **what** the command was checked against:
+  the `evidence.command_registry` leg names the registry and the exact command,
+  and the `checked_at` date makes the proof auditable and expiring. Treat a
+  `verified` flag as a dated assertion: it lapses after 90 days for a command,
+  180 for a load surface, and 365 for a source coordinate.
+- `registry/catalog.json` records a version only where a pin exists. **71 of
+  2,837** live rows carry a `version_pin` — the 64 `cli` tools and 7 MCP
+  servers, including `context7` and `firecrawl`. The other 2,766 are `null`, so
+  a floating upstream *can* silently change the kit today. Do not read a catalog
+  row as immutable unless its `version_pin` is set.
 - `scripts/verify-catalog.mjs` re-proves that each selected component resolves.
 - Known defect, closed: 36 records in `registry/data/skills.jsonl` named a
   skill with a multi-word, unquoted `--skill` value, so the shell split it and the

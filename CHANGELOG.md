@@ -9,7 +9,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Catalog v4: the class-evidence model replaces the `verified`/`unverified`
+  pair (`feat(catalog)`).** Every live record now declares a class —
+  `upstream`, `data`, `loadable`, or `installable` — and the class fixes the
+  evidence that proves it: source provenance, a load surface, or a command plus
+  the registry that proved it. `verification` is the constant `verified`; a row
+  that cannot produce its class evidence is no longer a live record with a
+  weaker label. Proofs are dated and expire (90 days for a command, 180 for a
+  load surface, 365 for a source). The migration leaves **2,837 live rows** and
+  moves **104 rows** to `registry/candidates/<kind>.jsonl` with one of six reason
+  codes, so nothing is silently dropped and nothing is guessed. The catalog
+  counts **12 theme components plus 1 atomic-switch map**, the map being an
+  out-of-catalog runtime artifact rather than a palette theme. The sixteen kinds,
+  the generation chain, and the new-kind freeze until the P6 sign-off are
+  documented in `docs/dev/06-REGISTRY.md`, and the selection's 17
+  missing-address suspensions — reversible and self-restoring — in
+  `docs/dev/05-KIT-LOCK.md`.
+
 ### Added
+
+- **The release queue is documented (`docs(release)`).** `docs/dev/09-RELEASE-QUEUE.md`
+  states the queue entry schema (`unit_type`, `scope`, `base_commit`, `status`,
+  `published_version`, `published_at`, and the optional `intended_version`), the
+  increment policy at `registry/policies/release-policy.json` and how a user
+  restyles it, the three publication modes (commit, evidence, closure-record),
+  the fail-closed declared-intent guard, the owner-created
+  `.opencode/auto-release.enabled` switch, the shared audit log, and the refusal
+  table. `docs/14-CI-RELEASE.md` carries the user-facing policy summary.
 
 - **Auto-publish for `v0.0.x` patch releases (`feat(release)`).** Publishing
   a GitHub release triggers `.github/workflows/auto-publish.yml`, which builds

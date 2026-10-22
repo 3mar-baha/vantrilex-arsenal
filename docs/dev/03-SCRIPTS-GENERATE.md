@@ -27,7 +27,8 @@ The generator is the single place a kind is wired in. Four maps and one list
 decide everything:
 
 - `KINDS` — the order: `skill`, `mcp`, `plugin`, `hook`, `agent`, `formatting`,
-  `lsp`, `cli`, `theme`.
+  `lsp`, `cli`, `theme`, `prompt`, `dataset`, `template`, `policy`, `benchmark`,
+  `workflow`, `design.md`.
 - `SECTION_KINDS` — the Markdown heading label to kind, such as `MCP Servers`
   to `mcp`.
 - `SECTION_LABELS` — the reverse, kind to heading label.
@@ -42,8 +43,13 @@ it is rejected rather than ignored:
 ```text
 id  name  kind  description  source  origin  install_cmd  version_pin
 category  tags  when_to_use  phase  tier  verify_cmd  cost_note
-verification  default_selected
+verification  class  evidence  default_selected
 ```
+
+`id` and `class` are required by the v4 schema, and `evidence` carries the
+class's proof. A record without its class evidence fails validation and therefore
+never reaches the mirror — the candidate files under `registry/candidates/` are
+written by the migration and audit passes, not by this generator.
 
 ## Sidecar merge
 
@@ -59,9 +65,9 @@ absent is not an error: the base values are used and the absence is logged.
 ## Validation
 
 Every generated record is validated against
-`registry/schema/catalog-v3.schema.json` before anything is written. The run
-aborts listing the first twenty violations. This is what makes the null-command
-invariant hold in the mirror as well as in the source.
+`registry/schema/catalog-v4.schema.json` before anything is written. The run
+aborts listing the first twenty violations. This is what makes the class-evidence
+contract hold in the mirror as well as in the source.
 
 ## Targets
 
@@ -98,6 +104,7 @@ regenerating rather than by editing.
 than re-implementing them, so the verifier and the generator can never disagree
 about what a valid record is.
 
-Observed live: `catalog_version` 3 with 2805 records, and
-`node scripts/generate-catalog-json.mjs --check` reporting
-`registry/catalog.json — ok`.
+Observed live 2026-10-22: `catalog_version` 4 with 2,837 records, and
+`node scripts/generate-catalog-json.mjs --check` reporting every generated
+surface `— ok`. The per-kind totals are in `06-REGISTRY.md`; a count quoted here
+would go stale the next time a row lands.

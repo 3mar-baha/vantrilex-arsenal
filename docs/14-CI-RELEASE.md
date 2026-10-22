@@ -52,6 +52,56 @@ authentication each exit non-zero before anything is pushed. Usage:
 `VERSION` is `X.Y.Z` or `X.Y.Z.W`, with an optional leading `v` that is
 stripped. `--draft` creates the GitHub release as a draft for review.
 
+## The self-publish queue
+
+A closure does not need a human at a terminal to become a release. The unit
+appends one entry to `.opencode/release-queue.jsonl` at its closure commit; the
+queue lane computes the version, proves the commit, and publishes:
+
+```json
+{"unit_type":"phase","scope":"the release notes, verbatim","base_commit":"<40-hex>",
+ "status":"pending","published_version":null,"published_at":null,
+ "intended_version":"v0.8.11"}
+```
+
+`unit_type` is `phase` or `mission`; `scope` is the release notes; `base_commit`
+is the tree that gets tagged; `intended_version` is optional and, when present,
+acts as a guard rather than a hint. Full field rules, the refusal table, and the
+three publication modes are in `docs/dev/09-RELEASE-QUEUE.md`.
+
+### The increment policy
+
+The number is not hard-coded anywhere. `registry/policies/release-policy.json`
+is the single source:
+
+```json
+{
+  "increments": { "phase": { "patch": 1 }, "mission": { "minor": 1 } },
+  "cascade": true
+}
+```
+
+- A completed **phase** (one cluster, one remediation pass, one audit round)
+  bumps `patch` once.
+- A completed **mission** (a named multi-phase campaign) bumps `minor` once.
+- `cascade: true` resets the lower components when a higher one moves.
+
+The shipped values are the Arsenal defaults, and this repository runs them
+unchanged. To restyle the line, edit that one file: change the component, the
+amount, or both, or set `cascade` to `false` to keep lower components. The
+publisher applies whatever the policy says and refuses a malformed policy
+rather than guessing. No script and no workflow carries an increment value, so a
+grep for a hard-coded increment is expected to return nothing.
+
+### Fail-closed behaviour
+
+Every run proves the exact queued commit with the battery (`generate-catalog
+--check`, `verify-registry`, `verify-skills`, `verify-catalog`, `tsc`) before
+anything is created. A refusal creates nothing and consumes nothing: a red gate,
+an unreachable commit, a missing packaged path, or an `intended_version` that
+does not match the number the policy computes all exit 1 with one audit line.
+The absence of `.opencode/auto-release.enabled` disables the lane entirely.
+
 ## The tarball contents
 
 The release workflow attaches one tarball per tag,

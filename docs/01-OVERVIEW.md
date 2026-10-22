@@ -13,7 +13,7 @@ contradicts them.
 | Part | Location | Role |
 |---|---|---|
 | Plugin | `.opencode/` | Shipped hooks-as-plugin callbacks, role agents, operator commands, transplanted skills |
-| Registry | `registry/` | The 2931-component catalog: human-readable source plus machine mirror |
+| Registry | `registry/` | The 2,837-row catalog: human-readable source plus machine mirror, with 104 candidates beside it |
 | Default kit | Tier-0 set in the catalog | What every project receives without questions asked |
 
 The kit specification is `spec/VANTRILEX_KIT_SPEC.md` (naming, the Tier-0 set
@@ -59,12 +59,14 @@ placed over the catalog and provisioned per phase:
 | CLIs | 58 | 58 selected command-line tools, every one `verified`; the catalog carries 64, installed only where the build needs them |
 | Other kinds | 7 | prompts 1, templates 1, workflows 1, design records 1, benchmarks 1, datasets 1, policies 1 |
 
-The honest current count is 30 tier `core` records plus 116 tier `conditional`
-records, which is 146 selected components, with no `pending` state: every catalog
-row is `verified` or `unverified`. `registry/catalog.json` today carries 2,941
-records in total (39 tier `core`, 235 tier `conditional`, the remainder untiered
-and never injected). The catalog recount stands at 20 default-selected
-components and 91 verified install commands, enriched from 16 sidecars merged by
+The honest current count is 146 selected components: 30 tier `core` and 116
+tier `conditional`. Seventeen of the tokens are suspended because their catalog
+row is missing, so 129 resolve against live rows today. Every live catalog row
+is `verified` under its declared evidence class — there is no carried
+`unverified` state in v4. `registry/catalog.json` carries 2,837 live records
+(38 tier `core`, 218 tier `conditional`, the remainder untiered and never
+injected) beside 104 candidates in `registry/candidates/`. The catalog recount
+stands at 19 default-selected components, enriched from 16 sidecars merged by
 the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
 lsp, mcp, plugins, policies, prompts, skills, templates, themes, workflows).
 Tier-1 components — Python, UI, team-flow, and design-system components — are
@@ -87,7 +89,7 @@ OpenCode has no standalone hooks directory, so hooks are plugin callbacks: the
 against the session `prompt` hook — while the other six hooks and the
 docs-discipline guard remain on the V1 `server()` surface and are **inert under
 V2**. That gap is deliberate and unfinished, not a completed port, and it does
-not move the census: 157 locked components, 7 of them hooks. The seventh hook is
+not move the census: 146 selected components, 7 of them hooks. The seventh hook is
 documented in [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 
 ## The Node-only toolchain

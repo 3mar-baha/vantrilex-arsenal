@@ -1,9 +1,11 @@
 # 04 — Operations Scripts
 
-Eight POSIX `bash` scripts live in `scripts/`. Together they provision a
-worktree per concern, inject the phase kit, integrate, tear down, record a
-decision, activate the git hooks, migrate a checkout to the V2 layout, and
-publish a release. Each takes `-h` or `--help`, and each refuses rather than
+Nine POSIX `bash` scripts live in `scripts/`, beside two Node publishers
+(`self-publish.mjs`, `backfill-publish.mjs`) documented in
+`09-RELEASE-QUEUE.md`. Together the shell scripts provision a worktree per
+concern, inject the phase kit, integrate, tear down, record a decision, activate
+the git hooks, migrate a checkout to the V2 layout, publish a release, and attach
+the distributable. Each takes `-h` or `--help`, and each refuses rather than
 guessing.
 
 ## `dispatch-worktrees.sh` — one worktree per concern
@@ -129,10 +131,21 @@ Exit 0 when migrated or already migrated, 1 on a usage error, a bad target,
 or a backup failure, and 2 when migration completed but a legacy instruction
 file needs a human merge.
 
+## `auto-publish.sh` — attach the distributable
+
+The asset lane. Triggered by a published GitHub release, it builds the
+`vantrilex-arsenal-<tag>.tar.gz` from the exact tagged commit, gates the upload
+on that commit's CI evidence plus the full battery, and uploads idempotently by
+name and sha256. It is inert for anything outside the strict `^v0\.0\.[0-9]+$`
+shape: a minor or major release ends with an owner-gated notice and exit 0, so a
+forward-line `v0.8.x` publish never triggers an upload. `DRY_RUN=1` is the local
+default. The queue lane that creates the tag and release is
+`scripts/self-publish.mjs`, documented in `09-RELEASE-QUEUE.md`; the two jobs
+share `.github/workflows/auto-publish.yml` and never run each other's work.
+
 ## Count note
 
-`docs/08-VERIFICATION.md` describes "all seven orchestration scripts" carrying a
-`#!/usr/bin/env bash` shebang and the executable bit. The directory holds eight
-shell scripts — the eight named above — so either that count is stale or it
-names a narrower subset. The file is the one to reconcile; this note records the
-discrepancy rather than resolving it silently.
+This directory holds nine shell scripts — the nine named above. An earlier
+revision of `docs/08-VERIFICATION.md` asserted "seven orchestration scripts"; the
+live count is nine, and that file now states nine. The reconciliation is recorded
+here rather than left as an unexplained discrepancy.

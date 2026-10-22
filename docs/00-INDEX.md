@@ -2,9 +2,9 @@
 
 This index maps the documentation set for the Vantrilex Arsenal repository
 itself: the OpenCode plugin plus the component registry. The numbered series
-runs `00` through `21` — 22 files — and the `docs/` tree holds 41 markdown
+runs `00` through `21` — 22 files — and the `docs/` tree holds 42 markdown
 files in all: the numbered series (22), the Arabic mirror set (`ar/`, 8 files),
-the developer set (`dev/`, 9 files), and the two `spec/` inputs. It does not
+the developer set (`dev/`, 10 files), and the two `spec/` inputs. It does not
 document any target project. Target-project documentation is a separate,
 runtime-generated set (the 28-file system described by reference in
 [04-VANGUARD.md](04-VANGUARD.md)); nothing in this set duplicates it.
@@ -87,9 +87,10 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2931 catalog records, 39 records with tier
-  `core` including Prime, Vanguard, and Doctrine, 20 default-selected components,
-  82 verified install commands, 16 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
+- Counts are honest and checkable: 2,837 live catalog records plus 104
+  candidates, 38 records with tier `core` including Prime, Vanguard, and
+  Doctrine, 19 default-selected components, and 16 merged sidecars. Every live
+  row is `verified` under its declared class. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
 - Every relative link resolves to a file that exists. The `spec/` inputs are
