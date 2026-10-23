@@ -59,3 +59,4 @@ __pycache__/
 # Concern briefing written at runtime by scripts/dispatch-worktrees.sh — never tracked
 .opencode/STREAM.md
 comms-supabase-dashboard/config.js
+.opencode/auto-release.enabled
