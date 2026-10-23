@@ -416,3 +416,166 @@ load proof. The candidate row is deleted; no other candidate was touched.
 | selection tokens | 144 | 144 |
 | suspended selection tokens | 2 (`openrouter`, `vercel`) | 1 (`openrouter`) |
 | resolving selected tokens | 142 | 143 |
+
+## c2-readmit-2 — 2026-10-23 (Cluster 2, address-hunt round 2; node `c2-readmit-2`, base `22b7817`)
+
+Owner mission `c2-readmit-2` (2026-10-23, recorded in `AGENT.md`) returns 14
+coordinates from the VANZEN hunt (hunt2-E1/E2/E3). This section records the
+re-proof, the ten admissions, the four rows that stay candidates, and the
+retirement history of every admitted candidate. It amends no earlier section
+and re-points no failing row.
+
+### 1. Probes run (2026-10-23)
+
+Per row, the mechanism the row's class names: `gh repo view <owner>/<repo>
+--json nameWithOwner,description,isArchived,licenseInfo`; `gh api
+repos/<owner>/<repo>/contents/<path>` (subdirectory or file); `npm view <pkg>
+version bin maintainers repository.url description --json`; `GET
+https://pypi.org/pypi/<pkg>/json` plus the wheel contents; a JSON-RPC
+`initialize` POST to a hosted endpoint (`accept: application/json,
+text/event-stream`); `GET https://registry.smithery.ai/servers/<owner>/<name>`;
+and the skills directory page `https://www.skills.sh/<owner>/<repo>/<skill>`.
+
+Negative results were not turned into passes: `JhiNResH/maiat-protocol` returns
+not-found in GraphQL and REST (404); `https://api.utilia.ink/mcp` fails TLS
+validation (`SEC_E_UNTRUSTED_ROOT`) and answers HTTP 503 "no available server"
+on an insecure re-probe; `https://api.kynth.studio/mcp` answers 308 and
+redirects to `https://api.thecompound.tech/mcp`, which returns 401 "Missing API
+key"; and the PyPI `blackmount-nlp-mcp` wheel is a deprecation stub.
+
+### 2. Admitted — left the candidate surface (10)
+
+| kind | id | re-proved coordinate | class | provenance | checked_at |
+|---|---|---|---|---|---|
+| mcp | `openrouter` | `https://mcp.openrouter.ai/mcp` (HTTP 401 `invalid_token` without a bearer token) | upstream | hosted-endpoint | 2026-10-23 |
+| mcp | `cmcgrabby-hue-syndicate-links` | `npm:syndicate-links-mcp` 0.3.0 (bin `syndicate-mcp`; its repository field is the dead `cmcgrabby-hue/syndicate-links`, which matches the authored name) | upstream | package-registry | 2026-10-23 |
+| mcp | `kzino-vorim-mcp-server` | `acumenix/vorim-mcp-server` (resolves; `package.json` name `@vorim/mcp-server`, bin `vorim-mcp-server`) plus npm `@vorim/mcp-server` 1.1.17 | loadable | package-registry | 2026-10-23 |
+| mcp | `pathrule-mcp` | `pathrule/pathrule` (resolves; `packages/mcp` holds `src`, `tsup.config.ts`, `package.json`) plus npm `@pathrule/mcp` 1.0.7 (bin `pathrule-mcp`) | loadable | package-registry | 2026-10-23 |
+| mcp | `rippermercs-tensorfeed` | `RipperMercs/tensorfeed-mcp` (resolves) plus npm `@tensorfeed/mcp-server` 2.0.5 (bin `tensorfeed-mcp`) | loadable | package-registry | 2026-10-23 |
+| mcp | `newageflyfish-max-volthq` | `npm:volthq-mcp-server` 0.1.25 (bin `volthq-mcp-server`; no repository field) | upstream | package-registry | 2026-10-23 |
+| mcp | `subhatta123-twilize` | `smithery:suddh123/twilize` (record 200, `remote: true`, deployment `https://twilize--suddh123.run.tools`; its icon lives in `subhatta123/twilize`) | upstream | hosted-endpoint | 2026-10-23 |
+| mcp | `turbyho-mem-context` | `pypi:mem-context` 0.1.14 (25,793-character description, `mcp-name: io.github.turbyho/mem-context`, git URL `turbyho/mem-context`) | upstream | package-registry | 2026-10-23 |
+| mcp | `ebbfijsf-agent-reader` | `timoyashar982-star/agent-reader` (resolves; `SKILL.md` carries `metadata.author: ebbfijsf`; `package.json` is `agent-reader` 1.3.7) | upstream | third-party-copy | 2026-10-23 |
+| skill | `resolving-merge-conflicts` | `mattpocock/skills` via `https://www.skills.sh/mattpocock/skills/resolving-merge-conflicts` (page 200, full SKILL.md text served, canonical install command shown) | installable | package-registry | 2026-10-23 |
+
+No command was invented. `npx -y @vorim/mcp-server`, `npx -y @pathrule/mcp` and
+`npx -y @tensorfeed/mcp-server` are over packages whose `bin` map was read;
+`npx skills add mattpocock/skills --skill resolving-merge-conflicts -a opencode
+-y` is the command the skills registry publishes. The six package-only or
+remote-only rows carry `install_cmd: null` and say where they live in their
+description.
+
+### 3. Retirement lines — admitted candidates (10)
+
+Each line carries the candidate's history as recorded in
+`registry/candidates/mcp.jsonl` / `skill.jsonl` before this run. The candidate
+row is deleted; its reason is preserved here, never rewritten.
+
+- `mcp/openrouter` — candidate assessed `upstream`, failed `source-proof-failed`
+  ("no command, and neither source, origin nor name is an owner/repo
+  coordinate"; `attempted: []`). Retired into live `mcp/openrouter` on
+  2026-10-23. The official hosted endpoint answers; the working coordinate was
+  recovered by the hunt.
+- `mcp/cmcgrabby-hue-syndicate-links` — candidate `upstream`,
+  `source-proof-failed` ("gh reports no repository
+  cmcgrabby-hue/syndicate-links"; attempted the authored repo only). Retired
+  into live `mcp/cmcgrabby-hue-syndicate-links` on 2026-10-23 as `upstream`
+  over the npm package, because the authored repository is dead and the schema
+  refuses a command on a loadable row with no source.
+- `mcp/kzino-vorim-mcp-server` — candidate `upstream`, `source-proof-failed`
+  ("gh reports no repository Kzino/vorim-mcp-server"). Retired into live
+  `mcp/kzino-vorim-mcp-server` on 2026-10-23 as `loadable` over npm
+  `@vorim/mcp-server` with the resolving `acumenix/vorim-mcp-server` source.
+- `mcp/pathrule-mcp` — candidate `upstream`, `source-proof-failed` ("gh
+  reports no repository pathrule/mcp"). Retired into live `mcp/pathrule-mcp`
+  on 2026-10-23 as `loadable` over npm `@pathrule/mcp` and the resolving
+  `pathrule/pathrule` repository.
+- `mcp/rippermercs-tensorfeed` — candidate `upstream`, `source-proof-failed`
+  ("gh reports no repository RipperMercs/tensorfeed"). Retired into live
+  `mcp/rippermercs-tensorfeed` on 2026-10-23 as `loadable` over npm
+  `@tensorfeed/mcp-server` and the resolving `RipperMercs/tensorfeed-mcp`.
+- `mcp/newageflyfish-max-volthq` — candidate `upstream`,
+  `source-proof-failed` ("gh reports no repository
+  newageflyfish-max/volthq"). Retired into live `mcp/newageflyfish-max-volthq`
+  on 2026-10-23 as `upstream` over npm `volthq-mcp-server`, because the package
+  carries no repository coordinate and a loadable row with no source may not
+  carry a command.
+- `mcp/subhatta123-twilize` — candidate `upstream`, `source-proof-failed` ("gh
+  reports no repository subhatta123/twilize"). Retired into live
+  `mcp/subhatta123-twilize` on 2026-10-23 as the Smithery-hosted remote form.
+- `mcp/turbyho-mem-context` — candidate `upstream`, `source-proof-failed` ("gh
+  reports no repository turbyho/mem-context"). Retired into live
+  `mcp/turbyho-mem-context` on 2026-10-23 over PyPI `mem-context`, whose own
+  metadata names `io.github.turbyho/mem-context`.
+- `mcp/ebbfijsf-agent-reader` — candidate `upstream`, `source-proof-failed`
+  ("gh reports no repository ebbfijsf/agent-reader"). Retired into live
+  `mcp/ebbfijsf-agent-reader` on 2026-10-23 via the surviving copy
+  `timoyashar982-star/agent-reader`, whose `SKILL.md` names `ebbfijsf` as the
+  author.
+- `skill/resolving-merge-conflicts` — candidate `installable`, failed
+  `command-registry-failed` ("mattpocock/skills carries no skill named
+  resolving-merge-conflicts in its repository tree"; attempted the repo and its
+  tree). Retired into live `skill/resolving-merge-conflicts` on 2026-10-23 on
+  the skills-registry record, which serves the full text and the install
+  command.
+
+### 4. Failures — still candidates, round-2 evidence recorded (4)
+
+| kind | id | coordinate tried | what the round-2 probe returned | disposition |
+|---|---|---|---|---|
+| mcp | `jhinresh-maiat-protocol` | `JhiNResH/maiat-protocol#packages/mcp-server`, npm `@jhinresh/mcp-server` | GraphQL and REST both return not-found for the repository, so the path cannot be probed; npm 0.9.0 does resolve (bin `maiat-mcp`, maintainer `jhinresh`) | FAIL under §2(d) (direct repo resolution first); the npm conflict is recorded, the row stays a candidate |
+| mcp | `mohamedkuch-utilia-solana-agent` | `https://api.utilia.ink/mcp` | TLS validation failed (`schannel: SEC_E_UNTRUSTED_ROOT`); an insecure re-probe answered HTTP 503 "no available server"; npm `utilia` is a different library and is barred | FAIL — no live-provable endpoint; the row stays a candidate |
+| mcp | `blackmount-ai-blackmount-nlp-mcp` | `pypi:blackmount-nlp-mcp` | package 0.1.7 resolves, but the wheel holds only a `server.py` that prints a deprecation notice and exits 1; summary "Deprecated. See app.blackmount.ai" | FAIL — a source proof would prove a tombstone, not the MCP server (§3.1) |
+| mcp | `kyisaiah47-kynth-mcp` | `https://api.kynth.studio/mcp`, server "kynth-core" | 308 to `https://api.thecompound.tech/mcp`, which returns 401 "Missing API key"; no repository, package or server coordinate resolves | FAIL-hold (§3.3) — no pinnable coordinate, identity unproven |
+
+The four candidate rows were updated in place with this evidence and
+`checked_at: 2026-10-23`; nothing was deleted and no coordinate was guessed.
+
+### 5. Flag rulings (3.1–3.7)
+
+| flag | ruling |
+|---|---|
+| **3.1 — stub vs source_proof** (`blackmount-nlp-mcp`) | **FAIL.** The package exists, so a `source_proof` would pass a mechanical existence check, but the artifact is a 179-character deprecation notice and a `server.py` that exits 1. Existence of a tombstone is not identity of an MCP server; the row stays a candidate. |
+| **3.2 — package-only precedent** (`volthq-mcp-server`) | **PASS as `upstream`, not `loadable`.** The package resolves and its `bin` is read, but it carries no repository coordinate; the v4 self-shipped rule (`loadable` + `source: null` ⇒ `install_cmd: null`) means a command on this row would be refused. The row names `npm:volthq-mcp-server`; the package name and "Volt HQ compute price oracle" description match the recovered coordinate (npm maintainer `jarnot2019` differs from the authored owner and is disclosed). |
+| **3.3 — no pinnable coordinate** (`api.kynth.studio`, "kynth-core") | **FAIL-hold.** The service URL redirects to a different domain and answers only an auth wall; no repository, package or server coordinate resolves, so identity cannot be proven and nothing can be pinned. |
+| **3.4 — hosted-only** (`Smithery suddh123/twilize`) | **PASS in `upstream` remote form.** The Smithery record resolves (`remote: true`, deployment URL, 47 tools); the row carries no command, so the stale `uvx twilize` line in the record is not treated as a coordinate. |
+| **3.5 — description-match weight** (`PyPI mem-context`) | **PASS with the match strengthened.** The 25,793-character package description carries `mcp-name: io.github.turbyho/mem-context` and the `turbyho/mem-context` git URL, so identity rests on more than a name match. |
+| **3.6 — re-prove from scratch / surviving copy** (`agent-reader`) | **PASS as `upstream` with `third-party-copy` provenance.** `ebbfijsf/agent-reader` no longer resolves; the surviving copy resolves, its `SKILL.md` records `metadata.author: ebbfijsf`, and its `package.json` is `agent-reader` 1.3.7. The npm `bin` is the document CLI, not the MCP entry (`node src/mcp/server.js` is a script, not a bin), so no command is claimed. |
+| **3.7 — directory-served full text** (`skills.sh` resolving-merge-conflicts) | **PASS as `installable`.** The repository tree holds `docs/engineering/resolving-merge-conflicts.md`, not a `SKILL.md`; the skills registry serves the full skill text and publishes the canonical install command. The class evidence is the registry record plus the command, not a repository-tree claim. |
+
+### 6. Counts after this run
+
+| surface | before | after |
+|---|---:|---:|
+| live catalog rows | 2,879 | 2,889 (mcp 901 → 910, skill 1,477 → 1,478) |
+| candidate rows | 57 | 47 (mcp 18 → 9, skill 27 → 26, hook 12) |
+| selection tokens | 144 | 144 |
+| suspended selection tokens | 1 (`openrouter`) | 0 |
+| resolving selected tokens | 143 | 144 |
+| default-selected components | 19 | 20 (`openrouter` restored) |
+| class ledger | upstream 1,535 · installable 1,181 · loadable 73 · data 90 | upstream 1,541 · installable 1,182 · loadable 76 · data 90 |
+
+The `mcp/openrouter` suspension is collapsed: the token stays in `build` and
+now places, and `.opencode/equip.manifest.json` carries `suspended: []`.
+
+### 7. Limits
+
+- **No re-point of a failing row.** The four failures keep their identity; only
+  their evidence cell and `checked_at` were rewritten.
+- **The six confirmed-gone rows are untouched** (`chessceo-chessceo-mcp`,
+  `full-output-enforcement`, `sarefe12-sudo-visibilityradar-mcp`,
+  `scotia1973-bot-api-hub`, `staccdotsol-staccbot-tg`,
+  `infai-tech-vulnfeed-mcp`); the owner's remove/keep ruling is still pending.
+- **No command was invented.** Three npm commands are over packages whose `bin`
+  map was read; the skills command is the registry's published command; all
+  other admitted rows are command-free.
+- **Provenance labels** are the four owner labels plus the already-disclosed
+  `third-party-implementation` extension; `third-party-copy` is used for the
+  surviving copy.
+- **A doc-count drift is reported, not fixed here** (the mission bounds the
+  editable surfaces): `docs/00-INDEX.md:92`, `docs/01-OVERVIEW.md:69` and
+  `docs/06-REGISTRY-SCHEMA.md:119` still say 19 default-selected components;
+  the catalog now measures 20 because `openrouter` returns with its authored
+  default flag.
+- **Append-only.** This section amends no earlier section and later runs append
+  their own.

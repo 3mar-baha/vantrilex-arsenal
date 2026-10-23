@@ -159,8 +159,6 @@
       "skill/vantrilex-doctrine"
     ]
   },
-  "suspended": [
-    { "token": "mcp/openrouter", "reason": "missing-address", "since": "2026-10-22", "document": ".opencode/audit/MISSING-ADDRESS.md" }
-  ],
+  "suspended": [],
   "notes": "S2 will switch injection to catalogPhaseSets() and this record"
 }

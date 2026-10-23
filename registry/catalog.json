@@ -3,8 +3,8 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 4,
   "counts": {
-    "skill": 1477,
-    "mcp": 901,
+    "skill": 1478,
+    "mcp": 910,
     "plugin": 11,
     "hook": 8,
     "agent": 301,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2879
+    "total": 2889
   },
   "components": [
     {
@@ -41873,6 +41873,41 @@
       "default_selected": false
     },
     {
+      "id": "resolving-merge-conflicts",
+      "name": "resolving-merge-conflicts",
+      "kind": "skill",
+      "description": "Use when you need to resolve an in-progress git merge/rebase conflict.",
+      "source": "mattpocock/skills",
+      "origin": null,
+      "install_cmd": "npx skills add mattpocock/skills --skill resolving-merge-conflicts -a opencode -y",
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "mattpocock",
+        "skill"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/resolving-merge-conflicts/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-10-23"
+        },
+        "command_registry": {
+          "command": "npx skills add mattpocock/skills --skill resolving-merge-conflicts -a opencode -y",
+          "registry": "skills-registry",
+          "checked_at": "2026-10-23"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "respond-to-issue",
       "name": "respond-to-issue",
       "kind": "skill",
@@ -53934,6 +53969,41 @@
       "default_selected": false
     },
     {
+      "id": "kzino-vorim-mcp-server",
+      "name": "Kzino/vorim-mcp-server",
+      "kind": "mcp",
+      "description": "MCP server for Vorim AI: agent identity, permissions, audit trails and trust scores across 19 tools.",
+      "source": "acumenix/vorim-mcp-server",
+      "origin": null,
+      "install_cmd": "npx -y @vorim/mcp-server",
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "security",
+        "community"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": "@vorim/mcp-server",
+          "method": "server-bin",
+          "checked_at": "2026-10-23"
+        },
+        "command_registry": {
+          "command": "npx -y @vorim/mcp-server",
+          "registry": "npm",
+          "checked_at": "2026-10-23"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "lambopoewert-mcp-server-madeonsol",
       "name": "LamboPoewert/mcp-server-madeonsol",
       "kind": "mcp",
@@ -55099,6 +55169,41 @@
           "target": "Rererr/amenbo",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "rippermercs-tensorfeed",
+      "name": "RipperMercs/tensorfeed",
+      "kind": "mcp",
+      "description": "MCP server for TensorFeed.ai: AI news, model pricing, service status, verified decision verdicts, time series and webhook watches.",
+      "source": "RipperMercs/tensorfeed-mcp",
+      "origin": null,
+      "install_cmd": "npx -y @tensorfeed/mcp-server",
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "aggregators",
+        "community"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": "@tensorfeed/mcp-server",
+          "method": "server-bin",
+          "checked_at": "2026-10-23"
+        },
+        "command_registry": {
+          "command": "npx -y @tensorfeed/mcp-server",
+          "registry": "npm",
+          "checked_at": "2026-10-23"
         }
       },
       "default_selected": false
@@ -60605,6 +60710,36 @@
       "default_selected": false
     },
     {
+      "id": "cmcgrabby-hue-syndicate-links",
+      "name": "cmcgrabby-hue/syndicate-links",
+      "kind": "mcp",
+      "description": "MCP server for the Syndicate Links affiliate commission API: 11 tools for agent attribution, program discovery, publisher link creation and commission tracking (npm `syndicate-links-mcp`).",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "e-commerce",
+        "community"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "npm:syndicate-links-mcp",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-23"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "codeislaw101-katzilla",
       "name": "codeislaw101/katzilla",
       "kind": "mcp",
@@ -62004,6 +62139,37 @@
           "target": "dvdsosa/zotero-native-mcp",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "ebbfijsf-agent-reader",
+      "name": "ebbfijsf/agent-reader",
+      "kind": "mcp",
+      "description": "Document beautifier for AI agents: Markdown to styled webpages, Word, PDF and image slideshows (surviving copy `timoyashar982-star/agent-reader`; npm `agent-reader` 1.3.7).",
+      "source": "timoyashar982-star/agent-reader",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "file-systems",
+        "community"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "timoyashar982-star/agent-reader",
+          "path": "SKILL.md",
+          "method": "file-resolves",
+          "checked_at": "2026-10-23"
         }
       },
       "default_selected": false
@@ -69565,6 +69731,36 @@
       "default_selected": false
     },
     {
+      "id": "newageflyfish-max-volthq",
+      "name": "newageflyfish-max/volthq",
+      "kind": "mcp",
+      "description": "MCP server for Volt HQ, the compute price oracle for AI agents: compare inference pricing across providers and get route recommendations (npm `volthq-mcp-server`).",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "cloud-platforms",
+        "community"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "npm:volthq-mcp-server",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-23"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "ng-galien-maket",
       "name": "ng-galien/maket",
       "kind": "mcp",
@@ -70465,6 +70661,37 @@
       "default_selected": false
     },
     {
+      "id": "openrouter",
+      "name": "openrouter",
+      "kind": "mcp",
+      "description": "OpenRouter remote MCP: models, chat, and credits over HTTPS (`https://mcp.openrouter.ai/mcp`; the endpoint answers 401 without a bearer token).",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "ai",
+        "models",
+        "remote"
+      ],
+      "when_to_use": "When a $0.00 model matrix transport is needed for a subagent; it is a remote-over-HTTPS MCP endpoint, not an installable npm package",
+      "phase": "build",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "https://mcp.openrouter.ai/mcp",
+          "method": "file-resolves",
+          "checked_at": "2026-10-23"
+        }
+      },
+      "default_selected": true
+    },
+    {
       "id": "ophis-fi-ophis",
       "name": "ophis-fi/ophis",
       "kind": "mcp",
@@ -70700,6 +70927,41 @@
           "target": "patchloom/patchloom",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "pathrule-mcp",
+      "name": "pathrule/mcp",
+      "kind": "mcp",
+      "description": "Pathrule MCP server over stdio: path-scoped memories, rules and skills for AI coding agents, over the local store or Pathrule Cloud.",
+      "source": "pathrule/pathrule",
+      "origin": null,
+      "install_cmd": "npx -y @pathrule/mcp",
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "knowledge-memory",
+        "remote"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": "@pathrule/mcp",
+          "method": "server-bin",
+          "checked_at": "2026-10-23"
+        },
+        "command_registry": {
+          "command": "npx -y @pathrule/mcp",
+          "registry": "npm",
+          "checked_at": "2026-10-23"
         }
       },
       "default_selected": false
@@ -74368,6 +74630,36 @@
       "default_selected": false
     },
     {
+      "id": "subhatta123-twilize",
+      "name": "subhatta123/twilize",
+      "kind": "mcp",
+      "description": "Twilize Tableau workbook builder, hosted on Smithery (`suddh123/twilize`): 47 tools for workbooks, charts, dashboards and CSV-to-dashboard pipelines.",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "data-visualization",
+        "community"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "smithery:suddh123/twilize",
+          "method": "file-resolves",
+          "checked_at": "2026-10-23"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "sukrutkrdg-x402-bazaar-mcp",
       "name": "sukrutkrdg/x402-bazaar-mcp",
       "kind": "mcp",
@@ -75445,6 +75737,36 @@
           "target": "tunedforai/x402-mcp",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "turbyho-mem-context",
+      "name": "turbyho/mem-context",
+      "kind": "mcp",
+      "description": "Temporal memory MCP server over past assistant sessions: LanceDB vector search, weight-decay scoring and LLM-driven consolidation (PyPI `mem-context`).",
+      "source": null,
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "knowledge-memory",
+        "community"
+      ],
+      "when_to_use": null,
+      "phase": null,
+      "tier": null,
+      "verify_cmd": null,
+      "cost_note": null,
+      "verification": "verified",
+      "class": "upstream",
+      "evidence": {
+        "source_proof": {
+          "target": "pypi:mem-context",
+          "method": "repo-resolves",
+          "checked_at": "2026-10-23"
         }
       },
       "default_selected": false

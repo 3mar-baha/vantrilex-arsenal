@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1477 — 7 default-selected)
+## Skills (1478 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1485,8 +1485,9 @@ Consolidated reference of every system component with its folder path.
 | 1475 | industrial-brutalist-ui | Classic style skill, opt-in: a hard mechanical look with Swiss type, rigid grids, extreme scale contrast and utilitarian colour. | Leonxlnx/taste-skill-classics |  |
 | 1476 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
 | 1477 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
+| 1478 | resolving-merge-conflicts | Use when you need to resolve an in-progress git merge/rebase conflict. | mattpocock/skills | `mattpocock/skills` |
 
-## MCP Servers (901 — 7 default-selected)
+## MCP Servers (910 — 8 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2391,6 +2392,15 @@ Consolidated reference of every system component with its folder path.
 | 899 | supertone-inc/supertone-mcp | MCP server for the Supertone TTS API: voice synthesis, discovery, cloning and usage tools across 31 languages |  |  |
 | 900 | Yarmoluk/ckg-mcp | Context optimization for AI agents: domain knowledge graphs with MCP-native traversal |  |  |
 | 901 | vercel-mcp | Official Vercel MCP overview; the hosted endpoint is `https://mcp.vercel.com` (remote-only, no local server executable) | vercel/vercel-mcp-overview |  |
+| 902 | openrouter ✅ | OpenRouter remote MCP: models, chat, and credits over HTTPS (`https://mcp.openrouter.ai/mcp`; the endpoint answers 401 without a bearer token). |  |  |
+| 903 | cmcgrabby-hue/syndicate-links | MCP server for the Syndicate Links affiliate commission API: 11 tools for agent attribution, program discovery, publisher link creation and commission tracking (npm `syndicate-links-mcp`). |  |  |
+| 904 | Kzino/vorim-mcp-server | MCP server for Vorim AI: agent identity, permissions, audit trails and trust scores across 19 tools. | acumenix/vorim-mcp-server | `npx -y @vorim/mcp-server` |
+| 905 | pathrule/mcp | Pathrule MCP server over stdio: path-scoped memories, rules and skills for AI coding agents, over the local store or Pathrule Cloud. | pathrule/pathrule | `npx -y @pathrule/mcp` |
+| 906 | RipperMercs/tensorfeed | MCP server for TensorFeed.ai: AI news, model pricing, service status, verified decision verdicts, time series and webhook watches. | RipperMercs/tensorfeed-mcp | `npx -y @tensorfeed/mcp-server` |
+| 907 | newageflyfish-max/volthq | MCP server for Volt HQ, the compute price oracle for AI agents: compare inference pricing across providers and get route recommendations (npm `volthq-mcp-server`). |  |  |
+| 908 | subhatta123/twilize | Twilize Tableau workbook builder, hosted on Smithery (`suddh123/twilize`): 47 tools for workbooks, charts, dashboards and CSV-to-dashboard pipelines. |  |  |
+| 909 | turbyho/mem-context | Temporal memory MCP server over past assistant sessions: LanceDB vector search, weight-decay scoring and LLM-driven consolidation (PyPI `mem-context`). |  |  |
+| 910 | ebbfijsf/agent-reader | Document beautifier for AI agents: Markdown to styled webpages, Word, PDF and image slideshows (surviving copy `timoyashar982-star/agent-reader`; npm `agent-reader` 1.3.7). | timoyashar982-star/agent-reader |  |
 
 ## Plugins (11 — 0 default-selected)
 
