@@ -84,6 +84,11 @@ The openrouter suspension is collapsed on PASS: `mcp/openrouter` stays in
 `build` and now places, and `.opencode/equip.manifest.json` carries
 `suspended: []`. Had it failed, the arithmetic would have stayed 144/1/143.
 
+The restored row is tier `core` and selected, so the selected tier-core MCP
+count is now 8 of `MCP_CAP` 8 (`context7`, `fetch`, `filesystem`, `firecrawl`,
+`github`, `memory`, `openrouter`, `sequential-thinking`) — at the ceiling and
+PASS, with no headroom left for another tier-core MCP in the selection.
+
 ## 6. Battery
 
 | gate | exit | evidence |
