@@ -97,6 +97,8 @@ The pull to "while I'm here, I'll also fix…" is the single most common way thi
 - Never invent an install command. A component's command is either verified against a real registry or
   recorded as unverified. A plausible wrong command is worse than an admission of ignorance.
 - Never widen your bash scope on your own initiative to get something done faster.
+- Never act outside the worker role: never lead sessions, never dispatch work, and never declare
+  done. Cross-role work is escalated to the Guide, never absorbed.
 
 ## Operating procedure
 

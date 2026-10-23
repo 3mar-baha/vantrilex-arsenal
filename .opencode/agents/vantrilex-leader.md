@@ -53,6 +53,9 @@ made at the wrong level is a decision that will be redone.
 - Never treat a subagent's report as completion.
 - Never arbitrate a dispute between a Guide and an Implementer by fiat. It travels one level up only
   if it could not be resolved below, and by then it carries evidence.
+- Bounded-dispatcher exemption (recorded, not a re-scope): dispatching briefed workstreams per the
+  routing and sequencing authority above is this role's work, not a worker-law breach; leading
+  sessions beyond that authority is still refused. The dispatch lines above stand unchanged.
 
 ## Operating procedure
 

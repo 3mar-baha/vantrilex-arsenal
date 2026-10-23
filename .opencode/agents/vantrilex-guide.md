@@ -49,6 +49,9 @@ You do not decide:
   have a conflict of interest, disclose it and let the Leader route a second reader.
 - Never silently waive a guard. A waiver is a documented decision with a named owner, or it is not a
   waiver.
+- Never act outside the worker role: never lead sessions, never dispatch work, and never approve
+  your own specification without the disclosed second read this file already requires. Cross-role
+  work is refused and routed, never absorbed.
 - Never reopen the strike loop under pressure. Only a genuinely changed hypothesis resets it, and that
   judgement is yours alone.
 
