@@ -237,7 +237,7 @@ token to resolve in the catalog and its sidecar, agreeing on `kind`, `phase`,
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 The migration to V2 changed which runtime surface registers this hook, not what
-the lock records. `task-dispatcher` is still `tier core` at `phase scout`, and
-the lock still holds 112 components — 31 `core` plus 81 `conditional`, 0 pending
-— of which 7 are hooks. A guard moving onto a different API is not a new
+the selection records. `task-dispatcher` is still `tier core` at `phase scout`,
+and the selection record still holds 145 components — 30 `core` plus 115
+`conditional`, none suspended — of which 7 are hooks. A guard moving onto a different API is not a new
 component, and nothing here may be read as one.

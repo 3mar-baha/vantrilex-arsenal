@@ -185,41 +185,39 @@ Observed live 2026-10-22: `orphan-references` resolves 45 id references across
 
 ## Live counts
 
-Measured 2026-10-22 on branch `wt/vta-factory-p0`. Re-derive with the recount
+Measured 2026-10-23 on `main`. Re-derive with the recount
 commands in `00-INDEX.md`; a remembered figure is not a count.
 
 | Kind | Live rows | | Kind | Live rows |
 |---|---:|---|---|---:|
-| `skill` | 1464 | | `theme` | 12 |
-| `mcp` | 872 | | `plugin` | 11 |
+| `skill` | 1478 | | `theme` | 12 |
+| `mcp` | 910 | | `plugin` | 11 |
 | `agent` | 301 | | `hook` | 8 |
 | `design.md` | 84 | | `policy` | 2 |
 | `cli` | 64 | | `lsp` | 1 |
 | `formatting` | 13 | | `prompt` | 1 |
 | `dataset` | 1 | | `template` | 1 |
 | `benchmark` | 1 | | `workflow` | 1 |
-| **Total live** | **2837** | | **Candidates** | **104** |
+| **Total live** | **2889** | | **Candidates** | **40** |
 
-Class split over the 2,837 live rows: `upstream` 1,497, `installable` 1,181,
-`loadable` 69, `data` 90. Default-selected rows: 19. Null `install_cmd` rows:
-1,635 (the command-free classes plus self-shipped surfaces).
+Class split over the 2,889 live rows: `upstream` 1,541, `installable` 1,182,
+`loadable` 76, `data` 90. Default-selected rows: 20. Null `install_cmd` rows:
+1,679 (the command-free classes plus self-shipped surfaces).
 
-The 104 candidates, by kind and reason:
+The 40 candidates, by kind and reason:
 
 | Kind | Reason code | Rows |
 |---|---|---:|
-| `mcp` | `source-proof-failed` | 50 |
+| `mcp` | `source-proof-failed` | 3 |
 | `skill` | `shape-invalid` | 25 |
-| `skill` | `command-registry-failed` | 16 |
 | `hook` | `load-proof-failed` | 12 |
-| `mcp` | `load-proof-failed` | 1 |
-| **Total** | | **104** |
+| **Total** | | **40** |
 
-Candidate totals by kind: `mcp` 51, `skill` 41, `hook` 12. Two reason codes are
-unused — `install-command-absent` and `evidence-lapsed` — and
-`command-registry-failed` appears only for skills (16 rows), because a dead
-coordinate is a source failure while a missing artifact inside a live repository
-is a command failure.
+Candidate totals by kind: `mcp` 3, `skill` 25, `hook` 12. Three reason codes are
+unused — `install-command-absent`, `evidence-lapsed` and
+`command-registry-failed` — because no surviving candidate reached that stage:
+a dead coordinate is a source failure, an artifact that fails the install shape
+is a shape failure, and a hook without a wired callback is a load proof failure.
 
 Two further live figures belong to the same census:
 
@@ -227,8 +225,9 @@ Two further live figures belong to the same census:
   holds 13 `.json` files. Twelve are V2 palette themes and appear in the catalog;
   `vantrilex-atomic-switch.json` is the atomic-switch map and is out of catalog
   by the P5a ruling below.
-- **Selection: 146 tokens, 17 suspended.** The suspension is a selection-record
-  disposition, not a catalog state; see `05-KIT-LOCK.md`.
+- **Selection: 145 tokens, none suspended.** The suspension mechanism remains a
+  selection-record disposition for a future missing row, not a catalog state;
+  see `05-KIT-LOCK.md`.
 
 ## The self-shipped convention
 
@@ -307,8 +306,9 @@ is standing for every migration and audit run:
    candidate and stays documented.
 
 The P3 section records 66 rows: 50 `mcp / source-proof-failed` and 16
-`skill / command-registry-failed`. Seventeen of the 50 MCP rows sit inside the
-146-token selection; those seventeen are the suspended entries below.
+`skill / command-registry-failed`. Seventeen of the 50 MCP rows sat inside the
+then-146-token selection and were suspended; the settlement and re-admission
+rounds since have cleared both, so no suspension stands today.
 
 ## Suspension and auto-restore
 

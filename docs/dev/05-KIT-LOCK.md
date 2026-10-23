@@ -98,12 +98,11 @@ identity.
 
 ## Live census
 
-Observed 2026-10-22 with the recount command from `00-INDEX.md`: 146 tokens
-across six phases (scout 23, docs 7, plan 7, build 56, review 17, operate 36),
-of which 17 are suspended by missing address and 129 resolve to live catalog
-rows (0 dangling, 0 stale suspensions). The pre-suspension tier split was 30
-tier `core` plus 116 tier `conditional`; the 17 suspended tokens are among them
-and restore automatically when their rows return. Re-run the recount rather than
+Observed 2026-10-23 with the recount command from `00-INDEX.md`: 145 tokens
+across six phases (scout 21, docs 7, plan 7, build 56, review 17, operate 37),
+none suspended, and all 145 resolve to live catalog
+rows (0 dangling, 0 stale suspensions). The tier split is 30
+tier `core` plus 115 tier `conditional`. Re-run the recount rather than
 quoting this line.
 
 ## What proves it

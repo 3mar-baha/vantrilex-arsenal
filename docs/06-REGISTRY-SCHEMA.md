@@ -58,8 +58,8 @@ surface, 365 for a source — after which the record becomes a candidate.
 
 A record that cannot produce its class evidence is not carried here with a
 weaker label. It becomes one row in `registry/candidates/<kind>.jsonl`, carrying
-the failed class and one of six reason codes. The catalog holds 2,837 live rows
-and 104 candidates.
+the failed class and one of six reason codes. The catalog holds 2,889 live rows
+and 40 candidates.
 
 ## `origin` versus `source`
 
@@ -115,7 +115,7 @@ The verifier's `command-honesty/*` and `evidence/ttl` checks (see
 | `extended` | Catalog depth beyond the conditional kit | After conditional |
 | null | Untiered: carried as authored, not yet placed | Last |
 
-38 records carry tier `core` today, including Prime, Vanguard, and Doctrine.
+39 records carry tier `core` today, including Prime, Vanguard, and Doctrine.
 The 20 default-selected components are the provisioning set Vanguard installs
 automatically. Tier-0-only guarantees apply: only the core set gets install and
 verification promises (see [15-DECISIONS.md](15-DECISIONS.md)).

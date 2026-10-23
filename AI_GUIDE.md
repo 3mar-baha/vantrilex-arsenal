@@ -18,12 +18,12 @@ before you quote them.
 | Selected kit components | 145, none suspended (145 resolving) |
 | Kit by tier | 30 `core`, 115 `conditional` |
 | Kit by kind | 25 skill, 26 mcp, 1 lsp, 7 hook, 21 agent, 58 cli, 7 other |
-| Catalog verification | 2,837 live rows, all `verified` under a declared class; 104 candidates |
+| Catalog verification | 2,889 live rows, all `verified` under a declared class; 40 candidates |
 | MCP cap (`MCP_CAP` in `scripts/verify-catalog.mjs`) | 8 |
-| Catalog records | 2,837 live + 104 candidates |
-| Catalog by kind | 1,464 skill, 872 mcp, 301 agent, 84 design.md, 64 cli, 13 formatting, 12 theme, 11 plugin, 8 hook, 2 policy, and one each of lsp, prompt, dataset, template, benchmark, workflow |
-| Catalog default-selected | 19 |
-| Catalog non-null install commands | 1,202, every one registry-matched |
+| Catalog records | 2,889 live + 40 candidates |
+| Catalog by kind | 1,478 skill, 910 mcp, 301 agent, 84 design.md, 64 cli, 13 formatting, 12 theme, 11 plugin, 8 hook, 2 policy, and one each of lsp, prompt, dataset, template, benchmark, workflow |
+| Catalog default-selected | 20 |
+| Catalog non-null install commands | 1,210, every one registry-matched |
 | Folders under `.opencode/skills/` | 37 |
 | Of those, selected kit components | 25 |
 | Of those, top-level skills | 4 |

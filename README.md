@@ -110,10 +110,10 @@ npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-doctrine
 The separation is deliberate: **orientation, then selection, then workflow design, then conduct.**
 Prime does not duplicate Vanguard's four project states, Vanguard does not author the per-task workflow — the forge does that at each task start — and the forge does not govern it; Doctrine does. A project can therefore run the scout without
 inheriting the law, and can be re-equipped on new terms without renegotiating
-its conduct rules. Only those four are top-level skills. The other **26 skill
-folders** tracked under `.opencode/skills/` split into the 18 the selection
-record equips from disk and eight transplanted mechanisms that ship on disk
-without being selected.
+its conduct rules. Only those four are top-level skills. Of the **37 skill
+folders** tracked under `.opencode/skills/`, the selection record equips 18
+from disk; the remaining 19 are transplanted mechanisms that ship on disk
+without being selected, and seven further selected skills install from upstream.
 
 ---
 
@@ -161,8 +161,8 @@ repository has never benchmarked itself.*
 two rows carrying `~` — first-time setup and setup again — are rough
 illustrative estimates, not measured benchmarks; this repository has never
 benchmarked itself. Every unmarked cell is a verified
-count, not an estimate: 2,837 live catalog records over sixteen kinds beside
-104 candidates, every live row `verified` under a declared evidence class,
+count, not an estimate: 2,889 live catalog records over sixteen kinds beside
+40 candidates, every live row `verified` under a declared evidence class,
 145 selected components (30 tier `core` and 115 tier `conditional`, none
 suspended), twenty catalog proofs
 beside seven registry checks, six gates each required to exit 0, 27 agent
@@ -226,7 +226,7 @@ Vantrilex Prime skill — it is the session primer.
 - **`registry/catalog.json`** — the generated machine mirror Vanguard reads. It
   is regenerated, never hand-edited.
 
-The catalog carries **2,837 live records** across sixteen kinds: skill 1,464, mcp 872, agent 301, design.md 84, cli 64, formatting 13, theme 12, plugin 11, hook 8, policy 2, and one each of lsp, prompt, dataset, template, benchmark and workflow. Beside them sit **104 candidates** in `registry/candidates/`, one file per kind.
+The catalog carries **2,889 live records** across sixteen kinds: skill 1,478, mcp 910, agent 301, design.md 84, cli 64, formatting 13, theme 12, plugin 11, hook 8, policy 2, and one each of lsp, prompt, dataset, template, benchmark and workflow. Beside them sit **40 candidates** in `registry/candidates/`, one file per kind.
 
 ![Prior-census table of catalog records by kind, not yet re-rendered; the prose above carries the live counts](docs/assets/tables/catalog-records.svg)
 
@@ -236,7 +236,7 @@ The catalog is enriched from sixteen `registry/data/*.jsonl` sidecars — one pe
 kind — each with exactly one owning branch at a time. Every live record carries
 a `when_to_use` trigger, a lifecycle `phase`, a `tier`, a `verify_cmd`, an
 `install_cmd`, a `class` with its `evidence`, and a `default_selected` flag.
-**19 components are default-selected.**
+**20 components are default-selected.**
 
 **The honesty rule.** A live record is `verified` only when its declared class
 evidence exists — source provenance for `upstream` and `data`, a load surface
@@ -252,7 +252,7 @@ run it.
 ## Kit census
 
 `.opencode/equip.manifest.json` selects **145 tokens**: 30 tier `core` and 115
-tier `conditional`, drawn from the 2,837-row catalog as observed 2026-10-22.
+tier `conditional`, drawn from the 2,889-row catalog as observed 2026-10-23.
 No token is suspended, so all 145 resolve against live rows today; a suspension
 would restore automatically when its row returns.
 
@@ -261,9 +261,9 @@ would restore automatically when its row returns.
 Under catalog v4 a live row is `verified` only when its declared class evidence
 exists: source provenance for `upstream` and `data`, a load surface for
 `loadable`, and a real command plus the registry that proved it for
-`installable`. All 2,837 live rows meet that bar; there is no `unverified` state
-left to carry. The 104 rows that could not produce their evidence are candidates
-in `registry/candidates/<kind>.jsonl` — 51 MCP, 41 skill, 12 hook — and 1,635 of
+`installable`. All 2,889 live rows meet that bar; there is no `unverified` state
+left to carry. The 40 rows that could not produce their evidence are candidates
+in `registry/candidates/<kind>.jsonl` — 3 MCP, 25 skill, 12 hook — and 1,679 of
 the live rows are command-free by class (the data kinds and the self-shipped
 surfaces).
 
@@ -278,9 +278,9 @@ servers are the most expensive components to keep resident, so the kit refuses
 to grow past that ceiling and, on ties, prefers a skill or a CLI over an MCP
 server.
 
-**18 skill components** are selected out of the **26 folders** on disk under
-`.opencode/skills/`: the four top-level skills (Prime, Vanguard, Doctrine,
-Workflow-Forge) plus the conditional ones. Workflow-Forge ships on disk in this
+**25 skill components** are selected: 18 come from the **37 folders** on disk
+under `.opencode/skills/` — the four top-level skills (Prime, Vanguard, Doctrine,
+Workflow-Forge) plus conditional ones — and seven install from upstream. Workflow-Forge ships on disk in this
 tree; Vanguard still proves it by read-back in the Step 4 lane (see above). A
 folder that is present but not selected is a transplanted mechanism carried for
 a project that asks for it, and the selection record — not the directory listing
@@ -329,7 +329,7 @@ contract.
 vantrilex-arsenal/
 ├── .opencode/                    Shipped surface
 │   ├── plugin/arsenal.ts         The 8 Tier-0 callbacks as plugin callbacks
-│   ├── skills/                   21 folders: 4 top-level skills + 12 conditional kit components + 5 unlocked
+│   ├── skills/                   37 folders: 18 selected from disk (4 top-level skills + 14 conditional kit components) + 19 unselected
 │   ├── agents/                   ai-generated-code-security-auditor, architect, blazar,
 │   │                               code-reviewer, kit-maintainer, red-team, technical-writer,
 │   │                               vantrilex-guide, vantrilex-implementer, vantrilex-leader

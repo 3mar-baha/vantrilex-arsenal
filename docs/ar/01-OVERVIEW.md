@@ -64,7 +64,7 @@ Vantrilex Arsenal إضافة OpenCode قابلة للمشاركة إلى جان�
 إما `verified` أو `unverified`. ويحمل
 `registry/catalog.json` اليوم 2,889 سجلًّا في المجموع (39 من المستوى `core`،
 و233 من المستوى `conditional`، والباقي بلا مستوى ولا يُحقن أبدًا). ويقف إعادة حصر الفهرس
-عند 19 مكوّنًا محدَّدًا افتراضيًا و91 أمر تثبيت متحقَّقًا منه، مغنًى من 16
+عند 20 مكوّنًا محدَّدًا افتراضيًا و1,210 أمر تثبيت متحقَّقًا منه، مغنًى من 16
 ملفًا جانبيًا يدمجها المولِّد (agents، وbenchmarks، وcli، وdatasets، وdesign،
 وformatting، وhooks، وlsp، وmcp، وplugins، وpolicies، وprompts، وskills،
 وtemplates، وthemes، وworkflows). ومكوّنات Tier-1 — مكوّنات Python والواجهة وتدفّق الفريق
