@@ -579,3 +579,45 @@ now places, and `.opencode/equip.manifest.json` carries `suspended: []`.
   default flag.
 - **Append-only.** This section amends no earlier section and later runs append
   their own.
+
+## c2-settle-A — 2026-10-23 (Cluster 2 Phase A; owner ruling 2026-10-23 option 1; node `c2-settle-A`, base `72a67ba`)
+
+The owner ruled option 1 on the pending remove/keep question: the seven dead
+rows named below are REMOVED from the candidate surface. This section records
+the removal and each row's own recorded evidence. It amends no earlier section,
+re-points no row, admits no row, and leaves the kept rows byte-identical.
+
+### 1. Removed — closing lines (7)
+
+| kind | id | disposition | evidence summary |
+|---|---|---|---|
+| mcp | `chessceo-chessceo-mcp` | «REMOVED by owner ruling 2026-10-23» | `source-proof-failed`: "gh reports no repository chessceo/chessceo-mcp (GraphQL and REST both return not-found)" |
+| mcp | `sarefe12-sudo-visibilityradar-mcp` | «REMOVED by owner ruling 2026-10-23» | `source-proof-failed`: "gh reports no repository sarefe12-sudo/visibilityradar-mcp (GraphQL and REST both return not-found)" |
+| mcp | `scotia1973-bot-api-hub` | «REMOVED by owner ruling 2026-10-23» | `source-proof-failed`: "gh reports no repository scotia1973-bot/api-hub (GraphQL and REST both return not-found)" |
+| mcp | `staccdotsol-staccbot-tg` | «REMOVED by owner ruling 2026-10-23» | `source-proof-failed`: "gh reports no repository staccDOTsol/staccbot-tg (GraphQL and REST both return not-found)" |
+| mcp | `infai-tech-vulnfeed-mcp` | «REMOVED by owner ruling 2026-10-23» | `source-proof-failed`: "gh reports no repository infai-tech/vulnfeed-mcp (GraphQL and REST both return not-found)" |
+| mcp | `blackmount-ai-blackmount-nlp-mcp` | «REMOVED by owner ruling 2026-10-23» | `source-proof-failed`: "PyPI blackmount-nlp-mcp 0.1.7 resolves but is a deprecation stub — the wheel carries only a server.py that prints a deprecation notice and exits 1, with no MCP implementation … a source proof would prove a tombstone, not the MCP server" |
+| skill | `full-output-enforcement` | «REMOVED by owner ruling 2026-10-23» | `command-registry-failed`: "leonxlnx/taste-skill carries no skill named full-output-enforcement in its repository tree" |
+
+### 2. Kept — untouched by this run (3)
+
+The owner's keep ruling covers these rows; they remain candidates with their
+bytes and `checked_at` unchanged: `jhinresh-maiat-protocol`,
+`mohamedkuch-utilia-solana-agent`, `kyisaiah47-kynth-mcp`.
+
+### 3. Counts after this run
+
+| surface | before | after |
+|---|---:|---:|
+| candidate rows | 47 | 40 (mcp 9 → 3, skill 26 → 25, hook 12) |
+| live catalog rows | 2,889 | 2,889 |
+| selection tokens | 144 | 144 |
+| suspended selection tokens | 0 | 0 |
+| resolving selected tokens | 144 | 144 |
+
+### 4. Limits
+
+- **Deletion only.** No row was re-pointed, no live row, selection token,
+  schema record or candidate outside the seven was edited.
+- **Append-only.** This section amends no earlier section and later runs append
+  their own.
