@@ -52,8 +52,8 @@ regenerated. Regeneration details are in
 every catalog row is honest and every selected component resolves. That script
 exists and passes 20/20 against `registry/catalog.json` (2,837 live rows, all
 `verified` under a declared class, no carried state), the 104 rows in
-`registry/candidates/`, and `.opencode/equip.manifest.json` (146 selected
-tokens, 17 of them suspended by missing address), including a shape check per
+`registry/candidates/`, and `.opencode/equip.manifest.json` (145 selected
+tokens, none suspended), including a shape check per
 selectable kind — the `command-shape/cli` check passing on 64 `cli` rows is
 reported as such rather than as a silent vacuous pass. See
 [09-KIT-LOCK.md](09-KIT-LOCK.md).

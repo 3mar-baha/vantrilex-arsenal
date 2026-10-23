@@ -17,7 +17,7 @@
 | openrouter | mcp | core | When a $0.00 model matrix transport is needed for a subagent; it is a r… |  |
 | sequential-thinking | mcp | core | When a problem needs structured step-by-step reasoning | `npx -y @modelcontextprotocol/server-sequential-thinking` |
 
-## Tier 1 — Conditional (17)
+## Tier 1 — Conditional (18)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
@@ -36,6 +36,7 @@
 | slack | mcp | conditional |  |  |
 | steadyfetch | mcp | conditional |  |  |
 | stripe | mcp | conditional |  |  |
+| subhatta123/twilize | mcp | conditional |  |  |
 | supabase/mcp | mcp | conditional | When a Supabase project tables, config, or data must be queried or mana… | `npx -y @supabase/mcp-server-supabase` |
 | vercel-mcp | mcp | conditional | When deploying to or managing Vercel projects from an agent |  |
 
@@ -43,7 +44,7 @@
 
 _None._
 
-## Untiered (885)
+## Untiered (884)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
@@ -847,7 +848,6 @@ _None._
 | stevejford/shiply-mcp | mcp |  |  |  |
 | sthan-io/mcp-server | mcp |  |  |  |
 | sturs49/cryptotaxedge-mcp | mcp |  |  |  |
-| subhatta123/twilize | mcp |  |  |  |
 | sukrutkrdg/x402-bazaar-mcp | mcp |  |  |  |
 | supertone-inc/supertone-mcp | mcp |  |  |  |
 | swaltersjrtest/microtap-mcp | mcp |  |  |  |

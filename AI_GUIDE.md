@@ -15,9 +15,9 @@ before you quote them.
 
 | Fact | Value |
 |---|---|
-| Selected kit components | 146, of which 17 suspended by missing address and 129 resolving |
-| Kit by tier | 30 `core`, 116 `conditional` |
-| Kit by kind | 25 skill, 27 mcp, 1 lsp, 7 hook, 21 agent, 58 cli, 7 other |
+| Selected kit components | 145, none suspended (145 resolving) |
+| Kit by tier | 30 `core`, 115 `conditional` |
+| Kit by kind | 25 skill, 26 mcp, 1 lsp, 7 hook, 21 agent, 58 cli, 7 other |
 | Catalog verification | 2,837 live rows, all `verified` under a declared class; 104 candidates |
 | MCP cap (`MCP_CAP` in `scripts/verify-catalog.mjs`) | 8 |
 | Catalog records | 2,837 live + 104 candidates |

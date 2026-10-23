@@ -74644,8 +74644,8 @@
         "community"
       ],
       "when_to_use": null,
-      "phase": null,
-      "tier": null,
+      "phase": "operate",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",

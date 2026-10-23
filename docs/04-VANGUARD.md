@@ -134,7 +134,7 @@ reporting as much as about selection: silence is the correct output for a
 marginal replacement, and a silence is not an oversight to be corrected by
 reporting it next time.
 
-Tier 0 (146 selected components: 30 tier core plus 116 tier conditional, no
+Tier 0 (145 selected components: 30 tier core plus 115 tier conditional, no
 pending state, as recorded in `.opencode/equip.manifest.json`) is pre-approved. Tier 1 is per-project
 and always needs owner approval.
 

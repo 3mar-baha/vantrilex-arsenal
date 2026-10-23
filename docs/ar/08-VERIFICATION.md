@@ -47,7 +47,7 @@ node scripts/generate-catalog-json.mjs --check
 تسمّي `AGENTS.md` وCI السكربتَ `scripts/verify-catalog.mjs` البوابةَ التي
 تثبت صدق كل سجلّ في الفهرس وأن كل مكوّن مختار يُحَل. وهذا السكربت موجود ويجتاز 20/20
 مقابل `registry/catalog.json` (2,837 سجلًّا، بلا حالة `pending`) و`.opencode/equip.manifest.json`
-(146 رمزًا مختارًا)، ومنها فحص شكل لكل نوع قابل للاختيار —
+(145 رمزًا مختارًا)، ومنها فحص شكل لكل نوع قابل للاختيار —
 ففحص `command-shape/cli` الذي يجتاز على 64 سجلّ `cli` يُبلَّغ على هذا النحو لا
 اجتيازًا صامتًا فارغًا. انظر [09-KIT-LOCK.md](09-KIT-LOCK.md).
 

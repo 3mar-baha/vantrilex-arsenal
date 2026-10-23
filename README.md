@@ -163,8 +163,8 @@ illustrative estimates, not measured benchmarks; this repository has never
 benchmarked itself. Every unmarked cell is a verified
 count, not an estimate: 2,837 live catalog records over sixteen kinds beside
 104 candidates, every live row `verified` under a declared evidence class,
-146 selected components (30 tier `core` and 116 tier `conditional`, of which
-17 are suspended pending a missing source address), twenty catalog proofs
+145 selected components (30 tier `core` and 115 tier `conditional`, none
+suspended), twenty catalog proofs
 beside seven registry checks, six gates each required to exit 0, 27 agent
 files, the generated 28-file doc system, and `mcp_cap` = 8. The table image
 above still renders the prior census; the prose figures in this caption are
@@ -251,11 +251,10 @@ run it.
 
 ## Kit census
 
-`.opencode/equip.manifest.json` selects **146 tokens**: 30 tier `core` and 116
+`.opencode/equip.manifest.json` selects **145 tokens**: 30 tier `core` and 115
 tier `conditional`, drawn from the 2,837-row catalog as observed 2026-10-22.
-Seventeen of the tokens are suspended because their catalog row is missing, so
-129 resolve against live rows today; each suspension restores automatically when
-its row returns.
+No token is suspended, so all 145 resolve against live rows today; a suspension
+would restore automatically when its row returns.
 
 ![Prior-census table of the kit by kind, not yet re-rendered; the live counts are in the prose above and below](docs/assets/tables/kit-census.svg)
 

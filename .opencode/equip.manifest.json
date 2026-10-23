@@ -148,6 +148,7 @@
       "mcp/neon",
       "mcp/slack",
       "mcp/stripe",
+      "mcp/subhatta123-twilize",
       "mcp/supabase-mcp",
       "mcp/vercel-mcp",
       "policy/allow-all-pack",
