@@ -8370,8 +8370,8 @@
       "kind": "skill",
       "description": "14-skill collection for AI-powered job search: JD evaluation with A-F scoring, A…",
       "source": "VoltAgent/awesome-agent-skills",
-      "origin": "santifer/career-ops",
-      "install_cmd": "npx skills add santifer/career-ops --skill career-ops -a opencode -y",
+      "origin": "career-ops-hq/career-ops",
+      "install_cmd": "npx skills add career-ops-hq/career-ops --skill career-ops -a opencode -y",
       "version_pin": null,
       "category": null,
       "tags": [
@@ -8392,7 +8392,7 @@
           "checked_at": "2026-10-22"
         },
         "command_registry": {
-          "command": "npx skills add santifer/career-ops --skill career-ops -a opencode -y",
+          "command": "npx skills add career-ops-hq/career-ops --skill career-ops -a opencode -y",
           "registry": "skills-registry",
           "checked_at": "2026-10-22"
         }

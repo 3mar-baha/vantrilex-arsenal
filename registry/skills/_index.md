@@ -301,7 +301,7 @@ _None._
 | bypassing-authentication-with-forced-browsing | skill |  |  | `npx skills add mukul975/Anthropic-Cybersecurity-Skills --skill bypassin…` |
 | canvas-design | skill |  |  | `npx skills add anthropics/skills --skill canvas-design -a opencode -y` |
 | capybara-skill | skill |  |  | `npx skills add LambdaTest/agent-skills --skill capybara-skill -a openco…` |
-| career-ops | skill |  |  | `npx skills add santifer/career-ops --skill career-ops -a opencode -y` |
+| career-ops | skill |  |  | `npx skills add career-ops-hq/career-ops --skill career-ops -a opencode…` |
 | cc-thinking-skills | skill |  |  |  |
 | charlie-cfo-skill | skill |  |  |  |
 | churn-prevention | skill |  |  | `npx skills add coreyhaines31/marketingskills --skill churn-prevention -…` |
