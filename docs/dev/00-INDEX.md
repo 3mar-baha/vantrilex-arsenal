@@ -53,11 +53,10 @@ node -p "require('fs').readdirSync('.opencode/skills').length"
 node -p "require('fs').readdirSync('.opencode/agents').length"
 ```
 
-Observed 2026-10-22 on branch `wt/vta-factory-p0`: catalog version 4 carrying
-2,837 live records and 104 candidates, the selection at 146 tokens with 17
-suspended by missing address and `mcp_cap` 8, and 37 skill folders against 27
-agent entries. A sibling lane owns `kit/`, so the lock-era figures move
-independently of this tree. Re-run the commands rather than trusting those
+Observed 2026-10-23 on `main`: catalog version 4 carrying
+2,889 live records and 40 candidates, the selection at 145 tokens with none
+suspended and `mcp_cap` 8, and 37 skill folders against 27
+agent entries. Re-run the commands rather than trusting those
 figures; they move with the branch.
 
 ## Reading order

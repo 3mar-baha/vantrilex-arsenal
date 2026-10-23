@@ -104,7 +104,7 @@ regenerating rather than by editing.
 than re-implementing them, so the verifier and the generator can never disagree
 about what a valid record is.
 
-Observed live 2026-10-22: `catalog_version` 4 with 2,837 records, and
+Observed live 2026-10-23: `catalog_version` 4 with 2,889 records, and
 `node scripts/generate-catalog-json.mjs --check` reporting every generated
 surface `— ok`. The per-kind totals are in `06-REGISTRY.md`; a count quoted here
 would go stale the next time a row lands.

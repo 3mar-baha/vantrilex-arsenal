@@ -19,12 +19,12 @@ node scripts/verify-registry.mjs
 | Check | What it proves |
 |---|---|
 | `utf8-validity` | The catalog Markdown decodes as strict UTF-8 with no malformed sequence |
-| `schema-conformance` | All 2837 records satisfy `registry/schema/catalog-v4.schema.json` |
+| `schema-conformance` | All 2889 records satisfy `registry/schema/catalog-v4.schema.json` |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
 | `install-command-invariant` | Every live row is `verified`, its class evidence is present, and every command names the registry that proved it |
 | `orphan-references` | All 45 id references across 56 overlap entries resolve |
 | `duplicate-ids` | No id collides within its kind |
-| `mcp-name-normalization` | All 872 MCP server names stay unique after V2 normalization (835 normalize away out-of-range characters; every MCP record carries a name) |
+| `mcp-name-normalization` | All 910 MCP server names stay unique after V2 normalization (858 normalize away out-of-range characters; every MCP record carries a name) |
 
 Verdicts are PASS, FAIL, or SKIPPED. A skipped check is reported as a skip,
 never as a pass. The run exits non-zero on any FAIL. When the catalog cannot
@@ -50,8 +50,8 @@ regenerated. Regeneration details are in
 
 `AGENTS.md` and CI name `scripts/verify-catalog.mjs` as the gate that proves
 every catalog row is honest and every selected component resolves. That script
-exists and passes 20/20 against `registry/catalog.json` (2,837 live rows, all
-`verified` under a declared class, no carried state), the 104 rows in
+exists and passes 20/20 against `registry/catalog.json` (2,889 live rows, all
+`verified` under a declared class, no carried state), the 40 rows in
 `registry/candidates/`, and `.opencode/equip.manifest.json` (145 selected
 tokens, none suspended), including a shape check per
 selectable kind — the `command-shape/cli` check passing on 64 `cli` rows is
