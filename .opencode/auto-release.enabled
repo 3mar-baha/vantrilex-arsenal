@@ -1,0 +1,7 @@
+﻿# Auto-publish kill switch — PRESENT means the queue lane (.github/workflows/auto-publish.yml
+# job `self-publish` -> scripts/self-publish.mjs) is ENABLED. Absent or renamed means the lane
+# does nothing at all. Delete this file to disable it; no script creates it.
+#
+# Created by owner order, 2026-10-21 (verbatim): "create .opencode/auto-release.enabled and
+# fire the pending queue entry (intended_version: v0.8.11) — the forward line's first live
+# self-publish, monitored, reported per element".
