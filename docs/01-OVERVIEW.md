@@ -45,13 +45,13 @@ scout without inheriting the law.
 
 ## Tier-0 census, stated honestly
 
-The selection record at `.opencode/equip.manifest.json` carries 146 tokens,
+The selection record at `.opencode/equip.manifest.json` carries 145 tokens,
 placed over the catalog and provisioned per phase:
 
 | Kind | Selected count | Contents |
 |---|---|---|
 | Skills | 25 | Vanguard, Prime, Doctrine, plus upstream and conditional Arsenal skills |
-| MCP servers | 27 | 7 core servers (context7, fetch, filesystem, firecrawl, github, memory, sequential-thinking) plus 3 conditional; the remaining 17 are suspended pending a source address, `openrouter` among them |
+| MCP servers | 26 | 8 core servers (context7, fetch, filesystem, firecrawl, github, memory, openrouter, sequential-thinking) plus 18 conditional; none suspended |
 | Plugins | 0 | No plugin selected; the 11 catalog plugin records stay as unverified reference entries |
 | Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
 | Agents | 21 | 5 core agents (architect, code-reviewer, aether, pulsar, blazar) plus 16 conditional specialist agents |
@@ -59,9 +59,9 @@ placed over the catalog and provisioned per phase:
 | CLIs | 58 | 58 selected command-line tools, every one `verified`; the catalog carries 64, installed only where the build needs them |
 | Other kinds | 7 | prompts 1, templates 1, workflows 1, design records 1, benchmarks 1, datasets 1, policies 1 |
 
-The honest current count is 146 selected components: 30 tier `core` and 116
-tier `conditional`. Seventeen of the tokens are suspended because their catalog
-row is missing, so 129 resolve against live rows today. Every live catalog row
+The honest current count is 145 selected components: 30 tier `core` and 115
+tier `conditional`. No token is suspended, so all 145 resolve against live rows
+today. Every live catalog row
 is `verified` under its declared evidence class — there is no carried
 `unverified` state in v4. `registry/catalog.json` carries 2,837 live records
 (38 tier `core`, 218 tier `conditional`, the remainder untiered and never
@@ -89,7 +89,7 @@ OpenCode has no standalone hooks directory, so hooks are plugin callbacks: the
 against the session `prompt` hook — while the other six hooks and the
 docs-discipline guard remain on the V1 `server()` surface and are **inert under
 V2**. That gap is deliberate and unfinished, not a completed port, and it does
-not move the census: 146 selected components, 7 of them hooks. The seventh hook is
+not move the census: 145 selected components, 7 of them hooks. The seventh hook is
 documented in [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 
 ## The Node-only toolchain
