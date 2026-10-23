@@ -329,7 +329,7 @@ contract.
 vantrilex-arsenal/
 ├── .opencode/                    Shipped surface
 │   ├── plugin/arsenal.ts         The 8 Tier-0 callbacks as plugin callbacks
-│   ├── skills/                   21 folders: 4 top-level skills + 12 conditional kit components + 5 unlocked
+│   ├── skills/                   37 folders: 18 selected from disk (4 top-level skills + 14 conditional kit components) + 19 unselected
 │   ├── agents/                   ai-generated-code-security-auditor, architect, blazar,
 │   │                               code-reviewer, kit-maintainer, red-team, technical-writer,
 │   │                               vantrilex-guide, vantrilex-implementer, vantrilex-leader

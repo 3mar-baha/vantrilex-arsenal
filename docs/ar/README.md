@@ -337,7 +337,7 @@ Workflow-Forge) إضافةً إلى ال12 الشرطية. أمّا Workflow-For
 vantrilex-arsenal/
 ├── .opencode/                    السطح المُسلَّم
 │   ├── plugin/arsenal.ts         8 ردود نداء Tier-0 داخل الإضافة
-│   ├── skills/                   21 مجلدًا: 4 مهارات عليا + 12 مكوّنًا شرطيًا + 5 غير مقفلة
+│   ├── skills/                   37 مجلدًا: 18 مختارًا من القرص (4 مهارات عليا + 14 مكوّنًا شرطيًا) + 19 غير مختار
 │   ├── agents/                   ai-generated-code-security-auditor، architect، blazar،
 │   │                               code-reviewer، kit-maintainer، red-team، technical-writer،
 │   │                               vantrilex-guide، vantrilex-implementer، vantrilex-leader
