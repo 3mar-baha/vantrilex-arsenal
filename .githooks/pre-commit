@@ -13,7 +13,11 @@
 #   3. AI attribution markers, such as a Claude co-author trailer.
 #
 # Substitution shapes are let through: ${VAR}, <VALUE>, your-*, changeme,
-# example, and xxxx, because that is exactly how .env.example must look.
+# example, and xxxx, because that is exactly how .env.example must look. A
+# `token` key whose value is a Registry identifier (`mcp/…`, `skill/…`, and the
+# other kind prefixes) is let through too: it names a component, not a
+# credential. The exemption is anchored on the `token` key and the kind prefix,
+# so any other long literal under that key is still rejected.
 #
 # Targeted key patterns and an assignment heuristic rather than full entropy
 # math: swap in gitleaks if scanning ever needs to grow beyond this.
@@ -41,10 +45,14 @@ if [ -n "$ADDED_LINES" ]; then
         fail 'staged diff contains a known API key format (sk-ant-*, sk-or-v1-*, gh*_*, github_pat_*, xox*-*, AKIA*).'
     fi
 
-    # 1b. Credential-shaped assignments, per line.
+    # 1b. Credential-shaped assignments, per line. A `token` set to a Registry
+    #     kind/id identifier is an identifier, not a credential, and is the one
+    #     shape the generic heuristic must not reject — otherwise a JSON record
+    #     has to be split across whitespace to store its own selection token.
     SUSPECT_ASSIGN="$(printf '%s\n' "$ADDED_LINES" \
         | grep -iE "(api[_-]?key|secret|token|password)[\"']?[[:space:]]*[:=][[:space:]]*[\"']?[A-Za-z0-9+/_=-]{24,}" \
-        | grep -ivE 'your[_-]|changeme|example|\$\{|<[^>]+>|xxxx' || true)"
+        | grep -ivE 'your[_-]|changeme|example|\$\{|<[^>]+>|xxxx' \
+        | grep -ivE 'token[^A-Za-z0-9]{1,3}:[[:space:]]*[^A-Za-z0-9]?(mcp|skill|hook|agent|cli|prompt|theme|policy|formatting|plugin|template|command|tool|design\.md)/' || true)"
     if [ -n "$SUSPECT_ASSIGN" ]; then
         fail 'staged diff contains a credential-shaped assignment (KEY/SECRET/TOKEN/PASSWORD set to a long literal).'
     fi
