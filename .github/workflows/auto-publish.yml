@@ -1,27 +1,63 @@
 name: auto-publish
 
-# Owner rule: the moment a v0.0.x release is published, it publishes its own
-# distributable — built from the exact tagged commit, verification-gated,
-# idempotent. Minor and major releases never auto-publish; they print an
-# owner-gated notice and publish nothing.
+# Two publish paths share this file, and §0 of the owner's release ruling
+# (2026-10-21) governs how they relate. §0 supersedes the human-first reading of
+# Amendment #1 for phase and mission closures:
 #
-# The gate is fail-closed. A tagged commit with no CI evidence, a failing CI
-# run, or a failing battery check uploads nothing and reports why.
+#   ASSET LANE — `release: published`, or a manual dispatch (path=asset) runs
+#   scripts/auto-publish.sh. The release uploads its own distributable, built
+#   from the exact tagged commit, gated fail-closed, idempotent by name+sha256.
+#   Amendment #1's human-first reading stays true HERE, unchanged, for
+#   owner-named releases.
+#
+#   QUEUE LANE — `push` to the default branch, or a manual dispatch
+#   (path=self-publish) runs scripts/self-publish.mjs. The head of
+#   `.opencode/release-queue.jsonl` names the closed unit, the increment policy
+#   at `registry/policies/release-policy.json` names the number, and the run
+#   creates the tag and the release ONLY after the full battery passes at the
+#   queued commit. Under §0 the mechanism is the routine writer for phase and
+#   mission closures; the owner's named go still governs minor, major and
+#   anything the queue does not carry.
+#
+# The lanes never touch each other's job: the asset lane never reads the queue,
+# the queue lane never edits an existing release, and the kill switch
+# `.opencode/auto-release.enabled` gates the queue lane ONLY. Absent switch ⇒
+# the lane does nothing at all; the owner creates that file, no script does.
+#
+# Both gates are fail-closed: a check that cannot be evaluated is a failed
+# check, and a failed gate creates nothing.
 #
 # A workflow_dispatch run defaults to dry_run=true, which builds and gates but
-# uploads nothing.
+# creates nothing.
 
 on:
   release:
     types: [published]
+  push:
+    branches: [main]
+    # The queue lane only has work when the queue or the switch changed: that is
+    # exactly how a closure and the owner's enablement arrive. A failed run is
+    # re-tried with a manual dispatch (path=self-publish), never by a push that
+    # touches neither file.
+    paths:
+      - '.opencode/release-queue.jsonl'
+      - '.opencode/auto-release.enabled'
   workflow_dispatch:
     inputs:
+      path:
+        description: 'asset (release/tag lane) or self-publish (queue lane)'
+        required: false
+        default: asset
+        type: choice
+        options:
+          - asset
+          - self-publish
       tag:
-        description: 'Existing tag to run the pipeline for (v0.0.x patch only)'
-        required: true
+        description: 'Asset lane only: existing tag to run the pipeline for (v0.0.x patch only)'
+        required: false
         type: string
       dry_run:
-        description: 'Build and gate only; never upload'
+        description: 'Build and gate only; never upload or create'
         required: false
         default: true
         type: boolean
@@ -32,12 +68,17 @@ permissions:
   actions: read
 
 concurrency:
-  group: auto-publish-${{ github.event.release.tag_name || inputs.tag }}
+  # A release event and a manual dispatch on the same tag serialize. A push has
+  # neither, so it gets its own group per commit: the queue lane's single-flight
+  # is the job-level group below, and this workflow-level group must not make a
+  # queue of pending pushes cancel each other.
+  group: auto-publish-${{ github.event.release.tag_name || inputs.tag || github.sha }}
   cancel-in-progress: false
 
 jobs:
   guard:
     name: Guard (v0.0.x patches only)
+    if: github.event_name != 'push' && inputs.path != 'self-publish'
     runs-on: ubuntu-latest
     outputs:
       publishable: ${{ steps.guard.outputs.publishable }}
@@ -104,5 +145,57 @@ jobs:
         with:
           name: auto-publish-audit-${{ needs.guard.outputs.tag }}
           path: .opencode/audit/AUTO-PUBLISH.log
+          if-no-files-found: warn
+          retention-days: 90
+
+  self-publish:
+    name: Self-publish the next queued unit
+    if: github.event_name == 'push' || inputs.path == 'self-publish'
+    runs-on: ubuntu-latest
+    # Single-flight: a second queue-lane run waits for the first and then reads
+    # the queue the first one committed. Runs never interleave on one number.
+    concurrency:
+      group: self-publish-queue
+      cancel-in-progress: false
+    steps:
+      - name: Check out the pushed commit with its tags
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+
+      - name: Install the pinned type checker
+        run: npm --yes install --no-save --no-audit --no-fund typescript@5
+
+      # The script owns the whole decision: kill switch, queue head, policy,
+      # next number, idempotency, battery at the queued commit, tag, release,
+      # audit line, and the scoped queue commit-back.
+      #
+      # Queue update decision: the RUN commits it back with the workflow token
+      # (only `.opencode/release-queue.jsonl` and the audit log are staged).
+      # Leaving it to the operator was rejected: a stale pending head blocks
+      # every later entry, and the line would silently no-op forever. If the
+      # push is refused (branch protection, a concurrent writer), the tag and
+      # release already exist, the run fails loudly, and the next run skips that
+      # entry as already released — it never publishes twice.
+      - name: Queue, policy, verify before create, then publish or refuse
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '1' || '0' }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: node scripts/self-publish.mjs
+
+      - name: Keep the audit line and the queue as run artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-publish-audit-${{ github.run_id }}
+          path: |
+            .opencode/audit/AUTO-PUBLISH.log
+            .opencode/release-queue.jsonl
           if-no-files-found: warn
           retention-days: 90

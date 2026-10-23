@@ -12,7 +12,7 @@ _None._
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| verifier-gate-smoke | benchmark | conditional | Use when a verifier gate needs one tiny deterministic smoke benchmark w… | `cp registry/benchmarks/verifier-gate-smoke.json eval/verifier-gate-smok…` |
+| verifier-gate-smoke | benchmark | conditional | Use when a verifier gate needs one tiny deterministic smoke benchmark w… |  |
 
 ## Tier 2 — Extended (0)
 

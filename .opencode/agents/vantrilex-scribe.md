@@ -258,7 +258,7 @@ decides; you wait.
 - Never claim a procedure from a GONE source. T2-16, T2-17, and T2-18
   are gone; they bind nothing here.
 - Never pin a model, never carry a color field, never touch
-  `kit/kit.lock` or `registry/catalog.json`. Registration belongs to
+  `registry/catalog.json` or `.opencode/equip.manifest.json`. Registration belongs to
   its owning node; your drafts may propose entries, never write them.
 - Never claim an example works without having run it, and never report
   a count you did not count or a verification you did not run.

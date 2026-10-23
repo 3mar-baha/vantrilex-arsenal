@@ -12,7 +12,7 @@ _None._
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| stream-g-guard-probes | dataset | conditional | Use when guard behavior must be scored against the 45 Stream-G probe ch… | `cp registry/datasets/stream-g-guard-probes.json eval/golden/stream-g-gu…` |
+| stream-g-guard-probes | dataset | conditional | Use when guard behavior must be scored against the 45 Stream-G probe ch… |  |
 
 ## Tier 2 — Extended (0)
 

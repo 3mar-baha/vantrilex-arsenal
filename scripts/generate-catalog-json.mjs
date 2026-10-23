@@ -10,7 +10,7 @@ const ROOT = dirname(dirname(SCRIPT_PATH));
 
 const CATALOG_MD = join(ROOT, 'registry', 'VANTRILEX_CATALOG.md');
 const CATALOG_JSON = join(ROOT, 'registry', 'catalog.json');
-const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v3.schema.json');
+const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v4.schema.json');
 const DATA_DIR = join(ROOT, 'registry', 'data');
 
 export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli', 'theme', 'prompt', 'dataset', 'template', 'policy', 'benchmark', 'workflow', 'design.md'];
@@ -89,6 +89,8 @@ export const RECORD_FIELDS = [
   'verify_cmd',
   'cost_note',
   'verification',
+  'class',
+  'evidence',
   'default_selected',
 ];
 
@@ -303,7 +305,9 @@ export function parseCatalogMarkdown(text, { path = CATALOG_MD } = {}) {
         tier: null,
         verify_cmd: null,
         cost_note: null,
-        verification: 'unverified',
+        verification: null,
+        class: null,
+        evidence: null,
         default_selected: defaultSelected,
       };
 
@@ -411,8 +415,18 @@ export function loadSidecar(kind, dataDir = DATA_DIR) {
         fail(`${path}:${i + 1}: unknown field "${key}" (allowed: ${RECORD_FIELDS.join(', ')})`);
       }
     }
-    if (parsed.kind !== undefined && parsed.kind !== kind) {
-      fail(`${path}:${i + 1}: id "${parsed.id}" declares kind "${parsed.kind}" inside ${kind}.jsonl`);
+    /*
+      F-P6-1: every sidecar line declares the kind of the file that holds it.
+      The declaration is required (a line without it is a defect, not an
+      omission to paper over) and it must name this file's kind — a row whose
+      line-kind disagrees with its file-kind is a misplaced entry, and merging
+      it would silently attach one kind's evidence to another kind's record.
+    */
+    if (parsed.kind === undefined) {
+      fail(`${path}:${i + 1}: id "${parsed.id}" is missing "kind" — every ${kind}.jsonl line declares "kind": ${JSON.stringify(kind)}`);
+    }
+    if (parsed.kind !== kind) {
+      fail(`${path}:${i + 1}: id "${parsed.id}" declares kind "${parsed.kind}" inside ${kind}.jsonl — line kind must equal file kind`);
     }
     entries.push({ id: parsed.id, patch: parsed, line: i + 1, path });
   }
@@ -423,6 +437,9 @@ function applyPatch(base, patch) {
   const merged = { ...base };
   LINE_OF.set(merged, lineOf(base));
   for (const field of RECORD_FIELDS) {
+    // `id` is the merge key and `kind` is the catalog section's kind; the
+    // sidecar's kind declaration is proven equal to the file kind in
+    // loadSidecar(), so neither is ever taken from the patch as a value.
     if (field === 'id' || field === 'kind') continue;
     if (Object.prototype.hasOwnProperty.call(patch, field)) merged[field] = patch[field];
   }
@@ -506,88 +523,101 @@ function describeEnum(values) {
   return values.map((value) => JSON.stringify(value)).join(', ');
 }
 
-function checkProperty(where, key, value, spec) {
-  const problems = [];
+function resolveRef(spec, rootSchema) {
+  if (spec === undefined || spec === null || typeof spec.$ref !== 'string') return spec;
+  const ref = spec.$ref;
+  if (!ref.startsWith('#/')) fail(`unsupported $ref "${ref}" — only local schema pointers are supported`);
+  let node = rootSchema;
+  for (const raw of ref.slice(2).split('/')) {
+    const key = raw.replace(/~1/g, '/').replace(/~0/g, '~');
+    node = node === undefined || node === null ? undefined : node[key];
+  }
+  if (node === undefined || node === null) fail(`$ref "${ref}" does not resolve inside the schema`);
+  return node;
+}
 
+function checkValue(label, value, rawSpec, rootSchema, problems) {
+  const spec = resolveRef(rawSpec, rootSchema);
   if (spec.type !== undefined && !typeMatches(value, spec.type)) {
-    problems.push(`${where}: ${key} must be ${describeType(spec.type)}, got ${JSON.stringify(value)}`);
-    return problems;
+    problems.push(`${label} must be ${describeType(spec.type)}, got ${JSON.stringify(value)}`);
+    return;
   }
   if (spec.enum !== undefined && !spec.enum.some((allowed) => allowed === value)) {
-    problems.push(`${where}: ${key} must be one of ${describeEnum(spec.enum)}, got ${JSON.stringify(value)}`);
-    return problems;
+    problems.push(`${label} must be one of ${describeEnum(spec.enum)}, got ${JSON.stringify(value)}`);
+    return;
   }
   if (spec.const !== undefined && value !== spec.const) {
-    problems.push(`${where}: ${key} must be ${JSON.stringify(spec.const)}, got ${JSON.stringify(value)}`);
-    return problems;
+    problems.push(`${label} must be ${JSON.stringify(spec.const)}, got ${JSON.stringify(value)}`);
+    return;
   }
   if (typeof value === 'string') {
     if (spec.minLength !== undefined && value.length < spec.minLength) {
-      problems.push(`${where}: ${key} must be at least ${spec.minLength} character${spec.minLength === 1 ? '' : 's'}, got ${JSON.stringify(value)}`);
+      problems.push(`${label} must be at least ${spec.minLength} character${spec.minLength === 1 ? '' : 's'}, got ${JSON.stringify(value)}`);
     }
     if (spec.pattern !== undefined && !new RegExp(spec.pattern, 'u').test(value)) {
-      problems.push(`${where}: ${key} must match ${spec.pattern}, got ${JSON.stringify(value)}`);
+      problems.push(`${label} must match ${spec.pattern}, got ${JSON.stringify(value)}`);
     }
   }
   if (Array.isArray(value)) {
-    const itemType = spec.items?.type;
-    if (itemType !== undefined) {
-      value.forEach((item, index) => {
-        if (!typeMatches(item, itemType)) {
-          problems.push(`${where}: ${key}[${index}] must be ${describeType(itemType)}, got ${JSON.stringify(item)}`);
-        }
-      });
+    if (spec.items !== undefined) {
+      value.forEach((item, index) => checkValue(`${label}[${index}]`, item, spec.items, rootSchema, problems));
     }
     if (spec.uniqueItems === true && new Set(value).size !== value.length) {
-      problems.push(`${where}: ${key} must not repeat an item`);
+      problems.push(`${label} must not repeat an item`);
     }
   }
-  return problems;
+  if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+    applyObject(label, value, spec, rootSchema, problems);
+  }
 }
 
-function conditionHolds(condition, record) {
-  for (const field of condition.required ?? []) {
-    if (!Object.prototype.hasOwnProperty.call(record, field)) return false;
+/*
+  `required` is the only presence contract a JSON Schema states. The previous
+  implementation also demanded every declared property, which is stricter than
+  the schema and fails valid v4 records: `evidence` declares three optional
+  proof legs and each record carries at most two. Completeness of the generated
+  record is enforced where it belongs — orderRecord() refuses to emit a row that
+  is missing a RECORD_FIELDS entry.
+*/
+function applyObject(label, object, rawSchema, rootSchema, problems) {
+  const schema = resolveRef(rawSchema, rootSchema);
+  for (const field of schema.required ?? []) {
+    if (!Object.prototype.hasOwnProperty.call(object, field)) {
+      problems.push(`${label}: required property "${field}" is missing`);
+    }
   }
-  for (const [key, spec] of Object.entries(condition.properties ?? {})) {
-    if (checkProperty('condition', key, record[key], spec).length > 0) return false;
+  for (const [key, value] of Object.entries(object)) {
+    const spec = schema.properties?.[key];
+    if (spec === undefined) {
+      if (schema.additionalProperties === false) {
+        problems.push(`${label}: property "${key}" is not declared in the schema`);
+      }
+      continue;
+    }
+    checkValue(`${label}.${key}`, value, spec, rootSchema, problems);
+  }
+  for (const rule of schema.allOf ?? []) {
+    if (rule.if === undefined) continue;
+    if (conditionHolds(rule.if, object, rootSchema)) applyObject(label, object, rule.then ?? {}, rootSchema, problems);
+  }
+}
+
+function conditionHolds(condition, object, rootSchema) {
+  for (const field of condition.required ?? []) {
+    if (!Object.prototype.hasOwnProperty.call(object, field)) return false;
+  }
+  for (const [key, rawSpec] of Object.entries(condition.properties ?? {})) {
+    const spec = resolveRef(rawSpec, rootSchema);
+    const value = object[key];
+    if (spec.const !== undefined && value !== spec.const) return false;
+    if (spec.enum !== undefined && !spec.enum.some((allowed) => allowed === value)) return false;
+    if (spec.type !== undefined && !typeMatches(value, spec.type)) return false;
   }
   return true;
 }
 
 function applySchema(where, record, schema, problems) {
-  if (schema.type !== undefined && !typeMatches(record, schema.type)) {
-    problems.push(`${where}: value must be ${describeType(schema.type)}`);
-    return;
-  }
-  if (schema.required) {
-    for (const field of schema.required) {
-      if (!Object.prototype.hasOwnProperty.call(record, field)) {
-        problems.push(`${where}: required property "${field}" is missing`);
-      }
-    }
-  }
-  for (const [key, value] of Object.entries(record)) {
-    const spec = schema.properties?.[key];
-    if (spec === undefined) {
-      if (schema.additionalProperties === false) {
-        problems.push(`${where}: property "${key}" is not declared in the schema`);
-      }
-      continue;
-    }
-    problems.push(...checkProperty(where, key, value, spec));
-  }
-  if (schema.properties && !schema.additionalProperties) {
-    for (const key of Object.keys(schema.properties)) {
-      if (!Object.prototype.hasOwnProperty.call(record, key)) {
-        problems.push(`${where}: property "${key}" must be present in generated output`);
-      }
-    }
-  }
-  for (const rule of schema.allOf ?? []) {
-    if (rule.if === undefined) continue;
-    if (conditionHolds(rule.if, record)) applySchema(where, record, rule.then ?? {}, problems);
-  }
+  applyObject(where, record, schema, schema, problems);
 }
 
 export function loadSchema(path = SCHEMA_PATH) {
@@ -632,7 +662,12 @@ export function sortRecords(records) {
 
 function orderRecord(record) {
   const ordered = {};
-  for (const field of RECORD_FIELDS) ordered[field] = record[field];
+  for (const field of RECORD_FIELDS) {
+    if (!Object.prototype.hasOwnProperty.call(record, field)) {
+      fail(`id=${record.id ?? '<none>'}: generated record has no value for "${field}" — a RECORD_FIELDS entry would be dropped`);
+    }
+    ordered[field] = record[field];
+  }
   return ordered;
 }
 
@@ -643,9 +678,9 @@ export function buildCatalog(records) {
   for (const record of components) counts[record.kind] += 1;
   counts.total = components.length;
   return {
-    $schema: './schema/catalog-v3.schema.json',
+    $schema: './schema/catalog-v4.schema.json',
     generated_by: 'scripts/generate-catalog-json.mjs',
-    catalog_version: 3,
+    catalog_version: 4,
     counts,
     components,
   };
@@ -696,6 +731,51 @@ export function renderHeading(kind, records) {
   return `## ${SECTION_LABELS.get(kind)} (${records.length} — ${defaults} default-selected)`;
 }
 
+const BARE_URL_STOP_RE = /[\s|<>`]/u;
+const URL_TRAILING_PUNCT_RE = /[.,;:!?]+$/u;
+
+/*
+  MD034 (bare URL) is a renderer defect, not a data defect: a description cell
+  may legitimately quote a URL, and markdownlint rejects it unquoted. The scan
+  walks the line, not a regex, because two shapes must be left alone: a URL in
+  a Markdown link destination (`](https://…)`) and a URL already inside a code
+  span. Everything else is wrapped in backticks, which keeps the exact text and
+  is idempotent because a wrapped URL is inside a code span on the next pass.
+*/
+function wrapBareUrls(line) {
+  let out = '';
+  let index = 0;
+  let inCode = false;
+  while (index < line.length) {
+    const ch = line[index];
+    if (ch === '`') {
+      inCode = !inCode;
+      out += ch;
+      index += 1;
+      continue;
+    }
+    if (!inCode && (line.startsWith('http://', index) || line.startsWith('https://', index))) {
+      const precededByLink = line.slice(Math.max(0, index - 2), index) === '](';
+      let end = index;
+      while (end < line.length && !BARE_URL_STOP_RE.test(line[end])) end += 1;
+      let url = line.slice(index, end);
+      const trailing = url.match(URL_TRAILING_PUNCT_RE);
+      const suffix = trailing === null ? '' : trailing[0];
+      if (suffix !== '') url = url.slice(0, -suffix.length);
+      out += precededByLink ? url + suffix : `\`${url}\`${suffix}`;
+      index = end;
+      continue;
+    }
+    out += ch;
+    index += 1;
+  }
+  return out;
+}
+
+function lintSafeTableLine(line) {
+  return line.startsWith('|') ? wrapBareUrls(line) : line;
+}
+
 export function renderMarkdownDocument(parsed) {
   const out = [];
   const { lines, sections } = parsed;
@@ -711,7 +791,7 @@ export function renderMarkdownDocument(parsed) {
     // would renumber rows cited by downstream references.
     out.push(renderHeading(section.kind, section.records));
     out.push('');
-    out.push(...lines.slice(section.tableStartLine - 3, section.tableEndLine));
+    out.push(...lines.slice(section.tableStartLine - 3, section.tableEndLine).map(lintSafeTableLine));
     i = section.tableEndLine;
   }
   return `${out.join('\n').replace(/\n+$/u, '')}\n`;

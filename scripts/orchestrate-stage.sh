@@ -9,23 +9,28 @@
 #
 # Inputs
 # ------
-# kit/kit.lock        JSON, the pinned kit. Two shapes are accepted:
-#                       { "components": [ { "id": "...", "kind": "...",
-#                                           "version": "..." }, ... ] }
-#                       [ { "id": "...", "kind": "..." }, ... ]
-#                     A bare string entry is read as an id with no kind. When a
-#                     pin carries no kind, the id is matched against every kind;
-#                     ids are unique within a kind, not across kinds.
+# .opencode/equip.manifest.json
+#                     JSON, the phase selection record (Q-25). Shape:
+#                       { "phases": { "<phase>": [ "<kind>/<id>", ... ] } }
+#                     The record says which components a phase selects. Every
+#                     token is `kind/id` because ids are unique within a kind,
+#                     not across kinds (`supabase` and `vercel` are each both an
+#                     mcp and a cli).
 #
 # registry/catalog.json
-#                     The generated machine mirror. Supplies each component's
-#                     `phase` and `kind`. The phase vocabulary is the enum in
+#                     The generated machine mirror. Resolves every token to a
+#                     real row, which supplies the kind directory and the
+#                     version pin. The phase vocabulary is the enum in
 #                     registry/schema/catalog-v2.schema.json:
 #                     scout | docs | plan | build | review | operate | on-demand
 #                     `on-demand` is a catalog value but not an orchestrated
 #                     phase: such a component loads when it is asked for, so
 #                     pinning it to a phase would load it eagerly, which is the
 #                     context cost this script exists to avoid.
+#                     The catalog's `phase` for a token must agree with the
+#                     phase that selects it, so the record cannot place a
+#                     component where the catalog does not. That agreement is
+#                     what scripts/dual-run-check.mjs measures as parity.
 #
 # Injected layout
 # ---------------
@@ -39,9 +44,10 @@
 # --------
 # A missing component record is a warning, not a fatal error: the registry is
 # still being filled in, and a partially injected phase is still useful. A
-# missing kit directory, a missing lock file, an unreadable catalog, or a phase
-# that injects nothing at all is fatal. The script never edits project code,
-# registry data, or documentation.
+# missing selection record, an unreadable catalog, a token that does not
+# resolve, a token the catalog places in another phase, or a phase that injects
+# nothing at all is fatal. The script never edits project code, registry data,
+# or documentation.
 #
 # Usage:
 #   ./scripts/orchestrate-stage.sh <PHASE> [-h | --help]
@@ -55,8 +61,7 @@ set -u
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-KIT_DIR="${REPO_ROOT}/kit"
-KIT_LOCK="${KIT_DIR}/kit.lock"
+MANIFEST="${REPO_ROOT}/.opencode/equip.manifest.json"
 CATALOG="${REPO_ROOT}/registry/catalog.json"
 KIT_ROOT="${REPO_ROOT}/.opencode/kit"
 
@@ -82,12 +87,13 @@ Phases:
   ${VALID_PHASES// /, }
 
 Inputs:
-  kit/kit.lock          pinned kit (required; absence is fatal)
-  registry/catalog.json phase and kind per component (required)
+  .opencode/equip.manifest.json phase selection record (required; absence is fatal)
+  registry/catalog.json         kind, phase and version per component (required)
 
 Exit status:
   0    Phase orchestrated; individual missing records reported as warnings.
-  1    Invalid phase, missing kit lock or catalog, or nothing was injected.
+  1    Invalid phase, missing selection record or catalog, an unresolved
+       token, or nothing was injected.
 EOF
 }
 
@@ -100,16 +106,16 @@ is_valid_phase() {
 }
 
 # select_components <phase>
-# Prints one line per outcome on stdout, so a single stream carries both the
-# selection and its diagnostics:
-#   !id <TAB> reason                        the lock pins it, the catalog does not
+# Prints one TAB-separated line per selected component on stdout:
 #   id <TAB> kind <TAB> dir <TAB> record <TAB> ver
 # where <dir> is the registry's directory name for that kind, so the injected
-# tree mirrors the registry layout exactly. Records whose phase is null span
-# phases and are therefore never injected; records belonging to another phase
-# are pruned by design.
+# tree mirrors the registry layout exactly. The phase set comes from
+# .opencode/equip.manifest.json; every token in it must resolve against
+# registry/catalog.json, and the catalog must place that token in the same
+# phase. A token that does not resolve, or resolves elsewhere, is fatal: the
+# extraction never shrinks itself into a smaller-but-green phase.
 select_components() {
-    node --input-type=module -e "$SELECTOR" "$KIT_LOCK" "$CATALOG" "$1"
+    node --input-type=module -e "$SELECTOR" "$MANIFEST" "$CATALOG" "$1"
 }
 
 SELECTOR=$(cat <<'NODE'
@@ -118,15 +124,25 @@ import { join } from "node:path";
 
 // With `node -e` there is no script path, so argv[0] is the binary and the
 // caller's arguments start at index 1.
-const [lockPath, catalogPath, phase] = process.argv.slice(1);
+const [manifestPath, catalogPath, phase] = process.argv.slice(1);
 
 const KIND_DIRS = {
-  skill: "skills",
+  agent: "agents",
+  benchmark: "benchmarks",
+  cli: "cli",
+  dataset: "datasets",
+  "design.md": "design",
+  formatting: "formatting",
+  hook: "hooks",
+  lsp: "lsp",
   mcp: "mcp",
   plugin: "plugins",
-  hook: "hooks",
-  agent: "agents",
-  formatting: "formatting",
+  policy: "policies",
+  prompt: "prompts",
+  skill: "skills",
+  template: "templates",
+  theme: "themes",
+  workflow: "workflows",
 };
 
 const bail = (message) => {
@@ -148,54 +164,59 @@ const readJson = (path, label) => {
   }
 };
 
-const lock = readJson(lockPath, "kit lock");
+const manifest = readJson(manifestPath, "equip manifest");
 const catalog = readJson(catalogPath, "catalog");
 
-const pins = Array.isArray(lock) ? lock : Array.isArray(lock?.components) ? lock.components : null;
-if (pins === null) {
-  bail("kit lock must be a JSON array of components, or an object with a components array");
+if (manifest === null || typeof manifest !== "object" || manifest.phases === null || typeof manifest.phases !== "object") {
+  bail(`equip manifest carries no phases object at ${manifestPath}`);
 }
 if (!Array.isArray(catalog?.components)) {
   bail(`catalog has no components array at ${catalogPath}`);
 }
 
+const tokens = manifest.phases[phase];
+if (!Array.isArray(tokens)) {
+  bail(`equip manifest carries no array for phase ${phase} at ${manifestPath}`);
+}
+
 const byKindAndId = new Map();
-const byId = new Map();
 // NUL-separated keys so no kind/id pair can alias another by concatenation.
 const KEY = (kind, id) => `${kind}\u0000${id}`;
 for (const record of catalog.components) {
-  if (!record || typeof record.id !== "string") continue;
+  if (!record || typeof record.id !== "string" || typeof record.kind !== "string") continue;
   byKindAndId.set(KEY(record.kind, record.id), record);
-  if (!byId.has(record.id)) byId.set(record.id, record);
 }
 
 const rows = [];
-const warned = new Set();
+const seen = new Set();
 
-for (const entry of pins) {
-  const pin = typeof entry === "string" ? { id: entry } : entry;
-  if (!pin || typeof pin.id !== "string" || pin.id.length === 0) {
-    bail(`kit lock contains an entry without an id: ${JSON.stringify(entry)}`);
+for (const token of tokens) {
+  if (typeof token !== "string") {
+    bail(`equip manifest phase ${phase} carries a non-string entry: ${JSON.stringify(token)}`);
   }
+  if (seen.has(token)) {
+    bail(`equip manifest phase ${phase} carries ${token} more than once`);
+  }
+  seen.add(token);
 
-  const record =
-    typeof pin.kind === "string" ? byKindAndId.get(KEY(pin.kind, pin.id)) : byId.get(pin.id);
+  const boundary = token.indexOf("/");
+  if (boundary <= 0 || boundary === token.length - 1) {
+    bail(`equip manifest token is not <kind>/<id>: ${token}`);
+  }
+  const kind = token.slice(0, boundary);
+  const id = token.slice(boundary + 1);
 
+  const record = byKindAndId.get(KEY(kind, id));
   if (!record) {
-    if (!warned.has(pin.id)) {
-      warned.add(pin.id);
-      const reason = typeof pin.kind === "string" ? `no catalog record of kind ${pin.kind}` : "no catalog record";
-      rows.push(`!${pin.id}\t${reason}`);
-    }
-    continue;
+    bail(`equip manifest token ${token} has no ${kind} row in the catalog (phase ${phase})`);
   }
-
   const dir = KIND_DIRS[record.kind];
   if (!dir) {
-    bail(`catalog record ${record.id} has unknown kind ${record.kind}`);
+    bail(`catalog record ${token} has unknown kind ${record.kind}`);
   }
-  if (record.phase === null || record.phase === undefined) continue;
-  if (record.phase !== phase) continue;
+  if (record.phase !== phase) {
+    bail(`equip manifest token ${token} is selected for phase ${phase}, but the catalog places it in ${JSON.stringify(record.phase)}`);
+  }
 
   rows.push([
     record.id,
@@ -262,7 +283,7 @@ print_inventory() {
 
 main() {
     local phase="${1:-}"
-    local selection status id kind dir relative version warn_id warn_reason
+    local selection status id kind dir relative version
 
     if [ "${2:-}" = "-h" ] || [ "${2:-}" = "--help" ] || [ "$phase" = "-h" ] || [ "$phase" = "--help" ]; then
         usage
@@ -280,13 +301,9 @@ main() {
         exit 1
     fi
 
-    if [ ! -d "$KIT_DIR" ]; then
-        log_error "kit directory not found: ${KIT_DIR#"$REPO_ROOT"/}"
-        log_error 'the pinned kit manifest is the input to injection; there is nothing to inject from.'
-        exit 1
-    fi
-    if [ ! -f "$KIT_LOCK" ]; then
-        log_error "kit lock not found: ${KIT_LOCK#"$REPO_ROOT"/}"
+    if [ ! -f "$MANIFEST" ]; then
+        log_error "selection record not found: ${MANIFEST#"$REPO_ROOT"/}"
+        log_error 'the selection record is the input to injection; there is nothing to inject from.'
         exit 1
     fi
     if [ ! -f "$CATALOG" ]; then
@@ -300,7 +317,7 @@ main() {
     selection="$(select_components "$phase")"
     status=$?
     if [ "$status" -ne 0 ]; then
-        log_error "could not resolve the pinned kit for phase $phase."
+        log_error "could not resolve the selected components for phase $phase."
         exit 1
     fi
 
@@ -309,17 +326,7 @@ main() {
     # Field splitting on TAB is intended; ids, kinds, and paths carry none.
     while IFS=$'\t' read -r id kind dir relative version; do
         [ -n "$id" ] || continue
-        case "$id" in
-            '!'*)
-                warn_id="${id#!}"
-                warn_reason="${kind:-no reason given}"
-                log_warn "pinned component has ${warn_reason}, skipped: ${warn_id}"
-                WARNED=$((WARNED + 1))
-                ;;
-            *)
-                inject_component "$id" "$kind" "$dir" "$relative" "$version"
-                ;;
-        esac
+        inject_component "$id" "$kind" "$dir" "$relative" "$version"
     done <<< "$selection"
 
     print_inventory
@@ -329,8 +336,8 @@ main() {
         exit 1
     fi
     if [ "$INJECTED" -eq 0 ]; then
-        log_error "no component in ${KIT_LOCK#"$REPO_ROOT"/} is pinned to phase $phase."
-        log_error "either the lock needs a component for this phase, or the phase is wrong."
+        log_error "no component in ${MANIFEST#"$REPO_ROOT"/} is selected for phase $phase."
+        log_error "either the record needs a component for this phase, or the phase is wrong."
         exit 1
     fi
 

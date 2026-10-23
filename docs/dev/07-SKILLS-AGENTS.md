@@ -71,8 +71,8 @@ are `primary`.
 
 **Mode must be explicit.** OpenCode V2 defaults an omitted `mode` to `primary`,
 so a file without a mode line would silently promote a subagent to session
-leadership. `verify-kit.mjs`'s `agent-mode-explicit` check requires `primary`,
-`subagent`, or `all` in every file and proves each self-sourced lock agent
+leadership. `verify-catalog.mjs`'s `agent-hygiene` check requires `primary`,
+`subagent`, or `all` in every file and proves each self-sourced selected agent
 resolves to a file. Observed live: 27 files declare mode, 24 as subagent.
 
 ## BLAZAR, the primary orchestrator

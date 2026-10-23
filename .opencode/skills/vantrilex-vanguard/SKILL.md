@@ -126,7 +126,7 @@ and the companion config run in the install lane:
 | A.3 | Concept phase                     | Chatbot relay with the Arabic prompt template    |
 | A.4 | Step 2 — Source surveying         | Ordered sources, Context7 reachability rule      |
 | A.5 | Step 3 — Kit selection            | Five-step algorithm, overlap rules, shortlist    |
-| A.6 | Step 4 — Install, verify, report  | Real commands, kit.lock, per-kind protocols     |
+| A.6 | Step 4 — Install, verify, report  | Real commands, selection record, per-kind protocols |
 | A.6b | Forge skill install              | Fourth skill, one command, read-back proof       |
 | A.6c | Companion config                 | BLAZAR routing, merged keys, restart noted       |
 | A.7 | Step 5 — Documentation phase      | 28 files in 8 folders, reserved workflow name    |
@@ -254,14 +254,14 @@ domain, and whether the project is UI-heavy. Then query the catalog. Then score 
 installs and stars with preference for proven adoption at or above one thousand, on activity within
 the last six months, on a clear licence, and on non-overlap with stronger candidates. Then apply the
 overlap rules. Then present the shortlist, wait for owner approval, and only then install. Tier 0 is
-pre-approved for every project: it is the 32 core components of the 157 locked in
-`kit/kit.lock`, whose pending list holds 9 theme entries. Tier 1, the 125 conditional components, is selected
+pre-approved for every project: it is the 30 core components of the 146 selected in
+`.opencode/equip.manifest.json` from the 2,940-row catalog. Tier 1, the 116 conditional components, is selected
 per project and needs explicit approval — conditional exists so projects carry what they use and
 nothing they do not.
 
 A `cli` entry is a locally installed command-line tool the kit can rely on, recorded in
-`kit/kit.lock` with kind `cli`. It is a place for command-line tools, and the kit locks none of them
-today: population happens later, through the digest, the Saturday review, and the weekly
+`registry/catalog.json` with kind `cli`. The catalog carries 64 of them, each with a verified
+installer command: population happens through the digest, the Saturday review, and the weekly
 work-order mechanism, never through an equip run. Vanguard still governs an entry when a project
 needs one, because an unmanaged binary on a developer's machine is not a kit.
 
@@ -342,26 +342,23 @@ node scripts/verify-registry.mjs
 node scripts/generate-catalog-json.mjs
 ```
 
-Write one pinned entry per installed component into `kit/kit.lock`, which the docs phase mirrors at
-`docs/04-kit/15-kit.lock`:
+Record one token per installed component in the project's selection record at
+`.opencode/equip.manifest.json`, under the phase the catalog row declares, and let the docs phase
+carry the same inventory at `docs/04-kit/15-SELECTION-RECORD.json`:
 
 ```json
 {
-  "id": "ponytail-review",
-  "kind": "skill",
-  "version": "v1.4.2",
-  "source": "dietrichgebert/ponytail",
-  "install_cmd": "npx skills add dietrichgebert/ponytail --skill ponytail-review -a opencode",
-  "phase": "review",
-  "verify": "skill dry-run against a sample diff",
-  "status": "verified"
+  "schema_version": 1,
+  "phases": {
+    "review": ["skill/ponytail-review"]
+  }
 }
 ```
 
 Inject each component phase-scoped, meaning it is loaded only in the phases its `phase` field names,
 and keep the eight-MCP cap as the backstop so context spend tracks the work instead of staying hot
 everywhere. Prove every component with the per-kind protocol below, and record the same result the
-kit verifier at `scripts/verify-kit.mjs` checks:
+catalog verifier at `scripts/verify-catalog.mjs` checks:
 
 ```text
 | Kind                       | Protocol                                                              |
@@ -458,7 +455,7 @@ below is explicit and complete:
 | `docs/01-vision/` | 01, 02, 05, 06, 23, 24 | Vision, language, people, scope, roadmap, risks |
 | `docs/02-requirements/` | 03, 04, 07 | Functional, non-functional, and success criteria |
 | `docs/03-architecture/` | 08, 09, 10, 11, 12, 13 | Architecture, stack, data, contracts, security, ADR |
-| `docs/04-kit/` | 14, 15, 16 | Kit inventory, lockfile mirror, and agent registry |
+| `docs/04-kit/` | 14, 15, 16 | Kit inventory, selection record mirror, and agent registry |
 | `docs/05-workflows/` | 18, 19, 20, 21, 22 | Main lane plus feature, review, audit, and bugfix lanes |
 | `docs/06-governance/` | 25, 26, 27 | Constitution, antipatterns, and the problems ledger |
 | `docs/99-archive/` | superseded docs plus manifest | Retired docs with reasons, never deleted |
@@ -482,7 +479,7 @@ Write one contract row per file, all twenty-eight, with no row added or removed:
 | 12 | `12-SECURITY-MODEL.md` | Security Model |
 | 13 | `13-ARCHITECTURE-DECISION-RECORD.md` | Architecture Decision Record |
 | 14 | `14-KIT-INVENTORY.md` | Kit Inventory |
-| 15 | `15-kit.lock` | kit.lock (lockfile, not Markdown) |
+| 15 | `15-SELECTION-RECORD.json` | Selection record mirror (JSON, not Markdown) |
 | 16 | `16-AGENT-REGISTRY.md` | Agent Registry |
 | 17 | `17-CHECKPOINT.md` | Checkpoint (living state file, updated every session) |
 | 18 | `18-WORKFLOW.md` | Main Workflow (left EMPTY for Doctrine to fill) |
@@ -632,12 +629,12 @@ plan already in effect on the open task: its ordered phase list, the components 
 and which of those phases are already complete.
 
 **Output.** One ordered phase list with the kit components assigned per phase, read from the `phase`
-field of every entry in `kit/kit.lock`. The phase enum in the lock is `scout`, `docs`, `plan`,
-`build`, `review`, `operate`, `on-demand`, and `on-demand` sits outside every phase and is never
-injected by phase. The assignment as the lock stands:
+field of every catalog row and the tokens in `.opencode/equip.manifest.json`. The phase enum is
+`scout`, `docs`, `plan`, `build`, `review`, `operate`, `on-demand`, and `on-demand` sits outside every
+phase and is never injected by phase. An illustrative sample of the selection as it stands:
 
 ```text
-| Phase | Components carrying this phase in `kit/kit.lock` |
+| Phase | Components carrying this phase in the selection record (sample) |
 |---|---|
 | scout | fetch, context7 (mcp, plugin), firecrawl, session-start, task-dispatcher, vantrilex-prime, vantrilex-vanguard |
 | docs | grill-me, technical-writer, documentation-as-tests |
@@ -648,11 +645,12 @@ injected by phase. The assignment as the lock stands:
 | on-demand | find-skills, skill-creator |
 ```
 
-Read the lock at dispatch time instead of copying that table forward: a component absent from a row
-is not thereby unassigned, a phase holding no row is not thereby empty, and the lock entry is what
-gets injected, never the id alone. An id recorded at two kinds is injected as both entries.
+Read the catalog and the selection record at dispatch time instead of copying that table forward: a
+component absent from a row is not thereby unassigned, a phase holding no row is not thereby empty,
+and the catalog entry behind a selected token is what gets injected, never the id alone. An id
+recorded at two kinds is injected as both entries.
 The fourth top-level skill enters this map under its directory-path id when
-the lock carries a row for it. Until then the lock in force decides the map,
+the catalog and the selection carry matching rows. Until then the live files decide the map,
 never a printed row.
 
 No mapping printed in this skill governs a dispatch. Vanguard derives the
@@ -713,8 +711,8 @@ first, then proceeds on that stated reason.
   the approval ballot with no guessing about why each row survived or fell.
 - The verification report table with tool, kind, status, evidence, and how to fix, consumable as the
   sign-off sheet for every installed component.
-- The pinned `kit/kit.lock` entries with id, kind, version, source, install command, phase, verify
-  note, and status, mirrored at `docs/04-kit/15-kit.lock` with the kit inventory beside it at
+- The selected tokens with id, kind, source, install command, phase, verify
+  note, and status read from `registry/catalog.json`, mirrored at `docs/04-kit/15-SELECTION-RECORD.json` with the kit inventory beside it at
   `docs/04-kit/14-KIT-INVENTORY.md`.
 - For any proposed `cli` entry, the approval record with the tool's recorded pricing, free-tier
   limits, licence, and date recorded, so a later audit can tell what the terms were when the owner

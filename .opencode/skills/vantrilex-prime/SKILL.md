@@ -135,24 +135,25 @@ Report these component homes, each with its observed presence:
 ```
 
 Skills and kit components share the `.opencode/skills/` tree, which is why a folder count there is
-not a component count. Count the folders on disk and read the pinned set from `kit/kit.lock`
-rather than from this file, because a folder can land on disk before or after the lock catches up
-with it. This file carries no folder total and no tier split: the disk and the lock are the only
-sources Prime reads for either. Name the supporting paths beside them, because a fresh instance
+not a component count. Count the folders on disk and read the selected set from
+`.opencode/equip.manifest.json` and the catalog from `registry/catalog.json`
+rather than from this file, because a folder can land on disk before or after the selection record
+catches up with it. This file carries no folder total and no tier split: the disk and those two
+files are the only sources Prime reads for either. Name the supporting paths beside them, because a fresh instance
 looks for them next:
 
 ```text
 | Path                 | Holds                                             |
 | `.opencode/command/` | Operator entry points, including prime and equip |
-| `kit/kit.lock`       | The pinned component set with its pending list    |
+| `.opencode/equip.manifest.json` | The phase selection over the catalog    |
 | `scripts/`           | The verification scripts and the release scripts |
 | `AGENTS.md`          | The repository constitution for any coding agent |
 ```
 
-Read the kit total, the tier split, the pending-list length, and the MCP cap from `kit/kit.lock`
-and report each value as read; when the file is absent or unreadable, report that as a deviation
-and never fill any of them in from memory, because a remembered number that no longer matches the
-tree is a silent lie.
+Read the kit total and the tier split from `registry/catalog.json`, and the phase selection plus
+the MCP cap as `scripts/verify-catalog.mjs` enforces it, and report each value as read; when a file
+is absent or unreadable, report that as a deviation and never fill any of them in from memory,
+because a remembered number that no longer matches the tree is a silent lie.
 
 ### P.5 — Verify the four top-level skills
 

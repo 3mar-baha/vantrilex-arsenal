@@ -4,7 +4,7 @@
 hand-edited. The single command that builds them is the dependency-free Node
 module `scripts/generate-catalog-json.mjs`. It reads the Markdown source plus
 the sidecars, validates every record against
-`registry/schema/catalog-v3.schema.json`, and writes byte-deterministic
+`registry/schema/catalog-v4.schema.json`, and writes byte-deterministic
 output. This file documents its real flags and rules; the record contract it
 enforces is in [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md).
 
@@ -65,10 +65,12 @@ Merge rule, in precedence order:
 5. A duplicate id inside one sidecar fails the run.
 6. An unknown field in a sidecar entry fails the run.
 
-All 16 sidecars are present today and merge cleanly: 1505 skill, 923 MCP,
-11 plugin, 20 hook, 301 agent, 13 formatting, 1 lsp, 64 cli, 3 theme,
-1 prompt, 1 dataset, 1 template, 1 policy, 1 benchmark, 1 workflow, and 84
-design entries, totaling 2931 records.
+All 16 sidecars are present today and merge cleanly. The live per-kind totals
+are 1,464 skill, 872 MCP, 301 agent, 84 design, 64 cli, 13 formatting, 12
+theme, 11 plugin, 8 hook, 2 policy, and one each of lsp, prompt, dataset,
+template, benchmark and workflow — 2,837 live records. Re-derive the figures
+from `registry/catalog.json`; the developer note `dev/06-REGISTRY.md` carries
+the recounted table.
 
 ## The single-writer law
 

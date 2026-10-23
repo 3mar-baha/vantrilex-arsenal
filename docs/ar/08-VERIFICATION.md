@@ -19,12 +19,12 @@ node scripts/verify-registry.mjs
 | الفحص | ما يثبته |
 |---|---|
 | `utf8-validity` | أن Markdown الفهرس يُفَك ترميزه UTF-8 صارمًا بلا تسلسل معطوب |
-| `schema-conformance` | أن السجلّات الـ2931 تفي بـ `registry/schema/catalog-v3.schema.json` |
+| `schema-conformance` | أن السجلّات الـ2,837 تفي بـ `registry/schema/catalog-v4.schema.json` |
 | `row-count-integrity` | أن عدد كل عنوان قسم وعدد المحدَّد افتراضيًا يطابقان التحليل |
 | `install-command-invariant` | أن لا سجلّ يدّعي `verified` مع `install_cmd` فارغ |
-| `orphan-references` | أن مراجع المعرّفات الـ48 عبر مدخلات التداخل الـ60 تُحَل كلها |
+| `orphan-references` | أن مراجع المعرّفات الـ45 عبر مدخلات التداخل الـ56 تُحَل كلها |
 | `duplicate-ids` | أن لا معرّف يصطدم داخل نوعه |
-| `mcp-name-normalization` | أن أسماء خوادم MCP الـ923 تبقى فريدة بعد تسوية الفهرس v2 |
+| `mcp-name-normalization` | أن أسماء خوادم MCP الـ872 تبقى فريدة بعد تسوية الفهرس v2 |
 
 والأحكام PASS أو FAIL أو SKIPPED. والفحص المتخطّى يُبلَّغ تخطيًا لا
 اجتيازًا أبدًا. وينتهي التشغيل بغير الصفر على أي FAIL. وحين يتعذّر تحليل
@@ -42,12 +42,13 @@ node scripts/generate-catalog-json.mjs --check
 بعينه. وتفاصيل إعادة التوليد في
 [07-CATALOG-GENERATION.md](../07-CATALOG-GENERATION.md).
 
-## فحص مكوّنات الطقم
+## فحص الفهرس والاختيار
 
-تسمّي `CONTRIBUTING.md` وCI السكربتَ `scripts/verify-kit.mjs` البوابةَ التي
-تثبت أن كل مكوّن من Tier-0 يُحَل ويُحمَّل. وهذا السكربت موجود ويجتاز 22/22
-مقابل `kit/kit.lock` (157 مكوّنًا، و9 معلَّقة)، ومنها فحص لكل نوع مثبَّت —
-ففحص `per-kind/cli` الذي يجتاز على 64 مدخل `cli` يُبلَّغ على هذا النحو لا
+تسمّي `AGENTS.md` وCI السكربتَ `scripts/verify-catalog.mjs` البوابةَ التي
+تثبت صدق كل سجلّ في الفهرس وأن كل مكوّن مختار يُحَل. وهذا السكربت موجود ويجتاز 20/20
+مقابل `registry/catalog.json` (2,837 سجلًّا، بلا حالة `pending`) و`.opencode/equip.manifest.json`
+(146 رمزًا مختارًا)، ومنها فحص شكل لكل نوع قابل للاختيار —
+ففحص `command-shape/cli` الذي يجتاز على 64 سجلّ `cli` يُبلَّغ على هذا النحو لا
 اجتيازًا صامتًا فارغًا. انظر [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## فحص صيغة المهارة

@@ -8,5 +8,5 @@
 
 **Tags:** volt, skill
 
-**Raw URL:** https://raw.githubusercontent.com/santifer/career-ops/main/README.md
+**Raw URL:** https://raw.githubusercontent.com/career-ops-hq/career-ops/main/README.md
 

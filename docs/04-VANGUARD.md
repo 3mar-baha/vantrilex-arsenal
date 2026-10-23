@@ -134,17 +134,17 @@ reporting as much as about selection: silence is the correct output for a
 marginal replacement, and a silence is not an oversight to be corrected by
 reporting it next time.
 
-Tier 0 (157 locked components: 32 tier core plus 125 tier conditional, 9
-pending, as locked in `kit/kit.lock`) is pre-approved. Tier 1 is per-project
+Tier 0 (146 selected components: 30 tier core plus 116 tier conditional, no
+pending state, as recorded in `.opencode/equip.manifest.json`) is pre-approved. Tier 1 is per-project
 and always needs owner approval.
 
 ### Step 4 — Install, verify, report
 
 Install with real commands only — skills via
 `npx skills add <repo> --skill <name>`, MCP servers either as a JSON snippet or, where the server
-ships an npm entry point, as `npx -y <package>` — the pattern `scripts/verify-kit.mjs` accepts as
+ships an npm entry point, as `npx -y <package>` — the pattern `scripts/verify-catalog.mjs` accepts as
 `NPM_CMD` — never
-an invented package name. Write the lock entries with pinned versions. Inject
+an invented package name. Record the selected tokens with their catalog rows. Inject
 phase-scoped: a component lives only in its phases, with the 8-MCP cap as the
 backstop. Then verify per kind, seven protocols:
 

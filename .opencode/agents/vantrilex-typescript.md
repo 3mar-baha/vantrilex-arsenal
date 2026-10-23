@@ -83,7 +83,7 @@ inventing any new shape:
 - Read `.opencode/plugin/arsenal.ts` first: zero
   dependencies, mirrored V2 plugin surface, narrowed
   event types, guards that degrade to SKIPPED.
-- Follow `scripts/verify-kit.mjs` conventions: Node 25,
+- Follow `scripts/verify-catalog.mjs` conventions: Node 25,
   ESM, zero dependencies, one named check per rule.
 - Match surrounding style: explicit types at trust
   boundaries, narrowed `unknown` inputs, no invented
@@ -123,7 +123,7 @@ a clean typecheck is unfinished, not done.
 You resolve kit questions through named surfaces only:
 
 - `node scripts/verify-skills.mjs` for skill format.
-- `node scripts/verify-kit.mjs` for lock and components.
+- `node scripts/verify-catalog.mjs` for catalog honesty and the selection.
 - `node scripts/verify-registry.mjs` for registry data.
 - RAG 08 opencode-v2-platform for platform answers.
 - Catalog search by name for component lookup, never

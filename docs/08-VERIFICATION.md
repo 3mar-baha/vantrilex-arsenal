@@ -19,16 +19,16 @@ node scripts/verify-registry.mjs
 | Check | What it proves |
 |---|---|
 | `utf8-validity` | The catalog Markdown decodes as strict UTF-8 with no malformed sequence |
-| `schema-conformance` | All 2931 records satisfy `registry/schema/catalog-v3.schema.json` |
+| `schema-conformance` | All 2837 records satisfy `registry/schema/catalog-v4.schema.json` |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
-| `install-command-invariant` | No record claims `verified` with a null `install_cmd` |
-| `orphan-references` | All 48 id references across 60 overlap entries resolve |
+| `install-command-invariant` | Every live row is `verified`, its class evidence is present, and every command names the registry that proved it |
+| `orphan-references` | All 45 id references across 56 overlap entries resolve |
 | `duplicate-ids` | No id collides within its kind |
-| `mcp-name-normalization` | All 923 MCP server names stay unique after V2 normalization (867 normalize away out-of-range characters; every MCP record carries a name) |
+| `mcp-name-normalization` | All 872 MCP server names stay unique after V2 normalization (835 normalize away out-of-range characters; every MCP record carries a name) |
 
 Verdicts are PASS, FAIL, or SKIPPED. A skipped check is reported as a skip,
 never as a pass. The run exits non-zero on any FAIL. When the catalog cannot
-be parsed at all, the schema check fails and the remaining four checks report
+be parsed at all, the schema check fails and the remaining five checks report
 SKIPPED with the parse error as the reason.
 
 ## Catalog mirror check
@@ -46,13 +46,16 @@ hand-authored `registry/formatting/_index.md` is reported as skipped, never
 regenerated. Regeneration details are in
 [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md).
 
-## Kit component check
+## Catalog and selection check
 
-`CONTRIBUTING.md` and CI name `scripts/verify-kit.mjs` as the gate that
-proves each Tier-0 component resolves and loads. That script exists and
-passes 22/22 against `kit/kit.lock` (157 components, 9 pending), including a
-per-kind check for each locked kind — the `per-kind/cli` check passing on 64
-`cli` entries is reported as such rather than as a silent vacuous pass. See
+`AGENTS.md` and CI name `scripts/verify-catalog.mjs` as the gate that proves
+every catalog row is honest and every selected component resolves. That script
+exists and passes 20/20 against `registry/catalog.json` (2,837 live rows, all
+`verified` under a declared class, no carried state), the 104 rows in
+`registry/candidates/`, and `.opencode/equip.manifest.json` (146 selected
+tokens, 17 of them suspended by missing address), including a shape check per
+selectable kind — the `command-shape/cli` check passing on 64 `cli` rows is
+reported as such rather than as a silent vacuous pass. See
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## Skill-format check
@@ -76,8 +79,12 @@ shellcheck scripts/*.sh .githooks/*
 ```
 
 CI additionally runs `bash -n` over every script and git hook, then
-`node --check` over every `.mjs` file. All seven orchestration scripts carry
-a `#!/usr/bin/env bash` shebang and the executable bit; CI asserts both.
+`node --check` over every `.mjs` file. The seven orchestration scripts carry a
+`#!/usr/bin/env bash` shebang and the executable bit, and CI asserts both. The
+directory holds nine shell scripts: `scripts/migrate-to-opencode-v2.sh` is
+committed mode 100644, so the executable-bit assertion does not cover it, and
+`scripts/auto-publish.sh` sits outside the seven-script loop because the release
+workflow invokes it directly.
 
 ## Plugin TypeScript
 

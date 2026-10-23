@@ -15,17 +15,17 @@ before you quote them.
 
 | Fact | Value |
 |---|---|
-| Locked kit components | 112, with 0 pending |
-| Kit by tier | 31 `core`, 81 `conditional` |
-| Kit by kind | 26 skill, 8 mcp, 1 lsp, 7 hook, 6 agent, 64 cli |
-| Kit verification | 80 `verified`, 32 `unverified` |
-| MCP cap (`kit/kit.lock` `mcp_cap`) | 8 |
-| Catalog records | 2,804 |
-| Catalog by kind | 1,504 skill, 907 mcp, 284 agent, 20 hook, 13 formatting, 11 plugin, 1 lsp, 64 cli |
-| Catalog default-selected | 20 |
-| Catalog verified install commands | 82 |
-| Folders under `.opencode/skills/` | 21 |
-| Of those, locked kit components | 16 |
+| Selected kit components | 146, of which 17 suspended by missing address and 129 resolving |
+| Kit by tier | 30 `core`, 116 `conditional` |
+| Kit by kind | 25 skill, 27 mcp, 1 lsp, 7 hook, 21 agent, 58 cli, 7 other |
+| Catalog verification | 2,837 live rows, all `verified` under a declared class; 104 candidates |
+| MCP cap (`MCP_CAP` in `scripts/verify-catalog.mjs`) | 8 |
+| Catalog records | 2,837 live + 104 candidates |
+| Catalog by kind | 1,464 skill, 872 mcp, 301 agent, 84 design.md, 64 cli, 13 formatting, 12 theme, 11 plugin, 8 hook, 2 policy, and one each of lsp, prompt, dataset, template, benchmark, workflow |
+| Catalog default-selected | 19 |
+| Catalog non-null install commands | 1,202, every one registry-matched |
+| Folders under `.opencode/skills/` | 37 |
+| Of those, selected kit components | 25 |
 | Of those, top-level skills | 4 |
 
 ## 1. The four skills and the order they run in
@@ -179,7 +179,7 @@ Exactly one branch owns each of these at a time. Never two.
 | Resource | Rule |
 |---|---|
 | git branches and worktrees | One concern per branch, `wt/<concern-slug>` |
-| `kit/kit.lock` | One owning branch at a time |
+| `registry/catalog.json` | One owning branch at a time |
 | `registry/data/*.jsonl` | One owning branch per sidecar |
 | `registry/catalog.json` | Regenerated, never hand-written, never co-written |
 | `CHANGELOG.md` | One owning branch at a time |
@@ -217,7 +217,7 @@ All six must exit 0 before a change is claimed done. A skip is a failure.
 |---|---|---|
 | Registry data | `node scripts/verify-registry.mjs` | 7 checks: strict UTF-8, schema conformance, row-count integrity against the generated tables, the install-command invariant, orphan references, duplicate ids, MCP name normalization |
 | Catalog mirror | `node scripts/generate-catalog-json.mjs --check` | the generated machine mirror matches the Markdown source of truth |
-| Kit | `node scripts/verify-kit.mjs` | 14 checks: the lockfile validates against its schema, each component kind is honest, catalog agreement between lock and mirror, the MCP cap, pending integrity |
+| Catalog and selection | `node scripts/verify-catalog.mjs` | 20 checks: every live row is `verified` under a declared class, shape-checked by kind; every selected token resolves or is suspended; phases place; the MCP cap holds; candidate rows validate; evidence sits inside its TTL |
 | Skills | `node scripts/verify-skills.mjs` | 10 checks: the skill-file format contract |
 | Plugin typecheck | `npx tsc --noEmit -p tsconfig.json` | `.opencode/plugin/arsenal.ts` typechecks under `strict` |
 | Shell lint | `shellcheck scripts/*.sh .githooks/*` | the orchestration scripts and git hooks are lint-clean |
@@ -239,27 +239,27 @@ green-looking.
 | `registry/catalog.json` | The machine mirror of the catalog, read by tooling | Yes — regenerate, never hand-edit |
 | `registry/data/*.jsonl` | The data sidecars the catalog is generated from | No |
 | `registry/schema/` | `catalog-v2.schema.json`, the record schema | No |
-| `kit/kit.lock` | The pinned component set, its tiers and phases, `mcp_cap`, and the pending list | No |
+| `.opencode/equip.manifest.json` | The phase selection over the catalog: selected tokens, their phases and tiers, the MCP cap consequence | No |
 | `brand/` | The visual identity assets: five static logo files in `logo/`, nine static icons in `icons/`, nine animated icons in `animated/` | No |
 | `brand/IDENTITY.md` | The visual identity: concept, palette, asset list, and usage rules | No |
-| `scripts/` | The verification scripts (`verify-registry.mjs`, `generate-catalog-json.mjs`, `verify-kit.mjs`, `verify-skills.mjs`) and the seven orchestration shell scripts | No |
-| `docs/` | This repository's documentation series, numbered `00` through `17`, plus `spec/` | No |
+| `scripts/` | The verification scripts (`verify-registry.mjs`, `generate-catalog-json.mjs`, `verify-catalog.mjs`, `verify-skills.mjs`) and the seven orchestration shell scripts | No |
+| `docs/` | This repository's documentation series, numbered `00` through `21`, plus `spec/` | No |
 | `AGENTS.md` | The repository constitution for any coding agent | No |
 | `CHANGELOG.md` | The release notes, extracted verbatim at release | No |
 
 Never hand-edit the generated catalog table in `registry/VANTRILEX_CATALOG.md` or the mirror at
 `registry/catalog.json`. Edit the generator or the JSONL sidecar, then regenerate.
 
-The `docs/` series in this repository runs `00` through `17`. It is not the target-project series,
+The `docs/` series in this repository runs `00` through `21`. It is not the target-project series,
 which runs `00` through `27` and is written by Vanguard into the equipped project.
 
 ### The seven hooks
 
 OpenCode has no hooks directory: every hook is a callback in `.opencode/plugin/arsenal.ts`.
-Seven locked hook ids must each resolve to an exported function in that file, and
-`node scripts/verify-kit.mjs` fails the change when one does not.
+Seven catalog hook ids must each resolve to an exported function in that file, and
+`node scripts/verify-catalog.mjs` fails the change when one does not.
 
-| Locked hook id | Exported function | Binds to | Tier |
+| Catalog hook id | Exported function | Binds to | Tier |
 |---|---|---|---|
 | `session-start` | `sessionStart` | V1 `experimental.chat.system.transform` | core |
 | `pre-compact` | `preCompact` | V1 `experimental.session.compacting` | core |
@@ -309,7 +309,7 @@ the asset list, and the usage rules: read it before placing a mark, and do not r
   light mark to black and expect the mono result. A skill header takes the matching tier icon from
   `brand/icons/`. `brand/icons/` is authored for a light ground; never invert it ad hoc.
   `brand/animated/` is for motion, never for the logo.
-- **Brand assets are not kit components.** Never add one to `kit/kit.lock`, never register one in
+- **Brand assets are not kit components.** Never add one to the catalog, never register one in
   `registry/`, never count one in the census — the figures in this guide are kit figures, and a
   brand asset counted among them corrupts them. A brand asset is not a skill either: the icons named
   after tiers are icons for `vantrilex-prime`, `vantrilex-vanguard`, and `vantrilex-doctrine`, not
@@ -340,7 +340,7 @@ the asset list, and the usage rules: read it before placing a mark, and do not r
   `session-context-primer`. Neither is restated here, in `vantrilex-prime`, or in
   `vantrilex-doctrine`.
 - **Treating a brand asset as kit content, or recolouring one.** `brand/` is not kit: nothing in it
-  enters `kit/kit.lock`, the registry, or the census, and the palette admits no fifth colour. See
+  enters `registry/catalog.json`, the selection record, or the census, and the palette admits no fifth colour. See
   "The visual identity" in §5.
 - **Committing a placeholder.** No `TODO`, no `FIXME`, no stub section, no "coming soon", no
   deferred or half-written file. If something is unverified, say `unverified` and move on. A leaked

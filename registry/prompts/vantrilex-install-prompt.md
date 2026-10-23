@@ -40,7 +40,7 @@ Install the Vantrilex Arsenal in this project from its canonical source.
    A check that cannot be evaluated is a failed check. A failed check
    refuses the handoff; fix it or report it, never route around it.
 
-5. Verify-or-refuse before reporting done: run `node scripts/verify-kit.mjs`
+5. Verify-or-refuse before reporting done: run `node scripts/verify-catalog.mjs`
    and `node scripts/verify-registry.mjs`, paste both outputs with their
    exit codes, and refuse the done state while either is non-zero.
 

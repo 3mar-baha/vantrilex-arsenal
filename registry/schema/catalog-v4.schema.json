@@ -1,0 +1,413 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vantrilex.dev/schema/catalog-v4.schema.json",
+  "$comment": "KIND MECHANISM (v4, unchanged from v3): 'kind' is a closed enum per schema version, extended by publishing a NEW schema version file, never by editing a published version in place. New-kind onboarding is FROZEN until this v4 file publishes (owner ruling 2026-10-21), so the 16-kind enum below is carried unchanged from v3. Plugging in a future kind still touches exactly these places: 1) the new schema file's 'kind' enum plus its description and its entry in the per-kind class mapping below; 2) scripts/generate-catalog-json.mjs: KINDS, SECTION_KINDS, SECTION_LABELS, SIDECAR_FILES, INDEX_DIRS, and SCHEMA_PATH plus buildCatalog's '$schema'/catalog_version pointer; 3) a new '## <Label> (N — M default-selected)' section in registry/VANTRILEX_CATALOG.md plus the Summary counts and folder paths; 4) the new sidecar and component files; 5) regeneration through the generator. v3's checklist also named kit/kit.lock.schema.json and scripts/verify-kit.mjs; both were deleted in S3, so that step is gone and this file does not repeat it. THE CLASS-EVIDENCE MODEL (owner ruling, OPTION A, V4-1): every record declares 'class', and the class fixes which evidence proves it. 'upstream' and 'data' records are proven by source_proof. 'loadable' records are proven by load_proof, which source_proof can never substitute. 'installable' records are proven by install_cmd plus command_registry plus load_proof. No dilution: a loadable or installable record may not be verified on source evidence alone, and any non-null install_cmd must name the registry that proved it. CANDIDATE SURFACE (V4-3): a record that fails even its class evidence is not a live record. It becomes a row in registry/candidates/<kind>.jsonl matching $defs.candidate, which carries the class it was assessed under and a reason. This schema file also carries that candidate shape; live records and candidate rows are validated against different roots ($ and $defs.candidate). DATA IS COMMAND-FREE (R3, owner ruling): a 'data' record installs nothing, so its install_cmd is null, and the one generic equip copy that provisions shipped artifacts is documented once in V4-5 rather than repeated per record. ID IS REQUIRED (R6, owner ruling): every live record carries its merge key, so a standalone record can be validated under its own identity. EVIDENCE TTL (R7, owner ruling): a proof ages out — command_registry 90 days, load_proof 180 days, source_proof 365 days. A record whose proof has lapsed past its class window becomes a candidate with reason code 'evidence-lapsed' at the next audit. This file records the policy; the clock is enforced by the P4 verifier, not by JSON Schema.",
+  "title": "Vantrilex Catalog v4 Record",
+  "description": "One component record in the Vantrilex Registry, under the v4 class-evidence contract. A record is live only when it is verified, and 'verified' now means its declared class evidence exists: source_proof for 'upstream' and 'data', load_proof for 'loadable', and install_cmd plus command_registry plus load_proof for 'installable'. V3 allowed 'unverified' as a carried state; v4 does not. A record that cannot produce its class evidence is not carried here — it moves to registry/candidates/<kind>.jsonl ($defs.candidate) with its reason. This is a migration target, not the shape of the live registry during the migration: registry/data/*.jsonl and registry/catalog.json reach it in P2/P3.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "verification", "class", "evidence"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "V4 CONTRACT (R6, owner ruling): every live record carries an id and it is required. The id is the merge key against registry/data/<kind>.jsonl and the identity a standalone record is validated under, so a record that cannot be addressed cannot be live: the generator always emits it, and a hand-authored or candidate document must state it. Stable lowercase-hyphenated slug derived from the display name. An MCP row whose display name is already 'owner/repo' slugs by joining both segments, so '06ketan/slideshot' becomes '06ketan-slideshot'. Must be unique within its kind."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name exactly as authored in the catalog, with the trailing default-selection marker removed. Not required to be a slug and not required to be unique; id carries identity."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["skill", "mcp", "plugin", "hook", "agent", "formatting", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow", "design.md"],
+      "description": "Component family, carried unchanged from v3 (new-kind onboarding is frozen until this file publishes). Decides which registry subdirectory holds the component files and which registry/data/<kind>.jsonl sidecar may enrich it. 'cli' covers a command-line tool provisioned as an executable on PATH rather than a prompt-loaded or process-resident component; its install_cmd must be a real package-manager invocation or the vendor's own installer, never a bare package name and never a curl-piped script. 'theme' covers an OpenCode CLI theme JSON shipped under registry/themes/ and installed by file copy into a themes directory; its install_cmd must be a real copy command, never a bare filename. 'prompt' covers a paste-once install or orientation prompt shipped under registry/prompts/ as Markdown and installed by file copy; 'dataset' covers a golden evaluation dataset shipped under registry/datasets/ as JSON and installed by file copy; 'template' covers a project scaffold manifest shipped under registry/templates/ as JSON and installed by file copy, carrying zero unsubstituted placeholder variables; 'policy' covers a permission pack shipped under registry/policies/ as JSON and installed by file copy, whose every effect stays allow and never becomes deny or ask by stealth; 'benchmark' covers a tiny gate benchmark specification shipped under registry/benchmarks/ as JSON and installed by file copy, kept to one check whose outputs are illustrative and never a target metric; 'workflow' covers a Forge-authored BLAZAR DAG shipped under registry/workflows/ as YAML, read as specification input and executed only through BLAZAR subagent dispatches since OpenCode V2 has no native YAML workflow runner; 'design.md' covers a brand interface design document shipped under registry/design/<brand>/DESIGN.md as unmodified MIT-licensed third-party reference material (Copyright (c) 2026 VoltAgent) and installed by file copy, carrying no model pin and no placeholder."
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line human summary of what the component does. May be the empty string when the source row carried none, but never null. Many rows are truncated by the authoring tool with a trailing U+2026; that truncation is source data and is preserved rather than expanded."
+    },
+    "source": {
+      "type": ["string", "null"],
+      "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+      "description": "The 'owner/repo' aggregator or collection the component is installed FROM. Null when the component ships inside Vantrilex itself and has no external origin. A null source on a loadable record means the surface ships in this repository, so no install command exists for it by design (the agent, hook and plugin rows are exactly this case)."
+    },
+    "origin": {
+      "type": ["string", "null"],
+      "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+      "description": "The TRUE upstream author repository when it differs from source. Catalog v1 conflated aggregator with author, so a component redistributed by an awesome-list lost its real home: source 'VoltAgent/awesome-agent-skills' with origin 'shouldnotappearcalm/a-share-skill'. Null when source is already the author."
+    },
+    "install_cmd": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "A REAL, runnable shell command that provisions this component, or null when the class permits no command. Never a bare repository slug, never a guess: a plausible-looking wrong command is worse than an admission of ignorance, because an agent will run it. Required (non-null) for class 'installable'. Null by contract for class 'upstream', for class 'data' (R3: a data record installs nothing, and the one generic equip copy that provisions shipped artifacts is documented once in V4-5 rather than repeated per record), and for a loadable record whose source is null (self-shipped). Whenever it is non-null, evidence.command_registry must name the registry that proved it."
+    },
+    "version_pin": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Exact version or tag the component is pinned to, such as 'v1.4.2'. Null means floating."
+    },
+    "category": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Human-facing grouping label used by the generated per-kind index, such as 'security', 'research', or 'developer-tools'. Null when unclassified."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Lowercase, hyphenated search keywords. Always present in generated output; an unclassified record carries an empty array rather than null."
+    },
+    "when_to_use": {
+      "type": ["string", "null"],
+      "description": "One-line trigger describing the situation that should load this component. This is the text a model reads when deciding whether to invoke it. Null when the trigger is not yet authored."
+    },
+    "phase": {
+      "type": ["string", "null"],
+      "enum": ["scout", "docs", "plan", "build", "review", "operate", "on-demand", null],
+      "description": "Lifecycle phase this component belongs to. Null when the component spans phases or has not been placed yet."
+    },
+    "tier": {
+      "type": ["string", "null"],
+      "enum": ["core", "conditional", "extended", null],
+      "description": "Provisioning tier. 'core' leads the generated index, 'conditional' follows, 'extended' after that, and untiered entries last. Null means untiered."
+    },
+    "verify_cmd": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Command that proves the component works after installation, distinct from the command that installs it. Null when no verification procedure is known."
+    },
+    "cost_note": {
+      "type": ["string", "null"],
+      "enum": ["light", "heavy", null],
+      "description": "Relative cost of loading this component, so a model does not pull 'heavy' machinery into a trivial task. Null when the cost has not been measured."
+    },
+    "verification": {
+      "type": "string",
+      "const": "verified",
+      "description": "V4 CONTRACT: a live record is verified, and nothing else. 'verified' asserts that the evidence demanded by this record's 'class' exists and was checked. The v3 value 'unverified' (and the carried 'pending' state before it) is retired: an unproven record is a candidate row in registry/candidates/<kind>.jsonl, not a live record with a weaker label."
+    },
+    "class": {
+      "type": "string",
+      "enum": ["loadable", "installable", "upstream", "data"],
+      "description": "Evidence class, from the owner-ruled class-evidence model (OPTION A, V4-1). 'upstream' names an external artifact whose only claim is that it exists at its source. 'data' covers a data artifact (dataset, template, policy pack, benchmark spec, workflow spec, design document) proven by provenance; a data record is command-free, so its install_cmd is null (R3) and its provisioning is the one generic equip copy documented in V4-5. 'loadable' covers a component OpenCode or its host consumes at runtime, proven by a load surface. 'installable' covers a component provisioned by a command, proven by the command plus the registry that carries it plus the provisioned surface. The kind bounds the permitted classes (see the per-kind mapping in allOf); a record may not pick a class its kind does not admit, and a loadable or installable record may never be verified on source evidence alone."
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The proof this record's class demands, and nothing else. Additional properties are closed so a proof cannot be smuggled in under a name no consumer reads.",
+      "properties": {
+        "source_proof": {
+          "$ref": "#/$defs/sourceProof"
+        },
+        "load_proof": {
+          "$ref": "#/$defs/loadProof"
+        },
+        "command_registry": {
+          "$ref": "#/$defs/commandRegistry"
+        }
+      }
+    },
+    "default_selected": {
+      "type": "boolean",
+      "description": "True when the component is included in Vantrilex provisioning automatically. Carried in the source catalog as a trailing U+2705 marker after the name."
+    }
+  },
+  "$defs": {
+    "sourceProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target", "method", "checked_at"],
+      "description": "Proof that the artifact exists where the record says it does. Valid evidence for class 'upstream' and class 'data' only.",
+      "properties": {
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What was checked: an 'owner/repo' coordinate for an external artifact, or a repository-relative path such as 'registry/design/voltagent/DESIGN.md' for a first-party shipped artifact."
+        },
+        "path": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "description": "Path inside the target repository when the artifact is one file in a larger repo; null when the target itself is the artifact and no single file identifies it."
+        },
+        "method": {
+          "type": "string",
+          "enum": ["repo-resolves", "file-resolves"],
+          "description": "How the proof was produced. 'repo-resolves' means the remote answered for that coordinate (the shape scripts/verify-catalog.mjs checkSkillsUpstream uses with gh). 'file-resolves' means the named file was fetched or read and found present."
+        },
+        "checked_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Calendar date of the check, ISO 8601 date form. A proof is a dated observation, never a standing claim. R7 TTL: a source_proof stays valid for 365 days from this date; past the window the record is evidence-lapsed and becomes a candidate at the next audit."
+        }
+      }
+    },
+    "loadProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "method", "checked_at"],
+      "description": "Proof that the runtime surface exists and is what the record claims. MANDATORY for class 'loadable' and class 'installable'. Source evidence never substitutes for it.",
+      "properties": {
+        "surface": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The concrete surface proven: a shipped path such as '.opencode/skills/<id>/SKILL.md' or 'registry/themes/<id>.json', a provisioned path such as the copy destination, or the package spec whose executable is the surface."
+        },
+        "method": {
+          "type": "string",
+          "enum": ["surface-exists", "callback-wired", "server-bin", "frontmatter-valid", "file-copy-target"],
+          "description": "Which of the existing proofs produced the evidence. 'surface-exists' is the shipped-file or folder check. 'callback-wired' is the hook-to-exported-callback pair in .opencode/plugin/arsenal.ts. 'server-bin' is the package executable check an MCP server needs. 'frontmatter-valid' is the agent frontmatter, name and mode check. 'file-copy-target' is the cp source-and-destination check for file-copy kinds. These five are the proof mechanisms the verifier already implements; the vocabulary adds no new one."
+        },
+        "checked_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Calendar date of the check, ISO 8601 date form. A proof is a dated observation, never a standing claim. R7 TTL: a load_proof stays valid for 180 days from this date; past the window the record is evidence-lapsed and becomes a candidate at the next audit."
+        }
+      }
+    },
+    "commandRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["command", "registry", "checked_at"],
+      "description": "Proof that the install command is carried by a real registry or the vendor's own installer, not invented. MANDATORY for class 'installable' and for any record whose install_cmd is non-null.",
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The command as proven. It must equal the record's install_cmd; a reference to a different command proves nothing about this record."
+        },
+        "registry": {
+          "type": "string",
+          "enum": ["npm", "pypi", "crates", "go", "homebrew", "scoop", "chocolatey", "winget", "apt", "dnf", "pacman", "github-releases", "vendor-installer", "skills-registry", "file-copy"],
+          "description": "Where the command was proven to resolve. Each value maps to a command family scripts/verify-catalog.mjs already recognises: npm covers npm, pnpm, yarn, bun and npx; pypi covers pipx and uv tool; crates is cargo install; go is go install; the system package managers cover brew, scoop, choco, winget, apt, dnf and pacman; github-releases is the gh installer family; vendor-installer is the per-tool installer family (mise, rustup, op, docker plugin); skills-registry is the npx skills add form; file-copy is the plain cp form used by in-repo file kinds."
+        },
+        "checked_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Calendar date of the check, ISO 8601 date form. A proof is a dated observation, never a standing claim. R7 TTL: a command_registry proof is the shortest-lived of the three and stays valid for 90 days from this date, because registries and package versions move; past the window the record is evidence-lapsed and becomes a candidate at the next audit."
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "name", "class", "reason", "checked_at"],
+      "description": "One row of registry/candidates/<kind>.jsonl: a record that failed even the evidence its class demands (V4-3). A candidate is not a live record and never carries 'verification'. It keeps enough to be re-assessed without re-deriving the row, and it keeps the reason so the failure is auditable rather than forgotten.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "description": "The slug the record carries in the catalog, so a candidate can be traced to its source row."
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["skill", "mcp", "plugin", "hook", "agent", "formatting", "lsp", "cli", "theme", "prompt", "dataset", "template", "policy", "benchmark", "workflow", "design.md"],
+          "description": "The kind of the failed record, and the sidecar family of the candidate file it sits in."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Display name as authored, so the candidate is readable without the catalog row present."
+        },
+        "class": {
+          "type": "string",
+          "enum": ["loadable", "installable", "upstream", "data"],
+          "description": "The class the record was assessed under when it failed. Kept because the same row can pass a weaker class: an MCP with no provable executable fails 'loadable' and may still be carried as 'upstream'."
+        },
+        "source": {
+          "type": ["string", "null"],
+          "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+          "description": "The 'owner/repo' coordinate as authored, or null when the row carried none."
+        },
+        "origin": {
+          "type": ["string", "null"],
+          "pattern": "^@?[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+          "description": "The true upstream author repository when it differed from source, or null."
+        },
+        "install_cmd": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "description": "The command as authored, or null. A candidate keeps it unproven: the reason states why it did not satisfy the command-registry requirement."
+        },
+        "reason": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["code", "detail"],
+          "description": "Why the record is a candidate. The code is the failed family, the detail is the specific finding.",
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": ["source-proof-failed", "load-proof-failed", "command-registry-failed", "install-command-absent", "shape-invalid", "evidence-lapsed"],
+              "description": "The failed evidence family. 'source-proof-failed' means the source or file did not resolve. 'load-proof-failed' means no runtime surface could be proven. 'command-registry-failed' means a command exists but no registry or installer resolves it. 'install-command-absent' means the class requires a command and none was ever authored. 'shape-invalid' means the row itself violates the kind's shape contract, such as a forbidden shell pipe in a cli command. 'evidence-lapsed' means the proof once existed but aged past its R7 window — command_registry 90 days, load_proof 180 days, source_proof 365 days — so the record becomes a candidate at the next audit rather than claiming a stale proof."
+            },
+            "detail": {
+              "type": "string",
+              "minLength": 1,
+              "description": "One sentence naming what was checked and what it returned. Never a restatement of the code alone."
+            }
+          }
+        },
+        "attempted": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true,
+          "description": "What was actually checked, as coordinates or commands, so the next pass does not repeat a failed probe blindly. An empty or absent list means nothing was attempted and the reason must say so."
+        },
+        "checked_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Calendar date the candidate was assessed, ISO 8601 date form."
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "PER-KIND CLASS MAPPING, part 1 of 2: the skill and process-resident kinds. Each rule closes the class vocabulary of one kind to the classes its own contract can support, so a record cannot dodge a load proof by declaring itself upstream when its kind cannot be upstream.",
+      "if": { "properties": { "kind": { "const": "skill" } } },
+      "then": { "properties": { "class": { "enum": ["loadable", "installable", "upstream"] } } }
+    },
+    {
+      "$comment": "An MCP server is either a process-resident surface we load or an upstream entry we name. It is never a 'data' artifact.",
+      "if": { "properties": { "kind": { "const": "mcp" } } },
+      "then": { "properties": { "class": { "enum": ["loadable", "upstream"] } } }
+    },
+    {
+      "$comment": "A plugin loads into the harness; an upstream plugin row names an installer artefact.",
+      "if": { "properties": { "kind": { "const": "plugin" } } },
+      "then": { "properties": { "class": { "enum": ["loadable", "upstream"] } } }
+    },
+    {
+      "$comment": "A hook exists only as a wired callback in the plugin, so a hook row can never be anything but loadable.",
+      "if": { "properties": { "kind": { "const": "hook" } } },
+      "then": { "properties": { "class": { "enum": ["loadable"] } } }
+    },
+    {
+      "$comment": "An agent is a frontmatter definition the harness loads, or an upstream definition the catalog names.",
+      "if": { "properties": { "kind": { "const": "agent" } } },
+      "then": { "properties": { "class": { "enum": ["loadable", "upstream"] } } }
+    },
+    {
+      "$comment": "A formatting row is guidance about an external tool: it ships no surface and carries no install command.",
+      "if": { "properties": { "kind": { "const": "formatting" } } },
+      "then": { "properties": { "class": { "enum": ["upstream"] } } }
+    },
+    {
+      "$comment": "An LSP row is either a provisioned server or a need-label pointing at the project's own typecheck; both are load claims.",
+      "if": { "properties": { "kind": { "const": "lsp" } } },
+      "then": { "properties": { "class": { "enum": ["loadable"] } } }
+    },
+    {
+      "$comment": "A cli row's contract is a real installer command, so it is installable and nothing else. A cli row with no command fails its class evidence and becomes a candidate.",
+      "if": { "properties": { "kind": { "const": "cli" } } },
+      "then": { "properties": { "class": { "enum": ["installable"] } } }
+    },
+    {
+      "$comment": "PER-KIND CLASS MAPPING, part 2 of 2: the in-repo file kinds. A theme is JSON the CLI loads; the rest are data artefacts whose install is a file copy.",
+      "if": { "properties": { "kind": { "const": "theme" } } },
+      "then": { "properties": { "class": { "enum": ["loadable"] } } }
+    },
+    {
+      "$comment": "A prompt is installed by file copy and then pasted by a human.",
+      "if": { "properties": { "kind": { "const": "prompt" } } },
+      "then": { "properties": { "class": { "enum": ["installable"] } } }
+    },
+    {
+      "$comment": "A dataset is a data artefact proven by provenance.",
+      "if": { "properties": { "kind": { "const": "dataset" } } },
+      "then": { "properties": { "class": { "enum": ["data"] } } }
+    },
+    {
+      "$comment": "A template is a scaffold manifest, proven by provenance and shape.",
+      "if": { "properties": { "kind": { "const": "template" } } },
+      "then": { "properties": { "class": { "enum": ["data"] } } }
+    },
+    {
+      "$comment": "A policy pack is a data artefact whose effect set is proven, not a runtime surface.",
+      "if": { "properties": { "kind": { "const": "policy" } } },
+      "then": { "properties": { "class": { "enum": ["data"] } } }
+    },
+    {
+      "$comment": "A benchmark is a data specification, never a target metric.",
+      "if": { "properties": { "kind": { "const": "benchmark" } } },
+      "then": { "properties": { "class": { "enum": ["data"] } } }
+    },
+    {
+      "$comment": "A workflow is specification input read by a leader, not a runner; it is data.",
+      "if": { "properties": { "kind": { "const": "workflow" } } },
+      "then": { "properties": { "class": { "enum": ["data"] } } }
+    },
+    {
+      "$comment": "A design document is third-party reference data shipped verbatim.",
+      "if": { "properties": { "kind": { "const": "design.md" } } },
+      "then": { "properties": { "class": { "enum": ["data"] } } }
+    },
+    {
+      "$comment": "SOURCE FAMILY: 'upstream' and 'data' are the classes source_proof may verify. Load and command evidence are refused here rather than ignored, so a data record cannot claim to be loadable by accident.",
+      "if": { "properties": { "class": { "enum": ["upstream", "data"] } } },
+      "then": {
+        "required": ["evidence"],
+        "properties": {
+          "evidence": { "required": ["source_proof"] }
+        }
+      }
+    },
+    {
+      "$comment": "LOAD FAMILY, loadable: load_proof is mandatory. This is the no-dilution rule — source_proof may sit beside it, but it can never take its place.",
+      "if": { "properties": { "class": { "const": "loadable" } } },
+      "then": {
+        "required": ["evidence"],
+        "properties": {
+          "evidence": { "required": ["load_proof"] }
+        }
+      }
+    },
+    {
+      "$comment": "LOAD FAMILY, installable: the command, the registry that carries it, and the provisioned surface are all mandatory. One without the others proves nothing.",
+      "if": { "properties": { "class": { "const": "installable" } } },
+      "then": {
+        "required": ["install_cmd", "evidence"],
+        "properties": {
+          "install_cmd": { "type": "string" },
+          "evidence": { "required": ["load_proof", "command_registry"] }
+        }
+      }
+    },
+    {
+      "$comment": "COMMAND HONESTY: any non-null install_cmd must name the registry that proved it, whatever the class. A command without a registry reference is an unproven command.",
+      "if": {
+        "required": ["install_cmd"],
+        "properties": { "install_cmd": { "type": "string" } }
+      },
+      "then": {
+        "required": ["evidence"],
+        "properties": {
+          "evidence": { "required": ["command_registry"] }
+        }
+      }
+    },
+    {
+      "$comment": "UPSTREAM INSTALLS NOTHING: an upstream record names an artefact it does not provision, so its install_cmd is null. A runnable command would make it installable and demand the full command-registry evidence.",
+      "if": { "properties": { "class": { "const": "upstream" } } },
+      "then": { "properties": { "install_cmd": { "type": "null" } } }
+    },
+    {
+      "$comment": "DATA IS COMMAND-FREE (R3, owner ruling): a data record installs nothing, so its install_cmd is null. The one generic equip copy that provisions shipped artifacts is documented once in V4-5, not repeated per record; a per-record command would be that same copy restated and would drag a data record into installable evidence it does not need.",
+      "if": { "properties": { "class": { "const": "data" } } },
+      "then": { "properties": { "install_cmd": { "type": "null" } } }
+    },
+    {
+      "$comment": "SELF-SHIPPED SURFACES: a loadable record with a null source ships inside Vantrilex, so no install command exists for it. Agents, hooks and plugins are exactly this case, and a fabricated spawn or copy command is refused rather than required.",
+      "if": {
+        "required": ["source"],
+        "properties": {
+          "class": { "const": "loadable" },
+          "source": { "type": "null" }
+        }
+      },
+      "then": { "properties": { "install_cmd": { "type": "null" } } }
+    }
+  ]
+}

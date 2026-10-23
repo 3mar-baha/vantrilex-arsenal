@@ -2,9 +2,9 @@
 
 This index maps the documentation set for the Vantrilex Arsenal repository
 itself: the OpenCode plugin plus the component registry. The numbered series
-runs `00` through `21` — 22 files — and the `docs/` tree holds 41 markdown
+runs `00` through `21` — 22 files — and the `docs/` tree holds 42 markdown
 files in all: the numbered series (22), the Arabic mirror set (`ar/`, 8 files),
-the developer set (`dev/`, 9 files), and the two `spec/` inputs. It does not
+the developer set (`dev/`, 10 files), and the two `spec/` inputs. It does not
 document any target project. Target-project documentation is a separate,
 runtime-generated set (the 28-file system described by reference in
 [04-VANGUARD.md](04-VANGUARD.md)); nothing in this set duplicates it.
@@ -36,7 +36,7 @@ provenance: read them, never rewrite them.
 | [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md) | What a catalog v2 record carries, and what each field means |
 | [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md) | How the catalog mirror and indexes are generated, and the merge rules |
 | [08-VERIFICATION.md](08-VERIFICATION.md) | Which gates must pass before any change is called done |
-| [09-KIT-LOCK.md](09-KIT-LOCK.md) | What the kit lock pins, and how the kit is scoped per phase |
+| [09-KIT-LOCK.md](09-KIT-LOCK.md) | What the catalog records, and how the selection is scoped per phase |
 | [10-ROLE-MODEL.md](10-ROLE-MODEL.md) | Who decides what: Leader, Guide, Implementer |
 | [11-WORKTREES.md](11-WORKTREES.md) | How parallel work is isolated, one concern per worktree |
 | [12-QUALITY-GATES.md](12-QUALITY-GATES.md) | Which second-pass guards protect a release, and the halt rule |
@@ -66,7 +66,7 @@ An operator reads for running projects:
 
 1. [02-INSTALLATION.md](02-INSTALLATION.md) for prerequisites and setup.
 2. [04-VANGUARD.md](04-VANGUARD.md) for equipping a target project.
-3. [09-KIT-LOCK.md](09-KIT-LOCK.md) for what is pinned and how the kit is scoped.
+3. [09-KIT-LOCK.md](09-KIT-LOCK.md) for what the catalog records and how the kit is scoped.
 4. [08-VERIFICATION.md](08-VERIFICATION.md) for proving the kit works.
 5. [11-WORKTREES.md](11-WORKTREES.md) for isolating parallel work.
 6. [14-CI-RELEASE.md](14-CI-RELEASE.md) for shipping a version.
@@ -87,9 +87,10 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2931 catalog records, 39 records with tier
-  `core` including Prime, Vanguard, and Doctrine, 20 default-selected components,
-  82 verified install commands, 16 merged sidecars. See [01-OVERVIEW.md](01-OVERVIEW.md).
+- Counts are honest and checkable: 2,837 live catalog records plus 104
+  candidates, 38 records with tier `core` including Prime, Vanguard, and
+  Doctrine, 20 default-selected components, and 16 merged sidecars. Every live
+  row is `verified` under its declared class. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
 - Every relative link resolves to a file that exists. The `spec/` inputs are

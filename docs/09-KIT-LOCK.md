@@ -1,53 +1,42 @@
-# Kit Lock
+# Kit Catalog and Selection
 
-The kit lock is the pinned record of what a project actually received: every
-provisioned component at an exact version, plus the approved-but-not-yet-fit
-remainder. Its contract comes from Vanguard Step 4 in
-[04-VANGUARD.md](04-VANGUARD.md). The lock manifest (`kit/kit.lock`) holds
-157 components (32 tier core plus 125 tier conditional) with a pending list of
-9 per-agent theme entries; this file states what it pins and the rules that
-govern it.
+The catalog is the single record of every component the Arsenal can provision:
+one row per `(kind, id)` in `registry/catalog.json`, generated from the Markdown
+source and the `registry/data/*.jsonl` sidecars. The selection record at
+`.opencode/equip.manifest.json` names which catalog tokens a project carries, by
+phase. The lockfile that once sat between them is abolished — S3 deleted it and
+its verifier, and the catalog proofs are the sole gate. This
+file states what the catalog holds, what the selection adds, and the rules that
+govern both.
 
-## What the lock pins
+## What a catalog row carries
 
-One entry per provisioned component:
+One row per catalogued component:
 
-| Pinned fact | Source field | Meaning |
+| Fact | Source field | Meaning |
 |---|---|---|
-| Identity | record `id` plus `kind` | Exactly which catalog row was installed |
-| Version | `version_pin` | Exact tag or version; floating is not pinnable |
-| Command | `install_cmd` | The real command that installed it, reproducible later |
-| Verification | `verify_cmd` plus evidence | How Vanguard proved it loads, and what the proof was |
-| Phase scope | `phase` | The lifecycle phases the component is injected into |
+| Identity | `kind` plus `id` | Exactly which component, in which kind |
+| Version | `version_pin` | Exact tag or version where one exists; null is honest and common |
+| Command | `install_cmd` | The real command that installs it, reproducible later |
+| Verification | `verification`, `class`, `evidence` | The constant `verified`, plus the class evidence that proves the row |
+| Phase scope | `phase` | The phase the component is injected into, or null when never injected |
+| Tier | `tier` | `core`, `conditional`, or null for a row no selection may inject |
 
-A floating version (null `version_pin`) cannot satisfy the lock: the entry
-stays on the pending list until the version is pinned. The lock therefore
-protects against silent upstream change — a squatted package name, a renamed
-repository, a handed-over maintainership — because re-provisioning resolves
-to the pinned version, not to whatever the name means today.
+A live row is `verified` only when its declared class evidence exists: source
+provenance for `upstream` and `data`, a load surface for `loadable`, and a real
+command plus its registry for `installable`. A row that cannot produce that
+evidence is not a weaker catalog row — it is a candidate under
+`registry/candidates/<kind>.jsonl`.
 
-## The `pending` list semantics
+## No `pending` state
 
-The lock carries a `pending` list alongside the pinned entries. Pending means
-approved but not provisioned: the shortlist named the component, the owner
-approved it, and installation has not landed — or verification failed and the
-owner has not signed off. Pending entries carry the reason they are pending
-and the gate that clears them. A pending entry is never installed silently
-later; it is either pinned on a later Vanguard pass or removed with the
-owner's decision recorded in the ledger.
-
-The list is not empty today. It carries 9 entries, every one of kind `theme`
-— the per-agent theme for each of the nine role agents (`vantrilex-architect`,
-`vantrilex-code-reviewer`, `vantrilex-ai-generated-code-security-auditor`,
-`vantrilex-kit-maintainer`, `vantrilex-red-team`, `vantrilex-technical-writer`,
-`vantrilex-vantrilex-guide`, `vantrilex-vantrilex-implementer`,
-`vantrilex-vantrilex-leader`). Each is pending on one stated reason: its
-per-agent theme JSON has not been authored, so no file-copy install command can
-be registered for a file that does not exist; each ships through the
-`vantrilex-atomic-switch` install skill once its
-`registry/themes/<agent-id>.json` lands. That is the state
-`scripts/verify-kit.mjs` reports under `pending-integrity`: 157 pinned plus 9
-pending.
+The catalog carries no `pending` list. Every live row is `verified` under a
+declared class and nothing waits between approval and installation; a component
+either has a live row or it does not. v4 retires the `unverified` state that v3
+carried: unproven rows are candidates, and a selected token whose row is missing
+is suspended rather than left pending. `scripts/verify-catalog.mjs` reports the
+live count under `command-honesty/verified-only`, the candidates under
+`candidates/schema`, and the dispositions under `selection/suspension`.
 
 ## The 8-MCP cap
 
@@ -63,8 +52,10 @@ stops the worst case.
 Install once centrally; inject per phase, prune after. Context spend tracks
 the work being done:
 
-Every locked component carries a `phase`, and that field is the whole of the
-assignment. Read from `kit/kit.lock`, the 157 components group as:
+Every selected token carries the `phase` its catalog row declares, and that field
+is the whole of the assignment. Read from `.opencode/equip.manifest.json`, the
+146 tokens group as scout 23, docs 7, plan 7, build 56, review 17, and operate
+36 (the live list, not this sample):
 
 | Phase | Resident components |
 |---|---|
@@ -79,10 +70,10 @@ assignment. Read from `kit/kit.lock`, the 157 components group as:
 `on-demand` sits outside every phase and is never injected by phase: discovery
 and forging load on demand instead. An id recorded at two kinds is injected as
 both entries. The phase map is normative in [05-DOCTRINE.md](05-DOCTRINE.md);
-the lock records each component's scope, so the orchestrating scripts inject and
-prune by reading that field rather than re-deriving the assignment themselves.
-This table is a copy of the lock and must be re-derived from it, not trusted in
-place of it.
+the catalog records each component's scope, so the orchestrating scripts inject
+and prune by reading that field rather than re-deriving the assignment
+themselves. This table is a copy of the selection record and must be re-derived
+from it, not trusted in place of it.
 
 ## The `cli` kind
 
@@ -91,17 +82,17 @@ machine: an executable resolved on `PATH`, invoked by the agent as a
 subprocess. It is the one kind whose payoff is a binary rather than prose in
 context, which is what makes it cheap — a CLI costs a process spawn and the
 tokens of its output, while an MCP server holds context for the whole session.
-The kind is scaffolded in both schemas and checked by the kit verifier; the
-lock currently holds **64** `cli` entries — 2 scout, 2 docs, 37 build, 3 review,
+The kind is scaffolded in both schemas and checked by the catalog verifier; the
+catalog holds **64** `cli` rows — 2 scout, 2 docs, 37 build, 3 review,
 14 operate, and 6 on-demand — each carrying a real installer command recorded
 as `verified`.
 
-| Pinned fact | Source field | What a cli entry states |
+| Pinned fact | Source field | What a cli row states |
 |---|---|---|
 | Identity | `id` plus `kind` `cli` | Which tool, and that it is installed as an executable |
 | Install command | `install_cmd` | The real command that puts the binary on `PATH` |
 | Version | `version_pin` | Exact version or tag, when the installer can pin one |
-| Verification | `verification` | `verified` only when the command was run against a real registry |
+| Verification | `verification` plus `evidence` | `verified` only when the command and its registry were both proven |
 | Phase scope | `phase` | The phases in which the agent may invoke it |
 | Tier | `tier` | `conditional` for a new entry — per-project opt-in, owner approval required |
 
@@ -114,12 +105,13 @@ managers the verifier recognises — or the vendor's own official installer.
 Two things are never acceptable: a bare package name, which is a noun and not
 an instruction, and a `curl … | sh` pipe, which runs unreviewed remote code on
 the owner's machine. A command that cannot be verified against a real registry
-does not get a plausible substitute; the entry is recorded unverified or left
-out, per [08-VERIFICATION.md](08-VERIFICATION.md).
+does not get a plausible substitute; the row is not carried live at all, per
+[08-VERIFICATION.md](08-VERIFICATION.md).
 
-The consistency rule is the schema's: a `cli` entry claiming `verified` must
-carry a non-null `install_cmd`, and a null command is only honest as
-`unverified`. `scripts/verify-kit.mjs` asserts both halves.
+The consistency rule is the schema's: a `cli` row is `installable`, so it must
+carry a non-null `install_cmd` and a `command_registry` proof whose command
+equals it. A `cli` row with no command fails its class evidence and becomes a
+candidate. `scripts/verify-catalog.mjs` asserts every half.
 
 ### Verification protocol
 
@@ -142,5 +134,5 @@ default.
 On ties, a Skill or CLI wins over an MCP server. An MCP server holds context
 for the whole session; a skill loads as prose and unloads when the phase
 ends. Selection therefore prefers the cheaper surface whenever two candidates
-cover the same need, and the lock records the lighter choice so later passes
+cover the same need, and the catalog records the lighter choice so later passes
 do not re-litigate it.

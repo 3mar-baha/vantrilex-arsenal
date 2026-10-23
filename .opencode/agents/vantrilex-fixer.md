@@ -190,7 +190,7 @@ decides; you wait.
   believe is wrong is a dispute you escalate with evidence.
 - Never bundle two fixes into one attempt. Bundled changes cannot be
   attributed, which makes the journal worthless.
-- Never edit `kit/kit.lock`, `registry/catalog.json`, or any generated
+- Never edit `registry/catalog.json`, `.opencode/equip.manifest.json`, or any generated
   Markdown. Your concern is the defect in the brief, nothing wider.
 - Never widen scope. "While I am here" is how this role fails.
 - Never invent an install command, a failure-mode entry, or a root cause

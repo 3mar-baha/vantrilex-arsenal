@@ -9,7 +9,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Catalog v4: the class-evidence model replaces the `verified`/`unverified`
+  pair (`feat(catalog)`).** Every live record now declares a class —
+  `upstream`, `data`, `loadable`, or `installable` — and the class fixes the
+  evidence that proves it: source provenance, a load surface, or a command plus
+  the registry that proved it. `verification` is the constant `verified`; a row
+  that cannot produce its class evidence is no longer a live record with a
+  weaker label. Proofs are dated and expire (90 days for a command, 180 for a
+  load surface, 365 for a source). The migration leaves **2,837 live rows** and
+  moves **104 rows** to `registry/candidates/<kind>.jsonl` with one of six reason
+  codes, so nothing is silently dropped and nothing is guessed. The catalog
+  counts **12 theme components plus 1 atomic-switch map**, the map being an
+  out-of-catalog runtime artifact rather than a palette theme. The sixteen kinds,
+  the generation chain, and the new-kind freeze until the P6 sign-off are
+  documented in `docs/dev/06-REGISTRY.md`, and the selection's 17
+  missing-address suspensions — reversible and self-restoring — in
+  `docs/dev/05-KIT-LOCK.md`.
+
 ### Added
+
+- **The release queue is documented (`docs(release)`).** `docs/dev/09-RELEASE-QUEUE.md`
+  states the queue entry schema (`unit_type`, `scope`, `base_commit`, `status`,
+  `published_version`, `published_at`, and the optional `intended_version`), the
+  increment policy at `registry/policies/release-policy.json` and how a user
+  restyles it, the three publication modes (commit, evidence, closure-record),
+  the fail-closed declared-intent guard, the owner-created
+  `.opencode/auto-release.enabled` switch, the shared audit log, and the refusal
+  table. `docs/14-CI-RELEASE.md` carries the user-facing policy summary.
 
 - **Auto-publish for `v0.0.x` patch releases (`feat(release)`).** Publishing
   a GitHub release triggers `.github/workflows/auto-publish.yml`, which builds
@@ -22,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`dry-run-would-publish;gate=PASS`) and the fail-closed path
   (`refused-verification;gate=FAIL`). See `docs/14-CI-RELEASE.md`.
 - **One-plugin consolidation (`refactor(plugin)`).** The Tier-0 guards now live in the single `.opencode/plugin/arsenal.ts` — eight logical hooks across the two runtime surfaces, with the plan-guard append riding the dispatcher's own `prompt` registration so no prompt hook runs twice; `setup()` runs a six-hook capability probe and reports only what it observes, every registered callback checks the per-project kill switch at its head and no-ops when one of its four signals is set (م-4), and the new Diff Size Guard warns once per HEAD when uncommitted work exceeds 120 lines or 4 files (blueprint `:200`).
+- **Lock abolished; catalog proofs are the sole gate (`docs(kit)`, Cluster 1 / S5).** The lockfile and its verifier are retired: `scripts/verify-catalog.mjs` now carries the replacement proofs (17 checks over a catalog measured at 2,941 rows on 2026-10-21, zero pending state), and phase injection reads the `.opencode/equip.manifest.json` selection record, whose 146 tokens reproduce the pre-abolition kit (30 tier `core` plus 116 tier `conditional`) as a parity baseline. The nine pending per-agent themes are authored and verified (9 of 12 `theme` rows `verified`), and new-kind onboarding stays frozen until catalog v4. Live documentation and instructions were swept to name the catalog and the selection record instead of the lock; history — this changelog, `AGENT.md`, `WORKFLOW.md`, the audit tree, and `docs/99-archive/` — stays verbatim.
 
 ## [0.7.7] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
 

@@ -8,7 +8,7 @@ servers, plugins, hooks, agents, and design conventions — then governs how tha
 kit is used. It is not a bundle of everything; it is an arsenal you equip per
 project.
 
-![The six elements of the Arsenal and the role of each: the kit, which is everything that gets provisioned onto a project; Vantrilex Prime, which answers where the Arsenal is and how to pin it; Vantrilex Vanguard, which detects the project, selects and equips the kit, and verifies it works; Vantrilex Workflow-Forge, which authors the per-task workflow before execution begins; Vantrilex Doctrine, which holds the law on roles, gates, workflows, and rituals; and the Vantrilex Registry, a catalog of 2,804 components with machine-readable records and honestly labelled install commands](docs/assets/tables/elements-role.svg)
+![The six elements of the Arsenal and the role of each: the kit, which is everything that gets provisioned onto a project; Vantrilex Prime, which answers where the Arsenal is and how to pin it; Vantrilex Vanguard, which detects the project, selects and equips the kit, and verifies it works; Vantrilex Workflow-Forge, which authors the per-task workflow before execution begins; Vantrilex Doctrine, which holds the law on roles, gates, workflows, and rituals; and the Vantrilex Registry, a catalog of machine-readable records with honestly labelled install commands](docs/assets/tables/elements-role.svg)
 
 *The table images in this file still render the prior census and are pending regeneration; the prose figures are the live verified counts.*
 
@@ -43,12 +43,12 @@ Two parts, with one boundary between them:
 - **A shareable OpenCode plugin** — `.opencode/` ships the plugin, the four
   top-level skills, ten agent files, and four operator commands.
 - **A component system** — `registry/` is the catalog the plugin draws from,
-  and `kit/kit.lock` is the pinned, verified subset of that catalog every
-  project receives.
+  and `.opencode/equip.manifest.json` records the phase selection over that
+  catalog which every project receives.
 
 The plugin provisions; it does not decide. Selection lives in the Registry and
-`kit/kit.lock`, conduct lives in Doctrine, and the plugin only enforces what
-those two declare. That is why the kit is *version-pinned*: a project that
+`.opencode/equip.manifest.json`, conduct lives in Doctrine, and the plugin only enforces what
+those two declare. That is why the kit is *recorded*: a project that
 equipped last quarter gets the same components it got last quarter.
 
 ---
@@ -110,10 +110,10 @@ npx skills add 3mar-baha/vantrilex-arsenal --skill vantrilex-doctrine
 The separation is deliberate: **orientation, then selection, then workflow design, then conduct.**
 Prime does not duplicate Vanguard's four project states, Vanguard does not author the per-task workflow — the forge does that at each task start — and the forge does not govern it; Doctrine does. A project can therefore run the scout without
 inheriting the law, and can be re-equipped on new terms without renegotiating
-its conduct rules. Only those four are top-level skills. The other **17 skill
-folders** on disk under `.opencode/skills/` split into the 12 conditional components
-Vanguard equips and five transplanted mechanisms that ship on disk without being
-locked into the kit.
+its conduct rules. Only those four are top-level skills. The other **26 skill
+folders** tracked under `.opencode/skills/` split into the 18 the selection
+record equips from disk and eight transplanted mechanisms that ship on disk
+without being selected.
 
 ---
 
@@ -127,7 +127,7 @@ and repeating work. Read them with one rule in mind.
 benchmark.** This repository has never benchmarked itself. Where a cell or a
 label carries a `~`, it is a guess at rough order of magnitude. Where a figure
 carries no `~`, it is a verified count you can read straight out of
-`kit/kit.lock`, `registry/`, or the gate scripts. The only measured claim in
+`registry/catalog.json`, `.opencode/equip.manifest.json`, or the gate scripts. The only measured claim in
 this README is the gate suite itself: the six gates below are real, runnable,
 and green — a check that cannot be evaluated is recorded as a failed check, not
 a skipped one.
@@ -161,10 +161,11 @@ repository has never benchmarked itself.*
 two rows carrying `~` — first-time setup and setup again — are rough
 illustrative estimates, not measured benchmarks; this repository has never
 benchmarked itself. Every unmarked cell is a verified
-count, not an estimate: 2,804 catalog records over eight kinds, 82 verified
-install commands with the rest marked `unverified`, the same 112 pinned
-components from a pinned commit, seven registry checks plus fourteen kit checks,
-six gates each required to exit 0, four top-level skills and ten agent
+count, not an estimate: 2,837 live catalog records over sixteen kinds beside
+104 candidates, every live row `verified` under a declared evidence class,
+146 selected components (30 tier `core` and 116 tier `conditional`, of which
+17 are suspended pending a missing source address), twenty catalog proofs
+beside seven registry checks, six gates each required to exit 0, 27 agent
 files, the generated 28-file doc system, and `mcp_cap` = 8. The table image
 above still renders the prior census; the prose figures in this caption are
 the live verified counts.*
@@ -225,23 +226,24 @@ Vantrilex Prime skill — it is the session primer.
 - **`registry/catalog.json`** — the generated machine mirror Vanguard reads. It
   is regenerated, never hand-edited.
 
-The catalog carries **2,804 records** across eight kinds: skill 1,504, mcp 907, agent 284, hook 20, formatting 13, plugin 11, lsp 1, and cli 64.
+The catalog carries **2,837 live records** across sixteen kinds: skill 1,464, mcp 872, agent 301, design.md 84, cli 64, formatting 13, theme 12, plugin 11, hook 8, policy 2, and one each of lsp, prompt, dataset, template, benchmark and workflow. Beside them sit **104 candidates** in `registry/candidates/`, one file per kind.
 
-![Table of catalog records by kind: skill 1,504, mcp 907, agent 284, hook 20, formatting 13, plugin 11, lsp 1, cli 64, Total 2,804](docs/assets/tables/catalog-records.svg)
+![Prior-census table of catalog records by kind, not yet re-rendered; the prose above carries the live counts](docs/assets/tables/catalog-records.svg)
 
-The shared SVG above still renders the prior census (seven rows, no `cli` row); the paragraph above carries the live verified counts.
+The shared SVG above still renders an older census; the paragraph above carries the live verified counts.
 
-The catalog is enriched from eight `registry/data/*.jsonl` sidecars — one per
-kind — each with exactly one owning branch at a time. Every record carries a
-`when_to_use` trigger, a lifecycle `phase`, a `tier`, a `verify_cmd`, an
-`install_cmd`, a `verification` state, and a `default_selected` flag. **20
-components are default-selected.**
+The catalog is enriched from sixteen `registry/data/*.jsonl` sidecars — one per
+kind — each with exactly one owning branch at a time. Every live record carries
+a `when_to_use` trigger, a lifecycle `phase`, a `tier`, a `verify_cmd`, an
+`install_cmd`, a `class` with its `evidence`, and a `default_selected` flag.
+**19 components are default-selected.**
 
-**The honesty rule.** 82 components carry a verified install command: 10 skills, 8 MCP servers, and 64 CLI tools. Every
-remaining install command is mechanically derived from the component's source
-repository and is marked `verification: unverified` rather than presented as
-checked. Agents, plugins, and hooks are recorded with a `null` `install_cmd`
-and `verification: unverified` — no invented command, ever. A plausible-looking
+**The honesty rule.** A live record is `verified` only when its declared class
+evidence exists — source provenance for `upstream` and `data`, a load surface
+for `loadable`, a real command plus the registry that proved it for
+`installable` — and the proof is dated. Agents, plugins, hooks and the themes
+are self-shipped loadable records with a `null` `install_cmd` — no invented
+command, ever. A plausible-looking
 wrong command is worse than an admission of ignorance, because an agent will
 run it.
 
@@ -249,23 +251,27 @@ run it.
 
 ## Kit census
 
-`kit/kit.lock` pins **112 components with an empty `pending` list**: 31 tier
-`core` and 81 tier `conditional`.
+`.opencode/equip.manifest.json` selects **146 tokens**: 30 tier `core` and 116
+tier `conditional`, drawn from the 2,837-row catalog as observed 2026-10-22.
+Seventeen of the tokens are suspended because their catalog row is missing, so
+129 resolve against live rows today; each suspension restores automatically when
+its row returns.
 
-![Table of the kit census by kind: skill 26 locked, 13 tier core, 13 tier conditional; mcp 8, 8, 0; lsp 1, 1, 0; hook 7, 5, 2; agent 6, 4, 2; cli 64 locked, 0 tier core, 64 tier conditional; Total 112 locked, 31 tier core, 81 tier conditional](docs/assets/tables/kit-census.svg)
+![Prior-census table of the kit by kind, not yet re-rendered; the live counts are in the prose above and below](docs/assets/tables/kit-census.svg)
 
-By verification: **80 `verified`** and **32 `unverified`**. The 80 verified
-entries are the 10 upstream skills installed by `npx skills add`, the six
-version-pinned MCP servers (`context7`, `firecrawl`, `filesystem`, `memory`,
-`sequential-thinking`, and `github`), and the 64 `cli` tools. The 32
-unverified entries are the 16 in-repo skills, the `fetch` and `openrouter` MCP
-servers, the language server, the 7 hooks, and the 6 agents — every one of
-them recorded with a `null` `install_cmd`.
+Under catalog v4 a live row is `verified` only when its declared class evidence
+exists: source provenance for `upstream` and `data`, a load surface for
+`loadable`, and a real command plus the registry that proved it for
+`installable`. All 2,837 live rows meet that bar; there is no `unverified` state
+left to carry. The 104 rows that could not produce their evidence are candidates
+in `registry/candidates/<kind>.jsonl` — 51 MCP, 41 skill, 12 hook — and 1,635 of
+the live rows are command-free by class (the data kinds and the self-shipped
+surfaces).
 
-The lock breaks down by kind into skills, MCP servers, the language server,
+The selection breaks down by kind into skills, MCP servers, the language server,
 hooks, agents, and CLI tools:
 
-![Table of what the 112 locked components are: 26 skills, 8 MCP servers, 1 language server, 7 hooks, 6 agents, and 64 CLI tools, with each group's contents listed](docs/assets/tables/locked-contents.svg)
+![Prior-census table of what the 112 then-locked components were: 26 skills, 8 MCP servers, 1 language server, 7 hooks, 6 agents, and 64 CLI tools, with each group's contents listed](docs/assets/tables/locked-contents.svg)
 
 **The 8-MCP cap.** `mcp_cap` is **8** — the ceiling on tier `core` MCP servers,
 and the locked set sits exactly at it. The cap is a context-budget backstop: MCP
@@ -273,21 +279,18 @@ servers are the most expensive components to keep resident, so the kit refuses
 to grow past that ceiling and, on ties, prefers a skill or a CLI over an MCP
 server.
 
-**21 skill folders** exist on disk under `.opencode/skills/`. **16 of them are
-locked kit components** — the four top-level skills (Prime, Vanguard, Doctrine,
-Workflow-Forge) plus the 12 conditional ones. Workflow-Forge ships on disk in
-this tree; Vanguard still proves it by read-back in the Step 4 lane (see
-above). The remaining five —
-`circuit-breaker-guard`, `github-release-packager`, `pre-mortem`,
-`preflight-system-doctor`, and `session-context-primer` — are transplanted
-mechanisms: present on disk, not locked into the default kit.
+**18 skill components** are selected out of the **26 folders** on disk under
+`.opencode/skills/`: the four top-level skills (Prime, Vanguard, Doctrine,
+Workflow-Forge) plus the conditional ones. Workflow-Forge ships on disk in this
+tree; Vanguard still proves it by read-back in the Step 4 lane (see above). A
+folder that is present but not selected is a transplanted mechanism carried for
+a project that asks for it, and the selection record — not the directory listing
+— decides what a project receives.
 
 > **Implementation note.** OpenCode has no standalone hooks directory — hooks
-> are plugin callbacks. The 8 logical Tier-0 callbacks are implemented inside a
-> single plugin file, `.opencode/plugin/arsenal.ts`, rather than as 8 separate
-> files. The two conditional hooks stay locked for that reason: the plugin
-> already implements them, and a separate install would be a second path to the
-> same guard. `task-dispatcher` classifies every user message
+> are plugin callbacks. The hook rows resolve to exported callbacks inside a
+> single plugin file, `.opencode/plugin/arsenal.ts`, rather than to separate
+> files; the selection carries 7 hook rows. `task-dispatcher` classifies every user message
 > into one of five Vanguard task scenarios; see
 > [`docs/16-TASK-DISPATCH.md`](docs/16-TASK-DISPATCH.md).
 >
@@ -312,7 +315,7 @@ A task is not finished because the code runs; it is finished when the thing is
 proven. Every gate below is runnable from the repository root and every one must
 exit 0.
 
-![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs for seven checks; catalog mirror runs node scripts/generate-catalog-json.mjs --check; kit runs node scripts/verify-kit.mjs for fourteen checks; skills runs node scripts/verify-skills.mjs for ten checks; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
+![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs; catalog mirror runs node scripts/generate-catalog-json.mjs --check; catalog proofs run node scripts/verify-catalog.mjs; skills runs node scripts/verify-skills.mjs; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
 
 If a check cannot be evaluated, that is a **failed** check, not a skipped one.
 Say so in the change description rather than leaving the gate green-looking;
@@ -335,24 +338,24 @@ vantrilex-arsenal/
 ├── registry/                     Data plane — the component catalog
 │   ├── VANTRILEX_CATALOG.md      Source of truth (generated table)
 │   ├── catalog.json              Generated machine mirror
-│   ├── schema/catalog-v2.schema.json   The record contract
-│   ├── data/                     Eight per-kind JSONL sidecars + overlaps.yaml
+│   ├── schema/catalog-v4.schema.json   The record contract
+│   ├── data/                     Sixteen per-kind JSONL sidecars + overlaps.yaml
 │   ├── formatting/               Curated design-system documents + ATTRIBUTION.md
 │   └── {skills,mcp,plugins,hooks,agents,formatting,lsp,cli}/
 │                                  Per-kind records and generated _index.md
 ├── scripts/                      Node ESM, zero dependencies
 │   ├── generate-catalog-json.mjs Generator for the mirror and the tables
 │   ├── verify-registry.mjs       Registry consistency checks
-│   ├── verify-kit.mjs            Kit lockfile checks
+│   ├── verify-catalog.mjs        Catalog and selection proofs
 │   ├── verify-skills.mjs         Skill-file format checks
 │   └── *.sh                      Worktree orchestration, git hooks, release
-├── kit/kit.lock                  The pinned 112-component kit
-└── docs/                         00-INDEX.md … 17-V2-HOOK-GAP.md, plus
+├── .opencode/equip.manifest.json The phase selection over the catalog
+└── docs/                         00-INDEX.md … 21-PONYTAIL-COMPLIANCE.md, plus
                                   docs/spec/ — the two canonical input specs
 ```
 
-`docs/` holds an 18-file numbered set from `00-INDEX.md` through
-`17-V2-HOOK-GAP.md`, plus `docs/spec/` which holds the two canonical input
+`docs/` holds a 22-file numbered set from `00-INDEX.md` through
+`21-PONYTAIL-COMPLIANCE.md`, plus `docs/spec/` which holds the two canonical input
 specifications, `VANTRILEX_KIT_SPEC.md` and `VANTRILEX_SKILLS_SPEC.md`. The
 28-file documentation system Vanguard prepares is generated into the *target*
 project at runtime and is deliberately not part of this repository's layout.

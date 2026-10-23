@@ -143,8 +143,8 @@ as a CLI component rather than living as one-off project code.
 - If the utility is genuinely new and generally useful, propose its
   registration as a kit CLI component in your report: the suggested id,
   what it installs, and why it belongs in the kit. You propose only; the
-  lock, the schema, and the catalog stay untouched, and registration itself
-  belongs to the kit-maintainer lane after `node scripts/verify-kit.mjs`
+  catalog and the selection record stay untouched, and registration itself
+  belongs to the kit-maintainer lane after `node scripts/verify-catalog.mjs`
   and `node scripts/verify-skills.mjs` prove the current state clean.
 
 ## Async-first I/O with a stated escape
@@ -211,7 +211,7 @@ decides; you wait.
   unpinned dependency.
 - Never widen the dispatched concern, never bundle an unrelated fix into
   the change, and never promote yourself to primary.
-- Never write to `kit/kit.lock`, `registry/catalog.json`, generated
+- Never write to `registry/catalog.json`, `.opencode/equip.manifest.json`, generated
   Markdown, or any file outside your dispatched concern.
 - Never claim a gate ran when it did not, and never report a count you did
   not count from the tool output in front of you.

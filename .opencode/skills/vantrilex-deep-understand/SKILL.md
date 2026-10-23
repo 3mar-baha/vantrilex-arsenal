@@ -12,7 +12,7 @@ while doing so. The skill drives progressive disclosure over
 `docs/dev/00-INDEX.md`: read the index first, choose one area, open only that
 area's document, and trace every figure back to the file that produced it. It is
 strictly read-only. It never edits, regenerates, reformats, or commits. It
-resolves `kit/kit.lock` and `registry/catalog.json` live at the moment of the
+resolves `registry/catalog.json` and `.opencode/equip.manifest.json` live at the moment of the
 question, because a table printed inside any document is an illustration while
 the live file is the authority.
 
@@ -45,7 +45,8 @@ the live file is the authority.
 ## Inputs
 
 - `docs/dev/00-INDEX.md`, the map and the reading order; read it first, always.
-- `kit/kit.lock` and `kit/kit.lock.schema.json`, the pinned kit and its shape.
+- `.opencode/equip.manifest.json`, the project's phase selection, and
+  `registry/schema/catalog-v3.schema.json`, the catalog's shape.
 - `registry/catalog.json`, the generated mirror. It is derived from the catalog
   table and never hand-edited, so any disagreement with the table is drift to
   report rather than a difference to reconcile by editing.

@@ -1,0 +1,14 @@
+{
+  "policy": "release-increments",
+  "policy_version": 1,
+  "description": "Arsenal release increment policy. The self-publish publisher reads this one file at release time: a completed PHASE bumps the component named here once, a completed MISSION does the same, and cascade resets the lower components. Edit the numbers or swap the component to restyle the line; no script and no workflow hard-codes an increment. A malformed policy fails the release closed instead of guessing.",
+  "increments": {
+    "phase": {
+      "patch": 1
+    },
+    "mission": {
+      "minor": 1
+    }
+  },
+  "cascade": true
+}

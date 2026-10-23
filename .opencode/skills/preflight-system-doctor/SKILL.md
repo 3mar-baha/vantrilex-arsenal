@@ -32,7 +32,7 @@ else.
 ## Do NOT use
 
 - As a substitute for `node scripts/verify-registry.mjs` or
-  `node scripts/verify-kit.mjs`. Those prove repository data and kit components; the
+  `node scripts/verify-catalog.mjs`. Those prove repository data and the catalog; the
   doctor proves the machine. A green doctor says nothing about registry integrity.
 - As a component verifier. It confirms the tools exist and are new enough; it does not
   prove a component loads or works.
@@ -43,7 +43,7 @@ else.
 ## Inputs
 
 - Target repository root (defaults to the current working directory).
-- `kit/kit.lock`, the pinned kit manifest, when present.
+- `.opencode/equip.manifest.json`, the project's selection record, when present.
 - `registry/catalog.json`, whose per-component `phase` field scopes kit injection.
 - Minimum version policy: node >= 20, git >= 2.30, gh >= 2.40.0.
 - Optional explicit override for a dirty workspace, supplied by the operator and recorded
@@ -51,7 +51,7 @@ else.
 
 ## Procedure
 
-1. **Declare scope.** Record the repo root, the resolved kit lock path, and the run
+1. **Declare scope.** Record the repo root, the resolved selection-record path, and the run
    timestamp. Later rows cite these values.
 2. **Check the environment.** Detect OS and default shell; probe network egress with
    `git ls-remote --exit-code https://github.com/octocat/Hello-World HEAD`. For any
@@ -68,9 +68,9 @@ else.
    gh auth status    # authenticated account required
    ```
 
-4. **Check the configuration.** Confirm `kit/kit.lock` exists and that every component it
-   pins appears in `registry/catalog.json` with a `phase` field, so injection can be
-   scoped per phase rather than kept hot in every session. If the target project declares
+4. **Check the configuration.** Confirm `.opencode/equip.manifest.json` exists and that
+   every token it selects resolves in `registry/catalog.json` with a `phase` field, so
+   injection can be scoped per phase rather than kept hot in every session. If the target project declares
    required env vars (references to `process.env` without defaults, or documented required
    vars), confirm `.env.example` exists and holds no real credential values, only
    stand-ins. If the project needs no env vars, mark this check SKIPPED — never FAIL.
@@ -88,7 +88,7 @@ else.
 
 6. **Assign severities before reading results.** Each row is CRITICAL or WARN:
    - CRITICAL: node present and version ok; git present and version ok; gh authenticated
-     when the run touches GitHub; `kit/kit.lock` in sync with `registry/catalog.json`;
+     when the run touches GitHub; `.opencode/equip.manifest.json` in sync with `registry/catalog.json`;
      `.env.example` present and free of real values (when the project needs env vars;
      otherwise SKIPPED); secret scan clean; clean workspace or logged override; disk
      space.
@@ -115,7 +115,7 @@ One report block per run, in this shape:
 | git >= 2.30 | PASS | 2.45.0 | n/a |
 | gh >= 2.40.0 | PASS | 2.57.0 | n/a |
 | gh auth status | FAIL | Not authenticated | `gh auth login` |
-| kit/kit.lock in sync with registry/catalog.json | FAIL | 2 pinned components carry no `phase` | Set `phase` in the catalog, then regenerate |
+| Selection record in sync with registry/catalog.json | FAIL | 2 selected tokens carry no `phase` | Set `phase` in the catalog, then regenerate |
 | .env.example present, no real values (only when env vars needed) | SKIPPED | Project declares no required env vars | n/a |
 | Secret scan of tracked files | PASS | No credential-shaped strings found | n/a |
 | Clean git status (or logged override) | FAIL | 3 modified files | Commit, stash, or log an explicit override |
@@ -132,15 +132,16 @@ PREFLIGHT VERDICT: PASS — all critical checks green. Execution may proceed.
 Remediation commands are copy-pasteable and reference repository scripts where they
 exist: `node scripts/verify-registry.mjs` proves the registry data,
 `node scripts/generate-catalog-json.mjs` rebuilds the machine mirror, and
-`node scripts/verify-kit.mjs` proves each kit component loads.
+`node scripts/verify-catalog.mjs` proves the catalog is honest and every selected
+component resolves.
 
 ## Failure Modes
 
 - **gh not authenticated.** Print the exact login command — `gh auth login` — in the
   remediation column and in the verdict summary, and note that the device-flow login is
   interactive, so the operator must run it personally.
-- **Kit lock drift.** A component pinned in `kit/kit.lock` is missing from
-  `registry/catalog.json`, or carries no `phase`. List the offending ids explicitly and
+- **Selection drift.** A token selected in `.opencode/equip.manifest.json` resolves to no
+  catalog row, or its row carries no `phase`. List the offending ids explicitly and
   regenerate the mirror with `node scripts/generate-catalog-json.mjs`; do not hand-edit
   the generated JSON.
 - **Offline machine.** Degrade gracefully: reuse cached catalog metadata and last-known

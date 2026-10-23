@@ -1,0 +1,391 @@
+{
+  "manifest": "RELEASE-BACKFILL",
+  "schema": 1,
+  "approved_map": ".opencode/audit/RELEASE-BACKFILL-MAP.md",
+  "map_sha256": "1bda7e2d9f4f2d84d815f1825906ca3f8f9efee96ac8d9f0b72486a8748c77c4",
+  "map_commit": "5a28f6e",
+  "map_amendment": "owner renumbering 2026-10-21 (pre-publication §8.2 override, NOT a §1 derivation): 0.7.10→0.8.0, 0.7.11→0.8.1, 0.7.12→0.8.2, 0.7.13→0.8.3, 0.7.14→0.8.4, 0.7.15→0.8.5, 0.7.16→0.8.6. Modes, refs, assets and bundles unchanged; all other numbers stand; Cluster 1 takes 0.8.11 at its S6 closure. Publishing stays held.",
+  "approved_by": "owner, 2026-10-21 (map §3 gate satisfied on the terms recorded in the map)",
+  "publication_precondition": "Map §8.1: no backfill publish before rel-selfpub lands and its §6 proofs pass review. This manifest authorizes no publish on its own.",
+  "notes_policy": "Commit units: as-closed evidence quoted from the closure record, never a battery re-run today (map §4/§8.4). Evidence units: the enumerated bundle plus the no-source-tree statement. Closure-record units: the surviving ledger passage quoted verbatim, labelled \"closure-record release\".",
+  "closure_record_policy": "AGENT.md is an uncommitted live state file. For a closure-record unit the surviving ledger passage is quoted from the worktree at build time into a generated CLOSURE-RECORD.md; the executor refuses if the cited line no longer carries its fingerprint. Nothing is re-run or reconstructed, and no source tree is invented.",
+  "base": {
+    "version": "0.7.7",
+    "tag": "v0.7.7",
+    "ref": "3d5d92aa99c2f3140372bc98aad816f1239f244a",
+    "status": "already-published"
+  },
+  "entries": [
+    {
+      "version": "0.7.8",
+      "unit": "VTA-FACTORY P0",
+      "mode": "commit",
+      "ref": "66d0e45fc104f24003bd2a9a994d0d29c74c6ae0",
+      "assets": [
+        "AGENTS.md",
+        "AI_GUIDE.md",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "README.md",
+        "README.ar.md",
+        "SECURITY.md",
+        "registry",
+        ".opencode",
+        "scripts",
+        "docs",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".markdownlint.jsonc"
+      ],
+      "notes_ref": "§1 table row · §5 as-closed · §7.9",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "`p0-verify` PASS-WITH-DEFERMENT: charter hashes 3/3; makers lint-clean; probes exit 0; registry 7/7 · kit 22/22 · skills 10/10 · mirror ok",
+      "gaps": [
+        "battery entry DEFERRED (no battery definition on disk)",
+        "independent (vanbu) verify not performed"
+      ]
+    },
+    {
+      "version": "0.7.9",
+      "unit": "VTA-FACTORY P1",
+      "mode": "evidence",
+      "ref": null,
+      "assets": [
+        "docs/99-archive/P1-RUBRIC-7DIM.md",
+        "docs/99-archive/P1-SHARDS-MANIFEST.md",
+        "docs/99-archive/P1-SHARD-1.jsonl",
+        "docs/99-archive/P1-SHARD-2.jsonl",
+        "docs/99-archive/P1-SHARD-3.jsonl",
+        "docs/99-archive/P1-SHARD-4.jsonl",
+        "docs/99-archive/P1-SHARD-5.jsonl",
+        "docs/99-archive/P1-SHARD-6.jsonl",
+        "docs/99-archive/P1-SHARD-7.jsonl",
+        "docs/99-archive/P1-EVAL-1.jsonl",
+        "docs/99-archive/P1-EVAL-2.jsonl",
+        "docs/99-archive/P1-EVAL-3.jsonl",
+        "docs/99-archive/P1-EVAL-4.jsonl",
+        "docs/99-archive/P1-EVAL-5.jsonl",
+        "docs/99-archive/P1-EVAL-6.jsonl",
+        "docs/99-archive/P1-EVAL-INSTALLED.jsonl",
+        ".opencode/skills/vs-circuit-breaker-guard/SKILL.md",
+        ".opencode/skills/vs-session-context-primer/SKILL.md"
+      ],
+      "notes_ref": "§5 as-closed · §7.1 bundle",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "tallies recomputed live 1,531 / 6 / 1,525; shapes complete; `vs-*` set == green set; 5 gates exit 0",
+      "gaps": [
+        "no commit",
+        "battery slot unevaluable",
+        "three notes routed to the Guide",
+        "§7.1 names \"the six admitted vs-* SKILL.md bodies\" without enumerating them; the surviving record names two (vs-circuit-breaker-guard, vs-session-context-primer), so those two ship and the other four stay unnamed rather than invented",
+        "P1-EVAL-7.jsonl is excluded by the record: out of VCS by ruling and over the 100 MB asset ceiling (referenced, not shipped)"
+      ]
+    },
+    {
+      "version": "0.8.0",
+      "unit": "VTA-FACTORY P2",
+      "mode": "evidence",
+      "ref": null,
+      "assets": [
+        "docs/99-archive/P2-R0.md",
+        "docs/99-archive/P2-INTAKE.md",
+        "docs/99-archive/P2-SCAN-FIRST.md",
+        "docs/99-archive/P2-NEGCTRL.md",
+        "docs/99-archive/P2-POLISH-CHECKLIST.md",
+        "docs/99-archive/P2-SHARDS-MANIFEST.md",
+        "docs/99-archive/P2-SHARD-1.jsonl",
+        "docs/99-archive/P2-SHARD-2.jsonl",
+        "docs/99-archive/P2-SHARD-3.jsonl",
+        "docs/99-archive/P2-SHARD-4.jsonl",
+        "docs/99-archive/P2-EVAL-1.jsonl",
+        "docs/99-archive/P2-EVAL-2.jsonl",
+        "docs/99-archive/P2-EVAL-3.jsonl",
+        "docs/99-archive/P2-EVAL-4.jsonl",
+        "docs/99-archive/P2-EVAL-INSTALLED.jsonl",
+        "docs/99-archive/P2-QUARANTINE-TRIAL.log",
+        ".opencode/agents/vantrilex-uploader.md",
+        ".opencode/agents/vantrilex-puller.md",
+        ".opencode/skills/vantrilex-intake-triage/SKILL.md",
+        ".opencode/skills/vantrilex-intake-fetch/SKILL.md",
+        ".opencode/skills/vantrilex-intake-send/SKILL.md"
+      ],
+      "notes_ref": "§5 as-closed · §7.2 bundle",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "full battery green after `p2-lockalign`; 330 rows; lock↔catalog rescan 0 drift",
+      "gaps": [
+        "no commit",
+        "battery slot open",
+        "naming advisory + pointer removals left to owner",
+        "the sidecar/file rename state P2 produced is not separately recoverable — the bundle carries the P2 ledgers and the ledger record, not a P2 tree (§7.2)"
+      ]
+    },
+    {
+      "version": "0.8.1",
+      "unit": "VTA-FACTORY P3",
+      "mode": "evidence",
+      "ref": null,
+      "assets": [
+        "docs/99-archive/P3-R0.md",
+        "docs/99-archive/P3-MCP-A.json",
+        "docs/99-archive/P3-MCP-B.json",
+        "docs/99-archive/P3-GEAR-01.md",
+        "docs/99-archive/P3-GEAR-02.md",
+        "docs/99-archive/P3-GEAR-03.md",
+        "docs/99-archive/P3-GEAR-04.md",
+        "docs/99-archive/P3-GEAR-05.md",
+        "docs/99-archive/P3-GEAR-06.md",
+        "docs/99-archive/P3-GEAR-07.md",
+        "docs/99-archive/P3-GEAR-08.md",
+        "docs/99-archive/P3-SOAK-LOG.md",
+        "docs/99-archive/P3-SMITHERY-STARTER-LOG.md"
+      ],
+      "notes_ref": "§5 as-closed · §7.3 bundle (partial)",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "6 gates PASS + 2 honest SKIPS; soak 5/5, 0 uncovered; 19 conditional + github core-verified",
+      "gaps": [
+        "no commit",
+        "plan-vs-live deviation (20 vs 19) flagged",
+        "PARTIAL GAP: the 19 conditional lock records and the github update P3 actually verified cannot be reproduced — kit/kit.lock was deleted at S3 (6c3852b) and no commit captured the P3 lock state, so this bundle preserves the proposal, soak and gear artifacts plus the ledger quote and does NOT reproduce the gated lock (§7.3)"
+      ]
+    },
+    {
+      "version": "0.8.2",
+      "unit": "VTA-FACTORY P5 (closes the program)",
+      "mode": "evidence",
+      "ref": null,
+      "assets": [
+        "P5-LOOP-DOSSIER.md",
+        ".opencode/skills/vs-ponytail/SKILL.md"
+      ],
+      "notes_ref": "§5 as-closed · §7.4 bundle",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "`p5-demo` verified; 4 live fetches 200; lint + `verify-skills` 10/10 at 37 folders",
+      "gaps": [
+        "no commit",
+        "admit parked pending owner",
+        "owner-side queue open",
+        "no committed tree exists for this unit (§7.4)"
+      ]
+    },
+    {
+      "version": "0.8.3",
+      "unit": "FULL-AUDIT (round 1)",
+      "mode": "closure-record",
+      "ref": null,
+      "assets": [],
+      "notes_ref": "§5 as-closed · §7.5 closure record only",
+      "status": "ready",
+      "hold_reason": null,
+      "record": {
+        "file": "AGENT.md",
+        "line": 225,
+        "must_contain": "`a-report` LANDED"
+      },
+      "as_closed": "report 1,194 lines, 14 headings in order, 23 findings (L13-12-001…023), §14 verbatim exits 0",
+      "gaps": [
+        "no commit",
+        "report text overwritten twice since closure — the file today is R3's",
+        "the report artifact itself does not survive; this package carries the surviving ledger record only"
+      ]
+    },
+    {
+      "version": "0.8.4",
+      "unit": "V-REMEDIATE",
+      "mode": "commit",
+      "ref": "c7c762c21f12e2dccba32611d990ad8a0f059b80",
+      "assets": [
+        "AGENTS.md",
+        "AI_GUIDE.md",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "README.md",
+        "README.ar.md",
+        "SECURITY.md",
+        "registry",
+        ".opencode",
+        "scripts",
+        "docs",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".markdownlint.jsonc"
+      ],
+      "notes_ref": "§1 table row · §5 as-closed · §7.9",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "23/23 fixed; two verifiers pass; battery 4/4 · guards 6/6 · typechecks 4/4",
+      "gaps": [
+        "fresh clone not battery-green (the factory registry state was uncommitted by ruling)",
+        "one markdownlint SKIP"
+      ]
+    },
+    {
+      "version": "0.8.5",
+      "unit": "FULL-AUDIT-2",
+      "mode": "closure-record",
+      "ref": null,
+      "assets": [],
+      "notes_ref": "§5 as-closed · §7.6 closure record only",
+      "status": "ready",
+      "hold_reason": null,
+      "record": {
+        "file": "AGENT.md",
+        "line": 283,
+        "must_contain": "`a2-report` COMPLETE"
+      },
+      "as_closed": "1,575 lines / 47 findings (15 HIGH / 20 MEDIUM / 12 LOW); Law-13 47=47=47=47; lint exit 0",
+      "gaps": [
+        "no commit",
+        "overwritten by R3 at the same path",
+        "the 13→3 source-disagreement recount was flagged unreproduced",
+        "the R2 report artifact itself does not survive; this package carries the surviving ledger record only"
+      ]
+    },
+    {
+      "version": "0.8.6",
+      "unit": "FULL-AUDIT-3",
+      "mode": "evidence",
+      "ref": null,
+      "assets": [
+        ".opencode/audit/V-FULL-AUDIT.md"
+      ],
+      "notes_ref": "§5 as-closed · §7.7 bundle",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "32,128 lines; 155/155 embeds; Law-13 67; D-1 repair 6/6; sha256 `4a0fc30c…`",
+      "gaps": [
+        "uncommitted at closure — the package carries the file, not a commit",
+        "lint exit 1 over embedded corpora (declared not a gate)",
+        "the D-1 repair record is the dated repair note inside the report itself (§7.7); no separate repair-record file exists on disk"
+      ]
+    },
+    {
+      "version": "0.8.7",
+      "unit": "V87 MISSION-PLAN (owner-named release)",
+      "mode": "evidence",
+      "ref": null,
+      "assets": [
+        "V87-FOUNDATION-DOSSIER.md",
+        "V87-COLOR-AUDIT.md",
+        "V87-PLAN-ZERO-TO-87.md",
+        "V87-DEFECTS.md"
+      ],
+      "notes_ref": "§1 table row · §5 as-closed · §7.8 bundle",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "`w3-reverify2` ALL CLEARED: identity 4/4, lint 6/6, writer quiescence",
+      "gaps": [
+        "four deliverables uncommitted — the package preserves their bytes and hashes, not a source tree",
+        "five owner decisions were unanswered at closure; the notes point to `V87-PLAN-ZERO-TO-87.md` §9.2 rather than reproducing them",
+        "V87-RUFLO-ANALYSIS.md is not in this bundle: F-1 is committed at 6e5f55c and belongs to Cluster 1"
+      ]
+    },
+    {
+      "version": "0.8.8",
+      "unit": "POST87-APPLY Phase 0",
+      "mode": "commit",
+      "ref": "2b3e66a5920be94ee3522b119fe85e1a7e3064c9",
+      "assets": [
+        "AGENTS.md",
+        "AI_GUIDE.md",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "README.md",
+        "README.ar.md",
+        "SECURITY.md",
+        "registry",
+        ".opencode",
+        "scripts",
+        "docs",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".markdownlint.jsonc"
+      ],
+      "notes_ref": "§1 table row · §5 as-closed · §7.9",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "kit 22/22 · skills 10/10 (`POST87-PHASE0.md:104-105`); lint 0; 16 axes / 55 findings / 33 questions",
+      "gaps": [
+        "questions open at that instant",
+        "measurement, not a code change"
+      ]
+    },
+    {
+      "version": "0.8.9",
+      "unit": "POST87 Phase-1 slice = rulings wave #1",
+      "mode": "commit",
+      "ref": "8312cae03eb6623f18ba1dfd80899b982f049a6a",
+      "assets": [
+        "AGENTS.md",
+        "AI_GUIDE.md",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "README.md",
+        "README.ar.md",
+        "SECURITY.md",
+        "registry",
+        ".opencode",
+        "scripts",
+        "docs",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".markdownlint.jsonc"
+      ],
+      "notes_ref": "§1 table row · §5 as-closed · §7.9",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "9 gate rows re-run at `7eaae18` (`POST87-SLICE1.md:142-148`): kit · skills · registry · catalog `--check` · probe 61/61 · tsc · plugin list · markdownlint · hook",
+      "gaps": [
+        "`r2-tags` returned open (no tag deletion run)",
+        "twin held Q-15",
+        "Arabic rule-5 tension",
+        "RAG headers stale"
+      ]
+    },
+    {
+      "version": "0.8.10",
+      "unit": "POST87 rulings wave #2",
+      "mode": "commit",
+      "ref": "f3ca04ba4d3426ce20f95d6c5e2a3d70a82f60f3",
+      "assets": [
+        "AGENTS.md",
+        "AI_GUIDE.md",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "README.md",
+        "README.ar.md",
+        "SECURITY.md",
+        "registry",
+        ".opencode",
+        "scripts",
+        "docs",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".markdownlint.jsonc"
+      ],
+      "notes_ref": "§1 table row · §5 as-closed · §7.9",
+      "status": "ready",
+      "hold_reason": null,
+      "as_closed": "0 singular refs / 3,164 files; catalog `--check` 0 · registry 7/7 (2,915) · kit 22/22 · skills 10/10; dry-run `39606624421` guard PASS, publish fail-closed",
+      "gaps": [
+        "markdownlint exit 1 with 16 pre-existing violations (zero regression, accepted)",
+        "end-to-end UNPROVEN",
+        "mixed-generation main"
+      ]
+    }
+  ]
+}

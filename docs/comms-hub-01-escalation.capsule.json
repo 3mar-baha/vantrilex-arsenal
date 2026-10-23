@@ -1,0 +1,11 @@
+{
+  "capsule": "refusal",
+  "capsule_version": "1.0.0",
+  "issued_at": "2026-10-16T15:01:00Z",
+  "issuer": "blazar",
+  "disposition": "escalate",
+  "reason": "VTA-COMMS-HUB-01 cannot start: the study-before-build research report is absent and the owner-held pre-flight inputs (account confirmation, repo existence, PATs, relay retirement) are missing.",
+  "refused_request": "VTA-COMMS-HUB-01 — build the GitHub comms hub (study-before-build; repo vantrilex-comms on owner's personal account; PATs needed for round-trip gate; migrate parked P0).",
+  "evidence": "Live probes at issuance: report path C:\\Users\\omarb\\workspace\\comms-hub-research\\COMMS-HUB-V2-RESEARCH-REPORT.md ABSENT and workspace dir ABSENT (Test-Path -> False, False); gh auth exit 0 as 3mar-baha ('Logged in to github.com account 3mar-baha'); gh repo view 3mar-baha/vantrilex-comms exit 1 notFound ('GraphQL: Could not resolve to a Repository with the name 3mar-baha/vantrilex-comms.'); RELAY_NOTION_TOKEN/RELAY_QUEUE_DATABASE_ID/RELAY_ALERTS_CHAT_ID all absent + zero COMMS_HUB*/GITHUB* env names (0 RELAY_*, 0 COMMS_HUB*, 0 GITHUB*; 76 env names scanned, names only); no secrets included: env names and masked probe outputs only, no values.",
+  "suggested_route": "owner (pre-flight inputs: research report at a reachable path; personal-account confirmation; repo name confirm/create; PAT#1 vanbu-VM + PAT#2 OpenCode-PC creation + dashboard-PAT decision; relay tombstone)."
+}
