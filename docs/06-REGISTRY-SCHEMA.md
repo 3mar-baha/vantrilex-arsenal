@@ -116,7 +116,7 @@ The verifier's `command-honesty/*` and `evidence/ttl` checks (see
 | null | Untiered: carried as authored, not yet placed | Last |
 
 38 records carry tier `core` today, including Prime, Vanguard, and Doctrine.
-The 19 default-selected components are the provisioning set Vanguard installs
+The 20 default-selected components are the provisioning set Vanguard installs
 automatically. Tier-0-only guarantees apply: only the core set gets install and
 verification promises (see [15-DECISIONS.md](15-DECISIONS.md)).
 

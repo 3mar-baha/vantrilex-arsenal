@@ -89,7 +89,7 @@ A contributor reads for landing changes:
 
 - Counts are honest and checkable: 2,837 live catalog records plus 104
   candidates, 38 records with tier `core` including Prime, Vanguard, and
-  Doctrine, 19 default-selected components, and 16 merged sidecars. Every live
+  Doctrine, 20 default-selected components, and 16 merged sidecars. Every live
   row is `verified` under its declared class. See [01-OVERVIEW.md](01-OVERVIEW.md).
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.

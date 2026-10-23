@@ -66,7 +66,7 @@ is `verified` under its declared evidence class — there is no carried
 `unverified` state in v4. `registry/catalog.json` carries 2,837 live records
 (38 tier `core`, 218 tier `conditional`, the remainder untiered and never
 injected) beside 104 candidates in `registry/candidates/`. The catalog recount
-stands at 19 default-selected components, enriched from 16 sidecars merged by
+stands at 20 default-selected components, enriched from 16 sidecars merged by
 the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
 lsp, mcp, plugins, policies, prompts, skills, templates, themes, workflows).
 Tier-1 components — Python, UI, team-flow, and design-system components — are
