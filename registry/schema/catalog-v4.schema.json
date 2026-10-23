@@ -350,7 +350,11 @@
       "then": {
         "required": ["evidence"],
         "properties": {
-          "evidence": { "required": ["source_proof"] }
+          "evidence": {
+            "type": "object",
+            "required": ["source_proof"],
+            "properties": { "source_proof": { "$ref": "#/$defs/sourceProof" } }
+          }
         }
       }
     },
@@ -360,7 +364,11 @@
       "then": {
         "required": ["evidence"],
         "properties": {
-          "evidence": { "required": ["load_proof"] }
+          "evidence": {
+            "type": "object",
+            "required": ["load_proof"],
+            "properties": { "load_proof": { "$ref": "#/$defs/loadProof" } }
+          }
         }
       }
     },
@@ -371,7 +379,14 @@
         "required": ["install_cmd", "evidence"],
         "properties": {
           "install_cmd": { "type": "string" },
-          "evidence": { "required": ["load_proof", "command_registry"] }
+          "evidence": {
+            "type": "object",
+            "required": ["load_proof", "command_registry"],
+            "properties": {
+              "load_proof": { "$ref": "#/$defs/loadProof" },
+              "command_registry": { "$ref": "#/$defs/commandRegistry" }
+            }
+          }
         }
       }
     },
@@ -384,7 +399,11 @@
       "then": {
         "required": ["evidence"],
         "properties": {
-          "evidence": { "required": ["command_registry"] }
+          "evidence": {
+            "type": "object",
+            "required": ["command_registry"],
+            "properties": { "command_registry": { "$ref": "#/$defs/commandRegistry" } }
+          }
         }
       }
     },

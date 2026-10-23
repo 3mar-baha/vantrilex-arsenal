@@ -28,6 +28,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   missing-address suspensions — reversible and self-restoring — in
   `docs/dev/05-KIT-LOCK.md`.
 
+### Fixed
+
+- **Catalog v4 passes JSON Schema strict mode (`fix(catalog)`).** The four
+  class-evidence clauses (`allOf` indices 16–19) declared `required` on an
+  `evidence` subschema that carried no `"type": "object"`, so a strict compiler
+  refused to build the schema and logged four `strictTypes` warnings plus five
+  `strictRequired` ones. Each clause now declares the object type and names the
+  proof legs it requires, referencing the existing `$defs` entries; no keyword was
+  loosened and no bypass flag was added. Strict mode compiles with **zero
+  messages**, and all 2,889 live records plus 40 candidate rows still validate.
+
+- **The pre-commit scanner no longer rejects a Registry `token` (`fix(hooks)`).**
+  The credential-assignment heuristic read `"token": "<24+ chars>"` as a secret,
+  which forced the selection record to be split across JSON whitespace to store
+  its own component id. The heuristic now exempts a `token` whose value begins
+  with a Registry kind prefix (`mcp/…`, `skill/…`, and the other kinds); every
+  other long literal under that key is still rejected. A before/after commit
+  probe on the recorded case and two controls proves both directions.
+
+- **Arabic mirrors carry the live counts (`docs(ar)`).** Thirteen lines across
+  `docs/ar/00-INDEX.md`, `01-OVERVIEW.md`, `08-VERIFICATION.md` and `README.md`
+  now state the measured figures — 2,889 records, 39 core, 233 conditional, 20
+  default-selected, 1,210 install commands, skill 1,478 and mcp 910 — with digits
+  and commas as the only change on every line.
+
 ### Added
 
 - **The release queue is documented (`docs(release)`).** `docs/dev/09-RELEASE-QUEUE.md`
