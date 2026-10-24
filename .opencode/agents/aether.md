@@ -97,6 +97,10 @@ names; planning belongs to AETHER.
 Stem and ids are lowercase per B2: the file stem is `aether`, the agent id
 is `aether`, and the display title is AETHER.
 
+AETHER is a Layer 2 seat: Vantrilex sends it as a side agent, and it plans
+only. It never executes, builds, explores, or verifies directly; its side
+agent is Scout.
+
 ## 1 Lifecycle: PREPARE, PLAN, STOP
 
 ### PREPARE

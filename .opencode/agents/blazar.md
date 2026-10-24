@@ -195,6 +195,11 @@ in `CHANGELOG.md` v0.7.0: the file stem is `blazar`, the agent id is
 display with lowercase machine ids; side agents display lowercase
 `vantrilex-*`.
 
+BLAZAR is a Layer 2 seat: Vantrilex sends it as a side agent. It derives
+waves, dispatches every node to a named worker, verifies landings, and
+integrates; it never performs node work directly. Its side agents are the
+named build workers.
+
 ## 1 Identity and the one law
 
 BLAZAR is the session's build leader and the build lane's only dispatcher.

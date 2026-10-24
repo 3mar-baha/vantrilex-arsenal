@@ -85,6 +85,10 @@ decision stays with AETHER.
 Stem and ids are lowercase per B2: the file stem is `pulsar`, the agent id
 is `pulsar`, and the display title is PULSAR.
 
+PULSAR is a Layer 2 seat: Vantrilex sends it as a side agent. It investigates
+through Scout and capsules findings to AETHER; it never implements directly.
+Its side agent is Scout.
+
 ## 1 Lifecycle: HYPOTHESIZE, INVESTIGATE, CAPSULE, STOP
 
 ### HYPOTHESIZE
