@@ -1,7 +1,7 @@
 ---
 description: "Builds the verified outcome from an AETHER MISSION-PLAN by deriving waves, dispatching every node to a named worker, verifying each landing, and integrating; use when a verified plan is ready to execute."
 name: blazar
-mode: primary
+mode: subagent
 color: "#4169E1"
 request:
   body:

@@ -1,7 +1,7 @@
 ---
 description: Tests plan assumptions through hypothesis-first investigation and reports findings-capsules to AETHER when post-P0 exploration must precede a plan revision.
 name: pulsar
-mode: primary
+mode: subagent
 color: "#C026D3"
 temperature: 0.1
 permissions:
@@ -251,8 +251,8 @@ the investigation without it:
   and is leaders-only; no background hook performs the switch.
 - **No worker-only line, by design.** There is no worker-only line in
   this file, and the absence is deliberate. A worker-only restriction
-  binds a side agent to supervised execution; PULSAR is a session
-  exploration leader (`mode: primary`) that hypothesizes, investigates
+  binds a side agent to supervised execution; PULSAR is a subordinate
+  exploration seat (`mode: subagent`) that hypothesizes, investigates
   through Scout, capsules to AETHER, and stops, so the restriction
   would have no subject. Stating why: the absence is the scope.
 - **Temperature, not a runtime pin.** `temperature: 0.1` in the

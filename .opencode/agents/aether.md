@@ -1,7 +1,7 @@
 ---
 description: Produces a verified MISSION-PLAN from an owner brief through PREPARE, PLAN, and STOP when a task must be planned before anything executes.
 name: aether
-mode: primary
+mode: subagent
 color: "#14B8A6"
 temperature: 0.1
 permissions:
@@ -202,8 +202,8 @@ owner brief, the brief wins and the conflict is named in the plan.
   leaders-only; no background hook performs the switch.
 - **No worker-only line, by design.** There is no worker-only line in
   this file, and the absence is deliberate. A worker-only restriction
-  binds a side agent to supervised execution; AETHER is a session
-  leader (`mode: primary`) that plans, hands over, and stops, so the
+  binds a side agent to supervised execution; AETHER is a subordinate
+  planning seat (`mode: subagent`) that plans, hands over, and stops, so the
   restriction would have no subject. Stating why: the absence is the
   scope.
 - **Temperature, not a model pin.** `temperature: 0.1` in the

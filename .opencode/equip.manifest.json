@@ -35,6 +35,7 @@
       "template/target-project-docs-scaffold"
     ],
     "plan": [
+      "agent/zenith",
       "agent/aether",
       "agent/vantrilex-architect",
       "mcp/sequential-thinking",
