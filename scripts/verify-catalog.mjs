@@ -1224,10 +1224,39 @@ const checkFileCopyShape = (components, selectedSet, family) => {  const failure
 };
 
 const checkAgentHygiene = (selected, index) => {
-  const leaders = new Set(["aether", "pulsar", "blazar"]);
+  const primaries = new Set(["zenith"]);
+  const reservedSubordinateColors = new Set(["aether", "blazar", "pulsar"]);
   const failures = [];
   let local = 0;
-  let leaderFiles = 0;
+  let primaryFiles = 0;
+  let reservedSubordinateFiles = 0;
+
+  // Sole-primary ruling 2026-10-24: no local agent file may pin a model,
+  // whether it is selected or not. Scan the whole agent directory.
+  let localAgentFiles = [];
+  try {
+    localAgentFiles = fs.readdirSync(AGENTS_DIR).filter((name) => name.endsWith(".md"));
+  } catch (error) {
+    failures.push("cannot read .opencode/agents: " + String(error.message));
+  }
+  for (const file of localAgentFiles) {
+    let text = null;
+    try {
+      text = fs.readFileSync(path.join(AGENTS_DIR, file), "utf8");
+    } catch (error) {
+      failures.push(file + ": unreadable (" + String(error.message) + ")");
+      continue;
+    }
+    const lines = frontmatterLines(text);
+    if (lines === null) {
+      failures.push(file + ": no frontmatter fence");
+      continue;
+    }
+    if (frontmatterValue(lines, "model") !== null) {
+      failures.push(file + ": frontmatter pins a model; agents carry no model pins");
+    }
+  }
+
   for (const token of selected) {
     const entry = index.get(token);
     if (entry === undefined || entry.kind !== "agent") continue;
@@ -1253,31 +1282,25 @@ const checkAgentHygiene = (selected, index) => {
       failures.push(entry.id + ": no frontmatter fence");
       continue;
     }
-    if (frontmatterValue(lines, "model") !== null) {
-      failures.push(entry.id + ": frontmatter pins a model; agents carry no model pins");
-      continue;
-    }
     const mode = frontmatterValue(lines, "mode");
     const color = frontmatterValue(lines, "color");
-    if (leaders.has(entry.id)) {
+    if (primaries.has(entry.id)) {
       if (mode !== "primary") {
-        failures.push(entry.id + ": leader mode " + JSON.stringify(mode) + " is not primary per triumvirate design D1 + owner ruling (a) 2026-10-15");
+        failures.push(entry.id + ": sole primary mode " + JSON.stringify(mode) + " is not primary per owner ruling 2026-10-24");
         continue;
       }
-      if (color === null || color === "") {
-        failures.push(entry.id + ": leader carries no non-empty color field; leaders require mode primary plus a color");
-        continue;
-      }
-      leaderFiles++;
+      // Zenith's theme/color remains open; a missing color is valid in 0.9.0.
+      primaryFiles++;
     } else {
       if (mode !== "subagent") {
-        failures.push(entry.id + ": mode " + JSON.stringify(mode) + " is not subagent");
+        failures.push(entry.id + ": mode " + JSON.stringify(mode) + " is not subagent under the sole-primary ruling 2026-10-24");
         continue;
       }
-      if (color !== null) {
+      if (color !== null && reservedSubordinateColors.has(entry.id) === false) {
         failures.push(entry.id + ": frontmatter carries a color field");
         continue;
       }
+      if (color !== null && reservedSubordinateColors.has(entry.id)) reservedSubordinateFiles++;
     }
     local++;
   }
@@ -1292,7 +1315,7 @@ const checkAgentHygiene = (selected, index) => {
   if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
   return {
     status: "PASS",
-    detail: local + " selected local agents resolve with no model pin (" + leaderFiles + " named leaders mode primary plus color; the rest mode subagent with no color); selected agent, hook and plugin rows carry null install_cmd and are verified"
+    detail: local + " selected local agents resolve (" + primaryFiles + " sole primary zenith; " + reservedSubordinateFiles + " reserved subordinate seats retain color; the rest mode subagent with no color); " + localAgentFiles.length + " local agent files carry no model pin; selected agent, hook and plugin rows carry null install_cmd and are verified"
   };
 };
 
