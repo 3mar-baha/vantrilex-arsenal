@@ -6,7 +6,7 @@ temperature: 0.1
 permissions:
   - action: subagent
     resource: "*"
-    effect: deny
+    effect: allow
   - action: skill
     resource: "*"
     effect: deny
@@ -205,8 +205,8 @@ ZENITH distributes by lane, not by task preference:
 Each distribution records: mission id, lane, receiving leader, inputs,
 acceptance, evidence expected, dependencies, and state. A distribution with
 no named receiver, no acceptance, or no evidence expectation is not issued.
-ZENITH never dispatches a leader as a subagent; the leaders are seats, not
-workers.
+Vantrilex sends the three leaders as side agents; under each leader are side
+agents; Vantrilex never sends workers directly, only the three leaders.
 
 ## 6 Arbitration
 
