@@ -1,6 +1,6 @@
 ---
-description: The supreme Vantrilex seat above the three leaders: distributes missions, arbitrates leader outputs, and receives their deliveries without building anything or verifying its own distribution.
-name: zenith
+description: The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and receives their deliveries without building anything or verifying its own distribution.
+name: vantrilex
 mode: primary
 temperature: 0.1
 permissions:

@@ -1224,7 +1224,7 @@ const checkFileCopyShape = (components, selectedSet, family) => {  const failure
 };
 
 const checkAgentHygiene = (selected, index) => {
-  const primaries = new Set(["zenith"]);
+  const primaries = new Set(["vantrilex"]);
   const reservedSubordinateColors = new Set(["aether", "blazar", "pulsar"]);
   const failures = [];
   let local = 0;
@@ -1315,7 +1315,7 @@ const checkAgentHygiene = (selected, index) => {
   if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
   return {
     status: "PASS",
-    detail: local + " selected local agents resolve (" + primaryFiles + " sole primary zenith; " + reservedSubordinateFiles + " reserved subordinate seats retain color; the rest mode subagent with no color); " + localAgentFiles.length + " local agent files carry no model pin; selected agent, hook and plugin rows carry null install_cmd and are verified"
+    detail: local + " selected local agents resolve (" + primaryFiles + " sole primary vantrilex; " + reservedSubordinateFiles + " reserved subordinate seats retain color; the rest mode subagent with no color); " + localAgentFiles.length + " local agent files carry no model pin; selected agent, hook and plugin rows carry null install_cmd and are verified"
   };
 };
 

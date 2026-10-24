@@ -2736,7 +2736,7 @@ Consolidated reference of every system component with its folder path.
 | 299 | aether | Produces a verified MISSION-PLAN from an owner brief through PREPARE, PLAN, and STOP… | 3mar-baha/vantrilex-arsenal | `` |
 | 300 | pulsar | Tests plan assumptions through hypothesis-first investigation and reports… | 3mar-baha/vantrilex-arsenal | `` |
 | 301 | blazar | Derives waves from a verified MISSION-PLAN, dispatches every node, verifies… | 3mar-baha/vantrilex-arsenal | `` |
-| 302 | zenith | The supreme Vantrilex seat above the three leaders: distributes missions, arbitrates leader outputs, and… | 3mar-baha/vantrilex-arsenal | `` |
+| 302 | vantrilex | The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and… | 3mar-baha/vantrilex-arsenal | `` |
 
 ## Formatting (13 — 0 default-selected)
 

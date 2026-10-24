@@ -85764,6 +85764,36 @@
       "default_selected": false
     },
     {
+      "id": "vantrilex",
+      "name": "vantrilex",
+      "kind": "agent",
+      "description": "The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "agent",
+        "leadership"
+      ],
+      "when_to_use": "When a mission must be distributed, leader outputs arbitrated, or deliveries received at the top seat",
+      "phase": "plan",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/agents/vantrilex.md",
+          "method": "frontmatter-valid",
+          "checked_at": "2026-10-24"
+        }
+      },
+      "default_selected": false
+    },
+    {
       "id": "vantrilex-a11y-audit",
       "name": "vantrilex-a11y-audit",
       "kind": "agent",
@@ -86502,36 +86532,6 @@
           "target": "msitarzewski/agency-agents",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
-        }
-      },
-      "default_selected": false
-    },
-    {
-      "id": "zenith",
-      "name": "zenith",
-      "kind": "agent",
-      "description": "The supreme Vantrilex seat above the three leaders: distributes missions, arbitrates leader outputs, and…",
-      "source": "3mar-baha/vantrilex-arsenal",
-      "origin": null,
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "agent",
-        "leadership"
-      ],
-      "when_to_use": "When a mission must be distributed, leader outputs arbitrated, or deliveries received at the top seat",
-      "phase": "plan",
-      "tier": "core",
-      "verify_cmd": null,
-      "cost_note": "light",
-      "verification": "verified",
-      "class": "loadable",
-      "evidence": {
-        "load_proof": {
-          "surface": ".opencode/agents/zenith.md",
-          "method": "frontmatter-valid",
-          "checked_at": "2026-10-24"
         }
       },
       "default_selected": false

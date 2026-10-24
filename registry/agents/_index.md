@@ -14,8 +14,8 @@
 | aether | agent | core | When a task must be planned before anything executes, to produce a veri… |  |
 | blazar | agent | core | When a verified plan is ready to execute, to derive waves, dispatch eve… |  |
 | pulsar | agent | core | When post-P0 exploration must precede a plan revision, to test plan ass… |  |
+| vantrilex | agent | core | When a mission must be distributed, leader outputs arbitrated, or deliv… |  |
 | vantrilex-architect | agent | core | When system design, scalability, or a technical decision is needed |  |
-| zenith | agent | core | When a mission must be distributed, leader outputs arbitrated, or deliv… |  |
 
 ## Tier 1 — Conditional (16)
 
