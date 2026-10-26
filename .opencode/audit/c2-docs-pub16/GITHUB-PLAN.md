@@ -44,11 +44,14 @@ proven first, local ref left in place.
 ## Transcripts (appended after execution)
 
 ### P4 merge
+
 ```
 Merge made by the 'ort' strategy.
  16 files changed, 111 insertions(+), 114 deletions(-)
 ```
+
 Merge SHA:
+
 ```
 111749b511581227b86be1060090491dcafb0d8a
 parents: f5e6d3f2373c1531cc78f1060524470804ccfefc 31d8d8c7df27c03ad021fd114e64715cce526702
@@ -57,13 +60,16 @@ git ls-tree -r --name-only HEAD -- .opencode/auto-release.enabled -> (empty)
 ```
 
 ### P6 queue line appended
+
 ```
 {"unit_type":"phase","scope":"Docs truth — live census true (closure 31d8d8c)","base_commit":"111749b511581227b86be1060090491dcafb0d8a","status":"pending","published_version":null,"published_at":null,"intended_version":"v0.8.16"}
 ```
+
 P7 schema validation via the publisher's own `parseQueue`: `ok=true`, `entries=6`,
 `pending-line=6`, entry pending (not pre-marked).
 
 ### P8 live run (complete output, exit 0)
+
 ```
 [self-publish] pending entry 6: unit_type=phase base_commit=111749b511581227b86be1060090491dcafb0d8a
 [self-publish] plan: v0.8.16 = v0.8.15 + policy.increments.phase (cascade=true); declared intended_version v0.8.16 matches
@@ -81,6 +87,7 @@ v0.8.16 | 111749b511581227b86be1060090491dcafb0d8a | 2026-10-23T15:51:52Z | vant
 ```
 
 ### P9 verification
+
 ```
 tag object  : 2de5ea1a90cd1e5c1eb23fb852fce66d8449de8e (type: tag)
 peel        : 111749b511581227b86be1060090491dcafb0d8a  == merge SHA  (MATCH)
@@ -95,6 +102,7 @@ switch      : absent from HEAD tree and origin/main tree; disk 507 B untouched
 ```
 
 ### P10-P13 deletion
+
 ```
 merge-base --is-ancestor 31d8d8c origin/main -> exit 0
 merge-base --is-ancestor 111749b origin/main -> exit 0

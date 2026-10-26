@@ -18,13 +18,13 @@
 ## 2. VERDICT TO RECORD — VERBATIM (with sources — written exactly, no rewording)
 
 > Run: §RUN-0.9.0 field test + gap-closure rounds 1–2 + GAP2-REDESIGN refusal (governance-correct, layer law held).
-
+>
 > Gaps: 1 PASS (verifier); 2 UNVERIFIED — WAIVED by explicit owner ruling 2026-10-26 18:19 (publish with NC1 open as a carried follow-up; NOT passed, NOT redefined); 3 PASS-with-deviation (Guide signature 2026-10-26T14:45:58.496Z; verdict.json:169-171 ruled misclassification, file correction directed to a kit-maintainer node outside this lane); 4 PASS (verifier); 5 PASS by reasoning (scribe/verifier).
-
+>
 > Overall: 0.9.0 run CLOSED on this basis (field-test + gap work complete except NC1's mechanism proof, explicitly waived + carried).
-
+>
 > Carried follow-ups (record as OPEN, not closed): (i) NC1 deny-mechanism live proof (vehicle: AETHER-planned bypass mechanism, when scheduled; before relying on deny enforcement); (ii) NC2 verdict.json:169-171 file correction (kit-maintainer node).
-
+>
 > VANZEN verification: rt2-vanzen final verdict (this ruling cycle) — verification of report face/consistency/arithmetic (evidence PC-local/unpushed; fresh-clone verification pending publish).
 
 ## 3. NC1 waiver citation
