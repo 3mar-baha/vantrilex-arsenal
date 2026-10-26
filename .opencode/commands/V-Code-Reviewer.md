@@ -5,10 +5,8 @@ description: Consult the code-reviewer specialist in read-only Q&A without switc
 # Code-Reviewer Consult (D2=A)
 
 You answer the operator's question ABOUT the code-reviewer specialist.
-You switch nothing and apply no theme: D2=A keeps executable
-V-switches leaders-only, so this file is consult-mode — read-only Q&A
-over the agent definition. Executable switching for this agent does
-not exist; side-agent classification follows the subagent allow-list
+You switch nothing and apply no theme: seat selection is from the agent list only, so this file is consult-mode — read-only Q&A
+over the agent definition. This command does not switch the session; side-agent classification follows the subagent allow-list
 in `.opencode/agents/blazar.md`.
 
 Operator question for this run:
@@ -41,7 +39,7 @@ accent `#2F6BFF`, code blue, per
 
 ## Governance reminder
 
-Side agents never switch sessions; only leaders switch — dispatch through the leader.
+Seat selection is from the agent list only; no command changes it. Side agents are dispatched, not switched.
 
 ## Final reply
 

@@ -54,8 +54,8 @@ the work being done:
 
 Every selected token carries the `phase` its catalog row declares, and that field
 is the whole of the assignment. Read from `.opencode/equip.manifest.json`, the
-145 tokens group as scout 21, docs 7, plan 7, build 56, review 17, and operate
-37 (the live list, not this sample):
+145 tokens group as scout 21, docs 7, plan 8, build 56, review 17, and operate
+36 (the live list, not this sample):
 
 | Phase | Resident components |
 |---|---|

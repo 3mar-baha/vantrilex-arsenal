@@ -230,8 +230,8 @@ git rev-parse HEAD          # ثبّت هذا الالتزام؛ الطقم مث
 - **`registry/catalog.json`** — النسخة الآلية المُولَّدة التي يقرأها Vanguard.
   يُعاد توليدها ولا تُعدَّل يدويًا أبدًا.
 
-يحمل الفهرس **2,889 سجلًّا** موزّعة على 16 نوعًا: ‏skill ‏1,478 وmcp ‏910
-وagent ‏301 وhook ‏8 وformatting ‏13 وplugin ‏11 وlsp ‏1 وcli ‏64 وtheme ‏12 وprompt ‏1 وdataset ‏1 وtemplate ‏1 وpolicy ‏2 وbenchmark ‏1 وworkflow ‏1 وdesign.md ‏84.
+يحمل الفهرس **2,889 سجلًّا** موزّعة على 16 نوعًا: ‏skill ‏1,477 وmcp ‏910
+وagent ‏302 وhook ‏8 وformatting ‏13 وplugin ‏11 وlsp ‏1 وcli ‏64 وtheme ‏12 وprompt ‏1 وdataset ‏1 وtemplate ‏1 وpolicy ‏2 وbenchmark ‏1 وworkflow ‏1 وdesign.md ‏84.
 
 ![جدول بسجلّات الفهرس حسب النوع: skill ‏1,478 وmcp ‏910 وagent ‏301 وhook ‏8 وformatting ‏13 وplugin ‏11 وlsp ‏1 وcli ‏64، والمجموع 2,889؛ وعناوين أعمدة هذا الجدول بالإنجليزية](../assets/tables/catalog-records.svg)
 

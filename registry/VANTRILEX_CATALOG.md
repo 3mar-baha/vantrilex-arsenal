@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1478 — 7 default-selected)
+## Skills (1477 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1471,21 +1471,20 @@ Consolidated reference of every system component with its folder path.
 | 1461 | vantrilex-prime | Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe… | 3mar-baha/vantrilex-arsenal | `` |
 | 1462 | vantrilex-design-variations | Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi… | 3mar-baha/vantrilex-arsenal | `` |
 | 1463 | vantrilex-workflow-forge | Authors the standing methodology at each task start — use when a new task begins, befo… | 3mar-baha/vantrilex-arsenal | `` |
-| 1464 | vantrilex-atomic-switch | Use when the operator installs per-agent themes, so the atomic switch commands resolve to a real theme file. | 3mar-baha/vantrilex-arsenal | `` |
-| 1465 | agent-md-setup | Use when a repository needs one canonical instruction file shared by coding agents, when AGENTS.md or CLAUDE.md is missing, or when their guidance has diverged. | ismail9k/skills |  |
-| 1466 | configure-issue-tracker | Use when a repository needs to choose or change where issues and feature intents live, or when docs/agents/issue-tracker.md is missing or stale. | ismail9k/skills |  |
-| 1467 | fetch-github-issues | Use when the user asks to list, show, or review open issues from the tracker recorded in docs/agents/issue-tracker.md. | ismail9k/skills |  |
-| 1468 | brandkit | Premium brand-kit image generation skill for high-end brand-guidelines boards, logo systems, identity decks and visual-world presentations. | Leonxlnx/imagegen-skills |  |
-| 1469 | image-to-code | Elite website image-to-code skill for Codex: generate the design image(s) first, analyze them, then implement the website to match. | Leonxlnx/imagegen-skills |  |
-| 1470 | imagegen-frontend-mobile | Elite mobile app image-generation skill for premium, app-native screen concepts and flows across iOS, Android and cross-platform products. | Leonxlnx/imagegen-skills |  |
-| 1471 | imagegen-frontend-web | Elite frontend image-direction skill for generating premium, conversion-aware website design references. | Leonxlnx/imagegen-skills |  |
-| 1472 | design-taste-frontend-v1 | The original taste-skill v1, kept for projects that depend on its exact behaviour. Opt-in: it runs only when called by name. | Leonxlnx/taste-skill-classics |  |
-| 1473 | gpt-taste | Classic skill for GPT and Codex, opt-in: layout variance, a strict AIDA page structure and GSAP scroll motion. | Leonxlnx/taste-skill-classics |  |
-| 1474 | high-end-visual-design | Classic style skill, opt-in: a calm, polished look with soft contrast, generous whitespace and spring motion. | Leonxlnx/taste-skill-classics |  |
-| 1475 | industrial-brutalist-ui | Classic style skill, opt-in: a hard mechanical look with Swiss type, rigid grids, extreme scale contrast and utilitarian colour. | Leonxlnx/taste-skill-classics |  |
-| 1476 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
-| 1477 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
-| 1478 | resolving-merge-conflicts | Use when you need to resolve an in-progress git merge/rebase conflict. | mattpocock/skills | `mattpocock/skills` |
+| 1464 | agent-md-setup | Use when a repository needs one canonical instruction file shared by coding agents, when AGENTS.md or CLAUDE.md is missing, or when their guidance has diverged. | ismail9k/skills |  |
+| 1465 | configure-issue-tracker | Use when a repository needs to choose or change where issues and feature intents live, or when docs/agents/issue-tracker.md is missing or stale. | ismail9k/skills |  |
+| 1466 | fetch-github-issues | Use when the user asks to list, show, or review open issues from the tracker recorded in docs/agents/issue-tracker.md. | ismail9k/skills |  |
+| 1467 | brandkit | Premium brand-kit image generation skill for high-end brand-guidelines boards, logo systems, identity decks and visual-world presentations. | Leonxlnx/imagegen-skills |  |
+| 1468 | image-to-code | Elite website image-to-code skill for Codex: generate the design image(s) first, analyze them, then implement the website to match. | Leonxlnx/imagegen-skills |  |
+| 1469 | imagegen-frontend-mobile | Elite mobile app image-generation skill for premium, app-native screen concepts and flows across iOS, Android and cross-platform products. | Leonxlnx/imagegen-skills |  |
+| 1470 | imagegen-frontend-web | Elite frontend image-direction skill for generating premium, conversion-aware website design references. | Leonxlnx/imagegen-skills |  |
+| 1471 | design-taste-frontend-v1 | The original taste-skill v1, kept for projects that depend on its exact behaviour. Opt-in: it runs only when called by name. | Leonxlnx/taste-skill-classics |  |
+| 1472 | gpt-taste | Classic skill for GPT and Codex, opt-in: layout variance, a strict AIDA page structure and GSAP scroll motion. | Leonxlnx/taste-skill-classics |  |
+| 1473 | high-end-visual-design | Classic style skill, opt-in: a calm, polished look with soft contrast, generous whitespace and spring motion. | Leonxlnx/taste-skill-classics |  |
+| 1474 | industrial-brutalist-ui | Classic style skill, opt-in: a hard mechanical look with Swiss type, rigid grids, extreme scale contrast and utilitarian colour. | Leonxlnx/taste-skill-classics |  |
+| 1475 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
+| 1476 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
+| 1477 | resolving-merge-conflicts | Use when you need to resolve an in-progress git merge/rebase conflict. | mattpocock/skills | `mattpocock/skills` |
 
 ## MCP Servers (910 — 8 default-selected)
 
@@ -2431,7 +2430,7 @@ Consolidated reference of every system component with its folder path.
 | 7 | long-running-process-guard ✅ | Guard long-running dev servers and watchers so their logs stay reachable |  | `` |
 | 8 | task-dispatcher | Classify each user message into one of the five Vanguard task scenarios |  | `` |
 
-## Agents (301 — 1 default-selected)
+## Agents (302 — 1 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2736,6 +2735,7 @@ Consolidated reference of every system component with its folder path.
 | 299 | aether | Produces a verified MISSION-PLAN from an owner brief through PREPARE, PLAN, and STOP… | 3mar-baha/vantrilex-arsenal | `` |
 | 300 | pulsar | Tests plan assumptions through hypothesis-first investigation and reports… | 3mar-baha/vantrilex-arsenal | `` |
 | 301 | blazar | Derives waves from a verified MISSION-PLAN, dispatches every node, verifies… | 3mar-baha/vantrilex-arsenal | `` |
+| 302 | vantrilex | The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and… | 3mar-baha/vantrilex-arsenal | `` |
 
 ## Formatting (13 — 0 default-selected)
 

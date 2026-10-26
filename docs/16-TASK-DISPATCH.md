@@ -161,16 +161,14 @@ The injected text is five lines, built as the `TASK_DISPATCH_INSTRUCTION`
 constant in the plugin file. The shape is:
 
 ```text
-[arsenal] task-dispatcher: classify this prompt into exactly one scenario and
-run that scenario's playbook in the vantrilex-vanguard skill; if the prompt is
-genuinely ambiguous, ask the user one short clarifying question before
-proceeding.
-1 NEW TASK … 2 CONTINUATION … 3 TASK MODIFICATION …
-4 CONTINUATION WITH MODIFICATION …
-5 CONTINUATION WITH NEW TASK …
+[arsenal] task-dispatcher: classify this prompt into exactly one scenario and run that scenario's playbook in the vantrilex-vanguard skill when the seat allows it; if the seat denies the skill, record it and apply the rule. If the prompt is genuinely ambiguous, ask the user one short clarifying question before proceeding.
+1 NEW TASK (no task in flight): Vanguard task-dispatch from scratch. 2 CONTINUATION (same task, unchanged): silent no-op; keep the existing phase-kit plan.
+3 TASK MODIFICATION (same task, changed): Vanguard re-dispatch on the modified task and state what changed.
+4 CONTINUATION WITH MODIFICATION: completed phases stay locked; re-plan the remaining phases only.
+5 CONTINUATION WITH NEW TASK: checkpoint and park the current task, fresh Vanguard dispatch for the new one; keep the lanes separate and always state which lane you are working.
 ```
 
-The budget is five lines — 780 characters — not five paragraphs, and the reason
+The budget is five lines — 864 characters — not five paragraphs, and the reason
 is arithmetic: this instruction is re-sent on every single prompt, so its cost
 is paid again each time. Each scenario gets one line carrying its single
 obligation, and the procedure is deferred to the skill that already owns it. A
@@ -183,7 +181,7 @@ part carrying its own id would misreport the injection as something the owner
 typed. Under V2 there is no part to shape: the instruction is appended to the
 owner's own draft, so it carries no identity of its own either way. The
 migration changes where the text lands, not what it says — five lines,
-780 characters, same five scenarios.
+864 characters, same five scenarios.
 
 ## The kill switch
 

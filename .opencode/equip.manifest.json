@@ -35,6 +35,7 @@
       "template/target-project-docs-scaffold"
     ],
     "plan": [
+      "agent/vantrilex",
       "agent/aether",
       "agent/vantrilex-architect",
       "mcp/sequential-thinking",
@@ -156,7 +157,6 @@
       "skill/kit-evaluation-journal",
       "skill/kit-evolution-log",
       "skill/ponytail-audit",
-      "skill/vantrilex-atomic-switch",
       "skill/vantrilex-doctrine"
     ]
   },

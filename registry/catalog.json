@@ -3,11 +3,11 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 4,
   "counts": {
-    "skill": 1478,
+    "skill": 1477,
     "mcp": 910,
     "plugin": 11,
     "hook": 8,
-    "agent": 301,
+    "agent": 302,
     "formatting": 13,
     "lsp": 1,
     "cli": 64,
@@ -48084,37 +48084,6 @@
       "default_selected": false
     },
     {
-      "id": "vantrilex-atomic-switch",
-      "name": "vantrilex-atomic-switch",
-      "kind": "skill",
-      "description": "Use when the operator installs per-agent themes, so the atomic switch commands resolve to a real theme file.",
-      "source": "3mar-baha/vantrilex-arsenal",
-      "origin": null,
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "skill",
-        "themes",
-        "install"
-      ],
-      "when_to_use": "When the operator installs per-agent themes, to copy registry theme files into the runtime themes directory",
-      "phase": "operate",
-      "tier": "conditional",
-      "verify_cmd": null,
-      "cost_note": "light",
-      "verification": "verified",
-      "class": "loadable",
-      "evidence": {
-        "load_proof": {
-          "surface": ".opencode/skills/vantrilex-atomic-switch/SKILL.md",
-          "method": "surface-exists",
-          "checked_at": "2026-10-22"
-        }
-      },
-      "default_selected": false
-    },
-    {
       "id": "vantrilex-design-variations",
       "name": "vantrilex-design-variations",
       "kind": "skill",
@@ -85759,6 +85728,36 @@
           "surface": ".opencode/agents/pulsar.md",
           "method": "frontmatter-valid",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex",
+      "name": "vantrilex",
+      "kind": "agent",
+      "description": "The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "agent",
+        "leadership"
+      ],
+      "when_to_use": "When a mission must be distributed, leader outputs arbitrated, or deliveries received at the top seat",
+      "phase": "plan",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/agents/vantrilex.md",
+          "method": "frontmatter-valid",
+          "checked_at": "2026-10-24"
         }
       },
       "default_selected": false
