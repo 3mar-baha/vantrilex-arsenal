@@ -922,6 +922,12 @@ const main = async () => {
     }
   });
 
+  await check("SEAT blazar + subagent + vantrilex-guide -> allow", async () => {
+    const event = seatEvent("blazar", "subagent", ["vantrilex-guide"]);
+    await seatDenyOverlay(makeGuardCtx(REPO_ROOT), event);
+    assert.equal(event.effect, "allow", "the Guide sign-off target stays allowed :: " + JSON.stringify(event));
+  });
+
   await check("SEAT no-rule control leaves the host effect unchanged", async () => {
     const ctx = makeGuardCtx(REPO_ROOT);
     const unknown = seatEvent("not-a-seat", "subagent", ["vantrilex-scribe"]);

@@ -55,6 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **BLAZAR may dispatch the Guide for phase-exit sign-off (`fix(agents)`).** The build leader's allow-list previously admitted only the 13 build workers, so the owner-authorized `vantrilex-guide` phase-exit gate was refused by the new seat-deny overlay. The frontmatter now carries an explicit `subagent vantrilex-guide allow` after the 13 worker allows (last-match-wins preserved; the `subagent *` deny and the `explore` deny are unchanged), the seat prose names the Guide as the one governance exception rather than a build worker, and the findings probe gains the matching `blazar + subagent + vantrilex-guide -> allow` case (77/77 checks pass, exit 0).
+
 - **Seat denies are enforced at runtime by a fifth hook (`feat(plugin)`).** The
   seat files declare their rules under `permissions:` (plural) as a list, which
   the host demotes to an agent option and forwards to the provider instead of

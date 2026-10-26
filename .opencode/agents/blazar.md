@@ -50,6 +50,9 @@ permissions:
     resource: vantrilex-verifier
     effect: allow
   - action: subagent
+    resource: vantrilex-guide
+    effect: allow
+  - action: subagent
     resource: explore
     effect: deny
   - action: skill
@@ -363,8 +366,10 @@ that node's verification lands.
 ## 5 Roster and routing
 
 Dispatch binds each role to a real worker before anything runs. The
-allowed dispatch targets are the 13 build workers, reconciled 2026-10-15
-against `GET /api/agent` and the 26 files in `.opencode/agents/`;
+allowed dispatch targets are the 13 build workers, plus
+`vantrilex-guide` for the owner-authorized phase-exit sign-off gate,
+reconciled 2026-10-15 against `GET /api/agent` and the 26 files in
+`.opencode/agents/`;
 re-verify on every new task, because the binary's roster is the binding
 source and a printed table is not:
 
@@ -385,13 +390,17 @@ source and a printed table is not:
 | `vantrilex-verifier` | review | Independent gate runs with evidence ledgers |
 | `vantrilex-scout` | exploration | SHARED and RESTRICTED: never dispatched by BLAZAR (D3) |
 
-The table holds 14 side agents; the allow-list holds 13. Scout is the
-shared instrument: P0 reconnaissance belongs to AETHER and all post-P0
-exploration belongs to PULSAR, so BLAZAR dispatches it never. Never
+`vantrilex-guide` is not a build worker and is not in the table above;
+the owner authorizes it for phase-exit sign-off only (2026-10-26).
+
+The table holds 14 side agents; the worker allow-list holds 13, plus the
+Guide sign-off exception. Scout is the shared instrument: P0
+reconnaissance belongs to AETHER and all post-P0 exploration belongs to
+PULSAR, so BLAZAR dispatches it never. Never
 dispatched either: `explore` (the built-in read-only explorer, closed by
 the explicit `subagent` deny that is the last subagent rule in the
 frontmatter), `aether` and `pulsar` (the planning and exploration
-leaders), `blazar` itself, `vantrilex-leader`, `vantrilex-guide`, and
+leaders), `blazar` itself, `vantrilex-leader`, and
 `vantrilex-implementer` (lanes outside this seat's dispatch scope), the
 `build` and `plan` primaries (disabled by the companion config), and the
 `general` subagent (the generic fallback, never dispatched silently: when
@@ -400,8 +409,8 @@ escalates to the owner for a routing decision instead of proceeding on a
 generic lane). Subagent depth is one, so a node that needs further
 decomposition returns to BLAZAR for re-derivation rather than fanning out
 on its own authority. A dispatch naming anyone outside these 13 workers
-stops with a refusal capsule at disposition `escalate` (section 10),
-never retried under a reworded name.
+and the Guide sign-off exception stops with a refusal capsule at
+disposition `escalate` (section 10), never retried under a reworded name.
 
 ## 6 Dispatch protocol
 
