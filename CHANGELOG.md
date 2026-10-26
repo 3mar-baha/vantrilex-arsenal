@@ -68,10 +68,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   it never grants, never relaxes an `ask`, never raises an `allow` to `ask`, and
   never rewrites a host `deny`; a malformed `permissions:` block or a known seat
   file that cannot be read fails closed with the reason on the denial, while a
-  seat that declares nothing keeps the host policy. The three defining denies now
-  block: `vantrilex` cannot load a skill (its explicit `vantrilex-vanguard` deny
-  included), `aether` cannot dispatch `vantrilex-scribe` or anything else outside
-  `vantrilex-scout`, and `blazar` cannot dispatch `explore`. The receipt rule
+  seat that declares nothing keeps the host policy. The three defining denies are
+  probe-proven, not live-proven: `vantrilex` cannot load a skill (its explicit
+  `vantrilex-vanguard` deny included), `aether` cannot dispatch `vantrilex-scribe`
+  or anything else outside `vantrilex-scout`, and `blazar` cannot dispatch
+  `explore`. A live blocked call remains `UNVERIFIED` until the held field retry.
+  The receipt rule
   those denials protect is stated in `.opencode/agents/vantrilex.md` §4.1: a
   `PASS` needs a child session with the correct `parentID` and that child's final
   text, a dispatch claim needs a child session id, `Direct work done: No` is
@@ -80,8 +82,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the same change: it asks for the Vanguard playbook only "when the seat allows
   it; if the seat denies the skill, record it and apply the rule", so the prompt
   hook never orders a call the overlay denies. Proven by 15 new `SEAT` checks in
-  `.opencode/plugin/arsenal.findings-probe.mjs`; the probe passes 76 checks
-  (exit 0).
+  `.opencode/plugin/arsenal.findings-probe.mjs` at the fix commit; the probe
+  passed 76 checks there (exit 0) and passes 77 after the Guide-allow case
+  recorded above.
 
 - **The release queue is documented (`docs(release)`).** `docs/dev/09-RELEASE-QUEUE.md`
   states the queue entry schema (`unit_type`, `scope`, `base_commit`, `status`,
