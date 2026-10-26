@@ -2,7 +2,8 @@
  * NODE P1 findings probe for .opencode/plugin/arsenal.ts
  * (F1/F3/F4/F5/F7/F8 + M-1 tee prefixes + V2 surface + argv/egress)
  * plus the POST87 §2 U-slice battery: ق-6 plan-guard merge, م-3 six-hook
- * capability probe, م-4 kill switch (four signals), Diff Size Guard.
+ * capability probe, م-4 kill switch (four signals), Diff Size Guard,
+ * and the RUN-0.9.0-FIX seat-deny overlay (HOOK 9).
  *
  * Run: node .opencode/plugin/arsenal.findings-probe.mjs
  * Exit 0 when every probe passes, 1 with the failing probe named otherwise.
@@ -17,7 +18,7 @@ import { execFile, execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import pluginModule, {
   DEFAULT_DOCS_GUARD,
   PLAN_DRIFT_TAG,
@@ -28,9 +29,13 @@ import pluginModule, {
   firstUsableRoot,
   formatCapabilityLines,
   isBareRoot,
+  parseSeatPermissions,
   preCompact,
   probeHookCapabilities,
+  resolveSeatPermission,
   sanitizeSessionId,
+  seatDenyOverlay,
+  taskDispatcher,
   v2ToolBefore,
 } from "./arsenal.ts";
 
@@ -114,6 +119,9 @@ const captureV2 = async (dir) => {
       hook: async (name, cb) => {
         seen["session:" + name] = cb;
       },
+      // V2 `ctx.session.get`: the seat-deny overlay's documented fallback for
+      // an evaluation whose `agent` field is absent.
+      get: async ({ sessionID }) => ({ id: sessionID, agent: "aether" }),
     },
     tool: {
       hook: async (name, cb) => {
@@ -123,6 +131,11 @@ const captureV2 = async (dir) => {
     shell: {
       hook: async (name, cb) => {
         seen["shell:" + name] = cb;
+      },
+    },
+    permission: {
+      hook: async (name, cb) => {
+        seen["permission:" + name] = cb;
       },
     },
   };
@@ -435,11 +448,16 @@ const main = async () => {
   // ---- V2 surface: every guard reachable via Plugin.define + setup ----
   await check("V2 setup registers prompt + tool.before/after + shell.before", async () => {
     const seen = await captureV2(proj);
-    for (const want of ["session:prompt", "tool:execute.before", "tool:execute.after", "shell:create.before"]) {
+    for (const want of [
+      "session:prompt",
+      "tool:execute.before",
+      "tool:execute.after",
+      "shell:create.before",
+      "permission:evaluate",
+    ]) {
       assert.ok(typeof seen[want] === "function", "registered " + want);
     }
-  });
-  await check("V2 tool.before blocks write-tool docs path", async () => {
+  });  await check("V2 tool.before blocks write-tool docs path", async () => {
     const seen = await captureV2(projBlock);
     await throwsV2Tool(seen, { tool: "write", sessionID: "ses_v2", id: "c1", input: { filePath: "docs/EVIL-V2.md" } }, ["docs/EVIL-V2.md"]);
   });
@@ -809,6 +827,224 @@ const main = async () => {
     const ctx = makeGuardCtx(repo);
     await diffSizeGuard(ctx, "ses_diff_edge", "write");
     assert.equal(ctx.pendingWarnings.length, 0, "at the ceiling, no warning :: " + JSON.stringify(ctx.pendingWarnings));
+  });
+
+  // ---- RUN-0.9.0-FIX: seat-deny overlay over the shipped plural blocks ----
+  // fx1 proved the host never evaluates `permissions:` (plural), so the overlay
+  // reads that shipped shape itself. These cases read the real seat files: they
+  // are the declarations the RUN-090 field test mis-executed.
+  const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
+  const seatMarkdown = (agent) => fs.readFileSync(path.join(REPO_ROOT, ".opencode", "agents", agent + ".md"), "utf8");
+  const seatEvent = (agent, action, resources, overrides) => ({
+    sessionID: "ses_seat",
+    ...(agent === null ? {} : { agent }),
+    action,
+    resources,
+    effect: "allow",
+    ...(overrides ?? {}),
+  });
+
+  await check("SEAT shipped plural block parses; block-less and singular seats are absent", () => {
+    const aether = parseSeatPermissions(seatMarkdown("aether"));
+    assert.equal(aether.status, "parsed", "aether parses :: " + JSON.stringify(aether));
+    assert.ok(aether.rules.length >= 20, "aether declares its full block :: " + aether.rules.length);
+    assert.deepEqual(
+      aether.rules[0],
+      { action: "subagent", resource: "*", effect: "deny" },
+      "first rule is the subagent deny",
+    );
+    const vantrilex = parseSeatPermissions(seatMarkdown("vantrilex"));
+    assert.equal(vantrilex.status, "parsed");
+    assert.ok(
+      vantrilex.rules.some((rule) => rule.action === "skill" && rule.resource === "*" && rule.effect === "deny"),
+      "vantrilex declares skill * deny",
+    );
+    assert.equal(
+      parseSeatPermissions(seatMarkdown("vantrilex-fixer")).status,
+      "absent",
+      "a seat with no block is absent, not malformed",
+    );
+    assert.equal(
+      parseSeatPermissions("---\nname: x\npermission:\n  read: allow\n---\n").status,
+      "absent",
+      "the singular shape is native and is never overlaid",
+    );
+  });
+
+  await check("SEAT aether + subagent + vantrilex-scribe -> deny", async () => {
+    const event = seatEvent("aether", "subagent", ["vantrilex-scribe"]);
+    await seatDenyOverlay(makeGuardCtx(REPO_ROOT), event);
+    assert.equal(event.effect, "deny", "effect flipped :: " + JSON.stringify(event));
+    assert.ok(event.message.includes("seat-deny"), "message tagged :: " + event.message);
+    assert.ok(event.message.includes("aether"), "caller named :: " + event.message);
+    assert.ok(event.message.includes("vantrilex-scribe"), "target named :: " + event.message);
+  });
+
+  await check("SEAT blazar + subagent + explore -> deny", async () => {
+    const event = seatEvent("blazar", "subagent", ["explore"]);
+    await seatDenyOverlay(makeGuardCtx(REPO_ROOT), event);
+    assert.equal(event.effect, "deny", "out-of-list dispatch denied :: " + JSON.stringify(event));
+  });
+
+  await check("SEAT vantrilex + skill + vantrilex-vanguard -> deny (allow and ask)", async () => {
+    const ctx = makeGuardCtx(REPO_ROOT);
+    const allow = seatEvent("vantrilex", "skill", ["vantrilex-vanguard"]);
+    await seatDenyOverlay(ctx, allow);
+    assert.equal(allow.effect, "deny", "allow flipped :: " + JSON.stringify(allow));
+    const ask = seatEvent("vantrilex", "skill", ["vantrilex-vanguard"], { effect: "ask" });
+    await seatDenyOverlay(ctx, ask);
+    assert.equal(ask.effect, "deny", "ask flipped :: " + JSON.stringify(ask));
+  });
+
+  await check("SEAT blazar 13 worker allows are not denied", async () => {
+    const workers = [
+      "vantrilex-fixer",
+      "vantrilex-github",
+      "vantrilex-harness",
+      "vantrilex-librarian",
+      "vantrilex-python",
+      "vantrilex-releaser",
+      "vantrilex-reviewer",
+      "vantrilex-scribe",
+      "vantrilex-security-auditor",
+      "vantrilex-typescript",
+      "vantrilex-ui-designer",
+      "vantrilex-ux-designer",
+      "vantrilex-verifier",
+    ];
+    assert.equal(workers.length, 13, "the declared allow-list is 13 workers");
+    assert.ok(!workers.includes("explore"), "explore is outside the list");
+    const ctx = makeGuardCtx(REPO_ROOT);
+    for (const worker of workers) {
+      const event = seatEvent("blazar", "subagent", [worker]);
+      await seatDenyOverlay(ctx, event);
+      assert.equal(event.effect, "allow", worker + " stays allowed :: " + JSON.stringify(event));
+    }
+  });
+
+  await check("SEAT no-rule control leaves the host effect unchanged", async () => {
+    const ctx = makeGuardCtx(REPO_ROOT);
+    const unknown = seatEvent("not-a-seat", "subagent", ["vantrilex-scribe"]);
+    await seatDenyOverlay(ctx, unknown);
+    assert.equal(unknown.effect, "allow", "unknown agent unchanged :: " + JSON.stringify(unknown));
+    const blockless = seatEvent("vantrilex-fixer", "skill", ["vantrilex-vanguard"]);
+    await seatDenyOverlay(ctx, blockless);
+    assert.equal(blockless.effect, "allow", "known seat without a block unchanged");
+    const allowed = seatEvent("vantrilex", "read", ["docs/dev/01-PLUGIN.md"], { effect: "ask" });
+    await seatDenyOverlay(ctx, allowed);
+    assert.equal(allowed.effect, "ask", "a non-deny rule never relaxes or hardens an ask");
+    const unmatched = seatEvent("blazar", "read", ["docs/dev/01-PLUGIN.md"]);
+    await seatDenyOverlay(ctx, unmatched);
+    assert.equal(unmatched.effect, "allow", "no matching rule unchanged");
+  });
+
+  await check("SEAT last-match-wins and * glob: vantrilex read *.env denies", async () => {
+    const ctx = makeGuardCtx(REPO_ROOT);
+    const env = seatEvent("vantrilex", "read", ["/proj/.env"]);
+    await seatDenyOverlay(ctx, env);
+    assert.equal(env.effect, "deny", "the later *.env deny wins over read * allow :: " + JSON.stringify(env));
+    const plain = seatEvent("vantrilex", "read", ["docs/dev/01-PLUGIN.md"]);
+    await seatDenyOverlay(ctx, plain);
+    assert.equal(plain.effect, "allow", "an ordinary read still matches read * allow");
+  });
+
+  await check("SEAT _ wildcard: vantrilex denies the vercel_* namespace by action", async () => {
+    const ctx = makeGuardCtx(REPO_ROOT);
+    const event = seatEvent("vantrilex", "vercel_deploy", ["project"]);
+    await seatDenyOverlay(ctx, event);
+    assert.equal(
+      event.effect,
+      "deny",
+      "_ matches any action and its resource glob matches the action :: " + JSON.stringify(event),
+    );
+  });
+
+  await check("SEAT malformed known seat fails closed", async () => {
+    const dir = path.join(PROBE_ROOT, "proj-seat-malformed");
+    fs.mkdirSync(path.join(dir, ".opencode", "agents"), { recursive: true });
+    fs.writeFileSync(
+      path.join(dir, ".opencode", "agents", "broken-seat.md"),
+      [
+        "---",
+        "name: broken-seat",
+        "permissions:",
+        "  - action: read",
+        "    resource: '*'",
+        "    effect: perhaps",
+        "---",
+        "",
+        "# broken",
+        "",
+      ].join("\n"),
+      "utf8",
+    );
+    const event = seatEvent("broken-seat", "read", ["docs/dev/01-PLUGIN.md"]);
+    await seatDenyOverlay(makeGuardCtx(dir), event);
+    assert.equal(event.effect, "deny", "malformed block denies :: " + JSON.stringify(event));
+    assert.ok(event.message.includes("malformed"), "reason names the defect :: " + event.message);
+    assert.ok(event.message.includes("failing closed"), "reason states the posture :: " + event.message);
+  });
+
+  await check("SEAT hook registration drives the overlay end to end", async () => {
+    const seen = await captureV2(REPO_ROOT);
+    assert.equal(typeof seen["permission:evaluate"], "function", "permission evaluate registered");
+    // No event agent: the registered `ctx.session.get` reader supplies aether.
+    const event = seatEvent(null, "subagent", ["vantrilex-scribe"]);
+    await seen["permission:evaluate"](event);
+    assert.equal(event.effect, "deny", "session-agent fallback reached the seat :: " + JSON.stringify(event));
+  });
+
+  await check("SEAT session-agent fallback uses the observed-event cache", async () => {
+    const ctx = makeGuardCtx(REPO_ROOT);
+    const first = seatEvent("aether", "subagent", ["vantrilex-scribe"], { sessionID: "ses_seat_cache" });
+    await seatDenyOverlay(ctx, first);
+    assert.equal(first.effect, "deny", "first event names the agent and caches it");
+    const second = seatEvent(null, "subagent", ["vantrilex-scribe"], { sessionID: "ses_seat_cache" });
+    await seatDenyOverlay(ctx, second);
+    assert.equal(second.effect, "deny", "agent-less event reuses the cached agent :: " + JSON.stringify(second));
+  });
+
+  await check("SEAT no agent anywhere leaves the host effect unchanged", async () => {
+    const event = seatEvent(null, "subagent", ["vantrilex-scribe"], { sessionID: "ses_seat_none" });
+    await seatDenyOverlay(makeGuardCtx(REPO_ROOT), event);
+    assert.equal(event.effect, "allow", "no agent, no rule :: " + JSON.stringify(event));
+  });
+
+  await check("SEAT kill switch disarms the overlay", async () => {
+    const previous = process.env.VANTRILEX_DISABLED;
+    process.env.VANTRILEX_DISABLED = "1";
+    try {
+      const event = seatEvent("aether", "subagent", ["vantrilex-scribe"]);
+      await seatDenyOverlay(makeGuardCtx(REPO_ROOT), event);
+      assert.equal(event.effect, "allow", "disabled overlay leaves the effect :: " + JSON.stringify(event));
+    } finally {
+      if (previous === undefined) delete process.env.VANTRILEX_DISABLED;
+      else process.env.VANTRILEX_DISABLED = previous;
+    }
+  });
+
+  await check("SEAT explicit host deny is never touched", async () => {
+    const event = seatEvent("aether", "subagent", ["vantrilex-scribe"], {
+      effect: "deny",
+      message: "host denied",
+    });
+    await seatDenyOverlay(makeGuardCtx(REPO_ROOT), event);
+    assert.equal(event.effect, "deny", "still denied");
+    assert.equal(event.message, "host denied", "host reason preserved");
+  });
+
+  await check("SEAT dispatcher no longer orders a denied skill", () => {
+    const text = taskDispatcher(makeGuardCtx(proj));
+    assert.ok(text !== null, "dispatcher armed");
+    assert.ok(
+      text.includes("if the seat denies the skill, record it and apply the rule"),
+      "deny fallback stated :: " + text,
+    );
+    assert.ok(
+      text.includes("run that scenario's playbook in the vantrilex-vanguard skill when the seat allows it"),
+      "skill load is conditional :: " + text,
+    );
+    assert.ok(!text.includes("vantrilex-vanguard skill;"), "no unconditional skill order survives :: " + text);
   });
 
   // ---- ق-6 single-plugin load smoke ----

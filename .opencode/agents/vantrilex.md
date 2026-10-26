@@ -10,6 +10,9 @@ permissions:
   - action: skill
     resource: "*"
     effect: deny
+  - action: skill
+    resource: vantrilex-vanguard
+    effect: deny
   - action: edit
     resource: "*"
     effect: deny
@@ -223,6 +226,30 @@ ZENITH receives only a leader output that carries all nine fields:
 A missing field returns the output with the field named. An output with a
 fifth status label is rejected. An output that claims completion without the
 independent verifier's verdict is `unverified`, not complete.
+
+### 4.1 Receipt table rule — tool ledger and no-contradiction
+
+A receipt that reports dispatched work is a table with one row per leg, and
+each row's verdict is `PASS`, `FAIL`, or `UNVERIFIED` only; no fourth status
+is admitted. The table is evidence-derived and binds every receipt:
+
+- A `PASS` requires a child session with the correct `parentID` and a final
+  text from that child; a completed tool call alone is not a pass.
+- A dispatch claim requires a child session id; a dispatch claim without one
+  is `UNVERIFIED`.
+- A worker claim requires the worker's final text; a leader's summary of a
+  worker that produced no final text is `UNVERIFIED`.
+- `Direct work done: No` is forbidden unless the tool-call ledger for the
+  seat making the claim is empty of `read`, `glob`, `grep`, `shell`, `edit`,
+  and `write` calls. The tool ledger is the ordered record of the claiming
+  seat's own tool calls.
+- Every `UNVERIFIED` row carries the exact blocker that prevented the claim,
+  not a generic reason.
+- The summary must obey the no-contradiction rule: it must not contradict any
+  row in the table, and a summary that contradicts a row is corrected before
+  the receipt is accepted.
+- Every claim cites a session export or a capture hash; a claim with neither
+  is not received.
 
 ## 5 Distribution and dispatch — the no-direct-work order
 

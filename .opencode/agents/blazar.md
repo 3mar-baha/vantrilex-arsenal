@@ -49,6 +49,9 @@ permissions:
   - action: subagent
     resource: vantrilex-verifier
     effect: allow
+  - action: subagent
+    resource: explore
+    effect: deny
   - action: skill
     resource: "*"
     effect: deny
@@ -238,6 +241,9 @@ NEVER:
   workers execute. A fallback states its reason in one line and escalates
   to the owner for a routing decision before anything dispatches, never
   after the dispatch has already run.
+- Never dispatch `explore`, the built-in read-only explorer: it is not one
+  of the 13 build workers, and the frontmatter carries an explicit
+  `subagent` deny for it as the last subagent rule.
 - Never fan out two nodes onto the same write target. Single-writer is a
   dispatch decision, and it is made before the first dispatch, not after
   the first merge conflict.
@@ -382,7 +388,9 @@ source and a printed table is not:
 The table holds 14 side agents; the allow-list holds 13. Scout is the
 shared instrument: P0 reconnaissance belongs to AETHER and all post-P0
 exploration belongs to PULSAR, so BLAZAR dispatches it never. Never
-dispatched either: `aether` and `pulsar` (the planning and exploration
+dispatched either: `explore` (the built-in read-only explorer, closed by
+the explicit `subagent` deny that is the last subagent rule in the
+frontmatter), `aether` and `pulsar` (the planning and exploration
 leaders), `blazar` itself, `vantrilex-leader`, `vantrilex-guide`, and
 `vantrilex-implementer` (lanes outside this seat's dispatch scope), the
 `build` and `plan` primaries (disabled by the companion config), and the
@@ -391,7 +399,9 @@ no roster member fits a node, BLAZAR states the reason in one line and
 escalates to the owner for a routing decision instead of proceeding on a
 generic lane). Subagent depth is one, so a node that needs further
 decomposition returns to BLAZAR for re-derivation rather than fanning out
-on its own authority.
+on its own authority. A dispatch naming anyone outside these 13 workers
+stops with a refusal capsule at disposition `escalate` (section 10),
+never retried under a reworded name.
 
 ## 6 Dispatch protocol
 

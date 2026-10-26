@@ -10,10 +10,11 @@
  * default export and never invokes a V1 plugin function, while V1 reads
  * `server()` and ignores the rest.
  *
- * V2 - `setup()`, five hooks plus the merged plan-guard append:
+ * V2 - `setup()`, six hooks plus the merged plan-guard append:
  *
  *   8. taskDispatcher            -> session "prompt"        (per user prompt)
  *   +  plan-guard append         -> session "prompt"        (same registration)
+ *   9. seatDenyOverlay           -> permission "evaluate"   (deny-only overlay)
  *   4. longRunningProcessGuard   -> tool "execute.before" + shell "create.before"
  *   +  diffSizeGuard             -> tool "execute.before"   (write calls only)
  *   7. docsDisciplineGuard       -> tool "execute.before" + shell "create.before"
@@ -273,6 +274,38 @@ export type V2ShellBeforeEvent = {
   env: Record<string, string | undefined>
 }
 
+/**
+ * V2 `permission.hook("evaluate")` event, mirrored from the published
+ * `PermissionEvaluation` reference:
+ *
+ *   interface PermissionEvaluation {
+ *     readonly sessionID: string
+ *     readonly agent?: string
+ *     readonly action: string
+ *     readonly resources: readonly string[]
+ *     readonly metadata?: Record<string, unknown>
+ *     readonly source?: { type: "tool"; messageID: string; id: string }
+ *     effect: "allow" | "ask" | "deny"
+ *     message?: string
+ *   }
+ *
+ * `agent` is optional, so every overlay must carry a session-agent fallback;
+ * `resources` is a list, so one rule may match several resources of one call;
+ * and `effect`/`message` are the only mutable fields. An explicit configured
+ * deny is final and does not invoke the hook, so a hook can harden an `allow`
+ * or an `ask` but can never soften a `deny`.
+ */
+export type PermissionEvaluation = {
+  readonly sessionID: string
+  readonly agent?: string
+  readonly action: string
+  readonly resources: readonly string[]
+  readonly metadata?: Record<string, unknown>
+  readonly source?: { type: "tool"; messageID: string; id: string }
+  effect: "allow" | "ask" | "deny"
+  message?: string
+}
+
 export type PluginContextLike = {
   location?: PluginLocationLike
   session?: {
@@ -280,6 +313,13 @@ export type PluginContextLike = {
       name: "prompt",
       callback: (event: SessionPromptEvent) => Promise<void> | void,
     ) => Promise<unknown>
+    /**
+     * V2 `ctx.session.get`. Read only for the seat-deny overlay's session-agent
+     * fallback: the permission evaluation's `agent` field is optional, and the
+     * host documents that a missing `agent` "defaults to the session's agent".
+     * A context without this method degrades to the overlay's event cache.
+     */
+    get?: (input: { sessionID: string }) => Promise<unknown>
   }
   tool?: {
     hook?: (
@@ -291,6 +331,12 @@ export type PluginContextLike = {
     hook?: (
       name: "create.before",
       callback: (event: V2ShellBeforeEvent) => Promise<void> | void,
+    ) => Promise<unknown>
+  }
+  permission?: {
+    hook?: (
+      name: "evaluate",
+      callback: (event: PermissionEvaluation) => Promise<void> | void,
     ) => Promise<unknown>
   }
 }
@@ -507,9 +553,15 @@ const MAX_CAPTURED_INTENT_CHARS = 600
  * five scenarios are named, each with its one-clause obligation, and the
  * procedure itself is deferred to the vanguard skill that already owns it. A
  * longer injection would not add behaviour, it would only add tokens per prompt.
+ *
+ * One seat denies every skill outright (`vantrilex.md:9-11`), so an
+ * unconditional order to load the vanguard skill would order a denied call.
+ * The first line is therefore conditional, and it names the fallback: a seat
+ * that denies the skill records the refusal and applies the scenario rule
+ * itself instead of loading the playbook.
  */
 const TASK_DISPATCH_INSTRUCTION = [
-  "[arsenal] task-dispatcher: classify this prompt into exactly one scenario and run that scenario's playbook in the vantrilex-vanguard skill; if the prompt is genuinely ambiguous, ask the user one short clarifying question before proceeding.",
+  "[arsenal] task-dispatcher: classify this prompt into exactly one scenario and run that scenario's playbook in the vantrilex-vanguard skill when the seat allows it; if the seat denies the skill, record it and apply the rule. If the prompt is genuinely ambiguous, ask the user one short clarifying question before proceeding.",
   "1 NEW TASK (no task in flight): Vanguard task-dispatch from scratch. 2 CONTINUATION (same task, unchanged): silent no-op; keep the existing phase-kit plan.",
   "3 TASK MODIFICATION (same task, changed): Vanguard re-dispatch on the modified task and state what changed.",
   "4 CONTINUATION WITH MODIFICATION: completed phases stay locked; re-plan the remaining phases only.",
@@ -652,6 +704,12 @@ type SessionState = {
   circuit: { failures: number; openedAt?: number }
   /** HEAD the Diff Size Guard last warned about; a new commit re-arms it. */
   warnedDiffHead: string
+  /**
+   * Last agent observed on a V2 event of this session. The permission
+   * evaluation's `agent` is optional; this is the cache the seat-deny overlay
+   * falls back to when neither the event nor `ctx.session.get` names one.
+   */
+  agent: string
 }
 
 type ArsenalContext = {
@@ -694,6 +752,7 @@ const sessionState = (ctx: ArsenalContext, sessionId: string): SessionState => {
     guardOutcomes: [],
     circuit: { failures: 0 },
     warnedDiffHead: "",
+    agent: "",
   }
   ctx.sessions.set(sessionId, created)
   return created
@@ -2093,6 +2152,318 @@ export const taskDispatcher = (ctx: ArsenalContext): string | null =>
 const hasDispatchInstruction = (text: string): boolean => text.includes(TASK_DISPATCH_INSTRUCTION)
 
 /* ===========================================================================
+ * 20b. Seat deny overlay (permission "evaluate")
+ * =========================================================================
+ *
+ * RUN-0.9.0-FIX cause (a), proven in `.opencode/audit/RUN-090-FIX/deny-cause.md`:
+ * every shipped seat declares its rules under `permissions:` (plural) as a
+ * list, and the host evaluates only the singular `permission:` map. Because
+ * each declaring file also carries `name:`/`temperature:`, the block is demoted
+ * to an agent "additional" option and forwarded to the provider instead of the
+ * permission engine. Rewriting the 26 seat files is outside this lane's fixed
+ * scope, so the overlay reads the shipped plural shape itself and applies it at
+ * the one mutable surface: `permission.hook("evaluate")`.
+ *
+ * The overlay is deny-only. It never grants and never relaxes:
+ *
+ *   - it runs only for `allow` and `ask`, because an explicit configured deny
+ *     is final and does not invoke the hook;
+ *   - it flips `effect` to `deny` only when the seat's last matching rule is a
+ *     deny, when the seat's block is malformed (fail-closed), or when a known
+ *     seat file exists but cannot be read (fail-closed);
+ *   - a seat with no block, an unknown agent, or no matching rule leaves the
+ *     host's effect untouched, so the overlay can never widen a lane.
+ * ========================================================================= */
+
+const SEAT_AGENTS_DIR = ".opencode/agents"
+const MAX_SEAT_MARKDOWN_BYTES = 256 * 1024
+/**
+ * A seat id is a plain file stem. Anything with a separator, a dot or an
+ * escape sequence is not a seat this overlay will read; it degrades to
+ * "no rule" rather than inventing a path outside `.opencode/agents`.
+ */
+const SEAT_AGENT_PATTERN = /^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$/
+const SEAT_RULE_KEYS: ReadonlySet<string> = new Set(["action", "resource", "effect"])
+const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/
+const PERMISSION_KEY_LINE = /^permissions:\s*(.*)$/
+const PERMISSION_ITEM_LINE = /^\s*-\s+([A-Za-z][A-Za-z0-9_]*):\s*(.*?)\s*$/
+const PERMISSION_FIELD_LINE = /^\s+([A-Za-z][A-Za-z0-9_]*):\s*(.*?)\s*$/
+
+/** One declared seat rule, in frontmatter order. */
+export type SeatPermissionRule = {
+  readonly action: string
+  readonly resource: string
+  readonly effect: "allow" | "ask" | "deny"
+}
+
+/**
+ * A parsed seat block. `absent` and `malformed` are deliberately distinct:
+ * a seat that declares nothing keeps the host's policy, while a seat that
+ * declares something unreadable fails closed.
+ */
+export type SeatPermissionParse =
+  | { readonly status: "absent" }
+  | { readonly status: "parsed"; readonly rules: readonly SeatPermissionRule[] }
+  | { readonly status: "malformed"; readonly reason: string }
+
+/** One evaluation's outcome. `none` means "leave the host's effect alone". */
+export type SeatPermissionDecision =
+  | { readonly status: "none"; readonly reason: string }
+  | { readonly status: "matched"; readonly effect: "allow" | "ask" | "deny"; readonly rule: SeatPermissionRule }
+  | { readonly status: "malformed"; readonly reason: string }
+
+const seatEffectOf = (value: string | undefined): "allow" | "ask" | "deny" | null =>
+  value === "allow" || value === "ask" || value === "deny" ? value : null
+
+/** A YAML scalar in this block: quoted, bare, or bare with a trailing comment. */
+const seatValueOf = (raw: string): string => {
+  const trimmed = raw.trim()
+  if (
+    trimmed.length >= 2 &&
+    ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'")))
+  ) {
+    return trimmed.slice(1, -1).trim()
+  }
+  const comment = trimmed.search(/\s#/)
+  return (comment >= 0 ? trimmed.slice(0, comment) : trimmed).trim()
+}
+
+type SeatRuleDraft = { readonly values: Record<string, string>; readonly line: number }
+
+const addSeatRuleField = (draft: SeatRuleDraft, key: string, raw: string): string | null => {
+  if (!SEAT_RULE_KEYS.has(key)) {
+    return `unknown permissions key "${key}" at frontmatter line ${draft.line}`
+  }
+  if (draft.values[key] !== undefined) {
+    return `duplicate permissions key "${key}" at frontmatter line ${draft.line}`
+  }
+  draft.values[key] = seatValueOf(raw)
+  return null
+}
+
+/**
+ * Parse the shipped `permissions:` list out of a seat's YAML frontmatter.
+ *
+ * Only the frontmatter is read, so prose further down the file can never be
+ * mistaken for a rule. The block ends at the first unindented line, the first
+ * malformed entry is a `malformed` verdict, and a `permission:` (singular)
+ * block is `absent` by design: that shape is evaluated natively by the host,
+ * and overlaying it would apply the same rules twice.
+ */
+export const parseSeatPermissions = (markdown: unknown): SeatPermissionParse => {
+  if (typeof markdown !== "string" || markdown.length === 0) return { status: "absent" }
+  const frontmatter = FRONTMATTER.exec(markdown)
+  if (frontmatter === null) return { status: "absent" }
+  const lines = frontmatter[1].split(/\r?\n/)
+  const keyline = lines.findIndex((line) => PERMISSION_KEY_LINE.test(line))
+  if (keyline < 0) return { status: "absent" }
+  const keyMatch = PERMISSION_KEY_LINE.exec(lines[keyline])
+  const inline = keyMatch === null ? "" : keyMatch[1].trim()
+  if (inline.length > 0 && !inline.startsWith("#")) {
+    return { status: "malformed", reason: `permissions is an inline value ("${clip(inline, 48)}"), not a rule list` }
+  }
+
+  const drafts: SeatRuleDraft[] = []
+  let draft: SeatRuleDraft | null = null
+  for (let index = keyline + 1; index < lines.length; index += 1) {
+    const line = lines[index]
+    if (line.trim().length === 0 || line.trimStart().startsWith("#")) continue
+    // An unindented line starts the next top-level key: the block is over.
+    if (!/^\s/.test(line)) break
+    const item = PERMISSION_ITEM_LINE.exec(line)
+    if (item !== null) {
+      draft = { values: {}, line: index + 1 }
+      drafts.push(draft)
+      const problem = addSeatRuleField(draft, item[1], item[2])
+      if (problem !== null) return { status: "malformed", reason: problem }
+      continue
+    }
+    const field = PERMISSION_FIELD_LINE.exec(line)
+    if (field === null || draft === null) {
+      return { status: "malformed", reason: `unreadable permissions entry at frontmatter line ${index + 1}` }
+    }
+    const problem = addSeatRuleField(draft, field[1], field[2])
+    if (problem !== null) return { status: "malformed", reason: problem }
+  }
+
+  if (drafts.length === 0) return { status: "malformed", reason: "permissions block declares no rules" }
+  const rules: SeatPermissionRule[] = []
+  for (const entry of drafts) {
+    const action = entry.values.action
+    const resource = entry.values.resource
+    const effect = seatEffectOf(entry.values.effect)
+    if (action === undefined || action.length === 0 || resource === undefined || resource.length === 0) {
+      return { status: "malformed", reason: `rule at frontmatter line ${entry.line} is missing action or resource` }
+    }
+    if (effect === null) {
+      return {
+        status: "malformed",
+        reason: `rule at frontmatter line ${entry.line} has effect "${entry.values.effect ?? ""}"`,
+      }
+    }
+    rules.push({ action, resource, effect })
+  }
+  return { status: "parsed", rules }
+}
+
+/** `*` matches any run of characters; every other character is literal. */
+const seatGlobMatches = (pattern: string, value: string): boolean => {
+  if (pattern === "*") return true
+  const escaped = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  return new RegExp(`^${escaped.split("\\*").join(".*")}$`).test(value)
+}
+
+/**
+ * One rule against one resource.
+ *
+ * `action: "_"` is the shipped namespace form (`resource: context7_*`): it
+ * matches any action and its resource pattern is matched against the action
+ * name, which is how the host lowers the native `<ns>_*` key.
+ */
+const seatRuleMatches = (rule: SeatPermissionRule, action: string, resource: string): boolean => {
+  if (rule.action === "_") return seatGlobMatches(rule.resource, action)
+  return seatGlobMatches(rule.action, action) && seatGlobMatches(rule.resource, resource)
+}
+
+/**
+ * Resolve one evaluation against a seat's frontmatter: last matching rule
+ * wins per resource, and a deny on any resource denies the call.
+ */
+export const resolveSeatPermission = (
+  markdown: unknown,
+  action: unknown,
+  resources: readonly unknown[] | undefined,
+): SeatPermissionDecision => {
+  const parsed = parseSeatPermissions(markdown)
+  if (parsed.status === "absent") return { status: "none", reason: "seat declares no permissions block" }
+  if (parsed.status === "malformed") return { status: "malformed", reason: parsed.reason }
+  const actionName = typeof action === "string" ? action.trim() : ""
+  if (actionName.length === 0) return { status: "none", reason: "evaluation carries no action" }
+  const targets = Array.isArray(resources)
+    ? resources.filter((entry): entry is string => typeof entry === "string" && entry.length > 0)
+    : []
+  let fallback: SeatPermissionRule | null = null
+  for (const resource of targets) {
+    let last: SeatPermissionRule | null = null
+    for (const rule of parsed.rules) if (seatRuleMatches(rule, actionName, resource)) last = rule
+    if (last === null) continue
+    if (last.effect === "deny") return { status: "matched", effect: "deny", rule: last }
+    fallback = last
+  }
+  return fallback === null
+    ? { status: "none", reason: `no rule matches ${actionName}` }
+    : { status: "matched", effect: fallback.effect, rule: fallback }
+}
+
+/** How a seat file is read for one evaluation. */
+type SeatSource =
+  | { readonly status: "ok"; readonly markdown: string }
+  | { readonly status: "absent" }
+  | { readonly status: "unreadable"; readonly reason: string }
+
+const readSeatSource = (ctx: ArsenalContext, agent: string): SeatSource => {
+  const join = ctx.rt.path?.join ?? EMPTY_PATH.join
+  const target = join(ctx.root, SEAT_AGENTS_DIR, `${agent}.md`)
+  const attempt = readTextFile(ctx.rt, target, MAX_SEAT_MARKDOWN_BYTES)
+  if (attempt.status === "ok") return { status: "ok", markdown: attempt.value }
+  let present = false
+  try {
+    present = ctx.rt.fs ? ctx.rt.fs.existsSync(target) : false
+  } catch {
+    // An unreadable directory cannot prove the seat is unknown: fail closed.
+    present = true
+  }
+  return present ? { status: "unreadable", reason: attempt.reason } : { status: "absent" }
+}
+
+/** A plain seat id, or null. Anything else is not a file this overlay reads. */
+const seatAgentName = (value: unknown): string | null => {
+  if (typeof value !== "string") return null
+  const trimmed = value.trim()
+  return trimmed.length > 0 && SEAT_AGENT_PATTERN.test(trimmed) ? trimmed : null
+}
+
+const rememberSessionAgent = (ctx: ArsenalContext, sessionID: string, agent: string | null): void => {
+  if (agent === null || sessionID.length === 0) return
+  sessionState(ctx, sessionID).agent = agent
+}
+
+/**
+ * The session-agent fallback: the evaluation event's `agent` is optional.
+ * Strict order — the host reader (`ctx.session.get`) first, the observed-event
+ * cache second — and null when neither names an agent, which leaves the host's
+ * effect unchanged rather than guessing whose rules apply.
+ */
+export type SessionAgentReader = (sessionID: string) => Promise<string | null> | string | null
+
+const sessionAgentOf = async (
+  ctx: ArsenalContext,
+  sessionID: string,
+  reader: SessionAgentReader | undefined,
+): Promise<string | null> => {
+  if (reader !== undefined) {
+    try {
+      const fromHost = seatAgentName(await reader(sessionID))
+      if (fromHost !== null) return fromHost
+    } catch {
+      // A reader that throws degrades to the cache, never to a guess.
+    }
+  }
+  return seatAgentName(ctx.sessions.get(sessionID)?.agent)
+}
+
+const denyEvaluation = (event: PermissionEvaluation, reason: string): void => {
+  event.effect = "deny"
+  event.message = `[arsenal] seat-deny: ${reason}`
+}
+
+/**
+ * The `permission.hook("evaluate")` callback.
+ *
+ * Hardening only: an `allow` or an `ask` whose seat rule says deny becomes a
+ * deny with a reason. Any other effective decision is left exactly as the host
+ * produced it, which is what keeps a no-rule or unknown-agent call unchanged.
+ */
+export const seatDenyOverlay = async (
+  ctx: ArsenalContext,
+  event: PermissionEvaluation,
+  readSessionAgent?: SessionAgentReader,
+): Promise<void> => {
+  if (killSwitchReason(ctx) !== null) return
+  if (event === null || typeof event !== "object") return
+  // An explicit configured deny is final and never reaches the hook; leaving
+  // it untouched guarantees this overlay can never resurrect a denied call.
+  if (event.effect !== "allow" && event.effect !== "ask") return
+  const action = typeof event.action === "string" ? event.action.trim() : ""
+  if (action.length === 0) return
+  const sessionID =
+    typeof event.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
+  const noticed = seatAgentName(event.agent)
+  if (noticed !== null) rememberSessionAgent(ctx, sessionID, noticed)
+  const agent = noticed ?? (await sessionAgentOf(ctx, sessionID, readSessionAgent))
+  if (agent === null) return
+
+  const seat = readSeatSource(ctx, agent)
+  if (seat.status === "absent") return
+  if (seat.status === "unreadable") {
+    denyEvaluation(event, `${agent}: seat file unreadable (${seat.reason}); failing closed`)
+    return
+  }
+  const decision = resolveSeatPermission(seat.markdown, action, event.resources)
+  if (decision.status === "malformed") {
+    denyEvaluation(event, `${agent}: malformed permissions block (${decision.reason}); failing closed`)
+    return
+  }
+  if (decision.status === "matched" && decision.effect === "deny") {
+    const targets = Array.isArray(event.resources) ? event.resources.join(", ") : ""
+    denyEvaluation(
+      event,
+      `${agent}: deny ${action} ${targets.length > 0 ? targets : "*"} (${decision.rule.action} ${decision.rule.resource})`,
+    )
+  }
+}
+
+/* ===========================================================================
  * 21. Plan-guard detective append (ق-6 merge)
  * ===========================================================================
  *
@@ -2295,7 +2666,7 @@ const CAPABILITY_FALLBACK: Record<DocumentedHook, string> = {
   preCompact: "V1 compacting only; under V2 no handoff is written and the guard degrades to SKIPPED",
   sessionEnd: "V1 event only; under V2 no learnings are persisted and the guard degrades to SKIPPED",
   "model.request": "model requests run unwrapped; no guard depends on this surface",
-  "ctx.permission": "permission evaluation stays host-owned; the owner allow-all policy forbids registering it",
+  "ctx.permission": "no evaluate registrar on this host; the seat-deny overlay degrades to SKIPPED and the host policy stands",
   "ctx.storage": "guards stay stateless across runs; no durable key is read or written",
 }
 
@@ -2491,6 +2862,7 @@ export const v2ToolBefore = async (arsenal: ArsenalContext, event: V2ToolBeforeE
   const sessionId =
     typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
   const callId = typeof event?.id === "string" && event.id.length > 0 ? event.id : "v2-before"
+  rememberSessionAgent(arsenal, sessionId, seatAgentName(event?.agent))
   recordTouchedFiles(arsenal, sessionId, candidatePathsFrom(arsenal.root, event?.input))
   await diffSizeGuard(arsenal, sessionId, toolName)
   const input: ToolExecuteBeforeInput = { tool: toolName, sessionID: sessionId, callID: callId }
@@ -2543,6 +2915,7 @@ const v2ToolAfter = async (arsenal: ArsenalContext, event: V2ToolAfterEvent): Pr
   const sessionId =
     typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
   const callId = typeof event?.id === "string" && event.id.length > 0 ? event.id : "v2-after"
+  rememberSessionAgent(arsenal, sessionId, seatAgentName(event?.agent))
   const toolName = typeof event?.tool === "string" ? event.tool : ""
   const shim: ToolExecuteAfterOutput = { title: "", output: "", metadata: {} }
   // First tool result of the session carries the capability probe lines once.
@@ -2602,10 +2975,12 @@ const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent)
 }
 
 /**
- * V2 `setup()`. Registers the five hooks whose V2 shapes have a correct
+ * V2 `setup()`. Registers the six hooks whose V2 shapes have a correct
  * landing place for an existing guard.
  *
  *   - session "prompt"       -> taskDispatcher (HOOK 8)
+ *   - permission "evaluate"  -> seatDenyOverlay (HOOK 9; deny-only overlay
+ *                               for the shipped `permissions:` blocks)
  *   - tool "execute.before"  -> longRunningProcessGuard (HOOK 4) +
  *                               docsDisciplineGuard (HOOK 7)
  *   - tool "execute.after"   -> typescriptCheck (HOOK 5) +
@@ -2699,6 +3074,33 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
   if (typeof shellRegister === "function") {
     await shellRegister.call(ctx.shell, "create.before", (event: V2ShellBeforeEvent): Promise<void> =>
       v2ShellBefore(arsenal, event),
+    )
+  }
+
+  // Seat-deny overlay (HOOK 9). `ctx.permission.hook` is observed at setup;
+  // when the host does not expose it the capability probe already recorded the
+  // absence and this registration is skipped, never faked. The session-agent
+  // reader is built only from the documented `ctx.session.get`, because the
+  // evaluation event's `agent` field is optional.
+  const permissionRegister = ctx?.permission?.hook
+  if (typeof permissionRegister === "function") {
+    const sessionGet = ctx?.session?.get
+    const readSessionAgent: SessionAgentReader | undefined =
+      typeof sessionGet === "function"
+        ? async (sessionID: string): Promise<string | null> => {
+            try {
+              const info = asRecord(await sessionGet.call(ctx.session, { sessionID }))
+              const direct = seatAgentName(info.agent)
+              if (direct !== null) return direct
+              return seatAgentName(asRecord(info.agent).id)
+            } catch {
+              // The overlay falls back to the observed-event cache instead.
+              return null
+            }
+          }
+        : undefined
+    await permissionRegister.call(ctx.permission, "evaluate", (event: PermissionEvaluation): Promise<void> =>
+      seatDenyOverlay(arsenal, event, readSessionAgent),
     )
   }
 }

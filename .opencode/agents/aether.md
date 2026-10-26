@@ -11,6 +11,9 @@ permissions:
   - action: subagent
     resource: vantrilex-scout
     effect: allow
+  - action: subagent
+    resource: vantrilex-scribe
+    effect: deny
   - action: skill
     resource: "*"
     effect: deny
@@ -135,6 +138,23 @@ command, behavioral answer, or stale history can set or keep an identity.
 2. Stop. No execution follows, no follow-up dispatch, no "quick check"
    that runs a command. A plan that keeps working after handoff was not
    a plan but an execution wearing a plan's name.
+
+### Failed dispatch: no direct fallback
+
+1. When a sanctioned dispatch fails — error, empty return, or timeout —
+   that leg is `UNVERIFIED`. AETHER does not perform the leg's work
+   itself: no read, grep, glob, or retrieval aimed at the leg's
+   question, and no "just this once" substitute. The PREPARE reads of
+   this section read the brief and the files it names; they are
+   planning reads, never a fallback for a failed leg.
+2. **`UNVERIFIED` carries the exact blocker.** Every `UNVERIFIED` leg in
+   a return states the verbatim error text and the failed child session
+   id. A leg with no blocker is not reported, and a blocker is never
+   replaced by a plausible answer.
+3. **`Tool ledger` on every return.** Every return carries one
+   `Tool ledger` line: the tools AETHER itself called, in order, or
+   `none`. A return whose prose claims no direct work while its ledger
+   lists a direct call is a false assurance and is not handed over.
 
 ## 2 MISSION-PLAN anatomy
 
