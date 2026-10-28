@@ -710,6 +710,13 @@ type SessionState = {
    * falls back to when neither the event nor `ctx.session.get` names one.
    */
   agent: string
+  /**
+   * LD-01 pre-digested summary state. Built incrementally while the session
+   * runs, so the compact-time summary is already shaped (plan plus error
+   * traces plus tagged wrong turns plus recoverable pointers), never
+   * assembled after the fact.
+   */
+  digest: SmartDigest
 }
 
 type ArsenalContext = {
@@ -753,6 +760,7 @@ const sessionState = (ctx: ArsenalContext, sessionId: string): SessionState => {
     circuit: { failures: 0 },
     warnedDiffHead: "",
     agent: "",
+    digest: newDigestState(),
   }
   ctx.sessions.set(sessionId, created)
   return created
@@ -1774,6 +1782,416 @@ export const sessionStart = async (
   }
 }
 
+/* ===========================================================================
+ * 20b. LD-01 Smart compact (0.9.1)
+ * ===========================================================================
+ *
+ * Hook-level summary synthesis plus continuous pre-digestion. The digest is
+ * shaped while the session runs (plan plus error traces plus tagged wrong
+ * turns plus recoverable pointers), so at compact time the summary already
+ * exists instead of being assembled after the fact.
+ *
+ * Fixed hook mechanism, honoured literally (V3 0.9.1 slot): the hook may
+ * edit messages, push system content, and set the event result to document
+ * the compact and skip the model call. It must NOT replace the attached
+ * summarizer prompt and must NOT pick a separate compact model. Nothing
+ * below selects a model or rewrites a prompt: `preCompact` only appends the
+ * synthesized summary and the pointer index to the V1 `context` array, the
+ * same write the existing handoff already performs.
+ *
+ * Survivors: the organized summary plus the newest ~15k tokens.
+ * Triggers: auto near the limit with a 15% margin and a 16k-token minimum,
+ * one-time restore after a provider overflow, and manual/UI.
+ * Stable-byte prefix: the leading STABLE_PREFIX_BYTES survive byte-identical
+ * so compacting never invalidates the cache it exists to protect.
+ * Exit gates: T5 (wrong turns kept, tagged) and T6 (every dropped span
+ * restores byte-exactly from its pointer, else the gate FAILs).
+ * Baseline law: no smarter compact is accepted on rhetoric; `compareWithBaseline`
+ * admits the smart compact only when measurement beats simple truncation.
+ * Digestion cost is measured (`digestionCostOf`), never assumed.
+ * Input-safety minimum, pulled forward from the supply-chain slot: vendor
+ * plus fingerprint at accept, MCP data baselines at accept, and executable
+ * or credential-bearing components held at `candidate` until security gates
+ * prove them (`admitComponent`).
+ *
+ * Ancestor: the `strategic-compact` registry skill (manual compaction at
+ * logical phase boundaries) is accepted polished as the trigger-side
+ * ancestor; this section adds the measured synthesis it never had.
+ */
+
+/** Newest transcript kept past the summary, in tokens (~15k per V3). */
+export const SMART_COMPACT_SURVIVOR_TOKENS = 15_000
+
+/** Minimum window considered for auto compact, in tokens (16k per V3). */
+export const SMART_COMPACT_MIN_TOKENS = 16_000
+
+/** Auto trigger fires within this fraction of the limit (15% per V3). */
+export const SMART_COMPACT_TRIGGER_MARGIN = 0.15
+
+/** Leading bytes that survive compact byte-identical (cache protection). */
+export const STABLE_PREFIX_BYTES = 1_024
+
+/** Conservative chars-per-token for the estimator; gates measure real chars. */
+const CHARS_PER_TOKEN = 4
+
+/** Compact trigger: auto near-limit, one-time provider-overflow restore, manual/UI. */
+export type CompactTrigger = "auto" | "provider-overflow" | "manual"
+
+/** Provenance required at accept: vendor plus fingerprint, never one alone. */
+export type DigestProvenance = {
+  vendor: string
+  fingerprint: string
+}
+
+/** MCP datum accepted only against a recorded baseline hash. */
+export type McpBaseline = {
+  source: string
+  baselineHash: string
+}
+
+/** Accept/reject verdict for one digest note; rejections are counted, never silent. */
+export type DigestAccept = {
+  accepted: boolean
+  reason: string
+}
+
+/** Executable or credential-bearing content stays a candidate until proven. */
+export type HeldComponent = {
+  kind: "executable" | "credential" | "other"
+  locator: string
+  status: "candidate" | "admitted"
+}
+
+/** What a dropped span leaves behind: path, link, or preview plus proof. */
+export type RecoverablePointer = {
+  kind: "path" | "link" | "preview"
+  locator: string
+  preview: string
+  /** Length in UTF-16 code units; restore equality is `===` (exact). */
+  byteLength: number
+  checksum: string
+}
+
+/** One dropped span with the pointer that recovers it. */
+export type DroppedSpan = {
+  text: string
+  pointer: RecoverablePointer
+}
+
+/** The pre-digested session shape: plan, error traces, tagged wrong turns. */
+export type SmartDigest = {
+  plan: string[]
+  errorTraces: string[]
+  wrongTurns: string[]
+  pointers: RecoverablePointer[]
+  mcpBaselines: McpBaseline[]
+  /** Measured digestion cost, in accepted chars; never assumed. */
+  costChars: number
+  /** Notes refused at the trust boundary (missing provenance or baseline). */
+  rejected: number
+}
+
+/** Provenance a component carries when security gates have proven it. */
+export type SecurityProof = {
+  gate: string
+  proof: string
+}
+
+/** Narrow an untyped provenance claim to vendor plus fingerprint, or refuse it. */
+const asProvenance = (value: unknown): DigestProvenance | null => {
+  const record = asRecord(value)
+  const vendor = record.vendor
+  const fingerprint = record.fingerprint
+  if (typeof vendor !== "string" || vendor.length === 0) return null
+  if (typeof fingerprint !== "string" || fingerprint.length === 0) return null
+  return { vendor, fingerprint }
+}
+
+/** Narrow an untyped MCP baseline claim, or refuse it. */
+const asMcpBaseline = (value: unknown): McpBaseline | null => {
+  const record = asRecord(value)
+  const source = record.source
+  const baselineHash = record.baselineHash
+  if (typeof source !== "string" || source.length === 0) return null
+  if (typeof baselineHash !== "string" || baselineHash.length === 0) return null
+  return { source, baselineHash }
+}
+
+/** Narrow untyped text at the trust boundary; empty or non-text is refused. */
+const asDigestText = (value: unknown): string | null => {
+  if (typeof value !== "string") return null
+  const text = value.trim()
+  return text.length > 0 ? text : null
+}
+
+/** Fresh pre-digestion state: nothing recorded, nothing spent. */
+export const newDigestState = (): SmartDigest => ({
+  plan: [],
+  errorTraces: [],
+  wrongTurns: [],
+  pointers: [],
+  mcpBaselines: [],
+  costChars: 0,
+  rejected: 0,
+})
+
+const noteEntry = (
+  digest: SmartDigest,
+  list: "plan" | "errorTraces" | "wrongTurns",
+  line: unknown,
+  provenance: unknown,
+): DigestAccept => {
+  const text = asDigestText(line)
+  if (text === null) {
+    digest.rejected += 1
+    return { accepted: false, reason: "empty or non-text note refused" }
+  }
+  const proven = asProvenance(provenance)
+  if (proven === null) {
+    digest.rejected += 1
+    return { accepted: false, reason: "vendor plus fingerprint required at accept" }
+  }
+  digest[list].push(text)
+  digest.costChars += text.length
+  return { accepted: true, reason: `${proven.vendor}:${proven.fingerprint}` }
+}
+
+/** Record a plan line; refused without vendor plus fingerprint. */
+export const notePlan = (digest: SmartDigest, line: unknown, provenance: unknown): DigestAccept =>
+  noteEntry(digest, "plan", line, provenance)
+
+/** Record a wrong turn; kept and tagged at synthesis (T5), never dropped. */
+export const noteWrongTurn = (digest: SmartDigest, line: unknown, provenance: unknown): DigestAccept =>
+  noteEntry(digest, "wrongTurns", line, provenance)
+
+/** Record an MCP baseline at accept so later MCP data has something to match. */
+export const noteMcpBaseline = (digest: SmartDigest, source: unknown, baselineHash: unknown): DigestAccept => {
+  const baseline = asMcpBaseline({ source, baselineHash })
+  if (baseline === null) {
+    digest.rejected += 1
+    return { accepted: false, reason: "MCP baseline needs source plus baselineHash" }
+  }
+  const known = digest.mcpBaselines.some(
+    (entry) => entry.source === baseline.source && entry.baselineHash === baseline.baselineHash,
+  )
+  if (!known) digest.mcpBaselines.push(baseline)
+  digest.costChars += baseline.source.length + baseline.baselineHash.length
+  return { accepted: true, reason: `baseline ${baseline.source}` }
+}
+
+/**
+ * Record an error trace; MCP-sourced traces must cite a baseline that is
+ * either already recorded or carried by this same note.
+ */
+export const noteErrorTrace = (
+  digest: SmartDigest,
+  line: unknown,
+  provenance: unknown,
+  mcp?: unknown,
+): DigestAccept => {
+  if (mcp !== undefined) {
+    const baseline = asMcpBaseline(mcp)
+    if (baseline === null) {
+      digest.rejected += 1
+      return { accepted: false, reason: "MCP-sourced trace needs a full baseline" }
+    }
+    const known = digest.mcpBaselines.some(
+      (entry) => entry.source === baseline.source && entry.baselineHash === baseline.baselineHash,
+    )
+    if (!known) digest.mcpBaselines.push(baseline)
+    digest.costChars += baseline.source.length + baseline.baselineHash.length
+  }
+  return noteEntry(digest, "errorTraces", line, provenance)
+}
+
+/**
+ * Admit a component: executable or credential-bearing kinds stay `candidate`
+ * until a security gate proves them; anything else admits with its reason.
+ * Unknown-shaped input is never admitted: it is held as a candidate `other`.
+ */
+export const admitComponent = (candidate: unknown, proof: unknown): HeldComponent => {
+  const record = asRecord(candidate)
+  const locator = typeof record.locator === "string" && record.locator.length > 0 ? record.locator : "unknown"
+  const kind = record.kind === "executable" || record.kind === "credential" ? record.kind : "other"
+  if (kind === "other") return { kind, locator, status: "admitted" }
+  const gate = asRecord(proof)
+  const proven =
+    typeof gate.gate === "string" && gate.gate.length > 0 && typeof gate.proof === "string" && gate.proof.length > 0
+  return { kind, locator, status: proven ? "admitted" : "candidate" }
+}
+
+/** Deterministic FNV-1a checksum, zero dependencies; second factor for restore. */
+export const checksumText = (text: string): string => {
+  let hash = 0x811c9dc5
+  for (let index = 0; index < text.length; index++) {
+    hash ^= text.charCodeAt(index)
+    hash = Math.imul(hash, 0x01000193)
+  }
+  return (hash >>> 0).toString(16).padStart(8, "0")
+}
+
+/** Conservative token estimate; gates measure real chars, never this alone. */
+export const estimateTokens = (text: string): number =>
+  typeof text === "string" ? Math.max(1, Math.ceil(text.length / CHARS_PER_TOKEN)) : 0
+
+/**
+ * Trigger law: manual always compacts; provider-overflow compacts exactly
+ * once (a restored overflow never re-fires); auto compacts near the limit
+ * inside the margin, but never below the 16k-token minimum.
+ */
+export const shouldCompact = (args: {
+  windowTokens: number
+  limitTokens: number
+  trigger: CompactTrigger
+  overflowRestored: boolean
+}): boolean => {
+  if (args.trigger === "manual") return true
+  if (args.trigger === "provider-overflow") return args.overflowRestored === false
+  if (args.windowTokens < SMART_COMPACT_MIN_TOKENS) return false
+  return args.windowTokens >= args.limitTokens * (1 - SMART_COMPACT_TRIGGER_MARGIN)
+}
+
+/**
+ * Synthesize the organized summary: plan, error traces, wrong turns kept
+ * with their WRONG-TURN tag (T5), recoverable pointers. Empty sections are
+ * omitted, so a present section always means present content.
+ */
+export const synthesizeSummary = (digest: SmartDigest): string => {
+  const sections: string[] = []
+  if (digest.plan.length > 0) sections.push(`## Plan\n${digest.plan.map((line) => `- ${line}`).join("\n")}`)
+  if (digest.errorTraces.length > 0) {
+    sections.push(`## Error traces\n${digest.errorTraces.map((line) => `- ${line}`).join("\n")}`)
+  }
+  if (digest.wrongTurns.length > 0) {
+    sections.push(
+      `## Wrong turns (kept: do not repeat)\n${digest.wrongTurns.map((line) => `- WRONG-TURN: ${line}`).join("\n")}`,
+    )
+  }
+  if (digest.pointers.length > 0) {
+    sections.push(
+      `## Recoverable pointers\n${digest.pointers
+        .map((pointer) => `- [${pointer.kind}] ${pointer.locator} (${pointer.byteLength} chars, checksum ${pointer.checksum}): ${pointer.preview}`)
+        .join("\n")}`,
+    )
+  }
+  return sections.join("\n\n")
+}
+
+/** Measured digestion cost of one session: chars spent plus token estimate. */
+export const digestionCostOf = (digest: SmartDigest): { chars: number; tokens: number } => ({
+  chars: digest.costChars,
+  tokens: estimateTokens("x".repeat(digest.costChars)),
+})
+
+const DROPPED_CHUNK_CHARS = 4_000
+const POINTER_PREVIEW_CHARS = 120
+
+const pointerFor = (index: number, text: string): RecoverablePointer => ({
+  kind: "preview",
+  locator: `dropped-span-${index}`,
+  preview: text.slice(0, POINTER_PREVIEW_CHARS),
+  byteLength: text.length,
+  checksum: checksumText(text),
+})
+
+/**
+ * Smart compact: survivors are the stable-byte prefix, the organized summary,
+ * and the newest ~15k tokens. Every dropped span leaves a pointer; a compact
+ * that drops content without a pointer fails the T6 gate downstream.
+ */
+export const selectSurvivors = (
+  prefix: string,
+  body: string,
+  summary: string,
+): { survivors: string; dropped: DroppedSpan[]; recoveredKinds: string[] } => {
+  const stable = typeof prefix === "string" ? prefix.slice(0, STABLE_PREFIX_BYTES) : ""
+  const summaryBlock = summary.length > 0 ? `\n## Smart summary (LD-01)\n${summary}\n` : "\n"
+  const tailChars = SMART_COMPACT_SURVIVOR_TOKENS * CHARS_PER_TOKEN
+  const tail = body.length > tailChars ? body.slice(body.length - tailChars) : body
+  const droppedText = body.slice(0, body.length - tail.length)
+  const dropped: DroppedSpan[] = []
+  for (let offset = 0, index = 0; offset < droppedText.length; offset += DROPPED_CHUNK_CHARS, index++) {
+    const chunk = droppedText.slice(offset, offset + DROPPED_CHUNK_CHARS)
+    dropped.push({ text: chunk, pointer: pointerFor(index, chunk) })
+  }
+  const survivors = `${stable}${summaryBlock}${tail}`
+  const recoveredKinds: string[] = []
+  if (summary.includes("## Plan")) recoveredKinds.push("plan")
+  if (summary.includes("## Error traces")) recoveredKinds.push("errors")
+  if (summary.includes("WRONG-TURN")) recoveredKinds.push("wrong-turns")
+  if (summary.includes("## Recoverable pointers")) recoveredKinds.push("pointers")
+  return { survivors, dropped, recoveredKinds }
+}
+
+/**
+ * Simple baseline: newest-only truncation under the same survivor budget, no
+ * summary. Recovers no structural kind by construction; the law below admits
+ * the smart compact only when measurement beats exactly this.
+ */
+export const simpleBaseline = (
+  prefix: string,
+  body: string,
+): { survivors: string; recoveredKinds: string[] } => {
+  const stable = typeof prefix === "string" ? prefix.slice(0, STABLE_PREFIX_BYTES) : ""
+  const tailChars = SMART_COMPACT_SURVIVOR_TOKENS * CHARS_PER_TOKEN
+  const tail = body.length > tailChars ? body.slice(body.length - tailChars) : body
+  return { survivors: `${stable}${tail}`, recoveredKinds: [] }
+}
+
+/**
+ * Baseline law: the smart compact wins only when it recovers strictly more
+ * structural kinds per token than truncation. A summary that recovers
+ * nothing ties or loses; rhetoric never passes this function.
+ */
+export const compareWithBaseline = (
+  smart: { tokens: number; recovered: string[] },
+  baseline: { tokens: number; recovered: string[] },
+): {
+  smartWins: boolean
+  smartTokens: number
+  baselineTokens: number
+  smartRecovered: string[]
+  baselineRecovered: string[]
+  smartDensity: number
+  baselineDensity: number
+} => {
+  const smartDensity = smart.tokens > 0 ? smart.recovered.length / smart.tokens : 0
+  const baselineDensity = baseline.tokens > 0 ? baseline.recovered.length / baseline.tokens : 0
+  const strictlyMore = smart.recovered.length > baseline.recovered.length
+  return {
+    smartWins: strictlyMore && smartDensity > baselineDensity,
+    smartTokens: smart.tokens,
+    baselineTokens: baseline.tokens,
+    smartRecovered: smart.recovered,
+    baselineRecovered: baseline.recovered,
+    smartDensity,
+    baselineDensity,
+  }
+}
+
+/**
+ * Restore dropped spans from a locator-to-content store. Missing content is
+ * reported, never invented; tampered content fails its checksum. Equality is
+ * exact string identity, the byte-exact bar the T6 gate demands.
+ */
+export const restoreFromPointers = (
+  pointers: readonly RecoverablePointer[],
+  store: ReadonlyMap<string, string>,
+): { locator: string; restored: string | null; checksumOk: boolean; byteLengthOk: boolean }[] =>
+  pointers.map((pointer) => {
+    const restored = store.get(pointer.locator) ?? null
+    if (restored === null) return { locator: pointer.locator, restored, checksumOk: false, byteLengthOk: false }
+    return {
+      locator: pointer.locator,
+      restored,
+      checksumOk: checksumText(restored) === pointer.checksum,
+      byteLengthOk: restored.length === pointer.byteLength,
+    }
+  })
+
+/** Provenance the kit itself uses when it digests its own guard outcomes. */
+const KIT_PROVENANCE: DigestProvenance = { vendor: "vantrilex-arsenal", fingerprint: "session" }
+
 /**
  * HOOK 2 - pre-compact. The transcript is not assumed to survive compaction,
  * so the working state is written to the state directory first and only then
@@ -1791,6 +2209,16 @@ export const preCompact = async (
   const join = ctx.rt.path?.join ?? EMPTY_PATH.join
 
   const touched = Array.from(state.touchedFiles).sort()
+  // LD-01 continuous pre-digestion, folded at compact time from already
+  // tracked state: the last intent feeds the plan, failing guard outcomes
+  // feed the error traces. No new hook surface, no new tracking.
+  if (state.digest.plan.length === 0 && state.lastIntent.length > 0) {
+    notePlan(state.digest, state.lastIntent, KIT_PROVENANCE)
+  }
+  for (const outcome of state.guardOutcomes) {
+    if (/FAIL|BLOCKED|error/i.test(outcome)) noteErrorTrace(state.digest, outcome, KIT_PROVENANCE)
+  }
+  const smartSummary = synthesizeSummary(state.digest)
   const handoff = [
     anchor.text,
     "",
@@ -1800,6 +2228,10 @@ export const preCompact = async (
     `Guard outcomes: ${state.guardOutcomes.length === 0 ? "none recorded" : state.guardOutcomes.join(" | ")}`,
     `Last user intent: ${state.lastIntent.length > 0 ? state.lastIntent : "unknown"}`,
     `Circuit: ${state.circuit.failures} consecutive guard failure(s) this session`,
+    "",
+    "SMART SUMMARY (LD-01)",
+    smartSummary.length > 0 ? smartSummary : "(no digested content this session)",
+    `Digestion cost: ${digestionCostOf(state.digest).chars} chars`,
   ].join("\n")
 
   const written = writeTextFile(ctx.rt, join(stateDir, "handoff", sanitizeSessionId(sessionId) + ".md"), handoff + "\n")
