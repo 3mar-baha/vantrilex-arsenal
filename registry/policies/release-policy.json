@@ -10,5 +10,12 @@
       "minor": 1
     }
   },
-  "cascade": true
+  "cascade": true,
+  "notes": {
+    "leader_task_classification": {
+      "stage": "mapping-not-publish-gate",
+      "slot": "0.9.16",
+      "record": "LD-16 foundation replacement: base-skill tasks migrate to the coordinator plus the three leaders (plan tasks to Aether, build tasks to Blazar, probe tasks to Pulsar); classification lives in .opencode/audit/BUILD-0916/foundation-inventory.md at mapping time, never at the publish gate"
+    }
+  }
 }
