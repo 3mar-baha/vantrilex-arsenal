@@ -1,0 +1,49 @@
+{
+  "name": "LD-08 trust-plane policy",
+  "version": "0.9.8",
+  "denyDefault": true,
+  "vetoPoint": "permission-evaluation",
+  "scopeCorrection": "isolation files mean permission+policy files only; trust level means permission+policy+hook discipline; real OS-level isolation (isolated workspaces/containers) is external or deferred, never claimed as inside the platform",
+  "levels": {
+    "operator": {
+      "rank": 4,
+      "grants": [
+        { "action": "read", "resources": ["registry"] },
+        { "action": "write", "resources": [], "needsApproval": true },
+        { "action": "network", "resources": [], "needsApproval": true },
+        { "action": "control", "resources": [], "needsApproval": true }
+      ]
+    },
+    "collaborator": {
+      "rank": 3,
+      "grants": [
+        { "action": "read", "resources": ["registry"] }
+      ]
+    },
+    "advisor": {
+      "rank": 2,
+      "grants": []
+    },
+    "approver": {
+      "rank": 1,
+      "grants": [
+        { "action": "verdict", "resources": ["approval-queue"] }
+      ]
+    },
+    "observer": {
+      "rank": 0,
+      "grants": []
+    }
+  },
+  "pinnedDescriptions": [
+    {
+      "tool": "read",
+      "description": "Read a registry entry by id.",
+      "dataShape": "{id:string}",
+      "component": "registry-reader",
+      "source": "BUILD-097 pin 452b948d30abae77025f55b5113a78635c99f76a5e250d5ab9019e03bc7281b0",
+      "install_cmd": null,
+      "verification": "unverified"
+    }
+  ]
+}
