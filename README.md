@@ -2,6 +2,8 @@
 
 **Four skills, one registry, one pinned kit.**
 
+**Current release:** `v0.9.19` — LD-19 Workflows-as-factory-category v1. Merge: `1bd77a9b74664caf89b250bb9052986655306aa1` · Tag: `7a92aa0da1eb4edb1645c21caa0635ba02ed91d1`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.19 block.
+
 Vantrilex Arsenal is a shareable OpenCode plugin plus a component system. It
 provisions a target project with a curated, version-pinned kit of skills, MCP
 servers, plugins, hooks, agents, and design conventions — then governs how that
