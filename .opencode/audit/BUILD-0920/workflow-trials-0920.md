@@ -38,6 +38,11 @@ Rules:
 - The mid-cut fixture cuts for real: the run is interrupted mid-way and
   resumed from its traces. Re-running from the start under the name of
   resuming is refused.
+- Known limitation F-A (carried, 2026-10-30 field test): `resumeFromTraces`
+  attests completion from caller-supplied traces; trace provenance is
+  caller-attested, never verified against the fixture run. Binding traces
+  to the fixture run is out of scope for this slot — recorded here, never
+  silently fixed, never suppressed.
 - A fixture revision for a later version is a new recorded revision with
   its own hash, never a silent edit of the frozen bytes.
 
@@ -71,6 +76,11 @@ equal attempts, never across different samples.
 Improvement evidence may be quantitative (rate or count on the same
 fixtures) or qualitative (a named observable check a non-author can
 re-run). An unnamed feeling is not evidence of either kind.
+Whitespace-only evidence names no evidence and is refused as taste
+(2026-10-30 repair1: the gate trims before judging). A revised record
+missing a scenario, or otherwise malformed, is refused with a logged
+reason — never accepted, and never an uncaught throw (2026-10-30
+repair1: the gate validates the revised shape fail-closed).
 
 ## 4. Actor validity as an in-eval property
 

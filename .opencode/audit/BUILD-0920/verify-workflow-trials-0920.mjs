@@ -62,6 +62,9 @@ const RECORDS = {
   midcut: null,
 };
 
+// Known limitation F-A (carried, 2026-10-30 field test): trace provenance is
+// caller-attested — traces are checked present and the fixture frozen, but
+// never verified to belong to this fixture run. See spec section 2.
 function resumeFromTraces(frozen, traces, remaining) {
   if (!Array.isArray(traces) || traces.length === 0) throw new Error("resume-without-traces-refused-restart-is-not-resume");
   if (frozen.frozen !== true) throw new Error("fixture-not-frozen-refused");
@@ -82,9 +85,25 @@ function logRefusal(revisionId, reason) {
 }
 
 function gateReview(revisionId, baseline, revised, evidence) {
+  if (!isRecord(revised)) {
+    logRefusal(revisionId, "malformed-revised-record:not-a-record");
+    return { accepted: false, why: "malformed-record" };
+  }
   for (const key of Object.keys(baseline)) {
-    const before = successRate(baseline[key]);
-    const after = successRate(revised[key]);
+    const rev = revised[key];
+    if (!isRecord(rev) || typeof rev.attempts !== "number" || !Array.isArray(rev.outcomes)) {
+      logRefusal(revisionId, `malformed-revised-record:${key}-missing-or-malformed`);
+      return { accepted: false, why: "malformed-record" };
+    }
+    let before;
+    let after;
+    try {
+      before = successRate(baseline[key]);
+      after = successRate(rev);
+    } catch (error) {
+      logRefusal(revisionId, `malformed-revised-record:${key}-uncomputable`);
+      return { accepted: false, why: "malformed-record" };
+    }
     if (after.passes < before.passes) {
       logRefusal(revisionId, `regression:${key}-was-${before.passes}-now-${after.passes}`);
       return { accepted: false, why: "regression" };
@@ -94,7 +113,7 @@ function gateReview(revisionId, baseline, revised, evidence) {
       return { accepted: false, why: "rate-drop" };
     }
   }
-  if (!nonEmptyString(evidence)) {
+  if (typeof evidence !== "string" || evidence.trim().length === 0) {
     logRefusal(revisionId, "no-named-evidence:taste-is-not-improvement");
     return { accepted: false, why: "no-evidence" };
   }
@@ -183,7 +202,10 @@ check("anti-regression-blocks", () => {
   const revised = { ...RECORDS, degraded: { ...RECORDS.degraded, outcomes: ["pass", "fail", "fail", "fail", "fail", "pass", "pass"] } };
   const v = gateReview("rev-regress", RECORDS, revised, "rate 5/7 to 6/7 on fx-degraded");
   assert(v.accepted === false && v.why === "regression", "regressing revision must be refused");
-  return "rev-regress refused: fx-degraded 5-to-3 is a regression";
+  const missing = gateReview("rev-missing-scenario", RECORDS, { happy: RECORDS.happy }, "named evidence present but degraded+midcut missing");
+  assert(missing.accepted === false && missing.why === "malformed-record", "scenario-missing revision must be refused, never throw");
+  assert(refusalLog.some((r) => r.revisionId === "rev-missing-scenario" && nonEmptyString(r.reason)), "malformed-record refusal must be logged with its reason");
+  return "rev-regress refused: fx-degraded 5-to-3 is a regression; rev-missing-scenario refused fail-closed with logged reason";
 });
 
 check("anti-improvement-needs-evidence", () => {
@@ -318,7 +340,12 @@ check("q4786-evidence-kinds", () => {
   try { gateReview("rev-feeling", RECORDS, RECORDS, ""); } catch { threw = true; }
   assert(!gateReview("rev-feeling2", RECORDS, RECORDS, "").accepted, "unnamed feeling must never count");
   assert(threw === false, "gate returns refusal, it does not throw, for missing evidence");
-  return "4786 DECIDED quantitative always counts; qualitative only as named re-runnable check; feeling never counts";
+  const blank = gateReview("rev-blank", RECORDS, RECORDS, "   ");
+  assert(blank.accepted === false && blank.why === "no-evidence", "whitespace-only evidence names nothing and must be refused as taste");
+  const tabbed = gateReview("rev-blank-tab", RECORDS, RECORDS, "\t\n ");
+  assert(tabbed.accepted === false && tabbed.why === "no-evidence", "tab/newline-only evidence must be refused as taste");
+  assert(refusalLog.some((r) => r.revisionId === "rev-blank" && nonEmptyString(r.reason)), "whitespace refusal must be logged with its reason");
+  return "4786 DECIDED quantitative always counts; qualitative only as named re-runnable check; feeling never counts; whitespace-only is feeling";
 });
 
 check("fbld20-honesty", () => {
