@@ -2,7 +2,7 @@
 
 **Four skills, one registry, one pinned kit.**
 
-**Current release:** `v0.9.22` — LD-22 The weekly harvest, live. Merge: `e42b4acdb9bc98f39a34b96a45bf92b27b8d45ec` · Tag: `07688933034165abb773110c4cad0b60ac0e8540` · Size: `178`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.22 block.
+**Current release:** `v0.9.23` — LD-23 Self-repair overlays. Merge: `8828771f46991b1b2b23a44ec913c92f110178f8` · Tag: `897de9d67d44160430bb4f65850c532425576bbd` · Size: `179`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.23 block.
 
 Vantrilex Arsenal is a shareable OpenCode plugin plus a component system. It
 provisions a target project with a curated, version-pinned kit of skills, MCP
