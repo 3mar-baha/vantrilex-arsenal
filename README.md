@@ -1,6 +1,8 @@
 # Vantrilex Arsenal
 
 **Four skills, one registry, one pinned kit.**
+**v0.9.29 — Mission compiler:** version `v0.9.29` · merge `03c077fa117dd1128527c982f7ef92cdc6639a14` · tag `0a385e51654e2148ae8e484b4e1debb225f6b2ed` · size `175`.
+Slot 0.9.29 carries the Mission compiler plus planning-quality loop as data; planner proposes placement with reasoning; no slot is the decided home (fallback FBLD-29).
 
 **v0.9.26 — Knowledge packs:** version `v0.9.26` · merge `ddcaf785510847e47ac235cf5e2a0e6cc35f7437` · tag `5f1da7fd9e6699443ef7d04f2c96e88aed05665e` · size `174`.
 
