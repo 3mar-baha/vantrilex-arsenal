@@ -108,6 +108,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **One-plugin consolidation (`refactor(plugin)`).** The Tier-0 guards now live in the single `.opencode/plugin/arsenal.ts` — eight logical hooks across the two runtime surfaces, with the plan-guard append riding the dispatcher's own `prompt` registration so no prompt hook runs twice; `setup()` runs a six-hook capability probe and reports only what it observes, every registered callback checks the per-project kill switch at its head and no-ops when one of its four signals is set (م-4), and the new Diff Size Guard warns once per HEAD when uncommitted work exceeds 120 lines or 4 files (blueprint `:200`).
 - **Lock abolished; catalog proofs are the sole gate (`docs(kit)`, Cluster 1 / S5).** The lockfile and its verifier are retired: `scripts/verify-catalog.mjs` now carries the replacement proofs (17 checks over a catalog measured at 2,941 rows on 2026-10-21, zero pending state), and phase injection reads the `.opencode/equip.manifest.json` selection record, whose 146 tokens reproduce the pre-abolition kit (30 tier `core` plus 116 tier `conditional`) as a parity baseline. The nine pending per-agent themes are authored and verified (9 of 12 `theme` rows `verified`), and new-kind onboarding stays frozen until catalog v4. Live documentation and instructions were swept to name the catalog and the selection record instead of the lock; history — this changelog, `AGENT.md`, `WORKFLOW.md`, the audit tree, and `docs/99-archive/` — stays verbatim.
 
+## [0.9.33] — 2026-10-31 — PARKED, UNRELEASED (no tag, no publish; park commit only)
+
+> Status: this section is a parked draft, not a release. No `v0.9.33` tag
+> was cut, nothing was merged, pushed, or published. It records the single
+> depth-3 apply-time change and its verification in one place.
+
+### Changed
+
+- **Depth-3 apply-time raise (`fix(depth)`).** The apply raises
+  `experimental.subagent_depth` to `3` where the running application
+  actually loads it, per `docs/0.9.33-depth3-spec.md` [N1]–[N7] with gates
+  G1 read-back match, G2 no-extra-diff, and G3 no-lower. Idempotent
+  re-apply is a read-back no-op [N5]; any doubt refuses the write
+  fail-closed [N6]. No other key, file section, or value changes [N4].
+  Verified by `.opencode/audit/0.9.33/d33-verify.md` wave-3 capable
+  re-run: probe `16 pass / 0 fail` (`exit=0`), `node --check` on
+  `arsenal.ts` and the proof script (`exit=0` each), `tsc --noEmit`
+  (`exit=0`), git branch/HEAD/status/diff quoted (`exit=0` each), zero
+  FAIL. Beyond-depth-3 refused: no value other than `3`, no second key,
+  no merge/tag/publish/release. EN-only per `AGENTS.md` Hard Rule 5;
+  no Arabic mirror in this cycle.
+
 ## [0.7.7] — 2026-10-15 — PARKED, UNRELEASED (no tag, no publish; parked on branch `wt/vta-expansion-03` for the owner)
 
 > Status: this section is a parked draft, not a release. No `v0.7.7` tag
