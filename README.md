@@ -8,6 +8,10 @@
 LD-27 carries eval packs as a category: tested evaluators, measured difficulty, calibration variance, and an integration-recipe subtype with bilateral links; fallback FBLD-27 lean cite carried, never widened.
 Fill rides W7b after publish: `v0.9.27`, `bdeafe416b6c9ee360aca46919e2fd58d64a32ff`, `4d8bbd3b1ff86d2fbf8e1fa10fb1a97d5af78884`, and `169` stay placeholders in this draft with zero 40-hex filled now.
 
+**v0.9.28 — Gap register:** version `v0.9.28` · merge `136371c94ce8426d0863bab0fde4c63a8605ede1` · tag `6eea674c20285a0bf9e499040576882acff27451` · size `171`.
+LD-28 carries the gap register as scoped on the version branch; substance rides the build scope, never assumed in this draft.
+Fill rides W7b after publish: `v0.9.28`, `136371c94ce8426d0863bab0fde4c63a8605ede1`, `6eea674c20285a0bf9e499040576882acff27451`, and `171` stay placeholders in this draft with zero 40-hex filled now.
+
 **Current release:** `v0.9.25` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). Merge: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · Tag: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · Size: `174`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.25 block.
 
 Vantrilex Arsenal is a shareable OpenCode plugin plus a component system. It
