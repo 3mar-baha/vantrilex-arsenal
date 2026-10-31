@@ -1,6 +1,8 @@
 # Vantrilex Arsenal
 
 **Four skills, one registry, one pinned kit.**
+**v0.9.31 — Reserved:** version `v0.9.31` · merge `ab966f1313b15bee4c4270f7423ba2ab45e6ddda` · tag `505facedc55eac6e4f906ac8455b57d810781256` · size `184`.
+Slot 0.9.31 reserved; tiers formulated only after supervised clean record; standing list never automated (fallback FBLD-31).
 **v0.9.30 — Autonomous weekly cycle:** version `v0.9.30` · merge `c520839beb8eae3d104853bc66b60f6430436f4f` · tag `8eabf9fea6061646bf9b33acb547fe98558f1c74` · size `182`.
 Slot 0.9.30 carries the Autonomous weekly cycle plus draft-version assembler as data; advisory number only, assigned at close (fallback FBLD-30).
 **v0.9.29 — Mission compiler:** version `v0.9.29` · merge `03c077fa117dd1128527c982f7ef92cdc6639a14` · tag `0a385e51654e2148ae8e484b4e1debb225f6b2ed` · size `175`.
