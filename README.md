@@ -2,7 +2,7 @@
 
 **Four skills, one registry, one pinned kit.**
 
-**Current release:** `v0.9.24` — LD-24 Policy packs v1. Merge: `481508918a647792dc46f90cf86234bca42526a1` · Tag: `7bf37f04502e3cb3635583831b28695057d6b5bd` · Size: `174`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.24 block.
+**Current release:** `v0.9.25` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). Merge: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · Tag: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · Size: `174`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.25 block.
 
 Vantrilex Arsenal is a shareable OpenCode plugin plus a component system. It
 provisions a target project with a curated, version-pinned kit of skills, MCP
