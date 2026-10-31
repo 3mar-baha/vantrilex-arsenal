@@ -2,6 +2,8 @@
 
 **أربع مهارات، سجلّ واحد، وطقم مثبَّت بإصدار محدَّد.**
 
+**الإصدار v0.9.26 — حزم المعرفة:** النسخة `v0.9.26` · الدمج `ddcaf785510847e47ac235cf5e2a0e6cc35f7437` · الوسم `5f1da7fd9e6699443ef7d04f2c96e88aed05665e` · الحجم `174`.
+
 **الإصدار الحالي:** `v0.9.25` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). الدمج: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · الوسم: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · الحجم: `174`. ينشر مع النشر أو بعده مباشرة؛ والنطاق حسب كتلة 0.9.25 في `WORKFLOW.md`.
 
 Vantrilex Arsenal إضافة OpenCode قابلة للمشاركة، إلى جانب نظام مكوّنات. فهي
