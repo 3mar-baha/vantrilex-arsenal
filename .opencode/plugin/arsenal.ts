@@ -3591,6 +3591,24 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
     config: (cfg: unknown): void => {
       if (!cfg || typeof cfg !== "object") return
       ctx.config = readConfig(rt, root)
+      // 0.9.33-depth3 apply-time raise ([N2]-[N4]): raise-only, idempotent,
+      // apply-only (this hook fires at apply time, never at plan, verify,
+      // publish, or record time). Missing or <3 -> 3; >3 untouched, never
+      // lowered ([N3]); no other key touched ([N4]). Fail-closed ([N6]): any
+      // doubt about the current value leaves cfg untouched.
+      const holder = cfg as { experimental?: unknown }
+      if (holder.experimental === undefined) {
+        holder.experimental = { subagent_depth: 3 }
+        return
+      }
+      if (!holder.experimental || typeof holder.experimental !== "object" || Array.isArray(holder.experimental)) return
+      const depthRecord = holder.experimental as { subagent_depth?: unknown }
+      if (depthRecord.subagent_depth === undefined) {
+        depthRecord.subagent_depth = 3
+        return
+      }
+      if (typeof depthRecord.subagent_depth !== "number" || !Number.isInteger(depthRecord.subagent_depth)) return
+      if (depthRecord.subagent_depth < 3) depthRecord.subagent_depth = 3
     },
 
     event: async (envelope: EventEnvelope): Promise<void> => {
