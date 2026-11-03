@@ -1,0 +1,75 @@
+# Build record 0.9.66 Tools Under Strict Law Mechanical Only
+
+Status: built-and-committed
+Concern: Build the 0.9.66 Tools Under Strict Law Mechanical Only from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
+Artifact: for-vanzen/build-0.9.66.md
+Acceptance: Build the 0.9.66 tools under strict law mechanical only from the locked source bytes by the header acceptance (Tool frame lands registered plus strict-law gate working with a judgment proposal refused as a test plus first mechanical tools working plus icon example recorded rejected plus per the locked plan with nothing invented plus no icon-repo guess plus the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.66 Tools Under Strict Law Mechanical Only`, §4/§5 only from for-vanzen/0.9.66.md §§3–5; exactly two files committed byte-identically to wt/0.9.66-vanzen with message `source(0.9.66): commit built bytes for sealing` and parent origin/main d2e800b7c168606282afd2f8af75e2939e6a8df3; seal-0.9.66.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.65 locked untouched; 0.9.67 through 0.9.73 untouched; no 1.0, post, or dsh paths.
+Lane: build+publish FIX-AND-WORK-SEQ, mission SEQ-RESUME-2026-11-02, version 0.9.66, node b-0966
+last_verified: unverified — no verification run from this seat; verifier leg sets the date only on the verification that justifies it.
+
+## 1. from-seat
+
+- vantrilex-github, worker-only side agent. Builds the record, lands exactly two files on the node branch, and seals derived values. Shell permitted on evidence.
+- Seat facts: English-only cycle per lane acceptance. Nine numbered sections present. One status label present. Tables triple-only. No invented content by design.
+- Single writer note: sole writer of build-0.9.66.md, seal-0.9.66.md, and the branch commit; landing is one branch push from the holder.
+
+## 2. to-seat
+
+- First receiver: the directing leader that dispatched node b-0966. Expected action: review the committed bytes, then route to verifier; seal values await CONFIRM before any PUBLISH.
+- Informed seats: owners of the 0.9.65 and 0.9.67 drafts in the same arc; no acknowledgement from this seat.
+- No owner contact from this seat.
+
+## 3. mission and contract reference
+
+- Mission: FIX-AND-WORK-SEQ lane build+publish, mission SEQ-RESUME-2026-11-02, node b-0966; turn the locked for-vanzen/0.9.66.md into built, committed, sealed source.
+- Contract: concern plus artifact plus acceptance per dispatch; May read for-vanzen/0.9.66.md, the build and seal shape records, the publish record, and the live repo/remote; Must leave for-vanzen/build-0.9.66.md, for-vanzen/seal-0.9.66.md, and remote branch wt/0.9.66-vanzen only; Must run the named fetch, holder, commit, push, seal, and holder-removal commands with every exit quoted; Must not touch AGENT.md, WORKFLOW.md, every other for-vanzen file, the primary worktree state, any other ref or tag, any push besides the one branch push, activation, any new library install, 1.0/post/dsh, 0.9.67 and later, or the bytes of 0.9.66.md.
+- Decided inputs folded in (from 0.9.66.md section 3 only, nothing added): numbers 0.9.34 through 0.9.73 approved; owner rulings 2026-10-30 14:49 section 5 plus 14:51 law and rejection carried; 0.9.65 boundary written first; ast-grep stays a 0.9.62 verification tool under its own audit never under this frame; Saturday proposed candidate pending Q1 never built; no icon-repo guess; ONE folder for-vanzen; no 1.0.0.
+
+## 4. content answers
+
+- What: the tool frame under strict law. A registered frame of specialized shareable tools with no per-agent mandate, a law gate, first mechanical tools, and one recorded rejection.
+- Why: mechanical routine slows agents without cause, yet speed without law turns tools into thinking on their behalf and judgment is lost.
+- How: register each tool with function plus inputs plus outputs plus agents; gate every proposal through the strict law; ship mechanical first tools only; record the icon example as rejected with its reason.
+- From where: owner rulings 2026-10-30 14:49 section 5 plus 14:51 law and rejection plus 0.9.65 boundary as the prior-written line plus surviving 14:48 examples narrowed to the mechanical-only set.
+- Whither: 0.9.67 cost pruning builds directly on this frame and its law; every later mechanical routine draws its tools from here never from improvisation.
+
+## 5. evidence references
+
+- Registered frame specialized shareable with no mandate: each tool records its mechanical function plus inputs plus outputs plus agents, shared where needed, with no tool required for every agent; a mandated tool per agent and a needed-shared tool kept private are refused.
+- Strict-law gate: a proposal needing thought or creativity is refused as a tool and stays a skill or direct work; a pass-through gate and law applied to skills are refused.
+- First mechanical tools only: repo map plus catalog check plus test runner plus address probe plus mechanical trim-filter by rules only; judgment summarization under a summarizer name and gradual expansion from mechanical into judgment are refused.
+- Recorded icon rejection: the agent-icon generation tool stands recorded-rejected because icon creation is professional work through the owner-given store with the 0.9.65 skill as the right road; re-proposal under a new name and any store guess are refused.
+- Verification tools and Saturday scope kept separate: ast-grep stays a 0.9.62 verification tool under its own audit never under this frame, and only Q1-ruled candidates appear with the proposed agent-desktop candidate pending ruling never built; an invented tool is refused.
+- Catalog claim with section citation: no new catalog id is introduced by this version; the frame governs standing mechanical tooling only, so no catalog section is cited for new entries.
+
+## 6. gate verdicts
+
+| Check | Verdict | Evidence |
+|---|---|---|
+| Registered frame with law gate working | UNVERIFIED | Section 5 frame with pass-through refused; no verifier leg run from this seat |
+| First tools mechanical only | UNVERIFIED | Section 5 first set with judgment-summary refused; no verifier leg run from this seat |
+| Icon rejection recorded with no guess | UNVERIFIED | Section 5 recorded rejection with rename refused; no verifier leg run from this seat |
+
+## 7. dependencies risks costs and label
+
+- Incoming: 0.9.65 boundary written first; owner rulings 14:49 section 5 plus 14:51; surviving 14:48 examples; Q1 Saturday rulings.
+- Outgoing: 0.9.67 pruning on this frame and law; every later mechanical routine served from here.
+- Risks: a tool for judgment or creativity; judgment summary under a new name; mandate per agent; private tool where sharing fits; re-proposal of the rejected icon tool; store guess; gradual tool drift into judgment; confusion with 0.9.62 verification tools; unruled candidates folded in.
+- Costs: prose plus one frame plus one law gate plus first tools plus one recorded rejection; zero installs; zero publishes from this seat.
+- Label: the single status label in the header governs this file.
+
+## 8. acknowledgement and verification
+
+- Acknowledgement pending from the directing leader; this seat neither acknowledges its own output nor declares done.
+- Verification: self-report is not completion. Completion is landing plus independent verifier leg with format spot plus frame trial plus gate-rejection trial with a judgment proposal plus first-tools trial plus icon-rejection record proof plus Q1-only proof plus test -f plus verify-registry.mjs, all exit-quoted; blockers stated honestly.
+- Must-run on this seat: none by direction; line plus gate-rejection trials plus test -f belong to the verification wave and are unverified from here with the exact seat-denial blockers stated by that wave.
+- No product code changed on this seat; executable gates belong to the verifier leg at landing and are unverified from here.
+- Review cycles: cycle one correctness of frame, law gate, mechanical-only set, recorded rejection, and Q1-only scope with file and line findings; cycle two safety of scope and must-not-touch; no third cycle needed.
+
+## 9. return path and ledgers and close
+
+- Return path: a rejected output returns to vantrilex-github with missing fields named; the receiver never edits bytes.
+- Must-run ledger: no verification command runs from this authoring pass; the node's landing and sealing commands are ledgered with exits in for-vanzen/seal-0.9.66.md; every dependent claim is unverified from this seat until the verifier leg runs.
+- Must-not-touch ledger: closed tags and closed content untouched; R8 tools and R11 channel untouched; icon-repo guess untouched by refusal to guess; exclusions untouched; unruled candidates untouched by refusal to invent; cost-lines untouched; invented numbers and identities untouched by refusal to invent; 1.0.0 untouched; AGENT.md untouched; WORKFLOW.md untouched; arabic-library.md and 0.9.34 through 0.9.65 records byte-identical only, never edited; 0.9.67 through 0.9.73 drafts untouched; no merge, tag, publish, activation, or new library install.
+- Open items carried: the full tool list grows by need never in one batch; the icon-store reconciliation and the Saturday proposal settle at ruling inside the locked scope; nothing open on the strict-law discipline itself.
+- Close: speed stays mechanical with a gate that refuses thinking tools and a rejection on record, so no velocity is ever bought with judgment.
