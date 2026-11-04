@@ -368,6 +368,9 @@ export function parseCatalogMarkdown(text, { path = CATALOG_MD } = {}) {
 
 /* ---------- sidecars ---------- */
 
+/* A sidecar is a *.jsonl file directly in registry/data/; overlaps.yaml is a
+ * relations map, NOT a sidecar. The count is 16; the audit 17 is the
+ * directory-entry count (16+1), NOT a sidecar count. */
 const SIDECAR_FILES = new Map([
   ['skill', 'skills.jsonl'],
   ['mcp', 'mcp.jsonl'],

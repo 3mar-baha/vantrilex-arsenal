@@ -127,6 +127,9 @@ const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
 
 // kind -> canonical register. catalog.json is regenerated from these sidecars,
 // so a selected token that is absent here has no register behind the mirror.
+// Counts: a sidecar is a *.jsonl file directly in registry/data/; overlaps.yaml
+// is a relations map, NOT a sidecar. The count is 16; the audit 17 is the
+// directory-entry count (16+1), NOT a sidecar count.
 const SIDECAR_FILES = {
   agent: "agents.jsonl",
   benchmark: "benchmarks.jsonl",
