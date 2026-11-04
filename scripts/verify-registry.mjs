@@ -16,6 +16,9 @@ import {
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const ROOT = dirname(dirname(SCRIPT_PATH));
 const CATALOG_MD = join(ROOT, 'registry', 'VANTRILEX_CATALOG.md');
+// overlaps.yaml is a relations map in registry/data/, NOT a sidecar: a
+// sidecar is a *.jsonl file directly in registry/data/. The sidecar count is
+// 16; the audit 17 is the directory-entry count (16+1), NOT a sidecar count.
 const OVERLAPS_YAML = join(ROOT, 'registry', 'data', 'overlaps.yaml');
 
 const MAX_REPORTED = 20;

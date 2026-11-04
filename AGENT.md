@@ -699,6 +699,8 @@ Streams observed in flight (uncommitted worktree state, same date):
 
 - 2026-10-26 — §PUBLISH-0.9.0 G9-ROUND2-FINAL W1 `g9-fix2` LANDED PARTIAL & BLAZAR-VERIFIED (fixer LOW; 0 repairs — this IS the second and final round, no loop). Ledger `.opencode/audit/PUBLISH-090/g9-fix2.md` read back (BEFORE 67 lines match guard+g9-fix+g9-rerun2; AFTER 4-file exit 1 with 2 lines `V2:11 MD025` + `V3:116 MD025` retained titles, subset of BEFORE; MD001×5 gone via demotion re-check, never directly edited; state MD034×8 + MD037×3 gone, AGENT+WORKFLOW exit 0). Demotions exactly the guard's 22+27 `#`→`##` (V2 +22B, V3 +27B, titles 1/11 + 1/116 stay `#`, text unchanged, LF/CR preserved); state markup only (`<>` + `\`, +16 chars +8 backslashes, intake entries preserved except those marks). Zero new violations; files DIRTY AND UNCOMMITTED; no commit/push/tag. Next per order steps 3–5 (no loop): W2 `g9-fix2-commit` (ONE commit on `main` after `17eef0a`, exactly the 4 W1 files, honestly carrying the W0 intake + W0/W1 checkpoints since same files) → W3 `g9-rerun3` (G9 at second-round commit, expect FAIL on the 2 retained titles) → STOP + report if FAIL (no W4/W5/W6). Status: `acknowledged awaiting verification`.
 
+- 2026-11-04 — §APPROVE-ALL §CREATION-METHODOLOGY-FIX (owner ruling 2026-11-02): creation-and-sending methodology — agent/factory CREATES skills, agents, suggestions and EVERYTHING sent to factory WITHOUT consulting user, with IMMEDIATE APPLICATION; governs ALL future creation; append-only, does not rewrite closed/published records.
+
 ## Decisions
 
 - Single-writer law: each `registry/data/*.jsonl` sidecar has exactly one

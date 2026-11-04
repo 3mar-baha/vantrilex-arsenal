@@ -69,6 +69,7 @@ injected) beside 40 candidates in `registry/candidates/`. The catalog recount
 stands at 20 default-selected components, enriched from 16 sidecars merged by
 the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
 lsp, mcp, plugins, policies, prompts, skills, templates, themes, workflows).
+A sidecar is a `*.jsonl` file directly in `registry/data/`; `overlaps.yaml` is a relations map, not a sidecar. The count is 16; the audit 17 is the directory-entry count (16+1), not a sidecar count.
 Tier-1 components — Python, UI, team-flow, and design-system components — are
 added by Vanguard only when the project requires them. The 8-MCP cap and the
 phase-scoping rule that keep the kit affordable are documented in

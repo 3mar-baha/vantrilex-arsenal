@@ -34,6 +34,7 @@ declared default-selected count must match the parsed flags.
 ## The JSONL sidecar merge rule
 
 Sixteen sidecars enrich the sixteen kinds, with explicit plural filenames:
+A sidecar is a `*.jsonl` file directly in `registry/data/`; `overlaps.yaml` is a relations map, not a sidecar. The sidecar count is 16; the audit figure 17 is the `registry/data/` directory-entry count (16 + 1), not a sidecar count.
 
 | Kind | Sidecar file |
 |---|---|

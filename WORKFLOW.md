@@ -65,6 +65,7 @@ injects — never an id alone, never a printed table.
 - 2026-10-14 — NODE T3 pointer merge: no methodology change. Part B turns over to the NODE T3 workflow; standing method stands as seeded.
 - 2026-10-17 — New-technology rule (owner-taught): when a new technology enters the lane, UNDERSTAND it first, then FORGE the agent + skills that own it, then USE them — never just configure. Stands in Part A from this date.
 - 2026-10-17 — Live-proof rule (owner-taught): fixture-only proof NEVER closes a live-data gate; a live-data feature closes on live-path evidence plus owner visual/buzz where ordered. Stands in Part A from this date.
+- 2026-11-04 — §CREATION-METHODOLOGY-FIX (owner ruling 2026-11-02): creation-and-sending methodology — agent/factory CREATES skills, agents, suggestions and EVERYTHING sent to factory WITHOUT consulting user, with IMMEDIATE APPLICATION; governs ALL future creation. Laws file and factory workflow notes: NOT-FOUND in this repo (verified absence 2026-11-04, recorded as absent, invent nothing). Append-only; does not rewrite closed/published records.
 
 ## Part B — Current-task workflow
 
