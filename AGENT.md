@@ -17,46 +17,25 @@ the docs describe the tree as it is.
 
 ## Current state
 
-Branch `wt/vta-factory-p0`, observed 2026-10-18. `HEAD` is `c7c762c` (the V-REMEDIATE park; parent `66d0e45`), pushed and remote-confirmed. The newest tag is `v0.7.7` (released 2026-10-15 per the release records below; the tag `v7.5` is the 0.7.5 release — its CHANGELOG heading reads `[0.7.5]`). The factory program P0→P5 (`v0.8`→`v8.6` labels) lives only in plan prose, not as tags. The worktree still carries the uncommitted factory-lane state by owner ruling; see `.opencode/audit/V87-ENUM.md` for the full version enumeration. Earlier "current state" observations below are history, not current fact.
+Branch wt/v2-consolidation (worktree base main), observed and last verified
+2026-11-05. HEAD is b0c005b23dbaac9a8b408a55227bbc811e29b57e; the newest tag
+is v0.9.74. The worktree carries the uncommitted W0/W1 diffs for mission
+ARSENAL-AUDIT-EXEC-001 (see the task-log entries below); no commit, push, tag, or
+release has been made from this lane.
 
-Streams observed landed (merged commits in `git log`, HEAD history):
+Live tree counts (measured 2026-11-05, not transcribed):
 
-- Red-team findings remediation (`53275ec`, `1a03c09`).
-- Full defect remediation sweep: plugin crash fix, lock cleanup, agents,
-  skills, release, V2 research (`4d05cd2`, `ea0eef8`).
-- Install-command honesty: 623 commands nulled, then 336 repointed to
-  proven commands (`4322ffa`, `8168db4`, `4058cb5`, `27054a5`).
-- Phantom catalog retirement (36 commands) with `cli` wired into the
-  generator (`cf75e7c`, `7fd70e3`); `cli` kind scaffolding and audit fixes
-  (`a121c85`, `9a12047`).
-- Direct install commands for the three skills (`a8bf204`, `425cfc6`).
-- Documentation reconciliation and Arabic visuals (`90d1fd3`, `5dbdfb9`,
-  `101247a`, `13016d1`).
-- Task-dispatcher migration to the OpenCode V2 `setup()` surface
-  (`e437684`, `ee096c8`, `4c44599`, `fce8bd4`, `b64d044`, `06db084`,
-  `bd73e04`).
+- Agents: 28 files under .opencode/agents/.
+- Skills: 43 directories under .opencode/skills/.
+- Commands: 16 files (12 under .opencode/commands/ + 4 under .opencode/command/).
+- Catalog: 2,889 entries in registry/catalog.json (17 sidecars under registry/data/).
+- Lock: abolished at S3 (Cluster 1); lock (abolished) is absent.
 
-Streams observed in flight (uncommitted worktree state, same date):
+Last verified: 2026-11-05 (HEAD, tag, branch, and counts above re-measured on
+this date; the 0.9.75-depth4 raise is applied in the worktree but not committed
+--- see the 2026-11-05 task-log entry).
 
-- Staged renames: `.opencode/agent/*.md` to `.opencode/agents/*.md`
-  (nine agent files).
-- Modified: the plugin (`arsenal.ts`, `arsenal.findings-probe.mjs`), four
-  skills (doctrine, prime, vanguard, design-variations), `AI_GUIDE.md`,
-  both READMEs, eight `docs/` pages plus seven SVG assets, `kit/kit.lock`,
-  the catalog mirror and markdown, two registry sidecars (`lsp.jsonl`,
-  `skills.jsonl`), both per-kind indexes (`lsp`, `skills`), and both
-  verify scripts — 43 changed files in total per `git diff --stat`
-  (recounted 2026-10-14; 41 was the seeding-time undercount).
-- Untracked (9 per `git status --porcelain`, 2026-10-14):
-  `.opencode/agents/blazar.md`,
-  `.opencode/skills/vantrilex-vanguard/assets/agent-md-template.md`,
-  `.opencode/skills/vantrilex-vanguard/assets/companion-config.template.jsonc`,
-  `.opencode/skills/vantrilex-vanguard/assets/workflow-md-template.md`,
-  `.opencode/skills/vantrilex-workflow-forge/` (new skill), `AGENT.md`
-  (this file), `WORKFLOW.md` (sibling lane file), `registry/cli/`, and
-  `registry/data/cli.jsonl`.
-- A sibling CK session runs concurrently on lock/catalog files; those
-  files are disjoint from this lane's three owned files.
+Earlier "current state" observations below are history, not current fact.
 
 ## Task log
 
@@ -701,6 +680,10 @@ Streams observed in flight (uncommitted worktree state, same date):
 
 - 2026-11-04 — §APPROVE-ALL §CREATION-METHODOLOGY-FIX (owner ruling 2026-11-02): creation-and-sending methodology — agent/factory CREATES skills, agents, suggestions and EVERYTHING sent to factory WITHOUT consulting user, with IMMEDIATE APPLICATION; governs ALL future creation; append-only, does not rewrite closed/published records.
 
+- 2026-11-05 — §ARSENAL-AUDIT-EXEC-001 W0 `d4-docs` (vantrilex-scribe; Scenario 2 — same task, unchanged; leader-seat Vanguard not seated on this seat, rule applied and recorded). Recorded: the 0.9.75-depth4 raise is applied in the `wt/v2-consolidation` worktree (HEAD `b0c005b` plus the uncommitted W0 node diffs) — `.opencode/plugin/arsenal.ts` `config:` hook now raises the `experimental.subagent_depth` floor 3 to 4 (raise-only, idempotent, fail-closed; missing `experimental` initialised to `{ subagent_depth: 4 }`; `null`/array/non-object `experimental` and non-number/non-integer depths left untouched; integer values above 4 unchanged and never lowered; exactly 4 is a no-op; no other key touched). Installer/template surfaces carry 4 (`vantrilex-vanguard/SKILL.md` and `vs-vantrilex-vanguard/SKILL.md` companion tables; `.opencode/skills/vantrilex-vanguard/assets/companion-config.template.jsonc`). New doc `docs/0.9.75-depth4-spec.md` (EN-only; successor to the untouched `docs/0.9.33-depth3-spec.md`); CHANGELOG gains `[0.9.75]` (2026-11-05, PARKED, UNRELEASED); executable proof `scripts/d4-depth-proof.mjs` ran 2026-11-05 (exit 0; 16 pass / 0 fail). Applied in worktree but NOT committed and NOT pushed; no tag, no release, no publish; landing belongs to the directing leader via the github lane. Status: `acknowledged awaiting verification`.
+
+- 2026-11-05 — §ARSENAL-AUDIT-EXEC-001 W1 w1-agent-state (vantrilex-scribe; MFT-070 + MFT-132): rewrote the "Current state" section from the live tree (HEAD b0c005b, tag v0.9.74, branch wt/v2-consolidation, counts re-measured); added this task-log entry; added the MFT-132 rule to root AGENT.md (a version file may cite only files its own diff touches; docs/AGENT.md not created). Insert-only except the Current-state rewrite; no other file changed. Status: draft returned; implementer writes; Guide verifies.
+
 ## Decisions
 
 - Single-writer law: each `registry/data/*.jsonl` sidecar has exactly one
@@ -722,6 +705,8 @@ Streams observed in flight (uncommitted worktree state, same date):
 - NODE T3 single-home ruling 2026-10-14: each merged item lives in exactly one root file — standing directives in `AGENTS.md`, orchestration/verification/runtime method in `WORKFLOW.md` Part B, lane records here; the other files point, never restate. Sourced from the NODE T3 work order; decider: the dispatching session.
 - NODE T3 lane discipline 2026-10-14: this lane writes only the three owned files, makes no commit, and uses free models only. Observance is recorded here; the standing rules live in `AGENTS.md` and carry no copy here. Sourced from the NODE T3 work order; decider: the dispatching session.
 - Orchestrator-only write 2026-10-14: only the orchestrator writes this file, after every task, rotating closed entries into `docs/agent-log-YYYY-MM.md`. Sourced from doctrine Ritual 2; decider unverified — the doctrine states the role and no decision record names one.
+
+- MFT-132 rule (2026-11-05): a version file may cite only files its own diff touches. A citation to a file the version change did not touch is a defect. No docs/AGENT.md is created; the rule lives here in the root AGENT.md. Sourced from mission ARSENAL-AUDIT-EXEC-001 MFT-132; decider: the dispatching session (Guide).
 
 ## Open items & next actions
 

@@ -1,6 +1,6 @@
 # Build record 0.9.39 Shape Law Substance Ruling First
 
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Build the 0.9.39 Shape Law from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.39.md
 Acceptance: 0.9.39 feature (shape law where standard naming and shape items follow the substance ruling, never precede it, per for-vanzen/0.9.39.md sections 4 through 5 plus contract section 3) built and committed byte-identically on wt/0.9.39-vanzen with nine numbered sections, English-only, triple-only tables, blank lines around headings and lists, and no invented content; no activation; Nova plus 0.9.34 through 0.9.38 locked untouched; 0.9.40 through 0.9.73 untouched; no 1.0, post, or dsh paths.

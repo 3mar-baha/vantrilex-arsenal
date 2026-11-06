@@ -1,6 +1,6 @@
 # Build record 0.9.69 Best-Test Plus OpenCode Tracking With No Add-On
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.69 Best-Test Plus OpenCode Tracking With No Add-On from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.69.md
 Acceptance: Build the 0.9.69 platform tracking and best-test methodology from the locked source bytes by the header acceptance (Tracking mechanism lands working plus adaptation suite proves each new build plus research-grounded test methodology lands documented plus docs-first decision on layer versus manual equivalent plus no add-on on later builds plus per the locked plan with nothing invented plus no cost-lines built plus no heal loop plus the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.69 Best-Test Plus OpenCode Tracking With No Add-On`, §4/§5 only from for-vanzen/0.9.69.md §§3–5; exactly two files committed byte-identically to wt/0.9.69-vanzen with message `source(0.9.69): commit built bytes for sealing` and parent origin/main caa510b6780dfaeeaa974e34a8e5783b61c16af8; seal-0.9.69.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.68 locked untouched; 0.9.70 through 0.9.73 untouched; no 1.0, post, or dsh paths.

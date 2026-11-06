@@ -1,6 +1,6 @@
 # Build record 0.9.42 Showcase Builder Skill Completes The Second Html Folder
 
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Build the 0.9.42 Showcase Builder Skill Completes The Second Html Folder from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.42.md
 Acceptance: Build the 0.9.42 feature from the locked source bytes by the header acceptance (showcase skill present with its own method plus model outputs in html/showcase-builder/ plus V-HTML_DESIGN standing unchanged, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.42 Showcase Builder Skill Completes The Second Html Folder`, §4/§5 only from for-vanzen/0.9.42.md §§3–5; exactly two files committed byte-identically to wt/0.9.42-vanzen with message source(0.9.42): commit built bytes for sealing and parent origin/main e84f02c1ee15d1c47aaac720aaa3a5966f73d101; seal-0.9.42.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.41 locked untouched; 0.9.43 through 0.9.73 untouched; no 1.0, post, or dsh paths.

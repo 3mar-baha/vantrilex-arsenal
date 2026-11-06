@@ -1,6 +1,6 @@
 # Build record 0.9.49 Cap Twenty On Non-Essentials Only
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.49 Cap Twenty On Non-Essentials Only from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.49.md
 Acceptance: Build the 0.9.49 cap on non-essentials from the locked source bytes by the header acceptance (Cap 20 enforced on non-essentials per project with essentials out of count yet always measured and essentials counted inside the cap refused, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.49 Cap Twenty On Non-Essentials Only`, §4/§5 only from for-vanzen/0.9.49.md §§3–5; exactly two files committed byte-identically to wt/0.9.49-vanzen with message source(0.9.49): commit built bytes for sealing and parent origin/main d3cef29638ebe8d81a1a9f2d5ac1951d2a266ef6; seal-0.9.49.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.48 locked untouched; 0.9.50 through 0.9.73 untouched; no 1.0, post, or dsh paths.

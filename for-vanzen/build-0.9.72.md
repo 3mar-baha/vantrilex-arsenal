@@ -1,6 +1,6 @@
 # Build record 0.9.72 Three Copies On OpenCode With Simple Surface And Ruled Primacy
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.72 Three Copies On OpenCode With Simple Surface And Ruled Primacy from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.72.md
 Acceptance: Build the 0.9.72 three copies on OpenCode from the locked source bytes by the header acceptance (Three agents land with distinct proven behavior plus simple surface holds with recommendation and single action in routine plus primacy ruling recorded before build plus per the locked plan with nothing invented plus no modes on OpenCode plus no dsh plus no core or Vega touch plus the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.72 Three Copies On OpenCode With Simple Surface And Ruled Primacy`, §4/§5 only from for-vanzen/0.9.72.md §§3–5; exactly two files committed byte-identically to wt/0.9.72-vanzen with message `source(0.9.72): commit built bytes for sealing` and parent origin/main 78a18c1456f5751136b9164cce6d3ddb4df96bb2; seal-0.9.72.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.71 locked untouched; 0.9.73 untouched; no 1.0, post, or dsh paths.

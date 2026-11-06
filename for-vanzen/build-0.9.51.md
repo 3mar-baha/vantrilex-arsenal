@@ -1,6 +1,6 @@
 # Build record 0.9.51 First-Intervention Measure Nine Over Ten Goal Not Law
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.51 First-Intervention Measure Nine Over Ten Goal Not Law from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.51.md
 Acceptance: Build the 0.9.51 first-intervention measure from the locked source bytes by the header acceptance (First-intervention measure recorded with 9/10 held as goal never law and weak marks counted and reported with no invented fail threshold, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.51 First-Intervention Measure Nine Over Ten Goal Not Law`, §4/§5 only from for-vanzen/0.9.51.md §§3–5; exactly two files committed byte-identically to wt/0.9.51-vanzen with message source(0.9.51): commit built bytes for sealing and parent origin/main 7e5aa873ea5483e22dfa3da315e1e909cdfc88ef; seal-0.9.51.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.50 locked untouched; 0.9.52 through 0.9.73 untouched; no 1.0, post, or dsh paths.

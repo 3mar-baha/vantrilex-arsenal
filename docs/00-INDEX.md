@@ -2,12 +2,40 @@
 
 This index maps the documentation set for the Vantrilex Arsenal repository
 itself: the OpenCode plugin plus the component registry. The numbered series
-runs `00` through `21` — 22 files — and the `docs/` tree holds 42 markdown
-files in all: the numbered series (22), the Arabic mirror set (`ar/`, 8 files),
-the developer set (`dev/`, 10 files), and the two `spec/` inputs. It does not
-document any target project. Target-project documentation is a separate,
-runtime-generated set (the 28-file system described by reference in
-[04-VANGUARD.md](04-VANGUARD.md)); nothing in this set duplicates it.
+runs `00` through `21` — 22 files — and the `docs/` tree holds 98 markdown
+files in all, recounted this run (`find docs -name '*.md' | wc -l` = 98): the top
+level (24: the 22 numbered files plus `0.9.33-depth3-spec.md` and
+`0.9.75-depth4-spec.md`), the Arabic mirror set (`ar/`, 8 files), the
+developer set (`dev/`, 10 files), the spec inputs (`spec/`, 11 files across
+`spec/`, `spec/post87/`, and `spec/v87/`), and the archive
+(`99-archive/`, 45 files). It does not document any target project.
+Target-project documentation is a separate, runtime-generated set (the 28-file
+system described by reference in [04-VANGUARD.md](04-VANGUARD.md)); nothing in
+this set duplicates it.
+
+## Subtree coverage
+
+Every subtree on disk is accounted for above. The index does not link into
+`99-archive/` or the `spec/` subdirectories entry by entry, because those
+are provenance and audit material rather than the numbered user-facing series;
+their counts are stated here so the total stays honest:
+
+| Subtree | Markdown files | Covered by this index |
+|---|---|---|
+| `docs/` (top level) | 24 | Yes — the file map below lists the numbered series; the two depth specs are named above |
+| `docs/ar/` | 8 | Yes — mirror set, paired with the English series |
+| `docs/dev/` | 10 | Yes — developer notes, indexed in `dev/00-INDEX.md` |
+| `docs/dev/post87/` | 0 | Not applicable — directory absent on disk; v8.7 work lives under `spec/` |
+| `docs/dev/v87/` | 0 | Not applicable — directory absent on disk; v8.7 work lives under `spec/` |
+| `docs/spec/` | 3 | Yes — the two authoritative inputs plus `0.9.5-EVAL-HARNESS.md` |
+| `docs/spec/post87/` | 1 | Named here only (`BLUEPRINT.md`); provenance, read-only |
+| `docs/spec/v87/` | 7 | Named here only; provenance, read-only |
+| `docs/99-archive/` | 45 | Counted here only; provenance, not linked entry by entry |
+| `docs/assets/` | 0 | Not applicable — holds charts and tables, no markdown |
+
+`0.9.33-depth3-spec.md` (top level): draft-unlanded spec for the depth-3
+apply-time raise of `experimental.subagent_depth`, idempotent and verifiable,
+nothing beyond depth 3; landing belongs to the `d33-spec-land` node.
 
 Four top-level skills divide the work, and this set covers them in order:
 Prime, the once-per-machine orientation skill, in

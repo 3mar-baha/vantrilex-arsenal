@@ -1,6 +1,6 @@
 # Build record 0.9.36 Questions System Sequential Per Project Options
 
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Implement the 0.9.36 Questions System feature as draft bytes inline using only existing inputs and never inventing content.
 Artifact: for-vanzen/build-0.9.36.md
 Acceptance: 0.9.36 feature (questions system sequential form plus per-project options plus written ceiling distinct from grill ceiling, per for-vanzen/0.9.36.md sections 4 through 5 plus decided inputs section 3) drafted as bytes inline with nine numbered fields, English-only, triple-only tables, markdownlint-clean whitespace with blank lines around headings and lists, no invented content; no activation; Nova plus 0.9.34 plus 0.9.35 locked untouched; 0.9.37 through 0.9.73 untouched; no 1.0, post, or dsh paths.

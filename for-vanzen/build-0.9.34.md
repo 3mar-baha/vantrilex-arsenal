@@ -1,5 +1,5 @@
 # Build record 0.9.34 Full Audit Opening Act
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Land the 0.9.34 audit opening act as locked-verified bytes with verification date, using only existing inputs and never inventing content.
 Artifact: for-vanzen/build-0.9.34.md
 Acceptance: Nine numbered fields present; what landed plus file bytes plus verification date plus Must-run exits quoted triple-only; every landing path listed; no invented content; no activation; records-closed preserved.

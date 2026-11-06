@@ -87,6 +87,7 @@
  * package installed can assert compatibility with a single line of throwaway
  * type-checking; this module itself stays dependency-free and compiles clean.
  */
+export const PLUGIN_VERSION = "0.9.75"
 
 export type PluginLevel = "debug" | "info" | "warn" | "error"
 
@@ -3447,6 +3448,7 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
   const root = firstUsableRoot(ctx?.location?.directory, rt.proc.cwd()) ?? rt.proc.cwd()
   const arsenal = createContext(rt, root, undefined)
   reportRuntimeDegradation(arsenal)
+  log(arsenal, "info", `vantrilex-arsenal plugin ${PLUGIN_VERSION} loaded`)
 
   // Six-hook capability probe (م-3): observe the context once, log one line per
   // hook, and queue the same lines for the first tool result. Registration
@@ -3591,24 +3593,24 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
     config: (cfg: unknown): void => {
       if (!cfg || typeof cfg !== "object") return
       ctx.config = readConfig(rt, root)
-      // 0.9.33-depth3 apply-time raise ([N2]-[N4]): raise-only, idempotent,
+      // 0.9.75-depth4 apply-time raise ([N2]-[N4]): raise-only, idempotent,
       // apply-only (this hook fires at apply time, never at plan, verify,
-      // publish, or record time). Missing or <3 -> 3; >3 untouched, never
+      // publish, or record time). Missing or <4 -> 4; >4 untouched, never
       // lowered ([N3]); no other key touched ([N4]). Fail-closed ([N6]): any
       // doubt about the current value leaves cfg untouched.
       const holder = cfg as { experimental?: unknown }
       if (holder.experimental === undefined) {
-        holder.experimental = { subagent_depth: 3 }
+        holder.experimental = { subagent_depth: 4 }
         return
       }
       if (!holder.experimental || typeof holder.experimental !== "object" || Array.isArray(holder.experimental)) return
       const depthRecord = holder.experimental as { subagent_depth?: unknown }
       if (depthRecord.subagent_depth === undefined) {
-        depthRecord.subagent_depth = 3
+        depthRecord.subagent_depth = 4
         return
       }
       if (typeof depthRecord.subagent_depth !== "number" || !Number.isInteger(depthRecord.subagent_depth)) return
-      if (depthRecord.subagent_depth < 3) depthRecord.subagent_depth = 3
+      if (depthRecord.subagent_depth < 4) depthRecord.subagent_depth = 4
     },
 
     event: async (envelope: EventEnvelope): Promise<void> => {

@@ -1,6 +1,6 @@
 # Build record 0.9.35 Permanent Laws Plus Session Rules
 
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Implement the 0.9.35 Permanent Laws Plus Session Rules feature as draft bytes inline using only existing inputs and never inventing content.
 Artifact: for-vanzen/build-0.9.35.md
 Acceptance: Nine numbered fields present; permanent laws plus session rules per 0.9.35.md sections 4 through 5 plus decided inputs section 3 drafted with no invented content; English-only; tables triple-only; no activation; Nova plus 0.9.34 locked untouched; 0.9.36 through 0.9.73 untouched; no 1.0, post, or dsh paths.

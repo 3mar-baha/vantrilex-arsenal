@@ -1,6 +1,6 @@
 # Build record 0.9.41 Version Folder The Evidence Itself
 
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Build the 0.9.41 Version Folder from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.41.md
 Acceptance: 0.9.41 feature (one version folder as a full closing stage with its eight contents plus index plus item-by-item closing comparison plus freeze with dated addenda only, per for-vanzen/0.9.41.md sections 4 through 5 plus contract section 3) built and committed byte-identically on wt/0.9.41-vanzen with nine numbered sections, English-only, triple-only tables, blank lines around headings and lists, and no invented content; no activation; Nova plus 0.9.34 through 0.9.40 locked untouched; 0.9.42 through 0.9.73 untouched; no 1.0, post, or dsh paths.

@@ -1,6 +1,6 @@
 # Build record 0.9.73 Full Audit Improvement From Detailed Report To Evidence Explanation
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.73 Full Audit Improvement From Detailed Report To Evidence Explanation from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.73.md
 Acceptance: Build the 0.9.73 full audit improvement from the locked source bytes by the header acceptance (Explanation layer lands plus conclusions land plus additions land as study candidates plus expansion lands by important sections plus discipline holds with Law-13 plus file-line citations plus single file plus 1000-plus lines plus rerun test plus per the locked plan with nothing invented plus the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.73 Full Audit Improvement From Detailed Report To Evidence Explanation`, §4/§5 only from for-vanzen/0.9.73.md §§3–5; exactly two files committed byte-identically to wt/0.9.73-vanzen with message `source(0.9.73): commit built bytes for sealing` and parent origin/main dcd7b801c2599553cf4b5d492e58e0240cc14077; seal-0.9.73.md ten values all PASS or STOP; holder removed; every exit quoted; report the TRUE insertion count; no activation; no new library install; Nova plus 0.9.34 through 0.9.72 locked untouched; no 1.0, post, or dsh paths.
@@ -23,7 +23,7 @@ last_verified: unverified — no verification run from this seat; verifier leg s
 
 ## 3. mission and contract reference
 
-- Mission: FIX-AND-WORK-SEQ lane build+publish, mission SEQ-RESUME-2026-11-02, node b-0973; turn the locked for-vanzen/0.9.73.md into built, committed, sealed source as the FINAL version.
+- Mission: FIX-AND-WORK-SEQ lane build+publish, mission SEQ-RESUME-2026-11-02, node b-0973; turn the locked for-vanzen/0.9.73.md into built, committed, sealed source as the version superseded by v0.9.74.
 - Contract: concern plus artifact plus acceptance per dispatch; May read for-vanzen/0.9.73.md, the build and seal shape records, the publish record, and the live repo/remote; Must leave for-vanzen/build-0.9.73.md, for-vanzen/seal-0.9.73.md, and remote branch wt/0.9.73-vanzen only; Must run the named fetch, holder, commit, push, seal, and holder-removal commands with every exit quoted; Must not touch AGENT.md, WORKFLOW.md, every other for-vanzen file, the primary worktree state, any other ref or tag, any push besides the one branch push, activation, any new library install, 1.0/post/dsh, or the bytes of 0.9.73.md.
 - Decided inputs folded in (from 0.9.73.md section 3 only, nothing added): numbers 0.9.34 through 0.9.73 approved; owner order 2026-10-31 improving the full audit into what plus how plus where plus why plus evidence conclusions plus possible additions; owner Q23 ruling of option b with expansion; imminent audit in the improved form via a replacement V-FULL-AUDIT order as decided; this version timed last in the draft as a new mechanism scope closing the draft not the window; ONE folder for-vanzen; no 1.0.0.
 

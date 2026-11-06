@@ -440,7 +440,7 @@ matches.
 | `default_agent` | `blazar` |
 | `build` lane | disabled |
 | `plan` lane | disabled |
-| `experimental.subagent_depth` | `1` |
+| `experimental.subagent_depth` | `4` |
 | `compaction` keeps | tokens and buffer only |
 
 BLAZAR installs under the same law as every component: a verified vector

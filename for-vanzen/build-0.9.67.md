@@ -1,6 +1,6 @@
 # Build record 0.9.67 TokenEconomizer Triple-Adapted With No Product Runtime And Pass@1 Companion
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.67 TokenEconomizer Triple-Adapted With No Product Runtime And Pass@1 Companion from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.67.md
 Acceptance: Build the 0.9.67 cost governor from the locked source bytes by the header acceptance (Three adapted mechanisms land working with no product runtime plus Pass@1 companion with SWE numbers never ours plus local-first learned state plus Arsenal-load measurement plus per the locked plan with nothing invented plus no cost-lines built plus no heal loop plus the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.67 TokenEconomizer Triple-Adapted With No Product Runtime And Pass@1 Companion`, §4/§5 only from for-vanzen/0.9.67.md §§3–5; exactly two files committed byte-identically to wt/0.9.67-vanzen with message `source(0.9.67): commit built bytes for sealing` and parent origin/main 9542c4fff0e05e4d16c7d24c9b2cc1528f35c5b2; seal-0.9.67.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.66 locked untouched; 0.9.68 through 0.9.73 untouched; no 1.0, post, or dsh paths.

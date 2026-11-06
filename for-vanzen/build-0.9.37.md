@@ -1,6 +1,6 @@
 # Build record 0.9.37 Parallel Law
 
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Implement the 0.9.37 Parallel Law feature as draft bytes inline using only existing inputs and never inventing content.
 Artifact: for-vanzen/build-0.9.37.md
 Acceptance: 0.9.37 feature (parallel law for maximum side agents via leaders without harm, per for-vanzen/0.9.37.md sections 4 through 5 plus decided inputs section 3: owner ruling 2026-10-29 14:47 parallel plus serial-publish amendment) drafted as bytes inline with nine numbered fields, English-only, triple-only tables, markdownlint-clean whitespace with blank lines around headings and lists, no invented content; no activation; Nova plus 0.9.34 through 0.9.36 locked untouched; 0.9.38 through 0.9.73 untouched; no 1.0, post, or dsh paths.

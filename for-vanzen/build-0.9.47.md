@@ -1,6 +1,6 @@
 # Build record 0.9.47 Gear Sync Lands In Every New Session
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.47 Gear Sync Lands In Every New Session from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.47.md
 Acceptance: Build the 0.9.47 gear sync fix from the locked source bytes by the header acceptance (New session installs new gear with non-empty selection on every OpenCode with empty selection refused and single-session install refused, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.47 Gear Sync Lands In Every New Session`, §4/§5 only from for-vanzen/0.9.47.md §§3–5; exactly two files committed byte-identically to wt/0.9.47-vanzen with message source(0.9.47): commit built bytes for sealing and parent origin/main 0c61da843e89ce17281b50da74fdf0203bc82152; seal-0.9.47.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.46 locked untouched; 0.9.48 through 0.9.73 untouched; no 1.0, post, or dsh paths.

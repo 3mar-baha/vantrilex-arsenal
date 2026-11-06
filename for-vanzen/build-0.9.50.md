@@ -1,6 +1,6 @@
 # Build record 0.9.50 Core Mechanism Manifest Load Order Failure Protocol
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.50 Core Mechanism Manifest Load Order Failure Protocol from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.50.md
 Acceptance: Build the 0.9.50 core mechanism manifest, load order, and failure protocol from the locked source bytes by the header acceptance (Core manifest shipped with load order plus failure protocol proven per session with silent failure refused, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.50 Core Mechanism Manifest Load Order Failure Protocol`, §4/§5 only from for-vanzen/0.9.50.md §§3–5; exactly two files committed byte-identically to wt/0.9.50-vanzen with message source(0.9.50): commit built bytes for sealing and parent origin/main d019603969de4d47ad84c1eddfd5f59b62700b7f; seal-0.9.50.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.49 locked untouched; 0.9.51 through 0.9.73 untouched; no 1.0, post, or dsh paths.

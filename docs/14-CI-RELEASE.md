@@ -206,3 +206,61 @@ explicitly.
 `release.yml` is retired. `auto-publish.yml` is the sole asset writer: it runs
 when a release is published, uploads exactly one artifact, and a `v*` tag push
 starts no CI run.
+
+## Publish accounting - v0.9.34 through v0.9.74
+
+Lane key: standing-tag lane - one GitHub release per tag that already exists, created from the tag with no re-tagging and no asset upload. No publish gate runs on this lane; the only automated gate is the CI run on the push that landed the tag commit, and it exited success for every row below. The auto-publish workflow also fires on each of these releases and exits 0 with an owner-gated notice, because the guard is strictly ^v0.0.[0-9]+$ and none of these versions match; no asset is published and no release is marked latest by that workflow.
+
+Approver of record for every row is the tagger and release author 3mar-baha (GitHub login). Gate result is quoted from the CI run for the tag commit SHA; the auto-publish guard outcome is recorded alongside it.
+
+| Version | Tag date (UTC) | Commit | Lane | Gate result | Approver | Release published (UTC) |
+|---|---|---|---|---|---|---|
+| v0.9.34 | 2026-11-02 09:36:19Z | 5cb696080ece | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 09:36:24Z |
+| v0.9.35 | 2026-11-02 10:04:49Z | 4924f74c66df | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 10:04:57Z |
+| v0.9.36 | 2026-11-02 10:30:29Z | 1991a40ff0cb | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 10:30:31Z |
+| v0.9.37 | 2026-11-02 13:53:10Z | 55a7da4adaa8 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 13:53:42Z |
+| v0.9.38 | 2026-11-02 14:57:54Z | a4cabbb95747 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 14:58:22Z |
+| v0.9.39 | 2026-11-02 16:05:14Z | c7e33cdd1cab | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 16:05:29Z |
+| v0.9.40 | 2026-11-02 16:36:59Z | 678253d52985 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 16:37:09Z |
+| v0.9.41 | 2026-11-02 17:09:54Z | e84f02c1ee15 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 17:10:02Z |
+| v0.9.42 | 2026-11-02 17:41:04Z | 10cbc68017c7 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 17:41:15Z |
+| v0.9.43 | 2026-11-02 18:02:40Z | b98c102f5713 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 18:02:48Z |
+| v0.9.44 | 2026-11-02 18:25:50Z | 96f2fd4f681f | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 18:25:57Z |
+| v0.9.45 | 2026-11-02 18:50:41Z | 46a53cafe44b | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 18:50:48Z |
+| v0.9.46 | 2026-11-02 19:12:14Z | 0c61da843e89 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 19:12:23Z |
+| v0.9.47 | 2026-11-02 19:39:30Z | 41e4b4063f0c | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 19:39:46Z |
+| v0.9.48 | 2026-11-02 20:03:21Z | d3cef29638eb | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 20:03:30Z |
+| v0.9.49 | 2026-11-02 20:28:36Z | d019603969de | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 20:28:46Z |
+| v0.9.50 | 2026-11-02 20:56:40Z | 7e5aa873ea54 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 20:56:48Z |
+| v0.9.51 | 2026-11-02 21:20:58Z | c9a0395e4674 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 21:21:09Z |
+| v0.9.52 | 2026-11-02 21:43:39Z | 1934c8e02379 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 21:43:48Z |
+| v0.9.53 | 2026-11-02 22:09:38Z | 7119b24383fc | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 22:09:48Z |
+| v0.9.54 | 2026-11-02 22:32:51Z | 699dc3f3d206 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 22:33:00Z |
+| v0.9.55 | 2026-11-02 22:52:24Z | 063f80c302b9 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 22:52:36Z |
+| v0.9.56 | 2026-11-02 23:19:04Z | cd59a92d543c | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 23:19:11Z |
+| v0.9.57 | 2026-11-02 23:40:41Z | ea29d45d0f3d | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-02 23:40:50Z |
+| v0.9.58 | 2026-11-03 00:05:57Z | 9be335b90d95 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 00:06:08Z |
+| v0.9.59 | 2026-11-03 00:21:52Z | c053b82a3289 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 00:22:02Z |
+| v0.9.60 | 2026-11-03 00:42:42Z | bff487bccb73 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 00:42:47Z |
+| v0.9.61 | 2026-11-03 01:05:31Z | 264afc917926 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 01:05:36Z |
+| v0.9.62 | 2026-11-03 01:30:14Z | cbeb8659585e | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 01:30:18Z |
+| v0.9.63 | 2026-11-03 01:57:54Z | c9ff68a48058 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 01:58:02Z |
+| v0.9.64 | 2026-11-03 02:22:24Z | 9d7a1aed3896 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 02:22:34Z |
+| v0.9.65 | 2026-11-03 02:45:01Z | d2e800b7c168 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 02:45:10Z |
+| v0.9.66 | 2026-11-03 03:12:40Z | 9542c4fff0e0 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 03:12:51Z |
+| v0.9.67 | 2026-11-03 03:37:35Z | fd3b84d711ac | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 03:37:39Z |
+| v0.9.68 | 2026-11-03 04:01:11Z | caa510b6780d | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 04:01:20Z |
+| v0.9.69 | 2026-11-03 04:25:57Z | 329e57cb0bb4 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 04:26:05Z |
+| v0.9.70 | 2026-11-03 04:50:37Z | 03a712a1832c | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 04:50:45Z |
+| v0.9.71 | 2026-11-03 05:19:42Z | 78a18c1456f5 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 05:19:51Z |
+| v0.9.72 | 2026-11-03 05:43:13Z | dcd7b801c259 | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 05:43:22Z |
+| v0.9.73 | 2026-11-03 06:15:50Z | c585be7d56bf | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-03 06:16:00Z |
+| v0.9.74 | 2026-11-04 07:07:32Z | b0c005b23dba | standing-tag lane | CI success; auto-publish guard: owner-gated (no asset) | 3mar-baha | 2026-11-04 07:07:40Z |
+
+## The switch: .opencode/auto-release.enabled
+
+.opencode/auto-release.enabled is an owner-created, machine-local gate by design. It is never committed, never tracked, and never generated by the repository: a checkout cannot tell whether it is present, and no commit can assert its state. The repository therefore can never prove the switch state, and any claim about it from inside the repo is unverifiable.
+
+What CI can and does enforce is the repo half: for every tag, either a queue entry in .opencode/release-queue.jsonl (self-publish lane) or an asset-lane release record (standing-tag lane) must exist. That is the repo-side proof; the switch itself stays outside repo scope. Absence of the file disables the self-publish lane entirely and fail-closed.
+
+No process in this repository may create, commit, or infer the file. Its presence or absence is an owner decision made on the machine that runs the publisher, and the publisher refuses the lane when it is absent.

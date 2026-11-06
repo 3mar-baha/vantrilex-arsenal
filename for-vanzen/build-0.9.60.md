@@ -1,6 +1,6 @@
 # Build record 0.9.60 Skill Adoption Benefit Generous Cost Lines Deferred
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.60 Skill Adoption Benefit Generous Cost Lines Deferred from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.60.md
 Acceptance: Build the 0.9.60 skill adoption policy and its deferred cost lines from the locked source bytes by the header acceptance (the policy lands written with a trial adoption by benefit not count plus generosity governed plus cost lines absent as deferred, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.60 Skill Adoption Benefit Generous Cost Lines Deferred`, §4/§5 only from for-vanzen/0.9.60.md §§3–5; exactly two files committed byte-identically to wt/0.9.60-vanzen with message `source(0.9.60): commit built bytes for sealing` and parent origin/main c053b82a3289fdae02d9f53c393a497d7c2ddce7; seal-0.9.60.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.59 locked untouched; 0.9.61 through 0.9.73 untouched; no 1.0, post, or dsh paths.

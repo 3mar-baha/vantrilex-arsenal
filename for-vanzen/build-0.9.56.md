@@ -1,6 +1,6 @@
 # Build record 0.9.56 Initial Thinking Phase Explorer Boundary Inside Five
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.56 Initial Thinking Phase Explorer Boundary Inside Five from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.56.md
 Acceptance: Build the 0.9.56 initial thinking phase from the locked source bytes by the header acceptance (thinking phase lands for the Explorer with linked plus integration plus improvement proposals plus a never-merged Vega boundary plus inside-five timing, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.56 Initial Thinking Phase Explorer Boundary Inside Five`, §4/§5 only from for-vanzen/0.9.56.md §§3–5; exactly two files committed byte-identically to wt/0.9.56-vanzen with message `source(0.9.56): commit built bytes for sealing` and parent origin/main 063f80c302b93a9ec7ba81bfe55d9f3645c843dd; seal-0.9.56.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.55 locked untouched; 0.9.57 through 0.9.73 untouched; no 1.0, post, or dsh paths.

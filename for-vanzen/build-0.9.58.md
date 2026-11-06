@@ -1,6 +1,6 @@
 # Build record 0.9.58 Completion States Closure Gate Evidence Vocabulary
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.58 Completion States Closure Gate Evidence Vocabulary from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.58.md
 Acceptance: Build the 0.9.58 closure vocabulary and its contract gate from the locked source bytes by the header acceptance (closure reports land in the mandatory vocabulary with PASS on evidence plus a contract gate refusing draft and skipped tests, closing classified work, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.58 Completion States Closure Gate Evidence Vocabulary`, §4/§5 only from for-vanzen/0.9.58.md §§3–5; exactly two files committed byte-identically to wt/0.9.58-vanzen with message `source(0.9.58): commit built bytes for sealing` and parent origin/main ea29d45d0f3d05cd0db1a3f96bb2612a5472f013; seal-0.9.58.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.57 locked untouched; 0.9.59 through 0.9.73 untouched; no 1.0, post, or dsh paths.

@@ -1,6 +1,6 @@
 # Build record 0.9.40 File Structure For Any Project
 
-Status: draft-bytes-inline
+Status: landed-unverified
 Concern: Build the 0.9.40 File Structure from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.40.md
 Acceptance: 0.9.40 feature (one generic file tree with fixed roles and a variable project name plus a factory lift in three copies with the owner place open plus two distinct html folders plus both audit folds closed as text, per for-vanzen/0.9.40.md sections 4 through 5 plus contract section 3) built and committed byte-identically on wt/0.9.40-vanzen with nine numbered sections, English-only, triple-only tables, blank lines around headings and lists, and no invented content; no activation; Nova plus 0.9.34 through 0.9.39 locked untouched; 0.9.41 through 0.9.73 untouched; no 1.0, post, or dsh paths.

@@ -1,6 +1,6 @@
 # Build record 0.9.54 Vega Single Pre-Code Leader Drafts Grill Map Gates Reach
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.54 Vega Single Pre-Code Leader Drafts Grill Map Gates Reach from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.54.md
 Acceptance: Build the 0.9.54 pre-code leader from the locked source bytes by the header acceptance (Vega lands single-leader with draft formats plus grill 5 to 15 pre-feature with map in plan plus G1 to G6 gappy returns plus Agent Reach GitHub-only with doctor per task plus attempt-4 plus designed alternative, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.54 Vega Single Pre-Code Leader Drafts Grill Map Gates Reach`, §4/§5 only from for-vanzen/0.9.54.md §§3–5; exactly two files committed byte-identically to wt/0.9.54-vanzen with message `source(0.9.54): commit built bytes for sealing` and parent origin/main 7119b24383fcff574f4456a7fad6a79b73aeef6c; seal-0.9.54.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no library install beyond 0.9.53; Nova plus 0.9.34 through 0.9.53 locked untouched; 0.9.55 through 0.9.73 untouched; no 1.0, post, or dsh paths.

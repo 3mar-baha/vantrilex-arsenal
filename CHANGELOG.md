@@ -108,7 +108,104 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **One-plugin consolidation (`refactor(plugin)`).** The Tier-0 guards now live in the single `.opencode/plugin/arsenal.ts` — eight logical hooks across the two runtime surfaces, with the plan-guard append riding the dispatcher's own `prompt` registration so no prompt hook runs twice; `setup()` runs a six-hook capability probe and reports only what it observes, every registered callback checks the per-project kill switch at its head and no-ops when one of its four signals is set (م-4), and the new Diff Size Guard warns once per HEAD when uncommitted work exceeds 120 lines or 4 files (blueprint `:200`).
 - **Lock abolished; catalog proofs are the sole gate (`docs(kit)`, Cluster 1 / S5).** The lockfile and its verifier are retired: `scripts/verify-catalog.mjs` now carries the replacement proofs (17 checks over a catalog measured at 2,941 rows on 2026-10-21, zero pending state), and phase injection reads the `.opencode/equip.manifest.json` selection record, whose 146 tokens reproduce the pre-abolition kit (30 tier `core` plus 116 tier `conditional`) as a parity baseline. The nine pending per-agent themes are authored and verified (9 of 12 `theme` rows `verified`), and new-kind onboarding stays frozen until catalog v4. Live documentation and instructions were swept to name the catalog and the selection record instead of the lock; history — this changelog, `AGENT.md`, `WORKFLOW.md`, the audit tree, and `docs/99-archive/` — stays verbatim.
 
-## [0.9.33] — 2026-10-31 — PARKED, UNRELEASED (no tag, no publish; park commit only)
+## [0.9.74] — 2026-11-04 — tag v0.9.74 — approve-all: creation methodology + N6 sidecar count 16
+
+## [0.9.73] — 2026-11-03 — tag v0.9.73 — Full Audit Improvement From Detailed Report To Evidence Explanation
+
+## [0.9.72] — 2026-11-03 — tag v0.9.72 — Three Copies On OpenCode With Simple Surface And Ruled Primacy
+
+## [0.9.71] — 2026-11-03 — tag v0.9.71 — Contributions Opening As Governed Work With Same Gates For All
+
+## [0.9.70] — 2026-11-03 — tag v0.9.70 — User-Behavior Study Feature Across the Factory With Eight-Pipe Line
+
+## [0.9.69] — 2026-11-03 — tag v0.9.69 — Best-Test Plus OpenCode Tracking With No Add-On
+
+## [0.9.68] — 2026-11-03 — tag v0.9.68 — Goal Discipline Session Control Outside Campaign Sessions
+
+## [0.9.67] — 2026-11-03 — tag v0.9.67 — TokenEconomizer Triple-Adapted With No Product Runtime And Pass@1 Companion
+
+## [0.9.66] — 2026-11-03 — tag v0.9.66 — Tools Under Strict Law Mechanical Only
+
+## [0.9.65] — 2026-11-03 — tag v0.9.65 — Precision Skills For Repeatable Operations Skills Not Tools
+
+## [0.9.64] — 2026-11-03 — tag v0.9.64 — Factory Improvement Lines Software Factory Plus Workflow
+
+## [0.9.63] — 2026-11-03 — tag v0.9.63 — Checklist Closure Quoted Evidence Verifier Seat
+
+## [0.9.62] — 2026-11-03 — tag v0.9.62 — Ast-Grep Search-Only After Audit No Write
+
+## [0.9.61] — 2026-11-03 — tag v0.9.61 — Adversarial Scenarios Bounded Side-Agents Only No Leader
+
+## [0.9.60] — 2026-11-03 — tag v0.9.60 — Skill Adoption Benefit Generous Cost Lines Deferred
+
+## [0.9.59] — 2026-11-03 — tag v0.9.59 — Supply Chain Audit First Per Channel Approval
+
+## [0.9.58] — 2026-11-03 — tag v0.9.58 — Completion States Closure Gate Evidence Vocabulary
+
+## [0.9.57] — 2026-11-03 — tag v0.9.57 — Lanes Mechanism Adjustable Chains From Owner Answers
+
+## [0.9.56] — 2026-11-03 — tag v0.9.56 — Initial Thinking Phase Explorer Boundary Inside Five
+
+## [0.9.55] — 2026-11-03 — tag v0.9.55 — Docs Merged Into Structure Filled After Questions Text Fix
+
+## [0.9.54] — 2026-11-03 — tag v0.9.54 — Vega Single Pre-Code Leader Drafts Grill Map Gates Reach
+
+## [0.9.53] — 2026-11-03 — tag v0.9.53 — Arabic Patterns Library Shown Before Install
+
+## [0.9.52] — 2026-11-03 — tag v0.9.52 — Human Section Patterns Voice Facts Prose Only
+
+## [0.9.51] — 2026-11-03 — tag v0.9.51 — First-Intervention Measure Nine Over Ten Goal Not Law
+
+## [0.9.50] — 2026-11-03 — tag v0.9.50 — Core Mechanism Manifest Load Order Failure Protocol
+
+## [0.9.49] — 2026-11-02 — tag v0.9.49 — Cap Twenty On Non-Essentials Only
+
+## [0.9.48] — 2026-11-02 — tag v0.9.48 — Essentials List Before Any Ceiling Or Core
+
+## [0.9.47] — 2026-11-02 — tag v0.9.47 — Gear Sync Lands In Every New Session
+
+## [0.9.46] — 2026-11-02 — tag v0.9.46 — Sidebar Fix Releases From Standing Tags
+
+## [0.9.45] — 2026-11-02 — tag v0.9.45 — Skills Maintenance Law Modify After Every Update Plus Immediate Polish
+
+## [0.9.44] — 2026-11-02 — tag v0.9.44 — Latest-Modifications Skill Merged With Find-Skill
+
+## [0.9.43] — 2026-11-02 — tag v0.9.43 — Four Standing Primaries Replaced By Four New Primary Skills
+
+## [0.9.42] — 2026-11-02 — tag v0.9.42 — Showcase Builder Skill Completes The Second Html Folder
+
+## [0.9.41] — 2026-11-02 — tag v0.9.41 — Version Folder The Evidence Itself
+
+## [0.9.40] — 2026-11-02 — tag v0.9.40 — File Structure For Any Project
+
+## [0.9.39] — 2026-11-02 — tag v0.9.39 — Shape Law Substance Ruling First
+
+## [0.9.38] — 2026-11-02 — tag v0.9.38 — Refusal Law No Scope Equals Stop Plus Escalate Capsule
+
+## [0.9.37] — 2026-11-02 — tag v0.9.37 — Parallel Law
+
+## [0.9.36] — 2026-11-02 — tag v0.9.36 — Questions System Sequential Per Project Options
+
+## [0.9.35] — 2026-11-02 — tag v0.9.35 — Permanent Laws Plus Session Rules
+
+## [0.9.34] — 2026-11-02 — tag v0.9.34 — Full Audit Opening Act
+
+## [0.9.75] — 2026-11-06 — tag v0.9.75 — Depth-4 apply-time raise
+
+> Status: this section is an unreleased in-progress record, not a release. No `v0.9.75` tag
+> was cut, nothing was merged, pushed, or published. The W0 changes are applied in the
+> `wt/v2-consolidation` worktree and are uncommitted at the time of writing. It records
+> the depth-4 apply-time change for mission ARSENAL-AUDIT-EXEC-001.
+
+### Changed
+
+- **Depth-4 apply-time raise (`fix(depth)`).** The apply raises the `experimental.subagent_depth` floor from 3 to 4 where the running application actually loads it, per `docs/0.9.75-depth4-spec.md` [N1]-[N7] with gates G1 read-back match, G2 key/scope invariant, and G3 never-lower. Raise-only and idempotent; any doubt refuses the write fail-closed. A missing `experimental` is initialised to `{ subagent_depth: 4 }`; `null`/array/non-object `experimental` is left untouched; non-number or non-integer depths are left untouched; integer values above 4 are unchanged and never lowered; exactly 4 is a no-op; no other key, file section, or config value is touched. The installer/template surfaces carry 4 as of this cycle (`.opencode/skills/vantrilex-vanguard/SKILL.md`, `.opencode/skills/vs-vantrilex-vanguard/SKILL.md`, and `.opencode/skills/vantrilex-vanguard/assets/companion-config.template.jsonc`). Verified on 2026-11-05 by `node scripts/d4-depth-proof.mjs` (exit 0; 16 pass / 0 fail). Beyond-depth-4 refused. EN-only per `AGENTS.md` Hard Rule 5.
+
+### Added
+
+- **Executable depth-4 proof (`test(depth)`).** `scripts/d4-depth-proof.mjs` extracts the raise hunk from `.opencode/plugin/arsenal.ts` and asserts T1-T7: missing experimental to 4, missing depth to 4, below-4 integers (0, 1, 2, 3) to 4, idempotent no-op at 4, above-4 values (5, 99) untouched, ten malformed inputs untouched, and no key creep. Exit 0 only on all-pass; exit 1 on any case failure; exit 2 on infra doubt (fail-closed). Observed 2026-11-05: `RESULT all-pass pass=16 fail=0 exit=0`.
+
+## [0.9.33] — 2026-10-31 — PARKED, UNRELEASED (tag v0.9.33 exists, dated 2026-10-31; not published; park commit only)
 
 > Status: this section is a parked draft, not a release. No `v0.9.33` tag
 > was cut, nothing was merged, pushed, or published. It records the single

@@ -1,6 +1,6 @@
 # Build record 0.9.46 Sidebar Fix Releases From Standing Tags
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.46 Sidebar Fix Releases From Standing Tags from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.46.md
 Acceptance: Build the 0.9.46 sidebar repair from the locked source bytes by the header acceptance (Sidebar displays releases built from standing tags with closed tags never re-published and publish proven as merge plus tag plus release plus activate with trial publish showing a release automatically, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.46 Sidebar Fix Releases From Standing Tags`, §4/§5 only from for-vanzen/0.9.46.md §§3–5; exactly two files committed byte-identically to wt/0.9.46-vanzen with message source(0.9.46): commit built bytes for sealing and parent origin/main 46a53cafe44b1da6196993f622c9b5628478262f; seal-0.9.46.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.45 locked untouched; 0.9.47 through 0.9.73 untouched; no 1.0, post, or dsh paths.

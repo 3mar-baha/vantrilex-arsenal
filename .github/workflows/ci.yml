@@ -74,6 +74,20 @@ jobs:
         # phase sets alone.
         run: node scripts/verify-catalog.mjs
 
+      - name: Plugin version matches newest v0.9 tag
+        # Owner-pending gate: intentionally RED until the owner tags v0.9.75
+        # (MFT-001's stated expected behaviour). Not fixed by any worker.
+        run: |
+          set -euo pipefail
+          git fetch --tags --force
+          stamp=$(sed -n 's/^export const PLUGIN_VERSION = "\([^"]*\)".*/\1/p' .opencode/plugin/arsenal.ts | head -n 1)
+          test -n "$stamp" || { echo "no PLUGIN_VERSION stamp in .opencode/plugin/arsenal.ts"; exit 1; }
+          tag=$(git tag --list 'v0.9.*' --sort=-v:refname | head -n 1)
+          test -n "$tag" || { echo "no v0.9.* tag found"; exit 1; }
+          tagver=${tag#v}
+          echo "stamp=$stamp newest_tag=$tag ($tagver)"
+          test "$stamp" = "$tagver"
+
   types:
     name: Types
     runs-on: ubuntu-latest

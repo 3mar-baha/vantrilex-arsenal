@@ -1,6 +1,6 @@
 # Build record 0.9.53 Arabic Patterns Library Shown Before Install
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.53 Arabic Patterns Library Shown Before Install from the locked source bytes, install the approved library record with the plugin, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.53.md
 Acceptance: Build the 0.9.53 Arabic patterns library record from the locked source bytes by the header acceptance (Arabic patterns library from both named sources JODA plus Alexandria shown to the owner before install with install before showing refused, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.53 Arabic Patterns Library Shown Before Install`, §4/§5 only from for-vanzen/0.9.53.md §§3–5 plus the owner ruling literally (notes stand as HELPER by the 2026-11-02 order, install ordered by that order, approved showing for-vanzen/arabic-library.md); exactly three files committed byte-identically to wt/0.9.53-vanzen with message `source(0.9.53): commit built bytes and install the approved library record for sealing` and parent origin/main 1934c8e0237967cef043ecc31cda2e632aad15af; seal-0.9.53.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.52 locked untouched; 0.9.54 through 0.9.73 untouched; no 1.0, post, or dsh paths.

@@ -83,3 +83,8 @@ docs/                         THIS DOCUMENTATION SET plus provenance
   write into.
 - Target-project documentation (the 28-file system) is generated at runtime
   by Vanguard and is not part of this repository's layout.
+- Plugin path: the canonical on-disk location is the singular
+  `.opencode/plugin/` (the live module is `.opencode/plugin/arsenal.ts`).
+  The plural `.opencode/plugins/` directory was retired when the guards
+  carrier was merged into `arsenal.ts`; it must not be recreated, and any
+  reference to the plural path is stale.

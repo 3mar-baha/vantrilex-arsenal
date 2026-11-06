@@ -1,6 +1,6 @@
 # Build record 0.9.48 Essentials List Before Any Ceiling Or Core
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.48 Essentials List Before Any Ceiling Or Core from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.48.md
 Acceptance: Build the 0.9.48 essentials list from the locked source bytes by the header acceptance (Essentials list lands with usage evidence before any ceiling or core application with application before the list refused, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.48 Essentials List Before Any Ceiling Or Core`, §4/§5 only from for-vanzen/0.9.48.md §§3–5; exactly two files committed byte-identically to wt/0.9.48-vanzen with message source(0.9.48): commit built bytes for sealing and parent origin/main 41e4b4063f0c45992af46b5de1db8261c1d5b1bf; seal-0.9.48.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.47 locked untouched; 0.9.49 through 0.9.73 untouched; no 1.0, post, or dsh paths.

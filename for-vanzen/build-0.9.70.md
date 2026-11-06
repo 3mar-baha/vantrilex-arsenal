@@ -1,6 +1,6 @@
 # Build record 0.9.70 User-Behavior Study Feature Across the Factory With Eight-Pipe Line
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.70 User-Behavior Study Feature Across the Factory With Eight-Pipe Line from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.70.md
 Acceptance: Build the 0.9.70 user-behavior study feature from the locked source bytes by the header acceptance (Eight-pipe line lands plus thresholds with 12 signals land plus inference tagging lands plus five-test ladder with owner gate lands plus boundaries land with local-data corrected at fold-in plus per the locked plan with nothing invented plus no post-1.1 mechanism plus the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.70 User-Behavior Study Feature Across the Factory With Eight-Pipe Line`, §4/§5 only from for-vanzen/0.9.70.md §§3–5; exactly two files committed byte-identically to wt/0.9.70-vanzen with message `source(0.9.70): commit built bytes for sealing` and parent origin/main 329e57cb0bb4e0a0451a480cd2d7efbb9ee2b75e; seal-0.9.70.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.69 locked untouched; 0.9.71 through 0.9.73 untouched; no 1.0, post, or dsh paths.

@@ -38,7 +38,7 @@ This audit introduces no claim that is not in `.opencode/audit/V87-COLOR-FINDING
 
 - **12 of the 24** color-less subagent files **explicitly forbid** a `color` field (§1.1, all lines re-quoted live in §7 SC-3).
 - **12** are silent: they carry neither a color nor a no-color rule (§1.2).
-- Meanwhile `docs/18-THEMES.md:95` requires "a distinct static `color` per agent", and `AGENT.md:102` records the owner theme-color law: "every agent keeps its OWN theme, COLOR from palette by tag" (§1.3).
+- Meanwhile `docs/18-THEMES.md:137` requires "a distinct static `color` per agent", and `AGENT.md:102` records the owner theme-color law: "every agent keeps its OWN theme, COLOR from palette by tag" (§1.3).
 
 So the defect statement is: **the Part-2 color/group regime was never written to disk, and it contradicts the no-color rule that 12 subagent files already enforce.** The 24 absences are the expected output of the live rule, not 24 individual acts of disobedience.
 
@@ -77,7 +77,7 @@ Neither a color nor a no-color rule: `vantrilex-architect`, `vantrilex-code-revi
 | `docs/18-THEMES.md` | 95 | "\| Automatic per-agent theme switching \| WORKAROUND \| No agent-switch, session-start, or theme hook exists, and the public CLI plugin API does not register themes. The achievable surface is a distinct static `color` per agent plus manual `/themes` switching. \|" |
 | `AGENT.md` | 102 | "…owner theme-color law — COLORS chosen by OWNER by TAG/role family (one color per family; e.g. programmers/developers → blue, GitHub specialists → purple); … every agent keeps its OWN theme, COLOR from palette by tag." |
 
-**Ruling required (owner, via Guide).** While `AGENT.md:102` and `docs/18-THEMES.md:95` require a per-agent color and 12 subagent files forbid one, no verifier can classify the 24 absences as worker error. One side must be amended before any rename or color row lands. This is finding **F-COLOR-06**.
+**Ruling required (owner, via Guide).** While `AGENT.md:102` and `docs/18-THEMES.md:137` require a per-agent color and 12 subagent files forbid one, no verifier can classify the 24 absences as worker error. One side must be amended before any rename or color row lands. This is finding **F-COLOR-06**.
 
 ---
 
@@ -199,7 +199,7 @@ research => #22C55E
 - **C4 — exploration color is absent.** `#22D3EE` occurs **0** times in the substantive corpus (re-counted live §7 SC-4). The exploration group has no color anywhere, including `brand/IDENTITY.md`.
 - **C5 — group hexes exist only in third-party catalogs.** Re-attributed live per file (§7 SC-4): `#3B82F6` (9) `registry/design/binance|cal|clickhouse|lovable|minimax/DESIGN.md`; `#EC4899` (2) `registry/design/cal/DESIGN.md`; `#F59E0B` (7) `registry/design/bmw|cal|clay|clickhouse/DESIGN.md`; `#EF4444` (7) `registry/design/cal|clay|clickhouse/DESIGN.md`; `#10B981` (4) `registry/design/cal|voltagent/DESIGN.md`; `#8B5CF6` (4) `registry/design/cal/DESIGN.md` (2) + `.opencode/commands/V-Ai-Generated-Code-Security-Auditor.md:41` (the `external` accent) + the atomic-switch row. None of these is a group definition.
 - **C6 — the palette has no on-disk home.** Part-2 is not written in any repo file; `docs/spec/v87/**` (7 files: `instagram-v8.7-context.md`, `SYNTHESIS-v8.7.md`, `worker-1..5-*.md`) carries no palette or group line (checked live, zero matches). `docs/18-THEMES.md` (the doc `vantrilex-ui-designer.md:73` points to for "per-agent mapping") lists only `blazar` plus three `RESERVED` agents that do not exist (`plan-replacement`, `project-prep`, `exploration` — `docs/18-THEMES.md:23-26`) and omits `aether` and `pulsar`, which *are* installed and *do* carry colors.
-- **C7 — doctrine conflict (the cause of the 24 absences).** 12 subagent files forbid a `color` field while `docs/18-THEMES.md:95` and `AGENT.md:102` require a per-agent color. Until one side is amended, no verifier can treat "24 missing colors" as worker error. Full quotes in §1.
+- **C7 — doctrine conflict (the cause of the 24 absences).** 12 subagent files forbid a `color` field while `docs/18-THEMES.md:137` and `AGENT.md:102` require a per-agent color. Until one side is amended, no verifier can treat "24 missing colors" as worker error. Full quotes in §1.
 
 ---
 
@@ -251,7 +251,7 @@ Owners are suggestions; the Guide sequences them.
 
 | # | Severity | Fix | Owner suggestion | Evidence |
 |---:|---|---|---|---|
-| R1 | **P0 — blocker** | Owner ruling on the doctrine conflict: either amend the 12 forbidding agent files or amend the two requiring sources (`AGENT.md:102`, `docs/18-THEMES.md:95`). Nothing else can land colour rows coherently until this is decided. | Guide (owner ruling), then kit maintainer | F-COLOR-06; §1.1-§1.3 |
+| R1 | **P0 — blocker** | Owner ruling on the doctrine conflict: either amend the 12 forbidding agent files or amend the two requiring sources (`AGENT.md:102`, `docs/18-THEMES.md:137`). Nothing else can land colour rows coherently until this is decided. | Guide (owner ruling), then kit maintainer | F-COLOR-06; §1.1-§1.3 |
 | R2 | **P0** | Give the Part-2 palette an on-disk home as a group definition. No repo file states it today; `registry/themes/vantrilex-atomic-switch.json` carries a different 5-value `categories` block, and `docs/spec/v87/**` carries none. | Kit maintainer | F-COLOR-02; §4.4 C6 |
 | R3 | **P1** | Reconcile the registry taxonomy: map or replace the 5 `category` values with the 7 groups, and fix the hex mismatches. Resolve the `#8B5CF6` collision where `external` and operate share one hex. | Kit maintainer | F-COLOR-03; §4.2, §4.4 C2/C3 |
 | R4 | **P1** | Repair the stale registry rows: 6 pre-rename stems (incl. `technical-writer` → no live file; nearest role `vantrilex-scribe`), 3 double-prefix `themeId`/`themeFile`, and 9 dangling `themeFile` paths. | Kit maintainer | F-COLOR-05; §5.1-§5.3 |
@@ -365,6 +365,7 @@ Run by the authoring node on a temp copy outside the repo (the repo-root path is
 - **Line drift, stated honestly.** The findings set cites `AGENT.md:106` for the owner theme-color law; on disk today that line is `AGENT.md:102` (§7 evidence). The findings were measured earlier in the same dirty tree, so the citation has drifted by four lines; the quoted text is identical. Every other citation in the findings set re-read line-exact. This audit carries the live line number and names the drift rather than silently copying either one.
 - **The findings set's command 1.4 no longer reproduces verbatim** for the same reason: the dossier and the lane state file now quote the palette hexes. SC-4 gives both the raw count and the comparable count, and marks which is which.
 - **Count reconciliation is arithmetic, not a claim:** `3 + 5 + 2 + 4 + 3 + 2 + 7 + 1 = 27`.
+- **Citation re-check scope:** verification that every `docs/18-THEMES.md` line citation still resolves belongs to the docs gate; this node does not implement that gate.
 
 ---
 

@@ -183,6 +183,13 @@ the checkpoint file stays a living state file updated every session. Rules for
 that set: English, detailed without stinginess, fixed numbers, archive with a
 manifest, never delete.
 
+## Seats and the explorer
+
+The built-in read-only `explore` agent is not a seat: there is no
+`explorer.md` under `.opencode/agents/`, and it is never dispatched. It is
+not one of the build workers, and exploration belongs to PULSAR through
+AETHER.
+
 ## Vanguard laws
 
 1. Request information before writing.

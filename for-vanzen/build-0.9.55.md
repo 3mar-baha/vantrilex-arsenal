@@ -1,6 +1,6 @@
 # Build record 0.9.55 Docs Merged Into Structure Filled After Questions Text Fix
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.55 Docs Merged Into Structure Filled After Questions Text Fix from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.55.md
 Acceptance: Build the 0.9.55 standing docs-structure merge from the locked source bytes by the header acceptance (docs creation lands merged into structure creation from day one with fill after questions and stabilization, plus the 18 to 12 text correction carried as text only, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.55 Docs Merged Into Structure Filled After Questions Text Fix`, §4/§5 only from for-vanzen/0.9.55.md §§3–5; exactly two files committed byte-identically to wt/0.9.55-vanzen with message `source(0.9.55): commit built bytes for sealing` and parent origin/main 699dc3f3d206760b8afd70013a857d821f009a9d; seal-0.9.55.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no library install beyond the 0.9.53 committed install; Nova plus 0.9.34 through 0.9.54 locked untouched; 0.9.56 through 0.9.73 untouched; no 1.0, post, or dsh paths.

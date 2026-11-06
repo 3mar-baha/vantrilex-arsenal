@@ -1,6 +1,6 @@
 # Build record 0.9.71 Contributions Opening As Governed Work With Same Gates For All
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.71 Contributions Opening As Governed Work With Same Gates For All from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.71.md
 Acceptance: Build the 0.9.71 contributions opening from the locked source bytes by the header acceptance (Workflow plus governance plus same-gates rule land written plus first external contribution passes them whole plus per the locked plan with nothing invented plus no early opening plus no relaxed external gates plus the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.71 Contributions Opening As Governed Work With Same Gates For All`, §4/§5 only from for-vanzen/0.9.71.md §§3–5; exactly two files committed byte-identically to wt/0.9.71-vanzen with message `source(0.9.71): commit built bytes for sealing` and parent origin/main 03a712a1832c0b62bb578e32a447d0dfec2daf72; seal-0.9.71.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; no new library install; Nova plus 0.9.34 through 0.9.70 locked untouched; 0.9.72 through 0.9.73 untouched; no 1.0, post, or dsh paths.

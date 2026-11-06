@@ -1,6 +1,6 @@
 # Build record 0.9.45 Skills Maintenance Law Modify After Every Update Plus Immediate Polish
 
-Status: built-and-committed
+Status: landed-unverified
 Concern: Build the 0.9.45 Skills Maintenance Law Modify After Every Update Plus Immediate Polish from the locked source bytes, never inventing content, and commit exactly the built bytes for sealing.
 Artifact: for-vanzen/build-0.9.45.md
 Acceptance: Build the 0.9.45 maintenance law from the locked source bytes by the header acceptance (Maintenance law recorded plus trial modify after an update plus trial immediate polish of a fetched and a created skill, and the unified file gathering all its reports with its number raised automatically on its records), never inventing content; nine numbered sections with H1 `# Build record 0.9.45 Skills Maintenance Law Modify After Every Update Plus Immediate Polish`, §4/§5 only from for-vanzen/0.9.45.md §§3–5; exactly two files committed byte-identically to wt/0.9.45-vanzen with message source(0.9.45): commit built bytes for sealing and parent origin/main 96f2fd4f681f3c7573e695959e1c3bce4221a4d9; seal-0.9.45.md ten values all PASS or STOP; holder removed; every exit quoted; no activation; Nova plus 0.9.34 through 0.9.44 locked untouched; 0.9.46 through 0.9.73 untouched; no 1.0, post, or dsh paths.
