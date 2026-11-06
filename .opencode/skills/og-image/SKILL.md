@@ -1,6 +1,7 @@
 ---
 name: og-image
 description: Use when designing or generating Open Graph social preview cards with Satori or the vercel og ImageResponse — choosing a layout archetype, threading brand tokens through a template, loading fonts, or fixing output that renders blank, unstyled or differently each run.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # OG Image Design and Generation

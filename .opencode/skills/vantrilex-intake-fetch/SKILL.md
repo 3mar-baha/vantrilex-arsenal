@@ -1,6 +1,7 @@
 ---
 name: vantrilex-intake-fetch
 description: Use when an intake batch needs fetching from its approved origin — pulls the named batch and examines its provenance and integrity with an examination record before any scan or triage step.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Intake Fetch

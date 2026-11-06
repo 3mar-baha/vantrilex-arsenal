@@ -3,6 +3,7 @@ name: vantrilex-workflow-forge
 description: Authors the standing methodology for each task — use when
   a new task starts, before execution begins, so the workflow is fixed
   before the first dispatch.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Workflow-Forge

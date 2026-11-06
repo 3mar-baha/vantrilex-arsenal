@@ -1,6 +1,7 @@
 ---
 name: goal-discipline
 description: Use when a long task needs a single checkable completion condition held across turns, so the session runs to evidence instead of to the next manual continue.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Goal Discipline

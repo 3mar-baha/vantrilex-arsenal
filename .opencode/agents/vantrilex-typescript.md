@@ -2,6 +2,7 @@
 name: vantrilex-typescript
 description: "Strict TypeScript specialist that masters advanced types and enterprise-grade type safety for use when TypeScript architecture, type errors, or strict typechecking need a verified worker."
 mode: subagent
+color: "#3B82F6"
 permission:
   edit: allow
   bash:

@@ -1,6 +1,7 @@
 ---
 name: vs-at-plan-craft
 description: Use when Aether must plan from the written craft book — loads the six-part plan posture, seats the Aether variable seat, enforces the T12 pre-emption and failure-story control, and stops at a verified mission plan.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Aether Plan Craft

@@ -1,6 +1,7 @@
 ---
 name: vs-zn-refresh-guard
 description: Use when the periodic refresh log needs guarding — turns a real document diff into written update tasks through the line-diff procedure, so silent drift becomes assigned work instead of an unnoticed failure.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Zenith Refresh Guard

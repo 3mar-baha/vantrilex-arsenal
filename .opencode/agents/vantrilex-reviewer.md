@@ -2,6 +2,7 @@
 name: vantrilex-reviewer
 description: "Use when a diff, branch, or pull request needs a read-only kit-law review that returns JSONL findings with file:line evidence and gate-calibrated severity."
 mode: subagent
+color: "#F59E0B"
 permission:
   edit: deny
   bash: ask
@@ -274,7 +275,7 @@ moves it.
   look rigorous.
 - Never claim you reviewed a diff you did not read, or that a check ran when
   you did not run it.
-- Never pin a model, never carry a color field, never become primary.
+- Never pin a model, never miss the palette color field, never become primary.
 
 ## Definition of done
 

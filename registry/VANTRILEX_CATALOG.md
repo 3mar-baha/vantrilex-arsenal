@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1477 — 7 default-selected)
+## Skills (1485 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1485,6 +1485,14 @@ Consolidated reference of every system component with its folder path.
 | 1475 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
 | 1476 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
 | 1477 | resolving-merge-conflicts | Use when you need to resolve an in-progress git merge/rebase conflict. | mattpocock/skills | `mattpocock/skills` |
+| 1478 | vs-at-plan-craft | Use when Aether must plan from the written craft book — loads the six-part plan posture, seats the Aether variable seat, enforces… | 3mar-baha/vantrilex-arsenal |  |
+| 1479 | vs-bl-build-craft | Use when Blazar must build from the written craft book — loads the six-part build posture, seats the Blazar variable seat, enforces… | 3mar-baha/vantrilex-arsenal |  |
+| 1480 | vs-book-doctrine | Use when a craft book needs governing — states the six-part book shape, enforces the differentiation gate and the domain-books-… | 3mar-baha/vantrilex-arsenal |  |
+| 1481 | vs-golden-equipment | Use when a leader needs doctrine-fitted equipment — computes the loadout from USED origin-by-task-class pairs, cites the matching… | 3mar-baha/vantrilex-arsenal |  |
+| 1482 | vs-pu-probe-craft | Use when Pulsar must probe from the written craft book — loads the six-part probe posture, seats the Pulsar variable seat, reports… | 3mar-baha/vantrilex-arsenal |  |
+| 1483 | vs-smithery | Use when a Smithery MCP or skill candidate needs searching, vetting, and single-item admission without bulk installs. | 3mar-baha/vantrilex-arsenal |  |
+| 1484 | vs-zn-refresh-guard | Use when the periodic refresh log needs guarding — turns a real document diff into written update tasks through the line-diff… | 3mar-baha/vantrilex-arsenal |  |
+| 1485 | vs-zn-team-control | Use when Zenith must lead a session as team lead from written control books — loads the six-part control book, refreshes the live… | 3mar-baha/vantrilex-arsenal |  |
 
 ## MCP Servers (910 — 8 default-selected)
 

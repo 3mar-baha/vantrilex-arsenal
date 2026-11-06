@@ -1,6 +1,7 @@
 ---
 name: vs-circuit-breaker-guard
-description: Use when the same defect has survived three consecutive failed fix attempts — it enforces the 3-strike circuit breaker by tracking strikes per defect id, halting all execution, and emitting a Diagnostic Incident Report instead of a blind fourth attempt.
+description: Use when the same defect has survived three consecutive failed fix attempts on the Blazar seat — it enforces the 3-strike circuit breaker by tracking strikes per defect id, halting all execution, and emitting a Diagnostic Incident Report instead of a blind fourth attempt.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Circuit Breaker Guard

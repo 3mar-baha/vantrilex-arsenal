@@ -1,6 +1,7 @@
 ---
 name: relay-protocol
 description: Use when relaying status, verification, or approval traffic between opencode and vanbu through the shared Notion relay-queue, so every poll, send, triage, timeout, and capsule-security step follows one fixed protocol.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Relay Protocol

@@ -1,6 +1,7 @@
 ---
 name: documentation-as-tests
 description: Use when a documented command, snippet, path, or configuration key is about to be relied on, so the example is extracted and executed instead of trusted in prose.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Documentation As Tests

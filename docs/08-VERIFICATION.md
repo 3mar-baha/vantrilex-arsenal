@@ -64,13 +64,47 @@ reported as such rather than as a silent vacuous pass. See
 node scripts/verify-skills.mjs
 ```
 
-Ten checks enforce the skill-file format contract: discovery and the
+Eleven checks enforce the skill-file format contract: discovery and the
 lowercase-hyphenated folder shape, frontmatter keys, the frontmatter name
 matching its folder, the one-sentence third-person description with a
-front-loaded trigger, the seven required body headings in order, no placeholders,
-no excluded toolchains, file hygiene, the single-home rule for shared mechanism
-blocks, and the phase-map cross-check. It currently evaluates 37 skill folders
-and passes 10/10.
+front-loaded trigger, description uniqueness (MFT-142), the seven required
+body headings in order, no placeholders, no excluded toolchains, file hygiene,
+the single-home rule for shared mechanism blocks, and the phase-map
+cross-check. It currently evaluates 44 skill folders and passes 11/11.
+
+## Test layer
+
+```bash
+node --test
+```
+
+The `test/` directory holds executable behaviour tests for the plugin
+guards (seat-deny overlay, diff-size guard, publish queue) and the
+registry generators (MFT-134), plus the approval-interlock refusal proof
+(MFT-147). CI runs `node --test` in the `verify` job.
+
+## Canonical verification battery
+
+```bash
+node scripts/run-battery.mjs
+```
+
+One command that runs every shipped `.mjs` through `node --check` (S34)
+and the pinned markdownlint invocation over `docs/*.md` (S35), plus the
+scoped `scripts/verify-*.mjs` suite with the two LD16/LD17 known-fail
+verifiers excluded per D33 (MFT-151). CI runs it in the `verify` job.
+
+## Doctor preflight and FOR-VANZEN freshness
+
+```bash
+node scripts/preflight-system-doctor.mjs
+node scripts/check-forvanzen.mjs
+```
+
+The doctor is the one-command fresh-clone health check (MFT-152, S40):
+one PASS/FAIL row per check. The freshness check verifies each
+`for-vanzen/0.9.NN.md` and `build-0.9.NN.md` note against the tree
+(MFT-152, S37). CI runs both in the `verify` job.
 
 ## Shell scripts
 

@@ -217,9 +217,9 @@ function checkFrontmatterKeys(skills) {
       continue;
     }
     const seen = [...new Set(parsed.keys)];
-    const exact = parsed.keys.length === 2 && seen.length === 2 && seen.includes('name') && seen.includes('description');
+    const exact = parsed.keys.length === 3 && seen.length === 3 && seen.includes('name') && seen.includes('description') && seen.includes('source');
     if (!exact) {
-      failures.push(`${skill.repoPath}: frontmatter keys [${parsed.keys.join(', ')}] — exactly [name, description] is required, no others`);
+      failures.push(`${skill.repoPath}: frontmatter keys [${parsed.keys.join(', ')}] — exactly [name, description, source] is required, no others`);
       continue;
     }
     clean += 1;
@@ -234,7 +234,7 @@ function checkFrontmatterKeys(skills) {
       lines: failures.slice(0, MAX_REPORTED),
     };
   }
-  return { status: 'PASS', detail: `${clean} skills, every frontmatter holds exactly name and description` };
+  return { status: 'PASS', detail: `${clean} skills, every frontmatter holds exactly name, description and source` };
 }
 
 /* ---------- check 3: frontmatter name ---------- */
@@ -335,6 +335,38 @@ function checkFrontmatterDescription(skills) {
     };
   }
   return { status: 'PASS', detail: `${clean} skills, every description is one third-person sentence with a front-loaded trigger` };
+}
+
+/* ---------- check 4b: description uniqueness (MFT-142) ---------- */
+
+function checkDescriptionUniqueness(skills) {
+  const byDescription = new Map();
+  for (const skill of skills) {
+    if (skill.buffer === null) continue;
+    const parsed = parseFrontmatter(decodeText(skill.buffer));
+    if (!parsed.ok || !parsed.values.has('description')) continue;
+    const desc = (parsed.values.get('description')[0] ?? '').trim();
+    if (desc.length === 0) continue;
+    if (!byDescription.has(desc)) byDescription.set(desc, []);
+    byDescription.get(desc).push(skill.repoPath);
+  }
+  const failures = [];
+  for (const [desc, paths] of byDescription) {
+    if (paths.length > 1) {
+      failures.push(`description shared by ${paths.join(' and ')}`);
+    }
+  }
+  if (skills.length === 0) {
+    return { status: 'FAIL', detail: 'no skills discovered, so description uniqueness evaluated nothing' };
+  }
+  if (failures.length > 0) {
+    return {
+      status: 'FAIL',
+      detail: `${failures.length} shared description${failures.length === 1 ? '' : 's'} across ${skills.length} skills`,
+      lines: failures.slice(0, MAX_REPORTED),
+    };
+  }
+  return { status: 'PASS', detail: `${byDescription.size} distinct descriptions across ${skills.length} skills, every description is unique` };
 }
 
 /* ---------- check 5: body headings ---------- */
@@ -679,6 +711,7 @@ function main() {
     { name: 'frontmatter-keys', ...checkFrontmatterKeys(skills) },
     { name: 'frontmatter-name', ...checkFrontmatterName(skills) },
     { name: 'frontmatter-description', ...checkFrontmatterDescription(skills) },
+    { name: 'description-uniqueness', ...checkDescriptionUniqueness(skills) },
     { name: 'body-headings', ...checkBodyHeadings(skills) },
     { name: 'no-placeholders', ...checkPlaceholders(skills) },
     { name: 'no-excluded-toolchains', ...checkExcludedToolchains(skills) },

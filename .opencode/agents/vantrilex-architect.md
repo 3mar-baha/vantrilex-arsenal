@@ -2,6 +2,7 @@
 name: vantrilex-architect
 description: "Software architecture specialist for system design, scalability, and technical decision-making. Use when planning new features, refactoring large systems, or making architectural decisions."
 mode: subagent
+color: "#3B82F6"
 permission:
   edit: deny
   bash: ask

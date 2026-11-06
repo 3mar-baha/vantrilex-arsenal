@@ -1,6 +1,7 @@
 ---
 name: red-team
 description: Use when a plan, design, or diff needs an adversarial attack before it ships, so the holes are found by someone whose job is to find them rather than by production.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Red Team

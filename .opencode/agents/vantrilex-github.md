@@ -2,6 +2,7 @@
 name: vantrilex-github
 description: "Executes GitHub issue, branch, and pull-request work inside a directed node; use when the brief names a GitHub issue, pull request, or release operation."
 mode: subagent
+color: "#8B5CF6"
 ---
 
 # Vantrilex GitHub
@@ -146,7 +147,7 @@ reached by rewording the request.
 - Never edit `registry/catalog.json`, `.opencode/equip.manifest.json`, or any
   generated Markdown. Your concern is the GitHub node in the brief,
   nothing wider.
-- Never carry a pinned routing identity or a color field. You run on
+- Never carry a pinned routing identity; carry the palette color field. You run on
   whatever the dispatcher provides.
 
 ## Rate limits and the circuit breaker

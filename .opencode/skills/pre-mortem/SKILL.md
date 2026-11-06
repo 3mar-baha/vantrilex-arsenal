@@ -1,6 +1,7 @@
 ---
 name: pre-mortem
 description: Use when a change is about to be implemented or released and its failure modes should be named before any code is written, so the cheap guards are installed first.
+source: VoltAgent/awesome-agent-skills
 ---
 
 # Pre-Mortem

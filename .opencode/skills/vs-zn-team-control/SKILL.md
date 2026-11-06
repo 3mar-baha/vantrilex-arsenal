@@ -1,6 +1,7 @@
 ---
 name: vs-zn-team-control
 description: Use when Zenith must lead a session as team lead from written control books — loads the six-part control book, refreshes the live team-model register at the session anchor, seats the selected variable seat, and enforces the T13 guidance-altitude, T14 weekly failure-absorption, and T15 per-task tooling-statement controls.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Zenith Team Control

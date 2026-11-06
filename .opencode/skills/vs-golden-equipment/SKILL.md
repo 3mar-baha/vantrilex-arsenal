@@ -1,6 +1,7 @@
 ---
 name: vs-golden-equipment
 description: Use when a leader needs doctrine-fitted equipment — computes the loadout from USED origin-by-task-class pairs, cites the matching payload template, and ships zero invented install commands.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Golden Equipment

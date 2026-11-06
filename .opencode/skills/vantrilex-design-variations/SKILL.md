@@ -1,6 +1,7 @@
 ---
 name: vantrilex-design-variations
 description: Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, visual or styling change — producing four screenshot-able HTML variations, an owner approval gate, a linked ticket, and a verified build.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Design Variations

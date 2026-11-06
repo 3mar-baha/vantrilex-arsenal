@@ -2,6 +2,7 @@
 name: vantrilex-puller
 description: "Crucible intake puller that pulls, examines, and stages vetted batches for the Arsenal admit node. Use when a scan-clean staged batch needs a final examine-and-stage pass before human sign-off and admission."
 mode: subagent
+color: "#8B5CF6"
 permission:
   edit:
     "intake/staging/**": allow

@@ -35,6 +35,59 @@ blazar's royal blue — every one uppercase today; the normalization at `790ef85
 fixed the last lowercase one (`vantrilex-aether`, now `#14B8A6`). Do not expect
 one casing across both: the map is normalized, the palettes are not.
 
+## Agent palette
+
+This is the palette home for agent frontmatter colours (MFT-024/MFT-025,
+W4 w4-colour). The seven-group assignment is the verified set in
+`V87-COLOR-AUDIT.md` §2. `scripts/verify-catalog.mjs` (`AGENT_PALETTE`)
+mirrors this section for enforcement; update both together.
+
+| Group | Hex | Agents |
+|---|---|---|
+| reserved | `#14B8A6`, `#4169E1`, `#C026D3` | `aether`, `blazar`, `pulsar` |
+| dev | `#3B82F6` | `vantrilex-architect`, `vantrilex-fixer`, `vantrilex-implementer`, `vantrilex-python`, `vantrilex-typescript` |
+| design | `#EC4899` | `vantrilex-ui-designer`, `vantrilex-ux-designer` |
+| review | `#F59E0B` | `vantrilex-code-reviewer`, `vantrilex-guide`, `vantrilex-red-team`, `vantrilex-reviewer` |
+| audit | `#EF4444` | `vantrilex-harness`, `vantrilex-security-auditor`, `vantrilex-verifier` |
+| docs | `#10B981` | `vantrilex-librarian`, `vantrilex-scribe` |
+| operate | `#8B5CF6` | `vantrilex-agent-maker`, `vantrilex-facet`, `vantrilex-github`, `vantrilex-kit-maintainer`, `vantrilex-leader`, `vantrilex-puller`, `vantrilex-releaser`, `vantrilex-uploader`, `vantrilex` (Zenith) |
+| exploration | `#22D3EE` | `vantrilex-scout` |
+
+Per-agent frontmatter colours: `aether` `#14B8A6`, `blazar` `#4169E1`,
+`pulsar` `#C026D3`, `vantrilex-agent-maker` `#8B5CF6`,
+`vantrilex-architect` `#3B82F6`, `vantrilex-code-reviewer` `#F59E0B`,
+`vantrilex-facet` `#8B5CF6`, `vantrilex-fixer` `#3B82F6`, `vantrilex-github` `#8B5CF6`,
+`vantrilex-guide` `#F59E0B`, `vantrilex-harness` `#EF4444`,
+`vantrilex-implementer` `#3B82F6`, `vantrilex-kit-maintainer` `#8B5CF6`,
+`vantrilex-leader` `#8B5CF6`, `vantrilex-librarian` `#10B981`,
+`vantrilex-puller` `#8B5CF6`, `vantrilex-python` `#3B82F6`,
+`vantrilex-red-team` `#F59E0B`, `vantrilex-releaser` `#8B5CF6`,
+`vantrilex-reviewer` `#F59E0B`, `vantrilex-scout` `#22D3EE`,
+`vantrilex-scribe` `#10B981`, `vantrilex-security-auditor` `#EF4444`,
+`vantrilex-typescript` `#3B82F6`, `vantrilex-ui-designer` `#EC4899`,
+`vantrilex-uploader` `#8B5CF6`, `vantrilex-ux-designer` `#EC4899`,
+`vantrilex-verifier` `#EF4444`, `vantrilex` (Zenith) `#8B5CF6`.
+
+Owner-approved 2026-11-06 (group assignment ratified, colours landed):
+`vantrilex-guide` review `#F59E0B`, `vantrilex-leader` operate `#8B5CF6`,
+`vantrilex-librarian` docs `#10B981`, `vantrilex-red-team` review `#F59E0B`,
+`vantrilex` (Zenith) operate `#8B5CF6`.
+
+### Group-colour rule
+
+A new agent inherits its group's colour: assign the agent to one of the
+seven groups above and carry that group's hex in the agent file's `color:`
+frontmatter, then add the same row to `scripts/verify-catalog.mjs`
+(`AGENT_PALETTE`) and to the table and per-agent list above. No new hex is
+invented for a new agent; a new group requires an owner ruling recorded in
+`docs/15-DECISIONS.md` before any hex lands.
+
+Verify the palette from the repository root:
+
+```bash
+node -e "const fs=require('fs');const P={aether:'#14B8A6',blazar:'#4169E1',pulsar:'#C026D3','vantrilex-agent-maker':'#8B5CF6','vantrilex-architect':'#3B82F6','vantrilex-code-reviewer':'#F59E0B','vantrilex-facet':'#8B5CF6','vantrilex-fixer':'#3B82F6','vantrilex-github':'#8B5CF6','vantrilex-guide':'#F59E0B','vantrilex-harness':'#EF4444','vantrilex-implementer':'#3B82F6','vantrilex-kit-maintainer':'#8B5CF6','vantrilex-leader':'#8B5CF6','vantrilex-librarian':'#10B981','vantrilex-puller':'#8B5CF6','vantrilex-python':'#3B82F6','vantrilex-red-team':'#F59E0B','vantrilex-releaser':'#8B5CF6','vantrilex-reviewer':'#F59E0B','vantrilex-scout':'#22D3EE','vantrilex-scribe':'#10B981','vantrilex-security-auditor':'#EF4444','vantrilex-typescript':'#3B82F6','vantrilex-ui-designer':'#EC4899','vantrilex-uploader':'#8B5CF6','vantrilex-ux-designer':'#EC4899','vantrilex-verifier':'#EF4444','vantrilex':'#8B5CF6'};for(const [id,hex] of Object.entries(P)){const t=fs.readFileSync('.opencode/agents/'+id+'.md','utf8');const m=t.match(/^color:\s*\"([^\"]+)\"/m);if(!m||m[1]!==hex)throw new Error(id+' expected '+hex+' got '+(m?m[1]:'none'))}console.log('palette: 29 colours match')"
+```
+
 ## Native shape
 
 Themes are V2-native JSON with a `base` tree plus `light`/`dark` palettes, as

@@ -1,6 +1,7 @@
 ---
 name: skill-maker
 description: Use when a repeated job needs a reusable skill, so stop improvising the procedure and forge it through small evals before the next run.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Skill Maker

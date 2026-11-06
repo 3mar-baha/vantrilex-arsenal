@@ -1,6 +1,7 @@
 ---
 name: vantrilex-doctrine
 description: Governs all project work — use when the owner asks which workflow applies or who decides a gate, or how a task should be split across subagents, stating the laws and phases for every build and review and release lane.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Doctrine

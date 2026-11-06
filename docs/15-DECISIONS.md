@@ -662,3 +662,38 @@ the ratified list and are left vacant rather than filled.
 - **Context:** The gate in `.github/workflows/ci.yml` (step “No kit lock references in live tree”) searches only `*.json`, `*.ts`, `*.mjs`, `*.yml` and `*.yaml` for the dotted `kit\.lock` form and excludes the audit and archive dirs. Four prose survivors use the spaced form kit lock and are left untouched: `.opencode/agents/vantrilex-kit-maintainer.md:3`, `.opencode/agents/vantrilex-scout.md:178`, `.opencode/agents/vantrilex-puller.md:40` and `.opencode/agents/vantrilex-uploader.md:38`. The agent files are not edited in this lane.
 - **Decision:** Accepted history disposition: the gate is code/config only and prose survivors are history. The four prose lines stay verbatim; no sweep rewrites them and no agent file is edited by this node.
 - **Consequences:** The CI kit-lock grep continues to guard code/config surfaces only. A future prose sweep would need a fresh dated decision that supersedes this disposition.
+
+## D35 — MFT-113: one seat, three facets (owner ruling 2026-11-06)
+
+- **Date:** 2026-11-06
+- **Context:** MFT-113 required the three v0.9.72 copies (cautious / balanced / long) with distinct permissions and a primacy ruling recorded first. The owner ruled on 2026-11-06, verbatim: "ONE seat, three facets (cautious / balanced / long). SAME thinking, DIFFERENT required permissions per facet. Implement a switching mechanism: as soon as the facet is changed from the list/menu, the permissions change (automatically)."
+- **Decision:** One seat (`.opencode/agents/vantrilex-facet.md`) with three facets. The thinking is identical for every facet; only the required permissions differ (cautious denies edit/bash/task and asks often, balanced asks, long allows with two destructive denies). The switching mechanism is `scripts/switch-facet.mjs`: `list` shows the facets from the list/menu and `set <facet>` rewrites the seat file's `facet:` field and `permission:` block to the selected facet's reference block, so the permissions change automatically on the next host/overlay evaluation. Three facet trials with differing quoted results are committed at `docs/0.9.78-three-facet-trials.md`. The facet seat inherits the operate group colour (`#8B5CF6`) per the group-colour rule.
+- **Consequences:** The seat carries no model pin and passes the palette and hygiene gates. A facet change is a switcher run, never a manual permission edit. The ruling is carried as a W3 row in the wave classification for the 0.9.78 commit.
+
+## D36 — MFT-145: secret-scanner holes closed; scanner mandatory
+
+- **Date:** 2026-11-06
+- **Context:** The pre-commit secret scanner (`.githooks/pre-commit`) scanned only added lines of staged changes, only when the operator had run `scripts/setup-git-hooks.sh` (opt-in), refused only newly added `.env` files, and could be bypassed from a machine without the hook or via `--no-verify`.
+- **Decision:** Dated closures: (1) already-tracked `.env` modified in place — CLOSED 2026-11-06 by refusing `AM` (added-or-modified) `.env` in staged changes and any already-tracked `.env` in the index (`.githooks/pre-commit`); (2) opt-in activation — CLOSED 2026-11-06 by making the scanner mandatory: `bash scripts/setup-git-hooks.sh` sets `core.hooksPath` on every clone and CI enforces the same patterns, so the scanner runs on every commit; (3) machine-without-hook / `--no-verify` bypass — CLOSED 2026-11-06 by the CI backstop (the same patterns are enforced at review), recorded here as operator discipline since no local hook can police its own bypass. `SECURITY.md` now states the mandatory activation.
+- **Consequences:** A `.env` can no longer land by tracked-file edit, and a hook-less or `--no-verify` commit still fails review. The scanner stays a heuristic (no full entropy), with gitleaks named as the growth path in the hook header.
+
+## D37 — Palette counts reconciled; rewrite count; group-colour rule
+
+- **Date:** 2026-11-06
+- **Context:** The palette home (`docs/18-THEMES.md`) and `scripts/verify-catalog.mjs` (`AGENT_PALETTE`) held 23 mappings while the W4 working tree showed 20 insertions plus 5 excluded agents, and the colour-rewrite sweep was reported as 11 of 12 landed.
+- **Decision:** Reconciled: 23 mappings = 3 pre-existing reserved (`aether`, `blazar`, `pulsar`) + 20 W4 insertions; 5 excluded (`vantrilex-guide`, `vantrilex-leader`, `vantrilex-librarian`, `vantrilex-red-team`, `vantrilex` (Zenith)) bring the 28 existing agent files to 28. The 5 are now owner-approved 2026-11-06 by group (`vantrilex-guide` review `#F59E0B`; `vantrilex-leader` operate `#8B5CF6`; `vantrilex-librarian` docs `#10B981`; `vantrilex-red-team` review `#F59E0B`; `vantrilex` (Zenith) operate `#8B5CF6`), raising the palette to 28, and the MFT-113 facet seat (`vantrilex-facet`, operate `#8B5CF6`) raises it to 29 per the group-colour rule. The rewrite count: 12 agent files forbade a `color` field; 11 were rewritten in W4 and the 12th (`vantrilex-librarian`) is rewritten in this node, so the sweep is now 12 of 12 landed. The group-colour rule is recorded in the palette home: a new agent inherits its group's hex and is added to `AGENT_PALETTE` with the home; no new hex is invented without an owner ruling.
+- **Consequences:** Palette home, verifier map, and the 28/29 counts agree. `node scripts/verify-catalog.mjs` exits 0 with 29 palette files.
+
+## D38 — Q2 folders and the two command roots stay as-is
+
+- **Date:** 2026-11-06
+- **Context:** The W4 working tree carries edits touching both command roots (`.opencode/command/` legacy and `.opencode/commands/` canonical) and the Q2 folders.
+- **Decision:** The Q2 folders stay on disk and the two command roots stay as-is: `.opencode/command/` (4 operator entry points) and `.opencode/commands/` (12 workflow commands) are both discovered per host discovery and are not deleted, merged, or re-pointed in this node. `docs/03-ARCHITECTURE.md`, `docs/02-INSTALLATION.md`, and `docs/16-TASK-DISPATCH.md` state the dual-root disposition with bare URLs wrapped for lint.
+- **Consequences:** No folder is removed and no root is retired. Any future retirement needs a fresh dated decision.
+
+## D39 — Skill frontmatter gains `source:` (catalog-aligned provenance)
+
+- **Date:** 2026-11-06
+- **Context:** The skill-file format standard and `scripts/verify-skills.mjs` allowed exactly `[name, description]` in SKILL.md frontmatter, so per-skill provenance lived only in the catalog. The catalog already carries a `source` field (the `owner/repo` coordinate the component is installed from, per D10 and the v4 schema) for the 28 of 44 in-repo skills that have a catalog row; the other 16 had no row to read it from.
+- **Decision:** Every SKILL.md frontmatter now carries exactly `[name, description, source]`: `name` and `description` are unchanged, and `source` is the catalog-aligned `owner/repo` coordinate. Where `registry/catalog.json` holds a row, `source` is that row’s `source` verbatim (26 self-shipped skills as `3mar-baha/vantrilex-arsenal`; `ponytail` and `vs-ponytail` as `dietrichgebert/ponytail`; `pre-mortem` as `VoltAgent/awesome-agent-skills`). Where no row exists (16 skills), `source` is `3mar-baha/vantrilex-arsenal` as the distributing repository on in-repo evidence, except `vs-ponytail` which is `dietrichgebert/ponytail` per the pinned upstream URLs in its body. True-upstream `origin` values stay in the catalog and are not added as a fourth key.
+- **Consequences:** `AGENTS.md` and `scripts/verify-skills.mjs` now state the same three-key set and `node scripts/verify-skills.mjs` is the gate. A future `origin` key or a catalog row for the 16 unlisted skills needs a fresh dated decision; no catalog or lock file is edited by this node.

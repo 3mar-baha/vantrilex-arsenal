@@ -233,6 +233,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Executable depth-4 proof (`test(depth)`).** `scripts/d4-depth-proof.mjs` extracts the raise hunk from `.opencode/plugin/arsenal.ts` and asserts T1-T7: missing experimental to 4, missing depth to 4, below-4 integers (0, 1, 2, 3) to 4, idempotent no-op at 4, above-4 values (5, 99) untouched, ten malformed inputs untouched, and no key creep. Exit 0 only on all-pass; exit 1 on any case failure; exit 2 on infra doubt (fail-closed). Observed 2026-11-05: `RESULT all-pass pass=16 fail=0 exit=0`.
 
+## [0.9.78] — 2026-11-06 — tag v0.9.78 — Audit W4: facet seat, interlock, test layer, battery, doctor, palette, provenance
+
+> Status: this section records the W4 slice released as `v0.9.78` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (W4 rows MFT-006, MFT-131, MFT-134, MFT-142, MFT-145, MFT-147, MFT-151, MFT-152; MFT-113 carried per owner ruling). W5-W6 untouched and uncommitted; audit files, patch artifacts, and evidence files stay untracked.
+
+### Changed
+
+- **V2 session-lifecycle matrix (`feat(plugin)`).** `sessionStart`/`preCompact`/`sessionEnd` are V1-only on `server()` and not registered on V2 `setup()`, by design; `docs/03-ARCHITECTURE.md` names the V2 behaviour per hook (MFT-006). Dual-root command disposition (`commands/` canonical, `command/` legacy, both discovered) stated in `docs/02-INSTALLATION.md`, `docs/03-ARCHITECTURE.md`, and `docs/16-TASK-DISPATCH.md` (Q2, D38).
+- **Mandatory secret scanner (`fix(security)`).** `pre-commit` refuses added-or-modified `.env` plus any tracked `.env` in the index, is mandatory on every clone via `bash scripts/setup-git-hooks.sh`, and is mirrored in CI; `SECURITY.md` states the mandatory activation (MFT-145, D36).
+- **Skill provenance + description uniqueness (`feat(skills)`).** Every SKILL.md frontmatter now carries exactly `[name, description, source]` (catalog-aligned `owner/repo`); `verify-skills.mjs` gates the three keys plus check 4b description-uniqueness (MFT-142, D39). The six `vs-*` descriptions gain the Blazar-seat wording; 8 `vs-*` catalog rows land (1,477 → 1,485 skills, 2,889 → 2,897 rows).
+- **Palette home + group-colour rule (`feat(palette)`).** `docs/18-THEMES.md` holds the 29-agent palette; `verify-catalog.mjs` (`AGENT_PALETTE`) enforces it; agent files carry the group hex (MFT-024/MFT-025, D37).
+- **Verification docs (`docs`).** `docs/08-VERIFICATION.md` records the test layer, canonical battery, and doctor/freshness; `for-vanzen/REPORT-APPROVE-ALL-2026-11-04.md` closes all MFT-131 gates with dated evidence or named-owner deferrals (D35–D39 in `docs/15-DECISIONS.md`).
+
+### Added
+
+- **One seat, three facets (`feat(facet)`).** `.opencode/agents/vantrilex-facet.md` (cautious/balanced/long, same thinking, per-facet permissions) with switching mechanism `scripts/switch-facet.mjs` and trials at `docs/0.9.78-three-facet-trials.md` (MFT-113, D35).
+- **Destructive-action interlock (`feat(plugin)`).** `scripts/approval-interlock.mjs` + `destructiveActionGuard` call sites in `arsenal.ts`, proven by `test/approval.test.mjs` (MFT-147).
+- **Test layer (`test`).** `test/seat-deny.test.mjs`, `test/diff-size.test.mjs`, `test/registry.test.mjs` plus `node --test` step in CI (MFT-134).
+- **Canonical battery + doctor (`ci`).** `scripts/run-battery.mjs`, `scripts/preflight-system-doctor.mjs`, `scripts/check-forvanzen.mjs`, all wired into the CI `verify` job (MFT-151/MFT-152).
+- **Release stamps (`chore(release)`).** `PLUGIN_VERSION` `0.9.77` → `0.9.78` (`.opencode/plugin/arsenal.ts`); README current release `v0.9.77` → `v0.9.78` (both READMEs).
+
 ## [0.9.77] — 2026-11-06 — tag v0.9.77 — Audit W3: CI truth, sentinel, probes
 
 > Status: this section records the W3 slice released as `v0.9.77` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001. Mixed/UNCLASSIFIED hunks (blazar/red-team frontmatter, arsenal registration-matrix + prettier batching + seat-deny citation, ci.yml kit-lock gate, docs/15 D23-D34 single hunk, docs/08 MFT-136, CHANGELOG tag hygiene) remain uncommitted on this branch; W4-W6 untouched.

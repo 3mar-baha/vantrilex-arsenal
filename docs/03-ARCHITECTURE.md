@@ -16,7 +16,10 @@ constrain every layer are [AGENTS.md](../AGENTS.md).
                                 installs at equip time), plus 12 conditional
                                 kit components and transplanted mechanisms
   agents/                       Leader / Guide / Implementer role agents
-  command/                      Operator entry points (equip, doctor, prime, release)
+  commands/                     Canonical command root (12 workflow commands);
+                                legacy command/ (4 operator entry points:
+                                equip, doctor, prime, release) also discovered
+                                per <https://opencode.ai/v2/docs/commands/>
 
 registry/                     DATA PLANE (the component catalog)
   VANTRILEX_CATALOG.md          Human-readable source of truth (generated table)
@@ -77,10 +80,12 @@ docs/                         THIS DOCUMENTATION SET plus provenance
   `setup()` and ignores `server()`, while OpenCode V1 `>= 1.18.29` reads
   `server()` and ignores `setup()`. Only `task-dispatcher` is registered on the
   V2 surface, against the session `prompt` hook. The other six hooks and the
-  docs-discipline guard stay on the V1 surface and are inert under V2 — a
-  deliberate, unfinished gap, since V2 has no system-prompt transform, no
+  docs-discipline guard stay on the V1 surface and are not registered under V2
+  (V1-only, by design), since V2 has no system-prompt transform, no
   compaction event, and no mutable `tool.execute.*` output for those guards to
-  write into.
+  write into. The three session-lifecycle hooks (`sessionStart`,
+  `preCompact`, `sessionEnd`) are V1-only for the same reason; the matrix below
+  names the V2 behaviour for each.
 - Target-project documentation (the 28-file system) is generated at runtime
   by Vanguard and is not part of this repository's layout.
 - Plugin path: the canonical on-disk location is the singular
@@ -88,3 +93,14 @@ docs/                         THIS DOCUMENTATION SET plus provenance
   The plural `.opencode/plugins/` directory was retired when the guards
   carrier was merged into `arsenal.ts`; it must not be recreated, and any
   reference to the plural path is stale.
+
+## Session-lifecycle hooks — V1-only, V2 matrix (MFT-006)
+
+The three hooks `sessionStart`, `preCompact`, and `sessionEnd` fire on V1
+`server()` and are not registered on V2 `setup()`, by design:
+
+| Hook | V1 `server()` trigger | V2 `setup()` behaviour |
+|---|---|---|
+| `sessionStart` | `experimental.chat.system.transform` (system-prompt transform) | Not registered — V2 has no string-array system transform; the V2 `prompt` hook covers the per-turn dispatcher instead. |
+| `preCompact` | `experimental.session.compacting` (compaction context) | Not registered — V2 `compaction` takes an optional `SessionCompactionResult`, not a mutable `string[]`. |
+| `sessionEnd` | `event` (session-end events) | Not registered — V2 has no session-end `event` surface for the handoff write; session-end bookkeeping stays V1-only. |

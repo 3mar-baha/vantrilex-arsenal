@@ -1,6 +1,7 @@
 ---
 name: vs-ponytail
-description: Use when a code-executing agent starts a coding task, gates a diff, or surveys repo health, so the ponytail trio routes each job to its variant with the dual guardrail verdict attached.
+description: Use when a code-executing agent on the Blazar seat starts a coding task, gates a diff, or surveys repo health, so the ponytail trio routes each job to its variant with the dual guardrail verdict attached.
+source: dietrichgebert/ponytail
 ---
 
 # Vs Ponytail

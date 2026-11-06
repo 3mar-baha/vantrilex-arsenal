@@ -1,6 +1,7 @@
 ---
 name: open-graph-image
 description: Use when adding, editing, or reviewing a Next App Router opengraph-image or twitter-image file — auditing the required size and contentType exports, the ImageResponse return, inline-style usage, and edge-safe imports before the route fails at runtime.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Open Graph Image Contract Audit

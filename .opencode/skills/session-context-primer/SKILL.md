@@ -1,6 +1,7 @@
 ---
 name: session-context-primer
 description: Use when a session starts or context is lost to compaction — rebuilds the working context in about ten seconds from the AI constitution, project summary, git state and circuit-breaker ledger, and emits a single CONTEXT ANCHOR block.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Session Context Primer

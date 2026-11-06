@@ -1,6 +1,7 @@
 ---
 name: kit-evaluation-journal
 description: Use when a kit component is being tried, adopted, kept, or dropped, so the attempt and its score are recorded in the evaluation journal instead of being lost to memory.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Kit Evaluation Journal

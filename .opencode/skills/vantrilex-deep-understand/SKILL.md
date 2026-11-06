@@ -1,6 +1,7 @@
 ---
 name: vantrilex-deep-understand
 description: Use when an AI agent must understand the Arsenal, orienting from the dev index first and deep-diving per area on demand without writing anything.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Deep Understand

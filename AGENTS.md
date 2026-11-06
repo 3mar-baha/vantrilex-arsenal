@@ -58,6 +58,7 @@ Every `SKILL.md` in this repo follows one shape. Deviating breaks the Registry.
 ---
 name: <lowercase-hyphenated, matches the containing folder name>
 description: <third person, one sentence, what it does AND when to trigger it>
+source: <owner/repo, the catalog source this skill is installed from>
 ---
 
 # <Title>
@@ -75,6 +76,9 @@ description: <third person, one sentence, what it does AND when to trigger it>
   rejects a mismatch.
 - `description` is what the model sees when deciding whether to load the skill.
   Front-load concrete trigger keywords. Write "Use when…", never "I help with…".
+- `source` is the `owner/repo` coordinate the skill is installed from, matching the
+  catalog `source` field for the same component. The only allowed frontmatter keys
+  are `name`, `description`, and `source`.
 
 ---
 

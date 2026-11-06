@@ -89,6 +89,13 @@ The two roots are deliberately distinct: `.opencode/command/` carries the four
 operator entry points, and `.opencode/commands/` carries the twelve workflow
 commands. A fresh clone can therefore reach every one of the sixteen roots.
 
+Host discovery (<https://opencode.ai/v2/docs/commands/>): project commands live in
+`.opencode/commands/`; "The legacy singular directory `command/` is also
+discovered, but use `commands/` for new files." The plural root is therefore
+canonical for all new commands, the singular root is legacy but still discovered,
+and no name-clash winner is needed: the two roots carry distinct stems
+(`doctor` vs `V-DOCTOR`).
+
 Prime, Vanguard, and Doctrine ship as skill files under `.opencode/skills/`;
 Workflow-Forge joins them at equip time, when Vanguard installs it in the
 Step 4 lane and proves the install by read-back. They run in the order Prime,

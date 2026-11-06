@@ -3,7 +3,7 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 4,
   "counts": {
-    "skill": 1477,
+    "skill": 1485,
     "mcp": 910,
     "plugin": 11,
     "hook": 8,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2889
+    "total": 2897
   },
   "components": [
     {
@@ -48914,6 +48914,254 @@
           "command": "npx skills add deanpeters/Product-Manager-Skills --skill vp-cpo-readiness-advisor -a opencode -y",
           "registry": "skills-registry",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-at-plan-craft",
+      "name": "vs-at-plan-craft",
+      "kind": "skill",
+      "description": "Use when Aether must plan from the written craft book — loads the six-part plan posture, seats the Aether variable seat, enforces…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "plan",
+        "craft"
+      ],
+      "when_to_use": "When Aether must plan from the written craft book, to stop at a verified mission plan",
+      "phase": "plan",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-at-plan-craft/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-bl-build-craft",
+      "name": "vs-bl-build-craft",
+      "kind": "skill",
+      "description": "Use when Blazar must build from the written craft book — loads the six-part build posture, seats the Blazar variable seat, enforces…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "build",
+        "craft"
+      ],
+      "when_to_use": "When Blazar must build from the written craft book, to integrate verified landings without improvisation",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-bl-build-craft/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-book-doctrine",
+      "name": "vs-book-doctrine",
+      "kind": "skill",
+      "description": "Use when a craft book needs governing — states the six-part book shape, enforces the differentiation gate and the domain-books-…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "craft",
+        "books"
+      ],
+      "when_to_use": "When a craft book needs governing, to bind the review ritual to every plan and build",
+      "phase": "plan",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-book-doctrine/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-golden-equipment",
+      "name": "vs-golden-equipment",
+      "kind": "skill",
+      "description": "Use when a leader needs doctrine-fitted equipment — computes the loadout from USED origin-by-task-class pairs, cites the matching…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "equipment",
+        "loadout"
+      ],
+      "when_to_use": "When a leader needs doctrine-fitted equipment, to cite the matching payload template rather than invent an install command",
+      "phase": "plan",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-golden-equipment/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-pu-probe-craft",
+      "name": "vs-pu-probe-craft",
+      "kind": "skill",
+      "description": "Use when Pulsar must probe from the written craft book — loads the six-part probe posture, seats the Pulsar variable seat, reports…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "probe",
+        "craft"
+      ],
+      "when_to_use": "When Pulsar must probe from the written probe book, to report findings-capsules with evidence without mutating the tree",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-pu-probe-craft/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-smithery",
+      "name": "vs-smithery",
+      "kind": "skill",
+      "description": "Use when a Smithery MCP or skill candidate needs searching, vetting, and single-item admission without bulk installs.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "smithery",
+        "vetting"
+      ],
+      "when_to_use": "When a Smithery MCP or skill candidate needs single-item admission, to vet before any add and with no bulk installs",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-smithery/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-zn-refresh-guard",
+      "name": "vs-zn-refresh-guard",
+      "kind": "skill",
+      "description": "Use when the periodic refresh log needs guarding — turns a real document diff into written update tasks through the line-diff…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "refresh",
+        "guard"
+      ],
+      "when_to_use": "When the periodic refresh log needs guarding, to turn a real document diff into written update tasks",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-zn-refresh-guard/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vs-zn-team-control",
+      "name": "vs-zn-team-control",
+      "kind": "skill",
+      "description": "Use when Zenith must lead a session as team lead from written control books — loads the six-part control book, refreshes the live…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "zenith",
+        "team-control"
+      ],
+      "when_to_use": "When Zenith must lead a session as team lead from written control books, to enforce the per-task tooling statement",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-zn-team-control/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-06"
         }
       },
       "default_selected": false

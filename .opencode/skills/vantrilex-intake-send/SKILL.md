@@ -1,6 +1,7 @@
 ---
 name: vantrilex-intake-send
 description: Use when a clean examined batch needs staging toward the admit node — stages scan-clean batches SEND-only into pending admission with sign-off gating, zero receive paths, and human sign-off before admission.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Intake Send

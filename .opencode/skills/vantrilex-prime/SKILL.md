@@ -1,6 +1,7 @@
 ---
 name: vantrilex-prime
 description: Orients a fresh machine to the Arsenal — use when an agent lands on an unequipped machine or the owner says prime or orient, stating what the system is and which top-level skill runs first.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Prime

@@ -125,3 +125,33 @@ No merge/tag/push/release/activation/VANZEN. Nothing in this lane grants activat
 This node freezes the FULL consolidated report text from the confirmed packet verbatim, as ordered. It does not produce an Arabic mirror and does not claim bilingual parity for this freeze; the EN-draft / AR-sync cycle belongs to the documentation change itself, not to this read-only freeze. Kit terminology is carried in English form as written in the packet; no `babel-bridge` rendering is claimed here.
 
 Ponytail: EXEMPT — pure prose freeze of confirmed packet, no code written, no helper script authored.
+
+## 8. Open gates closure — MFT-131 (2026-11-06)
+
+Each open gate in §4 and §6 is closed below with dated evidence or an
+explicit deferral with a named owner. Zero gates remain open without a
+named owner and a date.
+
+- Gate: markdownlint on `docs/01-OVERVIEW.md` and
+  `docs/07-CATALOG-GENERATION.md` — CLOSED 2026-11-06: `npx --yes
+  markdownlint-cli docs/01-OVERVIEW.md docs/07-CATALOG-GENERATION.md`
+  exit 0, zero findings.
+- Gate: markdownlint on `for-vanzen/0.9.40.md` — DEFERRED: re-run
+  2026-11-06 reports MD022/MD032/MD058 findings (version-record file);
+  version records are history and are not edited in this lane. Owner:
+  `vantrilex-fixer`, review date 2026-11-20.
+- Gate: index-vs-disk (`docs/00-INDEX.md` vs disk) — CLOSED 2026-11-06:
+  the index and the disk both hold the `00`–`21` numbered series plus
+  `99-archive` (22 entries), verified by directory listing on this tree.
+- Gate: laws file and factory workflow notes NOT-FOUND — CLOSED as
+  verified absence 2026-11-06: no laws/workflow-notes file exists in this
+  repository; the absence already recorded at `WORKFLOW.md:68` stands and
+  nothing is invented.
+- Gate: why v0.9.74 has no memo and no build record (see MFT-122) —
+  RECORDED 2026-11-06: v0.9.74 was the approve-all methodology slice
+  (8 files, 20 insertions, §§ CREATION-METHODOLOGY-FIX and N6) and this
+  consolidated report is its sole artifact; per MFT-122 the per-version
+  memo/build pair (`for-vanzen/0.9.74.md` and
+  `for-vanzen/build-0.9.74.md`) was not created for this methodology
+  slice, so the pair does not exist by design. Owner:
+  `vantrilex-guide`, date 2026-11-06.

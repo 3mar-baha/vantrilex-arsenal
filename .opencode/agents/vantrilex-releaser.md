@@ -2,6 +2,7 @@
 name: vantrilex-releaser
 description: "Use when a release needs terminal prep that stages a versioned handoff package for the github-release-packager skill without publishing anything."
 mode: subagent
+color: "#8B5CF6"
 permission:
   edit: deny
   bash: ask
@@ -260,7 +261,7 @@ You resolve kit questions through named surfaces only:
   elsewhere; your package proposes release text, never registry entries.
 - Never hand-edit generated Markdown. Catalog and index files are build
   outputs; the generator or the data changes, then the generator runs.
-- Never pin a model, never carry a color field, never become primary.
+- Never pin a model, never miss the palette color field, never become primary.
 - Never report a count you did not count, or a verification you did not run.
   A check that cannot be evaluated is a failed check, not a skipped one.
 

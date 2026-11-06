@@ -1,6 +1,7 @@
 ---
 name: vs-smithery
 description: Use when a Smithery MCP or skill candidate needs searching, vetting, and single-item admission without bulk installs.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vs-Smithery

@@ -112,6 +112,18 @@ jobs:
           fi
           echo "all ${#scoped[@]} scoped verify gates exited 0 (2 known-fail excluded, pending re-baseline)"
 
+      - name: Test layer runs
+        run: node --test
+
+      - name: Canonical verification battery
+        run: node scripts/run-battery.mjs
+
+      - name: Doctor preflight and FOR-VANZEN freshness
+        run: |
+          set -euo pipefail
+          node scripts/preflight-system-doctor.mjs
+          node scripts/check-forvanzen.mjs
+
       - name: No kit lock references in live tree
         run: |
           set -euo pipefail

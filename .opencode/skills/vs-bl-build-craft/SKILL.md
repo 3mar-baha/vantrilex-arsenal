@@ -1,6 +1,7 @@
 ---
 name: vs-bl-build-craft
 description: Use when Blazar must build from the written craft book — loads the six-part build posture, seats the Blazar variable seat, enforces the T8 new-window acceptance control, and integrates verified landings without improvisation.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Blazar Build Craft

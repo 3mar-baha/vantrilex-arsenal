@@ -2,6 +2,7 @@
 name: vantrilex-kit-maintainer
 description: "Sole maintainer of the Vantrilex kit's agent and skill definitions, the kit lock, and the lock schema. Use when a kit component is added, changed, or retired, or when the lock, the schema, and the registry have drifted apart."
 mode: subagent
+color: "#8B5CF6"
 permission:
   edit: deny
   bash: ask
@@ -65,7 +66,7 @@ names the exact files you may write, and you stay inside that list.
   filename stem. A mismatch is rejected at load.
 - `description` is one sentence, third person, front-loading the concrete
   trigger.
-- `mode: subagent` is mandatory on agents. No `color` field, no `model` pin.
+- `mode: subagent` is mandatory on agents. Agents carry the palette `color` from `docs/18-THEMES.md`, no `model` pin.
 - English only. No `TODO`, no `FIXME`, no placeholder, no stub.
 
 ### The generated artifacts

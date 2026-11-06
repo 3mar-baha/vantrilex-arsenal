@@ -228,6 +228,11 @@ restates Doctrine's phase map.
 
 Cross-reference: MFT-139 (install/routing) — the command-root routing map that
 this hook sits beside lives in [02-INSTALLATION.md](02-INSTALLATION.md).
+By host discovery (<https://opencode.ai/v2/docs/commands/>) `.opencode/commands/`
+is canonical and legacy `.opencode/command/` is also discovered: the `doctor`
+user intent resolves to `.opencode/command/doctor.md` (read-only preflight),
+while `.opencode/commands/V-DOCTOR.md` is the distinct triage command; neither
+is an alias of the other.
 
 Verification of the wiring is mechanical and lives in
 [08-VERIFICATION.md](08-VERIFICATION.md): `node scripts/verify-catalog.mjs`

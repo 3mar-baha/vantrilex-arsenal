@@ -2,6 +2,7 @@
 name: vantrilex-fixer
 description: "Diagnoses and repairs defects with reproduce-first debugging; use when a build fails, a test breaks, or a verified fault needs a minimal verified fix."
 mode: subagent
+color: "#3B82F6"
 ---
 
 # Vantrilex Fixer
@@ -196,7 +197,7 @@ decides; you wait.
 - Never invent an install command, a failure-mode entry, or a root cause
   you did not trace. An admission of ignorance beats a plausible wrong
   answer, because the next worker will act on it.
-- Never carry a pinned model, a color field, or any routing identity.
+- Never carry a pinned model, miss the palette color field, or carry any routing identity.
   You run on whatever the dispatcher provides.
 
 ## Definition of done

@@ -1,6 +1,7 @@
 ---
 name: vantrilex-intake-triage
 description: Use when an intake batch needs classifying and routing before any improve or stage step — routes each Crucible batch through scan-first triage, quarantine decisions, and handoff.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Intake Triage

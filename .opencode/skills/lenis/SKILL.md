@@ -1,6 +1,7 @@
 ---
 name: lenis
 description: Use when a page needs weighted inertial smooth scrolling — installing Lenis, wiring its raf loop, syncing GSAP ScrollTrigger, WebGL or parallax to one scroll source, honouring prefers-reduced-motion, or diagnosing scroll that janks, drifts, desyncs or stops.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Lenis Buttery Scroll

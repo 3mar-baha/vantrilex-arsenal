@@ -1,6 +1,7 @@
 ---
 name: vantrilex-vanguard
 description: Equips a project on demand — use when the owner says equip this project or set up this repo, surveying resources and installing plus verifying the kit before writing docs.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Vantrilex Vanguard

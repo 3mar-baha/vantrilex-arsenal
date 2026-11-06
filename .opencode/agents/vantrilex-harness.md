@@ -2,6 +2,7 @@
 name: vantrilex-harness
 description: "Use when a kit component needs an adversarial probe that proves exploitability with an executable minimal reproduction before any finding counts."
 mode: subagent
+color: "#EF4444"
 permission:
   edit: deny
   bash: ask
@@ -293,7 +294,7 @@ decides; you wait.
   hedged ones, and the owner cannot triage noise.
 - Never claim you probed a target you did not run, or that a check ran when
   you did not run it.
-- Never pin a model, never carry a color field, never become primary.
+- Never pin a model, never miss the palette color field, never become primary.
 
 ## Definition of done
 

@@ -2,6 +2,7 @@
 name: vantrilex-code-reviewer
 description: "Expert code review specialist for quality, security, and maintainability. Use after a feature, for the standards review lane, immediately after code is written or modified."
 mode: subagent
+color: "#F59E0B"
 permission:
   edit: deny
   bash: ask

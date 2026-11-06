@@ -62,7 +62,8 @@
  *
  * The three session-lifecycle callbacks (`experimental.chat.system.transform`,
  * `experimental.session.compacting`, `event`) are carried through `server()`
- * unchanged and are INERT under V2. That gap is deliberate, not unfinished:
+ * unchanged and are not registered under V2 (V1-only, by design). That
+ * non-registration is deliberate, not unfinished:
  * V2's `context` hook takes a `SystemPart[]` where V1's transform took a
  * `string[]`, and V2's `compaction` hook takes an optional
  * `SessionCompactionResult` where V1 appended to a `context: string[]`, so
@@ -108,7 +109,7 @@
  * package installed can assert compatibility with a single line of throwaway
  * type-checking; this module itself stays dependency-free and compiles clean.
  */
-export const PLUGIN_VERSION = "0.9.77"
+export const PLUGIN_VERSION = "0.9.78"
 
 export type PluginLevel = "debug" | "info" | "warn" | "error"
 
@@ -2399,6 +2400,60 @@ export const longRunningProcessGuard = async (
 }
 
 /**
+ * Destructive-action interlock (MFT-147). A destructive shell command
+ * (`rm -rf`, `git push --force`, `git reset --hard`, `gh release create`)
+ * without human approval is refused with the named error
+ * `APPROVAL_REQUIRED`. Approval is explicit per run: `VANTRILEX_APPROVED=1`
+ * in the process environment or the file `.opencode/approval.enabled`
+ * existing at the project root. The same pure predicates live in
+ * `scripts/approval-interlock.mjs` for the standalone check.
+ */
+export const DESTRUCTIVE_SHELL_PATTERNS: readonly RegExp[] = [
+  /^rm\s+-rf\b/,
+  /^git\s+push\s+--force\b/,
+  /^git\s+reset\s+--hard\b/,
+  /^gh\s+release\s+create\b/,
+]
+
+export const isDestructiveShellCommand = (command: string): boolean => {
+  const cmd = typeof command === "string" ? command.trim() : ""
+  if (cmd.length === 0) return false
+  return DESTRUCTIVE_SHELL_PATTERNS.some((re) => re.test(cmd))
+}
+
+export const approvalErrorFor = (command: string, approved: boolean): string | null => {
+  if (!isDestructiveShellCommand(command)) return null
+  if (approved) return null
+  const shown = command.trim().slice(0, 120)
+  return `[arsenal] APPROVAL_REQUIRED: destructive action "${shown}" requires human approval; set VANTRILEX_APPROVED=1 or create .opencode/approval.enabled to approve this run`
+}
+
+const isApprovalGranted = (ctx: ArsenalContext): boolean => {
+  if (ctx.rt.proc.env["VANTRILEX_APPROVED"] === "1") return true
+  const join = ctx.rt.path?.join ?? EMPTY_PATH.join
+  const target = join(ctx.root, ".opencode", "approval.enabled")
+  try {
+    return ctx.rt.fs ? ctx.rt.fs.existsSync(target) : false
+  } catch {
+    return false
+  }
+}
+
+export const destructiveActionGuard = async (
+  ctx: ArsenalContext,
+  input: ToolExecuteBeforeInput,
+  output: ToolExecuteBeforeOutput,
+): Promise<void> => {
+  if (input?.tool !== "bash") return
+  const args = asRecord(output?.args)
+  const command = typeof args.command === "string" ? args.command : ""
+  if (command.trim().length === 0) return
+  if (!isDestructiveShellCommand(command)) return
+  const err = approvalErrorFor(command, isApprovalGranted(ctx))
+  if (err !== null) throw new Error(err)
+}
+
+/**
  * HOOK 7 - docs discipline guard. A Markdown file written outside the canonical
  * numbered documentation set is a violation, not a convenience.
  */
@@ -3416,6 +3471,7 @@ export const v2ToolBefore = async (arsenal: ArsenalContext, event: V2ToolBeforeE
   const input: ToolExecuteBeforeInput = { tool: toolName, sessionID: sessionId, callID: callId }
   const output: ToolExecuteBeforeOutput = { args: event?.input }
   await longRunningProcessGuard(arsenal, input, output)
+  await destructiveActionGuard(arsenal, input, output)
   await runDocsGuard(arsenal, input, output)
 }
 
@@ -3519,6 +3575,7 @@ const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent)
   const input: ToolExecuteBeforeInput = { tool: "bash", sessionID: "anonymous", callID: "shell" }
   const output: ToolExecuteBeforeOutput = { args: { command } }
   await longRunningProcessGuard(arsenal, input, output)
+  await destructiveActionGuard(arsenal, input, output)
   await runDocsGuard(arsenal, input, output)
 }
 
@@ -3819,6 +3876,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       recordTouchedFiles(ctx, toolInput.sessionID, candidatePathsFrom(root, toolOutput?.args))
       await diffSizeGuard(ctx, toolInput.sessionID, toolInput.tool)
       await longRunningProcessGuard(ctx, toolInput, toolOutput)
+      await destructiveActionGuard(ctx, toolInput, toolOutput)
       await runDocsGuard(ctx, toolInput, toolOutput)
     },
 

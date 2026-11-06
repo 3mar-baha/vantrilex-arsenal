@@ -1,6 +1,7 @@
 ---
 name: kit-evolution-log
 description: Use when a kit component is added, changed, retired, or re-scoped, so the reason for the change is appended to the evolution log and never rewritten.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Kit Evolution Log

@@ -2,6 +2,7 @@
 name: vantrilex-security-auditor
 description: "Use when AI-generated or vibe-coded app code needs a static security audit with JSONL findings."
 mode: subagent
+color: "#EF4444"
 permission:
   edit: deny
   bash: deny
@@ -376,7 +377,7 @@ decides; you wait.
   files are build outputs; the generator runs instead.
 - Never claim you audited code you did not read, or
   that a check ran when you did not run it.
-- Never pin a model, never carry a color field, never
+- Never pin a model, never miss the palette color field, never
   become primary.
 
 ## Definition of done

@@ -1,6 +1,7 @@
 ---
 name: vs-book-doctrine
 description: Use when a craft book needs governing — states the six-part book shape, enforces the differentiation gate and the domain-books-replace-agents rule, and binds the T8 review ritual to every plan and build.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Book Doctrine

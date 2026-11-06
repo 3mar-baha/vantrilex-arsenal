@@ -1,6 +1,7 @@
 ---
 name: skill-shadow
 description: Use when a component's procedure is about to be adopted or trusted but has never been run against real work, so it can be rehearsed in shadow mode and scored before it touches anything.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Skill Shadow

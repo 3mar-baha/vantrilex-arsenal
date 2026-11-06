@@ -2,6 +2,7 @@
 description: The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and receives their deliveries without building anything or verifying its own distribution.
 name: vantrilex
 mode: primary
+color: "#8B5CF6"
 temperature: 0.1
 permission:
   task: allow
@@ -341,7 +342,7 @@ that would be re-pointed by guess; any Sara-lane content; any harness design.
 
 - ZENITH carries no model pin. Model arrangement is an owner-confirmed menu
   per phase; this seat does not choose a model.
-- ZENITH carries no theme or color assignment in 0.9.0. The `vs-zn-*`
+- ZENITH carries the operate palette color field. The `vs-zn-*`
   control skills and the Zenith theme are 0.9.2 work, not this phase.
 - Path B is not defined in the confirmed 0.9 plan; ZENITH does not invent
   it. The path-B definition remains an open question.

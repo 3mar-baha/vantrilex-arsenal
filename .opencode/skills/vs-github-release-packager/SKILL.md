@@ -1,6 +1,7 @@
 ---
 name: vs-github-release-packager
-description: Use when cutting a release — governs the release lane end to end by requiring the Clean Code, Test and Docs second-pass guards, deriving the semantic version from conventional commits, refusing to publish from a dirty worktree or a missing changelog entry, tagging, publishing with gh release, and verifying from a fresh clone.
+description: Use when cutting a release from the Blazar seat — governs the release lane end to end by requiring the Clean Code, Test and Docs second-pass guards, deriving the semantic version from conventional commits, refusing to publish from a dirty worktree or a missing changelog entry, tagging, publishing with gh release, and verifying from a fresh clone.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # GitHub Release Packager

@@ -1,6 +1,7 @@
 ---
 name: time-capsule-test
 description: Use when code reads the clock, checks an expiry, compares a date, or stores when something happened, so a test written now still passes years from now.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Time-Capsule Test

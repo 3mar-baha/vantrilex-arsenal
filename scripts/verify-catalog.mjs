@@ -125,6 +125,47 @@ const EVIDENCE_CLASSES = new Set(["loadable", "installable", "upstream", "data"]
 const AGENT_MODES = new Set(["primary", "subagent", "all"]);
 const SELF_SOURCE = "3mar-baha/vantrilex-arsenal";
 
+// Verified agent palette (MFT-024/MFT-025, W4 w4-colour; owner-approved
+// 2026-11-06 for the five former estimates). Palette home:
+// docs/18-THEMES.md, "Agent palette". This map mirrors it for
+// enforcement; update both together. Values are the V87-COLOR-AUDIT §2
+// verified assignments in uppercase, matching the reserved trio. The
+// group-colour rule (docs/18-THEMES.md, "Group-colour rule") applies: a
+// new agent inherits its group's hex and is added here with the palette
+// home. No entry is pending owner approval.
+const AGENT_PALETTE = new Map([
+  ["aether", "#14B8A6"],
+  ["blazar", "#4169E1"],
+  ["pulsar", "#C026D3"],
+  ["vantrilex-agent-maker", "#8B5CF6"],
+  ["vantrilex-architect", "#3B82F6"],
+  ["vantrilex-code-reviewer", "#F59E0B"],
+  ["vantrilex-facet", "#8B5CF6"],
+  ["vantrilex-fixer", "#3B82F6"],
+  ["vantrilex-github", "#8B5CF6"],
+  ["vantrilex-guide", "#F59E0B"],
+  ["vantrilex-harness", "#EF4444"],
+  ["vantrilex-implementer", "#3B82F6"],
+  ["vantrilex-kit-maintainer", "#8B5CF6"],
+  ["vantrilex-leader", "#8B5CF6"],
+  ["vantrilex-librarian", "#10B981"],
+  ["vantrilex-puller", "#8B5CF6"],
+  ["vantrilex-python", "#3B82F6"],
+  ["vantrilex-red-team", "#F59E0B"],
+  ["vantrilex-releaser", "#8B5CF6"],
+  ["vantrilex-reviewer", "#F59E0B"],
+  ["vantrilex-scout", "#22D3EE"],
+  ["vantrilex-scribe", "#10B981"],
+  ["vantrilex-security-auditor", "#EF4444"],
+  ["vantrilex-typescript", "#3B82F6"],
+  ["vantrilex-ui-designer", "#EC4899"],
+  ["vantrilex-uploader", "#8B5CF6"],
+  ["vantrilex-ux-designer", "#EC4899"],
+  ["vantrilex-verifier", "#EF4444"],
+  ["vantrilex", "#8B5CF6"]
+]);
+const AGENT_PALETTE_PENDING = new Set([]);
+
 // kind -> canonical register. catalog.json is regenerated from these sidecars,
 // so a selected token that is absent here has no register behind the mirror.
 // Counts: a sidecar is a *.jsonl file directly in registry/data/; overlaps.yaml
@@ -1228,11 +1269,11 @@ const checkFileCopyShape = (components, selectedSet, family) => {  const failure
 
 const checkAgentHygiene = (selected, index) => {
   const primaries = new Set(["vantrilex"]);
-  const reservedSubordinateColors = new Set(["aether", "blazar", "pulsar"]);
   const failures = [];
   let local = 0;
   let primaryFiles = 0;
-  let reservedSubordinateFiles = 0;
+  let paletteFiles = 0;
+  let pendingFiles = 0;
 
   // Sole-primary ruling 2026-10-24: no local agent file may pin a model,
   // whether it is selected or not. Scan the whole agent directory.
@@ -1257,6 +1298,23 @@ const checkAgentHygiene = (selected, index) => {
     }
     if (frontmatterValue(lines, "model") !== null) {
       failures.push(file + ": frontmatter pins a model; agents carry no model pins");
+    }
+    const stem = file.replace(/\.md$/, "");
+    const paletteColor = frontmatterValue(lines, "color");
+    if (AGENT_PALETTE.has(stem)) {
+      if (paletteColor !== AGENT_PALETTE.get(stem)) {
+        failures.push(file + ": color " + JSON.stringify(paletteColor) + " does not match palette " + JSON.stringify(AGENT_PALETTE.get(stem)) + " per docs/18-THEMES.md");
+      } else {
+        paletteFiles++;
+      }
+    } else if (AGENT_PALETTE_PENDING.has(stem)) {
+      if (paletteColor !== null) {
+        failures.push(file + ": carries a color field pending owner approval for " + stem);
+      } else {
+        pendingFiles++;
+      }
+    } else if (paletteColor !== null) {
+      failures.push(file + ": frontmatter carries a color field outside the palette");
     }
   }
 
@@ -1286,24 +1344,25 @@ const checkAgentHygiene = (selected, index) => {
       continue;
     }
     const mode = frontmatterValue(lines, "mode");
-    const color = frontmatterValue(lines, "color");
     if (primaries.has(entry.id)) {
       if (mode !== "primary") {
         failures.push(entry.id + ": sole primary mode " + JSON.stringify(mode) + " is not primary per owner ruling 2026-10-24");
         continue;
       }
-      // Zenith's theme/color remains open; a missing color is valid in 0.9.0.
+      // Zenith (vantrilex) carries the operate palette colour since the
+      // owner approval of 2026-11-06; the full-directory palette scan above
+      // already enforces its value.
       primaryFiles++;
     } else {
       if (mode !== "subagent") {
         failures.push(entry.id + ": mode " + JSON.stringify(mode) + " is not subagent under the sole-primary ruling 2026-10-24");
         continue;
       }
-      if (color !== null && reservedSubordinateColors.has(entry.id) === false) {
-        failures.push(entry.id + ": frontmatter carries a color field");
-        continue;
+      // Palette membership is enforced by the full-directory scan above;
+      // the selected loop keeps the mode and selection checks only.
+      if (AGENT_PALETTE.has(entry.id) === false && AGENT_PALETTE_PENDING.has(entry.id) === false) {
+        // No palette entry and not pending: any colour already failed above.
       }
-      if (color !== null && reservedSubordinateColors.has(entry.id)) reservedSubordinateFiles++;
     }
     local++;
   }
@@ -1318,7 +1377,7 @@ const checkAgentHygiene = (selected, index) => {
   if (failures.length > 0) return { status: "FAIL", detail: failures.join("; ") };
   return {
     status: "PASS",
-    detail: local + " selected local agents resolve (" + primaryFiles + " sole primary vantrilex; " + reservedSubordinateFiles + " reserved subordinate seats retain color; the rest mode subagent with no color); " + localAgentFiles.length + " local agent files carry no model pin; selected agent, hook and plugin rows carry null install_cmd and are verified"
+    detail: local + " selected local agents resolve (" + primaryFiles + " sole primary vantrilex; " + paletteFiles + " local agent files carry palette color per docs/18-THEMES.md; " + pendingFiles + " pending without a color field); " + localAgentFiles.length + " local agent files carry no model pin; selected agent, hook and plugin rows carry null install_cmd and are verified"
   };
 };
 

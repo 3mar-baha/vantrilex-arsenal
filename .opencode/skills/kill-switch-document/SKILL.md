@@ -1,6 +1,7 @@
 ---
 name: kill-switch-document
 description: Use when a change could be stopped, paused, or rolled back unsafely, so the halt steps, their authority, and their verification are written down before the work starts.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Kill-Switch Document

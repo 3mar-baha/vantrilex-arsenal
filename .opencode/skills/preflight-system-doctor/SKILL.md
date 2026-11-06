@@ -1,6 +1,7 @@
 ---
 name: preflight-system-doctor
 description: Use when entering the build phase or before any mutating or long-running work — validates environment, runtimes, configuration and workspace health with a Node-only PASS/FAIL/SKIPPED table, prints remediation commands, and blocks execution on critical failures.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Preflight System Doctor

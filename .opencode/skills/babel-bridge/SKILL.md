@@ -1,6 +1,7 @@
 ---
 name: babel-bridge
 description: Use when intent crosses a vocabulary boundary such as business language to implementation terms, so the translation is written down, checked, and reversible.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Babel Bridge

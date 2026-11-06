@@ -2,6 +2,7 @@
 name: vantrilex-scribe
 description: "Use when project documentation must be drafted, mirrored into Arabic, or verified so both trees pass deterministic gates in the same cycle."
 mode: subagent
+color: "#10B981"
 permission:
   edit: deny
   bash: ask
@@ -253,7 +254,7 @@ decides; you wait.
 - Never bump `last_verified` without re-verification.
 - Never claim a procedure from a GONE source. T2-16, T2-17, and T2-18
   are gone; they bind nothing here.
-- Never pin a model, never carry a color field, never touch
+- Never pin a model, never miss the palette color field, never touch
   `registry/catalog.json` or `.opencode/equip.manifest.json`. Registration belongs to
   its owning node; your drafts may propose entries, never write them.
 - Never claim an example works without having run it, and never report

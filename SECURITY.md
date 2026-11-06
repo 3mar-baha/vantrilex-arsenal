@@ -101,9 +101,7 @@ written anywhere. The paths are safe; the recorded-approval claim is not yet enf
 
 Secrets live in environment variables or a secret manager, never in this repository.
 The one environment variable the tooling reads is `VANTRILEX_STATE_DIR`, and the
-pre-commit hook refuses a newly added `.env` file. An already-tracked `.env` that is then
-modified is not refused by that name check, though the credential-shape scan still runs
-on added lines of every file, so a real secret is still caught.
+pre-commit hook refuses any `.env` file that is added or modified, and any already-tracked `.env` in the index. The scanner is mandatory on every clone via `bash scripts/setup-git-hooks.sh` (`git config core.hooksPath .githooks`), and CI enforces the same patterns, so a commit without the hook or via `--no-verify` still fails review. The credential-shape scan runs on added lines of every staged file, so a real secret is caught.
 
 If a credential is committed: **revoke or rotate it first, then remove it.** Deleting the
 text without rotating the credential is not remediation, and exposure duration is not a

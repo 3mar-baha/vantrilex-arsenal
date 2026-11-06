@@ -2,6 +2,7 @@
 name: vantrilex-uploader
 description: "SEND-only Crucible intake uploader that pulls, examines, and stages candidate content for the Arsenal. Use when an intake batch needs pulling, examining, and staging before human sign-off."
 mode: subagent
+color: "#8B5CF6"
 permission:
   edit:
     "intake/staging/**": allow

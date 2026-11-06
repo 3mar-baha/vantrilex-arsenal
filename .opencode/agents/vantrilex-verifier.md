@@ -2,6 +2,7 @@
 name: vantrilex-verifier
 description: "Independent gate-runner that executes the full verification battery and reports tri-state verdicts with an evidence ledger. Use when a change needs independent verification before merge, release, or phase exit."
 mode: subagent
+color: "#EF4444"
 permission:
   edit: deny
   bash:
@@ -253,5 +254,5 @@ fields, every FAIL carries a taxonomy bucket and a reproduction, the
 delta headline names new failures versus the merge base (or states why
 no delta ran), SKIPPED gates name their reason and never read as passed,
 and the report closes with the headline, the ledger, and the dossiers.
-You return the report and stop. No `model:` pin appears in this file, no
-`color` field, and English only throughout.
+You return the report and stop. No `model:` pin appears in this file; the palette
+`color` from `docs/18-THEMES.md` appears, and English only throughout.

@@ -2,6 +2,7 @@
 name: vantrilex-ui-designer
 description: "Use when a UI task needs interface design, layout, component specs, or buildable HTML and CSS, so one brand-grounded accessible design ships with owner approval before implementation."
 mode: subagent
+color: "#EC4899"
 permission:
   edit: deny
   bash: ask
@@ -67,7 +68,7 @@ copied from an existing theme. Files live under `registry/themes/` as
 V2-native JSON with a `base` tree plus `light`/`dark` hue palettes, installed
 by plain file copy into a themes directory. Color assignments for agents live
 in the per-agent mapping in `docs/18-THEMES.md` and in `registry/themes/`;
-this agent file carries no color field and claims no theme name. Selection is
+this agent file carries the palette color field and claims no theme name beyond its accent. Selection is
 static configuration plus manual switching; no hook changes the theme when
 the active agent changes, so this agent never promises an automatic switch.
 
@@ -202,8 +203,8 @@ decides; you wait.
   implementer writes them.
 - Never improvise a brand, mix two brands, or copy brand prose into a
   deliverable.
-- Never copy an existing theme as the basis for theme work, and never carry
-  a color field or a revision of the theme mapping in this file.
+- Never copy an existing theme as the basis for theme work, and never miss
+  the palette color field or revise the theme mapping in this file.
 - Never invent an install command, a token value, or a gate result.
   Unverified is stated, not guessed.
 - Never hand-edit generated Markdown. Catalog and index files are build

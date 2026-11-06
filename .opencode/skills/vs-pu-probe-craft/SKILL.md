@@ -1,6 +1,7 @@
 ---
 name: vs-pu-probe-craft
 description: Use when Pulsar must probe from the written craft book — loads the six-part probe posture, seats the Pulsar variable seat, reports findings-capsules with evidence, and never mutates the tree.
+source: 3mar-baha/vantrilex-arsenal
 ---
 
 # Pulsar Probe Craft
