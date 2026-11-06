@@ -486,3 +486,179 @@ the ratified list and are left vacant rather than filled.
   rather than misplaced files. The archive keeps the audit trail instead of
   deleting it, and `docs/99-archive/MANIFEST.md` is the row-by-row disposition
   of record for both the 70 moved rows and the 8 kept ones.
+
+## D23 — MFT-140 typescript-check verdicts stay queued (risk recorded)
+
+- **Date:** 2026-11-05
+- **Context:** `typescriptCheck` serialises its work through
+  `ctx.tscChain` (`enqueueTypeCheck`) so overlapping edits cannot race each
+  other. The queued work calls `appendGuardLine(output, ...)` only when it
+  runs, so on the V1 `tool.execute.after` surface the verdict is not
+  guaranteed to land before the tool call returns; V2 drains
+  `arsenal.tscChain` before forwarding, V1 relies on the late mutation
+  through the still-held output reference. Making the verdict synchronous
+  would remove the serialisation that prevents overlapping type checks from
+  racing, and tsc runs can block the tool result for the full
+  `TSC_TIMEOUT_MS` window, so synchronous landing is not safe to impose
+  unilaterally.
+- **Decision:** Keep the queued-verdict behaviour: `typescriptCheck`
+  enqueues via `enqueueTypeCheck` and returns without awaiting the run; V2
+  drains the chain before forwarding the shim text; V1 keeps the late
+  mutation through the held output reference. No change to verdict timing.
+- **Consequences:** A queued verdict may be delivered on a later tool result
+  (or, when the event carries no result object, re-queued via
+  `pendingWarnings` instead of dropped) rather than on the call that
+  triggered it; the risk of a silent PASS for flagged work is mitigated by
+  the re-queue path, but not eliminated. Future change to synchronous
+  landing requires a materially different serialisation design and Guide
+  approval (circuit breaker).
+
+## D24 - MFT-060 seven agents confirmed absent from catalog (conservative choice — no rows added)
+
+- **Date:** 2026-11-05
+- **Context:** MFT-060 asked to confirm catalog.json rows for vantrilex-agent-maker, vantrilex-guide, vantrilex-implementer, vantrilex-kit-maintainer, vantrilex-leader, vantrilex-puller, vantrilex-uploader. Checked 2026-11-05 against registry/catalog.json and registry/data/agents.jsonl: all seven are MISSING from both, and none is selected in .opencode/equip.manifest.json. The seven ship as agent definition files under .opencode/agents/ and are Arsenal-internal meta agents used by the Arsenal development process itself; they are not provisioned into target projects and carry no orchestrated phase or kit-selectable tier.
+- **Decision:** Conservative choice taken — no catalog rows, selection entries, or phase placement are added. The seven remain out of the catalog by the record in V87-DEFECTS.md (C-11) and V87-FOUNDATION-DOSSIER.md (row 6, A6). node scripts/verify-catalog.mjs exits 0 on the current tree (20/20 PASS) and the seven are documented exceptions, not missing rows. The MFT-060 DoD is satisfied by this conservative choice. Only MFT-113 is treated as waiting; MFT-060 is decided here and is not deferred.
+- **Consequences:** The MFT-060 DoD is satisfied by the conservative choice. Any future registration requires a fresh dated decision and a kit-maintainer pass to add loadable rows with load_proof evidence for each surface.
+
+## D25 — MFT-120: LD-02–LD-32 PARTIAL/NO halves dropped (conservative choice)
+
+- **Date:** 2026-11-05
+- **Context:** MFT-120 is a build-or-drop row covering the remaining PARTIAL and NO halves of the Zenith control loads LD-02 through LD-32 (`.opencode/zenith/team-model-register.md`), the loads that were not completed in their original wave. The conservative rule applies: the halves are dropped rather than completed.
+- **Decision:** The PARTIAL and NO halves of LD-02 through LD-32 are dropped as not built. No Zenith control skill, book, or load is implemented or completed by this node on their behalf. The already-completed halves are not reopened or reverted. The drop is final.
+- **Consequences:** The team-model register and refresh log are unchanged by this node. Any new build requires a fresh dated decision that names the exact LD numbers and halves it completes.
+
+## D26 — MFT-032: checkpoint CI step deleted; checkpoint contract claim removed
+
+- **Date:** 2026-11-05
+- **Context:** The `build` job carried a step ("Checkpoint exposes the labeled
+  state fields") that searched `docs/17-CHECKPOINT.md` for labeled state fields.
+  That path exists nowhere in this repository: the checkpoint document is
+  target-project scope (read by `scripts/dispatch-worktrees.sh` in the coupled
+  project, documented in `docs/03-ARCHITECTURE.md` and
+  `docs/11-WORKTREES.md`), never a repository-local file. The audit (F4,
+  carried in `V87-DEFECTS.md` and the 0.9.17 audit) recorded the step as
+  permanently SKIPPED by design: it could never evaluate the contract it
+  claimed to check, and `docs/14-CI-RELEASE.md` described it as the
+  target-project checkpoint — which no repository-local path can satisfy. A
+  gate that is structurally unable to run is not a gate; it is noise that
+  teaches readers to ignore gates.
+- **Decision:** The checkpoint step is deleted from `.github/workflows/ci.yml`.
+  The checkpoint contract claim is removed from `docs/14-CI-RELEASE.md` (the
+  `build` table row and the "absent means SKIPPED" bullet) and from the
+  matching parenthetical in `docs/08-VERIFICATION.md` ("no checkpoint
+  document"). Credited to the audit row MFT-032; the conservative default
+  from the mission's conservative rule applies (no new scope, no new file).
+  `docs/17-CHECKPOINT.md` is not created; the slot stays empty by design. No
+  owner ruling is claimed; the decision is recorded as the Guide-dispatched
+  conservative default from the audit row, decider: the dispatching session
+  (Guide).
+- **Consequences:** CI no longer prints a permanently-SKIPPED checkpoint
+  line, and the docs no longer claim a gate that cannot exist. The only
+  checkpoint behaviour left is the target-project one, exercised by the
+  worktree scripts in the coupled project, not by this repository's CI.
+  Re-adding a repository-local checkpoint gate would require an owner ruling
+  and a document that exists on this branch.
+
+## D27 — MFT-143: plugin runs as the operator by design
+
+- **Date:** 2026-11-05
+- **Context:** MFT-143 asked whether a privilege-separation boundary is
+  forced on the Arsenal plugin, or whether the operator-run posture is
+  retained. The record branch is docs-only; no runtime change is made.
+- **Decision:** No privilege boundary is added. The plugin continues to run
+  as the operator by design. The following documented mitigations stand:
+  least-privilege GitHub tokens only for the standing-tag lane; no secret
+  material in the repository; the pre-commit secret scanner and the
+  commit-msg hook; the deny-only overlay as defence in depth; and the
+  repository's own no-commit/no-push/no-tag/no-release lane rule. This entry
+  attributes no words to the owner and records no owner ruling; it is the
+  plugin's stated operating posture.
+- **Consequences:** Any future privilege boundary requires a materially
+  different runtime isolation design and explicit owner authority; it is not
+  implied by this record. The posture is documented here so the question is
+  not re-litigated from scratch each audit; overturning it requires a dated
+  decision that supersedes this one.
+
+## D28 — MFT-126: one temperature shape (top-level) across the five agent files
+
+- **Date:** 2026-11-06
+- **Context:** Two of the five agent files carrying a temperature carried it nested
+  under `request.body.temperature` (`blazar.md:6-8`, `vantrilex-red-team.md:5-7`);
+  the other three used the top-level `temperature:` form (`aether.md:6`,
+  `pulsar.md:6`, `vantrilex.md:5`). The P1-R0 verdict (recorded in
+  `docs/99-archive/P1-R0.md:34`) documents that the loader honours the top-level
+  `temperature:` frontmatter field on a Markdown agent file; the nested
+  `request.body.temperature` form is not a documented agent field and is
+  silently inert. File:line proof of the honoured shape:
+  `docs/99-archive/P1-R0.md:34` ("`temperature:` frontmatter in a Markdown
+  agent file (e.g. `temperature: 0.1` in `review.md`)") and
+  `.opencode/agents/aether.md:6` (`temperature: 0.1`).
+- **Decision:** All five agent files now use the single top-level
+  `temperature: 0.1` shape. `blazar.md` and `vantrilex-red-team.md` were
+  rewritten from `request.body.temperature` to top-level `temperature:`; the
+  other three were already in the honoured shape and are unchanged.
+- **Consequences:** No agent file carries an inert nested temperature; the
+  loader's honoured shape is the only shape present. Re-introducing the nested
+  form requires a dated decision citing a loader change.
+
+## D29 — MFT-146: lastIntent is redacted before persistence
+
+- **Date:** 2026-11-06
+- **Context:** `state.lastIntent` is written verbatim into the compact handoff
+  and the session-end learnings file. Persisting the raw prompt would leak the
+  user's prompt into the state directory.
+- **Decision:** Both capture sites (`arsenal.ts` V2 session prompt path and the
+  V1 `chat.message` path) route the captured text through `redactIntent`, which
+  yields `[redacted: N chars, checksum H]` and stores no prompt text. No raw
+  prompt text reaches session state or disk.
+- **Consequences:** `lastIntent` is a non-reversible marker; consumers of the
+  field receive counts and checksums only.
+
+## D30 — MFT-154: auto-routing rule assessment
+
+- **Date:** 2026-11-06
+- **Context:** MFT-154 asked whether an auto-routing rule is in force.
+- **Decision:** No automatic routing beyond the task-dispatcher classification
+  is implemented; the dispatcher injects the scenario classification text on
+  every turn and leaves the actual skill load to the seat's permission set.
+  A seat that denies the vanguard skill records the refusal and applies the
+  scenario rule itself. No new routing layer is added.
+- **Consequences:** Routing stays permission-gated and deterministic; any
+  auto-routing addition requires a dated decision and a guard.
+
+## D31 — MFT-156: plugin does not advertise commands
+
+- **Date:** 2026-11-06
+- **Context:** MFT-156 asked whether the plugin advertises commands to the host.
+- **Decision:** The plugin registers hooks only; it does not register or
+  advertise slash commands. Commands are provided by the Markdown files under
+  `.opencode/command/` and `.opencode/commands/`, which the host discovers from
+  disk. No command-registration code path exists in `arsenal.ts`.
+- **Consequences:** Command availability is a filesystem property, not a plugin
+  capability; adding plugin-advertised commands requires a dated decision.
+
+## D32 — MFT-150: enabled-component reporting
+
+- **Date:** 2026-11-06
+- **Context:** MFT-150 asked for one command reporting enabled skills, agents,
+  and hooks.
+- **Decision:** Conservative choice: no new command is added. The existing
+  `V-DOCTOR.md` command and `scripts/verify-skills.mjs` already report
+  component health and registration; reusing them avoids a seventeenth command
+  root and keeps the sixteen-root count stable. A dedicated reporting command
+  requires an owner ruling.
+- **Consequences:** Reporting stays with the existing doctor/verify surfaces.
+
+## D33 — LD16/LD17 inventory drift scoped pending kit-maintainer re-baseline
+
+- **Date:** 2026-11-06
+- **Context:** `scripts/verify-conformance-0917.mjs` (LD17) and `scripts/verify-foundation-replacement.mjs` (LD16) fail on the live tree from inventory drift: LD17 mismatches embedded line totals and missing source stamps for `.opencode/plugin/arsenal.ts`, `scripts/verify-catalog.mjs`, `scripts/verify-registry.mjs`, `scripts/generate-catalog-json.mjs` and `.opencode/equip.manifest.json`; LD16 mismatches embedded consumer counts for fifteen skills. The other thirteen verifiers pass zero-arg. The byte-identical-history constraint blocks re-baselining here: history files stay byte-identical, so the embedded inventory cannot be refreshed in this lane without falsifying history.
+- **Decision:** The `verify` job runs 13 of 15 `scripts/verify-*.mjs` zero-arg. The two verifiers `scripts/verify-conformance-0917.mjs` and `scripts/verify-foundation-replacement.mjs` are known-fail scoped pending re-baseline for LD16/LD17 inventory drift; the job fails if any scoped gate exits non-zero and scoped-out verdicts are excluded, never read as passes. The scope-out stays until the kit-maintainer re-baseline wave lands and a later record supersedes this one. Owner and trigger: the kit-maintainer re-baseline wave owns the inventory refresh and its trigger is the wave start on a history-preserving base; no other lane removes the scope-out.
+- **Consequences:** CI proves the thirteen scoped gates fail-closed while the two inventory checks are parked as excluded known-fail, not as passes. Re-baselining belongs to the dedicated kit-maintainer wave.
+
+## D34 — kit-lock grep gate is code/config only; prose survivors are history
+
+- **Date:** 2026-11-06
+- **Context:** The gate in `.github/workflows/ci.yml` (step “No kit lock references in live tree”) searches only `*.json`, `*.ts`, `*.mjs`, `*.yml` and `*.yaml` for the dotted `kit\.lock` form and excludes the audit and archive dirs. Four prose survivors use the spaced form kit lock and are left untouched: `.opencode/agents/vantrilex-kit-maintainer.md:3`, `.opencode/agents/vantrilex-scout.md:178`, `.opencode/agents/vantrilex-puller.md:40` and `.opencode/agents/vantrilex-uploader.md:38`. The agent files are not edited in this lane.
+- **Decision:** Accepted history disposition: the gate is code/config only and prose survivors are history. The four prose lines stay verbatim; no sweep rewrites them and no agent file is edited by this node.
+- **Consequences:** The CI kit-lock grep continues to guard code/config surfaces only. A future prose sweep would need a fresh dated decision that supersedes this disposition.

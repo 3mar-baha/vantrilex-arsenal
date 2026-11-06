@@ -39,6 +39,27 @@
  *   6. prettierFormat            -> tool.execute.after   (conditional)
  *   +  docsDisciplineGuard       -> tool.execute.before   (docs discipline)
  *
+ * Registration matrix — hook × runtime × trigger. `—` marks a deliberate
+ * absence, never a missing port; the notes below the matrix name the landing.
+ *
+ *   | Hook                       | V1 `server()`                     | V2 `setup()`                          |
+ *   |----------------------------|-----------------------------------|---------------------------------------|
+ *   | sessionStart (1)           | `experimental.chat.system.transform` | —                                   |
+ *   | preCompact (2)             | `experimental.session.compacting`  | —                                     |
+ *   | sessionEnd (3)             | `event`                            | —                                     |
+ *   | longRunningProcessGuard (4)| `tool.execute.before`              | `tool.execute.before` + `shell.create.before` |
+ *   | typescriptCheck (5)        | `tool.execute.after` (conditional) | `tool.execute.after` (conditional)    |
+ *   | prettierFormat (6)         | `tool.execute.after` (conditional) | `tool.execute.after` (conditional)    |
+ *   | docsDisciplineGuard (7)    | `tool.execute.before` (via `runDocsGuard`) | `tool.execute.before` + `shell.create.before` (via `runDocsGuard`) |
+ *   | taskDispatcher (8)         | `chat.message`                     | session `prompt`                      |
+ *   | seatDenyOverlay (9)        | —                                  | permission `evaluate`                 |
+ *   | diffSizeGuard              | `tool.execute.before`              | `tool.execute.before`                 |
+ *   | plan-guard append          | —                                  | session `prompt` (same registration as the dispatcher) |
+ *
+ * "Trigger" is the host callback the registration rides; every registered
+ * callback checks the per-project kill switch at its head and no-ops when a
+ * signal is set.
+ *
  * The three session-lifecycle callbacks (`experimental.chat.system.transform`,
  * `experimental.session.compacting`, `event`) are carried through `server()`
  * unchanged and are INERT under V2. That gap is deliberate, not unfinished:
@@ -568,6 +589,22 @@ const TASK_DISPATCH_INSTRUCTION = [
   "5 CONTINUATION WITH NEW TASK: checkpoint and park the current task, fresh Vanguard dispatch for the new one; keep the lanes separate and always state which lane you are working.",
 ].join("\n")
 
+/**
+ * Structured sentinel delimiting the dispatch instruction block.
+ *
+ * The block is injected as `DISPATCH_SENTINEL_BEGIN\n<instruction>\nDISPATCH_SENTINEL_END`.
+ * Presence is decided by the sentinel alone — never by a substring of the
+ * instruction prose — so a user quoting the instruction lines verbatim cannot
+ * trip idempotence, and the marker pair gives `stripDispatchSentinel` a
+ * deterministic unit to find and remove. The markers are single lines, carry
+ * no host-significant meaning, and survive a V1 text-part append untouched.
+ */
+export const DISPATCH_SENTINEL_BEGIN = "[arsenal:task-dispatch:begin]"
+export const DISPATCH_SENTINEL_END = "[arsenal:task-dispatch:end]"
+
+/** The complete injected payload: sentinel-wrapped instruction. */
+const DISPATCH_INJECTION = [DISPATCH_SENTINEL_BEGIN, TASK_DISPATCH_INSTRUCTION, DISPATCH_SENTINEL_END].join("\n")
+
 const WRITE_TOOLS = new Set(["write", "edit", "patch", "multiedit", "create", "apply_patch"])
 
 const SESSION_BEGIN_EVENTS = new Set([
@@ -589,22 +626,6 @@ const LONG_RUNNING_PATTERNS: readonly RegExp[] = [
   /\b(?:next|nuxt|astro|remix|svelte-kit|vite|ng|webpack|rollup|esbuild|parcel)\b[^\n]*\b(?:dev|serve|start|preview)\b/,
   /\b(?:node|bun|deno)\b[^\n]*(?:--watch|--watch-path|--inspect-brk=)\b/,
   /\bnodemon\b/,
-/**
- * Structured sentinel delimiting the dispatch instruction block.
- *
- * The block is injected as `DISPATCH_SENTINEL_BEGIN\n<instruction>\nDISPATCH_SENTINEL_END`.
- * Presence is decided by the sentinel alone — never by a substring of the
- * instruction prose — so a user quoting the instruction lines verbatim cannot
- * trip idempotence, and the marker pair gives `stripDispatchSentinel` a
- * deterministic unit to find and remove. The markers are single lines, carry
- * no host-significant meaning, and survive a V1 text-part append untouched.
- */
-export const DISPATCH_SENTINEL_BEGIN = "[arsenal:task-dispatch:begin]"
-export const DISPATCH_SENTINEL_END = "[arsenal:task-dispatch:end]"
-
-/** The complete injected payload: sentinel-wrapped instruction. */
-const DISPATCH_INJECTION = [DISPATCH_SENTINEL_BEGIN, TASK_DISPATCH_INSTRUCTION, DISPATCH_SENTINEL_END].join("\n")
-
   /\b(?:http-server|live-server|serve|watchpack)\b/,
   /\bdocker(?:\s+compose)?\s+up\b/,
   /\b(?:cargo|go|dotnet)\s+run\b/,
@@ -2047,6 +2068,18 @@ export const checksumText = (text: string): string => {
   return (hash >>> 0).toString(16).padStart(8, "0")
 }
 
+/**
+ * Redact a captured intent to a non-reversible marker. The marker keeps the
+ * character count and the FNV-1a checksum so two redactions stay
+ * distinguishable, and nothing of the prompt text survives: `lastIntent` is
+ * written verbatim into the compact handoff and the session-end learnings
+ * file, so persisting the raw text would leak the user's prompt into the
+ * state directory. Raw text is never stored on the session state after this
+ * point.
+ */
+const redactIntent = (text: string): string =>
+  `[redacted: ${text.length} chars, checksum ${checksumText(text)}]`
+
 /** Conservative token estimate; gates measure real chars, never this alone. */
 export const estimateTokens = (text: string): number =>
   typeof text === "string" ? Math.max(1, Math.ceil(text.length / CHARS_PER_TOKEN)) : 0
@@ -2067,18 +2100,6 @@ export const shouldCompact = (args: {
   if (args.windowTokens < SMART_COMPACT_MIN_TOKENS) return false
   return args.windowTokens >= args.limitTokens * (1 - SMART_COMPACT_TRIGGER_MARGIN)
 }
-
-/**
- * Redact a captured intent to a non-reversible marker. The marker keeps the
- * character count and the FNV-1a checksum so two redactions stay
- * distinguishable, and nothing of the prompt text survives: `lastIntent` is
- * written verbatim into the compact handoff and the session-end learnings
- * file, so persisting the raw text would leak the user's prompt into the
- * state directory. Raw text is never stored on the session state after this
- * point.
- */
-const redactIntent = (text: string): string =>
-  `[redacted: ${text.length} chars, checksum ${checksumText(text)}]`
 
 /**
  * Synthesize the organized summary: plan, error traces, wrong turns kept
@@ -2426,6 +2447,24 @@ export const docsDisciplineGuard = async (
 }
 
 /**
+ * The single entry point for the docs-discipline guard across both runtimes.
+ * Every registration routes through it — V1 `tool.execute.before`, and the V2
+ * `tool.execute.before` / `shell.create.before` adapters — so the kill-switch
+ * preamble and the guard call itself can never drift between surfaces. The
+ * head-of-callback kill checks in the surfaces stay: they gate the whole
+ * callback, not only this guard; this check keeps the wrapper correct on its
+ * own terms.
+ */
+const runDocsGuard = async (
+  ctx: ArsenalContext,
+  input: ToolExecuteBeforeInput,
+  output: ToolExecuteBeforeOutput,
+): Promise<void> => {
+  if (killSwitchReason(ctx) !== null) return
+  await docsDisciplineGuard(ctx, input, output)
+}
+
+/**
  * HOOK 5 - typescript-check (conditional). Runs the project's own type check
  * after a TypeScript file is written. Reports SKIPPED, never PASS, when the
  * project has no TypeScript.
@@ -2446,24 +2485,6 @@ export const typescriptCheck = async (
   recordTouchedFiles(ctx, input.sessionID, touched)
 
   const tsconfig = nearestTsconfig(ctx.rt, ctx.root, join(ctx.root, touched[0] ?? ""))
-/**
- * The single entry point for the docs-discipline guard across both runtimes.
- * Every registration routes through it — V1 `tool.execute.before`, and the V2
- * `tool.execute.before` / `shell.create.before` adapters — so the kill-switch
- * preamble and the guard call itself can never drift between surfaces. The
- * head-of-callback kill checks in the surfaces stay: they gate the whole
- * callback, not only this guard; this check keeps the wrapper correct on its
- * own terms.
- */
-const runDocsGuard = async (
-  ctx: ArsenalContext,
-  input: ToolExecuteBeforeInput,
-  output: ToolExecuteBeforeOutput,
-): Promise<void> => {
-  if (killSwitchReason(ctx) !== null) return
-  await docsDisciplineGuard(ctx, input, output)
-}
-
   if (!tsconfig) {
     appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "no tsconfig.json in this project; create one with: npx tsc --init"))
     return
@@ -2512,8 +2533,9 @@ const runDocsGuard = async (
 
 /**
  * HOOK 6 - prettier-format (conditional). Formats with the project's own
- * formatter after a JavaScript or TypeScript file is written. Reports SKIPPED,
- * never PASS, when the project has no Prettier.
+ * formatter after a JavaScript or TypeScript file is written. Reports
+ * NOT-RUN, never PASS, when the project has no Prettier; the message names
+ * the install command.
  */
 export const prettierFormat = async (
   ctx: ArsenalContext,
@@ -2529,50 +2551,61 @@ export const prettierFormat = async (
   recordTouchedFiles(ctx, input.sessionID, touched)
 
   if (!hasPrettier(ctx)) {
-    appendGuardLine(output, formatGuardLine("prettier-format", "SKIPPED", "no prettier configuration or dependency in this project"))
+    appendGuardLine(output, formatGuardLine("prettier-format", "NOT-RUN", "no prettier configuration or dependency in this project; install with: npm i -D prettier"))
     return
   }
   const prettier = resolveTool(ctx.rt, ctx.root, "prettier")
   if (!prettier) {
-    appendGuardLine(output, formatGuardLine("prettier-format", "SKIPPED", "prettier is not installed locally"))
+    appendGuardLine(output, formatGuardLine("prettier-format", "NOT-RUN", "prettier is not installed locally; install with: npm i -D prettier"))
     return
   }
 
   const join = ctx.rt.path?.join ?? EMPTY_PATH.join
-  const paths = Array.from(new Set(touched))
+  const allPaths = Array.from(new Set(touched))
     .filter((entry) => !entry.includes("node_modules/"))
-    .slice(0, 50)
     .map((entry) => join(ctx.root, entry))
-  if (paths.length === 0) return
+  if (allPaths.length === 0) return
 
-  const result = await runCommand(
-    ctx.rt,
-    prettier.command,
-    [...prettier.prefixArgs, "--write", "--ignore-unknown", "--log-level", "warn", ...paths],
-    { cwd: ctx.root, timeoutMs: PRETTIER_TIMEOUT_MS },
-  )
+  // Batch files by 50 instead of truncating with .slice(0, 50), so every
+  // touched file is formatted rather than silently dropping the tail.
+  const BATCH_SIZE = 50
+  const chunks: string[][] = []
+  for (let index = 0; index < allPaths.length; index += BATCH_SIZE) {
+    chunks.push(allPaths.slice(index, index + BATCH_SIZE))
+  }
+
   const state = sessionState(ctx, input.sessionID)
-  if (result.spawnFailed) {
-    const line = formatGuardLine("prettier-format", "SKIPPED", "the formatter could not be executed")
-    appendGuardLine(output, line)
-    state.guardOutcomes.push(line)
-    return
+  let formatted = 0
+  for (const chunk of chunks) {
+    const result = await runCommand(
+      ctx.rt,
+      prettier.command,
+      [...prettier.prefixArgs, "--write", "--ignore-unknown", "--log-level", "warn", ...chunk],
+      { cwd: ctx.root, timeoutMs: PRETTIER_TIMEOUT_MS },
+    )
+    if (result.spawnFailed) {
+      const line = formatGuardLine("prettier-format", "NOT-RUN", "the formatter could not be executed; install with: npm i -D prettier")
+      appendGuardLine(output, line)
+      state.guardOutcomes.push(line)
+      return
+    }
+    if (result.timedOut) {
+      const line = formatGuardLine("prettier-format", "FAIL", `timed out after ${PRETTIER_TIMEOUT_MS}ms`)
+      appendGuardLine(output, line)
+      state.guardOutcomes.push(line)
+      state.circuit.failures += 1
+      return
+    }
+    if (result.code !== 0) {
+      const line = formatGuardLine("prettier-format", "FAIL", `exit ${result.code}`)
+      appendGuardLine(output, [line, diagnosticsFrom(result)].filter((entry) => entry.length > 0).join("\n"))
+      state.guardOutcomes.push(line)
+      state.circuit.failures += 1
+      return
+    }
+    formatted += chunk.length
   }
-  if (result.timedOut) {
-    const line = formatGuardLine("prettier-format", "FAIL", `timed out after ${PRETTIER_TIMEOUT_MS}ms`)
-    appendGuardLine(output, line)
-    state.guardOutcomes.push(line)
-    state.circuit.failures += 1
-    return
-  }
-  if (result.code !== 0) {
-    const line = formatGuardLine("prettier-format", "FAIL", `exit ${result.code}`)
-    appendGuardLine(output, [line, diagnosticsFrom(result)].filter((entry) => entry.length > 0).join("\n"))
-    state.guardOutcomes.push(line)
-    state.circuit.failures += 1
-    return
-  }
-  const line = formatGuardLine("prettier-format", "PASS", `${paths.length} file(s) formatted`)
+  const line = formatGuardLine("prettier-format", "PASS", `${formatted} file(s) formatted`)
   appendGuardLine(output, line)
   state.guardOutcomes.push(line)
 }
@@ -2670,7 +2703,7 @@ export const stripDispatchSentinel = (text: string): { stripped: boolean; userTe
  * 20b. Seat deny overlay (permission "evaluate")
  * =========================================================================
  *
- * RUN-0.9.0-FIX cause (a), proven in `.opencode/audit/RUN-090-FIX/deny-cause.md`:
+ * RUN-0.9.0-FIX cause (a), recorded in `.opencode/audit/RUN-090/seat-deny-overlay-rationale.md`:
  * every shipped seat declares its rules under `permissions:` (plural) as a
  * list, and the host evaluates only the singular `permission:` map. Because
  * each declaring file also carries `name:`/`temperature:`, the block is demoted
@@ -3739,6 +3772,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       // touched, which matches what the V2 prompt surface already does.
       const instruction = taskDispatcher(ctx)
       if (instruction === null) return
+      const sentinel = stripDispatchSentinel(text)
       const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
       // `lastIntent` stores a non-reversible marker, never the raw prompt: the
       // value is persisted verbatim by the compact and session-end files.
@@ -3772,7 +3806,6 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
     "experimental.session.compacting": async (
       compactInput: CompactingInput,
       compactOutput: CompactingOutput,
-      const sentinel = stripDispatchSentinel(text)
     ): Promise<void> => {
       if (killSwitchReason(ctx) !== null) return
       await preCompact(ctx, compactInput, compactOutput)

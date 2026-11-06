@@ -3,187 +3,71 @@ description: "Builds the verified outcome from an AETHER MISSION-PLAN by derivin
 name: blazar
 mode: subagent
 color: "#4169E1"
-request:
-  body:
-    temperature: 0.1
-permissions:
-  - action: subagent
-    resource: "*"
-    effect: deny
-  - action: subagent
-    resource: vantrilex-fixer
-    effect: allow
-  - action: subagent
-    resource: vantrilex-github
-    effect: allow
-  - action: subagent
-    resource: vantrilex-harness
-    effect: allow
-  - action: subagent
-    resource: vantrilex-librarian
-    effect: allow
-  - action: subagent
-    resource: vantrilex-python
-    effect: allow
-  - action: subagent
-    resource: vantrilex-releaser
-    effect: allow
-  - action: subagent
-    resource: vantrilex-reviewer
-    effect: allow
-  - action: subagent
-    resource: vantrilex-scribe
-    effect: allow
-  - action: subagent
-    resource: vantrilex-security-auditor
-    effect: allow
-  - action: subagent
-    resource: vantrilex-typescript
-    effect: allow
-  - action: subagent
-    resource: vantrilex-ui-designer
-    effect: allow
-  - action: subagent
-    resource: vantrilex-ux-designer
-    effect: allow
-  - action: subagent
-    resource: vantrilex-verifier
-    effect: allow
-  - action: subagent
-    resource: vantrilex-guide
-    effect: allow
-  - action: subagent
-    resource: explore
-    effect: deny
-  - action: skill
-    resource: "*"
-    effect: deny
-  - action: skill
-    resource: babel-bridge
-    effect: allow
-  - action: skill
-    resource: circuit-breaker-guard
-    effect: allow
-  - action: skill
-    resource: documentation-as-tests
-    effect: allow
-  - action: skill
-    resource: github-release-packager
-    effect: allow
-  - action: skill
-    resource: kill-switch-document
-    effect: allow
-  - action: skill
-    resource: kit-evaluation-journal
-    effect: allow
-  - action: skill
-    resource: kit-evolution-log
-    effect: allow
-  - action: skill
-    resource: lenis
-    effect: allow
-  - action: skill
-    resource: og-image
-    effect: allow
-  - action: skill
-    resource: open-graph-image
-    effect: allow
-  - action: skill
-    resource: ponytail
-    effect: allow
-  - action: skill
-    resource: pre-mortem
-    effect: allow
-  - action: skill
-    resource: preflight-system-doctor
-    effect: allow
-  - action: skill
-    resource: red-team
-    effect: allow
-  - action: skill
-    resource: session-context-primer
-    effect: allow
-  - action: skill
-    resource: skill-shadow
-    effect: allow
-  - action: skill
-    resource: time-capsule-test
-    effect: allow
-  - action: skill
-    resource: vantrilex-design-variations
-    effect: allow
-  - action: skill
-    resource: vantrilex-doctrine
-    effect: allow
-  - action: skill
-    resource: vantrilex-prime
-    effect: allow
-  - action: skill
-    resource: vantrilex-vanguard
-    effect: allow
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: edit
-    resource: "*AGENT.md"
-    effect: allow
-  - action: edit
-    resource: "*WORKFLOW.md"
-    effect: allow
-  - action: read
-    resource: "*"
-    effect: allow
-  - action: read
-    resource: "*.env"
-    effect: deny
-  - action: read
-    resource: "*.env.*"
-    effect: deny
-  - action: glob
-    resource: "*"
-    effect: allow
-  - action: grep
-    resource: "*"
-    effect: allow
-  - action: question
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: deny
-  - action: webfetch
-    resource: "*"
-    effect: deny
-  - action: websearch
-    resource: "*"
-    effect: deny
-  - action: external_directory
-    resource: "*"
-    effect: deny
-  - action: "_"
-    resource: context7_*
-    effect: deny
-  - action: "_"
-    resource: filesystem_*
-    effect: deny
-  - action: "_"
-    resource: memory_*
-    effect: deny
-  - action: "_"
-    resource: sequential_thinking_*
-    effect: deny
-  - action: "_"
-    resource: supabase_*
-    effect: deny
-  - action: "_"
-    resource: firecrawl_*
-    effect: deny
-  - action: "_"
-    resource: openrouter_*
-    effect: deny
-  - action: "_"
-    resource: vercel_*
-    effect: deny
+temperature: 0.1
+permission:
+  task:
+    "*": deny
+    vantrilex-fixer: allow
+    vantrilex-github: allow
+    vantrilex-harness: allow
+    vantrilex-librarian: allow
+    vantrilex-python: allow
+    vantrilex-releaser: allow
+    vantrilex-reviewer: allow
+    vantrilex-scribe: allow
+    vantrilex-security-auditor: allow
+    vantrilex-typescript: allow
+    vantrilex-ui-designer: allow
+    vantrilex-ux-designer: allow
+    vantrilex-verifier: allow
+    vantrilex-guide: allow
+    explore: deny
+  skill:
+    "*": deny
+    babel-bridge: allow
+    circuit-breaker-guard: allow
+    documentation-as-tests: allow
+    github-release-packager: allow
+    kill-switch-document: allow
+    kit-evaluation-journal: allow
+    kit-evolution-log: allow
+    lenis: allow
+    og-image: allow
+    open-graph-image: allow
+    ponytail: allow
+    pre-mortem: allow
+    preflight-system-doctor: allow
+    red-team: allow
+    session-context-primer: allow
+    skill-shadow: allow
+    time-capsule-test: allow
+    vantrilex-design-variations: allow
+    vantrilex-doctrine: allow
+    vantrilex-prime: allow
+    vantrilex-vanguard: allow
+  edit:
+    "*": deny
+    "*AGENT.md": allow
+    "*WORKFLOW.md": allow
+  read:
+    "*": allow
+    "*.env": deny
+    "*.env.*": deny
+  glob: allow
+  grep: allow
+  question: allow
+  bash: deny
+  webfetch: deny
+  websearch: deny
+  external_directory: deny
+  "context7_*": deny
+  "filesystem_*": deny
+  "memory_*": deny
+  "sequential_thinking_*": deny
+  "supabase_*": deny
+  "firecrawl_*": deny
+  "openrouter_*": deny
+  "vercel_*": deny
 ---
 
 # BLAZAR

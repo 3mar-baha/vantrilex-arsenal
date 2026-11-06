@@ -140,3 +140,16 @@ it cannot prove: absent `tsconfig.json` fails the types job, 13 of 15 `scripts/v
 human reader treats every such failure as an open item, and the release lane
 in [14-CI-RELEASE.md](14-CI-RELEASE.md)
 refuses to ship over open guards.
+
+## MFT-136 — markdownlint and link sweep (2026-11-05)
+
+- Generated mirror `registry/VANTRILEX_CATALOG.md`: `npx --no-install
+  markdownlint-cli registry/VANTRILEX_CATALOG.md` -> exit 0, zero
+  findings.
+- Link sweep over the repository Markdown: 33 broken relative links found,
+  all in `.opencode/audit/*` and `docs/99-archive/*` (audit artifacts) or
+  pre-existing truncated URLs (`htt…`) in the generated mirror; no broken
+  link in the docs set touched by this mission. The mirror's truncated
+  URLs are a pre-existing generator/display truncation (recorded as F3 in
+  `V87-DEFECTS.md`) and are not hand-edited here; the generator and its
+  source inputs are left unchanged.

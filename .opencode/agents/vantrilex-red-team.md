@@ -2,16 +2,10 @@
 name: vantrilex-red-team
 description: "Adversarial attacker that tries to break a plan, design, or diff before it ships and returns ranked findings with a triggering path for each, never fixes."
 mode: subagent
-request:
-  body:
-    temperature: 0.1
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+temperature: 0.1
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Red Team

@@ -112,12 +112,33 @@ jobs:
           fi
           echo "all ${#scoped[@]} scoped verify gates exited 0 (2 known-fail excluded, pending re-baseline)"
 
-      - name: Catalog proofs hold
-        # The sole component gate after S3 deleted the lock and its verifier.
-        # scripts/dual-run-check.mjs stays as the parity harness: with the kit
-        # runner retired it proves the selection record against the catalog
-        # phase sets alone.
-        run: node scripts/verify-catalog.mjs
+      - name: No kit lock references in live tree
+        run: |
+          set -euo pipefail
+          # kit lock was abolished at S3; any surviving reference in the live
+          # tree (outside the historical/audit records) is a defect. Live
+          # surfaces are code/config only; history stays verbatim.
+          pat='kit''\.lock'
+          hits=$(grep -rn "$pat" . \
+            --exclude=ci.yml \
+            --exclude=CHANGELOG.md \
+            --exclude=AGENT.md \
+            --exclude=WORKFLOW.md \
+            --include='*.json' \
+            --include='*.ts' \
+            --include='*.mjs' \
+            --include='*.yml' \
+            --include='*.yaml' \
+            --exclude-dir=.git \
+            --exclude-dir=node_modules \
+            --exclude-dir=audit \
+            --exclude-dir=99-archive 2>/dev/null || true)
+          if [ -n "$hits" ]; then
+            echo "kit lock reference found in live tree:"
+            echo "$hits"
+            exit 1
+          fi
+          echo "no kit lock references in live tree"
 
       - name: Plugin version matches newest v0.9 tag
         # Owner-pending gate: intentionally RED until the owner tags v0.9.75
