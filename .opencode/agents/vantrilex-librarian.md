@@ -2,13 +2,9 @@
 name: vantrilex-librarian
 description: "Use when catalog knowledge needs version-qualified curation, drift reporting, or add/remove evidence bundles, so every claim resolves to a real registry ID."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Vantrilex Librarian

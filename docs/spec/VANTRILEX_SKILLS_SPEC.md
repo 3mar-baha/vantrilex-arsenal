@@ -64,7 +64,7 @@ Tier 0 (52 components) is pre-approved; Tier 1 is per-project.
 ### A.6 Step 4 — Install + verify + report
 - Install with REAL commands only (`npx skills add <repo> --skill <name> -a opencode`,
   MCP JSON snippets, etc.). Never invent a package name — check npm/GitHub first.
-- Write `kit.lock` entries (pinned versions).
+- Write `lock (abolished)` entries (pinned versions).
 - Inject **phase-scoped**: a component lives only in its phases (grill-me→docs,
   wayfinder→plan, tdd→build, review skills→review). 8-MCP cap is the backstop.
 - Verify per kind: MCP = `list_tools` ping + smoke call; skill = load SKILL.md + dry-run;

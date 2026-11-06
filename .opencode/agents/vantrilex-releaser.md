@@ -2,13 +2,9 @@
 name: vantrilex-releaser
 description: "Use when a release needs terminal prep that stages a versioned handoff package for the github-release-packager skill without publishing anything."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Vantrilex Releaser

@@ -2,13 +2,9 @@
 name: vantrilex-scribe
 description: "Use when project documentation must be drafted, mirrored into Arabic, or verified so both trees pass deterministic gates in the same cycle."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Vantrilex Scribe

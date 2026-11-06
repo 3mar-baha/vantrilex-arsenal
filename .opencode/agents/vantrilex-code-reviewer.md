@@ -2,13 +2,9 @@
 name: vantrilex-code-reviewer
 description: "Expert code review specialist for quality, security, and maintainability. Use after a feature, for the standards review lane, immediately after code is written or modified."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Code Reviewer

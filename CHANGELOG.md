@@ -18,9 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the registry that proved it. `verification` is the constant `verified`; a row
   that cannot produce its class evidence is no longer a live record with a
   weaker label. Proofs are dated and expire (90 days for a command, 180 for a
-  load surface, 365 for a source). The migration leaves **2,837 live rows** and
-  moves **104 rows** to `registry/candidates/<kind>.jsonl` with one of six reason
-  codes, so nothing is silently dropped and nothing is guessed. The catalog
+  load surface, 365 for a source). The migration leaves **2,889 live rows** and
+  moves **40 rows** to `registry/candidates/<kind>.jsonl` with one of six reason
+  codes, so nothing is silently dropped and nothing is guessed. The recorded totals are the sum of registry/catalog.json (2,889 rows) and registry/candidates/ (40 rows); this invariant is to be asserted in CI. The catalog
   counts **12 theme components plus 1 atomic-switch map**, the map being an
   out-of-catalog runtime artifact rather than a palette theme. The sixteen kinds,
   the generation chain, and the new-kind freeze until the P6 sign-off are
@@ -204,6 +204,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Executable depth-4 proof (`test(depth)`).** `scripts/d4-depth-proof.mjs` extracts the raise hunk from `.opencode/plugin/arsenal.ts` and asserts T1-T7: missing experimental to 4, missing depth to 4, below-4 integers (0, 1, 2, 3) to 4, idempotent no-op at 4, above-4 values (5, 99) untouched, ten malformed inputs untouched, and no key creep. Exit 0 only on all-pass; exit 1 on any case failure; exit 2 on infra doubt (fail-closed). Observed 2026-11-05: `RESULT all-pass pass=16 fail=0 exit=0`.
+
+## [0.9.76] — 2026-11-06 — tag v0.9.76 — Audit W2: catalog, permissions, guards
+
+> Status: this section records the W2 slice released as `v0.9.76` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001. W3 hunks (CI truth, prettier NOT-RUN, temperature shape, D26-D32) and mixed/UNCLASSIFIED hunks remain uncommitted on this branch.
+
+### Changed
+
+- **Catalog counts at live values (`feat(catalog)`).** Migration leaves **2,889 live rows** and **40 rows** in candidates (`CHANGELOG.md` H2, `registry/rag/*`, `registry/schema/*`). Selection is **145** (30 core + 115 conditional); equip manifest reconciled per MFT-059/096 with `suspended=[]` (0) and all 145 tokens resolving to live rows. Vanguard skill figures updated to the live counts (146/2,940/116 → 145/2,889/115).
+- **Permission map converted (`fix(agents)`).** 24 agent files converted `permissions:` (action/resource lists) to `permission:` maps (task/skill/edit/read/bash form) per MFT-045-sweep-adjacent permission work. Two files with co-mingled temperature changes (`blazar.md`, `vantrilex-red-team.md`) are excluded whole; their permission hunks remain uncommitted with W3.
+- **Guard vocabulary `NOT-RUN` (`feat(plugin)`).** `arsenal.ts` W2 hunks: `GuardStatus` gains `NOT-RUN`, `typescriptCheck` missing-tool branches emit `NOT-RUN` with `npm i -D typescript` guidance, `sessionEnd` summarises checked vs skipped outcomes, `diffSizeGuard` carries the line/file budget. W3 hunks (sentinel, docs guard, prettier batching, redaction) remain uncommitted.
+- **Kit-lock sweep (`chore(docs)`).** `kit/kit.lock` references removed from the live tree in W2 files (`V87-*.md`, `WORKFLOW.md`, `brand/IDENTITY.md`, `docs/ar/04-VANGUARD.md`, `docs/dev/06-REGISTRY.md`, specs, `registry/design/ATTRIBUTION.md`, `registry/workflows/forge-dag-exemplar.yaml`, `scripts/dual-run-check.mjs`, `scripts/verify-catalog.mjs`, `registry/rag/*`, `registry/schema/*`, `registry/skills/*`). Historical/audit records keep `lock (abolished)` wording; live-tree sweep only.
+
+### Added
+
+- **Goal-discipline skill (`feat(skill)`).** `.opencode/skills/goal-discipline/SKILL.md` (MFT-114) added.
+- **Pre-mortem row (`feat(registry)`).** `registry/skills/pre-mortem-row-1452.md` added; 27 stale skill rows removed (MFT-053 join: 27 deletions + 1 addition).
+- **Arabic patterns library (`feat(docs)`).** `for-vanzen/arabic-library.md` updated (MFT-118); `V-FULL-AUDIT.md` rewritten (MFT-115); release queue MFT-045 sweep.
+- **Release stamps (`chore(release)`).** `PLUGIN_VERSION` `0.9.75` → `0.9.76` (`.opencode/plugin/arsenal.ts`); README current release `v0.9.75` → `v0.9.76`. `README.ar.md` stays on `v0.9.74` (W1 lag; Arabic W3 hunks excluded).
 
 ## [0.9.33] — 2026-10-31 — PARKED, UNRELEASED (tag v0.9.33 exists, dated 2026-10-31; not published; park commit only)
 

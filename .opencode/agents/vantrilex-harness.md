@@ -2,13 +2,9 @@
 name: vantrilex-harness
 description: "Use when a kit component needs an adversarial probe that proves exploitability with an executable minimal reproduction before any finding counts."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Vantrilex Harness

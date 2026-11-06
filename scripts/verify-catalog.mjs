@@ -4,7 +4,7 @@
  * plus the per-kind shape proofs the retired lock verifier used to carry.
  *
  * Proves the kit from registry/catalog.json and registry/data/*.jsonl without
- * reading kit/kit.lock. The lock's own proofs are what this script replaces;
+ * reading lock (abolished). The lock's own proofs are what this script replaces;
  * reading the lock here would make the replacement circular. S3 deleted the
  * lock, its schema and scripts/verify-kit.mjs, so this script is the sole
  * component gate; the per-kind checks below are the ported coverage map:

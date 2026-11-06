@@ -2,13 +2,9 @@
 name: vantrilex-guide
 description: "Owns the specification, the quality gates and phase-exit sign-off, and invokes the three-strike circuit breaker when a defect survives three failed fixes. Use when work needs a written spec, a guard verdict, a phase-exit ruling, or a halt."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Vantrilex Guide

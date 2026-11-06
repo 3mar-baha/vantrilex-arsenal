@@ -2,16 +2,11 @@
 name: vantrilex-typescript
 description: "Strict TypeScript specialist that masters advanced types and enterprise-grade type safety for use when TypeScript architecture, type errors, or strict typechecking need a verified worker."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: ask
-  - action: shell
-    resource: "node *"
-    effect: allow
+permission:
+  edit: allow
+  bash:
+    "*": ask
+    "node *": allow
 ---
 
 # Vantrilex TypeScript

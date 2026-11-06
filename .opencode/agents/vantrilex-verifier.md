@@ -2,64 +2,27 @@
 name: vantrilex-verifier
 description: "Independent gate-runner that executes the full verification battery and reports tri-state verdicts with an evidence ledger. Use when a change needs independent verification before merge, release, or phase exit."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "node scripts/verify-catalog.mjs*"
-    effect: allow
-  - action: shell
-    resource: "node scripts/verify-registry.mjs*"
-    effect: allow
-  - action: shell
-    resource: "node scripts/verify-skills.mjs*"
-    effect: allow
-  - action: shell
-    resource: "node scripts/generate-catalog-json.mjs*"
-    effect: allow
-  - action: shell
-    resource: "npx tsc --noEmit*"
-    effect: allow
-  - action: shell
-    resource: "tsc --noEmit*"
-    effect: allow
-  - action: shell
-    resource: "shellcheck *"
-    effect: allow
-  - action: shell
-    resource: "bash -n *"
-    effect: allow
-  - action: shell
-    resource: "node --check *"
-    effect: allow
-  - action: shell
-    resource: "npx --yes markdownlint-cli*"
-    effect: allow
-  - action: shell
-    resource: "markdownlint *"
-    effect: allow
-  - action: shell
-    resource: "git rev-parse*"
-    effect: allow
-  - action: shell
-    resource: "git status*"
-    effect: allow
-  - action: shell
-    resource: "git log*"
-    effect: allow
-  - action: shell
-    resource: "git diff*"
-    effect: allow
-  - action: shell
-    resource: "git merge-base*"
-    effect: allow
-  - action: shell
-    resource: "git show*"
-    effect: allow
+permission:
+  edit: deny
+  bash:
+    "*": deny
+    "node scripts/verify-catalog.mjs*": allow
+    "node scripts/verify-registry.mjs*": allow
+    "node scripts/verify-skills.mjs*": allow
+    "node scripts/generate-catalog-json.mjs*": allow
+    "npx tsc --noEmit*": allow
+    "tsc --noEmit*": allow
+    "shellcheck *": allow
+    "bash -n *": allow
+    "node --check *": allow
+    "npx --yes markdownlint-cli*": allow
+    "markdownlint *": allow
+    "git rev-parse*": allow
+    "git status*": allow
+    "git log*": allow
+    "git diff*": allow
+    "git merge-base*": allow
+    "git show*": allow
 ---
 
 # Vantrilex Verifier

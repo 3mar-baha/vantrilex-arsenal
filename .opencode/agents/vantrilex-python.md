@@ -2,25 +2,14 @@
 name: vantrilex-python
 description: "Builds type-safe production Python with ruff, uv, and pytest; use when Python code, tests, or packaging need writing, repair, or review."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "uv *"
-    effect: allow
-  - action: shell
-    resource: "python *"
-    effect: allow
-  - action: shell
-    resource: "pytest *"
-    effect: allow
-  - action: shell
-    resource: "ruff *"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: allow
+  bash:
+    "uv *": allow
+    "python *": allow
+    "pytest *": allow
+    "ruff *": allow
+    "*": ask
 ---
 
 # Vantrilex Python

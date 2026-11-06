@@ -91,7 +91,7 @@ only the single `stripe` exemplar carries a file-copy command, proven by
 
 ## End-to-end exemplar
 
-One brand is wired end to end: `stripe` carries a lock row (`kit/kit.lock`), a
+One brand is wired end to end: `stripe` carries a lock row (`lock (abolished)`), a
 sidecar row (`registry/data/design.jsonl`), a catalog row
 (`registry/VANTRILEX_CATALOG.md` → `registry/catalog.json`), index coverage
 (`registry/design/_index.md`), and verifier proof. The other 83 rows honestly

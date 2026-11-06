@@ -2,13 +2,9 @@
 name: vantrilex-agent-maker
 description: Use when a recurring role needs a dedicated agent, so stop borrowing a generic writer and forge one Arsenal-format agent before the next dispatch.
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: allow
+  bash: ask
 ---
 
 # Agent Maker

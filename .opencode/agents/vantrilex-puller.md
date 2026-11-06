@@ -2,22 +2,14 @@
 name: vantrilex-puller
 description: "Crucible intake puller that pulls, examines, and stages vetted batches for the Arsenal admit node. Use when a scan-clean staged batch needs a final examine-and-stage pass before human sign-off and admission."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "intake/staging/**"
-    effect: allow
-  - action: shell
-    resource: "node scripts/verify-skills.mjs*"
-    effect: allow
-  - action: shell
-    resource: "git status*"
-    effect: allow
-  - action: shell
-    resource: "git diff*"
-    effect: allow
-  - action: shell
-    resource: "git log*"
-    effect: allow
+permission:
+  edit:
+    "intake/staging/**": allow
+  bash:
+    "node scripts/verify-skills.mjs*": allow
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
 ---
 
 # Vantrilex Puller

@@ -2,22 +2,12 @@
 name: vantrilex-security-auditor
 description: "Use when AI-generated or vibe-coded app code needs a static security audit with JSONL findings."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: deny
-  - action: read
-    resource: "*"
-    effect: allow
-  - action: glob
-    resource: "*"
-    effect: allow
-  - action: grep
-    resource: "*"
-    effect: allow
+permission:
+  edit: deny
+  bash: deny
+  read: allow
+  glob: allow
+  grep: allow
 ---
 
 # Vantrilex Security Auditor

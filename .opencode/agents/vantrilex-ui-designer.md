@@ -2,13 +2,9 @@
 name: vantrilex-ui-designer
 description: "Use when a UI task needs interface design, layout, component specs, or buildable HTML and CSS, so one brand-grounded accessible design ships with owner approval before implementation."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Vantrilex UI Designer

@@ -14,7 +14,7 @@
 # - Roles: kit-maintainer owns both nodes; the Guide signs off on the gate.
 # - Precautions: branch wt/vta-expansion-02 checked out; verifiers green first.
 # - Repair states: a red verifier halts the wave and the defect gets an id.
-# - Research: kit/kit.lock plus registry/catalog.json read live, never cited.
+# - Research: lock (abolished) plus registry/catalog.json read live, never cited.
 # - Expanded thinking: none, because two nodes need no auxiliary lanes.
 # - Kit loadout: this workflow file plus the verify-kit and verify-registry
 #   scripts, read from the lock in force.
@@ -26,7 +26,7 @@ nodes:
     concern: Recompute the kit census by counting lock and catalog entries
     owner: kit-maintainer
     inputs:
-      - kit/kit.lock
+      - lock (abolished)
       - registry/catalog.json
     acceptance: Counts reported per kind and tier match the files on disk
     verification: node scripts/verify-kit.mjs exits 0

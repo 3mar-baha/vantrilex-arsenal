@@ -2,13 +2,9 @@
 name: vantrilex-scout
 description: "Read-only scout that surveys a target project into a fixed-schema brief. Use when planning must start from observed fact rather than assumption."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: deny
+permission:
+  edit: deny
+  bash: deny
 ---
 
 # Vantrilex Scout

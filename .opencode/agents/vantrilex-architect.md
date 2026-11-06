@@ -2,13 +2,9 @@
 name: vantrilex-architect
 description: "Software architecture specialist for system design, scalability, and technical decision-making. Use when planning new features, refactoring large systems, or making architectural decisions."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Architect

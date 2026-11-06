@@ -190,9 +190,9 @@ commands in `00-INDEX.md`; a remembered figure is not a count.
 
 | Kind | Live rows | | Kind | Live rows |
 |---|---:|---|---|---:|
-| `skill` | 1478 | | `theme` | 12 |
+| `skill` | 1477 | | `theme` | 12 |
 | `mcp` | 910 | | `plugin` | 11 |
-| `agent` | 301 | | `hook` | 8 |
+| `agent` | 302 | | `hook` | 8 |
 | `design.md` | 84 | | `policy` | 2 |
 | `cli` | 64 | | `lsp` | 1 |
 | `formatting` | 13 | | `prompt` | 1 |
@@ -334,7 +334,7 @@ missing, rather than deleting it or leaving the gate red:
   again. Recovery needs no manifest edit — address → evidence → re-proof →
   re-admission, and the suspension lapses on its own.
 
-Observed live: 17 entries, all active, 0 stale. P4 proved the round trip
+Observed live: 0 entries, 0 active, 0 stale. P4 proved the round trip
 byte-identically: adding an 18th entry for a live token, running the gate, and
 removing that line returns the manifest to its original SHA-256, with the stale
 entry auto-restored and the other 17 unaffected.

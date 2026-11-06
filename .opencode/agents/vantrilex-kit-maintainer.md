@@ -2,13 +2,9 @@
 name: vantrilex-kit-maintainer
 description: "Sole maintainer of the Vantrilex kit's agent and skill definitions, the kit lock, and the lock schema. Use when a kit component is added, changed, or retired, or when the lock, the schema, and the registry have drifted apart."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Kit Maintainer

@@ -254,8 +254,8 @@ domain, and whether the project is UI-heavy. Then query the catalog. Then score 
 installs and stars with preference for proven adoption at or above one thousand, on activity within
 the last six months, on a clear licence, and on non-overlap with stronger candidates. Then apply the
 overlap rules. Then present the shortlist, wait for owner approval, and only then install. Tier 0 is
-pre-approved for every project: it is the 30 core components of the 146 selected in
-`.opencode/equip.manifest.json` from the 2,940-row catalog. Tier 1, the 116 conditional components, is selected
+pre-approved for every project: it is the 30 core components of the 145 selected in
+`.opencode/equip.manifest.json` from the 2,889-row catalog. Tier 1, the 115 conditional components, is selected
 per project and needs explicit approval — conditional exists so projects carry what they use and
 nothing they do not.
 

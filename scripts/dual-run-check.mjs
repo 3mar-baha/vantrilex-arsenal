@@ -13,7 +13,7 @@
  * that the switch depended on:
  *
  * The parity ledger compares .opencode/equip.manifest.json (measured from
- * kit/kit.lock as the pre-abolition baseline) against catalogPhaseSets(), which
+ * lock (abolished) as the pre-abolition baseline) against catalogPhaseSets(), which
  * places every selected component by its catalog phase and tier. An empty
  * ledger is the claim S2 depends on: switching injection to the catalog and the
  * record changes the selection by nothing. Any row in the ledger is drift and

@@ -200,7 +200,7 @@ Canonical order: **Vision → Tasks → Milestones → Compound.**
 |---|---|---|
 | Low | docs, formatting, comments | auto-approved after the mechanical gates pass; no human in the loop |
 | Standard | code, skills, agent text, command text | mechanical gates + independent verify + Omar sign-off |
-| High | `kit/kit.lock`, lock schema, `registry/*`, release, CI permissions | Omar + evidence bundle; **a bot's approval never substitutes for the required human** (`worker-5-human-gates.md:67`) |
+| High | `lock (abolished)`, lock schema, `registry/*`, release, CI permissions | Omar + evidence bundle; **a bot's approval never substitutes for the required human** (`worker-5-human-gates.md:67`) |
 
 **C. Mechanical gates.** The six enforced gates must each exit `0` before a change is claimed done (`AI_GUIDE.md:216`), plus: the adversarial probe battery (`node .opencode/plugin/arsenal.findings-probe.mjs`, 45/45), the skill-format gate (already inside `verify-skills`), and `markdownlint-cli` as an **additional** gate that CI does not run (`docs/08-VERIFICATION.md:99-100`). A skipped check is never a pass; a gate that cannot run is a failed gate.
 
@@ -226,11 +226,11 @@ Canonical order: **Vision → Tasks → Milestones → Compound.**
 
 | Phase | Mission (one line) | Depends on | Writes (single-writer paths) |
 |---|---|---|---|
-| `PH-A` | Establish release truth and version identity | — | `CHANGELOG.md`, `AGENT.md` current-state block, `README.md` census, `docs/09-*`, `docs/16-*`, `kit/kit.lock` identity block |
+| `PH-A` | Establish release truth and version identity | — | `CHANGELOG.md`, `AGENT.md` current-state block, `README.md` census, `docs/09-*`, `docs/16-*`, `lock (abolished)` identity block |
 | `PH-B` | Install the Memory Layer (Pillar 1) | `PH-A` | `AGENTS.md`, `AI_GUIDE.md` memory section, memory docs, memory skill (proposed) |
 | `PH-C` | Install the Adversarial Testing Doctrine (Pillar 2) | `PH-A` | `scripts/` (oracle harness, proposed), testing docs, testing skill (proposed) |
 | `PH-D` | Install Context-Engineering Precision (Pillar 3) | `PH-A` | context docs, work-order template assets, skill asset templates |
-| `PH-E` | Defect remediation (registration + colour regime + docs truth) | `PH-A`, `PH-B`, `PH-C`, `PH-D` | `.opencode/agents/*.md` frontmatter, `registry/`, `kit/kit.lock` rows, `.opencode/commands/*`, `docs/18-*`, themes (proposed) |
+| `PH-E` | Defect remediation (registration + colour regime + docs truth) | `PH-A`, `PH-B`, `PH-C`, `PH-D` | `.opencode/agents/*.md` frontmatter, `registry/`, `lock (abolished)` rows, `.opencode/commands/*`, `docs/18-*`, themes (proposed) |
 | `PH-F` | Compat and CI hardening | `PH-C`, `PH-E` | `.github/workflows/ci.yml`, `.opencode/plugin/arsenal.ts` (hook resolution), `.opencode/skills/*/SKILL.md` descriptions, command-root decision |
 | `PH-G` | Convergence, soak, and release candidacy | all | convergence docs, provenance decision record, evidence bundle |
 
@@ -243,7 +243,7 @@ Every phase below states: mission · inputs · deliverables · commit(s) · veri
 ### 4.1 `PH-A` — Release truth and version identity
 
 - **Mission.** Make "v8.7" mean exactly one thing: reconcile the shipped series with the CHANGELOG status lines, close the naming defect, and give the kit a machine-readable version identity.
-- **Inputs.** `V87-ENUM.md` §1 and §3 (D1–D11), `V87-FEATURE-AUDIT-2.md` B4/B6, `AGENT.md:20` (live state), `CHANGELOG.md:12-18`, `:167-173`, `:367-373`, `:1344-1353`, `kit/kit.lock:1-5`, `README.md:252-263`, `docs/16-*`, `docs/09-KIT-LOCK.md:7`.
+- **Inputs.** `V87-ENUM.md` §1 and §3 (D1–D11), `V87-FEATURE-AUDIT-2.md` B4/B6, `AGENT.md:20` (live state), `CHANGELOG.md:12-18`, `:167-173`, `:367-373`, `:1344-1353`, `lock (abolished):1-5`, `README.md:252-263`, `docs/16-*`, `docs/09-KIT-LOCK.md:7`.
 - **Deliverables.**
   1. A **version-identity ruling request** to Omar with two options and their consequences (below) — a decision, not a guess.
   2. `CHANGELOG.md` repaired: the three `PARKED, UNRELEASED` status lines corrected against `git tag` + `AGENT.md:301-303` (line drift: ENUM measured `AGENT.md:288-290`; live file +13 → `:301-303`); link references for `[0.7.5]`, `[0.7.6]`, `[0.7.7]` added; `[Unreleased]` baseline moved off `v0.7.0` (D1, D2, D3, D6, D7).
@@ -255,12 +255,12 @@ Every phase below states: mission · inputs · deliverables · commit(s) · veri
 - **Verification gates.** `node scripts/generate-catalog-json.mjs --check` exit 0 (if any indexed doc is touched) → `node scripts/verify-registry.mjs` exit 0 → `node scripts/verify-kit.mjs` exit 0 (must include the new identity row) → `npx --no-install markdownlint-cli` on every touched file, exit 0.
 - **Rollback / park.** Every change here is text in tracked files: `git revert` of the phase commits. If Omar has not ruled on version identity, the phase **parks after deliverable 1** and the rest waits; a parked phase announces with evidence and suppresses nothing.
 - **Actors.** `vantrilex-scribe` (docs drafts), `vantrilex-librarian` (census + identity row, version-qualified), `vantrilex-kit-maintainer` (lock/schema write), orchestrator (state block), Omar (the ruling).
-- **Declared context budget.** Read: `CHANGELOG.md`, `AGENT.md`, `README.md`, `docs/09-*`, `docs/16-*`, `kit/kit.lock`, `kit/kit.lock.schema.json`, `V87-ENUM.md`. Edit: the six listed deliverables only.
+- **Declared context budget.** Read: `CHANGELOG.md`, `AGENT.md`, `README.md`, `docs/09-*`, `docs/16-*`, `lock (abolished)`, `lock schema (abolished)`, `V87-ENUM.md`. Edit: the six listed deliverables only.
 
 ### 4.2 `PH-B` — Memory Layer Design (Pillar 1)
 
 - **Mission.** Replace hoped-for memory with an outcome-fed, cost-separated, claim-graph-precise memory layer whose write-path is automatic and whose rules must earn their place.
-- **Inputs.** `V87-INPUT-DIGESTS.md:301-305` (pillar text), `worker-3-memory.md:185-194` (the ten recommendations), `instagram-v8.7-context.md:5-7`, `:22`, `AGENTS.md` (current constitution), `AGENT.md` (live memory), `kit/kit.lock` RAG entries (`registry/rag/01-*` … `10-*`).
+- **Inputs.** `V87-INPUT-DIGESTS.md:301-305` (pillar text), `worker-3-memory.md:185-194` (the ten recommendations), `instagram-v8.7-context.md:5-7`, `:22`, `AGENTS.md` (current constitution), `AGENT.md` (live memory), `lock (abolished)` RAG entries (`registry/rag/01-*` … `10-*`).
 - **Deliverables.**
   1. **Baseline behavioural file, tightened**: a short baseline (`< 200` lines, shrinking) holding behavioural rules only, zero project facts — the corpus's own shape (`worker-3-memory.md:11-18`, `:185`). Per repo law that file's edits land through `AGENTS.md` + `AI_GUIDE.md`, and only the owner may ratify a new rule.
   2. **Outcome-fed write path**: a written procedure that memory entries originate **only** from gate failures, corrections, and incidents, each carrying its *why* (`worker-3-memory.md:186`; `SYNTHESIS-v8.7.md:279`). Automatic, not human-authored: the loop writes it (`worker-3-memory.md:81-82`).
@@ -274,7 +274,7 @@ Every phase below states: mission · inputs · deliverables · commit(s) · veri
 - **Verification gates.** `node scripts/verify-kit.mjs` exit 0 (any `registry/rag` or lock row touched) → `node scripts/verify-skills.mjs` exit 0 (any skill touched) → markdownlint exit 0 on touched files → the phase **own oracle**: an injected gate failure must produce a memory record, proven by breaking a gate on purpose and observing the record (adversarial standard, Pillar 2 applied to Pillar 1).
 - **Rollback / park.** Revert the phase commits; memory rows are additive and independently revertible. Park if the write-path cannot be made automatic — a human-written memory rule is the REJECTed pattern (`worker-3-memory.md:186`) and must not ship as if it were the doctrine.
 - **Actors.** `vantrilex-kit-maintainer` (RAG + lock rows), `vantrilex-scribe` (docs), `vantrilex-verifier` (oracle proof), orchestrator (state files), Omar (ratifies any new standing rule).
-- **Declared context budget.** Read: the digest §3.4 pillar block, `worker-3-memory.md`, `AGENTS.md`, `AGENT.md`, `registry/rag/*.json`, `kit/kit.lock`. Edit: the memory docs + rag rows + memory skill only.
+- **Declared context budget.** Read: the digest §3.4 pillar block, `worker-3-memory.md`, `AGENTS.md`, `AGENT.md`, `registry/rag/*.json`, `lock (abolished)`. Edit: the memory docs + rag rows + memory skill only.
 
 ### 4.3 `PH-C` — Adversarial Testing Doctrine (Pillar 2)
 
@@ -314,7 +314,7 @@ Every phase below states: mission · inputs · deliverables · commit(s) · veri
 - **Mission.** Close the Phase-0 defect census: unregistered components registered, the colour regime ruled and applied, broken surfaces repaired, stale docs made true.
 - **Inputs.** The whole §6 table: `V87-ENUM.md` D1–D11, `V87-COLOR-FINDINGS.md` F-COLOR-01…08 + C1–C7, `V87-COMPAT-FINDINGS.md` C-01…C-11, `V87-FEATURE-AUDIT-1.md` F-A1…F-A7, `V87-FEATURE-AUDIT-2.md` F1–F5, plus `V87-DEFECTS.md` (the sibling consolidation — referenced by category, never a blocker).
 - **Deliverables.**
-  1. **Registration:** 7 agent files (`vantrilex-agent-maker`, `-guide`, `-implementer`, `-kit-maintainer`, `-leader`, `-puller`, `-uploader`) and 19 skill folders given lock + sidecar rows, **or** an explicit `relay-protocol`-style deliberate-unregistered statement (F-A3, F-A4; `kit/kit.lock:164-173` is the precedent for a declared reason).
+  1. **Registration:** 7 agent files (`vantrilex-agent-maker`, `-guide`, `-implementer`, `-kit-maintainer`, `-leader`, `-puller`, `-uploader`) and 19 skill folders given lock + sidecar rows, **or** an explicit `relay-protocol`-style deliberate-unregistered statement (F-A3, F-A4; `lock (abolished):164-173` is the precedent for a declared reason).
   2. **Two BROKEN consult commands repaired**: `V-Technical-Writer.md` → `vantrilex-scribe`, `V-Ai-Generated-Code-Security-Auditor.md` → `vantrilex-security-auditor` (F-A1; the four sibling commands were already remediated, `V87-FEATURE-AUDIT-1.md:250`).
   3. **Role-switch themes:** author `registry/themes/vantrilex-{guide,implementer,leader}.json` or re-point the three `V-Vantrilex-*` commands at an existing theme (F-A2, and the double-prefixed ids of `V87-COLOR-FINDINGS.md:302-304`).
   4. **The colour regime, per Oman's ruling (§9.2)**: either the no-colour rule that 12 subagent files already enforce stands and `docs/18-THEMES.md:95` is amended, or the 7-group palette is written to disk as the group definition and applied to all 27 agents (F-COLOR-01, F-COLOR-02, F-COLOR-06, C1, C6, C7). Note `#22D3EE` (exploration) occurs **zero** times outside the V87 deliverables, the audit set, and AGENT.md (the SC-4 exclusion set) today (F-COLOR-04), and `#8B5CF6` is already a collision between `external` and `operate` (F-COLOR-03).
@@ -323,7 +323,7 @@ Every phase below states: mission · inputs · deliverables · commit(s) · veri
 - **Verification gates.** `node scripts/generate-catalog-json.mjs --check` exit 0 → `node scripts/verify-registry.mjs` exit 0 → `node scripts/verify-kit.mjs` exit 0 → `node scripts/verify-skills.mjs` exit 0 → a **reference scan** proving zero command points at a non-existent agent file (the check that found the two BROKEN commands, re-run) → markdownlint exit 0 on touched files.
 - **Rollback / park.** Registry/lock changes revert as one commit set; **generated surfaces revert by regenerating**, never by editing. Park if the colour ruling has not arrived: the phase must not pick a palette on the builder's authority.
 - **Actors.** `vantrilex-kit-maintainer` (lock, registry, themes), `vantrilex-scribe` (docs), `vantrilex-verifier` (reference scan + gates), Omar (colour and naming rulings).
-- **Declared context budget.** Read: the four audit artifacts + `registry/data/*`, `kit/kit.lock`, `registry/themes/*`, `.opencode/commands/*`, `docs/18-*`. Edit: those paths only, and generated files only through `scripts/generate-catalog-json.mjs`.
+- **Declared context budget.** Read: the four audit artifacts + `registry/data/*`, `lock (abolished)`, `registry/themes/*`, `.opencode/commands/*`, `docs/18-*`. Edit: those paths only, and generated files only through `scripts/generate-catalog-json.mjs`.
 
 ### 4.6 `PH-F` — Compat and CI hardening
 
@@ -566,7 +566,7 @@ Every research mechanism is mapped to a surface that exists on this host or repo
 | Command entry points as phase boundaries | `.opencode/command` + `.opencode/commands` | 4 + 18 files, two roots, no gate asserts which loads (C-09) | `PH-F`: one root or a declared loader rule |
 | Dual-surface plugin | `setup()` (V2) + `server()` (V1) | both exported by `arsenal.ts`; load smoke green | keep dual; `PH-F` fixes only the hook resolution fault |
 | Skills as conditional deep workflows | `.opencode/skills/*/SKILL.md` | 37 folders, format gate 10/10 | `PH-B`/`PH-C`/`PH-D` add the pillar skills |
-| "Reference is the spec" | lock + registry as machine-readable reference | `kit/kit.lock`, `registry/catalog.json`, 16 sidecars | `PH-E` makes the reference complete (registration) |
+| "Reference is the spec" | lock + registry as machine-readable reference | `lock (abolished)`, `registry/catalog.json`, 16 sidecars | `PH-E` makes the reference complete (registration) |
 | Cost-separated memory role | dispatch-time routing (no file pins) | routing recorded in prose only (`WORKFLOW.md:105`) | `PH-B` deliverable 6 + `PH-F` routing statement |
 | Hostile-input safety | capability/permission model | not audited in this plan's inputs | carried to §9 as an open item, never assumed |
 

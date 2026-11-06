@@ -127,7 +127,7 @@ kind: skill                    # skill | mcp | plugin | hook | agent | formattin
 description: "Review a diff for over-engineering…"
 source: dietrichgebert/ponytail
 install_cmd: "npx skills add dietrichgebert/ponytail --skill ponytail-review"  # REAL command
-version_pin: "v1.4.2"          # for kit.lock; null = floating
+version_pin: "v1.4.2"          # for lock (abolished); null = floating
 category: code-quality
 tags: [review, refactoring, yagni]
 when_to_use: "After every feature diff, before merge"   # one-line trigger
@@ -253,4 +253,4 @@ Rule: ADAPT from Claude Code → OpenCode plugin format. Never copy blindly, nev
 **BUILD NEW:** Vantrilex Vanguard SKILL.md, Vantrilex Doctrine SKILL.md, Registry v2
 (catalog.json generator, per-folder _index.md, overlap map, dedupe pass),
 Tier-0 provisioning (incl. NEW context7 + firecrawl MCP entries, verified install cmds),
-kit.lock schema, per-kind verification protocol, repo scaffolding + README + docs.
+lock (abolished) schema, per-kind verification protocol, repo scaffolding + README + docs.

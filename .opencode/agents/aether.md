@@ -4,88 +4,37 @@ name: aether
 mode: subagent
 color: "#14B8A6"
 temperature: 0.1
-permissions:
-  - action: subagent
-    resource: "*"
-    effect: deny
-  - action: subagent
-    resource: vantrilex-scout
-    effect: allow
-  - action: subagent
-    resource: vantrilex-scribe
-    effect: deny
-  - action: skill
-    resource: "*"
-    effect: deny
-  - action: skill
-    resource: vantrilex-workflow-forge
-    effect: allow
-  - action: skill
-    resource: pre-mortem
-    effect: allow
-  - action: skill
-    resource: kill-switch-document
-    effect: allow
-  - action: skill
-    resource: babel-bridge
-    effect: allow
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: read
-    resource: "*"
-    effect: allow
-  - action: read
-    resource: "*.env"
-    effect: deny
-  - action: read
-    resource: "*.env.*"
-    effect: deny
-  - action: glob
-    resource: "*"
-    effect: allow
-  - action: grep
-    resource: "*"
-    effect: allow
-  - action: question
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: deny
-  - action: webfetch
-    resource: "*"
-    effect: deny
-  - action: websearch
-    resource: "*"
-    effect: deny
-  - action: external_directory
-    resource: "*"
-    effect: deny
-  - action: "_"
-    resource: context7_*
-    effect: deny
-  - action: "_"
-    resource: filesystem_*
-    effect: deny
-  - action: "_"
-    resource: memory_*
-    effect: deny
-  - action: "_"
-    resource: sequential_thinking_*
-    effect: deny
-  - action: "_"
-    resource: supabase_*
-    effect: deny
-  - action: "_"
-    resource: firecrawl_*
-    effect: deny
-  - action: "_"
-    resource: openrouter_*
-    effect: deny
-  - action: "_"
-    resource: vercel_*
-    effect: deny
+permission:
+  task:
+    "*": deny
+    vantrilex-scout: allow
+    vantrilex-scribe: deny
+  skill:
+    "*": deny
+    vantrilex-workflow-forge: allow
+    pre-mortem: allow
+    kill-switch-document: allow
+    babel-bridge: allow
+  edit: deny
+  read:
+    "*": allow
+    "*.env": deny
+    "*.env.*": deny
+  glob: allow
+  grep: allow
+  question: allow
+  bash: deny
+  webfetch: deny
+  websearch: deny
+  external_directory: deny
+  "context7_*": deny
+  "filesystem_*": deny
+  "memory_*": deny
+  "sequential_thinking_*": deny
+  "supabase_*": deny
+  "firecrawl_*": deny
+  "openrouter_*": deny
+  "vercel_*": deny
 ---
 
 # AETHER

@@ -2,22 +2,14 @@
 name: vantrilex-uploader
 description: "SEND-only Crucible intake uploader that pulls, examines, and stages candidate content for the Arsenal. Use when an intake batch needs pulling, examining, and staging before human sign-off."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "intake/staging/**"
-    effect: allow
-  - action: shell
-    resource: "node scripts/verify-skills.mjs*"
-    effect: allow
-  - action: shell
-    resource: "git status*"
-    effect: allow
-  - action: shell
-    resource: "git diff*"
-    effect: allow
-  - action: shell
-    resource: "git log*"
-    effect: allow
+permission:
+  edit:
+    "intake/staging/**": allow
+  bash:
+    "node scripts/verify-skills.mjs*": allow
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
 ---
 
 # Vantrilex Uploader

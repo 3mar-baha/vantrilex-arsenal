@@ -17,11 +17,11 @@ is a **shield, three bars, one ground, and a beam**, and each of those four thin
 repository actually makes.
 
 - The **shield** is the boundary. The plugin provisions; it does not decide. Selection lives in the
-  Registry and `kit/kit.lock`, conduct lives in Doctrine, and the plugin only enforces what those two
+  Registry and `lock (abolished)`, conduct lives in Doctrine, and the plugin only enforces what those two
   declare. The shield is that line, drawn once.
 - The **three bars** are the three tiers: Prime orients, Vanguard scouts, Doctrine governs. They are
   the same width and evenly spaced. Equal, because none of the three may expand into another.
-- The **ground line** is `kit/kit.lock`. The bars stand on it, not in it. That is the version pin:
+- The **ground line** is `lock (abolished)`. The bars stand on it, not in it. That is the version pin:
   a project that equipped last quarter gets the same components it got last quarter.
 - The **beam** is the rule in motion. Royal blue carries everything load-bearing; light blue is
   always the thing that *moves* — the sweep across the bars, the scan down the grid, the signal

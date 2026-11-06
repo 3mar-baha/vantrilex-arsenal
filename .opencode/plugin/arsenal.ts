@@ -87,7 +87,7 @@
  * package installed can assert compatibility with a single line of throwaway
  * type-checking; this module itself stays dependency-free and compiles clean.
  */
-export const PLUGIN_VERSION = "0.9.75"
+export const PLUGIN_VERSION = "0.9.76"
 
 export type PluginLevel = "debug" | "info" | "warn" | "error"
 
@@ -699,6 +699,7 @@ type RunResult = {
 type SessionState = {
   id: string
   openedAt: number
+  /** A non-reversible marker; raw prompt text is never stored or persisted. */
   lastIntent: string
   touchedFiles: Set<string>
   guardOutcomes: string[]
@@ -1327,7 +1328,7 @@ export const killSwitchReason = (ctx: ArsenalContext): string | null => {
  * 14. Guard reporting
  * ========================================================================= */
 
-type GuardStatus = "PASS" | "FAIL" | "SKIPPED" | "WARN" | "BLOCKED"
+type GuardStatus = "PASS" | "FAIL" | "SKIPPED" | "NOT-RUN" | "WARN" | "BLOCKED"
 
 const formatGuardLine = (name: string, status: GuardStatus, detail: string): string =>
   `[arsenal] ${name}: ${status}${detail.length > 0 ? ` — ${detail}` : ""}`
@@ -2266,6 +2267,9 @@ export const sessionEnd = async (
 
   const touched = Array.from(state.touchedFiles).sort()
   const durationMs = Date.now() - state.openedAt
+  const guardOutcomes = state.guardOutcomes
+  const skippedOutcomes = guardOutcomes.filter((entry) => /:\s*(SKIPPED|NOT-RUN)\b/.test(entry))
+  const checkedOutcomes = guardOutcomes.filter((entry) => !/:\s*(SKIPPED|NOT-RUN)\b/.test(entry))
   const markdown = [
     "# Session Learnings",
     "",
@@ -2283,6 +2287,13 @@ export const sessionEnd = async (
     "",
     "## Last user intent",
     state.lastIntent.length > 0 ? state.lastIntent : "Not captured.",
+    "",
+    "## Guard summary",
+    `- Checked: ${checkedOutcomes.length}`,
+    `- Skipped: ${skippedOutcomes.length}`,
+    skippedOutcomes.length === 0
+      ? "No guard was skipped in this session."
+      : `Skipped guards: ${skippedOutcomes.map((entry) => entry.replace(/^\[arsenal\]\s*/, "")).join("; ")}`,
     "",
     "## Guard outcomes",
     state.guardOutcomes.length === 0 ? "No guard produced a verdict in this session." : state.guardOutcomes.map((entry) => `- ${entry}`).join("\n"),
@@ -2409,16 +2420,16 @@ export const typescriptCheck = async (
 
   const tsconfig = nearestTsconfig(ctx.rt, ctx.root, join(ctx.root, touched[0] ?? ""))
   if (!tsconfig) {
-    appendGuardLine(output, formatGuardLine("typescript-check", "SKIPPED", "no tsconfig.json in this project"))
+    appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "no tsconfig.json in this project; create one with: npx tsc --init"))
     return
   }
   const tsc = resolveTool(ctx.rt, ctx.root, "tsc")
   if (!tsc) {
-    appendGuardLine(output, formatGuardLine("typescript-check", "SKIPPED", "typescript is not installed locally"))
+    appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "typescript is not installed locally; install with: npm i -D typescript"))
     return
   }
 
-  const paths = Array.from(new Set(touched)).slice(0, 50)
+  const paths = Array.from(new Set(touched))
   enqueueTypeCheck(ctx, async () => {
     const result = await runCommand(
       ctx.rt,
@@ -2428,7 +2439,7 @@ export const typescriptCheck = async (
     )
     const state = sessionState(ctx, input.sessionID)
     if (result.spawnFailed) {
-      const line = formatGuardLine("typescript-check", "SKIPPED", "the type checker could not be executed")
+      const line = formatGuardLine("typescript-check", "NOT-RUN", "the type checker could not be executed; install with: npm i -D typescript")
       appendGuardLine(output, line)
       state.guardOutcomes.push(line)
       return
@@ -3187,7 +3198,7 @@ export const diffSizeGuard = async (
   state.warnedDiffHead = facts.head
   const line = formatGuardLine(
     "diff-size-guard",
-    "BLOCKED",
+    "WARN",
     `${facts.changedLines} uncommitted line(s) across ${facts.changedFiles} file(s) exceed ${DIFF_LINE_LIMIT} lines / ${DIFF_FILE_LIMIT} files since ${facts.head.slice(0, 8)}`,
   )
   state.guardOutcomes.push(line)

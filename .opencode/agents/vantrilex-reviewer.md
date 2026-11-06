@@ -2,13 +2,9 @@
 name: vantrilex-reviewer
 description: "Use when a diff, branch, or pull request needs a read-only kit-law review that returns JSONL findings with file:line evidence and gate-calibrated severity."
 mode: subagent
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
+permission:
+  edit: deny
+  bash: ask
 ---
 
 # Vantrilex Reviewer
