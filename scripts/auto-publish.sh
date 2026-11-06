@@ -251,8 +251,8 @@ battery() {
     fi
 
     # Absent is a failure here, not a notice: a publish gate may not read a
-    # skipped check as a passing one. The catalog proofs are the sole component
-    # gate since S3 deleted kit/kit.lock and scripts/verify-kit.mjs.
+    # skipped check as a passing one. The catalog proofs are one gate of fifteen
+    # (see .github/workflows/ci.yml); verify-kit.mjs was abolished at S3.
     if [ ! -f "${tree}/scripts/verify-catalog.mjs" ]; then
         printf 'FAIL(verify-catalog:absent)\n'
         status=1

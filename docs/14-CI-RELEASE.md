@@ -11,19 +11,15 @@ publishing script is
 
 | Job | Steps |
 |---|---|
-| `lint` | `bash -n` over `scripts/*.sh` and `.githooks/*`; `shellcheck` over the same; `node --check` over every `.mjs` file |
-| `verify` | `node scripts/generate-catalog-json.mjs --check`; `node scripts/verify-registry.mjs`; `node scripts/verify-catalog.mjs` |
-| `types` | Pinned `tsc --noEmit` when a `tsconfig.json` exists; SKIPPED with the reason when none exists, never PASS |
-| `build` | Bash shebang plus executable bit on all seven orchestration scripts; checkpoint labeled-field contract when the checkpoint exists; tarball packaging smoke test |
+| `lint` | `bash -n` over `scripts/*.sh` and `.githooks/*`; `shellcheck` over the same; `node --check` over every `.mjs` file, asserting the checked count equals the live `.mjs` count |
+| `verify` | `node scripts/generate-catalog-json.mjs --check`; 13 of 15 `scripts/verify-*.mjs` run zero-arg, 2 known-fail (LD16/LD17 inventory drift) scoped pending re-baseline, and the job fails if any scoped gate exits non-zero |
+| `types` | Pinned `tsc --noEmit` (`typescript@5.9.3`, `--ignore-scripts`); the job **FAILS** when no `tsconfig.json` exists — a check that cannot run is a failed check, never a pass |
+| `build` | Bash shebang plus executable bit on all seven orchestration scripts; tarball packaging smoke test |
 
 Details that matter:
 
-- The kit-verifier step is honest about absence: when the verifier script is
-  not on the branch, the step reports a notice and continues. That is a SKIP,
-  not a pass; the kit gate stays open per
-  [08-VERIFICATION.md](08-VERIFICATION.md).
-- The checkpoint step behaves the same way for the target-project checkpoint
-  document: absent means SKIPPED with the reason, never a free pass.
+- The retired kit verifier has no step and no notice to report. The `verify`
+  job runs the catalog proofs and 13 of 15 `scripts/verify-*.mjs` zero-arg; 2 known-fail (LD16/LD17 inventory drift) are scoped pending re-baseline and excluded from the scoped run; the job fails if any scoped gate exits non-zero; scoped-out verdicts are excluded, never read as passes. There is no notice-and-continue path.
 - The tarball smoke test packages every listed path that exists on the branch
   and reports absent ones by name. The strict packaging gate is the release
   workflow, not CI.

@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **CI tells the truth about what it proves (`ci`).** The types job pins
+  `typescript@5.9.3` (`--no-save`, `--ignore-scripts`) and **FAILS** when
+  `tsconfig.json` is absent — a check that cannot run is a failed check, not a
+  pass. The verify job runs 13 of 15 `scripts/verify-*.mjs` with no arguments (2 known-fail LD16/LD17 inventory drift scoped pending re-baseline; scoped-out verdicts are excluded, never read as passes), asserts the 15-count, and the job fails if any scoped gate exits non-zero. The lint job asserts the `node --check` count equals the
+  live `.mjs` count. The comment naming `verify-catalog` "the sole component
+  gate" is reworded — the catalog proofs are one gate of fifteen. `kit` is
+  dropped from the CI smoke-artifact path list (abolished at S3), and all npm
+  fetches in CI use `--ignore-scripts`. The dead checkpoint step (it tested
+  the nonexistent `docs/17-CHECKPOINT.md` and printed SKIPPED by design) is
+  deleted; the checkpoint contract claim is removed from `docs/14-CI-RELEASE.md`
+  and `docs/08-VERIFICATION.md`; `docs/15-DECISIONS.md` records D26.
+  `README.md`/`README.ar.md` state the true scope: shipped code is Node 25 /
+  ESM / zero runtime dependencies; the TypeScript gate downloads TypeScript
+  from npm at run time and is not bundled; the comms relay waiter is the only
+  tree component that posts to ntfy.sh, and only when `COMMS_NTFY_TOPIC` is
+  set; the `prettier-format` hook needs Prettier in the target project
+  (`npm i -D prettier`) or it reports NOT-RUN. The install docs name all
+  sixteen command roots (four under `.opencode/command/`, twelve under
+  `.opencode/commands/`).
+
 - **Catalog v4: the class-evidence model replaces the `verified`/`unverified`
   pair (`feat(catalog)`).** Every live record now declares a class —
   `upstream`, `data`, `loadable`, or `installable` — and the class fixes the
@@ -29,6 +49,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `docs/dev/05-KIT-LOCK.md`.
 
 ### Fixed
+
+- **prettier-format reports NOT-RUN with the install command (`fix(plugin)`).**
+  The no-Prettier and formatter-spawn-failure paths now emit `NOT-RUN — …
+  install with: npm i -D prettier`, matching the typescript-check `NOT-RUN`
+  pattern; the hook's contract comment states NOT-RUN. `docs/15-DECISIONS.md`
+  records D27 (MFT-143: the plugin runs as the operator by design; documented
+  mitigations; no owner ruling claimed).
 
 - **Catalog v4 passes JSON Schema strict mode (`fix(catalog)`).** The four
   class-evidence clauses (`allOf` indices 16–19) declared `required` on an
@@ -204,6 +231,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Executable depth-4 proof (`test(depth)`).** `scripts/d4-depth-proof.mjs` extracts the raise hunk from `.opencode/plugin/arsenal.ts` and asserts T1-T7: missing experimental to 4, missing depth to 4, below-4 integers (0, 1, 2, 3) to 4, idempotent no-op at 4, above-4 values (5, 99) untouched, ten malformed inputs untouched, and no key creep. Exit 0 only on all-pass; exit 1 on any case failure; exit 2 on infra doubt (fail-closed). Observed 2026-11-05: `RESULT all-pass pass=16 fail=0 exit=0`.
+
+## [0.9.77] — 2026-11-06 — tag v0.9.77 — Audit W3: CI truth, sentinel, probes
+
+> Status: this section records the W3 slice released as `v0.9.77` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001. Mixed/UNCLASSIFIED hunks (blazar/red-team frontmatter, arsenal registration-matrix + prettier batching + seat-deny citation, ci.yml kit-lock gate, docs/15 D23-D34 single hunk, docs/08 MFT-136, CHANGELOG tag hygiene) remain uncommitted on this branch; W4-W6 untouched.
+
+### Changed
+
+- **CI tells the truth about what it proves (`ci`).** Types job pins `typescript@5.9.3` with `--ignore-scripts` and FAILs when `tsconfig.json` is absent; verify job runs 13 of 15 `scripts/verify-*.mjs` zero-arg with 2 known-fail (LD16/LD17) scoped pending re-baseline; lint job asserts `node --check` count equals live `.mjs` count; checkpoint step deleted; `kit` dropped from smoke-artifact paths; all npm fetches use `--ignore-scripts`. (Mirrors `[Unreleased]` Changed.)
+- **Dispatch sentinel + docs guard + intent redaction (`feat(plugin)`).** `DISPATCH_SENTINEL_BEGIN/END` + `DISPATCH_INJECTION` + `stripDispatchSentinel` (idempotence by sentinel, never by prose substring); `runDocsGuard` single entry for V1/V2; `redactIntent` (`[redacted: N chars, checksum H]`); `MAX_CAPTURED_INTENT_CHARS` removed. Mixed hunks (registration matrix, prettier batching) excluded whole.
+- **True-scope docs (`docs`).** README/README.ar state Node 25/ESM/zero runtime deps, TypeScript gate fetch-on-demand, comms waiter ntfy-only-when-set, prettier NOT-RUN precondition; install docs name sixteen command roots; docs/14/docs/08 state fail-closed CI; docs/16 cross-ref + census note; `scripts/auto-publish.sh` sole-gate to one-of-fifteen comment.
+
+### Added
+
+- **Kill-switch probe (`test`).** `scripts/probe-kill-switch.mjs` — asserts 6/6 zero-footprint no-op under `VANTRILEX_DISABLED`.
+- **Dispatch-sentinel probe (`test`).** `scripts/probe-dispatch-sentinel.mjs` — asserts sentinel idempotence 4/4.
+- **Release stamps (`chore(release)`).** `PLUGIN_VERSION` `0.9.76` → `0.9.77` (`.opencode/plugin/arsenal.ts`); README current release `v0.9.76`/`v0.9.74` → `v0.9.77` (both READMEs).
 
 ## [0.9.76] — 2026-11-06 — tag v0.9.76 — Audit W2: catalog, permissions, guards
 

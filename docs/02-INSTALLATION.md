@@ -53,11 +53,13 @@ satisfy is `registry/schema/catalog-v2.schema.json`, documented in
 
 A target project does not clone this repository for its contents. It receives
 the shipped surface under `.opencode/`: the plugin entry point, the role
-agents, the operator commands, and the transplanted skills. At runtime,
+agents, the operator commands, the workflow commands, and the transplanted skills. At runtime,
 Vanguard detects the project state, selects the Tier-0 core plus the Tier-1
 components the stack requires, installs them with real commands, pins them in
-the project's kit lock, and verifies each one loads. The operator entry points
-are the four command files:
+the project's selection record (`.opencode/equip.manifest.json`), and verifies each one loads. The operator entry points
+are the four command files under `.opencode/command/` (singular), and the
+sixteen command roots in total also include the twelve workflow commands under
+`.opencode/commands/` (plural):
 
 | Command file | Operator intent |
 |---|---|
@@ -65,6 +67,27 @@ are the four command files:
 | `.opencode/command/doctor.md` | Run the preflight system check |
 | `.opencode/command/prime.md` | Emit the session CONTEXT ANCHOR at session start |
 | `.opencode/command/release.md` | Run the release lane |
+
+The twelve workflow commands under `.opencode/commands/` (plural root):
+
+| Command file | Operator intent |
+|---|---|
+| `.opencode/commands/V-DOCTOR.md` | Triage environment, runtimes, configuration, and workspace into PASS/WARN/FAIL rows, with safe automatic repair behind an opt-in flag |
+| `.opencode/commands/V-FULL-AUDIT.md` | Run the full repository audit by fanning out read-only subagents and emitting exactly one cited 1000-plus-line report |
+| `.opencode/commands/V-CATALOG.md` | Search the kit catalog by task keywords and suggest the stack-fitting components |
+| `.opencode/commands/V-PROFILE.md` | Manage install profiles (list, apply, diff, new, validation) so every profile id resolves against the catalog |
+| `.opencode/commands/V-RAG.md` | Answer natural-language questions over the knowledge domains plus the hotfix overlay, with every fact cited |
+| `.opencode/commands/V-HTML_DESIGN.md` | Render a single-file showcase page from a content record plus one brand visual language |
+| `.opencode/commands/V-Ai-Generated-Code-Security-Auditor.md` | Consult the ai-generated-code-security-auditor specialist in read-only Q&A |
+| `.opencode/commands/V-Architect.md` | Consult the architect specialist in read-only Q&A |
+| `.opencode/commands/V-Code-Reviewer.md` | Consult the code-reviewer specialist in read-only Q&A |
+| `.opencode/commands/V-Kit-Maintainer.md` | Consult the kit-maintainer specialist in read-only Q&A |
+| `.opencode/commands/V-Red-Team.md` | Consult the red-team specialist in read-only Q&A |
+| `.opencode/commands/V-Technical-Writer.md` | Consult the technical-writer specialist in read-only Q&A |
+
+The two roots are deliberately distinct: `.opencode/command/` carries the four
+operator entry points, and `.opencode/commands/` carries the twelve workflow
+commands. A fresh clone can therefore reach every one of the sixteen roots.
 
 Prime, Vanguard, and Doctrine ship as skill files under `.opencode/skills/`;
 Workflow-Forge joins them at equip time, when Vanguard installs it in the

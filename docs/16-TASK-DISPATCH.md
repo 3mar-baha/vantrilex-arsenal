@@ -226,13 +226,19 @@ be a second home for the plan, and the two copies would disagree the first
 time the lock changed. Nothing here injects a component, ranks a phase, or
 restates Doctrine's phase map.
 
+Cross-reference: MFT-139 (install/routing) — the command-root routing map that
+this hook sits beside lives in [02-INSTALLATION.md](02-INSTALLATION.md).
+
 Verification of the wiring is mechanical and lives in
 [08-VERIFICATION.md](08-VERIFICATION.md): `node scripts/verify-catalog.mjs`
 resolves every catalog hook row against a registered function in the plugin file
 and fails when one does not, and the selection check requires every selected
 token to resolve in the catalog and its sidecar, agreeing on `kind`, `phase`,
 `tier`, `install_cmd` and `verification`. The census that follows from this entry is in
-[09-KIT-LOCK.md](09-KIT-LOCK.md).
+[09-KIT-LOCK.md](09-KIT-LOCK.md). It is generated, not hand-written: count
+the unique tokens in `.opencode/equip.manifest.json` (or re-run
+`node scripts/verify-catalog.mjs`, which reports the selected count and
+resolves every selected token), then record the resulting figures here.
 
 The migration to V2 changed which runtime surface registers this hook, not what
 the selection records. `task-dispatcher` is still `tier core` at `phase scout`,

@@ -87,7 +87,7 @@
  * package installed can assert compatibility with a single line of throwaway
  * type-checking; this module itself stays dependency-free and compiles clean.
  */
-export const PLUGIN_VERSION = "0.9.76"
+export const PLUGIN_VERSION = "0.9.77"
 
 export type PluginLevel = "debug" | "info" | "warn" | "error"
 
@@ -543,7 +543,6 @@ const GIT_TIMEOUT_MS = 15_000
 
 const MAX_DIAGNOSTIC_LINES = 40
 const MAX_ANCHOR_VALUE_CHARS = 400
-const MAX_CAPTURED_INTENT_CHARS = 600
 
 /**
  * The task-dispatch instruction injected ahead of every user message.
@@ -590,6 +589,22 @@ const LONG_RUNNING_PATTERNS: readonly RegExp[] = [
   /\b(?:next|nuxt|astro|remix|svelte-kit|vite|ng|webpack|rollup|esbuild|parcel)\b[^\n]*\b(?:dev|serve|start|preview)\b/,
   /\b(?:node|bun|deno)\b[^\n]*(?:--watch|--watch-path|--inspect-brk=)\b/,
   /\bnodemon\b/,
+/**
+ * Structured sentinel delimiting the dispatch instruction block.
+ *
+ * The block is injected as `DISPATCH_SENTINEL_BEGIN\n<instruction>\nDISPATCH_SENTINEL_END`.
+ * Presence is decided by the sentinel alone — never by a substring of the
+ * instruction prose — so a user quoting the instruction lines verbatim cannot
+ * trip idempotence, and the marker pair gives `stripDispatchSentinel` a
+ * deterministic unit to find and remove. The markers are single lines, carry
+ * no host-significant meaning, and survive a V1 text-part append untouched.
+ */
+export const DISPATCH_SENTINEL_BEGIN = "[arsenal:task-dispatch:begin]"
+export const DISPATCH_SENTINEL_END = "[arsenal:task-dispatch:end]"
+
+/** The complete injected payload: sentinel-wrapped instruction. */
+const DISPATCH_INJECTION = [DISPATCH_SENTINEL_BEGIN, TASK_DISPATCH_INSTRUCTION, DISPATCH_SENTINEL_END].join("\n")
+
   /\b(?:http-server|live-server|serve|watchpack)\b/,
   /\bdocker(?:\s+compose)?\s+up\b/,
   /\b(?:cargo|go|dotnet)\s+run\b/,
@@ -2054,6 +2069,18 @@ export const shouldCompact = (args: {
 }
 
 /**
+ * Redact a captured intent to a non-reversible marker. The marker keeps the
+ * character count and the FNV-1a checksum so two redactions stay
+ * distinguishable, and nothing of the prompt text survives: `lastIntent` is
+ * written verbatim into the compact handoff and the session-end learnings
+ * file, so persisting the raw text would leak the user's prompt into the
+ * state directory. Raw text is never stored on the session state after this
+ * point.
+ */
+const redactIntent = (text: string): string =>
+  `[redacted: ${text.length} chars, checksum ${checksumText(text)}]`
+
+/**
  * Synthesize the organized summary: plan, error traces, wrong turns kept
  * with their WRONG-TURN tag (T5), recoverable pointers. Empty sections are
  * omitted, so a present section always means present content.
@@ -2419,6 +2446,24 @@ export const typescriptCheck = async (
   recordTouchedFiles(ctx, input.sessionID, touched)
 
   const tsconfig = nearestTsconfig(ctx.rt, ctx.root, join(ctx.root, touched[0] ?? ""))
+/**
+ * The single entry point for the docs-discipline guard across both runtimes.
+ * Every registration routes through it — V1 `tool.execute.before`, and the V2
+ * `tool.execute.before` / `shell.create.before` adapters — so the kill-switch
+ * preamble and the guard call itself can never drift between surfaces. The
+ * head-of-callback kill checks in the surfaces stay: they gate the whole
+ * callback, not only this guard; this check keeps the wrapper correct on its
+ * own terms.
+ */
+const runDocsGuard = async (
+  ctx: ArsenalContext,
+  input: ToolExecuteBeforeInput,
+  output: ToolExecuteBeforeOutput,
+): Promise<void> => {
+  if (killSwitchReason(ctx) !== null) return
+  await docsDisciplineGuard(ctx, input, output)
+}
+
   if (!tsconfig) {
     appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "no tsconfig.json in this project; create one with: npx tsc --init"))
     return
@@ -2586,14 +2631,40 @@ export const prettierFormat = async (
  * runtime may re-present the same draft.
  */
 export const taskDispatcher = (ctx: ArsenalContext): string | null =>
-  ctx.config.taskDispatcher.enabled === true ? TASK_DISPATCH_INSTRUCTION : null
+  ctx.config.taskDispatcher.enabled === true ? DISPATCH_INJECTION : null
 
 /**
- * V2 idempotence check. The draft is a single string, so containment is the
- * exact analogue of the V1 part-equality test: after one append the
- * instruction is present verbatim, and a second pass finds it.
+ * Locate and remove every sentinel-wrapped dispatch block, deterministically.
+ *
+ * The pass walks the string once per block: find the first BEGIN marker,
+ * then the next END marker, and delete through END. An unterminated BEGIN
+ * (END not found after BEGIN) leaves the text intact and stops: user text is
+ * never deleted on an incomplete marker. A swallowed blank-line separator
+ * joins the block to the user's text. Repeats until no BEGIN marker remains,
+ * so a multiply-injected draft normalises in one call.
+ * The user's own text is whatever survives, trimmed of surrounding blank
+ * lines; `stripped` reports whether at least one block was found. When the
+ * input carries no sentinel the text comes back trimmed and otherwise intact.
  */
-const hasDispatchInstruction = (text: string): boolean => text.includes(TASK_DISPATCH_INSTRUCTION)
+export const stripDispatchSentinel = (text: string): { stripped: boolean; userText: string } => {
+  let current = typeof text === "string" ? text : ""
+  let stripped = false
+  for (;;) {
+    const begin = current.indexOf(DISPATCH_SENTINEL_BEGIN)
+    if (begin === -1) break
+    const afterBegin = begin + DISPATCH_SENTINEL_BEGIN.length
+    const end = current.indexOf(DISPATCH_SENTINEL_END, afterBegin)
+    if (end === -1) break
+    const stop = end + DISPATCH_SENTINEL_END.length
+    // Swallow the blank-line separator immediately before the block.
+    let start = begin
+    if (current.slice(Math.max(0, start - 2), start) === "\n\n") start -= 2
+    else if (current.slice(Math.max(0, start - 1), start) === "\n") start -= 1
+    current = current.slice(0, start) + current.slice(stop)
+    stripped = true
+  }
+  return { stripped, userText: current.replace(/\n{3,}/g, "\n\n").trim() }
+}
 
 /* ===========================================================================
  * 20b. Seat deny overlay (permission "evaluate")
@@ -3312,7 +3383,7 @@ export const v2ToolBefore = async (arsenal: ArsenalContext, event: V2ToolBeforeE
   const input: ToolExecuteBeforeInput = { tool: toolName, sessionID: sessionId, callID: callId }
   const output: ToolExecuteBeforeOutput = { args: event?.input }
   await longRunningProcessGuard(arsenal, input, output)
-  await docsDisciplineGuard(arsenal, input, output)
+  await runDocsGuard(arsenal, input, output)
 }
 
 /**
@@ -3415,7 +3486,7 @@ const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent)
   const input: ToolExecuteBeforeInput = { tool: "bash", sessionID: "anonymous", callID: "shell" }
   const output: ToolExecuteBeforeOutput = { args: { command } }
   await longRunningProcessGuard(arsenal, input, output)
-  await docsDisciplineGuard(arsenal, input, output)
+  await runDocsGuard(arsenal, input, output)
 }
 
 /**
@@ -3488,12 +3559,16 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
       if (userText.length === 0) return
 
       const instruction = taskDispatcher(arsenal)
-      if (instruction !== null && !hasDispatchInstruction(userText)) {
-        // Captured before the rewrite so `lastIntent` stays the user's own words
-        // and never the instruction this hook appends.
-        const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
-        state.lastIntent = clip(userText, MAX_CAPTURED_INTENT_CHARS)
-        draft.text = `${userText}\n\n${instruction}`
+      if (instruction !== null) {
+        const sentinel = stripDispatchSentinel(userText)
+        if (!sentinel.stripped) {
+          // Captured before the rewrite. `lastIntent` stores a non-reversible
+          // marker, never the raw prompt: the value is persisted verbatim by
+          // the compact and session-end files.
+          const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
+          state.lastIntent = redactIntent(sentinel.userText)
+          draft.text = `${userText}\n\n${instruction}`
+        }
       }
       // Plan-guard append runs on the resulting draft, exactly where the retired
       // carrier ran it, and only rewrites when the brief drifts from the plan.
@@ -3665,10 +3740,10 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       const instruction = taskDispatcher(ctx)
       if (instruction === null) return
       const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
-      // After the intent is captured, so lastIntent stays the user-owned words
-      // and never the instruction this hook adds.
-      state.lastIntent = clip(text, MAX_CAPTURED_INTENT_CHARS)
-      if (hasDispatchInstruction(text)) return
+      // `lastIntent` stores a non-reversible marker, never the raw prompt: the
+      // value is persisted verbatim by the compact and session-end files.
+      state.lastIntent = redactIntent(sentinel.userText)
+      if (sentinel.stripped) return
 
       // Append to the last existing user text part, which already carries the
       // host-validated identity. A synthetic part pushed here fails host-side
@@ -3697,6 +3772,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
     "experimental.session.compacting": async (
       compactInput: CompactingInput,
       compactOutput: CompactingOutput,
+      const sentinel = stripDispatchSentinel(text)
     ): Promise<void> => {
       if (killSwitchReason(ctx) !== null) return
       await preCompact(ctx, compactInput, compactOutput)
@@ -3710,7 +3786,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       recordTouchedFiles(ctx, toolInput.sessionID, candidatePathsFrom(root, toolOutput?.args))
       await diffSizeGuard(ctx, toolInput.sessionID, toolInput.tool)
       await longRunningProcessGuard(ctx, toolInput, toolOutput)
-      await docsDisciplineGuard(ctx, toolInput, toolOutput)
+      await runDocsGuard(ctx, toolInput, toolOutput)
     },
 
     "tool.execute.after": async (

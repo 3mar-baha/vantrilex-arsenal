@@ -135,7 +135,8 @@ work. The worktree mechanics that enforce it are in
 
 If a check cannot run — missing tool, missing file, missing configuration —
 that is a failed check, not a skipped one. Say so in the change description
-rather than leaving the gate green-looking. CI models this by reporting
-SKIPPED with the reason spelled out (no `tsconfig.json`, no checkpoint
-document); a human reader treats every such line as an open item, and the release lane in [14-CI-RELEASE.md](14-CI-RELEASE.md)
+rather than leaving the gate green-looking. CI models this by failing the job
+it cannot prove: absent `tsconfig.json` fails the types job, 13 of 15 `scripts/verify-*.mjs` run zero-arg with 2 known-fail (LD16/LD17 inventory drift) scoped pending re-baseline and the job fails if any scoped gate exits non-zero, scoped-out verdicts are excluded, never read as passes, and the tarball gate names every path it could not package; a
+human reader treats every such failure as an open item, and the release lane
+in [14-CI-RELEASE.md](14-CI-RELEASE.md)
 refuses to ship over open guards.

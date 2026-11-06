@@ -14,7 +14,7 @@ Fill rides W7b after publish: `v0.9.27`, `bdeafe416b6c9ee360aca46919e2fd58d64a32
 LD-28 carries the gap register as scoped on the version branch; substance rides the build scope, never assumed in this draft.
 Fill rides W7b after publish: `v0.9.28`, `136371c94ce8426d0863bab0fde4c63a8605ede1`, `6eea674c20285a0bf9e499040576882acff27451`, and `171` stay placeholders in this draft with zero 40-hex filled now.
 
-**Current release:** `v0.9.76` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). Merge: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · Tag: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · Size: `174`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.25 block.
+**Current release:** `v0.9.77` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). Merge: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · Tag: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · Size: `174`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.25 block.
 
 **v0.9.32 — Reserved:** version `v0.9.32` · merge `29a430d6d8662033ea815d510522847dcde7d6a6` · tag `25a102ee0fd9c94466e08d89e5e74ee2bc03d846` · size `181`.
 Slot 0.9.32 reserved; gated self-improvement only after supervised clean record; standing list never automated (fallback FBLD-32).
@@ -33,9 +33,14 @@ project.
 
 *The table images in this file still render the prior census and are pending regeneration; the prose figures are the live verified counts.*
 
-The repository is Node 25, ESM, and zero dependencies. It contains **no AI or
-ML model logic** — only Markdown, JSON, and Node ESM. Nothing here may invent an
-install command.
+The repository is Node 25, ESM, and zero **runtime** dependencies. It contains
+**no AI or ML model logic** — only Markdown, JSON, and Node ESM. Nothing here may invent an
+install command. The shipped code itself opens no network connections; two
+adjacent surfaces do touch the network: the TypeScript gate downloads
+TypeScript from npm at run time, and the comms relay waiter
+(`COMMS-SUPABASE-WAIT.mjs`) posts to ntfy.sh when `COMMS_NTFY_TOPIC` is set.
+No gate verdict is bundled into this repository, and the TypeScript gate is
+not bundled — it fetches the checker on demand.
 
 ![Vantrilex Arsenal](brand/logo/arsenal-lockup-light.svg)
 
@@ -333,7 +338,11 @@ a project that asks for it, and the selection record — not the directory listi
 
 A task is not finished because the code runs; it is finished when the thing is
 proven. Every gate below is runnable from the repository root and every one must
-exit 0.
+exit 0. These gates are not all hermetic: the TypeScript gate downloads
+TypeScript from npm at run time (CI pins `typescript@5.9.3` with
+`--ignore-scripts`); the other gates run offline. The comms relay waiter is the
+only tree component that posts to ntfy.sh, and only when `COMMS_NTFY_TOPIC` is
+set. No gate verdict is bundled into the repository.
 
 ![Table of the six verification gates: registry data runs node scripts/verify-registry.mjs; catalog mirror runs node scripts/generate-catalog-json.mjs --check; catalog proofs run node scripts/verify-catalog.mjs; skills runs node scripts/verify-skills.mjs; plugin typecheck runs npx tsc --noEmit -p tsconfig.json; shell lint runs shellcheck scripts/*.sh .githooks/*](docs/assets/tables/verification-gates.svg)
 
@@ -384,12 +393,17 @@ project at runtime and is deliberately not part of this repository's layout.
 
 ## Toolchain
 
-`git` and **Node 25** are the only hard requirements. The Registry tooling — the
-catalog generator, the registry verifier, the kit verifier, the skills verifier
-— is dependency-free Node ESM. No Python, no second language runtime, no
-bundler, no framework, no `jq`, and no terminal multiplexer. This is deliberate:
+`git` and **Node 25** are the hard requirements. The Registry tooling — the
+catalog generator, the registry verifier, the catalog proofs, the skills verifier
+— is dependency-free Node ESM with zero runtime dependencies, exactly as the
+shipped code is. One prerequisite is conditional: the `prettier-format` hook
+formats only when the target project has Prettier (`npm i -D prettier`); without
+it the hook reports NOT-RUN and formats nothing. No Python, no second language
+runtime, no bundler, no framework, no `jq`, and no terminal multiplexer. This is deliberate:
 a shareable plugin should not ask a user to install a language runtime just to
-read a catalog. Shell scripts are POSIX `bash`, checked by `shellcheck`.
+read a catalog. The TypeScript gate is the one gate that fetches at run time —
+it downloads `typescript@5.9.3` from npm when a `tsconfig.json` is present, and
+it is not bundled. Shell scripts are POSIX `bash`, checked by `shellcheck`.
 
 ---
 
