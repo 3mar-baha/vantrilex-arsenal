@@ -14,7 +14,8 @@ publishing script is
 | `lint` | `bash -n` over `scripts/*.sh` and `.githooks/*`; `shellcheck` over the same; `node --check` over every `.mjs` file, asserting the checked count equals the live `.mjs` count |
 | `verify` | `node scripts/generate-catalog-json.mjs --check`; 13 of 15 `scripts/verify-*.mjs` run zero-arg, 2 known-fail (LD16/LD17 inventory drift) scoped pending re-baseline, and the job fails if any scoped gate exits non-zero |
 | `types` | Pinned `tsc --noEmit` (`typescript@5.9.3`, `--ignore-scripts`); the job **FAILS** when no `tsconfig.json` exists — a check that cannot run is a failed check, never a pass |
-| `build` | Bash shebang plus executable bit on all seven orchestration scripts; tarball packaging smoke test |
+| `secrets` | Gitleaks secret scan over full history — the CI mirror of the `.githooks/pre-commit` secret scanner, so hook-less or `--no-verify` commits still fail review |
+| `build` | Bash shebang plus executable bit on all seven orchestration scripts; smoke tarball packaging (`vantrilex-arsenal-smoke-<sha>.tar.gz`), never a release asset |
 
 Details that matter:
 
@@ -125,14 +126,23 @@ If the tag landed before its release was created, the workflow creates the
 release from the changelog notes first, then uploads the artifact with
 overwrite enabled, so the upload always has a target.
 
-## Auto-publish for v0.0.x patches
+**Writer boundary (conservative decision, 2026-11-07; see D41):** `auto-publish.yml`
+is the sole release-asset writer. The CI `build` job creates only the disjoint
+smoke tarball `vantrilex-arsenal-smoke-<sha>.tar.gz` (renamed from the
+release-asset-shaped name); it never uploads a release asset. No second writer
+is permitted.
+
+## Auto-publish for v0.0.x patches (owner-gated v0.0.x)
 
 A published `v0.0.x` patch release publishes its own distributable. No manual
 upload step follows the release. `.github/workflows/auto-publish.yml` triggers
 on `release: types: [published]` and runs `scripts/auto-publish.sh`, which is
 also the local entry point.
 
-The guard is strictly `^v0\.0\.[0-9]+$`: no prerelease suffix, no build
+`v0.9.x` releases are owner-gated and do not auto-publish (see D42): they are
+owner-pushed and end the run with an owner-gated notice and exit 0.
+
+The guard is strictly `^v0\.0\.[0-9]+$` (see D42, conservative owner-gating): no prerelease suffix, no build
 metadata, no `0.x.0` minor, no `x.0.0` major. Anything outside that shape ends
 the run with an owner-gated notice and exit 0, so a minor or major release
 publishes only after the owner's named go. A release flagged prerelease is
@@ -205,7 +215,7 @@ starts no CI run.
 
 ## Publish accounting - v0.9.34 through v0.9.74
 
-Lane key: standing-tag lane - one GitHub release per tag that already exists, created from the tag with no re-tagging and no asset upload. No publish gate runs on this lane; the only automated gate is the CI run on the push that landed the tag commit, and it exited success for every row below. The auto-publish workflow also fires on each of these releases and exits 0 with an owner-gated notice, because the guard is strictly ^v0.0.[0-9]+$ and none of these versions match; no asset is published and no release is marked latest by that workflow.
+Lane key: standing-tag lane - one GitHub release per tag that already exists, created from the tag with no re-tagging and no asset upload. No publish gate runs on this lane; the only automated gate is the CI run on the push that landed the tag commit, and it exited success for every row below. The auto-publish workflow also fires on each of these releases and exits 0 with an owner-gated notice, because the guard was strictly ^v0.0.[0-9]+$ at the time and none of these versions match; no asset is published and no release is marked latest by that workflow.
 
 Approver of record for every row is the tagger and release author 3mar-baha (GitHub login). Gate result is quoted from the CI run for the tag commit SHA; the auto-publish guard outcome is recorded alongside it.
 

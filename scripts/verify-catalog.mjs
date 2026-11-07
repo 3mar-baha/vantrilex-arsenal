@@ -96,6 +96,24 @@
  * window fails with `evidence-lapsed` semantics instead of passing on a stale
  * date. A state with no checked_at is an evaluation failure, never a pass.
  *
+ * Proof age (MFT-040/MFT-041): the verifier surfaces evidence.verified_at per row
+ * as the earliest checked_at across its proof legs (the limiting proof), its
+ * age in days, and a stale band when the remaining window is <= 30 days.
+ * No separate expires_at field is stored; expiry is checked_at + TTL
+ * (90/180/365). A backdated checked_at past the window fails via
+ * evidenceTtlReason (break-verified by the exported helper).
+ *
+ * Pin coverage (MFT-039)
+ * ----------------------
+ * Pinned means version_pin is a non-empty string; floating means it is
+ * null (schema version_pin). Scope is class installable only. Target:
+ * all installable rows pinned by 0.9.80. Documented gate at 0.9.78: every
+ * cli installable row stays pinned (package-manager registry carries a
+ * version coordinate); skill (skills-registry carries no version
+ * coordinate) and prompt (file-copy, pinned only by the repo tag) rows
+ * are labelled floating and counted, never hidden as pinned. Overall
+ * coverage is printed, not gated to 100% until 0.9.80.
+ *
  * Runtime: Node 25, ESM, zero dependencies.
  * Exit 0 when every proof holds, 1 when any proof fails.
  */
@@ -266,6 +284,8 @@ const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 // P4 evidence TTL (R7): the window each proof leg stays valid.
 export const EVIDENCE_TTL_DAYS = Object.freeze({ command_registry: 90, load_proof: 180, source_proof: 365 });
+// MFT-040 stale band: warn when the remaining TTL window is this many days or fewer.
+export const STALE_BAND_DAYS = 30;
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 
@@ -505,6 +525,50 @@ const kindTally = (components) => {
     tally.set(entry.kind, bucket);
   }
   return tally;
+};
+
+/**
+ * MFT-039 pin coverage helper: splits class installable rows into pinned
+ * and floating per kind. Pinned means version_pin is a non-empty string;
+ * floating means it is null. Counts are derived from the catalog alone.
+ */
+const pinCoverage = (components) => {
+  const byKind = new Map();
+  let total = 0;
+  let pinned = 0;
+  for (const entry of components) {
+    if (entry === null || typeof entry !== "object" || entry.class !== "installable") continue;
+    const bucket = byKind.get(entry.kind) ?? { total: 0, pinned: 0, floating: 0 };
+    bucket.total += 1;
+    total += 1;
+    if (typeof entry.version_pin === "string" && entry.version_pin.length > 0) {
+      bucket.pinned += 1;
+      pinned += 1;
+    } else {
+      bucket.floating += 1;
+    }
+    byKind.set(entry.kind, bucket);
+  }
+  return { byKind, total, pinned, floating: total - pinned };
+};
+
+export const checkPinCoverage = (components) => {
+  const coverage = pinCoverage(components);
+  const pct = coverage.total === 0 ? "0.0" : (100 * coverage.pinned / coverage.total).toFixed(1);
+  const kindParts = [...coverage.byKind.entries()].sort((left, right) => (left[0] < right[0] ? -1 : left[0] > right[0] ? 1 : 0)).map(([kind, bucket]) => {
+    const kindPct = bucket.total === 0 ? "0.0" : (100 * bucket.pinned / bucket.total).toFixed(1);
+    return kind + " " + bucket.pinned + "/" + bucket.total + " pinned (" + kindPct + "%), " + bucket.floating + " floating";
+  });
+  const floatingKinds = [...coverage.byKind.entries()].filter(([, bucket]) => bucket.floating > 0).map(([kind]) => kind);
+  const cli = coverage.byKind.get("cli");
+  const cliFloating = cli === undefined ? 0 : cli.floating;
+  const floatingRows = components.filter((entry) => entry !== null && typeof entry === "object" && entry.class === "installable" && !(typeof entry.version_pin === "string" && entry.version_pin.length > 0));
+  const cliFloatingRows = floatingRows.filter((entry) => entry.kind === "cli");
+  const base = "MFT-039 pin coverage: " + coverage.pinned + "/" + coverage.total + " installable rows pinned (" + pct + "%), " + coverage.floating + " floating; " + kindParts.join("; ") + "; target all installable pinned by 0.9.80; documented gate at 0.9.78: cli 100% with skill and prompt floating labelled";
+  if (cliFloating > 0) {
+    return { status: "FAIL", detail: base + "; floating cli rows regressed (labelled floating, not pinned): " + samples(cliFloatingRows, (entry) => entry.kind + "/" + entry.id) };
+  }
+  return { status: "PASS", detail: base + "; floating kinds: " + (floatingKinds.length === 0 ? "none" : floatingKinds.join(", ")) + "; floating rows labelled floating, not pinned: " + (floatingRows.length === 0 ? "none" : samples(floatingRows, (entry) => entry.kind + "/" + entry.id)) };
 };
 
 // --- ported per-kind shape proofs -------------------------------------------
@@ -1415,10 +1479,64 @@ export const evidenceTtlReason = (leg, checkedAt, today = new Date()) => {
   return null;
 };
 
+/**
+ * MFT-040: evidence.verified_at for one row is the earliest checked_at across
+ * its proof legs (the limiting proof); null when no dated leg exists.
+ */
+export const proofVerifiedAt = (entry) => {
+  const evidence = entry !== null && typeof entry === "object" ? entry.evidence : null;
+  if (evidence === null || typeof evidence !== "object") return null;
+  const dates = [];
+  for (const leg of Object.keys(EVIDENCE_TTL_DAYS)) {
+    const proof = evidence[leg];
+    if (proof !== null && typeof proof === "object" && typeof proof.checked_at === "string" && ISO_DATE_RE.test(proof.checked_at)) dates.push(proof.checked_at);
+  }
+  if (dates.length === 0) return null;
+  dates.sort();
+  return dates[0];
+};
+
+/**
+ * MFT-040: age in whole days of evidence.verified_at; null when no dated proof.
+ */
+export const proofAgeDays = (entry, today = new Date()) => {
+  const verifiedAt = proofVerifiedAt(entry);
+  if (verifiedAt === null) return null;
+  return Math.floor((startOfDayMs(today) - startOfDayMs(verifiedAt)) / 86400000);
+};
+
+/**
+ * MFT-040: stale reason when the remaining window is <= STALE_BAND_DAYS, else null.
+ * Fails closed (reason) only when the age cannot be evaluated.
+ */
+export const proofStaleReason = (entry, today = new Date()) => {
+  const evidence = entry !== null && typeof entry === "object" ? entry.evidence : null;
+  if (evidence === null || typeof evidence !== "object") return "stale: " + (entry && entry.id ? entry.id : "row") + " carries no evidence object, so its stale band cannot be evaluated";
+  const token = entry.kind + "/" + entry.id;
+  for (const leg of Object.keys(EVIDENCE_TTL_DAYS)) {
+    const proof = evidence[leg];
+    if (proof === null || proof === undefined || typeof proof !== "object") continue;
+    const windowDays = EVIDENCE_TTL_DAYS[leg];
+    if (typeof proof.checked_at !== "string" || ISO_DATE_RE.test(proof.checked_at) === false || Number.isNaN(startOfDayMs(proof.checked_at))) {
+      return "stale: " + token + " " + leg + " checked_at " + JSON.stringify(proof.checked_at) + " is not an ISO date, so its stale band cannot be evaluated";
+    }
+    const age = Math.floor((startOfDayMs(today) - startOfDayMs(proof.checked_at)) / 86400000);
+    const remaining = windowDays - age;
+    if (remaining <= STALE_BAND_DAYS && age <= windowDays) {
+      return "stale: " + token + " " + leg + " verified_at " + proof.checked_at + " age " + age + "d, " + remaining + "d left of " + windowDays + "d window";
+    }
+  }
+  return null;
+};
+
 export const checkEvidenceTtl = (components, today = new Date()) => {
   const legs = Object.keys(EVIDENCE_TTL_DAYS);
   const counts = {};
   const oldest = {};
+  let stale = 0;
+  const staleSamples = [];
+  let verifiedMin = null;
+  let verifiedMax = null;
   for (const leg of legs) {
     counts[leg] = 0;
     oldest[leg] = 0;
@@ -1438,7 +1556,11 @@ export const checkEvidenceTtl = (components, today = new Date()) => {
       }
       const age = Math.floor((startOfDayMs(today) - startOfDayMs(proof.checked_at)) / 86400000);
       oldest[leg] = Math.max(oldest[leg], age);
+      if (verifiedMin === null || proof.checked_at < verifiedMin) verifiedMin = proof.checked_at;
+      if (verifiedMax === null || proof.checked_at > verifiedMax) verifiedMax = proof.checked_at;
     }
+    const staleReason = proofStaleReason(entry, today);
+    if (staleReason !== null) { stale += 1; if (staleSamples.length < 3) staleSamples.push(staleReason); }
   }
   if (failures.length > 0) {
     return {
@@ -1458,7 +1580,7 @@ export const checkEvidenceTtl = (components, today = new Date()) => {
       legs
         .map((leg) => counts[leg] + " " + leg + " within " + EVIDENCE_TTL_DAYS[leg] + "d (oldest " + oldest[leg] + "d)")
         .join(", ") +
-      "; 0 lapsed"
+      "; 0 lapsed; evidence.verified_at " + (verifiedMin === null ? "n/a" : verifiedMin + ".." + verifiedMax) + "; stale "+stale+" (band "+STALE_BAND_DAYS+"d)" + (staleSamples.length>0 ? ": "+staleSamples.join("; ") : "")
   };
 };
 
@@ -1934,6 +2056,7 @@ const main = () => {
   recordResult("command-shape/skills-upstream", checkSkillsUpstream(components));
   recordResult("candidates/schema", checkCandidates());
   recordResult("evidence/ttl", checkEvidenceTtl(components));
+  recordResult("pin-coverage/installable", checkPinCoverage(components));
   if (selection === null) {
     for (const check of ["command-shape/mcp-npm", "agent-hygiene", "selection/top-level-skills"]) {
       record(check, "FAIL", "cannot be evaluated: selection record unreadable (" + selectionProblem + ")");
@@ -1988,6 +2111,44 @@ const main = () => {
         .map((key) => key + " " + classCounts[key])
         .join(" · ")
   );
+
+  // Pin coverage ledger (MFT-039): installable rows split pinned vs floating.
+  const pins = pinCoverage(components);
+  console.log("");
+  console.log("pin coverage ledger (installable only; pinned = version_pin non-null, floating = null; target: all installable pinned by 0.9.80):");
+  console.log(pad("kind", 8) + "  " + pad("installable", 11) + "  " + pad("pinned", 6) + "  " + pad("floating", 8) + "  coverage");
+  for (const [kind, bucket] of [...pins.byKind.entries()].sort((left, right) => (left[0] < right[0] ? -1 : left[0] > right[0] ? 1 : 0))) {
+    const kindPct = bucket.total === 0 ? "0.0%" : (100 * bucket.pinned / bucket.total).toFixed(1) + "%";
+    console.log(pad(kind, 8) + "  " + pad(bucket.total, 11) + "  " + pad(bucket.pinned, 6) + "  " + pad(bucket.floating, 8) + "  " + kindPct);
+  }
+  const overallPct = pins.total === 0 ? "0.0%" : (100 * pins.pinned / pins.total).toFixed(1) + "%";
+  console.log("overall " + pins.total + " installable: " + pins.pinned + " pinned, " + pins.floating + " floating (" + overallPct + "); documented gate at 0.9.78: cli 100%, skill and prompt floating labelled until 0.9.80");
+  const floatingRows = components.filter((entry) => entry !== null && typeof entry === "object" && entry.class === "installable" && !(typeof entry.version_pin === "string" && entry.version_pin.length > 0));
+  console.log("floating installable rows (" + floatingRows.length + ", labelled floating, not pinned): " + (floatingRows.length === 0 ? "none" : samples(floatingRows, (entry) => entry.kind + "/" + entry.id)));
+
+  // Proof-age ledger (MFT-040): evidence.verified_at surfaced per row as the
+  // earliest checked_at across its proof legs; stale band warns before expiry.
+  {
+    const today = new Date();
+    let staleRows = [];
+    let oldestAge = 0;
+    let oldestToken = "(none)";
+    let minVerified = null;
+    let maxVerified = null;
+    for (const entry of components) {
+      const verifiedAt = proofVerifiedAt(entry);
+      if (verifiedAt === null) continue;
+      if (minVerified === null || verifiedAt < minVerified) minVerified = verifiedAt;
+      if (maxVerified === null || verifiedAt > maxVerified) maxVerified = verifiedAt;
+      const age = proofAgeDays(entry, today);
+      if (age !== null && age > oldestAge) { oldestAge = age; oldestToken = entry.kind + "/" + entry.id; }
+      const staleReason = proofStaleReason(entry, today);
+      if (staleReason !== null) staleRows.push(staleReason);
+    }
+    console.log("");
+    console.log("proof-age ledger (evidence.verified_at = earliest checked_at per row; stale band " + STALE_BAND_DAYS + "d before expiry):");
+    console.log("  verified_at range " + (minVerified === null ? "n/a" : minVerified + ".." + maxVerified) + "; oldest proof age " + oldestAge + "d (" + oldestToken + "); stale rows " + staleRows.length + (staleRows.length>0 ? " (sample: " + staleRows.slice(0,3).join("; ") + (staleRows.length>3 ? "; ...(" + (staleRows.length-3) + " more)" : "") + ")" : " (none)"));
+  }
 
   // Ledger 3: phase -> count -> ids.
   if (phaseSets !== null) {

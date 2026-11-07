@@ -63,16 +63,18 @@ on:
         type: boolean
 
 permissions:
-  contents: write
-  checks: read
-  actions: read
+  contents: read
 
 concurrency:
   # A release event and a manual dispatch on the same tag serialize. A push has
-  # neither, so it gets its own group per commit: the queue lane's single-flight
-  # is the job-level group below, and this workflow-level group must not make a
-  # queue of pending pushes cancel each other.
-  group: auto-publish-${{ github.event.release.tag_name || inputs.tag || github.sha }}
+  # neither, so it gets its own group per commit (github.sha fallback below):
+  # the queue lane's single-flight is the job-level group below, and this
+  # workflow-level group must not make a queue of pending pushes cancel each
+  # other.
+  group: >-
+    auto-publish-${{
+    github.event.release.tag_name || inputs.tag || github.sha
+    }}
   cancel-in-progress: false
 
 jobs:
@@ -80,6 +82,7 @@ jobs:
     name: Guard (v0.0.x patches only)
     if: github.event_name != 'push' && inputs.path != 'self-publish'
     runs-on: ubuntu-latest
+    permissions: {}
     outputs:
       publishable: ${{ steps.guard.outputs.publishable }}
       tag: ${{ steps.guard.outputs.tag }}
@@ -116,6 +119,11 @@ jobs:
     needs: guard
     if: needs.guard.outputs.publishable == 'true'
     runs-on: ubuntu-latest
+    # publish runs auto-publish.sh: gh api actions/runs (gate evidence) needs
+    # actions: read; gh release upload/edit needs contents: write.
+    permissions:
+      contents: write
+      actions: read
     steps:
       - name: Check out the tagged commit
         uses: actions/checkout@v4
@@ -152,6 +160,10 @@ jobs:
     name: Self-publish the next queued unit
     if: github.event_name == 'push' || inputs.path == 'self-publish'
     runs-on: ubuntu-latest
+    # self-publish runs self-publish.mjs: gh release create + the queue
+    # commit-back need contents: write only (no actions API use in the script).
+    permissions:
+      contents: write
     # Single-flight: a second queue-lane run waits for the first and then reads
     # the queue the first one committed. Runs never interleave on one number.
     concurrency:

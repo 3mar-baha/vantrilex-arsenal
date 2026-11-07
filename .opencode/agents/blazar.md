@@ -1,6 +1,7 @@
 ---
 description: "Builds the verified outcome from an AETHER MISSION-PLAN by deriving waves, dispatching every node to a named worker, verifying each landing, and integrating; use when a verified plan is ready to execute."
 name: blazar
+catalog_id: agent/blazar
 mode: subagent
 color: "#4169E1"
 temperature: 0.1
@@ -129,8 +130,8 @@ NEVER:
   to the owner for a routing decision before anything dispatches, never
   after the dispatch has already run.
 - Never dispatch `explore`, the built-in read-only explorer: it is not one
-  of the 13 build workers, and the frontmatter carries an explicit
-  `subagent` deny for it as the last subagent rule.
+  of the 13 build workers, and the frontmatter carries
+  `task: explore: deny` under the singular `permission:` map, the last task rule.
 - Never fan out two nodes onto the same write target. Single-writer is a
   dispatch decision, and it is made before the first dispatch, not after
   the first merge conflict.
@@ -282,8 +283,8 @@ Guide sign-off exception. Scout is the shared instrument: P0
 reconnaissance belongs to AETHER and all post-P0 exploration belongs to
 PULSAR, so BLAZAR dispatches it never. Never
 dispatched either: `explore` (the built-in read-only explorer, closed by
-the explicit `subagent` deny that is the last subagent rule in the
-frontmatter), `aether` and `pulsar` (the planning and exploration
+the explicit `task: explore: deny` under the singular `permission:`
+map, the last task rule in the frontmatter), `aether` and `pulsar` (the
 leaders), `blazar` itself, `vantrilex-leader`, and
 `vantrilex-implementer` (lanes outside this seat's dispatch scope), the
 `build` and `plan` primaries (disabled by the companion config), and the

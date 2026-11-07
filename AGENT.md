@@ -4,6 +4,37 @@ This file is the live memory of the Vantrilex Arsenal project. It is seeded
 from the repository state observed on 2026-10-13 and updated additively;
 every task reads it first and updates it last.
 
+## Contents
+
+- Current state — refreshed 2026-11-07 block (second position)
+- Identity
+- Decisions
+- Open items & next actions
+- Known risks & defects
+- Task log — history preserved; the 2026-11-05 state is kept here as history
+
+## Current state
+
+Branch wt/v2-consolidation (worktree base main), observed and last verified
+2026-11-07. HEAD is 264d3ff298cf4a0e95026061ef0c8cce35677413 (0.9.78);
+the newest tag is v0.9.78. The worktree carries the uncommitted W5 diffs for
+mission ARSENAL-AUDIT-EXEC-001 (see the task-log entries below); no commit,
+push, tag, or release has been made from this lane.
+
+Live tree counts (measured 2026-11-07, not transcribed):
+
+- Agents: 29 files under .opencode/agents/.
+- Skills: 44 directories under .opencode/skills/.
+- Commands: 16 files (12 under .opencode/commands/ + 4 under .opencode/command/).
+- Catalog: 2,897 entries in registry/catalog.json (17 sidecars under registry/data/).
+- Lock: abolished at S3 (Cluster 1); lock (abolished) is absent.
+
+Last verified: 2026-11-07 (HEAD, tag, branch, and counts above re-measured on
+this date).
+
+Earlier "current state" observations are preserved in Task log history, not
+current fact.
+
 ## Identity
 
 Vantrilex Arsenal is an OpenCode plugin plus a component Registry, living at
@@ -15,7 +46,66 @@ workflow forge. Success is the kit staying honest: the verifiers exit 0,
 every locked component resolves to a definition and a registry entry, and
 the docs describe the tree as it is.
 
-## Current state
+## Decisions
+
+- Single-writer law: each `registry/data/*.jsonl` sidecar has exactly one
+  owning branch at a time. Sourced from `AGENTS.md`; decider unverified —
+  no decision record names one.
+- No invented install commands: a component's `install_cmd` is verified or
+  explicitly `null` with `verification: unverified`. Sourced from
+  `AGENTS.md`; decider unverified — no decision record names one.
+- New `cli` entries default to `tier conditional`, recorded as prose
+  rather than a schema mechanism. Sourced from `CHANGELOG.md` 0.3.0;
+  decider unverified — the changelog entry names no decider.
+- The six non-migrated hooks stay on the V1 surface and are inert under
+  V2; porting them is a separate concern, deliberately not bundled.
+  Sourced from `docs/16-TASK-DISPATCH.md`; decider unverified — the doc
+  names no decider.
+- This lane owns only `AGENT.md` (new), `WORKFLOW.md` (new), and one
+  appended pointer section in `AGENTS.md`, with no commit. Sourced from
+  the 2026-10-13 NODE DOG work order; decider: the dispatching session.
+- NODE T3 single-home ruling 2026-10-14: each merged item lives in exactly one root file — standing directives in `AGENTS.md`, orchestration/verification/runtime method in `WORKFLOW.md` Part B, lane records here; the other files point, never restate. Sourced from the NODE T3 work order; decider: the dispatching session.
+- NODE T3 lane discipline 2026-10-14: this lane writes only the three owned files, makes no commit, and uses free models only. Observance is recorded here; the standing rules live in `AGENTS.md` and carry no copy here. Sourced from the NODE T3 work order; decider: the dispatching session.
+- Orchestrator-only write 2026-10-14: only the orchestrator writes this file, after every task, rotating closed entries into `docs/agent-log-YYYY-MM.md`. Sourced from doctrine Ritual 2; decider unverified — the doctrine states the role and no decision record names one.
+
+- MFT-132 rule (2026-11-05): a version file may cite only files its own diff touches. A citation to a file the version change did not touch is a defect. No docs/AGENT.md is created; the rule lives here in the root AGENT.md. Sourced from mission ARSENAL-AUDIT-EXEC-001 MFT-132; decider: the dispatching session (Guide).
+
+## Open items & next actions
+
+- Finish this lane: write all three files, run markdownlint on them to
+  exit 0, prove append-only with `git diff --numstat` and full
+  `git diff AGENTS.md`, report evidence per section — owner: this DOG
+  node, no commit.
+- Guide sign-off on the dogfood change — owner: the Guide.
+- Sibling CK lock/catalog lane completes independently on disjoint files;
+  any sequencing need escalates to the Guide, never branch-to-branch —
+  owner: the Guide.
+- Port the six inert V1 hooks to the V2 surface as its own concern —
+  owner: unverified — no dispatch observed.
+- Populate the `cli` kind through the digest and review mechanism —
+  owner: unverified — named only as future work in `CHANGELOG.md` 0.3.0.
+- Implementer writes the three NODE T3 appends, runs `npx --yes markdownlint-cli AGENTS.md AGENT.md WORKFLOW.md` to exit 0, proves append-only with `git diff --numstat` and full `git diff`, runs the single-home census, and reports evidence per section — owner: the owning implementer, no commit.
+
+## Known risks & defects
+
+- Concurrent sibling writes (CK lane on lock/catalog) while this lane
+  writes root memory files. Evidence: work order text 2026-10-13.
+  Mitigation observed: disjoint file sets plus the single-writer law; risk
+  is sequencing, not overlap.
+- Six locked hooks plus `docsDisciplineGuard` are inert under OpenCode V2
+  (only `task-dispatcher` runs). Evidence: `docs/16-TASK-DISPATCH.md`
+  2026-10-13 read. Deliberate and documented, not a silent failure.
+- Unverified `install_cmd` entries exist by design; a plausible-looking
+  wrong command would be worse. Evidence: `AGENTS.md` hard rule 2.
+- Markdownlint runner availability was unverified — no markdownlint binary
+  in `node_modules/.bin` at seeding time; the verification step must
+  report its actual runner and exit code, and a check that cannot run is a
+  failed check.
+- Pointer drift between the root files and the canonical skill text (doctrine B.8.2, Vanguard A.7d). Evidence: pointers cite sections, never copy text (NODE T3 drafts 2026-10-14). Mitigation observed: single-home census at every docs gate; a census failure returns for re-homing before any other gate runs.
+
+## Task log
+
+### 2026-11-05 — Previous Current state (moved)
 
 Branch wt/v2-consolidation (worktree base main), observed and last verified
 2026-11-05. HEAD is b0c005b23dbaac9a8b408a55227bbc811e29b57e; the newest tag
@@ -36,8 +126,6 @@ this date; the 0.9.75-depth4 raise is applied in the worktree but not committed
 --- see the 2026-11-05 task-log entry).
 
 Earlier "current state" observations below are history, not current fact.
-
-## Task log
 
 - 2026-10-13 — NODE DOG dogfood work order (this task): create the repo's
   own root `AGENT.md` and `WORKFLOW.md`, append the §3.10 pointer section
@@ -683,60 +771,3 @@ Earlier "current state" observations below are history, not current fact.
 - 2026-11-05 — §ARSENAL-AUDIT-EXEC-001 W0 `d4-docs` (vantrilex-scribe; Scenario 2 — same task, unchanged; leader-seat Vanguard not seated on this seat, rule applied and recorded). Recorded: the 0.9.75-depth4 raise is applied in the `wt/v2-consolidation` worktree (HEAD `b0c005b` plus the uncommitted W0 node diffs) — `.opencode/plugin/arsenal.ts` `config:` hook now raises the `experimental.subagent_depth` floor 3 to 4 (raise-only, idempotent, fail-closed; missing `experimental` initialised to `{ subagent_depth: 4 }`; `null`/array/non-object `experimental` and non-number/non-integer depths left untouched; integer values above 4 unchanged and never lowered; exactly 4 is a no-op; no other key touched). Installer/template surfaces carry 4 (`vantrilex-vanguard/SKILL.md` and `vs-vantrilex-vanguard/SKILL.md` companion tables; `.opencode/skills/vantrilex-vanguard/assets/companion-config.template.jsonc`). New doc `docs/0.9.75-depth4-spec.md` (EN-only; successor to the untouched `docs/0.9.33-depth3-spec.md`); CHANGELOG gains `[0.9.75]` (2026-11-05, PARKED, UNRELEASED); executable proof `scripts/d4-depth-proof.mjs` ran 2026-11-05 (exit 0; 16 pass / 0 fail). Applied in worktree but NOT committed and NOT pushed; no tag, no release, no publish; landing belongs to the directing leader via the github lane. Status: `acknowledged awaiting verification`.
 
 - 2026-11-05 — §ARSENAL-AUDIT-EXEC-001 W1 w1-agent-state (vantrilex-scribe; MFT-070 + MFT-132): rewrote the "Current state" section from the live tree (HEAD b0c005b, tag v0.9.74, branch wt/v2-consolidation, counts re-measured); added this task-log entry; added the MFT-132 rule to root AGENT.md (a version file may cite only files its own diff touches; docs/AGENT.md not created). Insert-only except the Current-state rewrite; no other file changed. Status: draft returned; implementer writes; Guide verifies.
-
-## Decisions
-
-- Single-writer law: each `registry/data/*.jsonl` sidecar has exactly one
-  owning branch at a time. Sourced from `AGENTS.md`; decider unverified —
-  no decision record names one.
-- No invented install commands: a component's `install_cmd` is verified or
-  explicitly `null` with `verification: unverified`. Sourced from
-  `AGENTS.md`; decider unverified — no decision record names one.
-- New `cli` entries default to `tier conditional`, recorded as prose
-  rather than a schema mechanism. Sourced from `CHANGELOG.md` 0.3.0;
-  decider unverified — the changelog entry names no decider.
-- The six non-migrated hooks stay on the V1 surface and are inert under
-  V2; porting them is a separate concern, deliberately not bundled.
-  Sourced from `docs/16-TASK-DISPATCH.md`; decider unverified — the doc
-  names no decider.
-- This lane owns only `AGENT.md` (new), `WORKFLOW.md` (new), and one
-  appended pointer section in `AGENTS.md`, with no commit. Sourced from
-  the 2026-10-13 NODE DOG work order; decider: the dispatching session.
-- NODE T3 single-home ruling 2026-10-14: each merged item lives in exactly one root file — standing directives in `AGENTS.md`, orchestration/verification/runtime method in `WORKFLOW.md` Part B, lane records here; the other files point, never restate. Sourced from the NODE T3 work order; decider: the dispatching session.
-- NODE T3 lane discipline 2026-10-14: this lane writes only the three owned files, makes no commit, and uses free models only. Observance is recorded here; the standing rules live in `AGENTS.md` and carry no copy here. Sourced from the NODE T3 work order; decider: the dispatching session.
-- Orchestrator-only write 2026-10-14: only the orchestrator writes this file, after every task, rotating closed entries into `docs/agent-log-YYYY-MM.md`. Sourced from doctrine Ritual 2; decider unverified — the doctrine states the role and no decision record names one.
-
-- MFT-132 rule (2026-11-05): a version file may cite only files its own diff touches. A citation to a file the version change did not touch is a defect. No docs/AGENT.md is created; the rule lives here in the root AGENT.md. Sourced from mission ARSENAL-AUDIT-EXEC-001 MFT-132; decider: the dispatching session (Guide).
-
-## Open items & next actions
-
-- Finish this lane: write all three files, run markdownlint on them to
-  exit 0, prove append-only with `git diff --numstat` and full
-  `git diff AGENTS.md`, report evidence per section — owner: this DOG
-  node, no commit.
-- Guide sign-off on the dogfood change — owner: the Guide.
-- Sibling CK lock/catalog lane completes independently on disjoint files;
-  any sequencing need escalates to the Guide, never branch-to-branch —
-  owner: the Guide.
-- Port the six inert V1 hooks to the V2 surface as its own concern —
-  owner: unverified — no dispatch observed.
-- Populate the `cli` kind through the digest and review mechanism —
-  owner: unverified — named only as future work in `CHANGELOG.md` 0.3.0.
-- Implementer writes the three NODE T3 appends, runs `npx --yes markdownlint-cli AGENTS.md AGENT.md WORKFLOW.md` to exit 0, proves append-only with `git diff --numstat` and full `git diff`, runs the single-home census, and reports evidence per section — owner: the owning implementer, no commit.
-
-## Known risks & defects
-
-- Concurrent sibling writes (CK lane on lock/catalog) while this lane
-  writes root memory files. Evidence: work order text 2026-10-13.
-  Mitigation observed: disjoint file sets plus the single-writer law; risk
-  is sequencing, not overlap.
-- Six locked hooks plus `docsDisciplineGuard` are inert under OpenCode V2
-  (only `task-dispatcher` runs). Evidence: `docs/16-TASK-DISPATCH.md`
-  2026-10-13 read. Deliberate and documented, not a silent failure.
-- Unverified `install_cmd` entries exist by design; a plausible-looking
-  wrong command would be worse. Evidence: `AGENTS.md` hard rule 2.
-- Markdownlint runner availability was unverified — no markdownlint binary
-  in `node_modules/.bin` at seeding time; the verification step must
-  report its actual runner and exit code, and a check that cannot run is a
-  failed check.
-- Pointer drift between the root files and the canonical skill text (doctrine B.8.2, Vanguard A.7d). Evidence: pointers cite sections, never copy text (NODE T3 drafts 2026-10-14). Mitigation observed: single-home census at every docs gate; a census failure returns for re-homing before any other gate runs.

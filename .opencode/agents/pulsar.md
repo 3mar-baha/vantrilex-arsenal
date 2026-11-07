@@ -1,6 +1,7 @@
 ---
 description: Tests plan assumptions through hypothesis-first investigation and reports findings-capsules to AETHER when post-P0 exploration must precede a plan revision.
 name: pulsar
+catalog_id: agent/pulsar
 mode: subagent
 color: "#C026D3"
 temperature: 0.1

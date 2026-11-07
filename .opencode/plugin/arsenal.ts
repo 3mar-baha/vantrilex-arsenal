@@ -75,8 +75,28 @@
  * output and forwards the shim text into the V2 `result.content` (appended to
  * a string, pushed as a text part onto an array, set when absent), draining
  * the serialised type-check chain first so no queued verdict is lost. The
- * shell `create.before` hook carries no session id, so its guard outcomes are
- * recorded under `anonymous` by design.
+ * shell `create.before` hook carries no session id in the published contract,
+ * so its guard outcomes are recorded under the parent session when the host
+ * provides one and otherwise under `anonymous`, always with the event `cwd`
+ * and an ISO timestamp attached, so a shell-hook error stays traceable to a
+ * directory and a time. Attribution limit: without a host-provided session
+ * the record cannot name the originating session and must never invent
+ * provenance the event does not carry; `cwd` + timestamp is the correlation
+ * key, not a session attribution.
+ *
+ * Guard order and dedup rule (MFT-064): within each `execute.before` /
+ * `create.before` callback the long-running guard runs before the docs guard,
+ * so the first visible error never changes with refactor order. One write is
+ * checked twice on V2 — once as a tool call under its real session and once as
+ * a raw shell creation under the parent session when the host provides one,
+ * else under `anonymous` — so the docs guard dedupes by file
+ * set and rule: when the shell trigger sees the identical WARN
+ * already recorded in durable session state from the tool trigger (which
+ * survives the `pendingWarnings` drain after each tool result), it suppresses
+ * the duplicate (already reported) instead of recording a second
+ * differently-attributed report. The surviving report keeps the tool trigger's
+ * attribution; the shell trigger leaves only a debug dedupe note. `BLOCKED` never dedupes —
+ * the first throw already stops the write.
  *
  * Rules this module obeys without exception:
  *
@@ -109,7 +129,7 @@
  * package installed can assert compatibility with a single line of throwaway
  * type-checking; this module itself stays dependency-free and compiles clean.
  */
-export const PLUGIN_VERSION = "0.9.78"
+export const PLUGIN_VERSION = "0.9.79"
 
 export type PluginLevel = "debug" | "info" | "warn" | "error"
 
@@ -295,6 +315,7 @@ export type V2ShellBeforeEvent = {
   timeout: number
   shell: string
   env: Record<string, string | undefined>
+  readonly sessionID?: string
 }
 
 /**
@@ -877,6 +898,88 @@ const clip = (value: string, max: number): string => {
 /** Narrow an untyped tool argument or event payload to an indexable record. */
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {}
+
+/**
+ * One user-picked model, observed (never selected) by the recording hook.
+ * Either side may be unobserved; the fallback label below names that
+ * instead of guessing an id.
+ */
+export type ModelChoice = {
+  readonly provider: string
+  readonly model: string
+  readonly agent: string
+  /** True when the user picked a model; false when the host default ran. */
+  readonly picked: boolean
+}
+
+const UNKNOWN_PROVIDER = "unknown (host default)"
+const UNKNOWN_MODEL = "unknown (host default)"
+
+/** Read `providerID` / `modelID` off an untyped model value; both must be non-blank. */
+const readModelFields = (value: unknown): { provider: string; model: string } | null => {
+  const record = asRecord(value)
+  const provider = typeof record.providerID === "string" ? record.providerID.trim() : ""
+  const model = typeof record.modelID === "string" ? record.modelID.trim() : ""
+  return provider.length > 0 && model.length > 0 ? { provider, model } : null
+}
+
+/**
+ * Narrow an untyped `chat.message` input (or system-transform model) to a
+ * `ModelChoice`. A model that cannot be read becomes the `unknown`
+ * fallback — the hook reports the absence instead of inventing an id.
+ * Pure and dependency-free so the store can test every branch.
+ */
+export const modelChoiceFrom = (model: unknown, agent: unknown): ModelChoice => {
+  const fields = readModelFields(model)
+  const seat = typeof agent === "string" && agent.trim().length > 0 ? agent.trim() : "unknown"
+  if (fields === null) return { provider: UNKNOWN_PROVIDER, model: UNKNOWN_MODEL, agent: seat, picked: false }
+  return { provider: fields.provider, model: fields.model, agent: seat, picked: true }
+}
+
+/** One record line. Same choice in, same line out. */
+export const formatModelChoice = (choice: ModelChoice, stamp: string, sessionID: string): string =>
+  [
+    "- Model choice:",
+    `session: ${singleLine(sessionID)}`,
+    `agent: ${singleLine(choice.agent)}`,
+    `provider: ${singleLine(choice.provider)}`,
+    `model: ${singleLine(choice.model)}`,
+    `picked: ${choice.picked ? "yes (user, per session)" : "unknown (host default)"}`,
+    `stamp: ${singleLine(stamp)}`,
+  ].join("\n")
+
+const singleLine = (value: string): string => value.replace(/\s+/g, " ").trim()
+
+/** The per-session record file inside the plugin state directory. */
+export const modelChoiceFile = (stateDir: string, sessionID: string, join: (...parts: string[]) => string): string =>
+  join(stateDir, "model-choices", `${sanitizeSessionId(sessionID)}.md`)
+
+const modelChoiceFileText = (choice: ModelChoice, sessionID: string, stamp: string): string =>
+  [`# Model choice`, ``, `- Session: ${singleLine(sessionID)}`, ``, formatModelChoice(choice, stamp, sessionID), ``].join(
+    "\n",
+  )
+
+/**
+ * Append one observed choice to the session record. Best-effort by law:
+ * a filesystem failure only logs, never throws, so a state-dir problem
+ * can never block a session or a release. Returns the file path on
+ * success, `null` otherwise.
+ */
+export const recordModelChoice = (
+  rt: Runtime,
+  stateDir: string,
+  sessionID: string,
+  choice: ModelChoice,
+  stamp: string,
+): string | null => {
+  if (!rt.fs || !rt.path) return null
+  const target = modelChoiceFile(stateDir, sessionID, rt.path.join)
+  const existing = readTextFile(rt, target)
+  const body = modelChoiceFileText(choice, sessionID, stamp)
+  const data = existing.status === "ok" && existing.value.length > 0 ? `${existing.value.trimEnd()}\n\n${body}` : body
+  const written = writeTextFile(rt, target, data)
+  return written.status === "ok" ? written.value : null
+}
 
 /* ===========================================================================
  * 8. Filesystem helpers
@@ -2488,6 +2591,23 @@ export const docsDisciplineGuard = async (
 
   const state = sessionState(ctx, input.sessionID)
   const line = formatGuardLine("docs-discipline-guard", guard.mode === "warn" ? "WARN" : "BLOCKED", violations.map((entry) => entry.path).join(", "))
+  // MFT-064 same-incident dedup (warn only): the shell `create.before`
+  // trigger runs for the same write the tool trigger already checked
+  // (under the parent session when the host provides one, else `anonymous`;
+  // `callID === "shell"` is the shell-surface marker). `pendingWarnings` is
+  // ephemeral and drains after each tool result, so the check reads durable
+  // session state (`guardOutcomes` in any session) which survives the drain.
+  // If the identical WARN was already recorded, suppress this duplicate
+  // (already reported) so one write leaves one report under the tool trigger's
+  // attribution. BLOCKED never dedupes: the first throw already stops the write.
+  if (
+    guard.mode === "warn" &&
+    (input.sessionID === "anonymous" || input.callID === "shell") &&
+    Array.from(ctx.sessions.values()).some((entry) => entry.guardOutcomes?.includes(line) === true)
+  ) {
+    log(ctx, "debug", `docs-discipline-guard: deduped shell duplicate — already reported ${line}`)
+    return
+  }
   state.guardOutcomes.push(line)
   log(ctx, guard.mode === "warn" ? "warn" : "error", `${line} — allowed set: ${describeAllowedSet(ctx)}`)
 
@@ -2508,7 +2628,9 @@ export const docsDisciplineGuard = async (
  * preamble and the guard call itself can never drift between surfaces. The
  * head-of-callback kill checks in the surfaces stay: they gate the whole
  * callback, not only this guard; this check keeps the wrapper correct on its
- * own terms.
+ * own terms. Same-incident WARN dedup (MFT-064) lives inside
+ * `docsDisciplineGuard` — the wrapper stays a thin pass-through so both
+ * adapters dedupe identically.
  */
 const runDocsGuard = async (
   ctx: ArsenalContext,
@@ -2520,8 +2642,84 @@ const runDocsGuard = async (
 }
 
 /**
+ * Direct unit probe for MFT-064 durable dedup (warn only).
+ *
+ * Fires two sequential `docsDisciplineGuard` events for the same disallowed
+ * file set — tool `edit` under `ses_probe`, then shell `bash` under
+ * `anonymous` with `callID: "shell"` — with a `pendingWarnings` drain
+ * (`ctx.pendingWarnings = []`, as `v2ToolAfter` / V1 `tool.execute.after`
+ * does after each tool result) between them. Resolves only when the second
+ * WARN is suppressed (no new pending warning, exactly one durable
+ * `docs-discipline-guard` outcome across all sessions); throws otherwise.
+ * Then asserts `BLOCKED` still throws on both events (never deduped).
+ *
+ * Run from the repository root:
+ * `node -e "import('./.opencode/plugin/arsenal.ts').then(async (m) => { await m.probeDocsDedupSurvivesDrain(); console.log('MFT-064-DRAIN PASS') })"`
+ * Prints `MFT-064-DRAIN PASS` and exits 0 on success; throws on failure.
+ */
+export const probeDocsDedupSurvivesDrain = async (): Promise<void> => {
+  const makeCtx = (mode: "warn" | "block"): ArsenalContext => ({
+    rt: {
+      fs: null,
+      path: null,
+      execFile: null,
+      os: null,
+      proc: { env: {}, platform: "win32", execPath: "node", cwd: () => "C:/proj" },
+      loadErrors: [],
+    },
+    root: "C:/proj",
+    client: undefined,
+    sessions: new Map<string, SessionState>(),
+    anchors: new Map<string, ContextAnchor>(),
+    config: {
+      docsGuard: { ...DEFAULT_DOCS_GUARD, mode, enabled: true },
+      taskDispatcher: { enabled: true },
+      vantrilex: { enabled: true, excludedProjects: [] },
+    },
+    tscChain: Promise.resolve(),
+    pendingWarnings: [],
+    lastLogTarget: null,
+    capabilityLines: [],
+    capabilitiesFlushed: false,
+  })
+  const countDocsOutcomes = (ctx: ArsenalContext): number => {
+    let total = 0
+    for (const entry of ctx.sessions.values()) {
+      for (const outcome of entry.guardOutcomes) {
+        if (outcome.includes("docs-discipline-guard")) total += 1
+      }
+    }
+    return total
+  }
+  const ctx = makeCtx("warn")
+  await docsDisciplineGuard(ctx, { tool: "edit", sessionID: "ses_probe", callID: "c1" }, { args: { filePath: "docs/DEDUP-PROBE.md" } })
+  if (ctx.pendingWarnings.length !== 1) throw new Error(`MFT-064 probe: first WARN should queue one pending warning, got ${ctx.pendingWarnings.length}`)
+  ctx.pendingWarnings = []
+  await docsDisciplineGuard(ctx, { tool: "bash", sessionID: "anonymous", callID: "shell" }, { args: { command: "echo x > docs/DEDUP-PROBE.md" } })
+  if (ctx.pendingWarnings.length !== 0) throw new Error(`MFT-064 probe: dedup did not survive drain, pending=${JSON.stringify(ctx.pendingWarnings)}`)
+  const outcomes = countDocsOutcomes(ctx)
+  if (outcomes !== 1) throw new Error(`MFT-064 probe: expected 1 durable outcome, got ${outcomes}`)
+  const ctxBlock = makeCtx("block")
+  let firstThrew = false
+  try {
+    await docsDisciplineGuard(ctxBlock, { tool: "edit", sessionID: "ses_probe", callID: "c1" }, { args: { filePath: "docs/DEDUP-PROBE.md" } })
+  } catch {
+    firstThrew = true
+  }
+  if (!firstThrew) throw new Error("MFT-064 probe: BLOCKED first event should throw")
+  ctxBlock.pendingWarnings = []
+  let secondThrew = false
+  try {
+    await docsDisciplineGuard(ctxBlock, { tool: "bash", sessionID: "anonymous", callID: "shell" }, { args: { command: "echo x > docs/DEDUP-PROBE.md" } })
+  } catch {
+    secondThrew = true
+  }
+  if (!secondThrew) throw new Error("MFT-064 probe: BLOCKED must never dedupe, second event should throw")
+}
+
+/**
  * HOOK 5 - typescript-check (conditional). Runs the project's own type check
- * after a TypeScript file is written. Reports SKIPPED, never PASS, when the
+ * after a TypeScript file is written. Reports NOT-RUN, never PASS, when the
  * project has no TypeScript.
  */
 export const typescriptCheck = async (
@@ -2541,12 +2739,12 @@ export const typescriptCheck = async (
 
   const tsconfig = nearestTsconfig(ctx.rt, ctx.root, join(ctx.root, touched[0] ?? ""))
   if (!tsconfig) {
-    appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "no tsconfig.json in this project; create one with: npx tsc --init"))
+    appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "no tsconfig.json in this project; run: npx tsc --init"))
     return
   }
   const tsc = resolveTool(ctx.rt, ctx.root, "tsc")
   if (!tsc) {
-    appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "typescript is not installed locally; install with: npm i -D typescript"))
+    appendGuardLine(output, formatGuardLine("typescript-check", "NOT-RUN", "typescript is not installed locally; run: npm i -D typescript"))
     return
   }
 
@@ -2560,7 +2758,7 @@ export const typescriptCheck = async (
     )
     const state = sessionState(ctx, input.sessionID)
     if (result.spawnFailed) {
-      const line = formatGuardLine("typescript-check", "NOT-RUN", "the type checker could not be executed; install with: npm i -D typescript")
+      const line = formatGuardLine("typescript-check", "NOT-RUN", "the type checker could not be executed; run: npm i -D typescript")
       appendGuardLine(output, line)
       state.guardOutcomes.push(line)
       return
@@ -2606,12 +2804,12 @@ export const prettierFormat = async (
   recordTouchedFiles(ctx, input.sessionID, touched)
 
   if (!hasPrettier(ctx)) {
-    appendGuardLine(output, formatGuardLine("prettier-format", "NOT-RUN", "no prettier configuration or dependency in this project; install with: npm i -D prettier"))
+    appendGuardLine(output, formatGuardLine("prettier-format", "NOT-RUN", "no prettier configuration or dependency in this project; add a prettier key to package.json and run: npm i -D prettier"))
     return
   }
   const prettier = resolveTool(ctx.rt, ctx.root, "prettier")
   if (!prettier) {
-    appendGuardLine(output, formatGuardLine("prettier-format", "NOT-RUN", "prettier is not installed locally; install with: npm i -D prettier"))
+    appendGuardLine(output, formatGuardLine("prettier-format", "NOT-RUN", "prettier is not installed locally; run: npm i -D prettier"))
     return
   }
 
@@ -2639,7 +2837,7 @@ export const prettierFormat = async (
       { cwd: ctx.root, timeoutMs: PRETTIER_TIMEOUT_MS },
     )
     if (result.spawnFailed) {
-      const line = formatGuardLine("prettier-format", "NOT-RUN", "the formatter could not be executed; install with: npm i -D prettier")
+      const line = formatGuardLine("prettier-format", "NOT-RUN", "the formatter could not be executed; run: npm i -D prettier")
       appendGuardLine(output, line)
       state.guardOutcomes.push(line)
       return
@@ -2759,13 +2957,13 @@ export const stripDispatchSentinel = (text: string): { stripped: boolean; userTe
  * =========================================================================
  *
  * RUN-0.9.0-FIX cause (a), recorded in `.opencode/audit/RUN-090/seat-deny-overlay-rationale.md`:
- * every shipped seat declares its rules under `permissions:` (plural) as a
- * list, and the host evaluates only the singular `permission:` map. Because
- * each declaring file also carries `name:`/`temperature:`, the block is demoted
- * to an agent "additional" option and forwarded to the provider instead of the
- * permission engine. Rewriting the 26 seat files is outside this lane's fixed
- * scope, so the overlay reads the shipped plural shape itself and applies it at
- * the one mutable surface: `permission.hook("evaluate")`.
+ * the shipped seats formerly declared their rules under `permissions:`
+ * (plural) as a list, and the host evaluated only the singular `permission:`
+ * map, so the block was demoted to an agent "additional" option forwarded to
+ * the provider instead of the permission engine. The 26 formerly plural
+ * seats have since migrated to the singular-native `permission:` map
+ * (26/26), which the host evaluates natively; the overlay therefore keeps
+ * its plural reader only as a legacy backstop at `permission.hook("evaluate")`.
  *
  * The overlay is deny-only. It never grants and never relaxes:
  *
@@ -2780,6 +2978,7 @@ export const stripDispatchSentinel = (text: string): { stripped: boolean; userTe
 
 const SEAT_AGENTS_DIR = ".opencode/agents"
 const MAX_SEAT_MARKDOWN_BYTES = 256 * 1024
+const SEAT_READ_RETRY_DELAY_MS = 50
 /**
  * A seat id is a plain file stem. Anything with a separator, a dot or an
  * escape sequence is not a seat this overlay will read; it degrades to
@@ -2863,7 +3062,7 @@ export const parseSeatPermissions = (markdown: unknown): SeatPermissionParse => 
   const keyMatch = PERMISSION_KEY_LINE.exec(lines[keyline])
   const inline = keyMatch === null ? "" : keyMatch[1].trim()
   if (inline.length > 0 && !inline.startsWith("#")) {
-    return { status: "malformed", reason: `permissions is an inline value ("${clip(inline, 48)}"), not a rule list` }
+    return { status: "malformed", reason: `permissions is an inline value ("${clip(inline, 48)}") at frontmatter line ${keyline + 1}, not a rule list` }
   }
 
   const drafts: SeatRuleDraft[] = []
@@ -2889,7 +3088,7 @@ export const parseSeatPermissions = (markdown: unknown): SeatPermissionParse => 
     if (problem !== null) return { status: "malformed", reason: problem }
   }
 
-  if (drafts.length === 0) return { status: "malformed", reason: "permissions block declares no rules" }
+  if (drafts.length === 0) return { status: "malformed", reason: `permissions block at frontmatter line ${keyline + 1} declares no rules` }
   const rules: SeatPermissionRule[] = []
   for (const entry of drafts) {
     const action = entry.values.action
@@ -2964,19 +3163,39 @@ type SeatSource =
   | { readonly status: "absent" }
   | { readonly status: "unreadable"; readonly reason: string }
 
-const readSeatSource = (ctx: ArsenalContext, agent: string): SeatSource => {
+const delayMs = (ms: number): Promise<void> =>
+  new Promise((resolve) => {
+    const scope = globalThis as unknown as { setTimeout?: (cb: () => void, delay: number) => unknown }
+    if (typeof scope.setTimeout === "function") {
+      scope.setTimeout(() => resolve(), ms)
+    } else {
+      resolve()
+    }
+  })
+
+const readSeatSource = async (ctx: ArsenalContext, agent: string): Promise<SeatSource> => {
   const join = ctx.rt.path?.join ?? EMPTY_PATH.join
   const target = join(ctx.root, SEAT_AGENTS_DIR, `${agent}.md`)
-  const attempt = readTextFile(ctx.rt, target, MAX_SEAT_MARKDOWN_BYTES)
+  let attempt = readTextFile(ctx.rt, target, MAX_SEAT_MARKDOWN_BYTES)
+  if (attempt.status === "ok") return { status: "ok", markdown: attempt.value }
+  // Retry once after a short delay for transient FS faults (EBUSY/EMFILE).
+  await delayMs(SEAT_READ_RETRY_DELAY_MS)
+  attempt = readTextFile(ctx.rt, target, MAX_SEAT_MARKDOWN_BYTES)
   if (attempt.status === "ok") return { status: "ok", markdown: attempt.value }
   let present = false
+  let reason = attempt.reason
   try {
     present = ctx.rt.fs ? ctx.rt.fs.existsSync(target) : false
-  } catch {
+  } catch (error) {
     // An unreadable directory cannot prove the seat is unknown: fail closed.
+    // Carry the OS error into the deny message instead of a generic reason.
     present = true
+    const osError = error instanceof Error ? error.message : String(error)
+    if (osError.length > 0 && !reason.includes(osError)) {
+      reason = `${reason} (${osError})`
+    }
   }
-  return present ? { status: "unreadable", reason: attempt.reason } : { status: "absent" }
+  return present ? { status: "unreadable", reason } : { status: "absent" }
 }
 
 /** A plain seat id, or null. Anything else is not a file this overlay reads. */
@@ -3046,15 +3265,32 @@ export const seatDenyOverlay = async (
   const agent = noticed ?? (await sessionAgentOf(ctx, sessionID, readSessionAgent))
   if (agent === null) return
 
-  const seat = readSeatSource(ctx, agent)
+  const seat = await readSeatSource(ctx, agent)
   if (seat.status === "absent") return
   if (seat.status === "unreadable") {
+    sessionState(ctx, sessionID).guardOutcomes.push(
+      formatGuardLine(
+        "seat-deny",
+        "FAIL",
+        `${agent}: seat file unreadable (${seat.reason}); failing closed`,
+      ),
+    )
     denyEvaluation(event, `${agent}: seat file unreadable (${seat.reason}); failing closed`)
     return
   }
   const decision = resolveSeatPermission(seat.markdown, action, event.resources)
   if (decision.status === "malformed") {
-    denyEvaluation(event, `${agent}: malformed permissions block (${decision.reason}); failing closed`)
+    const seatRel = `${SEAT_AGENTS_DIR}/${agent}.md`
+    const lineMatch = /line (\d+)/.exec(decision.reason)
+    const where = lineMatch === null ? seatRel : `${seatRel}:${lineMatch[1]}`
+    sessionState(ctx, sessionID).guardOutcomes.push(
+      formatGuardLine(
+        "seat-deny",
+        "FAIL",
+        `${agent}: malformed permissions block at ${where} (${decision.reason}); failing closed`,
+      ),
+    )
+    denyEvaluation(event, `${agent}: malformed permissions block at ${where} (${decision.reason}); failing closed`)
     return
   }
   if (decision.status === "matched" && decision.effect === "deny") {
@@ -3562,21 +3798,41 @@ const v2ToolAfter = async (arsenal: ArsenalContext, event: V2ToolAfterEvent): Pr
 /**
  * V2 `shell.create.before` adapter (HOOKS 4 + 7 for raw shell executions).
  *
- * The shell hook carries `{ command, cwd, ... }` with no tool name and no
- * session id. The command is re-paired as a `bash` tool call so the same two
- * before-guards run with the same message text; outcomes are recorded under
- * `anonymous` because attributing them to any other session would invent
- * provenance the event does not carry.
+ * The shell hook carries `{ command, cwd, ... }` with no tool name and, in
+ * the published contract, no session id. The command is re-paired as a
+ * `bash` tool call so the same two before-guards run with the same message
+ * text; outcomes are recorded under the parent session when the host
+ * provides one (`event.sessionID`) and otherwise under `anonymous`, always
+ * with the event `cwd` and an ISO timestamp attached, because attributing
+ * them to any other session would invent provenance the event does not
+ * carry, while bare `anonymous` could never be traced to a directory and a
+ * time. Attribution limit: see the module header.
  */
 const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent): Promise<void> => {
   if (killSwitchReason(arsenal) !== null) return
   const command = typeof event?.command === "string" ? event.command : ""
   if (command.trim().length === 0) return
-  const input: ToolExecuteBeforeInput = { tool: "bash", sessionID: "anonymous", callID: "shell" }
+  const shellSession =
+    typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
+  const shellCwd = typeof event?.cwd === "string" && event.cwd.length > 0 ? event.cwd : arsenal.root
+  const stamp = new Date().toISOString()
+  const attribution = `session=${shellSession} cwd=${shellCwd} at ${stamp}`
+  const input: ToolExecuteBeforeInput = { tool: "bash", sessionID: shellSession, callID: "shell" }
   const output: ToolExecuteBeforeOutput = { args: { command } }
-  await longRunningProcessGuard(arsenal, input, output)
-  await destructiveActionGuard(arsenal, input, output)
-  await runDocsGuard(arsenal, input, output)
+  const state = sessionState(arsenal, shellSession)
+  const beforeCount = state.guardOutcomes.length
+  try {
+    await longRunningProcessGuard(arsenal, input, output)
+    await destructiveActionGuard(arsenal, input, output)
+    await runDocsGuard(arsenal, input, output)
+  } catch (error) {
+    state.guardOutcomes.push(formatGuardLine("shell-hook", "FAIL", attribution))
+    const original = error instanceof Error ? error.message : String(error)
+    throw new Error(`${original} — ${attribution}`)
+  }
+  if (state.guardOutcomes.length > beforeCount) {
+    state.guardOutcomes.push(formatGuardLine("shell-hook", "WARN", attribution))
+  }
 }
 
 /**
@@ -3592,7 +3848,8 @@ const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent)
  *                               prettierFormat (HOOK 6)
  *   - shell "create.before"  -> longRunningProcessGuard + docsDisciplineGuard
  *                               for raw shell executions, which carry no tool
- *                               name and no session id
+ *                               name and, in the published contract, no
+ *                               session id
  *
  * Three V1 hooks are not registered, on purpose. V2 has no equivalent of V1's
  * `experimental.chat.system.transform`, `experimental.session.compacting` or
@@ -3820,6 +4077,14 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
 
     "chat.message": async (msgInput: ChatMessageInput, msgOutput: ChatMessageOutput): Promise<void> => {
       if (killSwitchReason(ctx) !== null) return
+      // Model-choice recorder (owner ruling 5): observe the user-picked
+      // model; never select or pin one. Runs before the dispatcher gates so
+      // the choice is recorded even when later dispatcher work stops early.
+      const sessionId = msgInput?.sessionID ?? "anonymous"
+      const choice = modelChoiceFrom(msgInput?.model, msgInput?.agent)
+      const stateDir = resolveStateDir(rt, root)
+      const recorded = recordModelChoice(rt, stateDir, sessionId, choice, new Date().toISOString())
+      if (recorded !== null) log(ctx, "debug", `model-choice: recorded ${choice.provider}/${choice.model}`)
       const parts = msgOutput?.parts
       if (!Array.isArray(parts)) return
       const text = extractText(parts)
@@ -3830,7 +4095,7 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       const instruction = taskDispatcher(ctx)
       if (instruction === null) return
       const sentinel = stripDispatchSentinel(text)
-      const state = sessionState(ctx, msgInput?.sessionID ?? "anonymous")
+      const state = sessionState(ctx, sessionId)
       // `lastIntent` stores a non-reversible marker, never the raw prompt: the
       // value is persisted verbatim by the compact and session-end files.
       state.lastIntent = redactIntent(sentinel.userText)

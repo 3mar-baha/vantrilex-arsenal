@@ -1,5 +1,6 @@
 ---
 name: vantrilex-verifier
+catalog_id: agent/vantrilex-verifier
 description: "Independent gate-runner that executes the full verification battery and reports tri-state verdicts with an evidence ledger. Use when a change needs independent verification before merge, release, or phase exit."
 mode: subagent
 color: "#EF4444"

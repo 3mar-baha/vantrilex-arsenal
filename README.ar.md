@@ -14,7 +14,7 @@
 يحمل LD-28 سجل الفجوات حسب النطاق المحدد على فرع الإصدار؛ والمتن التفصيلي يتبع نطاق البناء ولا يُفترض في هذه المسودة.
 يبقى الملء على W7b بعد النشر: تبقى `v0.9.28` و`136371c94ce8426d0863bab0fde4c63a8605ede1` و`6eea674c20285a0bf9e499040576882acff27451` و`171` عناصر نائبة في هذه المسودة دون أي تعبئة الآن.
 
-**الإصدار الحالي:** `v0.9.78` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). الدمج: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · الوسم: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · الحجم: `174`. ينشر مع النشر أو بعده مباشرة؛ والنطاق حسب كتلة 0.9.25 في `WORKFLOW.md`.
+**الإصدار الحالي:** `v0.9.79` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). الدمج: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · الوسم: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · الحجم: `174`. ينشر مع النشر أو بعده مباشرة؛ والنطاق حسب كتلة 0.9.25 في `WORKFLOW.md`.
 
 **الإصدار v0.9.32 — محجوز:** النسخة `v0.9.32` · الدمج `29a430d6d8662033ea815d510522847dcde7d6a6` · الوسم `25a102ee0fd9c94466e08d89e5e74ee2bc03d846` · الحجم `181`.
 الخانة 0.9.32 محجوزة؛ تحسين ذاتي مقيّد بعد سجل نظيف تحت إشراف فقط؛ والقائمة الدائمة لا تتم أتمتتها ابدا (الاحتياطي FBLD-32).

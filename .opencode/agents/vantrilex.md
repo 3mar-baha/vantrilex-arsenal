@@ -1,6 +1,7 @@
 ---
 description: The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and receives their deliveries without building anything or verifying its own distribution.
 name: vantrilex
+catalog_id: agent/vantrilex
 mode: primary
 color: "#8B5CF6"
 temperature: 0.1

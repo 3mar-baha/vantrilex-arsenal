@@ -1,5 +1,6 @@
 ---
 name: vantrilex-red-team
+catalog_id: agent/vantrilex-red-team
 description: "Adversarial attacker that tries to break a plan, design, or diff before it ships and returns ranked findings with a triggering path for each, never fixes."
 mode: subagent
 color: "#F59E0B"

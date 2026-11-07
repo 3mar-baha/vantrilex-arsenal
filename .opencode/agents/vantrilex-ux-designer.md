@@ -1,5 +1,6 @@
 ---
 name: vantrilex-ux-designer
+catalog_id: agent/vantrilex-ux-designer
 description: "Translates user evidence into information architecture, user flows, and a structured design brief that the UI-Designer executes visually. Use when a feature needs research-backed IA, Arabic/RTL-ready flows, or a feasibility-noted handoff brief before any visual work begins."
 mode: subagent
 color: "#EC4899"

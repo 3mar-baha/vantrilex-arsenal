@@ -33,6 +33,13 @@
  * never written to any file, and never appear in output — logs carry
  * presence (SET/UNSET), HTTP status codes, row ids, and counts only.
  *
+ * Service-role pre-check (MFT-085): this read-only poller must never run
+ * on a service-role key. Before any network call, `loadConfig` refuses
+ * fail-closed (exit 2) when `COMMS_SUPABASE_SERVICE_ROLE_KEY` is SET or
+ * when `COMMS_SUPABASE_ANON_KEY` decodes to a JWT with
+ * `role=service_role`. The refusal logs `reason=service-role-refused`
+ * plus presence only, never the value.
+ *
  * Runtime: Node 25, ESM, zero dependencies (node:fs/os/path + fetch only).
  */
 
@@ -61,6 +68,24 @@ export function defaultWakeFile() {
  * Narrowed env read: presence is reportable, values never leave this module
  * except into request headers / the request URL host.
  */
+/**
+ * Trust-boundary check: true when a key string is a Supabase JWT whose
+ * payload declares `role=service_role`. Undecodable strings are not
+ * service-role keys by this check alone.
+ */
+export function isServiceRoleKey(value) {
+  if (typeof value !== "string") return false;
+  const parts = value.split(".");
+  if (parts.length < 2) return false;
+  try {
+    const payloadJson = Buffer.from(parts[1], "base64url").toString("utf8");
+    const payload = JSON.parse(payloadJson);
+    return payload !== null && typeof payload === "object" && payload.role === "service_role";
+  } catch {
+    return false;
+  }
+}
+
 export function loadConfig(env) {
   const source = env ?? process.env;
   const get = (name) => {
@@ -73,6 +98,14 @@ export function loadConfig(env) {
   const topic = get("COMMS_NTFY_TOPIC");
   const maxCyclesRaw = get("COMMS_WAIT_MAX_CYCLES");
   const maxCycles = maxCyclesRaw !== null ? Number.parseInt(maxCyclesRaw, 10) : null;
+  const serviceRoleKey = get("COMMS_SUPABASE_SERVICE_ROLE_KEY");
+  if (serviceRoleKey !== null || isServiceRoleKey(anonKey)) {
+    return {
+      ok: false,
+      reason: "service-role-refused",
+      detail: `service-role-key=${serviceRoleKey === null ? "UNSET" : "SET"} key-role=${isServiceRoleKey(anonKey) ? "service_role" : "not-service_role"}`,
+    };
+  }
   if (url === null || anonKey === null) {
     return {
       ok: false,
@@ -292,6 +325,7 @@ function printUsage() {
       "env: COMMS_SUPABASE_URL, COMMS_SUPABASE_ANON_KEY (required),",
       "     COMMS_SUPABASE_PROJECT (default vta-comms), COMMS_NTFY_TOPIC (optional),",
       "     COMMS_WAIT_MAX_CYCLES (optional loop cap)",
+      "     COMMS_SUPABASE_SERVICE_ROLE_KEY must stay UNSET; service-role keys are refused preflight (exit 2), no network",
     ].join("\n"),
   );
 }

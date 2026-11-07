@@ -1,6 +1,7 @@
 ---
 description: Produces a verified MISSION-PLAN from an owner brief through PREPARE, PLAN, and STOP when a task must be planned before anything executes.
 name: aether
+catalog_id: agent/aether
 mode: subagent
 color: "#14B8A6"
 temperature: 0.1

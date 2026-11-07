@@ -193,6 +193,25 @@ jobs:
           npx --no-install tsc --noEmit -p tsconfig.json
           echo "TypeScript check clean"
 
+  secrets:
+    name: Secrets
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Check out repository (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks secret scan (CI mirror of .githooks/pre-commit)
+        # The CI half of the "CI enforces the same patterns" claim
+        # (SECURITY.md, .githooks/pre-commit): gitleaks defaults catch the
+        # same sk-*/gh*_/AKIA* key classes the hook rejects, over full
+        # history, so a hook-less or --no-verify commit still fails review.
+        uses: gitleaks/gitleaks-action@v2
+
   build:
     name: Build
     needs: [lint, verify, types]
@@ -222,13 +241,13 @@ jobs:
                    END { exit bad }'
           echo "all seven orchestration scripts are mode 100755"
 
-      - name: Package release artifact
-        # Smoke-test artifact only; paths that have not landed on this branch
-        # are reported and skipped. release.yml is retired: auto-publish.yml is
-        # the sole asset writer, and a v* tag push starts no CI run.
+      - name: Package CI smoke artifact
+        # Smoke-test artifact only (vantrilex-arsenal-smoke-<sha>.tar.gz),
+        # never a release asset. release.yml is retired: auto-publish.yml is
+        # the sole release-asset writer, and a v* tag push starts no CI run.
         run: |
           set -euo pipefail
-          tarfile="vantrilex-arsenal-${GITHUB_SHA::7}.tar.gz"
+          tarfile="vantrilex-arsenal-smoke-${GITHUB_SHA::7}.tar.gz"
           paths=()
           for candidate in AGENTS.md CHANGELOG.md CONTRIBUTING.md LICENSE README.md \
             SECURITY.md registry scripts docs .opencode \
@@ -248,5 +267,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vantrilex-arsenal-${{ github.sha }}
-          path: vantrilex-arsenal-*.tar.gz
+          path: vantrilex-arsenal-smoke-*.tar.gz
           retention-days: 14

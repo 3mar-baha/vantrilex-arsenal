@@ -11,7 +11,7 @@ The asset lane and the tag/release sequence are in
 | Lane | Writer | Trigger | Responsibility |
 |---|---|---|---|
 | Queue lane | `scripts/self-publish.mjs` | a push to the default branch with a pending entry, or a manual dispatch | compute the number, prove the commit, create the tag and release, consume the entry |
-| Asset lane | `scripts/auto-publish.sh` | `release: types: [published]` | attach the distributable for a `v0.0.x` patch release |
+| Asset lane | `scripts/auto-publish.sh` | `release: types: [published]` | attach the distributable for a `v0.0.x` patch release; `v0.9.x` releases are owner-gated and do not auto-publish (owner-pushed; see D42) |
 | Backfill lane | `scripts/backfill-publish.mjs` | operator, per the approved map | publish historical units in ascending order, one at a time |
 
 Both workflow jobs live in `.github/workflows/auto-publish.yml` and never run

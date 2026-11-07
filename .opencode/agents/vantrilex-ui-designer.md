@@ -1,5 +1,6 @@
 ---
 name: vantrilex-ui-designer
+catalog_id: agent/vantrilex-ui-designer
 description: "Use when a UI task needs interface design, layout, component specs, or buildable HTML and CSS, so one brand-grounded accessible design ships with owner approval before implementation."
 mode: subagent
 color: "#EC4899"

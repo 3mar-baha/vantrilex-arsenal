@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.79] — 2026-11-07 — tag v0.9.79 — Audit W5: model-choice, dedup, service-role, themes scope, register, refresh-guard, AGENT.md restructure
+
+> Status: this section records the W5 slice released as `v0.9.79` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (W5 rows MFT-012, MFT-027, MFT-036, MFT-039, MFT-040, MFT-041, MFT-044, MFT-051, MFT-052, MFT-055, MFT-056, MFT-064, MFT-066, MFT-081, MFT-082, MFT-085, MFT-086, MFT-087, MFT-089, MFT-090, MFT-091, MFT-092, MFT-094, MFT-095, MFT-106). W6 untouched and uncommitted.
+
 ### Changed
 
 - **CI tells the truth about what it proves (`ci`).** The types job pins
@@ -37,8 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   evidence that proves it: source provenance, a load surface, or a command plus
   the registry that proved it. `verification` is the constant `verified`; a row
   that cannot produce its class evidence is no longer a live record with a
-  weaker label. Proofs are dated and expire (90 days for a command, 180 for a
-  load surface, 365 for a source). The migration leaves **2,889 live rows** and
+  weaker label. Proofs are dated via checked_at and lapse after 90 days for a command, 180 for a load surface, 365 for a source under verify-catalog evidence/ttl enforcement; no separate expires_at field is stored (MFT-040/MFT-041). The migration leaves **2,889 live rows** and
   moves **40 rows** to `registry/candidates/<kind>.jsonl` with one of six reason
   codes, so nothing is silently dropped and nothing is guessed. The recorded totals are the sum of registry/catalog.json (2,889 rows) and registry/candidates/ (40 rows); this invariant is to be asserted in CI. The catalog
   counts **12 theme components plus 1 atomic-switch map**, the map being an

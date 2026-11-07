@@ -1,5 +1,6 @@
 ---
 name: vantrilex-librarian
+catalog_id: agent/vantrilex-librarian
 description: "Use when catalog knowledge needs version-qualified curation, drift reporting, or add/remove evidence bundles, so every claim resolves to a real registry ID."
 mode: subagent
 color: "#10B981"

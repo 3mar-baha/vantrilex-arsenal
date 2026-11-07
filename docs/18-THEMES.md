@@ -9,6 +9,15 @@ is — and is not.
 `registry/themes/` holds **13 JSON files**: **12 catalogued V2 palette themes**
 plus **1 atomic-switch map**.
 
+Themes are intentionally scoped to the 3 leaders plus 9 documented agents
+(12 total); all other agents have no dedicated palette, and that absence is
+intentional rather than 17 missing themes waiting to be authored. No new hex
+is invented: under the group-colour rule a future palette, if owner-approved,
+reuses an existing group hex instead of minting a new one for a new agent.
+Count reconciliation: `ls registry/themes/*.json` is 13 files, catalog theme
+rows are 12, and the documented map is 1 — 12 palettes == 12 catalog rows;
++1 documented map == 13 files. (MFT-024/MFT-025, D37 group-colour rule; W5 w5-review-fix-themes)
+
 | Theme | Shade | Mapped agent | Catalog |
 |---|---|---|---|
 | `vantrilex-blazar` | royal blue `#4169E1` | blazar | yes |

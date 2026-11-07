@@ -689,6 +689,81 @@ export function buildCatalog(records) {
   };
 }
 
+/*
+  MFT-044: per-kind add/remove/change summary vs the previously generated
+  registry/catalog.json, printed every run so a reviewer sees per-kind
+  churn without hand-diffing thousands of records. The baseline is the
+  committed registry/catalog.json next to the regenerated one; the
+  regenerated catalog.json stays the committed artifact whose diffs are
+  reviewable. A missing baseline counts every component as added; a null
+  previousCatalog means the same. `changed` is a strict record comparison:
+  sound because both sides come from orderRecord(), so identical inputs
+  serialize identically.
+*/
+export function summarizeCatalogDiff(nextCatalog, previousCatalog) {
+  const nextByKind = new Map(KINDS.map((kind) => [kind, new Map()]));
+  for (const record of nextCatalog.components ?? []) {
+    if (nextByKind.has(record?.kind) && typeof record.id === 'string') {
+      nextByKind.get(record.kind).set(record.id, record);
+    }
+  }
+  const previousByKind = new Map(KINDS.map((kind) => [kind, new Map()]));
+  for (const record of previousCatalog?.components ?? []) {
+    if (previousByKind.has(record?.kind) && typeof record.id === 'string') {
+      previousByKind.get(record.kind).set(record.id, record);
+    }
+  }
+  const perKind = KINDS.map((kind) => {
+    const next = nextByKind.get(kind);
+    const previous = previousByKind.get(kind);
+    let added = 0;
+    let removed = 0;
+    let changed = 0;
+    for (const [id, record] of next) {
+      if (!previous.has(id)) added += 1;
+      else if (JSON.stringify(record) !== JSON.stringify(previous.get(id))) changed += 1;
+    }
+    for (const id of previous.keys()) {
+      if (!next.has(id)) removed += 1;
+    }
+    return { kind, added, removed, changed };
+  });
+  return {
+    perKind,
+    totals: {
+      added: perKind.reduce((sum, row) => sum + row.added, 0),
+      removed: perKind.reduce((sum, row) => sum + row.removed, 0),
+      changed: perKind.reduce((sum, row) => sum + row.changed, 0),
+    },
+  };
+}
+
+function readPreviousCatalog() {
+  if (!existsSync(CATALOG_JSON)) return { ok: true, components: [] };
+  try {
+    const parsed = JSON.parse(readFileSync(CATALOG_JSON, 'utf8'));
+    if (!Array.isArray(parsed.components)) return { ok: false, reason: 'components is not an array' };
+    return { ok: true, components: parsed.components };
+  } catch (error) {
+    return { ok: false, reason: error.message };
+  }
+}
+
+function catalogDiffLines(previous, diff) {
+  const lines = ['catalog diff vs registry/catalog.json (previous generation):'];
+  if (!previous.ok) {
+    lines.push(`baseline unreadable (${previous.reason}) — per-kind diff skipped`);
+    return lines;
+  }
+  const width = Math.max(...KINDS.map((k) => k.length));
+  lines.push(`${'kind'.padEnd(width)}  ${'added'.padStart(7)}  ${'removed'.padStart(7)}  ${'changed'.padStart(7)}`);
+  for (const row of diff.perKind) {
+    lines.push(`${row.kind.padEnd(width)}  ${String(row.added).padStart(7)}  ${String(row.removed).padStart(7)}  ${String(row.changed).padStart(7)}`);
+  }
+  lines.push(`${'total'.padEnd(width)}  ${String(diff.totals.added).padStart(7)}  ${String(diff.totals.removed).padStart(7)}  ${String(diff.totals.changed).padStart(7)}`);
+  return lines;
+}
+
 export function loadCatalog({ dataDir = DATA_DIR, schemaPath = SCHEMA_PATH } = {}) {
   const buffer = readFileSync(CATALOG_MD);
   const defects = findMalformedUtf8(buffer);
@@ -904,7 +979,11 @@ function run(argv, { stdout, log }) {
   const catalog = buildCatalog(records);
   const json = `${JSON.stringify(catalog, null, 2)}\n`;
 
+  const previous = readPreviousCatalog();
+  const diff = previous.ok ? summarizeCatalogDiff(catalog, previous) : null;
+
   if (flags.has('--stdout')) {
+    log(catalogDiffLines(previous, diff).join('\n'));
     stdout.write(json);
     return 0;
   }
@@ -950,6 +1029,8 @@ function run(argv, { stdout, log }) {
     log(`${check ? 'check' : 'write'}: ${label} — ${result}`);
     if (check && result !== 'ok') drifted.push(`${label} (${result})`);
   }
+
+  stdout.write(`${catalogDiffLines(previous, diff).join('\n')}\n`);
 
   if (drifted.length > 0) {
     fail(`generated output is out of date: ${drifted.join(', ')}. Run: node scripts/generate-catalog-json.mjs${checkMarkdown ? ' --markdown' : ''}${checkIndexes ? ' --indexes' : ''}`);

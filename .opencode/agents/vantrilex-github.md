@@ -1,5 +1,6 @@
 ---
 name: vantrilex-github
+catalog_id: agent/vantrilex-github
 description: "Executes GitHub issue, branch, and pull-request work inside a directed node; use when the brief names a GitHub issue, pull request, or release operation."
 mode: subagent
 color: "#8B5CF6"

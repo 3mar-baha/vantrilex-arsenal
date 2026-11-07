@@ -1,5 +1,6 @@
 ---
 name: vantrilex-releaser
+catalog_id: agent/vantrilex-releaser
 description: "Use when a release needs terminal prep that stages a versioned handoff package for the github-release-packager skill without publishing anything."
 mode: subagent
 color: "#8B5CF6"
