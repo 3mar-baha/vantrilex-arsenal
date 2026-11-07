@@ -730,7 +730,7 @@ the ratified list and are left vacant rather than filled.
 
 - **Date:** 2026-11-07
 - **Context:** MFT-133 identifies Node 25 as past end-of-life. The repo requires "Node 25" with no `.nvmrc` or `engines` field (MFT-034/MFT-112). Node 25 Current releases have ~6 months of support; Node 22 is the current Active LTS (EOL April 2027). Only Node 25 is available in the current environment; migrating to Node 22 LTS could not be verified.
-- **Decision:** ROLLED FORWARD to 0.9.82. `.nvmrc` pins `25` (matching CI `node-version: 25`) for reproducibility; `package.json` gains `engines.node >= 25.0.0`. Migration to Node 22 LTS is deferred with a named release (0.9.82) and a dated owner reason (environment lacks Node 22 for verification). Node 25 EOL recorded as approximately April 2026.
+- **Decision:** ROLLED FORWARD to 0.9.82. `.nvmrc` pins `25` (matching CI `node-version: 25`) for reproducibility; `package.json` gains `engines.node >= 22.0.0`. Migration to Node 22 LTS is deferred with a named release (0.9.82) and a dated owner reason (environment lacks Node 22 for verification). Node 25 EOL recorded as approximately April 2026.
 - **Consequences:** `.nvmrc` and `package.json` engines pin the version; CI continues to use `node-version: 25`. Migration to Node 22 LTS is a named future action (0.9.82) requiring CI, AGENTS.md, and script verification under Node 22. MFT-133 is NOT closed by this pin; it is rolled forward.
 
 ## D45 — MFT-066 concurrency unification (owner ruling 2026-11-07)

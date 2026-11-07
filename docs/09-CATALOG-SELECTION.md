@@ -137,7 +137,6 @@ ends. Selection therefore prefers the cheaper surface whenever two candidates
 cover the same need, and the catalog records the lighter choice so later passes
 do not re-litigate it.
 
-
 ## MFT-048 exemption note (2026-11-07)
 
 `skills-lock.json` at the repo root pins 2 vendored skills (supabase, supabase-postgres-best-practices) from `supabase/agent-skills`. This is an explicit exemption from the "zero lockfiles" abolition ruling (2026-10-21): skills-lock.json pins vendored skills, not the kit. The exemption is recorded here with a date per the row Expected. `node scripts/verify-registry.mjs` exits 0.
