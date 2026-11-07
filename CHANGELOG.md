@@ -9,6 +9,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.80] — 2026-11-07 — tag v0.9.80 — Audit W6: polish and close the loop
+
+> Status: this section records the W6 slice released as `v0.9.80` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (W6 rows MFT-018, MFT-021, MFT-022, MFT-023, MFT-028, MFT-034, MFT-042, MFT-043, MFT-046, MFT-048, MFT-057, MFT-058, MFT-061, MFT-062, MFT-065, MFT-074, MFT-075, MFT-077, MFT-078, MFT-079, MFT-080, MFT-083, MFT-084, MFT-093, MFT-097, MFT-098, MFT-099, MFT-100, MFT-101, MFT-102, MFT-103, MFT-104, MFT-109, MFT-110, MFT-111, MFT-112, MFT-133 + SF-01–SF-35). Pin coverage: 1,182/1,182 installable rows pinned (100%).
+
+### Changed
+
+- **Pin coverage complete (`feat(catalog)`).** All 1,182 installable rows (cli 64, skill 1,117, prompt 1) now carry a `version_pin` (MFT-039 target met at 0.9.80). `verify-catalog.mjs` pin-coverage gate reports 100%.
+- **Hex colour normalisation (`fix(palette)`).** All hex colours in `registry/themes/*.json` and agent frontmatter normalised to lowercase (MFT-028/SF-19). `verify-catalog.mjs` agent-hygiene gate passes.
+- **Dead schemas archived (`chore(schema)`).** `catalog-v2.schema.json` and `catalog-v3.schema.json` moved to `registry/schema/archive/` (MFT-043/SF-17).
+- **Kit-lock renamed (`docs`)**. `docs/09-KIT-LOCK.md` → `docs/09-CATALOG-SELECTION.md` with redirect stub (MFT-046/SF-02).
+- **Node version pin (`chore(runtime)`).** `.nvmrc` added (MFT-112/SF-04); `package.json` with `type: module` and verify/typecheck scripts (SF-25); Node 25 EOL and migration dates recorded in D44 (MFT-133).
+- **Command frontmatter (`feat(commands)`).** All 16 command files carry `version:` + `updated:` frontmatter (MFT-022/SF-20).
+- **Command routing map (`docs`)**. Added command→agent→skill routing table to `docs/16-TASK-DISPATCH.md` (MFT-023/SF-35).
+- **AGENT.md corrections (`docs`)**. `AGENT.md:308` ref count corrected 21→83 (MFT-021/SF-34); `O:\vantrilex-arsenal` replaced with public repo URL (SF-31).
+- **Colour/colour standardisation (`docs`)**. British `colour` → American `color` in `.opencode/` and `docs/` (SF-14).
+- **Network deps documented (`docs`)**. Supabase + ntfy.sh prerequisites added to README (SF-26).
+- **Security link (`docs`)**. `SECURITY.md` linked from README (SF-09/SF-11/MFT-111).
+- **HISTORICAL banners (`docs`)**. Added to all 5 `V87-*.md` files (SF-11).
+- **Archive index (`docs`)**. `docs/99-archive/INDEX.md` added (SF-13).
+- **Directory indexes (`docs`)**. `README.md` added to 6 `.opencode/` subdirectories (SF-16/MFT-062).
+- **Scripts index (`docs`)**. `scripts/README.md` added (MFT-103/SF-06).
+- **for-vanzen index (`docs`)**. `for-vanzen/INDEX.md` added (MFT-104/SF-07).
+- **Brand README (`docs`)**. `brand/README.md` added (MFT-110/SF-08).
+- **Findings probe documented (`docs`)**. `.opencode/plugin/arsenal.findings-probe.mjs` documented in `docs/08-VERIFICATION.md` (MFT-102/SF-15).
+- **SHA256SUMS (`feat(registry)`)**. `registry/data/SHA256SUMS` emitted (MFT-057/SF-29).
+- **Candidate review_by (`feat(registry)`)**. `review_by` field added to all 40 candidate rows and schema (MFT-058/SF-28).
+- **V87 citation fix (`docs`)**. `V87-COLOR-AUDIT.md` citation `:95` → `:137` (SF-01).
+- **docs/00-INDEX.md (`docs`)**. 28-file claim marked `[UNVERIFIED]` (MFT-061).
+- **COMMS script moved (`chore`)**. `COMMS-SUPABASE-WAIT.mjs` moved to `scripts/` (SF-10/MFT-075).
+- **README.ar.md sync line (`docs`)**. `synced:` marker added (SF-30).
+
 ## [0.9.79] — 2026-11-07 — tag v0.9.79 — Audit W5: model-choice, dedup, service-role, themes scope, register, refresh-guard, AGENT.md restructure
 
 > Status: this section records the W5 slice released as `v0.9.79` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (W5 rows MFT-012, MFT-027, MFT-036, MFT-039, MFT-040, MFT-041, MFT-044, MFT-051, MFT-052, MFT-055, MFT-056, MFT-064, MFT-066, MFT-081, MFT-082, MFT-085, MFT-086, MFT-087, MFT-089, MFT-090, MFT-091, MFT-092, MFT-094, MFT-095, MFT-106). W6 untouched and uncommitted.

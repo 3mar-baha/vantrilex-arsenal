@@ -1,3 +1,5 @@
+> **HISTORICAL** — This document records the v0.87-era audit state. It is retained for reference and is not part of the current (v0.9.x) release.
+
 # V87-RUFLO-ANALYSIS — synthesis dossier (AETHER, for owner approval before filing)
 
 **Source:** `zen-ruflo-recon` scout brief (read-only, ~24 HTTP GETs, `ruvnet/ruflo` @ pushed 2026-10-21); every Ruflo claim below is repo text **fetched** (مثبت as text — runtime behaviour **UNVERIFIED**, no execution permitted). Arsenal counterparts cite our own tree (file paths as verified in the Phase 0/audit records; where provenance is a doc statement I mark it ~تقديري). No code copied, nothing adopted, nothing installed. **File on approval:** `V87-RUFLO-ANALYSIS.md`.

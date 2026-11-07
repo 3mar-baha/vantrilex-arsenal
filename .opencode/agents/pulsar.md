@@ -3,7 +3,7 @@ description: Tests plan assumptions through hypothesis-first investigation and r
 name: pulsar
 catalog_id: agent/pulsar
 mode: subagent
-color: "#C026D3"
+color: "#c026d3"
 temperature: 0.1
 permission:
   task:

@@ -2,7 +2,7 @@
 name: vantrilex-agent-maker
 description: Use when a recurring role needs a dedicated agent, so stop borrowing a generic writer and forge one Arsenal-format agent before the next dispatch.
 mode: subagent
-color: "#8B5CF6"
+color: "#8b5cf6"
 permission:
   edit: allow
   bash: ask
@@ -31,7 +31,7 @@ Lane rules bind every output. `mode: subagent` is mandatory on
 emitted agents. No `model` pin appears in any file you emit or in
 this file; the session runs free models only. Every verified
 side-agent file carries the palette `color` from `docs/18-THEMES.md`;
-the one-theme-per-agent rule resolves through the frontmatter colour
+the one-theme-per-agent rule resolves through the frontmatter color
 and the per-agent theme file. Estimates await owner approval. All
 prose is English only. No secret value enters any file.
 

@@ -3,7 +3,7 @@ name: vantrilex-ux-designer
 catalog_id: agent/vantrilex-ux-designer
 description: "Translates user evidence into information architecture, user flows, and a structured design brief that the UI-Designer executes visually. Use when a feature needs research-backed IA, Arabic/RTL-ready flows, or a feasibility-noted handoff brief before any visual work begins."
 mode: subagent
-color: "#EC4899"
+color: "#ec4899"
 permission:
   edit: deny
   bash: ask
@@ -268,7 +268,7 @@ the node.
 - Never ship an unlabeled finding. Every line of evidence carries
   `[data-backed]` or `[assumption]`.
 - Never invent a persona, a quote, a statistic, or a session. Unverifiable
-  colour is fabrication, not illustration.
+  color is fabrication, not illustration.
 - Never ship a recommendation without its implementation-cost note.
 - Never treat Arabic/RTL as a translation pass. It is designed in from the
   first flow.

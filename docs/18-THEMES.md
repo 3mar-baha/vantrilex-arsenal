@@ -12,79 +12,79 @@ plus **1 atomic-switch map**.
 Themes are intentionally scoped to the 3 leaders plus 9 documented agents
 (12 total); all other agents have no dedicated palette, and that absence is
 intentional rather than 17 missing themes waiting to be authored. No new hex
-is invented: under the group-colour rule a future palette, if owner-approved,
+is invented: under the group-color rule a future palette, if owner-approved,
 reuses an existing group hex instead of minting a new one for a new agent.
 Count reconciliation: `ls registry/themes/*.json` is 13 files, catalog theme
 rows are 12, and the documented map is 1 — 12 palettes == 12 catalog rows;
-+1 documented map == 13 files. (MFT-024/MFT-025, D37 group-colour rule; W5 w5-review-fix-themes)
++1 documented map == 13 files. (MFT-024/MFT-025, D37 group-color rule; W5 w5-review-fix-themes)
 
 | Theme | Shade | Mapped agent | Catalog |
 |---|---|---|---|
-| `vantrilex-blazar` | royal blue `#4169E1` | blazar | yes |
-| `vantrilex-aether` | teal `#14B8A6` | aether | yes |
-| `vantrilex-pulsar` | fuchsia `#C026D3` | pulsar | yes |
-| `vantrilex-architect` | blue `#3A86FF` | vantrilex-architect | yes |
-| `vantrilex-code-reviewer` | cobalt `#2F6BFF` | vantrilex-code-reviewer | yes |
-| `vantrilex-security-auditor` | violet `#8B5CF6` | vantrilex-security-auditor | yes |
-| `vantrilex-kit-maintainer` | flame orange `#E63E21` | vantrilex-kit-maintainer | yes |
-| `vantrilex-red-team` | signal red `#FF4D2E` | vantrilex-red-team | yes |
-| `vantrilex-scribe` | emerald `#22C55E` | vantrilex-scribe | yes |
-| `vantrilex-guide` | brick red `#C9331A` | vantrilex-guide | yes |
-| `vantrilex-implementer` | slate blue `#5B8DEF` | vantrilex-implementer | yes |
-| `vantrilex-leader` | oxide red `#A82A16` | vantrilex-leader | yes |
+| `vantrilex-blazar` | royal blue `#4169e1` | blazar | yes |
+| `vantrilex-aether` | teal `#14b8a6` | aether | yes |
+| `vantrilex-pulsar` | fuchsia `#c026d3` | pulsar | yes |
+| `vantrilex-architect` | blue `#3a86ff` | vantrilex-architect | yes |
+| `vantrilex-code-reviewer` | cobalt `#2f6bff` | vantrilex-code-reviewer | yes |
+| `vantrilex-security-auditor` | violet `#8b5cf6` | vantrilex-security-auditor | yes |
+| `vantrilex-kit-maintainer` | flame orange `#e63e21` | vantrilex-kit-maintainer | yes |
+| `vantrilex-red-team` | signal red `#ff4d2e` | vantrilex-red-team | yes |
+| `vantrilex-scribe` | emerald `#22c55e` | vantrilex-scribe | yes |
+| `vantrilex-guide` | brick red `#c9331a` | vantrilex-guide | yes |
+| `vantrilex-implementer` | slate blue `#5b8def` | vantrilex-implementer | yes |
+| `vantrilex-leader` | oxide red `#a82a16` | vantrilex-leader | yes |
 | `vantrilex-atomic-switch` | — | (a map, not a palette) | **no** |
 
 Every palette file ships its hex inside the `base`/`dark` trees, and that hex is
 mixed-case rather than uniformly lowercase: ten palettes carry an uppercase
-`dark.hue.*.500` value (`#3A86FF` in `vantrilex-architect`, `#8B5CF6` in
+`dark.hue.*.500` value (`#3a86ff` in `vantrilex-architect`, `#8b5cf6` in
 `vantrilex-security-auditor`) and the remaining two are lowercase. The one
 `accentHex` surface in the directory is the **atomic-switch map**: thirteen
 `accentHex` fields — twelve per-agent values plus a reserved duplicate of
 blazar's royal blue — every one uppercase today; the normalization at `790ef85`
-fixed the last lowercase one (`vantrilex-aether`, now `#14B8A6`). Do not expect
+fixed the last lowercase one (`vantrilex-aether`, now `#14b8a6`). Do not expect
 one casing across both: the map is normalized, the palettes are not.
 
 ## Agent palette
 
 This is the palette home for agent frontmatter colours (MFT-024/MFT-025,
-W4 w4-colour). The seven-group assignment is the verified set in
+W4 w4-color). The seven-group assignment is the verified set in
 `V87-COLOR-AUDIT.md` §2. `scripts/verify-catalog.mjs` (`AGENT_PALETTE`)
 mirrors this section for enforcement; update both together.
 
 | Group | Hex | Agents |
 |---|---|---|
-| reserved | `#14B8A6`, `#4169E1`, `#C026D3` | `aether`, `blazar`, `pulsar` |
-| dev | `#3B82F6` | `vantrilex-architect`, `vantrilex-fixer`, `vantrilex-implementer`, `vantrilex-python`, `vantrilex-typescript` |
-| design | `#EC4899` | `vantrilex-ui-designer`, `vantrilex-ux-designer` |
-| review | `#F59E0B` | `vantrilex-code-reviewer`, `vantrilex-guide`, `vantrilex-red-team`, `vantrilex-reviewer` |
-| audit | `#EF4444` | `vantrilex-harness`, `vantrilex-security-auditor`, `vantrilex-verifier` |
-| docs | `#10B981` | `vantrilex-librarian`, `vantrilex-scribe` |
-| operate | `#8B5CF6` | `vantrilex-agent-maker`, `vantrilex-facet`, `vantrilex-github`, `vantrilex-kit-maintainer`, `vantrilex-leader`, `vantrilex-puller`, `vantrilex-releaser`, `vantrilex-uploader`, `vantrilex` (Zenith) |
-| exploration | `#22D3EE` | `vantrilex-scout` |
+| reserved | `#14b8a6`, `#4169e1`, `#c026d3` | `aether`, `blazar`, `pulsar` |
+| dev | `#3b82f6` | `vantrilex-architect`, `vantrilex-fixer`, `vantrilex-implementer`, `vantrilex-python`, `vantrilex-typescript` |
+| design | `#ec4899` | `vantrilex-ui-designer`, `vantrilex-ux-designer` |
+| review | `#f59e0b` | `vantrilex-code-reviewer`, `vantrilex-guide`, `vantrilex-red-team`, `vantrilex-reviewer` |
+| audit | `#ef4444` | `vantrilex-harness`, `vantrilex-security-auditor`, `vantrilex-verifier` |
+| docs | `#10b981` | `vantrilex-librarian`, `vantrilex-scribe` |
+| operate | `#8b5cf6` | `vantrilex-agent-maker`, `vantrilex-facet`, `vantrilex-github`, `vantrilex-kit-maintainer`, `vantrilex-leader`, `vantrilex-puller`, `vantrilex-releaser`, `vantrilex-uploader`, `vantrilex` (Zenith) |
+| exploration | `#22d3ee` | `vantrilex-scout` |
 
-Per-agent frontmatter colours: `aether` `#14B8A6`, `blazar` `#4169E1`,
-`pulsar` `#C026D3`, `vantrilex-agent-maker` `#8B5CF6`,
-`vantrilex-architect` `#3B82F6`, `vantrilex-code-reviewer` `#F59E0B`,
-`vantrilex-facet` `#8B5CF6`, `vantrilex-fixer` `#3B82F6`, `vantrilex-github` `#8B5CF6`,
-`vantrilex-guide` `#F59E0B`, `vantrilex-harness` `#EF4444`,
-`vantrilex-implementer` `#3B82F6`, `vantrilex-kit-maintainer` `#8B5CF6`,
-`vantrilex-leader` `#8B5CF6`, `vantrilex-librarian` `#10B981`,
-`vantrilex-puller` `#8B5CF6`, `vantrilex-python` `#3B82F6`,
-`vantrilex-red-team` `#F59E0B`, `vantrilex-releaser` `#8B5CF6`,
-`vantrilex-reviewer` `#F59E0B`, `vantrilex-scout` `#22D3EE`,
-`vantrilex-scribe` `#10B981`, `vantrilex-security-auditor` `#EF4444`,
-`vantrilex-typescript` `#3B82F6`, `vantrilex-ui-designer` `#EC4899`,
-`vantrilex-uploader` `#8B5CF6`, `vantrilex-ux-designer` `#EC4899`,
-`vantrilex-verifier` `#EF4444`, `vantrilex` (Zenith) `#8B5CF6`.
+Per-agent frontmatter colours: `aether` `#14b8a6`, `blazar` `#4169e1`,
+`pulsar` `#c026d3`, `vantrilex-agent-maker` `#8b5cf6`,
+`vantrilex-architect` `#3b82f6`, `vantrilex-code-reviewer` `#f59e0b`,
+`vantrilex-facet` `#8b5cf6`, `vantrilex-fixer` `#3b82f6`, `vantrilex-github` `#8b5cf6`,
+`vantrilex-guide` `#f59e0b`, `vantrilex-harness` `#ef4444`,
+`vantrilex-implementer` `#3b82f6`, `vantrilex-kit-maintainer` `#8b5cf6`,
+`vantrilex-leader` `#8b5cf6`, `vantrilex-librarian` `#10b981`,
+`vantrilex-puller` `#8b5cf6`, `vantrilex-python` `#3b82f6`,
+`vantrilex-red-team` `#f59e0b`, `vantrilex-releaser` `#8b5cf6`,
+`vantrilex-reviewer` `#f59e0b`, `vantrilex-scout` `#22d3ee`,
+`vantrilex-scribe` `#10b981`, `vantrilex-security-auditor` `#ef4444`,
+`vantrilex-typescript` `#3b82f6`, `vantrilex-ui-designer` `#ec4899`,
+`vantrilex-uploader` `#8b5cf6`, `vantrilex-ux-designer` `#ec4899`,
+`vantrilex-verifier` `#ef4444`, `vantrilex` (Zenith) `#8b5cf6`.
 
 Owner-approved 2026-11-06 (group assignment ratified, colours landed):
-`vantrilex-guide` review `#F59E0B`, `vantrilex-leader` operate `#8B5CF6`,
-`vantrilex-librarian` docs `#10B981`, `vantrilex-red-team` review `#F59E0B`,
-`vantrilex` (Zenith) operate `#8B5CF6`.
+`vantrilex-guide` review `#f59e0b`, `vantrilex-leader` operate `#8b5cf6`,
+`vantrilex-librarian` docs `#10b981`, `vantrilex-red-team` review `#f59e0b`,
+`vantrilex` (Zenith) operate `#8b5cf6`.
 
-### Group-colour rule
+### Group-color rule
 
-A new agent inherits its group's colour: assign the agent to one of the
+A new agent inherits its group's color: assign the agent to one of the
 seven groups above and carry that group's hex in the agent file's `color:`
 frontmatter, then add the same row to `scripts/verify-catalog.mjs`
 (`AGENT_PALETTE`) and to the table and per-agent list above. No new hex is
@@ -94,7 +94,7 @@ invented for a new agent; a new group requires an owner ruling recorded in
 Verify the palette from the repository root:
 
 ```bash
-node -e "const fs=require('fs');const P={aether:'#14B8A6',blazar:'#4169E1',pulsar:'#C026D3','vantrilex-agent-maker':'#8B5CF6','vantrilex-architect':'#3B82F6','vantrilex-code-reviewer':'#F59E0B','vantrilex-facet':'#8B5CF6','vantrilex-fixer':'#3B82F6','vantrilex-github':'#8B5CF6','vantrilex-guide':'#F59E0B','vantrilex-harness':'#EF4444','vantrilex-implementer':'#3B82F6','vantrilex-kit-maintainer':'#8B5CF6','vantrilex-leader':'#8B5CF6','vantrilex-librarian':'#10B981','vantrilex-puller':'#8B5CF6','vantrilex-python':'#3B82F6','vantrilex-red-team':'#F59E0B','vantrilex-releaser':'#8B5CF6','vantrilex-reviewer':'#F59E0B','vantrilex-scout':'#22D3EE','vantrilex-scribe':'#10B981','vantrilex-security-auditor':'#EF4444','vantrilex-typescript':'#3B82F6','vantrilex-ui-designer':'#EC4899','vantrilex-uploader':'#8B5CF6','vantrilex-ux-designer':'#EC4899','vantrilex-verifier':'#EF4444','vantrilex':'#8B5CF6'};for(const [id,hex] of Object.entries(P)){const t=fs.readFileSync('.opencode/agents/'+id+'.md','utf8');const m=t.match(/^color:\s*\"([^\"]+)\"/m);if(!m||m[1]!==hex)throw new Error(id+' expected '+hex+' got '+(m?m[1]:'none'))}console.log('palette: 29 colours match')"
+node -e "const fs=require('fs');const P={aether:'#14b8a6',blazar:'#4169e1',pulsar:'#c026d3','vantrilex-agent-maker':'#8b5cf6','vantrilex-architect':'#3b82f6','vantrilex-code-reviewer':'#f59e0b','vantrilex-facet':'#8b5cf6','vantrilex-fixer':'#3b82f6','vantrilex-github':'#8b5cf6','vantrilex-guide':'#f59e0b','vantrilex-harness':'#ef4444','vantrilex-implementer':'#3b82f6','vantrilex-kit-maintainer':'#8b5cf6','vantrilex-leader':'#8b5cf6','vantrilex-librarian':'#10b981','vantrilex-puller':'#8b5cf6','vantrilex-python':'#3b82f6','vantrilex-red-team':'#f59e0b','vantrilex-releaser':'#8b5cf6','vantrilex-reviewer':'#f59e0b','vantrilex-scout':'#22d3ee','vantrilex-scribe':'#10b981','vantrilex-security-auditor':'#ef4444','vantrilex-typescript':'#3b82f6','vantrilex-ui-designer':'#ec4899','vantrilex-uploader':'#8b5cf6','vantrilex-ux-designer':'#ec4899','vantrilex-verifier':'#ef4444','vantrilex':'#8b5cf6'};for(const [id,hex] of Object.entries(P)){const t=fs.readFileSync('.opencode/agents/'+id+'.md','utf8');const m=t.match(/^color:\s*\"([^\"]+)\"/m);if(!m||m[1]!==hex)throw new Error(id+' expected '+hex+' got '+(m?m[1]:'none'))}console.log('palette: 29 colours match')"
 ```
 
 ## Native shape
@@ -115,7 +115,7 @@ carries four sections:
 | Section | Holds |
 |---|---|
 | `agents` | One row per themed agent: `agent`, `themeId`, `themeFile`, `accentHex`, `category`, `status` |
-| `categories` | The colour family per category — `code` blue shades, `design` gold (reserved), `external` purple, `kit` flame red, `research` green, `reserved` royal blue |
+| `categories` | The color family per category — `code` blue shades, `design` gold (reserved), `external` purple, `kit` flame red, `research` green, `reserved` royal blue |
 | `registry` | The map's own id, `vantrilex-atomic-switch` |
 | `reserved` | The reserved default: blazar's royal blue |
 

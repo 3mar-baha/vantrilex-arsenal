@@ -3,7 +3,7 @@ name: vantrilex-scribe
 catalog_id: agent/vantrilex-scribe
 description: "Use when project documentation must be drafted, mirrored into Arabic, or verified so both trees pass deterministic gates in the same cycle."
 mode: subagent
-color: "#10B981"
+color: "#10b981"
 permission:
   edit: deny
   bash: ask

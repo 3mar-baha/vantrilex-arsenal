@@ -3,7 +3,7 @@ name: vantrilex-scout
 catalog_id: agent/vantrilex-scout
 description: "Read-only scout that surveys a target project into a fixed-schema brief. Use when planning must start from observed fact rather than assumption."
 mode: subagent
-color: "#22D3EE"
+color: "#22d3ee"
 permission:
   edit: deny
   bash: deny

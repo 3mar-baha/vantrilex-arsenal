@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Drive the release workflow end to end - second-pass guards, changelog entry, semver check, annotated tag, GitHub release, then fresh-clone verification.
 ---
 

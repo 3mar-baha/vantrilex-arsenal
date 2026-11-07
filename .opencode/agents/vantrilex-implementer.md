@@ -2,7 +2,7 @@
 name: vantrilex-implementer
 description: "Implements one specified concern inside an isolated git worktree using TDD micro-cycles, and owns the technical approach within the specification. Use when a work item already has Guide-approved acceptance criteria and needs code, tests, or a bounded fix."
 mode: subagent
-color: "#3B82F6"
+color: "#3b82f6"
 permission:
   edit: allow
   bash:

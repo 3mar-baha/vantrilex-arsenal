@@ -3,7 +3,7 @@ name: vantrilex-security-auditor
 catalog_id: agent/vantrilex-security-auditor
 description: "Use when AI-generated or vibe-coded app code needs a static security audit with JSONL findings."
 mode: subagent
-color: "#EF4444"
+color: "#ef4444"
 permission:
   edit: deny
   bash: deny

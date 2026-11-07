@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Invoke the Vantrilex Vanguard scout skill to detect project state and equip the Tier-0 kit plus the Tier-1 components this project actually needs.
 ---
 

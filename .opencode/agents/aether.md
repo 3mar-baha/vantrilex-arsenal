@@ -3,7 +3,7 @@ description: Produces a verified MISSION-PLAN from an owner brief through PREPAR
 name: aether
 catalog_id: agent/aether
 mode: subagent
-color: "#14B8A6"
+color: "#14b8a6"
 temperature: 0.1
 permission:
   task:

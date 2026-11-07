@@ -2,7 +2,7 @@
 name: vantrilex-leader
 description: "Routes, sequences and dispatches Vantrilex workstreams across Implementers and the Guide, and owns the outcome. Use when work must be split into concerns, ordered, fanned out into worktrees, resumed, or aborted."
 mode: subagent
-color: "#8B5CF6"
+color: "#8b5cf6"
 permission:
   edit: deny
   bash: ask

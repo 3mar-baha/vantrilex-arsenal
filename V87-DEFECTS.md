@@ -1,3 +1,5 @@
+> **HISTORICAL** — This document records the v0.87-era audit state. It is retained for reference and is not part of the current (v0.9.x) release.
+
 # V87 — Defects Register
 
 | Field | Value |

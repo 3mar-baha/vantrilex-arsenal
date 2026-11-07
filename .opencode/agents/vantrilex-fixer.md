@@ -3,7 +3,7 @@ name: vantrilex-fixer
 catalog_id: agent/vantrilex-fixer
 description: "Diagnoses and repairs defects with reproduce-first debugging; use when a build fails, a test breaks, or a verified fault needs a minimal verified fix."
 mode: subagent
-color: "#3B82F6"
+color: "#3b82f6"
 ---
 
 # Vantrilex Fixer

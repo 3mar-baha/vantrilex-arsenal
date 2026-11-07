@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Consult the ai-generated-code-security-auditor specialist in read-only Q&A without switching the session or applying any theme.
 ---
 

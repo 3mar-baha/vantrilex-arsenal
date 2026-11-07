@@ -27,7 +27,7 @@ implementation, not after it.
 ## When to Use
 
 - When a request touches anything a person looks at: layout, UI, CSS, visual design, styling,
-  colour, typography, spacing, component structure, page composition, or a redesign.
+  color, typography, spacing, component structure, page composition, or a redesign.
 - When a new screen, view, page, panel, or component is being imagined rather than specified.
 - When an owner says make it look better, try some designs, show me options, or redesign this.
 - When the owner has already described a look in words, because a description is precisely the
@@ -48,7 +48,7 @@ implementation, not after it.
   as the specification; this skill never starts coding a screen before the gate closes.
 - To settle a purely verbal disagreement when no owner will look at anything. If nobody is going to
   open the prototype, spend the turn on a written argument instead of four mockups.
-- For visual-only churn on an already-approved design, such as a one-token colour tweak inside an
+- For visual-only churn on an already-approved design, such as a one-token color tweak inside an
   approved scheme. Re-running four variations for a two-minute change spends the owner's attention,
   which is the scarce resource this skill is protecting.
 - To restate or duplicate any template another skill owns. Point at the owning skill instead, since
@@ -106,7 +106,7 @@ Produce a single HTML file, all CSS inline, no build step, no external assets th
 so it opens instantly from disk in any browser. It carries exactly four variations.
 
 Each of the four is a genuinely different idea: a different information hierarchy, a different
-composition, or a different interaction model. Four colour swaps of one layout are not four
+composition, or a different interaction model. Four color swaps of one layout are not four
 variations, they are one variation with a settings page. The point of the four is to widen the option
 space the owner did not know to request, and near-identical options waste the single moment this
 skill owns.

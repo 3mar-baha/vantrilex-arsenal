@@ -3,7 +3,7 @@ name: vantrilex-harness
 catalog_id: agent/vantrilex-harness
 description: "Use when a kit component needs an adversarial probe that proves exploitability with an executable minimal reproduction before any finding counts."
 mode: subagent
-color: "#EF4444"
+color: "#ef4444"
 permission:
   edit: deny
   bash: ask

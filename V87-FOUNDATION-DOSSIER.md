@@ -1,3 +1,5 @@
+> **HISTORICAL** — This document records the v0.87-era audit state. It is retained for reference and is not part of the current (v0.9.x) release.
+
 # V87-FOUNDATION-DOSSIER — Version Series, Feature Verification, Metadata Defects (v0 to v8.6, Phase 0A)
 
 - **Lane:** V87-AETHER-EXECUTE (owner-commissioned execution of the amended AETHER MISSION-PLAN; all other lanes parked).

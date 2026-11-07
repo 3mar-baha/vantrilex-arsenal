@@ -1,3 +1,5 @@
+> **HISTORICAL** — This document records the v0.87-era audit state. It is retained for reference and is not part of the current (v0.9.x) release.
+
 # V87 — Color Audit: Agent Color Compliance
 
 | Field | Value |
@@ -90,7 +92,7 @@ Neither a color nor a no-color rule: `vantrilex-architect`, `vantrilex-code-revi
 | 1 | `aether` | primary | `#14B8A6` | reserved · `#14B8A6` | `color` `aether.md:5`; `description:2` "Produces a verified MISSION-PLAN…"; title `:88` `# AETHER` |
 | 2 | `blazar` | primary | `#4169E1` | reserved · `#4169E1` | `color` `blazar.md:5`; `description:2` "Builds the verified outcome from an AETHER MISSION-PLAN…"; title `:183` `# BLAZAR` |
 | 3 | `pulsar` | primary | `#C026D3` | reserved · `#C026D3` | `color` `pulsar.md:5`; `description:2` "Tests plan assumptions through hypothesis-first investigation…"; title `:76` `# PULSAR` |
-| 4 | `vantrilex-agent-maker` | subagent | ABSENT (`:4`) | operate · `#8B5CF6` | `description:3` "forge one Arsenal-format agent…"; forbids color `:35-37`, `:95` |
+| 4 | `vantrilex-agent-maker` | subagent | ABSENT (`:4`) | operate · `#8B5CF6` | `description:3` "forge one Arsenal-format agent…"; forbids color `:35-37`, `:137` |
 | 5 | `vantrilex-architect` | subagent | ABSENT (`:4`) | dev · `#3B82F6` | `description:3` "Software architecture specialist for system design, scalability… refactoring" |
 | 6 | `vantrilex-code-reviewer` | subagent | ABSENT (`:4`) | review · `#F59E0B` | `description:3` "Expert code review specialist… the standards review lane" |
 | 7 | `vantrilex-fixer` | subagent | ABSENT (`:4`) | dev · `#3B82F6` | `description:3` "Diagnoses and repairs defects… a minimal verified fix"; forbids color `:199` |
@@ -302,7 +304,7 @@ $ (Get-Content .opencode\agents\vantrilex-verifier.md)[291..292]
 exit: 0
 ```
 
-All 13 citations in the findings set re-read line-exact, plus `vantrilex-agent-maker.md:35-37`, `:54`, `:95`, `:153`, `:187`; `vantrilex-fixer.md:199`; `vantrilex-github.md:149`; `vantrilex-harness.md:299`; `vantrilex-kit-maintainer.md:69`; `vantrilex-librarian.md:275`; `vantrilex-releaser.md:267`; `vantrilex-reviewer.md:281`; `vantrilex-security-auditor.md:388`. A full lowercase-insensitive `color` sweep over `.opencode/agents/*.md` returns **23 lines across 15 files** — the 3 `color:` frontmatter keys plus 20 prose mentions, all 20 inside the 12 forbidding files (the `ui-designer` file contributes 4 prose mentions, `agent-maker` 5).
+All 13 citations in the findings set re-read line-exact, plus `vantrilex-agent-maker.md:35-37`, `:54`, `:137`, `:153`, `:187`; `vantrilex-fixer.md:199`; `vantrilex-github.md:149`; `vantrilex-harness.md:299`; `vantrilex-kit-maintainer.md:69`; `vantrilex-librarian.md:275`; `vantrilex-releaser.md:267`; `vantrilex-reviewer.md:281`; `vantrilex-security-auditor.md:388`. A full lowercase-insensitive `color` sweep over `.opencode/agents/*.md` returns **23 lines across 15 files** — the 3 `color:` frontmatter keys plus 20 prose mentions, all 20 inside the 12 forbidding files (the `ui-designer` file contributes 4 prose mentions, `agent-maker` 5).
 
 ### SC-4 — palette re-count, with per-file attribution
 

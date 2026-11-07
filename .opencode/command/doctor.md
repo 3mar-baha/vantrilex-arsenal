@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Run the preflight system doctor across environment, runtimes, configuration, and workspace, then print a PASS/FAIL/SKIPPED table with remediation commands.
 ---
 

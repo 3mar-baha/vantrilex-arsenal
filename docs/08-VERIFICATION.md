@@ -187,3 +187,7 @@ refuses to ship over open guards.
   URLs are a pre-existing generator/display truncation (recorded as F3 in
   `V87-DEFECTS.md`) and are not hand-edited here; the generator and its
   source inputs are left unchanged.
+
+## Findings probe
+
+`.opencode/plugin/arsenal.findings-probe.mjs` probes the seat-deny overlay and guard logic. Run with `node .opencode/plugin/arsenal.findings-probe.mjs` (expected: 77/77 checks pass, exit 0).

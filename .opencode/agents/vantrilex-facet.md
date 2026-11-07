@@ -2,7 +2,7 @@
 name: vantrilex-facet
 description: "Use when a task needs one of three intervention degrees (cautious asks often, balanced for daily work, long without intervention), so the same thinking runs with different required permissions per facet."
 mode: subagent
-color: "#8B5CF6"
+color: "#8b5cf6"
 facet: balanced
 permission:
   edit: ask

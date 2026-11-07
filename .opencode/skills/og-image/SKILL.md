@@ -197,7 +197,7 @@ ones. Set `alt` on the image file for the `og:image:alt` text.
   sub-pixel size under Satori. Switch to the crossed-`linear-gradient` line grid.
 - **Render throws `missing "viewBox"`.** An SVG embedded as a data URI has no explicit
   `viewBox`. Add one.
-- **Colours ignored or malformed.** A colour is not six-digit hex, so an alpha-appending
+- **Colours ignored or malformed.** A color is not six-digit hex, so an alpha-appending
   helper produced invalid CSS.
 - **Code tokens run together.** Adjacent inline spans need `whiteSpace: "pre"`.
 - **Text weight looks wrong or falls back.** The family name is quoted in the `fonts`

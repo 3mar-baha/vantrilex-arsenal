@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Search the kit catalog by task keywords and suggest the stack-fitting components, citing every install command from the lock.
 ---
 

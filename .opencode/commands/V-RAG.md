@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Answer natural-language questions over the tenkit knowledge domains plus the hotfix overlay, with every fact cited.
 ---
 

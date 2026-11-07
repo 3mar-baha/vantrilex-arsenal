@@ -129,7 +129,7 @@
  * package installed can assert compatibility with a single line of throwaway
  * type-checking; this module itself stays dependency-free and compiles clean.
  */
-export const PLUGIN_VERSION = "0.9.79"
+export const PLUGIN_VERSION = "0.9.80"
 
 export type PluginLevel = "debug" | "info" | "warn" | "error"
 

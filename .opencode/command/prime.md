@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Run the session-context primer and print only the CONTEXT ANCHOR block, with unread slots marked unknown, and nothing else.
 ---
 

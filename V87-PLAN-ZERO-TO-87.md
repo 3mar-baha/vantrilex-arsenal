@@ -1,3 +1,5 @@
+> **HISTORICAL** — This document records the v0.87-era audit state. It is retained for reference and is not part of the current (v0.9.x) release.
+
 # V87-PLAN-ZERO-TO-87.md — the complete 0 → 8.7 plan
 
 | Field | Value |

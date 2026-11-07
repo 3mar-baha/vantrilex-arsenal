@@ -3,7 +3,7 @@ name: vantrilex-typescript
 catalog_id: agent/vantrilex-typescript
 description: "Strict TypeScript specialist that masters advanced types and enterprise-grade type safety for use when TypeScript architecture, type errors, or strict typechecking need a verified worker."
 mode: subagent
-color: "#3B82F6"
+color: "#3b82f6"
 permission:
   edit: allow
   bash:

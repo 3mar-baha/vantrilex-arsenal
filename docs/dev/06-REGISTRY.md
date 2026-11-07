@@ -268,7 +268,7 @@ disposition is **option (c)**:
   invented to make the row fit. A fabricated palette would have been a
   documented lie about what the file contains.
 
-Theme colour normalization (F-COLOR-09) landed at `790ef85`, and it touched the
+Theme color normalization (F-COLOR-09) landed at `790ef85`, and it touched the
 **map**, not the palettes: `vantrilex-atomic-switch.json` carries thirteen
 `accentHex` fields — twelve per-agent values, one per mapped agent, plus a
 reserved duplicate on `reserved` that repeats blazar's `#4169E1` — and all of

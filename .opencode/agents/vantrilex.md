@@ -3,7 +3,7 @@ description: The supreme Vantrilex seat, titled Zenith, above the three leaders:
 name: vantrilex
 catalog_id: agent/vantrilex
 mode: primary
-color: "#8B5CF6"
+color: "#8b5cf6"
 temperature: 0.1
 permission:
   task: allow

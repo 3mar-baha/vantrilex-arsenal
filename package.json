@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "scripts": {
+    "verify": "node scripts/verify-registry.mjs && node scripts/verify-skills.mjs && node scripts/verify-catalog.mjs",
+    "typecheck": "npx -p typescript tsc --noEmit -p tsconfig.json"
+  }
+}

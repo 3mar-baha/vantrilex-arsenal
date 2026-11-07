@@ -3,7 +3,7 @@ name: vantrilex-python
 catalog_id: agent/vantrilex-python
 description: "Builds type-safe production Python with ruff, uv, and pytest; use when Python code, tests, or packaging need writing, repair, or review."
 mode: subagent
-color: "#3B82F6"
+color: "#3b82f6"
 permission:
   edit: allow
   bash:

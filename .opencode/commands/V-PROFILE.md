@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Manage install profiles with list apply diff new validation so every profile id resolves against the catalog.
 ---
 

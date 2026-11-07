@@ -3,7 +3,7 @@ description: "Builds the verified outcome from an AETHER MISSION-PLAN by derivin
 name: blazar
 catalog_id: agent/blazar
 mode: subagent
-color: "#4169E1"
+color: "#4169e1"
 temperature: 0.1
 permission:
   task:

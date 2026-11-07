@@ -3,7 +3,7 @@ name: vantrilex-reviewer
 catalog_id: agent/vantrilex-reviewer
 description: "Use when a diff, branch, or pull request needs a read-only kit-law review that returns JSONL findings with file:line evidence and gate-calibrated severity."
 mode: subagent
-color: "#F59E0B"
+color: "#f59e0b"
 permission:
   edit: deny
   bash: ask

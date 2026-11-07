@@ -14,7 +14,14 @@ Fill rides W7b after publish: `v0.9.27`, `bdeafe416b6c9ee360aca46919e2fd58d64a32
 LD-28 carries the gap register as scoped on the version branch; substance rides the build scope, never assumed in this draft.
 Fill rides W7b after publish: `v0.9.28`, `136371c94ce8426d0863bab0fde4c63a8605ede1`, `6eea674c20285a0bf9e499040576882acff27451`, and `171` stay placeholders in this draft with zero 40-hex filled now.
 
-**Current release:** `v0.9.79` — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). Merge: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · Tag: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · Size: `174`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.25 block.
+**Current release:** `v0.9.79`
+
+See [SECURITY.md](SECURITY.md) for the security policy and vulnerability reporting process.
+
+## Prerequisites
+
+- `git` and **Node 25** are the only hard requirements.
+- Network: the comms relay waiter (`COMMS-SUPABASE-WAIT.mjs`) posts to ntfy.sh only when `COMMS_NTFY_TOPIC` is set; Supabase is required for the comms relay. — LD-25 Guardrail packs (guardrail packs: acceptance + adversarial proof + declared failure mode + recorded override). Merge: `a1d4d3fa2f7485ab8d7818672d67e8a6cb25e247` · Tag: `d0a4f9dacabadddefb6b8a1b80e9eb10778aa68b` · Size: `174`. Lands with or just after publish; scope per `WORKFLOW.md` 0.9.25 block.
 
 **v0.9.32 — Reserved:** version `v0.9.32` · merge `29a430d6d8662033ea815d510522847dcde7d6a6` · tag `25a102ee0fd9c94466e08d89e5e74ee2bc03d846` · size `181`.
 Slot 0.9.32 reserved; gated self-improvement only after supervised clean record; standing list never automated (fallback FBLD-32).

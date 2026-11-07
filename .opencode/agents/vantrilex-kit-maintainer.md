@@ -2,7 +2,7 @@
 name: vantrilex-kit-maintainer
 description: "Sole maintainer of the Vantrilex kit's agent and skill definitions, the kit lock, and the lock schema. Use when a kit component is added, changed, or retired, or when the lock, the schema, and the registry have drifted apart."
 mode: subagent
-color: "#8B5CF6"
+color: "#8b5cf6"
 permission:
   edit: deny
   bash: ask

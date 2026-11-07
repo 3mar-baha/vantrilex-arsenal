@@ -250,3 +250,24 @@ the selection records. `task-dispatcher` is still `tier core` at `phase scout`,
 and the selection record still holds 145 components — 30 `core` plus 115
 `conditional`, none suspended — of which 7 are hooks. A guard moving onto a different API is not a new
 component, and nothing here may be read as one.
+
+## Command → Agent → Skill routing map
+
+| Command | Agent | Skill |
+|---|---|---|
+| /prime | vantrilex | session-context-primer |
+| /equip | vantrilex-vanguard | vantrilex-vanguard |
+| /doctor | vantrilex-verifier | preflight-system-doctor |
+| /release | vantrilex-releaser | github-release-packager |
+| V-Architect | vantrilex-architect | vantrilex-architect |
+| V-Code-Reviewer | vantrilex-code-reviewer | code-review |
+| V-Red-Team | vantrilex-red-team | red-team |
+| V-FULL-AUDIT | vantrilex-verifier | verification-loop |
+| V-DOCTOR | vantrilex-verifier | preflight-system-doctor |
+| V-PROFILE | vantrilex-kit-maintainer | kit-evolution-log |
+| V-CATALOG | vantrilex-librarian | documentation-lookup |
+| V-RAG | vantrilex-librarian | deep-research |
+| V-HTML_DESIGN | vantrilex-ui-designer | frontend-slides |
+| V-Kit-Maintainer | vantrilex-kit-maintainer | kit-evolution-log |
+| V-Technical-Writer | vantrilex-scribe | article-writing |
+| V-Ai-Generated-Code-Security-Auditor | vantrilex-security-auditor | security-review |

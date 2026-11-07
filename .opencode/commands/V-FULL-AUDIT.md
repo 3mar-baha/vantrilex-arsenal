@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Run the full repository audit by fanning out read-only subagents and emitting exactly one cited 1000-plus-line report under Law-13 numbering.
 ---
 

@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Triage environment, runtimes, configuration, and workspace into PASS WARN FAIL rows, with safe automatic repair behind opt-in repair flag.
 ---
 

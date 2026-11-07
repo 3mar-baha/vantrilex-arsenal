@@ -1,4 +1,6 @@
 ---
+version: 1.0.0
+updated: 2026-11-07
 description: Render a single-file showcase page from a content record plus one brand visual language, with an index linking all showcases.
 ---
 

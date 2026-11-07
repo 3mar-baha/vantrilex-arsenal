@@ -9,9 +9,9 @@ level (24: the 22 numbered files plus `0.9.33-depth3-spec.md` and
 developer set (`dev/`, 10 files), the spec inputs (`spec/`, 11 files across
 `spec/`, `spec/post87/`, and `spec/v87/`), and the archive
 (`99-archive/`, 45 files). It does not document any target project.
-Target-project documentation is a separate, runtime-generated set (the 28-file
-system described by reference in [04-VANGUARD.md](04-VANGUARD.md)); nothing in
-this set duplicates it.
+Target-project documentation is a separate, runtime-generated set (file count
+[UNVERIFIED] per MFT-061; described by reference in [04-VANGUARD.md](04-VANGUARD.md));
+nothing in this set duplicates it.
 
 ## Subtree coverage
 
