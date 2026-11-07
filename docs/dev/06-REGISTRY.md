@@ -372,3 +372,8 @@ check-by-check detail is in `02-SCRIPTS-VERIFY.md`.
 | `registry/schema/catalog-v4.schema.json` | The contract itself, including both validation roots |
 
 Audit records are history: they are appended to and cited, never rewritten.
+
+
+## MFT-042 exception note (2026-11-07)
+
+The kind name `design.md` contains a file extension while every other kind is a bare word. This is a documented exception (MFT-042, W6 0.9.80): the kind represents design-system reference documents that are inherently tied to their `.md` extension. Renaming would require a full migration of 84 rows, the catalog, and all path references. The exception is recorded here per the row Expected. `node scripts/verify-catalog.mjs` exits 0 with the exception in place.

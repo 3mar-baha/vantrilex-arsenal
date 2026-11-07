@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.81] — 2026-11-07 — tag v0.9.81 — Corrections: comms test import, MFT-066 unification, MFT-133 rolled forward, MFT-042/048 documented, obstacles report committed
+
+> Status: this section records the correction slice released as `v0.9.81` on branch `wt/v2-consolidation`. Fixes: comms-service-role test import path (../scripts/), MFT-066 concurrency unified (D45), MFT-133 rolled forward to 0.9.82, MFT-042 exception documented in docs/dev/06-REGISTRY.md, MFT-048 exemption documented in docs/09-CATALOG-SELECTION.md, obstacles report committed at .opencode/audit/ARSENAL-USABILITY-OBSTACLES.md, release notes corrected.
+
 ## [0.9.80] — 2026-11-07 — tag v0.9.80 — Audit W6: polish and close the loop
 
 > Status: this section records the W6 slice released as `v0.9.80` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (W6 rows MFT-018, MFT-021, MFT-022, MFT-023, MFT-028, MFT-034, MFT-042, MFT-043, MFT-046, MFT-048, MFT-057, MFT-058, MFT-061, MFT-062, MFT-065, MFT-074, MFT-075, MFT-077, MFT-078, MFT-079, MFT-080, MFT-083, MFT-084, MFT-093, MFT-097, MFT-098, MFT-099, MFT-100, MFT-101, MFT-102, MFT-103, MFT-104, MFT-109, MFT-110, MFT-111, MFT-112, MFT-133 + SF-01–SF-35). Pin coverage: 1,182/1,182 installable rows pinned (100%).

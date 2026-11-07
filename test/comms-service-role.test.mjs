@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isServiceRoleKey, loadConfig } from '../COMMS-SUPABASE-WAIT.mjs';
+import { isServiceRoleKey, loadConfig } from '../scripts/COMMS-SUPABASE-WAIT.mjs';
 
 // Test-only JWT shapes: header is irrelevant to the check, payload carries role.
 const b64url = (obj) => Buffer.from(JSON.stringify(obj)).toString('base64url');

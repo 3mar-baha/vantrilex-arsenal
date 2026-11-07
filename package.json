@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "verify": "node scripts/verify-registry.mjs && node scripts/verify-skills.mjs && node scripts/verify-catalog.mjs",
     "typecheck": "npx -p typescript tsc --noEmit -p tsconfig.json"

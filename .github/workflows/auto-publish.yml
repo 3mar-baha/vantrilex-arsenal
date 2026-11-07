@@ -66,11 +66,10 @@ permissions:
   contents: read
 
 concurrency:
-  # A release event and a manual dispatch on the same tag serialize. A push has
-  # neither, so it gets its own group per commit (github.sha fallback below):
-  # the queue lane's single-flight is the job-level group below, and this
-  # workflow-level group must not make a queue of pending pushes cancel each
-  # other.
+  # Unified group (MFT-066, owner ruling 2026-11-07, D45): one group keyed on
+  # tag for all triggers (release, dispatch, push). A push has no tag, so it
+  # falls back to github.sha (one group per commit). cancel-in-progress: false
+  # ensures concurrent runs wait rather than cancel each other.
   group: >-
     auto-publish-${{
     github.event.release.tag_name || inputs.tag || github.sha
@@ -164,11 +163,10 @@ jobs:
     # commit-back need contents: write only (no actions API use in the script).
     permissions:
       contents: write
-    # Single-flight: a second queue-lane run waits for the first and then reads
-    # the queue the first one committed. Runs never interleave on one number.
-    concurrency:
-      group: self-publish-queue
-      cancel-in-progress: false
+    # Unified concurrency (MFT-066, owner ruling 2026-11-07, D45): one group
+    # keyed on tag for all triggers. The workflow-level group above is the sole
+    # group; no job-level group remains. cancel-in-progress: false ensures
+    # concurrent runs wait rather than cancel.
     steps:
       - name: Check out the pushed commit with its tags
         uses: actions/checkout@v4
