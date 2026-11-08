@@ -1,5 +1,5 @@
 ---
-name: vs-zn-refresh-guard
+name: vs-zenith-refresh-guard
 description: Use when the periodic refresh log needs guarding — turns a real document diff into written update tasks through the line-diff procedure, so silent drift becomes assigned work instead of an unnoticed failure.
 source: 3mar-baha/vantrilex-arsenal
 ---
@@ -31,7 +31,7 @@ records; the guard names it as work.
 - As an auto-applier. The guard produces tasks; applying them is a second
   dispatch under its own authority.
 - As a replacement for the team-control book. The guard serves the
-  register; direction stays with Zenith under `vs-zn-team-control`.
+  register; direction stays with Zenith under `vs-zenith-team-control`.
 - To resolve flagged conflicts. Carried conflicts stay flagged; the guard
   cites them, never reconciles them.
 

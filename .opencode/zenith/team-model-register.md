@@ -209,7 +209,7 @@ Pinned observations, re-taken at every refresh.
 - Gate binaries observed on this seat: `node --check`, `markdownlint-cli`
   0.50.0 via the local runner, `git`, and
   `scripts/verify-skills.mjs` with its `--root` flag for worktrees.
-- Skill equipment: `vs-zn-team-control` plus `vs-zn-refresh-guard`, both
+- Skill equipment: `vs-zenith-team-control` plus `vs-zenith-refresh-guard`, both
   read back from disk after landing, both format-gated.
 
 ## 4. Failure log

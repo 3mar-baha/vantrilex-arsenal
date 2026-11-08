@@ -98,8 +98,8 @@ const BASE_IDS = [
   'vantrilex-vanguard', 'vantrilex-workflow-forge', 'vs-at-plan-craft', 'vs-bl-build-craft',
   'vs-book-doctrine', 'vs-circuit-breaker-guard', 'vs-github-release-packager', 'vs-golden-equipment',
   'vs-ponytail', 'vs-preflight-system-doctor', 'vs-pu-probe-craft', 'vs-session-context-primer',
-  'vs-smithery', 'vs-vantrilex-vanguard', 'vs-vantrilex-workflow-forge', 'vs-zn-refresh-guard',
-  'vs-zn-team-control',
+  'vs-smithery', 'vs-vantrilex-vanguard', 'vs-vantrilex-workflow-forge', 'vs-zenith-refresh-guard',
+  'vs-zenith-team-control',
 ];
 
 function main() {

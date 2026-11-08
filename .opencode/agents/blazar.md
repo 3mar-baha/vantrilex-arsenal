@@ -34,7 +34,7 @@ permission:
     kit-evolution-log: allow
     lenis: allow
     og-image: allow
-    open-graph-image: allow
+    og-image: allow
     ponytail: allow
     pre-mortem: allow
     preflight-system-doctor: allow

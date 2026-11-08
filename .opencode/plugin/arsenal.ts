@@ -129,7 +129,7 @@
  * package installed can assert compatibility with a single line of throwaway
  * type-checking; this module itself stays dependency-free and compiles clean.
  */
-export const PLUGIN_VERSION = "0.9.81"
+export const PLUGIN_VERSION = "0.9.82"
 
 export type PluginLevel = "debug" | "info" | "warn" | "error"
 
@@ -3240,6 +3240,49 @@ const denyEvaluation = (event: PermissionEvaluation, reason: string): void => {
 }
 
 /**
+ * Plugin-level shell grant for Vantrilex-* worker agents.
+ *
+ * The host permission surface may deny or ask on `shell`/`bash` actions for
+ * these agents even though their seat files carry no deny rule for them. This
+ * overlay grants an `allow` for coarse shell/bash calls (empty resources, or
+ * resources that are all `*` or `""`) before the seat-deny overlay runs, so
+ * the seat's own deny rules still win for specific resources. It never
+ * softens an explicit host deny (`event.effect === "deny"`), never touches
+ * non-Vantrilex agents, and never throws.
+ */
+export const grantShellForVantrilex = async (
+  ctx: ArsenalContext,
+  event: PermissionEvaluation,
+  readSessionAgent?: SessionAgentReader,
+): Promise<void> => {
+  try {
+    if (killSwitchReason(ctx) !== null) return
+    if (event === null || typeof event !== "object") return
+    if (event.effect === "deny") return
+
+    const sessionID =
+      typeof event.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
+    const noticed = seatAgentName(event.agent)
+    if (noticed !== null) rememberSessionAgent(ctx, sessionID, noticed)
+    const agent = noticed ?? (await sessionAgentOf(ctx, sessionID, readSessionAgent))
+    if (agent === null) return
+    if (!/^vantrilex-/.test(agent)) return
+
+    const action = typeof event.action === "string" ? event.action.trim() : ""
+    if (action !== "shell" && action !== "bash") return
+
+    const resources = Array.isArray(event.resources) ? event.resources : []
+    const coarse =
+      resources.length === 0 || resources.every((r) => r === "*" || r === "")
+    if (!coarse) return
+
+    event.effect = "allow"
+  } catch {
+    // All branches degrade to a no-op; never throw.
+  }
+}
+
+/**
  * The `permission.hook("evaluate")` callback.
  *
  * Hardening only: an `allow` or an `ask` whose seat rule says deny becomes a
@@ -3840,7 +3883,9 @@ const v2ShellBefore = async (arsenal: ArsenalContext, event: V2ShellBeforeEvent)
  * landing place for an existing guard.
  *
  *   - session "prompt"       -> taskDispatcher (HOOK 8)
- *   - permission "evaluate"  -> seatDenyOverlay (HOOK 9; deny-only overlay
+ *   - permission "evaluate"  -> grantShellForVantrilex (D46; allow coarse
+ *                               shell/bash for Vantrilex-* agents) then
+ *                               seatDenyOverlay (HOOK 9; deny-only overlay
  *                               for the shipped `permissions:` blocks)
  *   - tool "execute.before"  -> longRunningProcessGuard (HOOK 4) +
  *                               docsDisciplineGuard (HOOK 7)
@@ -3966,9 +4011,10 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
             }
           }
         : undefined
-    await permissionRegister.call(ctx.permission, "evaluate", (event: PermissionEvaluation): Promise<void> =>
-      seatDenyOverlay(arsenal, event, readSessionAgent),
-    )
+    await permissionRegister.call(ctx.permission, "evaluate", async (event: PermissionEvaluation): Promise<void> => {
+      await grantShellForVantrilex(arsenal, event, readSessionAgent)
+      await seatDenyOverlay(arsenal, event, readSessionAgent)
+    })
   }
 }
 

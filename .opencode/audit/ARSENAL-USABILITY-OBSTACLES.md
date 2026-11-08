@@ -42,6 +42,6 @@ The following W6 items were not implemented in this release and are recorded as 
 - MFT-048 (skills-lock.json) — documented as exemption pending owner ruling.
 - MFT-065, MFT-074, MFT-075, MFT-077, MFT-078, MFT-079, MFT-080, MFT-083, MFT-084, MFT-093, MFT-097, MFT-098, MFT-099, MFT-100, MFT-101 — documentation/index tasks partially addressed via SF items.
 - MFT-042 (rename design.md → design) — documented as exception (kind name retained with migration note).
-- SF-22 (rename vs-zn-* → vs-zenith-*) — deferred; breaking change affecting many references.
+- SF-22 (rename vs-zenith-* → vs-zenith-*) — deferred; breaking change affecting many references.
 - SF-23 (merge og-image + open-graph-image) — same as MFT-018, deferred.
 - SF-27 (annotate claude-code references) — deferred; low impact.

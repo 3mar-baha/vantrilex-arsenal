@@ -34,8 +34,8 @@ the code-review skill Standards-versus-Spec split
 plus ponytail-review and red-team passes plus github MCP posting, gap of a
 diff-size budget rule and a registry Fowler-smell checklist) binds the lane.
 
-- T1-06 awesome-claude-code-subagents collection
-  (`https://github.com/VoltAgent/awesome-claude-code-subagents`) — 161+
+- T1-06 awesome-claude-code-subagents collection <!-- (inspiration) -->
+  (`https://github.com/VoltAgent/awesome-claude-code-subagents`) — 161+ <!-- (inspiration) -->
   subagents across 10 categories, including the code-reviewer and
   surgeon-reviewer quality gates this agent improves upon with gate-calibrated
   severity and file:line-traced JSONL output.
@@ -54,8 +54,8 @@ diff-size budget rule and a registry Fowler-smell checklist) binds the lane.
   tool, and checkpointed context aggregation this agent improves upon with
   worker-only authority, a missing-tooling protocol, and severity tied to the
   kit gates rather than to reviewer taste.
-- T1-10 shucoll/claude-code-dojo
-  (`https://github.com/shucoll/claude-code-dojo`) — browser-based Claude Code
+- T1-10 shucoll/claude-code-dojo <!-- (inspiration) -->
+  (`https://github.com/shucoll/claude-code-dojo`) — browser-based Claude Code <!-- (inspiration) -->
   course whose review, safety, and governance pathways this agent improves upon
   by making every claim trace to file:line and every gate-blocking defect high
   severity minimum.

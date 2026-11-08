@@ -726,12 +726,12 @@ the ratified list and are left vacant rather than filled.
 - **Decision:** The seat files' `permissions:` (plural) to `permission:` (singular) migration preserved the allow-set unchanged, with the host evaluating the singular map natively. The migration note moves out of D28 into this dated D43 entry; D28 stands alone on the temperature shape.
 - **Consequences:** One concern per entry. A future permission-shape change requires a fresh dated decision citing the host evaluation change.
 
-## D44 — Node LTS pin (MFT-133) — ROLLED FORWARD
+## D44 — Node LTS pin (MFT-133)
 
-- **Date:** 2026-11-07
-- **Context:** MFT-133 identifies Node 25 as past end-of-life. The repo requires "Node 25" with no `.nvmrc` or `engines` field (MFT-034/MFT-112). Node 25 Current releases have ~6 months of support; Node 22 is the current Active LTS (EOL April 2027). Only Node 25 is available in the current environment; migrating to Node 22 LTS could not be verified.
-- **Decision:** ROLLED FORWARD to 0.9.82. `.nvmrc` pins `25` (matching CI `node-version: 25`) for reproducibility; `package.json` gains `engines.node >= 22.0.0`. Migration to Node 22 LTS is deferred with a named release (0.9.82) and a dated owner reason (environment lacks Node 22 for verification). Node 25 EOL recorded as approximately April 2026.
-- **Consequences:** `.nvmrc` and `package.json` engines pin the version; CI continues to use `node-version: 25`. Migration to Node 22 LTS is a named future action (0.9.82) requiring CI, AGENTS.md, and script verification under Node 22. MFT-133 is NOT closed by this pin; it is rolled forward.
+- **Date:** 2026-11-08
+- **Context:** MFT-133 identifies Node 25 as past end-of-life (Node 25 Current EOL April 2026). The repo required "Node 25" with no `.nvmrc` or `engines` field (MFT-034/MFT-112). Node 22 is the current Active LTS (EOL April 2027). Owner approved migration for 0.9.82.
+- **Decision:** Migrate the runtime pin to Node 22 LTS. `.nvmrc` pins `22`; CI uses `node-version: '22'` across all three jobs (lint, verify, types); AGENTS.md states "Node 22"; `package.json` carries `engines.node >= 22.0.0` (already present). Migration date 2026-11-08. Node 25 EOL April 2026; Node 22 LTS EOL April 2027.
+- **Consequences:** `.nvmrc`, CI, AGENTS.md, and `package.json` engines agree on Node 22. MFT-133 closed by this migration. Verification run under the available Node 25 runtime for the gate commands (node 22 not installed locally); CI will exercise under Node 22.
 
 ## D45 — MFT-066 concurrency unification (owner ruling 2026-11-07)
 
@@ -739,3 +739,10 @@ the ratified list and are left vacant rather than filled.
 - **Context:** MFT-066 (auto-publish concurrency). The tree had two concurrency groups: workflow-level `auto-publish-${{ github.event.release.tag_name || inputs.tag || github.sha }}` and job-level `self-publish-queue`. The row Expected asks for "one group keyed on tag for all triggers."
 - **Decision:** UNIFY into one concurrency group. The job-level `self-publish-queue` group is removed; the workflow-level group is the sole group. A push (no tag) falls back to `github.sha` (one group per commit). `cancel-in-progress: false` ensures concurrent runs wait rather than cancel. Owner ruling 2026-11-07.
 - **Consequences:** Single concurrency group for all triggers. Concurrent self-publish runs wait in queue rather than cancelling. Verified: `.github/workflows/auto-publish.yml` has one `concurrency:` block (workflow-level) and no job-level concurrency block.
+
+## D46 — Plugin-level shell grant for Vantrilex-* worker agents
+
+- **Date:** 2026-11-08
+- **Context:** Vantrilex worker agents (`.opencode/agents/vantrilex-*.md`) need coarse `shell`/`bash` access to run tooling, but the host permission `evaluate` surface may deny or ask on those actions even when the seat file carries no deny rule. The seat-deny overlay only hardens `allow`/`ask` to `deny`; it never grants. A plugin-level grant is needed so worker agents can run coarse shell/bash commands without weakening the host's explicit denies or the seat's specific-resource denies.
+- **Decision:** Add `grantShellForVantrilex(ctx, event, readSessionAgent?)` and register it FIRST in the `permission.evaluate` hook, before `seatDenyOverlay`. It no-ops when the kill switch is set, when `event.effect === "deny"` (explicit host deny is final), when the resolved agent is not a `vantrilex-*` agent, when the action is not `shell` or `bash`, or when the resources are not coarse (empty, or all `*`/`""`). Otherwise it sets `event.effect = "allow"`. Agent resolution follows the same order as the seat-deny overlay: `event.agent` → `ctx.session.get` → observed-event cache. It never throws; every branch degrades to a no-op. `seatDenyOverlay` runs afterward, so an explicit seat deny for a specific resource remains authoritative.
+- **Consequences:** Vantrilex worker agents gain coarse shell/bash grants at the plugin layer without bypassing host denies or seat-specific denies. The grant is scoped to `vantrilex-*` agents and coarse resources only; non-Vantrilex agents and specific-resource calls are untouched. D46 is the authority for this grant; any change to its scope requires a fresh dated decision.

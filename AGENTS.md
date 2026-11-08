@@ -19,7 +19,7 @@ Two things follow from that, and they govern everything below:
    admission of ignorance, because an agent will run it.
 
 Scope facts: no root `package.json` (plugin manifest `.opencode/package.json`
-only); runtime is Node 25, ESM, zero dependencies; `tsconfig.json` files
+only); runtime is Node 22, ESM, zero dependencies; `tsconfig.json` files
 exactly [`.opencode/plugin/arsenal.ts`]; scripts carry `#!/usr/bin/env bash` +
 mode 100755 + `Usage:` lines; releases are strict on `v*` tags.
 
@@ -27,7 +27,7 @@ mode 100755 + `Usage:` lines; releases are strict on `v*` tags.
 
 ## Hard rules
 
-1. **Node-only toolchain.** Runtime is Node 25, ESM, zero dependencies. Do not add a
+1. **Node-only toolchain.** Runtime is Node 22, ESM, zero dependencies. Do not add a
    `package.json` dependency without stating why the standard library is insufficient.
 2. **Markdown is a build artifact of the catalog.** `registry/VANTRILEX_CATALOG.md`
    is the source of truth. Edit the generator or the JSONL sidecars, never the

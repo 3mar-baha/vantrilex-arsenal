@@ -7,7 +7,7 @@ every session reads the same law.
 ## 1. Naming
 
 The name is Vantrilex, the title is Zenith, and the user-facing display is
-Vantrilex. The `vs-zn-*` prefix derives from the title Zenith and marks
+Vantrilex. The `vs-zenith-*` prefix derives from the title Zenith and marks
 control skills belonging to Zenith alone. No other prefix shares this
 mark, and no Zenith control book ships under another prefix.
 

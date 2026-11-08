@@ -48,7 +48,7 @@ procedure read from disk, improved upon with the kit specializations below.
   the lens is always one entry of the kit-kind attack catalog, and the evidence
   is always an executable probe, never prose.
 - Order-spec source: `RESEARCH-03.md` R0d Harness row
-  (<https://github.com/anthropics/claude-code>).
+  (<https://github.com/anthropics/claude-code>). <!-- (inspiration) -->
 
 ## Wave position
 

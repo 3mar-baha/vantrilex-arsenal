@@ -3,7 +3,7 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 4,
   "counts": {
-    "skill": 1485,
+    "skill": 1484,
     "mcp": 910,
     "plugin": 11,
     "hook": 8,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2897
+    "total": 2896
   },
   "components": [
     {
@@ -32308,38 +32308,6 @@
       "default_selected": false
     },
     {
-      "id": "open-graph-image",
-      "name": "open-graph-image",
-      "kind": "skill",
-      "description": "Use when adding, editing, or reviewing a Next App Router opengraph-image or twit…",
-      "source": "3mar-baha/vantrilex-arsenal",
-      "origin": "soilmass/gelato",
-      "install_cmd": null,
-      "version_pin": null,
-      "category": null,
-      "tags": [
-        "skill",
-        "frontend",
-        "nextjs",
-        "review"
-      ],
-      "when_to_use": "When adding, editing or reviewing a Next App Router opengraph-image or twitter-image file, before the route fails at runtime",
-      "phase": "build",
-      "tier": "conditional",
-      "verify_cmd": null,
-      "cost_note": "light",
-      "verification": "verified",
-      "class": "loadable",
-      "evidence": {
-        "load_proof": {
-          "surface": ".opencode/skills/open-graph-image/SKILL.md",
-          "method": "surface-exists",
-          "checked_at": "2026-10-22"
-        }
-      },
-      "default_selected": false
-    },
-    {
       "id": "open-web-bridge",
       "name": "open-web-bridge",
       "kind": "skill",
@@ -39985,7 +39953,7 @@
       "default_selected": false
     },
     {
-      "id": "pre-mortem-row-1452",
+      "id": "pre-mortem-row-1451",
       "name": "pre-mortem",
       "kind": "skill",
       "description": "Use when a change is about to be implemented or released and its failure modes s…",
@@ -49105,8 +49073,8 @@
       "default_selected": false
     },
     {
-      "id": "vs-zn-refresh-guard",
-      "name": "vs-zn-refresh-guard",
+      "id": "vs-zenith-refresh-guard",
+      "name": "vs-zenith-refresh-guard",
       "kind": "skill",
       "description": "Use when the periodic refresh log needs guarding — turns a real document diff into written update tasks through the line-diff…",
       "source": "3mar-baha/vantrilex-arsenal",
@@ -49128,7 +49096,7 @@
       "class": "loadable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/vs-zn-refresh-guard/SKILL.md",
+          "surface": ".opencode/skills/vs-zenith-refresh-guard/SKILL.md",
           "method": "surface-exists",
           "checked_at": "2026-11-06"
         }
@@ -49136,8 +49104,8 @@
       "default_selected": false
     },
     {
-      "id": "vs-zn-team-control",
-      "name": "vs-zn-team-control",
+      "id": "vs-zenith-team-control",
+      "name": "vs-zenith-team-control",
       "kind": "skill",
       "description": "Use when Zenith must lead a session as team lead from written control books — loads the six-part control book, refreshes the live…",
       "source": "3mar-baha/vantrilex-arsenal",
@@ -49159,7 +49127,7 @@
       "class": "loadable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/vs-zn-team-control/SKILL.md",
+          "surface": ".opencode/skills/vs-zenith-team-control/SKILL.md",
           "method": "surface-exists",
           "checked_at": "2026-11-06"
         }

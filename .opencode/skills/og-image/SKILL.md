@@ -1,27 +1,33 @@
 ---
 name: og-image
-description: Use when designing or generating Open Graph social preview cards with Satori or the vercel og ImageResponse — choosing a layout archetype, threading brand tokens through a template, loading fonts, or fixing output that renders blank, unstyled or differently each run.
+description: Use when designing or generating Open Graph social preview cards with Satori or the vercel og ImageResponse, or auditing a Next App Router opengraph-image or twitter-image file against the file-convention contract — layout archetypes, brand tokens, fonts, blank or unstyled output, or size/contentType/ImageResponse/inline-style/edge-import defects.
 source: 3mar-baha/vantrilex-arsenal
 ---
 
-# OG Image Design and Generation
+# OG Image Design, Generation and Contract Audit
 
 ## Purpose
 
 Design and generate Open Graph / social preview images — the picture Slack, iMessage,
 LinkedIn, X, and Discord pull for a link preview — from a real layout taxonomy instead of
 one-off improvisation. "OG image", "social card", and "social preview" all name the same
-artefact.
+artefact. This skill is now unified: it covers both the **generative** work (choosing a
+layout archetype and building and rendering a card) and the **mechanical** contract audit
+of an existing Next.js `opengraph-image.tsx` or `twitter-image.tsx` against the
+file-convention rules that make the route 500 or render an unstyled card.
 
-This skill is **generative**: it decides what the card should look like and then builds
-and renders it. Its sibling `open-graph-image` is the **mechanical** counterpart — it
-audits an existing Next.js `opengraph-image.tsx` against five rules without touching
-design. The two overlap only on the Satori constraint layer, which is restated in both
-because it is where design intent silently fails at render time.
+"Designing or generating" and "auditing" are the two modes. The generative mode decides
+what the card should look like and then builds and renders it. The audit mode answers
+"is this file correct?" and changes no design. The two overlap only on the Satori
+constraint layer, which is restated in both modes because it is where design intent
+silently fails at render time.
 
 Adapted from `RL22/my-agent-skills` (MIT, Copyright (c) 2026 Rodney Lewis), path
-`skills/og-image/SKILL.md`, with its `references/satori-constraints.md`. Rendering is done
-by Satori via `@vercel/og` (npm, MPL-2.0) or `next/og` inside Next.js. See `## Attribution`.
+`skills/og-image/SKILL.md`, with its `references/satori-constraints.md`, and from
+`soilmass/gelato` (MIT, Copyright (c) 2026 Neopolitan), paths
+`skills/open-graph-image/SKILL.md` and `skills/open-graph-image/references/opengraph-image-api.md`.
+Rendering is done by Satori via `@vercel/og` (npm, MPL-2.0) or `next/og` inside Next.js.
+See `## Attribution`.
 
 ## When to Use
 
@@ -33,6 +39,11 @@ by Satori via `@vercel/og` (npm, MPL-2.0) or `next/og` inside Next.js. See `## A
   decorative layers.
 - Output differs between two builds of identical input and must be reproducible.
 - Choosing a template shape before writing any JSX.
+- Adding or editing any `app/**/opengraph-image.tsx` or `app/**/twitter-image.tsx`.
+- Reviewing a change that touches OG image generation.
+- Diagnosing "my OG image 500s", "the OG route throws", or "previews show a blank image".
+- A CMS-driven or per-segment OG route whose `generateImageMetadata` shape needs checking.
+- Before a deploy, as a fixed read of the file against the file-convention contract.
 
 ## Do NOT use
 
@@ -40,15 +51,19 @@ by Satori via `@vercel/og` (npm, MPL-2.0) or `next/og` inside Next.js. See `## A
   with different geometry requirements.
 - For page-level `og:title`, `og:description`, or `twitter:card` text metadata. Those are
   set through `generateMetadata`, not by the image file.
-- For auditing or reviewing an existing OG route against the Next.js file-convention
-  contract. Use `open-graph-image`; it answers "is this file correct?" without proposing
-  a design.
 - For a static PNG already committed under `public/`. Nothing renders at request time, so
   every constraint here is irrelevant.
 - When no browser, edge runtime, or Node server is available to render with. Satori is a
   real renderer; a card that was never rendered is a guess.
 - Do not assume a clean `tsc --noEmit` means the card is correct. Every trap in this
   skill type-checks cleanly and renders wrong.
+- For JSON-LD structured data. A separate concern with its own required fields.
+- For caching and revalidation tuning. Next owns the defaults; changing them is a
+  performance judgement, not a contract fix.
+- For accessibility of the card's own markup. OG images are non-interactive; the
+  `og:image:alt` text is page-metadata territory.
+- For font loading and rendering quality beyond the shape of the `fonts` option. Whether a
+  weight loads and renders correctly is a build and runtime concern.
 
 ## Inputs
 
@@ -62,6 +77,13 @@ by Satori via `@vercel/og` (npm, MPL-2.0) or `next/og` inside Next.js. See `## A
 - The font binaries for the weights actually used, as `.ttf` or `.otf` data.
 - Any raster asset to embed, already resized to its exact display dimensions.
 - Whether the route is per-page static or driven by `generateImageMetadata`.
+- For the contract audit: the file under audit (`app/opengraph-image.tsx`,
+  `app/<segment>/opengraph-image.tsx`, or the `twitter-image.tsx` equivalent). The
+  filename is the classifier trigger.
+- The declared `next` version, because file conventions have tightened across releases.
+- Whether `generateImageMetadata` is present, which changes how the `size` and
+  `contentType` rules apply.
+- For runtime confirmation only: a deployed host, so the generated route can be fetched.
 
 ## Procedure
 
@@ -174,6 +196,127 @@ can conflict. `og:title`, `og:description`, `twitter:card`, `twitter:title` and
 `metadataBase` in the root layout is what makes relative asset URLs resolve to absolute
 ones. Set `alt` on the image file for the `og:image:alt` text.
 
+### 8 — Contract audit (mechanical)
+
+Work these five in order when auditing an existing file. Each maps to a runtime symptom.
+This mode changes no design and reports mechanical defects only.
+
+#### 1 — `size` must be exported
+
+```tsx
+export const size = { width: 1200, height: 630 };
+```
+
+Next reads this for both the `og:image:width` / `og:image:height` metadata and the
+`ImageResponse` default viewport. Missing it yields a runtime failure or incorrect meta
+tags.
+
+#### 2 — `contentType` must be exported
+
+```tsx
+export const contentType = 'image/png';
+```
+
+Without it Next infers the type from the file extension, and a `.tsx` file infers the
+wrong one. Set it explicitly.
+
+#### 3 — The default export must return an `ImageResponse`
+
+```tsx
+// correct
+import { ImageResponse } from 'next/og';
+
+export default function OG() {
+  return new ImageResponse(<div>Title</div>, { ...size });
+}
+
+// defect — returns a bare React element
+export default function OG() {
+  return <div>Title</div>;
+}
+```
+
+#### 4 — No `className` inside the JSX
+
+`next/og`'s `ImageResponse` uses Satori, which converts JSX to SVG and then Resvg converts
+SVG to PNG. It does not run React and resolves no class names, so a Tailwind class is
+invisible rather than an error.
+
+```tsx
+// correct
+<div style={{ display: 'flex', fontSize: 64, fontWeight: 'bold' }}>Title</div>
+
+// defect — silently unstyled output
+<div className="flex text-6xl font-bold">Title</div>
+```
+
+Satori's supported subset, for reference while converting: flexbox (`display`, `flexDirection`,
+`justifyContent`, `alignItems`, `gap`), absolute and relative positioning with `top`,
+`left`, `right`, `bottom`, typography (`fontFamily`, `fontSize`, `fontWeight`,
+`lineHeight`, `letterSpacing`, `textAlign`), `color` and `backgroundColor`, `padding*`,
+`margin*`, `border*`, `borderRadius`, `width`, `height`, `maxWidth`, `maxHeight`,
+`overflow: hidden`, `transform: rotate(...)`, `backgroundImage: linear-gradient(...)`,
+`whiteSpace`, `wordBreak`.
+
+Unsupported and silently dropped: `className`, CSS Grid, CSS custom properties, `calc()`
+with mixed units, `@media` queries, keyframe animations, most pseudo-classes and
+pseudo-elements.
+
+#### 5 — Module-scope imports must be edge-safe
+
+`ImageResponse` runs in the Edge Runtime by default. Most Node built-ins are unavailable
+there, `next/image` requires a Node image pipeline, and a top-level `next/font/google`
+import performs a network download that the edge restricts.
+
+```tsx
+// correct
+import { ImageResponse } from 'next/og';
+
+// defect — breaks the Satori runtime
+import Image from 'next/image';
+import { Inter } from 'next/font/google';
+```
+
+Load font data yourself and pass it through the `fonts` option, and embed images as a
+plain `<img>` with an absolute URL that Satori fetches at render time:
+
+```tsx
+const font = await fetch(new URL('./fonts/inter.woff2', import.meta.url))
+  .then((response) => response.arrayBuffer());
+
+return new ImageResponse(<div style={{ display: 'flex' }}>Title</div>, {
+  ...size,
+  fonts: [{ name: 'Inter', data: font, weight: 400 }],
+});
+```
+
+#### Edge cases this audit must get right
+
+- `twitter-image.tsx` follows the same rules; it is the same file-convention family.
+- With `generateImageMetadata`, the file-level `size` and `contentType` exports still
+  apply, while per-variant values live in the generator's return array. Treat the
+  file-level pair as lenient when the generator is present and supplies them, and report
+  the variance rather than the absence.
+- CMS-driven content is legitimate. The violation is about the file's static exports and
+  the JSX-versus-`ImageResponse` shape, never about where the text came from.
+- A remote `<img>` must carry absolute dimensions. Without them the card renders with a
+  zero-sized or collapsed image region.
+
+#### Confirm at runtime, not only on paper
+
+Paper review catches the five classes above and nothing else. After deploy, fetch the
+generated route and confirm a real image comes back, then check the card where it will
+actually be seen:
+
+```
+curl -sI https://<host>/<segment>/opengraph-image
+```
+
+Then paste the URL into the platform validators — the Twitter Card validator, the
+LinkedIn Post Inspector, and the Facebook Sharing Debugger. Crawlers cache previews
+aggressively, so a fix that looks right locally can still serve a stale card until the
+cache is re-scrapped.
+
 ## Outputs
 
 - A template chosen from the eight archetypes, with its rationale recorded.
@@ -186,6 +329,15 @@ ones. Set `alt` on the image file for the `og:image:alt` text.
   `debug: true` off.
 - Textual `og:*` and `twitter:*` metadata set through `generateMetadata`, with image tags
   left to file-based generation.
+- For the contract audit: a per-class verdict for all five violation classes (`size`,
+  `contentType`, `ImageResponse` return, `className` usage, edge-safe imports), with the
+  offending line, the runtime or visual consequence, and the concrete replacement code for
+  each defect.
+- For the contract audit: an explicit statement of what was **not** checked — rendering,
+  fonts, caching, accessibility, design — so the audit's boundary is never mistaken for
+  a clean bill of health on the card's appearance.
+- For the contract audit: a runtime confirmation result from fetching the deployed route,
+  plus the platform validators still to be run.
 
 ## Failure Modes
 
@@ -207,11 +359,30 @@ ones. Set `alt` on the image file for the `og:image:alt` text.
   Thread the seed through every varying template and record it.
 - **The route 500s rather than rendering badly.** That is the file-convention contract,
   not the design — missing `size` or `contentType`, a default export not returning
-  `ImageResponse`, or a non-edge-safe module-scope import. Hand off to
-  `open-graph-image`.
+  `ImageResponse`, or a non-edge-safe module-scope import. Handled by the contract audit
+  in section 8.
 - **`@vercel/og` is mistaken for a GitHub repository.** `github.com/vercel/og` does not
   exist and returns 404. The MPL-2.0 licence belongs to the npm package `@vercel/og`;
   `next/og` ships inside Next.js, which is MIT.
+- **Route 500s at request time.** Missing `size` or `contentType`, or a default export
+  that returns a React element instead of an `ImageResponse`.
+- **Card renders completely unstyled.** `className` reached the JSX; convert each
+  utility to an inline style property.
+- **Full-bleed layer silently occupies no space.** The `inset` shorthand is not
+  implemented by Satori and fails without error; use `top`, `right`, `bottom`, `left`.
+- **Embedded SVG throws `missing "viewBox"` at render time.** An SVG data URI without an
+  explicit `viewBox`, which works fine as a plain `<img>` in a browser.
+- **Build passes locally, deploy fails.** An import that is fine in the Node build but not
+  in the edge runtime. Re-check module scope against step 5 of the contract audit.
+- **Correct meta tags, wrong card.** A remote image without absolute dimensions, or a font
+  that never loaded. Both render; neither throws.
+- **Stale preview after a fix.** Crawler caches. Re-scrape in the platform debugger
+  before concluding the fix did not work.
+- **`github.com/vercel/og` cited as the implementation.** That repository does not exist
+  and returns 404. The renderer is Satori, reached through `next/og` inside Next.js
+  (MIT) or npm `@vercel/og` (MPL-2.0).
+- **The audit was read as a design review.** It is not. Route layout, contrast, and
+  archetype choice go to the generative mode in sections 1-7.
 
 ## Attribution
 
@@ -223,8 +394,22 @@ the render-and-inspect verification stance. The upstream skill ships template co
 binaries, and a render-check script; none of that is vendored here, so every rule it
 carried is restated inline above.
 
-Licences are recorded for information only and were never a selection filter. The
-renderer is Satori, reached through npm `@vercel/og` (MPL-2.0) or `next/og` inside
+Adapted from `soilmass/gelato` (MIT, Copyright (c) 2026 Neopolitan), paths
+`skills/open-graph-image/SKILL.md` and
+`skills/open-graph-image/references/opengraph-image-api.md`. Taken: the five mechanical
+violation classes and their consequences, the explicit boundary between what the upstream
+skill encodes and what it deliberately leaves to runtime, the supported and unsupported
+CSS split for Satori, the edge-runtime import rationale, the `generateImageMetadata`
+leniency rule, and the post-deploy validator list. The upstream frontmatter pins its
+methodology to the Next.js 15 documentation verified 2026-04-19; those file-convention
+rules still hold, and the current `next` release was 16.3.8 when this file was written.
+
+The method's authority is the Next.js documentation, not the upstream repository:
+the `opengraph-image` file-convention page and the `ImageResponse` function page, both in
+the `next/og` documentation set. Licences are recorded for information only and were never
+a selection filter.
+
+The renderer is Satori, reached through npm `@vercel/og` (MPL-2.0) or `next/og` inside
 Next.js (MIT). There is no `github.com/vercel/og` repository; the closest real repository
 is `vercel/og-image` (MIT), which is the hosted service rather than the library.
 

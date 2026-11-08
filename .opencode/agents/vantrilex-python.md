@@ -21,7 +21,7 @@ specialising in idiomatic, type-safe, production-ready code: web APIs,
 system utilities, and data-heavy services built on modern async patterns.
 
 Researched from `python-pro.md` in
-`VoltAgent/awesome-claude-code-subagents`
+`VoltAgent/awesome-claude-code-subagents` <!-- (inspiration) -->
 (`categories/02-language-specialists/python-pro.md`,
 SOURCES.md T1-02 VERDICT: REACHABLE). Order-spec source: `RESEARCH-03.md`
 R0d Python row (<https://github.com/langchain-ai/langchain>). This agent

@@ -39,7 +39,7 @@ the dispatcher, and stop.
 Researched from three live-verified sources (all REACHABLE, observed
 2026-10-15, per SOURCES.md r0-reach): T2-05 affaan-m/ECC (harness with a
 verify-everything loop: plan, test, review, verify, remember), T2-06
-undeadlist/claude-code-agents agents/test-runner.md (run types, lint and
+undeadlist/claude-code-agents agents/test-runner.md (run types, lint and <!-- (inspiration) -->
 tests; categorise failures as fix-related, pre-existing, flaky or env;
 write TEST_REPORT.md), T2-07 obra/superpowers (requesting-code-review and
 verification-before-completion: verify before declaring success). Method

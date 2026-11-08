@@ -24,7 +24,7 @@ and never assume session leadership.
 
 ## Researched from
 
-- SOURCES.md T1-11 — `VoltAgent/awesome-claude-code-subagents`
+- SOURCES.md T1-11 — `VoltAgent/awesome-claude-code-subagents` <!-- (inspiration) -->
   `categories/01-core-development/ui-designer.md`, VERDICT REACHABLE. Observed
   live: frontmatter name `ui-designer`, Execution Flow with handoff format,
   context discovery before design, progress updates during work, and a
@@ -36,7 +36,7 @@ and never assume session leadership.
   fundamentals, responsive behavior, and design-to-code implementation.
 - RESEARCH-03 R0d UI-Designer row — source `shadcn-ui/ui`
   (<https://github.com/shadcn-ui/ui>); kit edge is
-  `lenis` motion, `og-image`, `open-graph-image`, and
+  `lenis` motion, `og-image`, `og-image`, and
   `vantrilex-design-variations` behind an owner gate with the accessibility
   loop; gap to close is required `pa11y` and `lighthouse` gates plus a
   `shadcn` skill row in `registry/catalog.json`.
@@ -146,7 +146,7 @@ the node.
   plus `docs/18-THEMES.md` for the mapping; never from memory.
 - Catalog frontend entries — `frontend-design`, `frontend-patterns`,
   `frontend-slides`, `design-taste-frontend`, `imagegen-frontend-web`,
-  `imagegen-frontend-mobile`, `lenis`, `og-image`, `open-graph-image`, and
+  `imagegen-frontend-mobile`, `lenis`, `og-image`, `og-image`, and
   `vantrilex-design-variations`, resolved through `registry/catalog.json`
   (mirror) and `VANTRILEX_CATALOG.md` before any new
   pattern is proposed.

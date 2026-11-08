@@ -641,7 +641,7 @@ injected by phase. An illustrative sample of the selection as it stands:
 | scout | fetch, context7 (mcp, plugin), firecrawl, session-start, task-dispatcher, vantrilex-prime, vantrilex-vanguard |
 | docs | grill-me, technical-writer, documentation-as-tests |
 | plan | ask-matt, wayfinder, sequential-thinking, architect, babel-bridge |
-| build | tdd, ponytail, openrouter, typescript-lsp, feature-dev, long-running-process-guard, typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits, lenis, og-image, open-graph-image, time-capsule-test, vantrilex-design-variations |
+| build | tdd, ponytail, openrouter, typescript-lsp, feature-dev, long-running-process-guard, typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits, lenis, og-image, og-image, time-capsule-test, vantrilex-design-variations |
 | review | code-review (skill, plugin), ponytail-review, github, security-guidance, code-reviewer, ai-generated-code-security-auditor, red-team (skill, agent), skill-shadow, a11y-audit |
 | operate | ponytail-audit, filesystem, memory, commit-commands, pre-compact, persist-session-state-on-end, vantrilex-doctrine, kit-evaluation-journal, kit-evolution-log, kill-switch-document |
 | on-demand | find-skills, skill-creator |

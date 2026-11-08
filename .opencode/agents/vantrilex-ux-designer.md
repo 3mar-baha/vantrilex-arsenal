@@ -22,7 +22,7 @@ This role is researched from exactly one live source, and it claims nothing
 beyond it.
 
 - **Used:** `SOURCES.md` T1-14 —
-  VoltAgent/awesome-claude-code-subagents
+  VoltAgent/awesome-claude-code-subagents <!-- (inspiration) -->
   `categories/08-business-product/ux-researcher.md` — VERDICT: REACHABLE.
   Observed live from this seat: frontmatter name `ux-researcher`, a research
   checklist, and a Development Workflow running research planning through

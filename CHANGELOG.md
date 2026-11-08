@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.82] — 2026-11-08 — tag v0.9.82 — Audit W6 final: Node 22 LTS, og-image merge, vs-zenith rename, claude-code annotations, D46 shell grant
+
+> Status: this section records the 0.9.82 slice released on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (5 items: MFT-133, MFT-018/SF-23, SF-22, SF-27, D46).
+
+### Changed
+
+- **Node 22 LTS migration (`chore(runtime)`).** `.nvmrc` → `22`, CI `node-version` → `'22'` (3 jobs), `AGENTS.md` updated to Node 22, D44 rewritten with Node 25 EOL (April 2026) and migration date (2026-11-08). `package.json` engines >=22.0.0. (MFT-133, MFT-034, MFT-112.)
+- **og-image + open-graph-image merged (`feat(skills)`).** Single skill `og-image` absorbs contract-audit content; `open-graph-image` folder deleted; selection record and references updated; catalog regenerated (1,484 skills). (MFT-018/SF-23.)
+- **vs-zn-* → vs-zenith-* rename (`refactor(skills)`).** Both skill folders renamed; all references updated in `.opencode/`, `docs/`, `scripts/`, registry mirror regenerated. (SF-22.)
+- **claude-code references annotated (`docs(agents)`).** All 9 references in 6 agent files annotated `<!-- (inspiration) -->`. (SF-27.)
+- **D46 shell grant (`feat(plugin)`).** `grantShellForVantrilex` function added to `arsenal.ts`; wired into `permission.evaluate` hook before `seatDenyOverlay`. Grants coarse shell permission to `vantrilex-*` agents on V2 hosts. V1 limitation documented. (D46.)
+
 ## [0.9.81] — 2026-11-07 — tag v0.9.81 — Corrections: comms test import, MFT-066 unification, MFT-133 rolled forward, MFT-042/048 documented, obstacles report committed
 
 > Status: this section records the correction slice released as `v0.9.81` on branch `wt/v2-consolidation`. Fixes: comms-service-role test import path (../scripts/), MFT-066 concurrency unified (D45), MFT-133 rolled forward to 0.9.82, MFT-042 exception documented in docs/dev/06-REGISTRY.md, MFT-048 exemption documented in docs/09-CATALOG-SELECTION.md, obstacles report committed at .opencode/audit/ARSENAL-USABILITY-OBSTACLES.md, release notes corrected.

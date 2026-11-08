@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '25'
+          node-version: '22'
 
       - name: Install shellcheck
         run: sudo apt-get update && sudo apt-get install -y shellcheck
@@ -62,7 +62,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '25'
+          node-version: '22'
 
       - name: Generated catalog surfaces are current
         run: node scripts/generate-catalog-json.mjs --check
@@ -176,7 +176,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '25'
+          node-version: '22'
 
       - name: Type check the plugin
         # Absent tsconfig.json FAILs the job: a check that cannot run is a

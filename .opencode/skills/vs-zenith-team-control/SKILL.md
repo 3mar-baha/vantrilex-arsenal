@@ -1,5 +1,5 @@
 ---
-name: vs-zn-team-control
+name: vs-zenith-team-control
 description: Use when Zenith must lead a session as team lead from written control books — loads the six-part control book, refreshes the live team-model register at the session anchor, seats the selected variable seat, and enforces the T13 guidance-altitude, T14 weekly failure-absorption, and T15 per-task tooling-statement controls.
 source: 3mar-baha/vantrilex-arsenal
 ---
@@ -47,7 +47,7 @@ never by impression.
 ## Procedure
 
 Naming truth, fixed verbatim: the name is Vantrilex, the title is Zenith,
-and the user-facing display is Vantrilex. The `vs-zn-*` prefix derives from
+and the user-facing display is Vantrilex. The `vs-zenith-*` prefix derives from
 the title Zenith and marks control skills that belong to Zenith alone,
 never a generic lead mark. Build the session posture in the six parts below,
 in order.

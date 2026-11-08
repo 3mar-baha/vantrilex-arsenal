@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1485 — 7 default-selected)
+## Skills (1484 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1458,41 +1458,40 @@ Consolidated reference of every system component with its folder path.
 | 1448 | preflight-system-doctor | Use when entering the build phase or before any mutating or long-running work — … | 3mar-baha/vantrilex-arsenal | `` |
 | 1449 | lenis | Use when a page needs weighted inertial smooth scrolling — installing Lenis, wir… | 3mar-baha/vantrilex-arsenal | `` |
 | 1450 | og-image | Use when designing or generating Open Graph social preview cards with Satori or … | 3mar-baha/vantrilex-arsenal | `` |
-| 1451 | open-graph-image | Use when adding, editing, or reviewing a Next App Router opengraph-image or twit… | 3mar-baha/vantrilex-arsenal | `` |
-| 1452 | pre-mortem | Use when a change is about to be implemented or released and its failure modes s… | 3mar-baha/vantrilex-arsenal | `` |
-| 1453 | time-capsule-test | Use when code reads the clock, checks an expiry, compares a date, or stores when… | 3mar-baha/vantrilex-arsenal | `` |
-| 1454 | kit-evaluation-journal | Use when a kit component is being tried, adopted, kept, or dropped, so the attem… | 3mar-baha/vantrilex-arsenal | `` |
-| 1455 | red-team | Use when a plan, design, or diff needs an adversarial attack before it ships, so… | 3mar-baha/vantrilex-arsenal | `` |
-| 1456 | skill-shadow | Use when a component's procedure is about to be adopted or trusted but has never… | 3mar-baha/vantrilex-arsenal | `` |
-| 1457 | documentation-as-tests | Use when a documented command, snippet, path, or configuration key is about to b… | 3mar-baha/vantrilex-arsenal | `` |
-| 1458 | kit-evolution-log | Use when a kit component is added, changed, retired, or re-scoped, so the reason… | 3mar-baha/vantrilex-arsenal | `` |
-| 1459 | kill-switch-document | Use when a change could be stopped, paused, or rolled back unsafely, so the halt… | 3mar-baha/vantrilex-arsenal | `` |
-| 1460 | babel-bridge | Use when intent crosses a vocabulary boundary such as business language to imple… | 3mar-baha/vantrilex-arsenal | `` |
-| 1461 | vantrilex-prime | Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe… | 3mar-baha/vantrilex-arsenal | `` |
-| 1462 | vantrilex-design-variations | Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi… | 3mar-baha/vantrilex-arsenal | `` |
-| 1463 | vantrilex-workflow-forge | Authors the standing methodology at each task start — use when a new task begins, befo… | 3mar-baha/vantrilex-arsenal | `` |
-| 1464 | agent-md-setup | Use when a repository needs one canonical instruction file shared by coding agents, when AGENTS.md or CLAUDE.md is missing, or when their guidance has diverged. | ismail9k/skills |  |
-| 1465 | configure-issue-tracker | Use when a repository needs to choose or change where issues and feature intents live, or when docs/agents/issue-tracker.md is missing or stale. | ismail9k/skills |  |
-| 1466 | fetch-github-issues | Use when the user asks to list, show, or review open issues from the tracker recorded in docs/agents/issue-tracker.md. | ismail9k/skills |  |
-| 1467 | brandkit | Premium brand-kit image generation skill for high-end brand-guidelines boards, logo systems, identity decks and visual-world presentations. | Leonxlnx/imagegen-skills |  |
-| 1468 | image-to-code | Elite website image-to-code skill for Codex: generate the design image(s) first, analyze them, then implement the website to match. | Leonxlnx/imagegen-skills |  |
-| 1469 | imagegen-frontend-mobile | Elite mobile app image-generation skill for premium, app-native screen concepts and flows across iOS, Android and cross-platform products. | Leonxlnx/imagegen-skills |  |
-| 1470 | imagegen-frontend-web | Elite frontend image-direction skill for generating premium, conversion-aware website design references. | Leonxlnx/imagegen-skills |  |
-| 1471 | design-taste-frontend-v1 | The original taste-skill v1, kept for projects that depend on its exact behaviour. Opt-in: it runs only when called by name. | Leonxlnx/taste-skill-classics |  |
-| 1472 | gpt-taste | Classic skill for GPT and Codex, opt-in: layout variance, a strict AIDA page structure and GSAP scroll motion. | Leonxlnx/taste-skill-classics |  |
-| 1473 | high-end-visual-design | Classic style skill, opt-in: a calm, polished look with soft contrast, generous whitespace and spring motion. | Leonxlnx/taste-skill-classics |  |
-| 1474 | industrial-brutalist-ui | Classic style skill, opt-in: a hard mechanical look with Swiss type, rigid grids, extreme scale contrast and utilitarian colour. | Leonxlnx/taste-skill-classics |  |
-| 1475 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
-| 1476 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
-| 1477 | resolving-merge-conflicts | Use when you need to resolve an in-progress git merge/rebase conflict. | mattpocock/skills | `mattpocock/skills` |
-| 1478 | vs-at-plan-craft | Use when Aether must plan from the written craft book — loads the six-part plan posture, seats the Aether variable seat, enforces… | 3mar-baha/vantrilex-arsenal |  |
-| 1479 | vs-bl-build-craft | Use when Blazar must build from the written craft book — loads the six-part build posture, seats the Blazar variable seat, enforces… | 3mar-baha/vantrilex-arsenal |  |
-| 1480 | vs-book-doctrine | Use when a craft book needs governing — states the six-part book shape, enforces the differentiation gate and the domain-books-… | 3mar-baha/vantrilex-arsenal |  |
-| 1481 | vs-golden-equipment | Use when a leader needs doctrine-fitted equipment — computes the loadout from USED origin-by-task-class pairs, cites the matching… | 3mar-baha/vantrilex-arsenal |  |
-| 1482 | vs-pu-probe-craft | Use when Pulsar must probe from the written craft book — loads the six-part probe posture, seats the Pulsar variable seat, reports… | 3mar-baha/vantrilex-arsenal |  |
-| 1483 | vs-smithery | Use when a Smithery MCP or skill candidate needs searching, vetting, and single-item admission without bulk installs. | 3mar-baha/vantrilex-arsenal |  |
-| 1484 | vs-zn-refresh-guard | Use when the periodic refresh log needs guarding — turns a real document diff into written update tasks through the line-diff… | 3mar-baha/vantrilex-arsenal |  |
-| 1485 | vs-zn-team-control | Use when Zenith must lead a session as team lead from written control books — loads the six-part control book, refreshes the live… | 3mar-baha/vantrilex-arsenal |  |
+| 1451 | pre-mortem | Use when a change is about to be implemented or released and its failure modes s… | 3mar-baha/vantrilex-arsenal | `` |
+| 1452 | time-capsule-test | Use when code reads the clock, checks an expiry, compares a date, or stores when… | 3mar-baha/vantrilex-arsenal | `` |
+| 1453 | kit-evaluation-journal | Use when a kit component is being tried, adopted, kept, or dropped, so the attem… | 3mar-baha/vantrilex-arsenal | `` |
+| 1454 | red-team | Use when a plan, design, or diff needs an adversarial attack before it ships, so… | 3mar-baha/vantrilex-arsenal | `` |
+| 1455 | skill-shadow | Use when a component's procedure is about to be adopted or trusted but has never… | 3mar-baha/vantrilex-arsenal | `` |
+| 1456 | documentation-as-tests | Use when a documented command, snippet, path, or configuration key is about to b… | 3mar-baha/vantrilex-arsenal | `` |
+| 1457 | kit-evolution-log | Use when a kit component is added, changed, retired, or re-scoped, so the reason… | 3mar-baha/vantrilex-arsenal | `` |
+| 1458 | kill-switch-document | Use when a change could be stopped, paused, or rolled back unsafely, so the halt… | 3mar-baha/vantrilex-arsenal | `` |
+| 1459 | babel-bridge | Use when intent crosses a vocabulary boundary such as business language to imple… | 3mar-baha/vantrilex-arsenal | `` |
+| 1460 | vantrilex-prime | Orients a fresh machine to the Arsenal — use when an agent lands on an unequippe… | 3mar-baha/vantrilex-arsenal | `` |
+| 1461 | vantrilex-design-variations | Use when a design task arrives on a UI-bearing project — any layout, UI, CSS, vi… | 3mar-baha/vantrilex-arsenal | `` |
+| 1462 | vantrilex-workflow-forge | Authors the standing methodology at each task start — use when a new task begins, befo… | 3mar-baha/vantrilex-arsenal | `` |
+| 1463 | agent-md-setup | Use when a repository needs one canonical instruction file shared by coding agents, when AGENTS.md or CLAUDE.md is missing, or when their guidance has diverged. | ismail9k/skills |  |
+| 1464 | configure-issue-tracker | Use when a repository needs to choose or change where issues and feature intents live, or when docs/agents/issue-tracker.md is missing or stale. | ismail9k/skills |  |
+| 1465 | fetch-github-issues | Use when the user asks to list, show, or review open issues from the tracker recorded in docs/agents/issue-tracker.md. | ismail9k/skills |  |
+| 1466 | brandkit | Premium brand-kit image generation skill for high-end brand-guidelines boards, logo systems, identity decks and visual-world presentations. | Leonxlnx/imagegen-skills |  |
+| 1467 | image-to-code | Elite website image-to-code skill for Codex: generate the design image(s) first, analyze them, then implement the website to match. | Leonxlnx/imagegen-skills |  |
+| 1468 | imagegen-frontend-mobile | Elite mobile app image-generation skill for premium, app-native screen concepts and flows across iOS, Android and cross-platform products. | Leonxlnx/imagegen-skills |  |
+| 1469 | imagegen-frontend-web | Elite frontend image-direction skill for generating premium, conversion-aware website design references. | Leonxlnx/imagegen-skills |  |
+| 1470 | design-taste-frontend-v1 | The original taste-skill v1, kept for projects that depend on its exact behaviour. Opt-in: it runs only when called by name. | Leonxlnx/taste-skill-classics |  |
+| 1471 | gpt-taste | Classic skill for GPT and Codex, opt-in: layout variance, a strict AIDA page structure and GSAP scroll motion. | Leonxlnx/taste-skill-classics |  |
+| 1472 | high-end-visual-design | Classic style skill, opt-in: a calm, polished look with soft contrast, generous whitespace and spring motion. | Leonxlnx/taste-skill-classics |  |
+| 1473 | industrial-brutalist-ui | Classic style skill, opt-in: a hard mechanical look with Swiss type, rigid grids, extreme scale contrast and utilitarian colour. | Leonxlnx/taste-skill-classics |  |
+| 1474 | minimalist-ui | Classic style skill, opt-in: editorial product UI with a warm monochrome palette, typographic contrast and flat bento grids. | Leonxlnx/taste-skill-classics |  |
+| 1475 | stitch-design-taste | Classic skill for Google Stitch, opt-in: writes an agent-friendly DESIGN.md with strict type, colour and layout rules. | Leonxlnx/taste-skill-classics |  |
+| 1476 | resolving-merge-conflicts | Use when you need to resolve an in-progress git merge/rebase conflict. | mattpocock/skills | `mattpocock/skills` |
+| 1477 | vs-at-plan-craft | Use when Aether must plan from the written craft book — loads the six-part plan posture, seats the Aether variable seat, enforces… | 3mar-baha/vantrilex-arsenal |  |
+| 1478 | vs-bl-build-craft | Use when Blazar must build from the written craft book — loads the six-part build posture, seats the Blazar variable seat, enforces… | 3mar-baha/vantrilex-arsenal |  |
+| 1479 | vs-book-doctrine | Use when a craft book needs governing — states the six-part book shape, enforces the differentiation gate and the domain-books-… | 3mar-baha/vantrilex-arsenal |  |
+| 1480 | vs-golden-equipment | Use when a leader needs doctrine-fitted equipment — computes the loadout from USED origin-by-task-class pairs, cites the matching… | 3mar-baha/vantrilex-arsenal |  |
+| 1481 | vs-pu-probe-craft | Use when Pulsar must probe from the written craft book — loads the six-part probe posture, seats the Pulsar variable seat, reports… | 3mar-baha/vantrilex-arsenal |  |
+| 1482 | vs-smithery | Use when a Smithery MCP or skill candidate needs searching, vetting, and single-item admission without bulk installs. | 3mar-baha/vantrilex-arsenal |  |
+| 1483 | vs-zenith-refresh-guard | Use when the periodic refresh log needs guarding — turns a real document diff into written update tasks through the line-diff… | 3mar-baha/vantrilex-arsenal |  |
+| 1484 | vs-zenith-team-control | Use when Zenith must lead a session as team lead from written control books — loads the six-part control book, refreshes the live… | 3mar-baha/vantrilex-arsenal |  |
 
 ## MCP Servers (910 — 8 default-selected)
 

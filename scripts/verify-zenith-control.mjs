@@ -9,7 +9,7 @@
 // What it does: runs the LD-02 exit criteria as named checks with a
 // PASS/FAIL/UNVERIFIED table:
 //   skill-format     — scripts/verify-skills.mjs exits 0 over the tree
-//   six-part-spec    — both vs-zn-* books carry the six build-spec parts
+//   six-part-spec    — both vs-zenith-* books carry the six build-spec parts
 //                      plus owner controls T13, T14, T15 in the lead book
 //   register-fields  — the team-model register carries all six fields plus
 //                      the refresh rule naming its anchor trigger
@@ -50,8 +50,8 @@ const check = (name, status, detail) => {
   results.push({ name, status, detail });
 };
 
-const LEAD = join(ROOT, '.opencode', 'skills', 'vs-zn-team-control', 'SKILL.md');
-const GUARD_SKILL = join(ROOT, '.opencode', 'skills', 'vs-zn-refresh-guard', 'SKILL.md');
+const LEAD = join(ROOT, '.opencode', 'skills', 'vs-zenith-team-control', 'SKILL.md');
+const GUARD_SKILL = join(ROOT, '.opencode', 'skills', 'vs-zenith-refresh-guard', 'SKILL.md');
 const REGISTER = join(ROOT, '.opencode', 'zenith', 'team-model-register.md');
 const SEATS = join(ROOT, '.opencode', 'zenith', 'seats');
 const OVERLAP = join(ROOT, '.opencode', 'zenith', 'r2-overlap-carry.md');
