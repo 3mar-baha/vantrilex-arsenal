@@ -16,7 +16,13 @@ and numbering is append-only. Note the script's default target is the
 target-project decision log (`docs/03-architecture/13-ARCHITECTURE-DECISION-RECORD.md`
 in target-project scope); this file is the Arsenal repository's own log and
 is maintained by hand in the same shape. Numbers D3 and D4 are absent from
-the ratified list and are left vacant rather than filled.
+the ratified list and are left vacant rather than filled. D13 through D22
+are also absent: the log moved from D12 (2026-10-04) straight to D23
+(2026-11-05) as the first post-audit wave decisions were recorded, so
+those slots were never allocated. The log therefore carries 34
+D-numbered entries (D1, D2, D5-D12, D23-D46) rather than a contiguous
+D1-D46; no renumbering is performed and the gaps are left vacant by
+design.
 
 ## D1 — Public repository
 
@@ -746,3 +752,4 @@ the ratified list and are left vacant rather than filled.
 - **Context:** Vantrilex worker agents (`.opencode/agents/vantrilex-*.md`) need coarse `shell`/`bash` access to run tooling, but the host permission `evaluate` surface may deny or ask on those actions even when the seat file carries no deny rule. The seat-deny overlay only hardens `allow`/`ask` to `deny`; it never grants. A plugin-level grant is needed so worker agents can run coarse shell/bash commands without weakening the host's explicit denies or the seat's specific-resource denies.
 - **Decision:** Add `grantShellForVantrilex(ctx, event, readSessionAgent?)` and register it FIRST in the `permission.evaluate` hook, before `seatDenyOverlay`. It no-ops when the kill switch is set, when `event.effect === "deny"` (explicit host deny is final), when the resolved agent is not a `vantrilex-*` agent, when the action is not `shell` or `bash`, or when the resources are not coarse (empty, or all `*`/`""`). Otherwise it sets `event.effect = "allow"`. Agent resolution follows the same order as the seat-deny overlay: `event.agent` → `ctx.session.get` → observed-event cache. It never throws; every branch degrades to a no-op. `seatDenyOverlay` runs afterward, so an explicit seat deny for a specific resource remains authoritative.
 - **Consequences:** Vantrilex worker agents gain coarse shell/bash grants at the plugin layer without bypassing host denies or seat-specific denies. The grant is scoped to `vantrilex-*` agents and coarse resources only; non-Vantrilex agents and specific-resource calls are untouched. D46 is the authority for this grant; any change to its scope requires a fresh dated decision.
+V2 hosts only — uses the V2 permission.evaluate hook; V1 hosts receive no grant.

@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.9.82] — 2026-11-08 — tag v0.9.82 — Audit W6 final: Node 22 LTS, og-image merge, vs-zenith rename, claude-code annotations, D46 shell grant
 
 > Status: this section records the 0.9.82 slice released on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (5 items: MFT-133, MFT-018/SF-23, SF-22, SF-27, D46).
+>
+> Release commit count (correction): 8 tagged release commits (0.9.75–0.9.82) plus 1 untagged fix commit (34b0f19).
 
 ### Changed
 
