@@ -58,7 +58,7 @@ Lenis itself is MIT-licensed, published as npm `lenis`. Upstream:
 
 - The target project: framework, router, and whether a build step exists.
 - Installed and latest npm versions — compare with `npm view lenis version`. This skill
-  was written against **1.3.27**, verified 2026-10-04; do not trust a pinned number here.
+  verified 2026-11-08; do not trust a pinned number here.
 - Whether the app already owns an animation frame loop: GSAP, Framer Motion, a WebGL or
   React Three Fiber render loop, or nothing.
 - Which nested elements must keep their own scrolling: modals, drawers, sidebars,
