@@ -58,7 +58,7 @@ Lenis itself is MIT-licensed, published as npm `lenis`. Upstream:
 
 - The target project: framework, router, and whether a build step exists.
 - Installed and latest npm versions — compare with `npm view lenis version`. This skill
-  was written against **1.3.26**, verified 2026-10-04; do not trust a pinned number here.
+  was written against **1.3.27**, verified 2026-10-04; do not trust a pinned number here.
 - Whether the app already owns an animation frame loop: GSAP, Framer Motion, a WebGL or
   React Three Fiber render loop, or nothing.
 - Which nested elements must keep their own scrolling: modals, drawers, sidebars,
@@ -98,8 +98,8 @@ it is one of the most frequent causes of "scroll just doesn't work". With no bui
 use the CDN and check the current version rather than reusing a pinned one:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" />
-<script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.27/dist/lenis.css" />
+<script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
 ```
 
 That drop-in is enough for a static page:
