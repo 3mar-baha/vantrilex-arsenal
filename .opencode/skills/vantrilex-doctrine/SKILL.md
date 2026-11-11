@@ -457,10 +457,12 @@ compaction just discarded.
 
 ### B.6 — Skill-file format standard
 
-Every `SKILL.md` carries frontmatter with exactly `name` plus `description`, then the body sections
+Every `SKILL.md` carries frontmatter with exactly `name` plus `description` plus `source`, then the body sections
 Purpose, When to Use, Do NOT use, Inputs, Procedure, Outputs, Failure Modes, in that order. The
 `name` is lowercase-hyphenated and identical to the containing folder name; the description states
 what the skill does and when to trigger it, front-loading the trigger so the router sees it first.
+`source` is the `owner/repo` coordinate the skill is installed from (the catalog row's `source`
+verbatim where a row exists).
 There are no unfinished-work markers and no stubs: every file is written in full on creation and
 never left empty, because a stub filed today becomes the missing foundation of a failed gate next
 month.

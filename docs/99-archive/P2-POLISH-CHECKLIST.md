@@ -65,3 +65,5 @@ this file, and English only throughout.
 - [ ] The cohort totals reconcile: rows counted equal agents assigned,
   and cap counts are quoted (uploader equals 1, puller equals 1, skills
   between 1 and 4).
+
+> Corrected 2026-11-11 by W-16: the frontmatter rule is exactly the 3-key shape [name, description, source] (D39/MFT-142, v0.9.78); the 2-key text above is stale.
