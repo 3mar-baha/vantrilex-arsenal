@@ -143,6 +143,7 @@
       "cli/wrangler",
       "hook/persist-session-state-on-end",
       "hook/pre-compact",
+      "hook/session-end",
       "mcp/browserbase",
       "mcp/cloudflare",
       "mcp/discord",
@@ -164,5 +165,5 @@
     ]
   },
   "suspended": [],
-  "notes": "MFT-096 reconciliation 2026-11-05: suspended=[] (0). All 149 selected tokens resolve to live catalog rows; the 17 historical missing-address suspensions were re-admitted (15) or merged (context7-mcp->context7, reference-sequential->sequential-thinking, supabase->supabase-mcp, vercel->vercel-mcp, openrouter restored) across C2-READMIT/C2-READMIT-2, so no suspension stands. S2 will switch injection to catalogPhaseSets() and this record."
+  "notes": "MFT-096 reconciliation 2026-11-05: suspended=[] (0). All 150 selected tokens resolve to live catalog rows; the 17 historical missing-address suspensions were re-admitted (15) or merged (context7-mcp->context7, reference-sequential->sequential-thinking, supabase->supabase-mcp, vercel->vercel-mcp, openrouter restored) across C2-READMIT/C2-READMIT-2, so no suspension stands. S2 will switch injection to catalogPhaseSets() and this record. SC-04 2026-11-11 (W-20): hook/session-end added to the operate phase; catalog row set to phase operate, tier core so the selection places; count 149 -> 150."
 }

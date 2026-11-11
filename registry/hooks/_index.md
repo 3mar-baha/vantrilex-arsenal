@@ -4,13 +4,14 @@
 
 8 components.
 
-## Tier 0 — Core (5)
+## Tier 0 — Core (6)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
 | long-running-process-guard | hook | core | When starting a dev server or watcher, so its logs stay reachable |  |
 | persist-session-state-on-end | hook | core | At session end, to persist learnings for the next session |  |
 | pre-compact | hook | core | Before context compaction, to save state so nothing is lost |  |
+| session-end | hook | core |  |  |
 | session-start | hook | core | At session start, to load prior context before any work |  |
 | task-dispatcher | hook | core | On every user message, to classify the turn into one of the five Vangua… |  |
 
@@ -25,8 +26,6 @@
 
 _None._
 
-## Untiered (1)
+## Untiered (0)
 
-| Name | Kind | Tier | When to use | Install |
-|------|------|------|-------------|---------|
-| session-end | hook |  |  |  |
+_None._
