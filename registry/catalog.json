@@ -7,7 +7,7 @@
     "mcp": 910,
     "plugin": 11,
     "hook": 8,
-    "agent": 302,
+    "agent": 303,
     "formatting": 13,
     "lsp": 1,
     "cli": 64,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2899
+    "total": 2900
   },
   "components": [
     {
@@ -86632,6 +86632,36 @@
           "target": "worldflowai/everything-claude-code",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false
+    },
+    {
+      "id": "vantrilex-skill-finder",
+      "name": "vantrilex-skill-finder",
+      "kind": "agent",
+      "description": "Use when upstream skills must be found, polished, and shipped into the catalog…",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "agent",
+        "skills"
+      ],
+      "when_to_use": "When upstream skills must be found, polished, and shipped into the catalog with retained before/after evidence [D57; docs/15-DECISIONS.md]",
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/agents/vantrilex-skill-finder.md",
+          "method": "frontmatter-valid",
+          "checked_at": "2026-11-11"
         }
       },
       "default_selected": false

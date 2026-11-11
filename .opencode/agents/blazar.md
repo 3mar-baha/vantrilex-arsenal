@@ -18,6 +18,7 @@ permission:
     vantrilex-reviewer: allow
     vantrilex-scribe: allow
     vantrilex-security-auditor: allow
+    vantrilex-skill-finder: allow
     vantrilex-typescript: allow
     vantrilex-ui-designer: allow
     vantrilex-ux-designer: allow

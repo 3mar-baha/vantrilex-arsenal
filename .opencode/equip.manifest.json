@@ -50,6 +50,7 @@
       "agent/blazar",
       "agent/vantrilex-fixer",
       "agent/vantrilex-python",
+      "agent/vantrilex-skill-finder",
       "agent/vantrilex-typescript",
       "agent/vantrilex-ui-designer",
       "agent/vantrilex-ux-designer",
@@ -162,5 +163,5 @@
     ]
   },
   "suspended": [],
-  "notes": "MFT-096 reconciliation 2026-11-05: suspended=[] (0). All 145 selected tokens resolve to live catalog rows; the 17 historical missing-address suspensions were re-admitted (15) or merged (context7-mcp->context7, reference-sequential->sequential-thinking, supabase->supabase-mcp, vercel->vercel-mcp, openrouter restored) across C2-READMIT/C2-READMIT-2, so no suspension stands. S2 will switch injection to catalogPhaseSets() and this record."
+  "notes": "MFT-096 reconciliation 2026-11-05: suspended=[] (0). All 148 selected tokens resolve to live catalog rows; the 17 historical missing-address suspensions were re-admitted (15) or merged (context7-mcp->context7, reference-sequential->sequential-thinking, supabase->supabase-mcp, vercel->vercel-mcp, openrouter restored) across C2-READMIT/C2-READMIT-2, so no suspension stands. S2 will switch injection to catalogPhaseSets() and this record."
 }

@@ -58,7 +58,7 @@ mirrors this section for enforcement; update both together.
 | design | `#ec4899` | `vantrilex-ui-designer`, `vantrilex-ux-designer` |
 | review | `#f59e0b` | `vantrilex-code-reviewer`, `vantrilex-guide`, `vantrilex-red-team`, `vantrilex-reviewer` |
 | audit | `#ef4444` | `vantrilex-harness`, `vantrilex-security-auditor`, `vantrilex-verifier` |
-| docs | `#10b981` | `vantrilex-librarian`, `vantrilex-scribe` |
+| docs | `#10b981` | `vantrilex-librarian`, `vantrilex-scribe`, `vantrilex-skill-finder` |
 | operate | `#8b5cf6` | `vantrilex-agent-maker`, `vantrilex-facet`, `vantrilex-github`, `vantrilex-kit-maintainer`, `vantrilex-leader`, `vantrilex-puller`, `vantrilex-releaser`, `vantrilex-uploader`, `vantrilex` (Zenith) |
 | exploration | `#22d3ee` | `vantrilex-scout` |
 
@@ -73,7 +73,7 @@ Per-agent frontmatter colours: `aether` `#14b8a6`, `blazar` `#4169e1`,
 `vantrilex-red-team` `#f59e0b`, `vantrilex-releaser` `#8b5cf6`,
 `vantrilex-reviewer` `#f59e0b`, `vantrilex-scout` `#22d3ee`,
 `vantrilex-scribe` `#10b981`, `vantrilex-security-auditor` `#ef4444`,
-`vantrilex-typescript` `#3b82f6`, `vantrilex-ui-designer` `#ec4899`,
+`vantrilex-skill-finder` `#10b981`, `vantrilex-typescript` `#3b82f6`, `vantrilex-ui-designer` `#ec4899`,
 `vantrilex-uploader` `#8b5cf6`, `vantrilex-ux-designer` `#ec4899`,
 `vantrilex-verifier` `#ef4444`, `vantrilex` (Zenith) `#8b5cf6`.
 
@@ -94,7 +94,7 @@ invented for a new agent; a new group requires an owner ruling recorded in
 Verify the palette from the repository root:
 
 ```bash
-node -e "const fs=require('fs');const P={aether:'#14b8a6',blazar:'#4169e1',pulsar:'#c026d3','vantrilex-agent-maker':'#8b5cf6','vantrilex-architect':'#3b82f6','vantrilex-code-reviewer':'#f59e0b','vantrilex-facet':'#8b5cf6','vantrilex-fixer':'#3b82f6','vantrilex-github':'#8b5cf6','vantrilex-guide':'#f59e0b','vantrilex-harness':'#ef4444','vantrilex-implementer':'#3b82f6','vantrilex-kit-maintainer':'#8b5cf6','vantrilex-leader':'#8b5cf6','vantrilex-librarian':'#10b981','vantrilex-puller':'#8b5cf6','vantrilex-python':'#3b82f6','vantrilex-red-team':'#f59e0b','vantrilex-releaser':'#8b5cf6','vantrilex-reviewer':'#f59e0b','vantrilex-scout':'#22d3ee','vantrilex-scribe':'#10b981','vantrilex-security-auditor':'#ef4444','vantrilex-typescript':'#3b82f6','vantrilex-ui-designer':'#ec4899','vantrilex-uploader':'#8b5cf6','vantrilex-ux-designer':'#ec4899','vantrilex-verifier':'#ef4444','vantrilex':'#8b5cf6'};for(const [id,hex] of Object.entries(P)){const t=fs.readFileSync('.opencode/agents/'+id+'.md','utf8');const m=t.match(/^color:\s*\"([^\"]+)\"/m);if(!m||m[1]!==hex)throw new Error(id+' expected '+hex+' got '+(m?m[1]:'none'))}console.log('palette: 29 colours match')"
+node -e "const fs=require('fs');const P={aether:'#14b8a6',blazar:'#4169e1',pulsar:'#c026d3','vantrilex-agent-maker':'#8b5cf6','vantrilex-architect':'#3b82f6','vantrilex-code-reviewer':'#f59e0b','vantrilex-facet':'#8b5cf6','vantrilex-fixer':'#3b82f6','vantrilex-github':'#8b5cf6','vantrilex-guide':'#f59e0b','vantrilex-harness':'#ef4444','vantrilex-implementer':'#3b82f6','vantrilex-kit-maintainer':'#8b5cf6','vantrilex-leader':'#8b5cf6','vantrilex-librarian':'#10b981','vantrilex-puller':'#8b5cf6','vantrilex-python':'#3b82f6','vantrilex-red-team':'#f59e0b','vantrilex-releaser':'#8b5cf6','vantrilex-reviewer':'#f59e0b','vantrilex-scout':'#22d3ee','vantrilex-scribe':'#10b981','vantrilex-security-auditor':'#ef4444','vantrilex-skill-finder':'#10b981','vantrilex-typescript':'#3b82f6','vantrilex-ui-designer':'#ec4899','vantrilex-uploader':'#8b5cf6','vantrilex-ux-designer':'#ec4899','vantrilex-verifier':'#ef4444','vantrilex':'#8b5cf6'};for(const [id,hex] of Object.entries(P)){const t=fs.readFileSync('.opencode/agents/'+id+'.md','utf8');const m=t.match(/^color:\s*\"([^\"]+)\"/m);if(!m||m[1]!==hex)throw new Error(id+' expected '+hex+' got '+(m?m[1]:'none'))}console.log('palette: 30 colours match')"
 ```
 
 ## Native shape
