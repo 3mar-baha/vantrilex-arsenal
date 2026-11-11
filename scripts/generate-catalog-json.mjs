@@ -10,7 +10,7 @@ const ROOT = dirname(dirname(SCRIPT_PATH));
 
 const CATALOG_MD = join(ROOT, 'registry', 'VANTRILEX_CATALOG.md');
 const CATALOG_JSON = join(ROOT, 'registry', 'catalog.json');
-const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v4.schema.json');
+const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v5.schema.json');
 const DATA_DIR = join(ROOT, 'registry', 'data');
 
 export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli', 'theme', 'prompt', 'dataset', 'template', 'policy', 'benchmark', 'workflow', 'design.md'];
@@ -92,6 +92,11 @@ export const RECORD_FIELDS = [
   'class',
   'evidence',
   'default_selected',
+  'priority',
+  'priority_source',
+  'priority_set_at',
+  'usage_signals',
+  'transport',
 ];
 
 const LINE_OF = new WeakMap();
@@ -309,6 +314,11 @@ export function parseCatalogMarkdown(text, { path = CATALOG_MD } = {}) {
         class: null,
         evidence: null,
         default_selected: defaultSelected,
+        priority: null,
+        priority_source: null,
+        priority_set_at: null,
+        usage_signals: null,
+        transport: null,
       };
 
       sectionRecords.push(record);
@@ -681,9 +691,9 @@ export function buildCatalog(records) {
   for (const record of components) counts[record.kind] += 1;
   counts.total = components.length;
   return {
-    $schema: './schema/catalog-v4.schema.json',
+    $schema: './schema/catalog-v5.schema.json',
     generated_by: 'scripts/generate-catalog-json.mjs',
-    catalog_version: 4,
+    catalog_version: 5,
     counts,
     components,
   };

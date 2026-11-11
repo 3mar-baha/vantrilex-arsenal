@@ -1597,11 +1597,11 @@ const checkCandidates = () => {
   try {
     schema = loadSchema();
   } catch (error) {
-    return { status: "FAIL", detail: "cannot load registry/schema/catalog-v4.schema.json: " + String(error.message) };
+    return { status: "FAIL", detail: "cannot load registry/schema/catalog-v5.schema.json: " + String(error.message) };
   }
   const candidateDef = schema.$defs === undefined ? undefined : schema.$defs.candidate;
   if (candidateDef === undefined) {
-    return { status: "FAIL", detail: "registry/schema/catalog-v4.schema.json carries no $defs.candidate" };
+    return { status: "FAIL", detail: "registry/schema/catalog-v5.schema.json carries no $defs.candidate" };
   }
   const candidateSchema = { ...candidateDef, $defs: schema.$defs };
   let files = [];
@@ -1751,6 +1751,36 @@ const main = () => {
       : offVocabulary.length +
         " rows carry a value outside the vocabulary: " +
         samples(offVocabulary, (entry) => entry.kind + "/" + entry.id + "=" + JSON.stringify(entry.verification))
+  );
+
+  // W-17 (v5 schema): the five optional fields carry contract bounds.
+  // priority is null or an integer 1-10; usage_signals is null or a JSON
+  // object (replayable scoring record); transport on an mcp row is null or
+  // one of the four declared values. priority_source, priority_set_at and
+  // the transport enum on non-mcp kinds are enforced by the schema, not
+  // duplicated here.
+  const TRANSPORT_ENUM = new Set(["stdio", "sse", "streamable-http", "remote-https"]);
+  const priorityOutOfRange = components.filter(
+    (entry) => entry.priority !== null && (!Number.isInteger(entry.priority) || entry.priority < 1 || entry.priority > 10)
+  );
+  const usageSignalsBad = components.filter(
+    (entry) => entry.usage_signals !== null && (typeof entry.usage_signals !== "object" || Array.isArray(entry.usage_signals))
+  );
+  const transportBad = components.filter(
+    (entry) => entry.kind === "mcp" && entry.transport !== null && !TRANSPORT_ENUM.has(entry.transport)
+  );
+  const v5FieldFailures = [
+    ...priorityOutOfRange.map((entry) => entry.kind + "/" + entry.id + ": priority=" + JSON.stringify(entry.priority) + " (want null or integer 1-10)"),
+    ...usageSignalsBad.map((entry) => entry.kind + "/" + entry.id + ": usage_signals is not null or an object"),
+    ...transportBad.map((entry) => entry.kind + "/" + entry.id + ": transport=" + JSON.stringify(entry.transport) + " (want null or stdio|sse|streamable-http|remote-https)")
+  ];
+  record(
+    "priority-contract/v5-bounds",
+    v5FieldFailures.length === 0 ? "PASS" : "FAIL",
+    v5FieldFailures.length === 0
+      ? components.length +
+        " live rows carry priority null-or-integer-1-10, usage_signals null-or-object, mcp transport null-or-enum"
+      : v5FieldFailures.length + " v5 field violation(s): " + samples(v5FieldFailures, (failure) => failure)
   );
 
   // Selected tokens, in record order. Computed once: every loadability proof

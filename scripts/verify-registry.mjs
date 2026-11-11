@@ -88,7 +88,7 @@ function checkSchema(records, schema) {
   }
 
   if (total === 0) {
-    return { status: 'PASS', detail: `${records.length} records conform to registry/schema/catalog-v4.schema.json` };
+    return { status: 'PASS', detail: `${records.length} records conform to registry/schema/catalog-v5.schema.json` };
   }
   return {
     status: 'FAIL',
