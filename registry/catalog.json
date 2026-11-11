@@ -7930,9 +7930,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/ask-matt/SKILL.md",
+          "surface": "https://github.com/mattpocock/skills",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-11"
         },
         "command_registry": {
           "command": "npx skills add mattpocock/skills --skill ask-matt -a opencode -y",
@@ -13247,9 +13247,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/code-review/SKILL.md",
+          "surface": "https://github.com/mattpocock/skills",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-11"
         },
         "command_registry": {
           "command": "npx skills add mattpocock/skills --skill code-review -a opencode -y",
@@ -19066,9 +19066,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/design-taste-frontend/SKILL.md",
+          "surface": "https://github.com/Leonxlnx/taste-skill",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-11"
         },
         "command_registry": {
           "command": "npx skills add leonxlnx/taste-skill --skill design-taste-frontend -a opencode -y",
@@ -27287,9 +27287,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/find-skills/SKILL.md",
+          "surface": "https://github.com/vercel-labs/skills",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-11"
         },
         "command_registry": {
           "command": "npx skills add vercel-labs/skills --skill find-skills -a opencode -y",
@@ -64649,9 +64649,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/taste-skill/SKILL.md",
+          "surface": "https://github.com/Leonxlnx/taste-skill",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-11"
         },
         "command_registry": {
           "command": "npx skills add Leonxlnx/taste-skill --skill taste-skill -a opencode -y",

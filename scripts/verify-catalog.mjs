@@ -96,6 +96,15 @@
  * window fails with `evidence-lapsed` semantics instead of passing on a stale
  * date. A state with no checked_at is an evaluation failure, never a pass.
  *
+ * load-proof/existence (no network)
+ * ---------------------------------
+ * A load_proof surface that is not an http(s) URL names an npm package or a
+ * file path, and must resolve against something this repository can vouch for
+ * offline: a package named in the row's own install_cmd, a registry/ file that
+ * exists, or an .opencode/skills/<id>/ folder that exists. A surface resolving
+ * nowhere fails per row id. http(s) surfaces are source_proof territory and are
+ * out of scope for this check.
+ *
  * Proof age (MFT-040/MFT-041): the verifier surfaces evidence.verified_at per row
  * as the earliest checked_at across its proof legs (the limiting proof), its
  * age in days, and a stale band when the remaining window is <= 30 days.
@@ -1587,6 +1596,61 @@ export const checkEvidenceTtl = (components, today = new Date()) => {
 };
 
 /**
+ * load-proof/existence (no network). Returns null while the surface resolves
+ * offline, and a per-row reason otherwise. The version-stripped surface must
+ * appear verbatim in the row's own install_cmd, be a registry/ file that
+ * exists, or name an .opencode/skills/<id>/ folder that exists; an http(s)
+ * surface is out of scope (source_proof territory). Rows whose surface is
+ * missing or not a string are judged by the shape legs, not here.
+ */
+const loadProofExistenceReason = (entry) => {
+  const evidence = entry !== null && typeof entry === "object" ? entry.evidence : null;
+  const loadProof = evidence !== null && typeof evidence === "object" ? evidence.load_proof : null;
+  const surface = loadProof !== null && typeof loadProof === "object" ? loadProof.surface : undefined;
+  if (typeof surface !== "string" || /^https?:\/\//i.test(surface)) return null;
+  const pkg = surface.replace(/(?:@\d[\w.\-+]*)+$/, "");
+  if (typeof entry.install_cmd === "string" && entry.install_cmd.includes(pkg)) return null;
+  if (surface.startsWith("registry/")) {
+    const file = path.join(ROOT, surface);
+    if (fs.existsSync(file) && fs.statSync(file).isFile()) return null;
+  }
+  const skills = surface.match(/^\.opencode\/skills\/([^/]+)\//);
+  if (skills !== null) {
+    const folder = path.join(SKILLS_DIR, skills[1]);
+    if (fs.existsSync(folder) && fs.statSync(folder).isDirectory()) return null;
+  }
+  return entry.kind + "/" + entry.id + ": load_proof surface " + JSON.stringify(surface) + " resolves nowhere offline (no install_cmd package, no registry/ file, no .opencode/skills/ folder)";
+};
+
+const checkLoadProofExistence = (components) => {
+  const failures = [];
+  let checked = 0;
+  let urls = 0;
+  for (const entry of components) {
+    const evidence = entry !== null && typeof entry === "object" ? entry.evidence : null;
+    const loadProof = evidence !== null && typeof evidence === "object" ? evidence.load_proof : null;
+    const surface = loadProof !== null && typeof loadProof === "object" ? loadProof.surface : undefined;
+    if (typeof surface !== "string") continue;
+    if (/^https?:\/\//i.test(surface)) { urls += 1; continue; }
+    checked += 1;
+    const reason = loadProofExistenceReason(entry);
+    if (reason !== null) failures.push(reason);
+  }
+  if (failures.length > 0) {
+    return {
+      status: "FAIL",
+      detail:
+        failures.length + " of " + checked + " non-URL load_proof surface(s) resolve nowhere offline (failing rows: " +
+        failures.map((failure) => failure.split(":")[0]).join(", ") + ")"
+    };
+  }
+  return {
+    status: "PASS",
+    detail: checked + " non-URL load_proof surface(s) resolve (install_cmd package, registry/ file, or .opencode/skills/ folder); " + urls + " URL surface(s) out of scope; 0 unresolved"
+  };
+};
+
+/**
  * V4-3 candidate surface: every row in registry/candidates/<kind>.jsonl is
  * validated against $defs.candidate, the shape the schema publishes for a
  * record that failed even its class evidence. A candidate is never a live row;
@@ -2195,6 +2259,7 @@ const main = () => {
   recordResult("command-shape/skills-upstream", checkSkillsUpstream(components));
   recordResult("candidates/schema", checkCandidates());
   recordResult("evidence/ttl", checkEvidenceTtl(components));
+  recordResult("load-proof/existence", checkLoadProofExistence(components));
   recordResult("pin-coverage/installable", checkPinCoverage(components));
   if (selection === null) {
     for (const check of ["command-shape/mcp-npm", "agent-hygiene", "selection/top-level-skills"]) {
