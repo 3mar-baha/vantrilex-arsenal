@@ -125,6 +125,35 @@ is a config emitter, not a namer.
    declaration, no further phases. The compiled selection is returned; the
    checker verifies it later, separately.
 
+### Ladder
+
+The in-band enforcement ladder for the per-task minimums (D64,
+2026-11-11; the thresholds are the D48 bright-line minimums — Zenith
+≥15 skills / ≥5 countable MCPs, Syzygy ≥10 / ≥4, Asterism ≥5 / ≥2 —
+and the countable-MCP test is D54). Three rungs, in order:
+
+1. **observe** — log which skills and MCPs the rank used, per task:
+   the claim ledger (`.opencode/dispatch-log/<task-id>.jsonl`, D63)
+   records the claims; what counts as "used" is D50's separate
+   checker, never this ladder.
+2. **warn** — at half the minimum reached, at the minimum reached, and
+   at task closing below minimum, append one line to the tool output.
+   The exact staple text:
+
+   `[muster] rank <rank> has used <n>/<N> required skills, <m>/<M> required MCPs`
+
+3. **handoff** — retry exhaustion per D51: after 3 failed selections,
+   report to the leader, who dispatches a NEW side agent with the same
+   name to re-run the task.
+
+Wednesday runs at `warn`: **block is NOT active on Wednesday** — no
+tool call is refused for a below-minimum count, and the ladder stays
+advisory (D52). Promotion to `block` happens only after 10 measured
+tasks show the receipt is accurate and the warn rung fires correctly
+(D64). Until then the ladder informs; it never refuses. The checker
+remains separate and read-only (D50): nothing in this ladder is a
+verdict on the minimum.
+
 ## Outputs
 
 - The compiled selection record, emitted as a text artifact in the lead

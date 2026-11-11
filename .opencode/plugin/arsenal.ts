@@ -2977,14 +2977,18 @@ export const stripDispatchSentinel = (text: string): { stripped: boolean; userTe
  * require one.
  *
  * The compiled text is a digest, not the skill body: the rulings the
- * dispatch must read at the start (D48, D51, D53), the source path and the
- * characters read. The full bodies stay behind the seat's skill gate, and
+ * dispatch must read at the start (D48, D51, D53, and the D64
+ * warn-level ladder sentence), the source path and the characters
+ * read. The full bodies stay behind the seat's skill gate, and
  * this hook's per-turn token budget is not spent restating them.
  * ========================================================================= */
 
 /** D48, D51 and D53, carried verbatim into the compiled text. */
 const MUSTER_D48 = "D48: per task = selected across phases, cumulatively (never per phase, never per seat)"
 const MUSTER_D53 = "D53: domain tool by performance — a domain MCP normally, a CLI if it performs better"
+
+/** D64: the Wednesday ladder notice. The block rung is not active; the sentence is advisory. */
+const MUSTER_LADDER = "The in-band enforcement ladder runs at warn on Wednesday; no tool call is refused for a below-minimum count — advisory only."
 
 const MUSTER_SKILLS_DIR = ".opencode/skills"
 const MUSTER_SKILL_MAX_BYTES = 64 * 1024
@@ -3036,7 +3040,7 @@ const compileMuster = (ctx: ArsenalContext, agent: string): CompiledMuster | nul
     }
     // The D51 clause is repeated verbatim at the counting log line below;
     // keep the two copies byte-identical.
-    const text = `[arsenal] ${target.skill} (rank ${target.rank}): run once at the start of the task. Compiled at dispatch time from ${rel} (${read.value.length} chars read) per D52; advisory only — the prompt hook cannot reject a dispatch. ${MUSTER_D48}. D51: re-select until success; after 3 failed selections report to the leader, who dispatches a NEW side agent with the same name. ${MUSTER_D53}.`
+    const text = `[arsenal] ${target.skill} (rank ${target.rank}): run once at the start of the task. Compiled at dispatch time from ${rel} (${read.value.length} chars read) per D52; advisory only — the prompt hook cannot reject a dispatch. ${MUSTER_D48}. D51: re-select until success; after 3 failed selections report to the leader, who dispatches a NEW side agent with the same name. ${MUSTER_D53}. ${MUSTER_LADDER}`
     return { ...target, text }
   } catch {
     return null
