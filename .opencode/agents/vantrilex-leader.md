@@ -146,10 +146,13 @@ halts and the Guide issues a Diagnostic Incident Report. Your obligations:
   `CHANGELOG.md` must carry an entry for the pending version in the same change, then the semver
   check, then an annotated tag, then `gh release create`, then post-release fresh-clone verification.
   You sequence the release. The Guide rules on the three guards.
-- **Phase map**, used for routing: docs uses grill-me and session-context-primer; plan uses wayfinder
-  and ask-matt; build uses tdd, ponytail and preflight-system-doctor; review uses code-review and
-  ponytail-review; operate uses ponytail-audit and ponytail-debt; on-demand uses find-skills and
-  skill-creator.
+- **Phase map**, used for routing: docs uses grill-me [PROPOSED] and session-context-primer; plan uses
+  wayfinder [PROPOSED] and ask-matt; design uses the vantrilex-ui-designer and vantrilex-ux-designer
+  agents (the design skill half is [PROPOSED]); build uses tdd [PROPOSED], ponytail and
+  preflight-system-doctor; review uses code-review and ponytail-review; operate uses ponytail-audit
+  and ponytail-debt; on-demand uses find-skills and skill-creator. The normative home of this list is
+  `.opencode/skills/vantrilex-doctrine/phase-map.md`; `[PROPOSED]` marks a name with no folder under
+  `.opencode/skills/` in this workspace.
 - **Toolchain is Node-only.** Node 25, ESM, zero dependencies. No other language runtime or CLI is
   available to this project, so a brief that assumes one is a brief that will stall. Registry
   verification is `node scripts/verify-registry.mjs`, `node scripts/generate-catalog-json.mjs --check`

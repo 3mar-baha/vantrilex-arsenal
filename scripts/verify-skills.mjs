@@ -586,7 +586,13 @@ function loadCatalogIds(root) {
     return { ok: false, reason: `registry/catalog.json could not be parsed: ${error.message}` };
   }
   if (!Array.isArray(parsed.components)) return { ok: false, reason: 'registry/catalog.json has no components array' };
-  return { ok: true, ids: new Set(parsed.components.map((c) => String(c.id))) };
+  const installable = new Set();
+  for (const component of parsed.components) {
+    const id = String(component.id);
+    const installCmd = component.install_cmd;
+    if (typeof installCmd === 'string' && installCmd.trim() !== '') installable.add(id);
+  }
+  return { ok: true, installable };
 }
 
 function checkPhaseMap(root, skills) {
@@ -645,17 +651,23 @@ function checkPhaseMap(root, skills) {
   if (!catalog.ok) {
     return { status: 'FAIL', detail: `phase map names ${names.length} but ${catalog.reason}, so the cross-check evaluated nothing` };
   }
+  // Since W-31 (2026-11-11) a catalog id is not enough: the name must resolve
+  // as a skill folder on disk, or as at least one catalog row with a non-null
+  // install_cmd (any kind; an id with several rows counts as installable when
+  // any single row carries one — e.g. `code-review` has a skill row with
+  // install_cmd and a plugin row without). A bare catalog id with no install
+  // path fails.
   const folders = new Set(skills.map((s) => s.folder));
-  const missing = names.filter((name) => !folders.has(name) && !catalog.ids.has(name));
+  const missing = names.filter((name) => !folders.has(name) && !catalog.installable.has(name));
   if (missing.length > 0) {
     return {
       status: 'FAIL',
-      detail: `${missing.length} phase-map name${missing.length === 1 ? '' : 's'} resolve neither as a skill folder nor as a catalog id`,
-      lines: missing.map((name) => `phase-map name "${name}" is missing from .opencode/skills/ and registry/catalog.json`),
+      detail: `${missing.length} phase-map name${missing.length === 1 ? '' : 's'} resolve neither as a skill folder nor as a catalogued installable row with a non-null install_cmd`,
+      lines: missing.map((name) => `phase-map name "${name}" is missing from .opencode/skills/ and has no catalog row with a non-null install_cmd`),
     };
   }
   const local = names.filter((name) => folders.has(name)).length;
-  return { status: 'PASS', detail: `${names.length} phase-map names all resolve (${local} local skill folders, ${names.length - local} catalog ids)` };
+  return { status: 'PASS', detail: `${names.length} phase-map names all resolve (${local} local skill folders, ${names.length - local} catalogued installable rows)` };
 }
 
 /* ---------- report ---------- */
