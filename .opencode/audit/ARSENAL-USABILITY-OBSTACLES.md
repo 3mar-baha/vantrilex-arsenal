@@ -45,3 +45,17 @@ The following W6 items were not implemented in this release and are recorded as 
 - SF-22 (rename vs-zenith-* → vs-zenith-*) — deferred; breaking change affecting many references.
 - SF-23 (merge og-image + open-graph-image) — same as MFT-018, deferred.
 - SF-27 (annotate claude-code references) — deferred; low impact.
+
+### Corrections — 2026-11-11 (governance pass, W-33)
+
+The "deferred" / "not implemented" wording above is stale in the following respects (all verified 2026-11-11 on `wt/v2-consolidation`, HEAD `1712a21`; the 0.9.82 section of `CHANGELOG.md` carries the same landings):
+
+- **MFT-018 / SF-23 (merge og-image + open-graph-image) — implemented in 0.9.82**, not deferred: single skill `og-image` absorbs the contract-audit content; the `open-graph-image` folder is deleted; the selection record and references updated; the catalog regenerated (1,484 skills). The "deferred; the two skills serve different purposes" wording above is stale.
+- **SF-22 (rename vs-zn-* → vs-zenith-*) — landed in 0.9.82**, not deferred: both skill folders renamed; all references updated in `.opencode/`, `docs/`, `scripts/`; the registry mirror regenerated. The "deferred; breaking change" wording above is stale.
+- **SF-27 (annotate claude-code references) — annotated in 0.9.82**, not deferred: all 9 references in 6 agent files annotated `<!-- (inspiration) -->`. The "deferred; low impact" wording above is stale.
+- **MFT-066 (concurrency unification) — resolved by D45** (owner ruling 2026-11-07): the job-level `self-publish-queue` group is removed; the workflow-level group is the sole `concurrency:` block in `.github/workflows/auto-publish.yml`, with `cancel-in-progress: false`. The two-group description and the "flagged for the final return" wording above are stale.
+- **MFT-022 (version/updated frontmatter on commands)** — implemented (16 files; the spec said 15). It is listed above under "Items not implemented in W6" in error: the landing count was 16, and the row is implemented, not rolled forward.
+- **W6-scope wording above** — the line item "MFT-018 (deferred — og-image/open-graph-image serve different purposes)" is corrected: MFT-018 was implemented in 0.9.82 on the same terms as SF-23.
+- **Obstacle 6 (schema missing `review_by`) is the named precedent** for two later landings: the v5 schema — `registry/schema/catalog-v5.schema.json` created under W-17 (commit `bd98615`, D60) — and the 1,488-row priority backfill — W-19 (commit `6d02f6a`, nulls recorded, not hidden). Obstacle 6 is the model for "declare the new field in the schema before the data carries it."
+
+The original text is preserved verbatim above; this dated note is the correction, not a rewrite of the record.

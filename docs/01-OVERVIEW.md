@@ -13,7 +13,7 @@ contradicts them.
 | Part | Location | Role |
 |---|---|---|
 | Plugin | `.opencode/` | Shipped hooks-as-plugin callbacks, role agents, operator commands, transplanted skills |
-| Registry | `registry/` | The 2,889-row catalog: human-readable source plus machine mirror, with 40 candidates beside it |
+| Registry | `registry/` | The 2,910-row catalog: human-readable source plus machine mirror, with 40 candidates beside it |
 | Default kit | Tier-0 set in the catalog | What every project receives without questions asked |
 
 The kit specification is `spec/VANTRILEX_KIT_SPEC.md` (naming, the Tier-0 set
@@ -45,28 +45,30 @@ scout without inheriting the law.
 
 ## Tier-0 census, stated honestly
 
-The selection record at `.opencode/equip.manifest.json` carries 145 tokens,
-placed over the catalog and provisioned per phase:
+The selection record at `.opencode/equip.manifest.json` carries 142 tokens,
+placed over the catalog and provisioned per phase (measured 2026-11-11;
+correction of the pre-2026-11-11 census, which read 145/7 hooks):
 
 | Kind | Selected count | Contents |
 |---|---|---|
-| Skills | 25 | Vanguard, Prime, Doctrine, plus upstream and conditional Arsenal skills |
-| MCP servers | 26 | 8 core servers (context7, fetch, filesystem, firecrawl, github, memory, openrouter, sequential-thinking) plus 18 conditional; none suspended |
-| Plugins | 0 | No plugin selected; the 11 catalog plugin records stay as unverified reference entries |
-| Hooks | 7 | 5 core hooks (3 session, task-dispatch on the session prompt, and long-running-process-guard on `tool.execute.before`), plus the 2 conditional TypeScript-check and Prettier-format hooks |
-| Agents | 21 | 5 core agents (architect, code-reviewer, aether, pulsar, blazar) plus 16 conditional specialist agents |
-| LSP servers | 1 | typescript-lsp, the TypeScript language server (build phase, tier core, verification `unverified`) |
-| CLIs | 58 | 58 selected command-line tools, every one `verified`; the catalog carries 64, installed only where the build needs them |
+| Skills | 26 | Vanguard, Prime, Doctrine, the three vs-* forcing skills, plus upstream and conditional Arsenal skills |
+| MCP servers | 10 | 1 core server (`mcp/memory`) plus 9 conditional; none suspended |
+| Plugins | 0 | No plugin selected; the 11 catalog plugin records stay as reference entries (all `verified`; none selected) |
+| Hooks | 8 | 6 core hooks (session-start, task-dispatcher, long-running-process-guard, persist-session-state-on-end, pre-compact, session-end) plus the 2 conditional TypeScript-check and Prettier-format hooks |
+| Agents | 25 | 6 core agents (aether, blazar, pulsar, vantrilex, vantrilex-architect, vantrilex-code-reviewer) plus 18 conditional placeable agents, plus 1 suspended (`agent/vantrilex-facet`, no catalog row yet — see D72) |
+| LSP servers | 1 | typescript-lsp, the TypeScript language server (build phase, tier `core`, `verified`) |
+| CLIs | 65 | 65 selected command-line tools, all tier `conditional`; the catalog carries 71, installed only where the build needs them |
 | Other kinds | 7 | prompts 1, templates 1, workflows 1, design records 1, benchmarks 1, datasets 1, policies 1 |
 
-The honest current count is 145 selected components: 30 tier `core` and 115
-tier `conditional`. No token is suspended, so all 145 resolve against live rows
-today. Every live catalog row
+The honest current count is 142 selected components: 28 tier `core` and 113
+tier `conditional`, with 1 token suspended — `agent/vantrilex-facet`, the
+facet seat (a local authoring with no catalog row yet, recorded in D72) —
+so 141 of the 142 resolve against live rows today. Every live catalog row
 is `verified` under its declared evidence class — there is no carried
-`unverified` state in v4. `registry/catalog.json` carries 2,889 live records
-(39 tier `core`, 233 tier `conditional`, the remainder untiered and never
+`unverified` state in v5. `registry/catalog.json` carries 2,910 live records
+(37 tier `core`, 257 tier `conditional`, the remainder untiered and never
 injected) beside 40 candidates in `registry/candidates/`. The catalog recount
-stands at 20 default-selected components, enriched from 16 sidecars merged by
+stands at 13 default-selected components, enriched from 16 sidecars merged by
 the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
 lsp, mcp, plugins, policies, prompts, skills, templates, themes, workflows).
 A sidecar is a `*.jsonl` file directly in `registry/data/`; `overlaps.yaml` is a relations map, not a sidecar. The count is 16; the audit 17 is the directory-entry count (16+1), not a sidecar count.
@@ -78,19 +80,22 @@ phase-scoping rule that keep the kit affordable are documented in
 Re-derive every figure above from the selection record and the catalog:
 
 ```
-node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('.opencode/equip.manifest.json','utf8'));const c=require('./registry/catalog.json');const i=new Map(c.components.map(e=>[e.kind+'/'+e.id,e]));const f=Object.values(m.phases).flat();console.log('selected',f.length);const t={};const k={};for(const x of f){const e=i.get(x);t[e.tier]=t[e.tier]||0,t[e.tier]++;k[e.kind]=k[e.kind]||0,k[e.kind]++;}console.log('tiers',t,'byKind',k)"
+node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('.opencode/equip.manifest.json','utf8'));const c=require('./registry/catalog.json');const i=new Map(c.components.map(e=>[e.kind+'/'+e.id,e]));const f=Object.values(m.phases).flat();const t={};const k={};const missing=[];for(const x of f){const e=i.get(x);if(!e){missing.push(x);continue;}t[e.tier]=t[e.tier]||0,t[e.tier]++;k[e.kind]=k[e.kind]||0,k[e.kind]++;}console.log('selected',f.length,'tiers',t,'byKind',k,'missing',missing)"
 node -e "const c=require('./registry/catalog.json');console.log('records',c.counts.total,'default_selected',c.components.filter(x=>x.default_selected).length,'verified',c.components.filter(x=>x.verification==='verified').length)"
 node -e "console.log('sidecars',require('fs').readdirSync('registry/data').filter(f=>f.endsWith('.jsonl')).length)"
 ```
 
 OpenCode has no standalone hooks directory, so hooks are plugin callbacks: the
-7 logical Tier-0 hooks are implemented inside the single plugin file
-`.opencode/plugin/arsenal.ts` rather than as 7 separate files. The seventh,
-`task-dispatcher`, runs on the OpenCode V2 surface — registered from `setup()`
-against the session `prompt` hook — while the other six hooks and the
+8 logical Tier-0 hooks are implemented inside the single plugin file
+`.opencode/plugin/arsenal.ts` rather than as 8 separate files. The
+`task-dispatcher` hook runs on the OpenCode V2 surface — registered from `setup()`
+against the session `prompt` hook — while the other hooks and the
 docs-discipline guard remain on the V1 `server()` surface and are **inert under
-V2**. That gap is deliberate and unfinished, not a completed port, and it does
-not move the census: 145 selected components, 7 of them hooks. The seventh hook is
+V2** (the plugin itself records that `session-start`, `pre-compact` and
+`session-end` have nowhere correct to land on the V2 surface yet). That gap is
+deliberate and unfinished, not a completed port, and it does
+not move the census: 142 selected components, 8 of them hooks. The
+task-dispatcher hook is
 documented in [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 
 ## The Node-only toolchain

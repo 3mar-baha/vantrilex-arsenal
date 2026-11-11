@@ -13,6 +13,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Install-from-branch is the documented install source (W-32).** The Quickstart in `README.md` and `README.ar.md` clones `wt/v2-consolidation` with `-b` and states that `main` is behind the release until the branch merges; `vantrilex-prime` P.3, `docs/02-INSTALLATION.md` and the new `docs/UPGRADE.md` (manual delete-old-install-latest upgrade procedure) carry the same rule. The new `.opencode/commands/vantrilex-facet.md` switches the `vantrilex-facet` seat between cautious, balanced and long (D49 gloss); `.opencode/equip.manifest.json` selects `agent/vantrilex-facet` under scout with a suspension (the local facet seat has no catalog row yet). `verify-catalog.mjs` gained `profiles/install-profiles` (fails on any profile module token with no catalog row). No release, tag or publish is made by this entry.
 
+### Wednesday build plan — W-01..W-34 index (2026-11-11)
+
+> This section indexes the Wednesday build plan items W-01..W-34 against the commit that landed each one, so the plan's items trace to the tree. The Wednesday build plan is not a repo file; nothing below implies a release, a tag or a publish.
+>
+> Class is `SKIP` for every row: the plan itself is not a repo file and is not a released surface — the rows exist for traceability only. W-01 has no commit in the scribe's table (the plan itself opened the week); W-33 is this governance-records item — uncommitted per its lane's no-commit law; W-34 is pending at the time of writing. W-31 is recorded as landed, `fa952b3`, not as the earlier `fa952b4` guess that did not resolve.
+
+| Item | Commit | Class | What landed |
+|---|---|---|---|
+| W-01 | — (no commit recorded) | SKIP | The Wednesday build plan opened the week; no commit in the scribe's table |
+| W-02 | 4cc55ad | SKIP | docs(decisions): record D47-D53 owner rulings |
+| W-03 | 23a27ac | SKIP | docs(facet): gloss D49 long facet label |
+| W-04 | d0fff8c | SKIP | docs(doctrine): define per task (D48) |
+| W-05 | 2bf0f14 | SKIP | docs(catalog): record D54 countable-MCP definition; measure 7/0 |
+| W-06 | 0f2c8da | SKIP | fix(agents): Zenith skill allow-list (vanguard, vs-zenith-refresh-guard/team-control/muster); D55 |
+| W-07 | bad19fb | SKIP | fix(agents): narrow Zenith task allow, allow leader in leader seats; D56 |
+| W-08 | ed8be23 | SKIP | feat(config): taskDispatcher switch + kill-switch doc |
+| W-09 | 967f0e2 | SKIP | feat(skills): add vs-zenith-muster forcing skill |
+| W-10 | 8f02e29 | SKIP | feat(skills): add vs-syzygy-muster forcing skill |
+| W-11 | 01444f6 | SKIP | feat(skills): add vs-asterism-muster forcing skill |
+| W-12 | 90b7786 | SKIP | feat(plugin): compile rank muster skill into dispatch prompt + token counting; D52 |
+| W-13 | 3290f75 | SKIP | feat(agents): add vantrilex-skill-finder; D57 |
+| W-14 | d46db08 | SKIP | feat(agents): add vantrilex-skill-agent-maker; D58 |
+| W-15 | 5878fcd | SKIP | fix(skills): repair skill-maker procedure; register; D15 follow-up |
+| W-16 | 78bd94b | SKIP | docs(skills): settle frontmatter 3-key law; D59 |
+| W-17 | bd98615 | SKIP | feat(registry): add catalog-v5 schema (priority, usage_signals, transport); D60 |
+| W-18 | e627132 | SKIP | fix(registry): freeze -row- id suffixes across regeneration; D18 |
+| W-19 | 6d02f6a | SKIP | feat(registry): score and backfill priority for 1488 skills; nulls recorded |
+| W-20 | 259f8d6 | SKIP | feat(scripts): dispatch-log receipt + session-end token; D63 |
+| W-21 | 1b0b1bf | SKIP | feat(verify): min-skills/min-mcps selection gate beside mcp-cap (red by design); D61 |
+| W-22 | 6406115 | SKIP | docs(skills): T15 tooling-statement format carries minimums; D62 |
+| W-23 | 30e3b87 | SKIP | feat(scripts): check-dag DAG completeness gate (skills/mcps columns); D66 |
+| W-24 | 6a74242 | SKIP | feat(skills): in-band enforcement ladder at warn level; D64 |
+| W-25 | fadc07b | SKIP | feat(scripts): verify-minimums receipt verifier; D65 |
+| W-26 | 9c0b687 | SKIP | feat(scripts): polish-scan + polish-ledger; tiers 0-1 mechanical pass (43->46 skills) |
+| W-27 | 65cc0da | SKIP | feat(registry): MCP->CLI wave 1 migration; D67 |
+| W-28 | 8b36d53 | SKIP | feat(registry): MCP->CLI wave 2 (curl-patterns skill, accepted-loss records); D68 |
+| W-29 | aec7b0a | SKIP | feat(scripts): emit-mcp-config (config-first mcpServers, named refusals); D69 |
+| W-30 | ffa3d73 | SKIP | feat(verify): load-proof existence gate; repoint 5 named rows to true upstream surfaces; D70 |
+| W-31 | fa952b3 | SKIP | docs(doctrine): phase map [PROPOSED] + design phase; extend cross-check; D71 |
+| W-32 | 1712a21 | SKIP | fix(install): branch-install docs + UPGRADE.md + facet command; profiles gate; D72 |
+| W-33 | this item | SKIP | governance-records pass: this CHANGELOG index, corrections to the obstacles report, the zenith index, the task-dispatch routing map, the themes casing note, the Tier-0 census (both overviews), D73 — uncommitted per its lane's no-commit law |
+| W-34 | pending | SKIP | pending at the time of writing |
+
 ## [0.9.82] — 2026-11-08 — tag v0.9.82 — Audit W6 final: Node 22 LTS, og-image merge, vs-zenith rename, claude-code annotations, D46 shell grant
 
 > Status: this section records the 0.9.82 slice released on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (5 items: MFT-133, MFT-018/SF-23, SF-22, SF-27, D46).
@@ -280,6 +323,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > was cut, nothing was merged, pushed, or published. The W0 changes are applied in the
 > `wt/v2-consolidation` worktree and are uncommitted at the time of writing. It records
 > the depth-4 apply-time change for mission ARSENAL-AUDIT-EXEC-001.
+>
+> Correction (2026-11-11): the "No `v0.9.75` tag was cut, nothing was merged, pushed, or
+> published" wording above is stale and is preserved as the record written at the time.
+> Tag `v0.9.75` exists — annotated tag object `70893665a48cbaabdde4a2931ba0da97bdfc878f`,
+> commit `b7a9ac04ba760f5996e0d5268af21cb713e4b11e`
+> (`feat(0.9.75): depth4 apply-time raise and audit W0/W1 fixes`), an ancestor of the
+> current `wt/v2-consolidation` HEAD (verified 2026-11-11). The original sentence is kept
+> verbatim above; this dated note is the correction, not a rewrite of history.
 
 ### Changed
 

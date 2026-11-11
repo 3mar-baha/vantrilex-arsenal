@@ -247,8 +247,9 @@ resolves every selected token), then record the resulting figures here.
 
 The migration to V2 changed which runtime surface registers this hook, not what
 the selection records. `task-dispatcher` is still `tier core` at `phase scout`,
-and the selection record still holds 145 components — 30 `core` plus 115
-`conditional`, none suspended — of which 7 are hooks. A guard moving onto a different API is not a new
+and the selection record now holds 142 components — 28 `core` plus 113
+`conditional`, of which 1 (`agent/vantrilex-facet`) is suspended, of which 8 are
+hooks. A guard moving onto a different API is not a new
 component, and nothing here may be read as one.
 
 ## Command → Agent → Skill routing map
@@ -256,18 +257,25 @@ component, and nothing here may be read as one.
 | Command | Agent | Skill |
 |---|---|---|
 | /prime | vantrilex | session-context-primer |
-| /equip | vantrilex-vanguard | vantrilex-vanguard |
+| /equip | vantrilex | vantrilex-vanguard |
 | /doctor | vantrilex-verifier | preflight-system-doctor |
 | /release | vantrilex-releaser | github-release-packager |
-| V-Architect | vantrilex-architect | vantrilex-architect |
+| V-Architect | vantrilex-architect | (none — no architect skill exists) |
 | V-Code-Reviewer | vantrilex-code-reviewer | code-review |
 | V-Red-Team | vantrilex-red-team | red-team |
 | V-FULL-AUDIT | vantrilex-verifier | verification-loop |
 | V-DOCTOR | vantrilex-verifier | preflight-system-doctor |
 | V-PROFILE | vantrilex-kit-maintainer | kit-evolution-log |
-| V-CATALOG | vantrilex-librarian | documentation-lookup |
+| V-CATALOG | vantrilex-librarian | documentation-as-tests |
 | V-RAG | vantrilex-librarian | deep-research |
 | V-HTML_DESIGN | vantrilex-ui-designer | frontend-slides |
 | V-Kit-Maintainer | vantrilex-kit-maintainer | kit-evolution-log |
-| V-Technical-Writer | vantrilex-scribe | article-writing |
+| V-Technical-Writer | vantrilex-scribe | documentation-as-tests |
 | V-Ai-Generated-Code-Security-Auditor | vantrilex-security-auditor | security-review |
+
+**Notes (2026-11-11):**
+
+- The V-Architect row carries no skill: no architect skill exists in the catalog (kind `skill`) or in `.opencode/skills/`. The cell reads `(none — no architect skill exists)` per the 2026-11-11 census repair; it names no invented id.
+- The census above is the measured reality of the selection record (`.opencode/equip.manifest.json`): 142 unique tokens — 28 `core` plus 113 `conditional`, of which 1 (`agent/vantrilex-facet`) is suspended — of which 8 are hooks; the catalog (`registry/catalog.json`) carries 2,910 records.
+- `/equip` routes the command to the Zenith seat (`vantrilex`) as the agent, with `vantrilex-vanguard` as the skill; the pre-2026-11-11 cell named the skill as the agent.
+- V-CATALOG and V-Technical-Writer route to `documentation-as-tests`; the pre-2026-11-11 cells named `documentation-lookup` and `article-writing`.

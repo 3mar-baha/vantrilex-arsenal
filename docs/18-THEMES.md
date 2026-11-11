@@ -34,15 +34,16 @@ rows are 12, and the documented map is 1 — 12 palettes == 12 catalog rows;
 | `vantrilex-leader` | oxide red `#a82a16` | vantrilex-leader | yes |
 | `vantrilex-atomic-switch` | — | (a map, not a palette) | **no** |
 
-Every palette file ships its hex inside the `base`/`dark` trees, and that hex is
-mixed-case rather than uniformly lowercase: ten palettes carry an uppercase
-`dark.hue.*.500` value (`#3a86ff` in `vantrilex-architect`, `#8b5cf6` in
-`vantrilex-security-auditor`) and the remaining two are lowercase. The one
-`accentHex` surface in the directory is the **atomic-switch map**: thirteen
-`accentHex` fields — twelve per-agent values plus a reserved duplicate of
-blazar's royal blue — every one uppercase today; the normalization at `790ef85`
-fixed the last lowercase one (`vantrilex-aether`, now `#14b8a6`). Do not expect
-one casing across both: the map is normalized, the palettes are not.
+Every palette file ships its hex inside the `base`/`dark` trees, and casing is
+now uniformly lowercase across both surfaces (corrected 2026-11-11):
+zero palettes carry an uppercase `dark.hue.*.500` value (98 measured lowercase),
+and the one `accentHex` surface in the directory — the **atomic-switch map**,
+thirteen `accentHex` fields (twelve per-agent values plus a reserved duplicate
+of blazar's royal blue) — carries zero uppercase values (13 measured lowercase).
+The normalization is complete; this paragraph supersedes the earlier mixed-case
+description, which stated that ten palettes carried an uppercase
+`dark.hue.*.500` value and that the map was normalized but the palettes were
+not.
 
 ## Agent palette
 
