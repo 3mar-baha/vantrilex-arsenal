@@ -175,6 +175,7 @@ const AGENT_PALETTE = new Map([
   ["vantrilex-scout", "#22d3ee"],
   ["vantrilex-scribe", "#10b981"],
   ["vantrilex-security-auditor", "#ef4444"],
+  ["vantrilex-skill-agent-maker", "#3b82f6"],
   ["vantrilex-skill-finder", "#10b981"],
   ["vantrilex-typescript", "#3b82f6"],
   ["vantrilex-ui-designer", "#ec4899"],
