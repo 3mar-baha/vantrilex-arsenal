@@ -10,7 +10,7 @@
     "agent": 304,
     "formatting": 13,
     "lsp": 1,
-    "cli": 64,
+    "cli": 71,
     "theme": 12,
     "prompt": 1,
     "dataset": 1,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2902
+    "total": 2909
   },
   "components": [
     {
@@ -84180,7 +84180,7 @@
       "tags": [],
       "when_to_use": "When up-to-date library or framework docs are needed before using an API",
       "phase": "scout",
-      "tier": "core",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
@@ -84197,7 +84197,7 @@
           "checked_at": "2026-10-22"
         }
       },
-      "default_selected": true,
+      "default_selected": false,
       "priority": null,
       "priority_source": null,
       "priority_set_at": null,
@@ -86558,7 +86558,7 @@
       ],
       "when_to_use": "When the agent must read a live URL the filesystem cannot reach",
       "phase": "scout",
-      "tier": "core",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
@@ -86570,7 +86570,7 @@
           "checked_at": "2026-10-22"
         }
       },
-      "default_selected": true,
+      "default_selected": false,
       "priority": null,
       "priority_source": null,
       "priority_set_at": null,
@@ -86695,7 +86695,7 @@
       ],
       "when_to_use": "When scoped file read/write is needed inside the project",
       "phase": "operate",
-      "tier": "core",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
@@ -86712,7 +86712,7 @@
           "checked_at": "2026-10-22"
         }
       },
-      "default_selected": true,
+      "default_selected": false,
       "priority": null,
       "priority_source": null,
       "priority_set_at": null,
@@ -86767,7 +86767,7 @@
       "tags": [],
       "when_to_use": "When a page must be deeply scraped or extracted rather than merely fetched",
       "phase": "scout",
-      "tier": "core",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
@@ -86784,7 +86784,7 @@
           "checked_at": "2026-10-22"
         }
       },
-      "default_selected": true,
+      "default_selected": false,
       "priority": null,
       "priority_source": null,
       "priority_set_at": null,
@@ -87579,7 +87579,7 @@
       ],
       "when_to_use": "When working with repos, issues, pull requests or releases",
       "phase": "review",
-      "tier": "core",
+      "tier": "conditional",
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
@@ -87596,7 +87596,7 @@
           "checked_at": "2026-10-22"
         }
       },
-      "default_selected": true,
+      "default_selected": false,
       "priority": null,
       "priority_source": null,
       "priority_set_at": null,
@@ -115193,6 +115193,47 @@
       "transport": null
     },
     {
+      "id": "curl",
+      "name": "Curl",
+      "kind": "cli",
+      "description": "Transfers data to or from a URL from the terminal; the fetch-MCP replacement for reading live pages and making HTTP requests (W-27). License: curl license (MIT-like). Terms: Free open source, no account.",
+      "source": "curl/curl",
+      "origin": null,
+      "install_cmd": "winget install --id cURL.cURL",
+      "version_pin": "8.23.0",
+      "category": "http-client",
+      "tags": [
+        "http",
+        "web",
+        "fetch"
+      ],
+      "when_to_use": "Use when a live URL must be read or an HTTP request must be made from the terminal. Delivery: PATH-assert - curl lands on PATH after install (or ships with the OS: Windows 10+, macOS, every Linux).",
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": "curl --version",
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": "curl.exe 8.23.0 (WinGet Links, cURL.cURL)",
+          "method": "server-bin",
+          "checked_at": "2026-11-11"
+        },
+        "command_registry": {
+          "command": "winget install --id cURL.cURL",
+          "registry": "winget",
+          "checked_at": "2026-11-11"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "usage_signals": null,
+      "transport": null
+    },
+    {
       "id": "depcheck",
       "name": "Depcheck",
       "kind": "cli",
@@ -115473,6 +115514,47 @@
       "transport": null
     },
     {
+      "id": "firecrawl-cli",
+      "name": "Firecrawl CLI",
+      "kind": "cli",
+      "description": "Deep-scrapes, crawls and extracts pages from the terminal (Firecrawl CLI; npm package firecrawl-cli installs the firecrawl executable). License: ISC. Terms: ISC license; hosted usage needs a Firecrawl API key, self-host supported.",
+      "source": "firecrawl/cli",
+      "origin": null,
+      "install_cmd": "npm i -g firecrawl-cli",
+      "version_pin": "1.29.0",
+      "category": "scraping",
+      "tags": [
+        "scraping",
+        "extract",
+        "firecrawl"
+      ],
+      "when_to_use": "Use when a page must be deeply scraped or extracted from the terminal rather than merely fetched. The npm package firecrawl-cli installs the firecrawl executable. Delivery: PATH-assert - firecrawl lands on PATH after npm install.",
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": "firecrawl --version",
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": "firecrawl-cli@1.29.0 (bin: firecrawl)",
+          "method": "server-bin",
+          "checked_at": "2026-11-11"
+        },
+        "command_registry": {
+          "command": "npm i -g firecrawl-cli",
+          "registry": "npm",
+          "checked_at": "2026-11-11"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "usage_signals": null,
+      "transport": null
+    },
+    {
       "id": "fkill-cli",
       "name": "Fkill CLI",
       "kind": "cli",
@@ -115503,6 +115585,47 @@
           "command": "npm i -g fkill-cli",
           "registry": "npm",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "usage_signals": null,
+      "transport": null
+    },
+    {
+      "id": "gh",
+      "name": "GH",
+      "kind": "cli",
+      "description": "Works GitHub repositories, issues, pull requests and releases from the terminal; the primary GitHub surface (github MCP re-tiered to conditional, W-27). License: MIT. Terms: Free MIT open source, no account beyond GitHub.",
+      "source": "cli/cli",
+      "origin": null,
+      "install_cmd": "winget install --id GitHub.cli",
+      "version_pin": "2.103.3",
+      "category": "git",
+      "tags": [
+        "git",
+        "github",
+        "devops"
+      ],
+      "when_to_use": "Use when repos, issues, pull requests or releases must be worked from the terminal. Delivery: PATH-assert - gh lands on PATH after install.",
+      "phase": "review",
+      "tier": "conditional",
+      "verify_cmd": "gh --version",
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": "gh.exe 2.87.3 (pre-existing at C:/Program Files/GitHub CLI/gh.exe; run 2026-11-11)",
+          "method": "server-bin",
+          "checked_at": "2026-11-11"
+        },
+        "command_registry": {
+          "command": "winget install --id GitHub.cli",
+          "registry": "winget",
+          "checked_at": "2026-11-11"
         }
       },
       "default_selected": false,
@@ -116103,6 +116226,47 @@
           "command": "npm i -g npm-check-updates",
           "registry": "npm",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "usage_signals": null,
+      "transport": null
+    },
+    {
+      "id": "neon",
+      "name": "Neon",
+      "kind": "cli",
+      "description": "Manages Neon serverless Postgres projects and branches from the terminal (npm package neon, the official Neon CLI). License: Apache-2.0. Terms: Free Apache-2.0; Neon service plans are separate.",
+      "source": "neondatabase/neon-pkgs",
+      "origin": null,
+      "install_cmd": "npm i -g neon",
+      "version_pin": "9.3.2",
+      "category": "backend-neon",
+      "tags": [
+        "postgres",
+        "backend",
+        "neon"
+      ],
+      "when_to_use": "Use when a Neon project or branch must be managed from the terminal. The npm package neon (neondatabase/neon-pkgs) is the official Neon CLI. Delivery: PATH-assert - neon lands on PATH after npm install.",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": "neon --version",
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": "neon@9.3.2",
+          "method": "server-bin",
+          "checked_at": "2026-11-11"
+        },
+        "command_registry": {
+          "command": "npm i -g neon",
+          "registry": "npm",
+          "checked_at": "2026-11-11"
         }
       },
       "default_selected": false,
@@ -116794,6 +116958,46 @@
       "transport": null
     },
     {
+      "id": "stripe",
+      "name": "Stripe",
+      "kind": "cli",
+      "description": "Manages Stripe webhooks, payment objects and events from the terminal (Stripe CLI). License: Apache-2.0. Terms: Free Apache-2.0; a Stripe account is required for live use.",
+      "source": "stripe/stripe-cli",
+      "origin": null,
+      "install_cmd": "winget install --id Stripe.StripeCli",
+      "version_pin": "1.55.10",
+      "category": "payments",
+      "tags": [
+        "payments",
+        "stripe"
+      ],
+      "when_to_use": "Use when a Stripe account, webhook endpoint or payment object must be managed from the terminal (Stripe CLI, github.com/stripe/stripe-cli). Delivery: PATH-assert - stripe lands on PATH after install.",
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": "stripe --version",
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": "stripe version 1.55.10",
+          "method": "server-bin",
+          "checked_at": "2026-11-11"
+        },
+        "command_registry": {
+          "command": "winget install --id Stripe.StripeCli",
+          "registry": "winget",
+          "checked_at": "2026-11-11"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "usage_signals": null,
+      "transport": null
+    },
+    {
       "id": "stylelint",
       "name": "Stylelint",
       "kind": "cli",
@@ -117274,6 +117478,47 @@
       "transport": null
     },
     {
+      "id": "ctx7",
+      "name": "ctx7",
+      "kind": "cli",
+      "description": "Fetches up-to-date library and framework documentation from the terminal (Context7 CLI: npx ctx7 library / npx ctx7 docs). License: MIT. Terms: Free MIT open source; service use per Upstash terms.",
+      "source": "upstash/context7",
+      "origin": null,
+      "install_cmd": "npm i -g ctx7",
+      "version_pin": "0.11.0",
+      "category": "docs",
+      "tags": [
+        "docs",
+        "library-docs",
+        "context7"
+      ],
+      "when_to_use": "Use when up-to-date library or framework docs must be fetched from the terminal before using an API (npx ctx7 library / npx ctx7 docs). Delivery: PATH-assert - ctx7 lands on PATH after npm install.",
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": "ctx7 --version",
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": "ctx7@0.11.0",
+          "method": "server-bin",
+          "checked_at": "2026-11-11"
+        },
+        "command_registry": {
+          "command": "npm i -g ctx7",
+          "registry": "npm",
+          "checked_at": "2026-11-11"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "usage_signals": null,
+      "transport": null
+    },
+    {
       "id": "esbuild",
       "name": "esbuild",
       "kind": "cli",
@@ -117304,6 +117549,47 @@
           "command": "npm i -g esbuild",
           "registry": "npm",
           "checked_at": "2026-10-22"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "usage_signals": null,
+      "transport": null
+    },
+    {
+      "id": "rclone",
+      "name": "rclone",
+      "kind": "cli",
+      "description": "Mirrors files to and from cloud storage remotes from the terminal (rsync for cloud storage; Google Drive supported); the googledrive MCP replacement (W-27). License: MIT. Terms: Free MIT, no account beyond the remote itself.",
+      "source": "rclone/rclone",
+      "origin": null,
+      "install_cmd": "winget install --id Rclone.Rclone",
+      "version_pin": "1.76.0",
+      "category": "sync",
+      "tags": [
+        "sync",
+        "cloud",
+        "storage"
+      ],
+      "when_to_use": "Use when files must be mirrored to or from a cloud storage remote from the terminal (rsync for cloud storage). Delivery: PATH-assert - rclone lands on PATH after install.",
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": "rclone --version",
+      "cost_note": null,
+      "verification": "verified",
+      "class": "installable",
+      "evidence": {
+        "load_proof": {
+          "surface": "rclone v1.76.0",
+          "method": "server-bin",
+          "checked_at": "2026-11-11"
+        },
+        "command_registry": {
+          "command": "winget install --id Rclone.Rclone",
+          "registry": "winget",
+          "checked_at": "2026-11-11"
         }
       },
       "default_selected": false,

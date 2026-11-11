@@ -4,30 +4,30 @@
 
 910 components.
 
-## Tier 0 — Core (8)
+## Tier 0 — Core (3)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
-| context7 | mcp | core | When up-to-date library or framework docs are needed before using an API | `npx -y @upstash/context7-mcp` |
-| fetch | mcp | core | When the agent must read a live URL the filesystem cannot reach |  |
-| filesystem | mcp | core | When scoped file read/write is needed inside the project | `npx -y @modelcontextprotocol/server-filesystem` |
-| firecrawl | mcp | core | When a page must be deeply scraped or extracted rather than merely fetc… | `npx -y firecrawl-mcp` |
-| github | mcp | core | When working with repos, issues, pull requests or releases | `npx -y @modelcontextprotocol/server-github` |
 | memory | mcp | core | When facts must persist across sessions as a knowledge graph | `npx -y @modelcontextprotocol/server-memory` |
 | openrouter | mcp | core | When a $0.00 model matrix transport is needed for a subagent; it is a r… |  |
 | sequential-thinking | mcp | core | When a problem needs structured step-by-step reasoning | `npx -y @modelcontextprotocol/server-sequential-thinking` |
 
-## Tier 1 — Conditional (18)
+## Tier 1 — Conditional (23)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
 | brave | mcp | conditional |  |  |
 | browserbase | mcp | conditional |  |  |
 | cloudflare | mcp | conditional |  |  |
+| context7 | mcp | conditional | When up-to-date library or framework docs are needed before using an API | `npx -y @upstash/context7-mcp` |
 | deepwiki | mcp | conditional |  |  |
 | discord | mcp | conditional |  |  |
 | exa | mcp | conditional |  |  |
+| fetch | mcp | conditional | When the agent must read a live URL the filesystem cannot reach |  |
 | figma-context-mcp | mcp | conditional |  |  |
+| filesystem | mcp | conditional | When scoped file read/write is needed inside the project | `npx -y @modelcontextprotocol/server-filesystem` |
+| firecrawl | mcp | conditional | When a page must be deeply scraped or extracted rather than merely fetc… | `npx -y firecrawl-mcp` |
+| github | mcp | conditional | When working with repos, issues, pull requests or releases | `npx -y @modelcontextprotocol/server-github` |
 | gmail | mcp | conditional |  |  |
 | googledrive | mcp | conditional |  |  |
 | mem0-memory-mcp | mcp | conditional |  |  |

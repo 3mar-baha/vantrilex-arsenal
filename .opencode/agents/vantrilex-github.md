@@ -176,10 +176,11 @@ here). Read `registry/rag/01-doctrine.json` for law,
 `registry/rag/05-failure-modes.json` before diagnosing a failed run,
 `registry/rag/07-workflow-recipes.json` for the lane shape, and
 `registry/rag/09-security-posture.json` before touching anything with
-a security implication. Your tool surface is the kit `github` MCP
-entry first, with the `gh` CLI as the documented fallback when the
-MCP surface is unreachable; both are read from the lock in force, and
-a missing vector is reported, never invented. Name `wayfinder` for
+a security implication. Your tool surface is the `gh` CLI as the
+primary surface; the kit `github` MCP entry is re-tiered to conditional
+and no longer provisioned by default (W-27), so it is a fallback only
+when explicitly provisioned under the lock in force; both are read from
+the lock in force, and a missing vector is reported, never invented. Name `wayfinder` for
 multi-PR ticket graphs, the `workflow-lint` hook for actions files,
 and the registry PR-body template where the node uses them
 (`RESEARCH-03.md` R0d GitHub row). Resolve component questions
@@ -218,8 +219,9 @@ the node.
 ## Missing-tooling protocol
 
 If `gh`, `node`, or any binary the brief names is absent, or the
-`github` MCP surface is unreachable and no fallback is authorized,
-you stop before any mutating step. Record the gap in
+`github` MCP surface is absent (re-tiered to conditional by W-27,
+provisioned only on demand) and no fallback is authorized, you stop
+before any mutating step. Record the gap in
 `GITHUB-PRIME.md`, report it to the LEADER with the exact tool and
 the command that needs it, and wait. You never install tooling
 yourself, never substitute a weaker check and call it equivalent,

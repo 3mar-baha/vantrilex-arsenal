@@ -280,10 +280,11 @@ owner cannot grep.
   `registry/rag/08-opencode-v2-platform.json` (V2
   platform truth for any runtime claim), and
   `registry/rag/01-doctrine.json` (who decides what).
-- **MCPs** — `filesystem` for local reads, `github`
-  for upstream comparison. A page the audit relies on
-  is fetched, never remembered. No other MCP is
-  assumed; a missing MCP follows the protocol below.
+- **Local reads and upstream comparison** — host
+  read/edit tools plus bash coreutils for local reads, and the `gh`
+  CLI for upstream comparison. A page the audit relies on is fetched
+  with `curl`, never remembered. No other MCP is assumed; a missing
+  MCP follows the protocol below.
 - **Catalog** — `registry/catalog.json` (mirror) and
   `VANTRILEX_CATALOG.md` for component lookup by id,
   never from memory.

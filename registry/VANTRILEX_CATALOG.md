@@ -1497,7 +1497,7 @@ Consolidated reference of every system component with its folder path.
 | 1487 | vs-asterism-muster | Use when a Vantrilex side agent (vantrilex-*) must open a task, to compile the per-task complement — at least 5 skills and 2 countable MCPs per task per D48… | 3mar-baha/vantrilex-arsenal |  |
 | 1488 | skill-maker | Use when a repeated job needs a reusable skill, so stop improvising the procedure and forge it through small evals before the next run. | 3mar-baha/vantrilex-arsenal |  |
 
-## MCP Servers (910 — 8 default-selected)
+## MCP Servers (910 — 3 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1754,13 +1754,13 @@ Consolidated reference of every system component with its folder path.
 | 251 | fatenava/fatenava-mcp | All-in-one destiny charting: BaZi (八字/四柱推命/사주), Zi Wei Dou Shu (… |  | `` |
 | 252 | fdcommercial/property-finance-mcp | UK property finance calculators: bridging cost (rolled-up / retained / serviced)… |  | `` |
 | 253 | felixpg13-glitch/spendshield | Payment guardrails for AI agents: spend-capped digital identity (KYA), dry-run /… |  | `` |
-| 254 | fetch ✅ | HTTP fetch and content extraction. |  | `` |
+| 254 | fetch | HTTP fetch and content extraction. |  | `` |
 | 255 | fgbytes/sansfiction-mcp | Search a books catalog (titles, authors, series, ISBNs, collections) and manage … |  | `` |
 | 256 | FI-Mihej/codebase-agent-mcp | A sub-harness (both an MCP server and an MCP client). Delegates documentation an… |  | `` |
 | 257 | FI-Mihej/text_file_read_and_refactor_mcp | Token-efficient Python stdio MCP server exposing safe text-file search, reading,… |  | `` |
 | 258 | FieldmodeLLC/scrapecheck-mcp | Verify scraped data against the live source page: send a URL, the scraped field … |  | `` |
 | 259 | figma | Figma file inspection. |  | `` |
-| 260 | filesystem ✅ | Secure scoped filesystem read/write. |  | `` |
+| 260 | filesystem | Secure scoped filesystem read/write. |  | `` |
 | 261 | FileToPDF/filetopdf-mcp | Convert files (DOCX, XLSX, PPTX, images…), HTML, and Markdown to pixel-perfect… |  | `` |
 | 262 | findsaunaplunge/mcp | Cold plunge, sauna and contrast-therapy venues across 23 US metros, with publish… |  | `` |
 | 263 | Fisher521/burn-mcp-server | Turn your read-later queue into an AI-accessible knowledge base. 26 tools to sea… |  | `` |
@@ -1793,7 +1793,7 @@ Consolidated reference of every system component with its folder path.
 | 290 | getanyapi-com/mcp | AnyAPI: hundreds of scraping and data APIs (social media, search results, Google… |  | `` |
 | 291 | getpoststack/mcp | EU-hosted email API exposed as MCP tools — send transactional and marketing em… |  | `` |
 | 292 | gingugu/gingugu | Persistent memory for AI coding assistants. Local SQLite, no cloud. 16 MCP tools… |  | `` |
-| 293 | github ✅ | GitHub repos, issues, PRs. | modelcontextprotocol/servers | `` |
+| 293 | github | GitHub repos, issues, PRs. | modelcontextprotocol/servers | `` |
 | 294 | githunt-agent/githunt-mcp | Search, rank, and analyze GitHub developers for tech recruiting. Location/role/s… |  | `` |
 | 295 | gitlab | GitLab projects and pipelines. |  | `` |
 | 296 | glasswarp/mcp-server | See and control a real Windows PC you own from any MCP client, locally or remote… |  | `` |
@@ -2370,8 +2370,8 @@ Consolidated reference of every system component with its folder path.
 | 867 | Zsadigzade/trainbud | Talk to your Garmin Connect training data — activities, sleep, heart rate, rec… |  | `` |
 | 868 | zsxh1990/pr-genius | Evidence-backed PR contribution advisor. 550+ case studies from 33 repos, 8 tool… |  | `` |
 | 869 | zxhwolfe-dev/aiworkstation-open-source-intelligence | Evidence-backed open-source AI project intelligence for agents. Nine read-only t… |  | `` |
-| 870 | context7 ✅ | Live library and framework documentation lookup by package and version | upstash/context7 | `` |
-| 871 | firecrawl ✅ | Deep web scrape, crawl and extract with LLM-powered content analysis | firecrawl/firecrawl-mcp | `` |
+| 870 | context7 | Live library and framework documentation lookup by package and version | upstash/context7 | `` |
+| 871 | firecrawl | Deep web scrape, crawl and extract with LLM-powered content analysis | firecrawl/firecrawl-mcp | `` |
 | 872 | supabase/mcp | Official Supabase MCP server. Connect via the hosted remote server at `https://mcp.supabase.com/mcp` (OAuth 2.1, no PAT) or install locally with `npx -y @supabase/mcp-server-supabase` and a personal access token. | supabase/mcp | `npx -y @supabase/mcp-server-supabase` |
 | 873 | brave |  | brave/brave-search-mcp-server |  |
 | 874 | browserbase | Allow LLMs to control a browser with Browserbase and Stagehand | browserbase/mcp-server-browserbase |  |
@@ -2774,7 +2774,7 @@ Consolidated reference of every system component with its folder path.
 |---|------|-------------|--------|--------|
 | 1 | typescript-lsp ✅ | TypeScript intelligence | typescript-language-server/typescript-language-server | `` |
 
-## CLI Tools (64 — 0 default-selected)
+## CLI Tools (71 — 0 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2842,6 +2842,13 @@ Consolidated reference of every system component with its folder path.
 | 62 | Fkill CLI | Kills processes by name or port with interactive selection. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/fkill-cli | `npm i -g fkill-cli` |
 | 63 | Trash CLI | Moves files to the system trash instead of deleting them. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | sindresorhus/trash-cli | `npm i -g trash-cli` |
 | 64 | Kill Port | Frees a TCP port by killing whatever process holds it. License: MIT. Terms: Free MIT open source, no paid tier for the CLI. | tiaanduplessis/kill-port | `npm i -g kill-port` |
+| 65 | Curl | Transfers data to or from a URL from the terminal; the fetch-MCP replacement for reading live pages and making HTTP requests (W-27). License: curl license (MIT-like). Terms: Free open source, no account. | curl/curl | `winget install --id cURL.cURL` |
+| 66 | GH | Works GitHub repositories, issues, pull requests and releases from the terminal; the primary GitHub surface (github MCP re-tiered to conditional, W-27). License: MIT. Terms: Free MIT open source, no account beyond GitHub. | cli/cli | `winget install --id GitHub.cli` |
+| 67 | ctx7 | Fetches up-to-date library and framework documentation from the terminal (Context7 CLI: npx ctx7 library / npx ctx7 docs). License: MIT. Terms: Free MIT open source; service use per Upstash terms. | upstash/context7 | `npm i -g ctx7` |
+| 68 | Firecrawl CLI | Deep-scrapes, crawls and extracts pages from the terminal (Firecrawl CLI; npm package firecrawl-cli installs the firecrawl executable). License: ISC. Terms: ISC license; hosted usage needs a Firecrawl API key, self-host supported. | firecrawl/cli | `npm i -g firecrawl-cli` |
+| 69 | rclone | Mirrors files to and from cloud storage remotes from the terminal (rsync for cloud storage; Google Drive supported); the googledrive MCP replacement (W-27). License: MIT. Terms: Free MIT, no account beyond the remote itself. | rclone/rclone | `winget install --id Rclone.Rclone` |
+| 70 | Neon | Manages Neon serverless Postgres projects and branches from the terminal (npm package neon, the official Neon CLI). License: Apache-2.0. Terms: Free Apache-2.0; Neon service plans are separate. | neondatabase/neon-pkgs | `npm i -g neon` |
+| 71 | Stripe | Manages Stripe webhooks, payment objects and events from the terminal (Stripe CLI). License: Apache-2.0. Terms: Free Apache-2.0; a Stripe account is required for live use. | stripe/stripe-cli | `winget install --id Stripe.StripeCli` |
 
 ## Themes (12 — 0 default-selected)
 
@@ -2988,8 +2995,8 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2838
-- **Default-selected:** 19
+- **Total components:** 2845
+- **Default-selected:** 15
 
 ---
 
