@@ -313,6 +313,8 @@ truth before any build dispatch. `on-demand` is outside any phase: `find-skills`
 `skill-creator` are never injected by phase and stay available to every phase. At each phase
 transition: prune, then inject — never stack two phases of kit.
 
+"per task" = selected across the whole task's phases, cumulatively; the counted set is the union of skill/MCP tokens named in the task's phase kit(s), measured against the manifest/selection record, not the injected count at one instant; Zenith's 15 counts only Zenith's own skills. Phase pruning does not reduce the per-task selection count; pruning happens for context economy, while the minimum is measured over the union of the task's phases cumulatively. (Ruling D48, `docs/15-DECISIONS.md`.)
+
 Catalog status, reported and never silent: `session-context-primer` (tier `conditional`, phase
 `docs`) and `preflight-system-doctor` (tier `conditional`, phase `build`) are catalogued and their
 phases match this map; `ponytail-debt` is catalogued with phase `operate`, also matching this map,

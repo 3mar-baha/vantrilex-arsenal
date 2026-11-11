@@ -774,7 +774,7 @@ V2 hosts only — uses the V2 permission.evaluate hook; V1 hosts receive no gran
 - **Date:** 2026-11-10
 - **Context:** Wednesday build plan §0.5, owner ruling G-02 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "'per task' = (ii) selected across the whole task's phases, cumulatively. Zenith's 15 counts only Zenith's own skills — not the three leaders' skills."
 - **Decision:** "Per task" means option (ii): the selection is made across the whole task's phases, cumulatively — not per phase, and not per seat. Zenith's 15 counts only Zenith's own skills; it does not count the three leaders' skills.
-- **Consequences:** Selection accounting for a task aggregates across all of that task's phases. The Zenith count of 15 attributes only Zenith's own skills; the three leaders' skills are excluded from that count. No gate in this entry scores anything beyond what the ruling states.
+- **Consequences:** Selection accounting for a task aggregates across all of that task's phases. The Zenith count of 15 attributes only Zenith's own skills; the three leaders' skills are excluded from that count. No gate in this entry scores anything beyond what the ruling states. Phase pruning does not reduce the per-task selection count; pruning happens for context economy, while the minimum is measured over the union of the task's phases cumulatively.
 
 ## D49 — G-03: third facet = (b) the long facet; "without intervention / without asking"
 

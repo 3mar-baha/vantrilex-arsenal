@@ -633,6 +633,8 @@ Dispatch owns exactly one decision — the phase-kit map, meaning which locked c
 in which phase — and it takes that decision before anything is injected. It never restates
 doctrine's laws or phase map; it names them as the governance this dispatch serves.
 
+"per task" = selected across the whole task's phases, cumulatively; the counted set is the union of skill/MCP tokens named in the task's phase kit(s), measured against the manifest/selection record, not the injected count at one instant; Zenith's 15 counts only Zenith's own skills.
+
 **Input.** The task description as the owner phrased it. For scenarios 3, 4 and 5, also the phase-kit
 plan already in effect on the open task: its ordered phase list, the components assigned per phase,
 and which of those phases are already complete.
