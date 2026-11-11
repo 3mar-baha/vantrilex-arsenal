@@ -601,10 +601,12 @@ const MAX_ANCHOR_VALUE_CHARS = 400
  * unconditional order to load the vanguard skill would order a denied call.
  * The first line is therefore conditional, and it names the fallback: a seat
  * that denies the skill records the refusal and applies the scenario rule
- * itself instead of loading the playbook.
+ * itself instead of loading the playbook. The same first line carries the
+ * calling rank's muster skill in the identical conditional shape (W-12,
+ * D52): run it once at the start, or record the denial and apply the rule.
  */
 const TASK_DISPATCH_INSTRUCTION = [
-  "[arsenal] task-dispatcher: classify this prompt into exactly one scenario and run that scenario's playbook in the vantrilex-vanguard skill when the seat allows it; if the seat denies the skill, record it and apply the rule. If the prompt is genuinely ambiguous, ask the user one short clarifying question before proceeding.",
+  "[arsenal] task-dispatcher: classify this prompt into exactly one scenario and run that scenario's playbook in the vantrilex-vanguard skill when the seat allows it; if the seat denies the skill, record it and apply the rule. Run the calling rank's muster skill once at the start, when the seat allows it: vs-zenith-muster for vantrilex, vs-syzygy-muster for aether/blazar/pulsar, vs-asterism-muster for vantrilex-* side agents; if the seat denies the skill, record it and apply the rule. If the prompt is genuinely ambiguous, ask the user one short clarifying question before proceeding.",
   "1 NEW TASK (no task in flight): Vanguard task-dispatch from scratch. 2 CONTINUATION (same task, unchanged): silent no-op; keep the existing phase-kit plan.",
   "3 TASK MODIFICATION (same task, changed): Vanguard re-dispatch on the modified task and state what changed.",
   "4 CONTINUATION WITH MODIFICATION: completed phases stay locked; re-plan the remaining phases only.",
@@ -2953,6 +2955,95 @@ export const stripDispatchSentinel = (text: string): { stripped: boolean; userTe
 }
 
 /* ===========================================================================
+ * 20c. Forcing-skill muster compile (D52, V2 prompt hook)
+ * ==========================================================================
+ *
+ * D52 fixes how the three forcing skills are consumed: ordinary skill files
+ * under `.opencode/skills/` (vs-zenith-muster / vs-syzygy-muster /
+ * vs-asterism-muster), compiled into the dispatcher's prompt text at call
+ * time, advisory only — the session "prompt" hook carries no typed rejection
+ * API (P1-R0). This compile never throws and never blocks a dispatch: an
+ * unresolvable rank injects nothing, and an unreadable skill file is
+ * replaced by a one-line note. Both are fail-open by design. The token
+ * count travels via `log` (records where a client exists) and
+ * `pendingWarnings` (delivered once on the next tool result); it never
+ * blocks and never rejects the dispatch.
+ *
+ * The prompt callback stays synchronous, so the observed-agent cache is the
+ * only agent source readable here: a fresh session's first prompt carries no
+ * muster text until a tool, shell or permission event names its agent, and
+ * every observed dispatch after that does. A host session-agent reader could
+ * be wired in later behind the same fail-open shape; this module does not
+ * require one.
+ *
+ * The compiled text is a digest, not the skill body: the rulings the
+ * dispatch must read at the start (D48, D51, D53), the source path and the
+ * characters read. The full bodies stay behind the seat's skill gate, and
+ * this hook's per-turn token budget is not spent restating them.
+ * ========================================================================= */
+
+/** D48, D51 and D53, carried verbatim into the compiled text. */
+const MUSTER_D48 = "D48: per task = selected across phases, cumulatively (never per phase, never per seat)"
+const MUSTER_D53 = "D53: domain tool by performance — a domain MCP normally, a CLI if it performs better"
+
+const MUSTER_SKILLS_DIR = ".opencode/skills"
+const MUSTER_SKILL_MAX_BYTES = 64 * 1024
+const MUSTER_TOKEN = /(skill|mcp)\/[A-Za-z0-9][A-Za-z0-9._/-]*/g
+
+const MUSTER_BY_AGENT: ReadonlyMap<string, { rank: string; skill: string }> = new Map([
+  ["vantrilex", { rank: "zenith", skill: "vs-zenith-muster" }],
+  ["aether", { rank: "syzygy", skill: "vs-syzygy-muster" }],
+  ["blazar", { rank: "syzygy", skill: "vs-syzygy-muster" }],
+  ["pulsar", { rank: "syzygy", skill: "vs-syzygy-muster" }],
+])
+
+/** Rank of the calling agent: vantrilex → zenith; aether/blazar/pulsar → syzygy; vantrilex-* → asterism. */
+const musterTargetForAgent = (agent: string): { rank: string; skill: string } | null => {
+  const exact = MUSTER_BY_AGENT.get(agent)
+  if (exact !== undefined) return exact
+  return agent.startsWith("vantrilex-") ? { rank: "asterism", skill: "vs-asterism-muster" } : null
+}
+
+/** Count the named `skill/…` and `mcp/…` tokens in the compiled text. Advisory only. */
+const countMusterTokens = (text: string): { skills: number; mcps: number } => {
+  let skills = 0
+  let mcps = 0
+  for (const match of text.matchAll(MUSTER_TOKEN)) {
+    if (match[1] === "skill") skills += 1
+    else mcps += 1
+  }
+  return { skills, mcps }
+}
+
+type CompiledMuster = { rank: string; skill: string; text: string }
+
+/**
+ * Compile the calling rank's muster skill into dispatch-prompt text at call
+ * time. Reads the skill file on every call; returns null when the rank
+ * cannot be resolved from the agent. Never throws.
+ */
+const compileMuster = (ctx: ArsenalContext, agent: string): CompiledMuster | null => {
+  try {
+    const target = musterTargetForAgent(agent)
+    if (target === null) return null
+    const rel = `${MUSTER_SKILLS_DIR}/${target.skill}/SKILL.md`
+    if (ctx.rt.fs === null || ctx.rt.path === null) {
+      return { ...target, text: `[arsenal] ${target.skill} (rank ${target.rank}): no filesystem in this runtime; muster compile skipped — advisory, fail-open.` }
+    }
+    const read = readTextFile(ctx.rt, ctx.rt.path.join(ctx.root, rel), MUSTER_SKILL_MAX_BYTES)
+    if (read.status === "fail") {
+      return { ...target, text: `[arsenal] ${target.skill} (rank ${target.rank}): unreadable (${read.reason}); muster compile skipped — advisory, fail-open.` }
+    }
+    // The D51 clause is repeated verbatim at the counting log line below;
+    // keep the two copies byte-identical.
+    const text = `[arsenal] ${target.skill} (rank ${target.rank}): run once at the start of the task. Compiled at dispatch time from ${rel} (${read.value.length} chars read) per D52; advisory only — the prompt hook cannot reject a dispatch. ${MUSTER_D48}. D51: re-select until success; after 3 failed selections report to the leader, who dispatches a NEW side agent with the same name. ${MUSTER_D53}.`
+    return { ...target, text }
+  } catch {
+    return null
+  }
+}
+
+/* ===========================================================================
  * 20b. Seat deny overlay (permission "evaluate")
  * =========================================================================
  *
@@ -3960,6 +4051,22 @@ const setup: PluginDefinition["setup"] = async (ctx: PluginContextLike): Promise
           const state = sessionState(arsenal, event?.sessionID ?? "anonymous")
           state.lastIntent = redactIntent(sentinel.userText)
           draft.text = `${userText}\n\n${instruction}`
+          // D52: compile the calling rank's muster skill into the dispatch
+          // text at call time. Advisory only — never throws, never blocks. The
+          // rank resolves from the observed-agent cache (the one synchronous
+          // agent source); a cache miss fails open and injects nothing. The
+          // count derives from the same compiled text; `log` records it where
+          // a client exists (V1) and `pendingWarnings` delivers it once on the
+          // next tool result on both surfaces — the same channel every other
+          // non-throwing verdict uses.
+          const compiled = compileMuster(arsenal, state.agent)
+          if (compiled !== null) {
+            const counts = countMusterTokens(compiled.text)
+            const countLine = `[arsenal] muster-count rank=${compiled.rank} skill=${compiled.skill} skillTokens=${counts.skills} mcpTokens=${counts.mcps} — D51: re-select until success; after 3 failed selections report to the leader, who dispatches a NEW side agent with the same name`
+            log(arsenal, "info", countLine)
+            arsenal.pendingWarnings.push(countLine)
+            draft.text = `${draft.text}\n\n${compiled.text}`
+          }
         }
       }
       // Plan-guard append runs on the resulting draft, exactly where the retired

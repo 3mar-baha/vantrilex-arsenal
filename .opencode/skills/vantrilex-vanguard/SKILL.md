@@ -629,7 +629,7 @@ with no silent generic lane anywhere.
 The task-dispatcher hook — bound to the OpenCode V2 session `prompt` hook, and the only one of the seven
 hooks that fires on V2 — announces one of five scenarios and points here. It injects no kit and
 carries no plan of its own, so everything an agent needs in order to act lives in this section.
-Dispatch owns exactly one decision — the phase-kit map, meaning which locked components are injected
+Dispatch owns exactly one decision — the phase-kit map, meaning which selected components are injected
 in which phase — and it takes that decision before anything is injected. It never restates
 doctrine's laws or phase map; it names them as the governance this dispatch serves.
 
@@ -648,10 +648,10 @@ phase and is never injected by phase. An illustrative sample of the selection as
 | Phase | Components carrying this phase in the selection record (sample) |
 |---|---|
 | scout | fetch, context7 (mcp, plugin), firecrawl, session-start, task-dispatcher, vantrilex-prime, vantrilex-vanguard |
-| docs | grill-me, technical-writer, documentation-as-tests |
-| plan | ask-matt, wayfinder, sequential-thinking, architect, babel-bridge |
-| build | tdd, ponytail, openrouter, typescript-lsp, feature-dev, long-running-process-guard, typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits, lenis, og-image, og-image, time-capsule-test, vantrilex-design-variations |
-| review | code-review (skill, plugin), ponytail-review, github, security-guidance, code-reviewer, ai-generated-code-security-auditor, red-team (skill, agent), skill-shadow, a11y-audit |
+| docs | grill-me, vantrilex-scribe, documentation-as-tests |
+| plan | ask-matt, wayfinder, sequential-thinking, vantrilex-architect, babel-bridge |
+| build | tdd, ponytail, openrouter, typescript-lsp, feature-dev, long-running-process-guard, typescript-check-after-editing-ts-tsx-files, auto-format-js-ts-files-with-prettier-after-edits, lenis, og-image, time-capsule-test, vantrilex-design-variations |
+| review | skill/code-review, plugin/code-review, ponytail-review, github, security-guidance, code-reviewer, vantrilex-security-auditor, red-team (skill, agent), skill-shadow, vantrilex-a11y-audit |
 | operate | ponytail-audit, filesystem, memory, commit-commands, pre-compact, persist-session-state-on-end, vantrilex-doctrine, kit-evaluation-journal, kit-evolution-log, kill-switch-document |
 | on-demand | find-skills, skill-creator |
 ```
@@ -665,8 +665,8 @@ the catalog and the selection carry matching rows. Until then the live files dec
 never a printed row.
 
 No mapping printed in this skill governs a dispatch. Vanguard derives the
-phase-kit map from the lock entries in force on every run, and a mismatch
-between a printed table and the lock resolves in favour of the lock file.
+phase-kit map from the selection record (`.opencode/equip.manifest.json`) in force on every run, and a mismatch
+between a printed table and the selection record resolves in favour of the selection record.
 
 **Announce, then inject.** Print the phase-kit map before the first injection and let the owner read
 it. A plan presented after the kit is already in context cannot be course-corrected without spending
