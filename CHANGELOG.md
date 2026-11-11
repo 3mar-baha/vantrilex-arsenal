@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [0.9.83] — 2026-11-11 — tag v0.9.83 — Wednesday build plan close-out (W-01..W-34): forcing skills, plugin muster compiler, minimums gate, MCP→CLI migration, v5 schema, priority backfill, install fix
+
+> Status: this section records the Wednesday build plan (W-01–W-34) released as `v0.9.83` on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001. Known reds (documented in `docs/0.9.83-readiness-2026-11-11.md` and not hidden): `verify-catalog.mjs` exit 1 BY DESIGN — min-skills zenith 14 of 15 (deficit 1); min-mcps 0 of the rank floor on countable MCPs (every selected MCP row carries `transport: null`; the registry holds no health-check records); `load-proof/existence` 1,149 of 1,274 surfaces resolve nowhere offline. `verify-minimums.mjs` exit 2 under no-arg battery invocation (a D65-era usage collision — the battery calls the script without the required `--task`). `run-battery.mjs` exits 1 with 1/3 sections failing. The reds are the measurement for this version, not hidden or lowered.
 
 ### Fixed
 
@@ -17,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > This section indexes the Wednesday build plan items W-01..W-34 against the commit that landed each one, so the plan's items trace to the tree. The Wednesday build plan is not a repo file; nothing below implies a release, a tag or a publish.
 >
-> Class is `SKIP` for every row: the plan itself is not a repo file and is not a released surface — the rows exist for traceability only. W-01 has no commit in the scribe's table (the plan itself opened the week); W-33 is this governance-records item — uncommitted per its lane's no-commit law; W-34 is pending at the time of writing. W-31 is recorded as landed, `fa952b3`, not as the earlier `fa952b4` guess that did not resolve.
+> Class is `SKIP` for every row: the plan itself is not a repo file and is not a released surface — the rows exist for traceability only. W-01 has no commit in the scribe's table (the plan itself opened the week); W-33 is this governance-records item — uncommitted per its lane's no-commit law; W-34 landed (`559c0d7`, `2024188`, `bb4daa1`). W-31 is recorded as landed, `fa952b3`, not as the earlier `fa952b4` guess that did not resolve.
 
 | Item | Commit | Class | What landed |
 |---|---|---|---|
@@ -53,8 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | W-30 | ffa3d73 | SKIP | feat(verify): load-proof existence gate; repoint 5 named rows to true upstream surfaces; D70 |
 | W-31 | fa952b3 | SKIP | docs(doctrine): phase map [PROPOSED] + design phase; extend cross-check; D71 |
 | W-32 | 1712a21 | SKIP | fix(install): branch-install docs + UPGRADE.md + facet command; profiles gate; D72 |
-| W-33 | this item | SKIP | governance-records pass: this CHANGELOG index, corrections to the obstacles report, the zenith index, the task-dispatch routing map, the themes casing note, the Tier-0 census (both overviews), D73 — uncommitted per its lane's no-commit law |
-| W-34 | pending | SKIP | pending at the time of writing |
+| W-33 | b9dffd6 | SKIP | docs(governance): W-33 governance pass — records reconciled; dated corrections; D73 |
+| W-34 | 559c0d7, 2024188, bb4daa1 | SKIP | Final battery + release-readiness close-out; readiness file committed; reds named in `docs/0.9.83-readiness-2026-11-11.md` |
 
 ## [0.9.82] — 2026-11-08 — tag v0.9.82 — Audit W6 final: Node 22 LTS, og-image merge, vs-zenith rename, claude-code annotations, D46 shell grant
 
