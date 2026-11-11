@@ -221,10 +221,14 @@ block a release.*
 ## Quickstart
 
 ```text
-git clone https://github.com/3mar-baha/vantrilex-arsenal.git
+git clone -b wt/v2-consolidation https://github.com/3mar-baha/vantrilex-arsenal.git
 cd vantrilex-arsenal
 git rev-parse HEAD          # pin this commit; the kit is version-pinned
 ```
+
+Main is behind the release until the branch merges; do not install from main.
+Install from the `wt/v2-consolidation` branch (or the `v0.9.82` release tag),
+never from `main`.
 
 Then, in the order the four skills are meant to run:
 

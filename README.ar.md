@@ -223,10 +223,13 @@ Vanguard الذي يثبّت مكوّنات متحقَّقًا منها ويول
 ## البداية السريعة
 
 ```text
-git clone https://github.com/3mar-baha/vantrilex-arsenal.git
+git clone -b wt/v2-consolidation https://github.com/3mar-baha/vantrilex-arsenal.git
 cd vantrilex-arsenal
 git rev-parse HEAD          # ثبّت هذا الالتزام؛ الطقم مثبَّت بإصدار محدَّد
 ```
+
+الفرع `main` متأخر عن الإصدار حتى يُدمج الفرع؛ لا تثبّت من `main`. ثبّت من
+فرع `wt/v2-consolidation` (أو من وسم الإصدار `v0.9.82`)، ولا تثبّت من `main` مطلقًا.
 
 ثم، بالترتيب الذي صُمّمت المهارات الأربع لتعمل به:
 

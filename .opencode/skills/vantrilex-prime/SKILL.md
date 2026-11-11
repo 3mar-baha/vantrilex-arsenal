@@ -112,9 +112,17 @@ remote or discards local changes on its own authority.
 Run exactly these two commands, in this order, from the directory that will hold the clone:
 
 ```sh
-git clone https://github.com/3mar-baha/vantrilex-arsenal.git
+git clone -b wt/v2-consolidation https://github.com/3mar-baha/vantrilex-arsenal.git
 git rev-parse HEAD
 ```
+
+The clone source is the `wt/v2-consolidation` branch, never `main`: main is behind
+the release until the branch merges. Expected HEAD at the time of this writing
+(2026-11-11): branch tip `fa952b3573f1d6c68378ff11a72f14f0abfcda19`; the release tag
+`v0.9.82` (annotated, tag object `1ae75f924064005de9086724babcbc3e239e03a4`) checks
+out commit `4024f9eb797b9e7bcebb82fbb55f7d71bb8fac85`. The branch tip moves; the
+release tag does not. If HEAD is not the release tag, check out the release instead —
+`git checkout v0.9.82` — and report that pin; do not install from `main`.
 
 Report the commit id that `git rev-parse HEAD` actually printed, character for character. Memory is
 unreliable about hashes, so a commit id is never reconstructed from memory, never shortened into a

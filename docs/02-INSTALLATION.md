@@ -9,7 +9,7 @@ described in [04-VANGUARD.md](04-VANGUARD.md).
 | Requirement | Minimum | Notes |
 |---|---|---|
 | `git` | any recent version | Worktrees are required for parallel work (see [11-WORKTREES.md](11-WORKTREES.md)) |
-| Node | version 20 or later | CI pins Node 25; the tooling is dependency-free ESM and needs no install step |
+| Node | version 22 or later | CI pins Node 25; the tooling is dependency-free ESM and needs no install step |
 | `gh` | authenticated | Needed only for the release lane (see [14-CI-RELEASE.md](14-CI-RELEASE.md)) |
 
 There is deliberately nothing else: no Python, no package installation, no
@@ -33,6 +33,37 @@ mirror matches the sources, so `registry/catalog.json` and every per-kind
 a red gate at clone time means the branch is mid-migration, not that the
 gates are advisory.
 
+Install from the `wt/v2-consolidation` branch, never from `main`: main is
+behind the release until the branch merges. The full clone command lives in
+the Quickstart of `README.md` / `README.ar.md`. Expected HEAD at the time of
+writing (2026-11-11): branch tip `fa952b3573f1d6c68378ff11a72f14f0abfcda19`;
+the release tag `v0.9.82` (annotated, tag object `1ae75f924064005de9086724babcbc3e239e03a4`)
+checks out commit `4024f9eb797b9e7bcebb82fbb55f7d71bb8fac85`. The
+branch tip moves and the tag does not, so `git checkout v0.9.82` is the
+supported alternative to the moving branch — after the checkout, the expected
+HEAD is the tag commit. Installing the git hooks is a mandatory step after
+every clone, not an optional one: `bash scripts/setup-git-hooks.sh` arms the
+secret scanner, the `.env` guard and the AI-attribution gate for every commit
+from then on. The Node floor is 22 — not 20 — and the schema both sides must
+satisfy is now `registry/schema/catalog-v5.schema.json` (`catalog_version` is
+`5` in `registry/catalog.json`), documented in
+[06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md). Upgrading an existing install
+is a different procedure, documented in [UPGRADE.md](UPGRADE.md) — it is a
+delete-old-install-latest procedure, never an in-place edit.
+
+## Choosing a facet — an install-time choice
+
+The Arsenal ships one seat, `vantrilex-facet`, whose three facets differ only
+in required permissions; the thinking is identical for every facet. `cautious`
+asks often and holds no edit, bash or task permission. `balanced` asks before
+edit, bash and task calls and is the default. `long` carries full edit, bash
+and task permission for longer runs — "without intervention / without asking",
+the owner-confirmed meaning of D49 (2026-11-10), not only shell commands. Which
+facet to install under is an install-time choice, not a per-task toggle; it is
+switchable at any time with `node scripts/switch-facet.mjs list` and
+`node scripts/switch-facet.mjs set <cautious|balanced|long>`. The command file
+is `.opencode/commands/vantrilex-facet.md`.
+
 Shell scripts are checked the same way CI checks them:
 
 ```bash
@@ -48,7 +79,7 @@ from `registry/VANTRILEX_CATALOG.md` plus the eight JSONL sidecars under
 `registry/data/`, never hand-edited (see
 [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md)). Vanguard reads the JSON
 at selection time; humans read the Markdown. The schema that both sides must
-satisfy is `registry/schema/catalog-v2.schema.json`, documented in
+satisfy is `registry/schema/catalog-v5.schema.json`, documented in
 [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md).
 
 ## How a target project consumes the plugin
@@ -60,7 +91,7 @@ Vanguard detects the project state, selects the Tier-0 core plus the Tier-1
 components the stack requires, installs them with real commands, pins them in
 the project's selection record (`.opencode/equip.manifest.json`), and verifies each one loads. The operator entry points
 are the four command files under `.opencode/command/` (singular), and the
-sixteen command roots in total also include the twelve workflow commands under
+seventeen command roots in total also include the thirteen workflow commands under
 `.opencode/commands/` (plural):
 
 | Command file | Operator intent |
@@ -70,7 +101,7 @@ sixteen command roots in total also include the twelve workflow commands under
 | `.opencode/command/prime.md` | Emit the session CONTEXT ANCHOR at session start |
 | `.opencode/command/release.md` | Run the release lane |
 
-The twelve workflow commands under `.opencode/commands/` (plural root):
+The thirteen workflow commands under `.opencode/commands/` (plural root):
 
 | Command file | Operator intent |
 |---|---|
@@ -86,10 +117,11 @@ The twelve workflow commands under `.opencode/commands/` (plural root):
 | `.opencode/commands/V-Kit-Maintainer.md` | Consult the kit-maintainer specialist in read-only Q&A |
 | `.opencode/commands/V-Red-Team.md` | Consult the red-team specialist in read-only Q&A |
 | `.opencode/commands/V-Technical-Writer.md` | Consult the technical-writer specialist in read-only Q&A |
+| `.opencode/commands/vantrilex-facet.md` | List the three facets and switch the vantrilex-facet seat between cautious, balanced and long |
 
 The two roots are deliberately distinct: `.opencode/command/` carries the four
-operator entry points, and `.opencode/commands/` carries the twelve workflow
-commands. A fresh clone can therefore reach every one of the sixteen roots.
+operator entry points, and `.opencode/commands/` carries the thirteen workflow
+commands. A fresh clone can therefore reach every one of the seventeen roots.
 
 Host discovery (<https://opencode.ai/v2/docs/commands/>): project commands live in
 `.opencode/commands/`; "The legacy singular directory `command/` is also

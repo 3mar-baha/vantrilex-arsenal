@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Install-from-branch is the documented install source (W-32).** The Quickstart in `README.md` and `README.ar.md` clones `wt/v2-consolidation` with `-b` and states that `main` is behind the release until the branch merges; `vantrilex-prime` P.3, `docs/02-INSTALLATION.md` and the new `docs/UPGRADE.md` (manual delete-old-install-latest upgrade procedure) carry the same rule. The new `.opencode/commands/vantrilex-facet.md` switches the `vantrilex-facet` seat between cautious, balanced and long (D49 gloss); `.opencode/equip.manifest.json` selects `agent/vantrilex-facet` under scout with a suspension (the local facet seat has no catalog row yet). `verify-catalog.mjs` gained `profiles/install-profiles` (fails on any profile module token with no catalog row). No release, tag or publish is made by this entry.
+
 ## [0.9.82] — 2026-11-08 — tag v0.9.82 — Audit W6 final: Node 22 LTS, og-image merge, vs-zenith rename, claude-code annotations, D46 shell grant
 
 > Status: this section records the 0.9.82 slice released on branch `wt/v2-consolidation` for mission ARSENAL-AUDIT-EXEC-001 (5 items: MFT-133, MFT-018/SF-23, SF-22, SF-27, D46).

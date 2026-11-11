@@ -31,6 +31,7 @@
  *   .opencode/agents/*.md            agent definitions             (P5)
  *   .opencode/skills/<id>/SKILL.md   skill folders                 (P6)
  *   .opencode/equip.manifest.json    the Q-25 selection record     (P5–P8)
+ *   manifests/install-profiles.json  the install profiles           (profiles/install-profiles)
  *
  * The deep SKILL.md parse (headings, frontmatter, forbidden patterns) belongs
  * to scripts/verify-skills.mjs and is not repeated here. This script only
@@ -138,6 +139,7 @@ const CATALOG_PATH = path.join(ROOT, "registry", "catalog.json");
 const DATA_DIR = path.join(ROOT, "registry", "data");
 const CANDIDATES_DIR = path.join(ROOT, "registry", "candidates");
 const MANIFEST_PATH = path.join(ROOT, ".opencode", "equip.manifest.json");
+const PROFILES_PATH = path.join(ROOT, "manifests", "install-profiles.json");
 const ARSENAL_PATH = path.join(ROOT, ".opencode", "plugin", "arsenal.ts");
 const AGENTS_DIR = path.join(ROOT, ".opencode", "agents");
 const SKILLS_DIR = path.join(ROOT, ".opencode", "skills");
@@ -2242,6 +2244,43 @@ const main = () => {
             " suspended token(s) never inject; on-demand never injects and is absent by design"
           : "derivation placed " + placed + " of " + placeable + " placeable selected tokens"
     );
+  }
+
+  // Profiles: every module token in manifests/install-profiles.json resolves
+  // to a catalog row. The profiles select existing components, never new
+  // names; an unknown id in a profile is a defect at review, not a gap to
+  // discover at equip time.
+  let profilesDoc = null;
+  try {
+    profilesDoc = readJson(PROFILES_PATH);
+  } catch (error) {
+    record("profiles/install-profiles", "FAIL", "cannot read manifests/install-profiles.json: " + String(error.message));
+  }
+  if (profilesDoc !== null) {
+    const profiles = profilesDoc.profiles;
+    if (isPlainObject(profiles) === false) {
+      record("profiles/install-profiles", "FAIL", "manifests/install-profiles.json carries no profiles object");
+    } else {
+      const unknownProfileTokens = [];
+      let profileTokens = 0;
+      for (const profileName of Object.keys(profiles)) {
+        const profile = profiles[profileName];
+        const modules = isPlainObject(profile) && Array.isArray(profile.modules) ? profile.modules : [];
+        for (const token of modules) {
+          profileTokens += 1;
+          if (typeof token !== "string" || index.has(token) === false) {
+            unknownProfileTokens.push(profileName + ": " + String(token));
+          }
+        }
+      }
+      record(
+        "profiles/install-profiles",
+        unknownProfileTokens.length === 0 ? "PASS" : "FAIL",
+        unknownProfileTokens.length === 0
+          ? profileTokens + " profile module token(s) across " + Object.keys(profiles).length + " profile(s) all resolve to catalog rows"
+          : unknownProfileTokens.length + " unknown module token(s) in manifests/install-profiles.json: " + samples(unknownProfileTokens, (token) => token)
+      );
+    }
   }
 
   // Per-kind shape proofs: the retired lock verifier's remaining checks, run
