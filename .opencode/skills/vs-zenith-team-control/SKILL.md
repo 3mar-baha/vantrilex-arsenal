@@ -91,6 +91,29 @@ in order.
    pair. Control T15 holds on every work order: each order carries its own
    tooling statement naming the tools the seat may use for that task.
 
+### T15 tooling statement (format)
+
+Every work order T15 governs carries its tooling statement in this fixed
+shape (D62, 2026-11-11):
+
+```text
+T15 tooling statement — work order <id>:
+  rank: <zenith|syzygy|asterism>
+  skills (≥N): <skill/id, ...> (count: n/N)
+  mcps (≥M, countable per D54): <mcp/id, ...> (count: m/M)
+  domain tool (D53, performance-chosen): <id + transport (mcp|cli)>
+  muster selection ref: <compiled selection id / dispatch-log line>
+```
+
+`N` and `M` are the rank minimums from D48 (Zenith ≥15 skills and ≥5
+countable MCPs, Syzygy ≥10 skills and ≥4, Asterism ≥5 skills and ≥2,
+counted cumulatively across the task's phases, Zenith's count carrying only
+Zenith's own skills); a countable MCP is one that passes D54. The muster
+selection ref cites the dispatch-log line recorded under W-20 (D63). The
+statement is prose only: it cannot refuse a below-minimum work order —
+refusal belongs to the selection-record gate and the refusal lane (W-21,
+W-24), never to this control.
+
 6. **Failure contract.** A register older than the current session anchor
    means the lead is blind: stop, refresh, then proceed. A seat without a
    model or without variables is refused: escalate to the owner instead of
