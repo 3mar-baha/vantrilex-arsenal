@@ -10,6 +10,50 @@
   // on tokens and buffer only. There is deliberately NO `instructions`
   // array: the V2 runtime auto-loads AGENTS.md and AGENTS.md alone, so an
   // instructions array would be a second, inert source of directives.
+  // Vantrilex Arsenal plugin entry (W-29).
+  // Measured 2026-11-11: the npm registry returns 404 for both
+  // "@3mar-baha/vantrilex-arsenal" and "vantrilex-arsenal", and the V2
+  // runtime skips a path to a single file (local plugin entries must be
+  // directories; see https://opencode.ai/v2/docs/plugins/). The in-tree
+  // plugin lives at .opencode/plugin/arsenal.ts — a file, not a package.
+  // The value below is therefore the dispatch brief's placeholder, UNVERIFIED
+  // as an installable coordinate: it is not claimed to install and is not a
+  // working Arsenal install. Replace it with a verified package or a local
+  // plugin directory once one exists, and record the verification then.
+  // Note: the live config schema (https://opencode.ai/config.json, top-level
+  // additionalProperties: false) names this key `plugins` (plural) and marks
+  // singular `plugin` deprecated; the W-29 brief pinned the singular key, so
+  // the spelling is flagged to the Guide for arbitration, not silently
+  // swapped here.
+  "plugin": [
+    "@3mar-baha/vantrilex-arsenal"
+  ],
+  // W-29: MCP servers, config-first.
+  // Filled by scripts/emit-mcp-config.mjs from .opencode/equip.manifest.json
+  // (the mcp/ tokens) + registry/catalog.json. Every entry is D54-gated at
+  // emit time: version_pin required, plus a resolvable package
+  // (install_cmd → stdio) or a `remoteUrl` field (→ sse). Anything else is
+  // named on stdout and REFUSED, never silently skipped.
+  // Commented example — placeholder, not a claim that this host wires it
+  // (this is the exact entry the W-29 emitter wrote for this repo's
+  // selection on 2026-11-11):
+  //   "memory": {
+  //     "type": "stdio",
+  //     "command": "npx",
+  //     "args": ["-y", "@modelcontextprotocol/server-memory"],
+  //     "env": []
+  //   }
+  // Entries appear only for selected MCPs that clear the pin+command bar;
+  // measured 2026-11-11: 1 of 10 (memory, pin 1.0.0), and none of the 10 is
+  // countable under full D54 (no transport field, no health-check record).
+  // Like `plugin`, this key (`mcpServers`) is NOT in the live V2 schema,
+  // which spells MCP as `mcp.servers.<name>` ({type: "local", command:
+  // string[]} | {type: "remote", url}) under an additionalProperties:false
+  // top level; the W-29 brief pinned `mcpServers`, so the Guide owns the
+  // rename ruling. Left exactly as briefed.
+  "mcpServers": {
+    // placeholder — intentionally empty; the W-29 emitter fills this block
+  },
   "default_agent": "blazar",
   "agents": {
     "build": {
