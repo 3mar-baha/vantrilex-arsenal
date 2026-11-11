@@ -24,7 +24,8 @@
       "skill/vantrilex-vanguard",
       "skill/vantrilex-workflow-forge",
       "skill/vs-zenith-muster",
-      "skill/vs-syzygy-muster"
+      "skill/vs-syzygy-muster",
+      "skill/vs-asterism-muster"
     ],
     "docs": [
       "agent/vantrilex-librarian",
