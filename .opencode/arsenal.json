@@ -1,4 +1,5 @@
 {
+  "taskDispatcher": { "enabled": true },
   "docsGuard": {
     "mode": "warn",
     "enabled": true,

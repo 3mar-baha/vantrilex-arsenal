@@ -39,6 +39,8 @@ Shell scripts are checked the same way CI checks them:
 shellcheck scripts/*.sh .githooks/*
 ```
 
+To disarm the plugin mid-session, set `VANTRILEX_DISABLED=1` or create `.opencode/.vantrilex-disable`; to disarm the dispatcher only, set `taskDispatcher.enabled: false` in `.opencode/arsenal.json`.
+
 ## What `registry/catalog.json` is for
 
 `registry/catalog.json` is the machine mirror of the catalog. It is generated
