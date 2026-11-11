@@ -22,7 +22,8 @@
       "prompt/vantrilex-install-prompt",
       "skill/vantrilex-prime",
       "skill/vantrilex-vanguard",
-      "skill/vantrilex-workflow-forge"
+      "skill/vantrilex-workflow-forge",
+      "skill/vs-zenith-muster"
     ],
     "docs": [
       "agent/vantrilex-librarian",
