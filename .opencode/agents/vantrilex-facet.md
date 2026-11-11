@@ -89,6 +89,8 @@ permission:
   grep: allow
 ```
 
+The owner's confirmed meaning of "without intervention / without asking" (D49, owner ruling 2026-11-10) is full permissions — everything executes without asking for permission, not only shell commands; the no-permission facet is cautious, not long.
+
 The long facet carries full edit, bash, and task permission for longer
 runs without intervention, bounded by the two destructive denies above.
 Destructive commands additionally pass the approval interlock
