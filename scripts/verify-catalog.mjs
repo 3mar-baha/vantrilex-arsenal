@@ -2042,6 +2042,113 @@ const main = () => {
     );
   }
 
+  // P9 (W-21): per-rank selection minimums over the selection record.
+  // "Per task" is option (ii): selected across the whole task's phases,
+  // cumulatively, never per phase and not per seat (D48; recorded as D61).
+  // The manifest does not yet carry per-rank muster selections, so a token
+  // is attributed by PHASE BUCKET, not by whether that rank's muster
+  // selects it: zenith = scout + plan + operate; syzygy = build + review;
+  // asterism = all orchestrated phases (workers serve everywhere). The
+  // strict D48 reading — a token counts for a rank only if that rank's
+  // muster selects it — is not measurable from the manifest yet; the
+  // verifier refines this with the W-20 runtime receipt once one exists
+  // (W-25). Option (i) (injected) needs the receipt and is NOT
+  // implemented. This gate checks the selection record, not any
+  // individual dispatch. Counting covers ALL selected skill tokens (tier
+  // core + conditional), with no tier filter. An unresolvable token
+  // counts by token prefix for the kind; an unresolvable MCP is uncountable.
+  // D54 criterion 4 (health check) is not measurable: no row carries a
+  // health-check record yet, so countable here = version_pin non-null AND
+  // install_cmd non-null AND transport non-null (criteria 1-3), stated as
+  // such; the health-check leg stays unmeasured, never assumed passed.
+  // NO MCP-ordering clause is checked (D53).
+  const RANK_MINIMUMS = [
+    { rank: "zenith", phases: ["scout", "plan", "operate"], skills: 15, mcps: 5 },
+    { rank: "syzygy", phases: ["build", "review"], skills: 10, mcps: 4 },
+    { rank: "asterism", phases: ORCHESTRATED_PHASES, skills: 5, mcps: 2 }
+  ];
+  if (selection === null) {
+    record("min-skills", "FAIL", "cannot be evaluated: selection record unreadable (" + selectionProblem + ")");
+    record("min-mcps", "FAIL", "cannot be evaluated: selection record unreadable (" + selectionProblem + ")");
+  } else {
+    const buckets = [];
+    for (const spec of RANK_MINIMUMS) {
+      const skills = new Set();
+      const mcps = new Set();
+      for (const phase of spec.phases) {
+        const tokens = selection.phases[phase];
+        if (Array.isArray(tokens) === false) continue;
+        for (const token of tokens) {
+          if (typeof token !== "string") continue;
+          const entry = index.get(token);
+          const kind = entry !== undefined ? entry.kind : String(token).split("/")[0];
+          if (kind === "skill") skills.add(token);
+          else if (kind === "mcp") mcps.add(token);
+        }
+      }
+      buckets.push({ spec, skills, mcps });
+    }
+    const skillParts = [];
+    const skillFailures = [];
+    for (const bucket of buckets) {
+      const ok = bucket.skills.size >= bucket.spec.skills;
+      skillParts.push(
+        bucket.spec.rank +
+          " " +
+          bucket.skills.size +
+          " of " +
+          bucket.spec.skills +
+          (ok ? "" : " (deficit " + (bucket.spec.skills - bucket.skills.size) + ")")
+      );
+      if (ok === false) skillFailures.push(bucket.spec.rank);
+    }
+    record(
+      "min-skills",
+      skillFailures.length === 0 ? "PASS" : "FAIL",
+      skillParts.join("; ") +
+        " (per-task cumulative across phases, D48 option ii; phase-bucket attribution zenith=scout+plan+operate, syzygy=build+review, asterism=all — bootstrap approximation, see D61)"
+    );
+    const mcpParts = [];
+    const mcpFailures = [];
+    const uncountable = [];
+    for (const bucket of buckets) {
+      let countable = 0;
+      for (const token of bucket.mcps) {
+        const entry = index.get(token);
+        if (entry === undefined) {
+          uncountable.push(token + " [no catalog row]");
+          continue;
+        }
+        const missing = [];
+        if (entry.version_pin === null || entry.version_pin === undefined) missing.push("version_pin null");
+        if (entry.install_cmd === null || entry.install_cmd === undefined) missing.push("install_cmd null");
+        if (entry.transport === null || entry.transport === undefined) missing.push("transport null");
+        if (missing.length > 0) uncountable.push(token + " [" + missing.join(", ") + "]");
+        else countable += 1;
+      }
+      const ok = countable >= bucket.spec.mcps;
+      mcpParts.push(
+        bucket.spec.rank +
+          " " +
+          countable +
+          " of " +
+          bucket.spec.mcps +
+          " countable (" +
+          bucket.mcps.size +
+          " selected)"
+      );
+      if (ok === false) mcpFailures.push(bucket.spec.rank);
+    }
+    const uncountableUnion = [...new Set(uncountable)].sort();
+    record(
+      "min-mcps",
+      mcpFailures.length === 0 ? "PASS" : "FAIL",
+      mcpParts.join("; ") +
+        " (criteria 1-3: version_pin + install_cmd + transport non-null; health-check leg not measurable, no records yet; see D61)" +
+        (uncountableUnion.length === 0 ? "" : "; uncountable (" + uncountableUnion.length + "): " + uncountableUnion.join("; "))
+    );
+  }
+
   // P8: the selected ids survive the catalog-only derivation into phase sets.
   let phaseSets = null;
   if (selection === null) {
