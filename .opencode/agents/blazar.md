@@ -11,6 +11,7 @@ permission:
     vantrilex-fixer: allow
     vantrilex-github: allow
     vantrilex-harness: allow
+    vantrilex-leader: allow
     vantrilex-librarian: allow
     vantrilex-python: allow
     vantrilex-releaser: allow

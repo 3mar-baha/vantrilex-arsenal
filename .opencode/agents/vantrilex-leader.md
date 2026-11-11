@@ -97,6 +97,8 @@ paragraph, or a confident tone is not evidence.
 
 Problems travel up exactly one level at a time; resolutions travel back down carrying authority.
 
+Precedence: this Leader dispatches the Guide as a routed workstream; BLAZAR's claim on the Guide is the escalation path, not a dispatch.
+
 - **The Guide escalates to you** for scope and sequencing decisions, cross-task conflicts the Guide
   cannot arbitrate within the plan, resource and tooling gaps, and every circuit-breaker HALT. The
   Diagnostic Incident Report reaches the Guide's own record and your desk, so a halt is never visible

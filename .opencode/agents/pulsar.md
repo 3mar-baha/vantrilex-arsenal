@@ -8,6 +8,7 @@ temperature: 0.1
 permission:
   task:
     "*": deny
+    vantrilex-leader: allow
     vantrilex-scout: allow
   skill: deny
   edit: deny

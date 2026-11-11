@@ -6,7 +6,12 @@ mode: primary
 color: "#8b5cf6"
 temperature: 0.1
 permission:
-  task: allow
+  task:
+    "*": deny
+    aether: allow
+    blazar: allow
+    pulsar: allow
+    vantrilex-leader: allow
   skill:
     "*": deny
     vantrilex-vanguard: allow
