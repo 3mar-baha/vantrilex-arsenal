@@ -47,6 +47,8 @@ and openrouter. The static cap is complemented by the dynamic budget below —
 phase scoping is what keeps context spend near the work, the cap is what
 stops the worst case.
 
+A countable MCP — the D54 (2026-11-11) definition, recorded in [15-DECISIONS.md](15-DECISIONS.md) — is an MCP that counts toward a role minimum only if it has: (1) a pinned version (`version_pin` non-null), (2) a resolvable package or URL (`install_cmd` non-null, or a `remoteUrl` for remote MCPs), (3) a stated transport (`stdio` / `sse` / `streamable-http`), and (4) a passing last health check (recorded date + result). The first MCP required by a role minimum must meet all four; the criteria are conjunctive, so one failure makes the MCP not countable toward the minimum. The criteria-1+2 count measurable against the live tree on 2026-11-11 is 7 of 910 rows (`filesystem`, `github`, `memory`, `sequential-thinking`, `context7`, `firecrawl`, `supabase-mcp`); 19 of the 26 selected MCP tokens carry a null `install_cmd` and are not countable under criterion 2, and because the current registry records no `transport` or health-check fields, the strict four-criterion countable count is 0 until the v5 schema lands. This paragraph changes no catalog row and no selection record.
+
 ## Phase-scoped injection and pruning
 
 Install once centrally; inject per phase, prune after. Context spend tracks
