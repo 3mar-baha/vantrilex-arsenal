@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1487 — 7 default-selected)
+## Skills (1488 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1495,6 +1495,7 @@ Consolidated reference of every system component with its folder path.
 | 1485 | vs-zenith-muster | Use when Zenith must open a task, to compile the per-task complement — at least 15 skills and 5 countable MCPs per task per D48… | 3mar-baha/vantrilex-arsenal |  |
 | 1486 | vs-syzygy-muster | Use when one of the three leaders (Aether, Blazar, or Pulsar) must open a task, to compile the per-task complement — at least 10 skills and 4 countable MCPs per task per D48… | 3mar-baha/vantrilex-arsenal |  |
 | 1487 | vs-asterism-muster | Use when a Vantrilex side agent (vantrilex-*) must open a task, to compile the per-task complement — at least 5 skills and 2 countable MCPs per task per D48… | 3mar-baha/vantrilex-arsenal |  |
+| 1488 | skill-maker | Use when a repeated job needs a reusable skill, so stop improvising the procedure and forge it through small evals before the next run. | 3mar-baha/vantrilex-arsenal |  |
 
 ## MCP Servers (910 — 8 default-selected)
 
@@ -2987,7 +2988,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2837
+- **Total components:** 2838
 - **Default-selected:** 19
 
 ---

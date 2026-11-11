@@ -70,7 +70,7 @@ supersedes:
         reason: "Broader sweep that runs dedicated bug-hunter and security-auditor agents; worth it on large changes, wasteful on small ones."
 
   - group: "skill-authoring-cluster"
-    note: "Three records create or improve SKILL.md files, and a selection agent that installs two of them ends up with conflicting advice on how a skill should be written. At most one belongs in a project."
+    note: "Four records create or improve SKILL.md files, and a selection agent that installs two of them ends up with conflicting advice on how a skill should be written. At most one belongs in a project."
     winner: "skill-creator"
     members:
       - id: "skill-creator"
@@ -82,6 +82,9 @@ supersedes:
       - id: "skill-optimizer"
         kind: "skill"
         reason: "Diagnoses and optimises existing SKILL.md files against real session data."
+      - id: "skill-maker"
+        kind: "skill"
+        reason: "Local repo skill that forges reusable SKILL.md files through the skill-creator loop (draft, small evals, grading, iteration, trigger pass); overlapping authoring advice."
 
   - group: "grill-with-docs-supersedes-grill-me"
     note: "grill-with-docs is the same relentless interview as grill-me and additionally writes ADRs, so installing both runs two interviews over one plan. Where the docs variant is available it is the only one needed."

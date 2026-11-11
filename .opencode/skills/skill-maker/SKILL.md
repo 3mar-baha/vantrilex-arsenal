@@ -85,15 +85,19 @@ before anything is drafted.
 Quote the source stage: "Write a draft of the skill". Draft the
 `SKILL.md` in the repo eight-part shape this file uses: Purpose,
 When to Use, Do NOT use, Inputs, Procedure, Outputs, Failure Modes,
-plus the title. Keep the frontmatter to the OpenCode subset: `name`
-equals the folder name, `description` is imperative, slightly pushy,
-and states why the skill loads rather than what it contains. Stay
-under 500 lines from the first draft.
+plus the title. Keep the frontmatter to the settled three-key shape: 3
+keys [name, description, source] is the law (D59; D39/MFT-142,
+v0.9.78). `name` equals the folder name, `description` is imperative,
+slightly pushy, and states why the skill loads rather than what it
+contains, and `source` is the catalog-aligned `owner/repo` coordinate.
+Stay under 500 lines from the first draft.
 
 ### S.3 — Create test prompts and run with skill
 
-Quote the source stage: "Create a few test prompts and run
-claude-with-access-to-the-skill on them". Write two to three test
+Quote the source stage: "Create a few test prompts". Load the
+skill in a fresh git-bash session and run the prompts stated in
+the evidence paragraph against it, then record exit codes and
+outputs. Write two to three test
 prompts a real user would say. For each prompt, launch both arms in
 the same turn: one run with the skill, one baseline run without it
 (or against the snapshotted old version when improving). Same-turn
@@ -103,10 +107,10 @@ conditions and the comparison rots.
 ### S.4 — Help the user evaluate qualitatively and quantitatively
 
 Quote the source stage: "Help the user evaluate the results both
-qualitatively and quantitatively", including "Use the
-`eval-viewer/generate_review.py` script to show the user the
-results". Grade each run against the assertions, aggregate the
-grades, and show both views: the owner's read of what felt wrong
+qualitatively and quantitatively". Grade each run against the
+assertions, aggregate the grades, run `node scripts/verify-skills.mjs`
+and record the output (a gate that exists beats a script that does
+not), and show both views: the owner's read of what felt wrong
 and the numbers on what scored wrong. Neither view alone closes
 the stage.
 
