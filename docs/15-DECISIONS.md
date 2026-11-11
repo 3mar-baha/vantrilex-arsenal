@@ -753,3 +753,60 @@ design.
 - **Decision:** Add `grantShellForVantrilex(ctx, event, readSessionAgent?)` and register it FIRST in the `permission.evaluate` hook, before `seatDenyOverlay`. It no-ops when the kill switch is set, when `event.effect === "deny"` (explicit host deny is final), when the resolved agent is not a `vantrilex-*` agent, when the action is not `shell` or `bash`, or when the resources are not coarse (empty, or all `*`/`""`). Otherwise it sets `event.effect = "allow"`. Agent resolution follows the same order as the seat-deny overlay: `event.agent` → `ctx.session.get` → observed-event cache. It never throws; every branch degrades to a no-op. `seatDenyOverlay` runs afterward, so an explicit seat deny for a specific resource remains authoritative.
 - **Consequences:** Vantrilex worker agents gain coarse shell/bash grants at the plugin layer without bypassing host denies or seat-specific denies. The grant is scoped to `vantrilex-*` agents and coarse resources only; non-Vantrilex agents and specific-resource calls are untouched. D46 is the authority for this grant; any change to its scope requires a fresh dated decision.
 V2 hosts only — uses the V2 permission.evaluate hook; V1 hosts receive no grant.
+
+## D47 — G-01: KEEP the `vs-*` family; no deletion/rename wave
+
+- **Date:** 2026-11-10
+- **Context:** Wednesday build plan §0.5, owner ruling G-01 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "KEEP `vs-*`. All skills start with `vs-`. Forcing skills: vs-zenith-muster, vs-syzygy-muster, vs-asterism-muster. No deletion/rename wave for the 15 existing vs-* skills."
+- **Decision:** The `vs-*` family is kept. All skills start with `vs-`. The forcing skills are `vs-zenith-muster`, `vs-syzygy-muster`, and `vs-asterism-muster`. There is no deletion and no rename wave for the 15 existing `vs-*` skills.
+- **Consequences:** The 15 existing `vs-*` skills stand as-is; no rename or deletion sweep is performed under any Wednesday item. Later items reference the naming table below rather than restating the family.
+
+### Naming table — KEEP family (forcing skills)
+
+| Family | Skill | Status |
+|---|---|---|
+| forcing | `vs-zenith-muster` | KEEP (G-01) |
+| forcing | `vs-syzygy-muster` | KEEP (G-01) |
+| forcing | `vs-asterism-muster` | KEEP (G-01) |
+
+## D48 — G-02: "per task" = selected across the whole task's phases, cumulatively
+
+- **Date:** 2026-11-10
+- **Context:** Wednesday build plan §0.5, owner ruling G-02 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "'per task' = (ii) selected across the whole task's phases, cumulatively. Zenith's 15 counts only Zenith's own skills — not the three leaders' skills."
+- **Decision:** "Per task" means option (ii): the selection is made across the whole task's phases, cumulatively — not per phase, and not per seat. Zenith's 15 counts only Zenith's own skills; it does not count the three leaders' skills.
+- **Consequences:** Selection accounting for a task aggregates across all of that task's phases. The Zenith count of 15 attributes only Zenith's own skills; the three leaders' skills are excluded from that count. No gate in this entry scores anything beyond what the ruling states.
+
+## D49 — G-03: third facet = (b) the long facet; "without intervention / without asking"
+
+- **Date:** 2026-11-10
+- **Context:** Wednesday build plan §0.5, owner ruling G-03 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "third facet = (b) the long facet. 'Without permissions' means: full permissions — everything executes without asking for permission (not only shell commands). The label is reworded to 'without intervention / without asking'. Matters needing the owner's judgment return to the owner as a question with options."
+- **Decision:** The third facet is option (b): the long facet. "Without permissions" means full permissions — everything executes without asking for permission, not only shell commands. The facet label is reworded to "without intervention / without asking". Matters needing the owner's judgment return to the owner as a question with options.
+- **Consequences:** The long facet executes without asking across the board, not shell-scoped. Anything that needs the owner's judgment is routed back to the owner as a question carrying options; it is never auto-executed under the long facet. D35 stays the standing facet structure; this entry rules the third facet's identity, the meaning of its permission posture, its reworded label, and the owner-judgment routing boundary only.
+
+## D50 — G-04: checker = (b) now, then (c)
+
+- **Date:** 2026-11-10
+- **Context:** Wednesday build plan §0.5, owner ruling G-04 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "checker = (b) now, then (c). The verify-catalog selection gate checks the selection record on Wednesday; a separate read-only verifier agent checks the runtime receipt once it exists."
+- **Decision:** The checker is option (b) now, then option (c). On Wednesday, the verify-catalog selection gate checks the selection record. A separate read-only verifier agent checks the runtime receipt — once it exists.
+- **Consequences:** Wednesday's verification of the selection claim is the verify-catalog selection gate against the selection record. The runtime-receipt check is a distinct, read-only verifier agent, admitted only after the receipt exists; no receipt exists yet, so nothing is verified against it today and this entry does not stand up that agent.
+
+## D51 — G-05: forcing skill re-selects until success; 3 failed selections escalate to the leader
+
+- **Date:** 2026-11-10
+- **Context:** Wednesday build plan §0.5, owner ruling G-05 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "retry until success; after 3 failed selections, escalate to the leader. The forcing skill keeps re-selecting until the selection is successful and correct. After 3 failed selections it reports to the leader ('I chose a failed selection'); the leader then dispatches a NEW side agent with the same name to execute the task." The draft's "2 retries, then proceed-and-log" proposal is superseded by this ruling.
+- **Decision:** Retry until success. The forcing skill keeps re-selecting until the selection is successful and correct. After 3 failed selections it stops and reports to the leader — "I chose a failed selection" — and the leader then dispatches a NEW side agent with the same name to execute the task.
+- **Consequences:** The proceed-and-log path is dead; the draft's "2 retries, then proceed-and-log" proposal is superseded and must not be implemented. A failed selection is never carried into execution by the selecting agent: three failures mean escalation, and the leader — never the selecting agent — re-dispatches the task under the same agent name.
+
+## D52 — G-06: (c) compiler pattern for the three forcing skills
+
+- **Date:** 2026-11-10
+- **Context:** Wednesday build plan §0.5, owner ruling G-06 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "(c) compiler pattern. The three forcing skills live as skill files under `.opencode/skills/`, but the plugin compiles them into the dispatcher's prompt text at call time. W-12 grows the plugin change (new counting code in the prompt callback, advisory only — the prompt hook has no typed rejection API, P1-R0); the timetable moves 60 minutes from W-26 to W-12."
+- **Decision:** Option (c): the compiler pattern. The three forcing skills live as ordinary skill files under `.opencode/skills/`, and the plugin compiles them into the dispatcher's prompt text at call time. W-12 grows the plugin change — new counting code in the prompt callback, advisory only, because the prompt hook has no typed rejection API (P1-R0). The timetable moves 60 minutes from W-26 to W-12.
+- **Consequences:** Forcing-skill bodies ship as normal skill files; no skill is inlined by hand. The plugin change lands in W-12 as new counting code in the prompt callback and is advisory only — the prompt hook cannot typed-reject a selection, so an over-budget selection is surfaced, not blocked, by the hook. W-26 gives up 60 minutes to W-12. No plugin code is changed by this entry; recording the ruling only.
+
+## D53 — G-07: no mandatory domain-MCP-first rule; choose the domain tool by performance
+
+- **Date:** 2026-11-10
+- **Context:** Wednesday build plan §0.5, owner ruling G-07 (owner answers of 2026-11-10/2026-11-11), recorded verbatim from the plan: "no mandatory domain-MCP-first rule. Take the domain tool by performance: a domain MCP normally, but if a CLI performs the function better, take the CLI and not the MCP. The MCP-vs-CLI principle gets a detailed study of its own, to decide which MCPs convert to CLIs. The selection gate (W-21) does NOT check MCP ordering."
+- **Decision:** There is no mandatory domain-MCP-first rule. The domain tool is taken by performance: a domain MCP normally, but if a CLI performs the function better, take the CLI and not the MCP. The MCP-vs-CLI principle gets a detailed study of its own, to decide which MCPs convert to CLIs. The selection gate (W-21) does NOT check MCP ordering.
+- **Consequences:** The W-21 selection gate does not evaluate or enforce MCP ordering; no ordering check is added to it. Tool selection is performance-based per task. Which MCPs convert to CLIs is undecided until the dedicated MCP-vs-CLI study lands; nothing is converted to a CLI by this entry, and no MCP is removed or demoted by this entry.
