@@ -293,25 +293,7 @@ checkout. Merges return reviewed and signed off back to `main`. Never two branch
 file: two concerns touching the same file are not independent and must be chained, not fanned out —
 parallel writes to one file merge into exactly the conflict this discipline exists to prevent.
 
-### B.3 — Phase map (mandatory)
-
-The phase map is mandatory. The `phase` field in `registry/catalog.json` is the injection and
-pruning mechanism (kit spec 6.4): install once centrally; inject per phase, prune after. A phase
-that keeps the previous phase's kit pays for context it no longer uses while the new phase starves.
-
-| Phase | Skills |
-|---|---|
-| docs | `grill-me` (before docs), `session-context-primer` |
-| plan | `wayfinder` (decision tickets), `ask-matt` (router) |
-| build | `tdd`, `ponytail`, `preflight-system-doctor` (step 0) |
-| review | `code-review` (two-axis), `ponytail-review` |
-| operate | `ponytail-audit` (periodic), `ponytail-debt` (ledger) |
-| on-demand | `find-skills`, `skill-creator` |
-
-`preflight-system-doctor` is step 0 of the build phase: it verifies the machine and session ground
-truth before any build dispatch. `on-demand` is outside any phase: `find-skills` and
-`skill-creator` are never injected by phase and stay available to every phase. At each phase
-transition: prune, then inject — never stack two phases of kit.
+Phase map (mandatory): see [phase-map.md](phase-map.md) — the per-phase kit table, the step-0 preflight rule and the prune-then-inject law live there.
 
 "per task" = selected across the whole task's phases, cumulatively; the counted set is the union of skill/MCP tokens named in the task's phase kit(s), measured against the manifest/selection record, not the injected count at one instant; Zenith's 15 counts only Zenith's own skills. Phase pruning does not reduce the per-task selection count; pruning happens for context economy, while the minimum is measured over the union of the task's phases cumulatively. (Ruling D48, `docs/15-DECISIONS.md`.)
 

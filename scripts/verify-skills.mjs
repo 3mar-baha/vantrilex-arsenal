@@ -590,18 +590,22 @@ function loadCatalogIds(root) {
 }
 
 function checkPhaseMap(root, skills) {
-  const doctrineFile = join(root, '.opencode', 'skills', DOCTRINE_SKILL, 'SKILL.md');
+  // Since W-26 (2026-11-11) the phase map's single home is
+  // .opencode/skills/vantrilex-doctrine/phase-map.md; doctrine SKILL.md
+  // carries a one-line pointer instead of the table. The check parses the
+  // new home with the identical heading/table/name-resolution rules.
+  const doctrineFile = join(root, '.opencode', 'skills', DOCTRINE_SKILL, 'phase-map.md');
   if (!existsSync(doctrineFile)) {
     return {
       status: 'SKIPPED',
-      detail: `.opencode/skills/${DOCTRINE_SKILL}/SKILL.md is absent, so no phase map could be parsed. A skipped check is not a passing check.`,
+      detail: `.opencode/skills/${DOCTRINE_SKILL}/phase-map.md is absent, so no phase map could be parsed. A skipped check is not a passing check.`,
     };
   }
   let text;
   try {
     text = decodeText(readFileSync(doctrineFile));
   } catch (error) {
-    return { status: 'FAIL', detail: `doctrine SKILL.md could not be read: ${error.message}` };
+    return { status: 'FAIL', detail: `phase-map.md could not be read: ${error.message}` };
   }
   const lines = text.split('\n');
   let start = -1;
@@ -612,7 +616,7 @@ function checkPhaseMap(root, skills) {
     }
   }
   if (start === -1) {
-    return { status: 'FAIL', detail: 'doctrine SKILL.md has no phase-map section, so the cross-check evaluated nothing' };
+    return { status: 'FAIL', detail: 'phase-map.md has no phase-map section, so the cross-check evaluated nothing' };
   }
   const rows = [];
   let collecting = false;
