@@ -193,6 +193,51 @@ export function slugify(raw) {
   return folded.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
+/*
+  W-18: freeze row-number identities across regenerations. A `-row-NNNN`
+  suffix is derived from a row's position in its table, so inserting an
+  earlier colliding row would re-derive a different id for an existing
+  one and orphan every sidecar patch and priority keyed on the old id.
+  The committed registry/catalog.json is the memory of which suffix a
+  row carried; reuse it verbatim when the same row produced it.
+  Best-effort: a missing or unreadable baseline falls back to positional
+  derivation. Read once, cached; never written here.
+*/
+let previousComponentsCache;
+function previousCatalogComponents() {
+  if (previousComponentsCache !== undefined) return previousComponentsCache;
+  try {
+    const parsed = JSON.parse(readFileSync(CATALOG_JSON, 'utf8'));
+    previousComponentsCache = Array.isArray(parsed.components) ? parsed.components : null;
+  } catch {
+    previousComponentsCache = null; // missing or unreadable baseline: positional derivation
+  }
+  return previousComponentsCache;
+}
+
+let knownIdsCache = null;
+function knownIds() {
+  if (knownIdsCache) return knownIdsCache;
+  knownIdsCache = new Set();
+  for (const entry of previousCatalogComponents() ?? []) {
+    if (typeof entry?.id === 'string') knownIdsCache.add(entry.id);
+  }
+  return knownIdsCache;
+}
+
+function previousRowSuffixedId(record, prefix, seenIds) {
+  const ids = knownIds();
+  for (const entry of previousCatalogComponents() ?? []) {
+    if (!entry || typeof entry.id !== 'string') continue;
+    if (entry.kind !== record.kind) continue;
+    if (!entry.id.startsWith(prefix)) continue;
+    if (entry.name !== record.name && entry.description !== record.description) continue;
+    if (!ids.has(entry.id) || seenIds.has(entry.id)) continue;
+    return entry.id;
+  }
+  return null;
+}
+
 /* ---------- markdown table parsing ---------- */
 
 export function splitTableRow(line) {
@@ -343,7 +388,15 @@ export function parseCatalogMarkdown(text, { path = CATALOG_MD } = {}) {
         continue;
       }
       const rowNumber = index_ + 1;
-      const disambiguated = `${record.id}-row-${rowNumber}`;
+      /*
+        W-18: prefer the suffix the previous committed catalog assigned to
+        this same row (same kind, same prefix, same name or description)
+        so inserting a colliding row above renumbers nothing downstream.
+        Falls back to positional derivation for genuinely new rows.
+      */
+      const prefix = `${record.id}-row-`;
+      const reused = previousRowSuffixedId(record, prefix, seenIds);
+      const disambiguated = reused ?? `${prefix}${rowNumber}`;
       if (seenIds.has(disambiguated)) {
         fail(`${path}: section "${heading[1]}" has three or more rows slugifying to "${record.id}" — the row-number suffix cannot disambiguate them`);
       }
