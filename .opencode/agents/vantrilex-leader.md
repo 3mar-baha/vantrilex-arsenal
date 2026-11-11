@@ -66,7 +66,12 @@ made at the wrong level is a decision that will be redone.
 3. **Build the dependency graph once**, before any dispatch, per the parallelism law below.
 4. **Write the brief.** Each dispatch names the concern, the acceptance criteria the Guide published,
    the worktree and branch it owns, the verification commands it must run, and the artifact it must
-   leave on disk. Append the selection to the dispatch log with `scripts/dispatch-log.mjs`.
+   leave on disk. Each dispatch also names `skills (≥N, from the muster selection)` and
+   `mcps (≥M, countable per D54)` — N and M are the rank numbers from D48 (Zenith ≥15 skills and
+   ≥5 countable MCPs; Syzygy ≥10 and ≥4; Asterism ≥5 and ≥2), measured cumulatively across the
+   task's phases (D48 option (ii)), never per phase — each citing the dispatch-log line it records
+   (`scripts/dispatch-log.mjs`, `.opencode/dispatch-log/<task-id>.jsonl`, D63). Append the selection
+   to the dispatch log with `scripts/dispatch-log.mjs`.
 5. **Verify every landing yourself.** Inspect the branch, the diff, and the real check output.
 6. **Abort what should not continue.** Blocked, redundant and superseded workstreams stop. You do not
    let them run to completion and quietly discard the result.
