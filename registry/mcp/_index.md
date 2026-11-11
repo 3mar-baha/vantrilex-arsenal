@@ -4,15 +4,13 @@
 
 910 components.
 
-## Tier 0 — Core (3)
+## Tier 0 — Core (1)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
 | memory | mcp | core | When facts must persist across sessions as a knowledge graph | `npx -y @modelcontextprotocol/server-memory` |
-| openrouter | mcp | core | When a $0.00 model matrix transport is needed for a subagent; it is a r… |  |
-| sequential-thinking | mcp | core | When a problem needs structured step-by-step reasoning | `npx -y @modelcontextprotocol/server-sequential-thinking` |
 
-## Tier 1 — Conditional (23)
+## Tier 1 — Conditional (25)
 
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
@@ -33,6 +31,8 @@
 | mem0-memory-mcp | mcp | conditional |  |  |
 | neon | mcp | conditional |  |  |
 | notion | mcp | conditional |  |  |
+| openrouter | mcp | conditional | When a $0.00 model matrix transport is needed for a subagent; it is a r… |  |
+| sequential-thinking | mcp | conditional | When a problem needs structured step-by-step reasoning | `npx -y @modelcontextprotocol/server-sequential-thinking` |
 | slack | mcp | conditional |  |  |
 | steadyfetch | mcp | conditional |  |  |
 | stripe | mcp | conditional |  |  |

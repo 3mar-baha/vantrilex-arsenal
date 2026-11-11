@@ -188,6 +188,8 @@ every landing is confirmed when its result is on disk or on the remote — never
 
 ## Procedure
 
+Sequential thinking is a reasoning scaffold, not an external capability, and it is delivered as prose. The leader's brief already structures the reasoning — one concern, one acceptance criterion, one named verification command, one expected artifact — and any step-by-step decomposition should be written into the brief, the plan, or the dispatch text, where it can be read, checked, re-sequenced, and handed to a different worker without carrying a resident process with it. The sequential-thinking MCP was dropped from the kit on exactly this ground: it added context overhead for zero external capability (w1-05 §2.4). If a problem seems to want structured thinking, write the steps out; do not reach for an MCP to perform the thinking, and do not re-admit one without a demonstration that the prose form fails in a recorded dispatch.
+
 ### B.1 — Constitutional laws
 
 Laws 1 and 5 are the spine: the agent directs and never touches the work itself, and nothing counts
