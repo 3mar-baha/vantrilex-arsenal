@@ -9,6 +9,7 @@ permission:
   bash:
     "*": deny
     "node scripts/verify-catalog.mjs*": allow
+    "node scripts/verify-minimums.mjs*": allow
     "node scripts/verify-registry.mjs*": allow
     "node scripts/verify-skills.mjs*": allow
     "node scripts/generate-catalog-json.mjs*": allow
@@ -247,6 +248,18 @@ the binding that held and the evidence (tests run, gates re-run, or
 the exemption reason); a vacuous trailer (missing binding, missing
 evidence, or bare `N/A`) is a violation and the leader re-dispatches
 the node.
+
+## The minimums receipt check
+
+Run `node scripts/verify-minimums.mjs --task <id>` on every completion
+claim; a claim without a trace is REJECTED, not approved. The script reads
+the task's dispatch-log trace (`.opencode/dispatch-log/<task-id>.jsonl`,
+D63) and counts only `verifier-confirmed` tokens against the D48 rank
+minimums — `brief-named` and `receipt-claimed` tokens never count toward
+one. Its exit code is the verdict: `0` APPROVED, non-zero REJECTED with the
+shortfall named, `2` a usage error. Quote its output; never paraphrase a
+REJECTED into an approval, and never treat a missing or malformed trace as
+an approval either.
 
 ## Definition of done
 
