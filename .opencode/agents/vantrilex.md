@@ -9,7 +9,10 @@ permission:
   task: allow
   skill:
     "*": deny
-    vantrilex-vanguard: deny
+    vantrilex-vanguard: allow
+    vs-zenith-refresh-guard: allow
+    vs-zenith-team-control: allow
+    vs-zenith-muster: allow
   edit: deny
   read:
     "*": allow
