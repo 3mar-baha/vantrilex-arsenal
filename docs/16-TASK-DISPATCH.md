@@ -262,7 +262,7 @@ component, and nothing here may be read as one.
 | /equip | vantrilex | vantrilex-vanguard |
 | /doctor | vantrilex-verifier | preflight-system-doctor |
 | /release | vantrilex-releaser | github-release-packager |
-| V-Architect | vantrilex-architect | (none — no architect skill exists) |
+| V-Architect | vantrilex-architect | vantrilex-architect-craft |
 | V-Code-Reviewer | vantrilex-code-reviewer | code-review |
 | V-Red-Team | vantrilex-red-team | red-team |
 | V-FULL-AUDIT | vantrilex-verifier | verification-loop |
@@ -277,7 +277,8 @@ component, and nothing here may be read as one.
 
 **Notes (2026-11-11):**
 
-- The V-Architect row carries no skill: no architect skill exists in the catalog (kind `skill`) or in `.opencode/skills/`. The cell reads `(none — no architect skill exists)` per the 2026-11-11 census repair; it names no invented id.
+- The V-Architect row wires `vantrilex-architect-craft` (added 2026-11-12, F-33): an architect craft skill whose procedure is "design the system before it is built — constraints, interfaces, data flow, failure modes, rollout", read-only by construction (the `vantrilex-architect` agent remains the read-only mode; the skill is the procedure, not a grant of edit permission). The 2026-11-11 cell read `(none — no architect skill exists)` because none existed then; it was not an omission to be patched over, and nothing was invented — the skill was authored and registered in the catalog on 2026-11-12 (`registry/data/skills.jsonl`, kind `skill`, phase `plan`, tier `conditional`, class `loadable`, `.opencode/skills/vantrilex-architect-craft/SKILL.md`).
+- Census figures in this file: corrected 2026-11-12 (F-26) — 147 unique tokens; the catalog carries 2,925 records as of the F-26 landing. The F-33 landing appends one skill row (catalog total 2,926); this file's census lines are not re-derived by the F-33 commit — see the F-33 landing note and the final-fix report.
 - The census above is the measured reality of the selection record (`.opencode/equip.manifest.json`): 147 unique tokens — 28 `core` plus 118 `conditional`, of which 1 (`agent/vantrilex-facet`) is suspended — of which 8 are hooks; the catalog (`registry/catalog.json`) carries 2,925 records (corrected 2026-11-12, F-26; the 2026-11-11 census read 142 tokens / 2,910 records).
 - `/equip` routes the command to the Zenith seat (`vantrilex`) as the agent, with `vantrilex-vanguard` as the skill; the pre-2026-11-11 cell named the skill as the agent.
 - V-CATALOG and V-Technical-Writer route to `documentation-as-tests`; the pre-2026-11-11 cells named `documentation-lookup` and `article-writing`.

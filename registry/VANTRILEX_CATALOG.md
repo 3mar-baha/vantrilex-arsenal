@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1504 — 7 default-selected)
+## Skills (1505 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1512,6 +1512,7 @@ Consolidated reference of every system component with its folder path.
 | 1502 | vs-session-context-primer | Use when a session starts or context is lost to compaction — rebuilds the working context in about ten seconds from the AI constitution, project summary… | 3mar-baha/vantrilex-arsenal |  |
 | 1503 | vs-vantrilex-vanguard | Equips a project on demand from the Blazar seat — use when the owner says equip this project or set up this repo, surveying resources and installing plus… | 3mar-baha/vantrilex-arsenal |  |
 | 1504 | vs-vantrilex-workflow-forge | Authors the standing methodology for each task from the Blazar seat — use when a new task starts, before execution begins, so the workflow is fixed before the… | 3mar-baha/vantrilex-arsenal |  |
+| 1505 | vantrilex-architect-craft | Use when a system is about to be built or refactored and its design is not yet fixed — constraints, interfaces, data flow, failure modes, rollout — so the V… | 3mar-baha/vantrilex-arsenal |  |
 
 ## MCP Servers (910 — 1 default-selected)
 
@@ -3011,7 +3012,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2925
+- **Total components:** 2926
 - **Default-selected:** 13
 
 ---
