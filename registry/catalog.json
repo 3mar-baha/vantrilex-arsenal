@@ -90380,7 +90380,7 @@
       "source": "upstash/context7",
       "origin": null,
       "install_cmd": "npx -y @upstash/context7-mcp",
-      "version_pin": "4.1.1",
+      "version_pin": "4.7.0",
       "category": null,
       "tags": [],
       "when_to_use": "When up-to-date library or framework docs are needed before using an API",
@@ -90394,12 +90394,12 @@
         "load_proof": {
           "surface": "@upstash/context7-mcp",
           "method": "server-bin",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx -y @upstash/context7-mcp",
           "registry": "npm",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -90408,9 +90408,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T14:27:29.625Z",
+        "method": "stdio-initialize",
+        "result": "pass",
+        "detail": "stdio probe pass: spawn npx -y @upstash/context7-mcp@4.7.0; initialize ok (server=Context7 4.7.0, protocol=2024-11-05); tools/list ok, 2 tools; stderr banner \"Context7 Documentation MCP Server v4.7.0 running on stdio\""
+      }
     },
     {
       "id": "contextium-io-contextium-mcp-server",
@@ -93209,7 +93214,7 @@
       "source": "firecrawl/firecrawl-mcp",
       "origin": null,
       "install_cmd": "npx -y firecrawl-mcp",
-      "version_pin": "3.27.3",
+      "version_pin": "3.40.0",
       "category": null,
       "tags": [],
       "when_to_use": "When a page must be deeply scraped or extracted rather than merely fetched",
@@ -93223,12 +93228,12 @@
         "load_proof": {
           "surface": "firecrawl-mcp",
           "method": "server-bin",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx -y firecrawl-mcp",
           "registry": "npm",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -93237,9 +93242,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T14:27:29.625Z",
+        "method": "stdio-initialize",
+        "result": "pass",
+        "detail": "stdio probe pass: spawn npx -y firecrawl-mcp@3.40.0 (no FIRECRAWL_API_KEY or FIRECRAWL_API_URL in probe env); initialize ok (server=firecrawl-fastmcp 3.40.0, protocol=2024-11-05); tools/list ok, 28 tools; stderr verbatim: \"No FIRECRAWL_API_KEY or FIRECRAWL_API_URL set — running in keyless mode. firecrawl_scrape and firecrawl_search are free (rate-limited per IP) against the Firecrawl cloud; other tools require an API key (get one free at https://firecrawl.dev).\""
+      }
     },
     {
       "id": "flexorch-flexorch-mcp",
@@ -94104,12 +94114,12 @@
         "load_proof": {
           "surface": "@modelcontextprotocol/server-github",
           "method": "server-bin",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx -y @modelcontextprotocol/server-github",
           "registry": "npm",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -94118,9 +94128,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T14:27:29.625Z",
+        "method": "stdio-initialize",
+        "result": "pass",
+        "detail": "stdio probe pass: spawn npx -y @modelcontextprotocol/server-github@2025.4.8 (no GITHUB_TOKEN in probe env); initialize ok (server=github-mcp-server 0.6.2, protocol=2024-11-05); tools/list ok, 26 tools; npm deprecation warning verbatim: \"npm warn deprecated @modelcontextprotocol/server-github@2025.4.8: Archived and unmaintained; no security guarantees. See https://github.com/modelcontextprotocol/servers-archived\"; server stderr banner \"GitHub MCP Server running on stdio\". tools/list proves server boot and schema exposure only; no GitHub API call was made (no token present)."
+      }
     },
     {
       "id": "githunt-agent-githunt-mcp",
@@ -105674,7 +105689,7 @@
       "source": "modelcontextprotocol/servers",
       "origin": "modelcontextprotocol/servers",
       "install_cmd": "npx -y @modelcontextprotocol/server-sequential-thinking",
-      "version_pin": "1.0.0",
+      "version_pin": "2.1.1",
       "category": null,
       "tags": [
         "reasoning",
@@ -105691,12 +105706,12 @@
         "load_proof": {
           "surface": "@modelcontextprotocol/server-sequential-thinking",
           "method": "server-bin",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx -y @modelcontextprotocol/server-sequential-thinking",
           "registry": "npm",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -105705,9 +105720,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T14:27:29.625Z",
+        "method": "stdio-initialize",
+        "result": "pass",
+        "detail": "stdio probe pass: spawn npx -y @modelcontextprotocol/server-sequential-thinking@2.1.1; initialize ok (server=sequential-thinking-server 2.1.1, protocol=2024-11-05); tools/list ok, 1 tool; stderr banner \"Sequential Thinking MCP Server running on stdio\""
+      }
     },
     {
       "id": "serpdive-serpdive-mcp",
