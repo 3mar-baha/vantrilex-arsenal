@@ -229,6 +229,14 @@ instead of inside this procedure.
 The owner returns with the chatbot's researched concept, and Vanguard proceeds to source surveying
 with that concept as the needs baseline.
 
+Doctrinal outfitter repair (LD-03): for leader-craft runs Vanguard acts as
+outfitter under doctrine, not as picker by feel. It computes the loadout
+from the book doctrine skill and the golden-equipment doctrine skill, writes
+the computed loadout log with origin and task-class and payload template,
+and the origin confirms by dispatch before anything installs. A loadout
+without a log is refused, and a log without origin dispatch confirm stays
+pending.
+
 Source surveying and kit selection (mandatory): see [source-and-kit-selection.md](source-and-kit-selection.md) — the ordered source list, the Context7 reachability rule, and the five-step kit-selection algorithm with the overlap rules live there.
 ### Step 4 — Install, verify, report (A.6)
 

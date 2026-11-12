@@ -91,11 +91,3 @@ from the lock and the mirror live. No mapping frozen in this file governs the
 choice; a printed table illustrates the shape while the lock entry in force
 decides what installs and what stays out.
 
-Doctrinal outfitter repair (LD-03): for leader-craft runs Vanguard acts as
-outfitter under doctrine, not as picker by feel. It computes the loadout
-from the book doctrine skill and the golden-equipment doctrine skill, writes
-the computed loadout log with origin and task-class and payload template,
-and the origin confirms by dispatch before anything installs. A loadout
-without a log is refused, and a log without origin dispatch confirm stays
-pending.
-
