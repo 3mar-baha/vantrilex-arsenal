@@ -67,9 +67,12 @@ Merge rule, in precedence order:
 6. An unknown field in a sidecar entry fails the run.
 
 All 16 sidecars are present today and merge cleanly. The live per-kind totals
-are 1,477 skill, 910 MCP, 302 agent, 84 design, 64 cli, 13 formatting, 12
+(measured 2026-11-12, F-26/F-33/F-35 landings) are 1,505 skill, 910 MCP, 305
+agent, 84 design, 71 cli, 13 formatting, 12
 theme, 11 plugin, 8 hook, 2 policy, and one each of lsp, prompt, dataset,
-template, benchmark and workflow — 2,889 live records. Re-derive the figures
+template, benchmark and workflow — 2,927 live records (corrected 2026-11-12:
+the 1,477/302/64-cli/2,889 figures were stale; F-16 added 15 skill rows, F-33
+added the architect-craft skill row and F-35 the facet agent row). Re-derive the figures
 from `registry/catalog.json`; the developer note `dev/06-REGISTRY.md` carries
 the recounted table.
 

@@ -58,8 +58,9 @@ surface, 365 for a source — after which the record becomes a candidate.
 
 A record that cannot produce its class evidence is not carried here with a
 weaker label. It becomes one row in `registry/candidates/<kind>.jsonl`, carrying
-the failed class and one of six reason codes. The catalog holds 2,889 live rows
-and 40 candidates.
+the failed class and one of six reason codes. The catalog holds 2,927 live rows
+and 40 candidates (corrected 2026-11-12: the 2,889 figure was stale — F-16, F-33
+and F-35 row additions).
 
 ## `origin` versus `source`
 

@@ -19,7 +19,7 @@ node scripts/verify-registry.mjs
 | الفحص | ما يثبته |
 |---|---|
 | `utf8-validity` | أن Markdown الفهرس يُفَك ترميزه UTF-8 صارمًا بلا تسلسل معطوب |
-| `schema-conformance` | أن السجلّات الـ2,889 تفي بـ `registry/schema/catalog-v6.schema.json` |
+| `schema-conformance` | أن السجلّات الـ2,927 تفي بـ `registry/schema/catalog-v6.schema.json` (صُحِّح 2026-11-12: رقم 2,889 صار قديمًا) |
 | `row-count-integrity` | أن عدد كل عنوان قسم وعدد المحدَّد افتراضيًا يطابقان التحليل |
 | `install-command-invariant` | أن لا سجلّ يدّعي `verified` مع `install_cmd` فارغ |
 | `orphan-references` | أن مراجع المعرّفات الـ45 عبر مدخلات التداخل الـ56 تُحَل كلها |
@@ -45,10 +45,11 @@ node scripts/generate-catalog-json.mjs --check
 ## فحص الفهرس والاختيار
 
 تسمّي `AGENTS.md` وCI السكربتَ `scripts/verify-catalog.mjs` البوابةَ التي
-تثبت صدق كل سجلّ في الفهرس وأن كل مكوّن مختار يُحَل. وهذا السكربت موجود ويجتاز 20/20
-مقابل `registry/catalog.json` (2,889 سجلًّا، بلا حالة `pending`) و`.opencode/equip.manifest.json`
-(145 رمزًا مختارًا)، ومنها فحص شكل لكل نوع قابل للاختيار —
-ففحص `command-shape/cli` الذي يجتاز على 64 سجلّ `cli` يُبلَّغ على هذا النحو لا
+تثبت صدق كل سجلّ في الفهرس وأن كل مكوّن مختار يُحَل. وهذا السكربت موجود ويجتاز 26/26
+مقابل `registry/catalog.json` (2,927 سجلًّا، بلا حالة `pending` — صُحِّح 2026-11-12 بعد
+صفوف F-16 وF-33 وF-35) و`.opencode/equip.manifest.json`
+(147 رمزًا مختارًا)، ومنها فحص شكل لكل نوع قابل للاختيار —
+ففحص `command-shape/cli` الذي يجتاز على 71 سجلّ `cli` يُبلَّغ على هذا النحو لا
 اجتيازًا صامتًا فارغًا. انظر [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
 ## فحص صيغة المهارة

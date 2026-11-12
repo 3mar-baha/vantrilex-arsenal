@@ -13,7 +13,7 @@ contradicts them.
 | Part | Location | Role |
 |---|---|---|
 | Plugin | `.opencode/` | Shipped hooks-as-plugin callbacks, role agents, operator commands, transplanted skills |
-| Registry | `registry/` | The 2,925-row catalog: human-readable source plus machine mirror, with 40 candidates beside it |
+| Registry | `registry/` | The 2,927-row catalog: human-readable source plus machine mirror, with 40 candidates beside it |
 | Default kit | Tier-0 set in the catalog | What every project receives without questions asked |
 
 The kit specification is `spec/VANTRILEX_KIT_SPEC.md` (naming, the Tier-0 set
@@ -70,7 +70,7 @@ so 146 of the 147 resolve against live rows today (measured 2026-11-12 at
 2026-11-12 HEAD; the 2026-11-11 census recorded 142 = 28 core + 113
 conditional + 1 suspended). Every live catalog row
 is `verified` under its declared evidence class — there is no carried
-`unverified` state in v5/v6. `registry/catalog.json` carries 2,925 live records
+`unverified` state in v5/v6. `registry/catalog.json` carries 2,927 live records
 (39 tier `core`, 270 tier `conditional`, the remainder untiered and never
 injected) beside 40 candidates in `registry/candidates/`. The catalog recount
 stands at 13 default-selected components, enriched from the 16 kind sidecars

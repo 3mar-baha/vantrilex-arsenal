@@ -121,13 +121,15 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2,925 live catalog records plus 40
+- Counts are honest and checkable: 2,927 live catalog records plus 40
   candidates, 39 records with tier `core` including Prime, Vanguard, and
   Doctrine, 13 default-selected components, and 16 merged kind sidecars. Every live
   row is `verified` under its declared class. See [01-OVERVIEW.md](01-OVERVIEW.md).
   Corrected 2026-11-12 (F-26 census sweep): the 2,889/20 figures were stale
   (the catalog grew to 2,925 with the F-16 rows; the catalog Summary is now
-  generator-computed); sidecar count 16 (the 16 merged kind sidecars; a
+  generator-computed). Advanced the same day to 2,927 — the F-33
+  architect-craft skill row (commit `a9a38c0`) and the F-35 facet agent row
+  (commit `774f743`); sidecar count 16 (the 16 merged kind sidecars; a
   seventeenth `*.jsonl` — `superseded-by.jsonl`, F-30, 2026-11-12 — is
   annotations data, not a kind sidecar) and candidates 40 re-verified against
   `registry/data/*.jsonl` and `registry/candidates/*.jsonl` on 2026-11-12.

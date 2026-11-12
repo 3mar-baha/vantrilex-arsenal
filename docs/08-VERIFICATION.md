@@ -19,7 +19,7 @@ node scripts/verify-registry.mjs
 | Check | What it proves |
 |---|---|
 | `utf8-validity` | The catalog Markdown decodes as strict UTF-8 with no malformed sequence |
-| `schema-conformance` | All 2889 records satisfy `registry/schema/catalog-v6.schema.json` |
+| `schema-conformance` | All 2,927 records satisfy `registry/schema/catalog-v6.schema.json` (corrected 2026-11-12: the 2,889 figure was stale — F-16, F-33 and F-35 rows; verified by the 2026-11-12 verify-registry run, 7/7 PASS) |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
 | `install-command-invariant` | Every live row is `verified`, its class evidence is present, and every command names the registry that proved it |
 | `orphan-references` | All 45 id references across 56 overlap entries resolve |
@@ -50,11 +50,13 @@ regenerated. Regeneration details are in
 
 `AGENTS.md` and CI name `scripts/verify-catalog.mjs` as the gate that proves
 every catalog row is honest and every selected component resolves. That script
-exists and passes 20/20 against `registry/catalog.json` (2,889 live rows, all
-`verified` under a declared class, no carried state), the 40 rows in
-`registry/candidates/`, and `.opencode/equip.manifest.json` (145 selected
-tokens, none suspended), including a shape check per
-selectable kind — the `command-shape/cli` check passing on 64 `cli` rows is
+exists and passes 26/26 against `registry/catalog.json` (2,927 live rows, all
+`verified` under a declared class, no carried state — corrected 2026-11-12,
+F-26/F-33/F-35), the 40 rows in
+`registry/candidates/`, and `.opencode/equip.manifest.json` (147 selected
+tokens, 0 active suspensions at 2026-11-12 with the facet row landed; the
+historical "145 selected / none suspended" figures were stale), including a shape check per
+selectable kind — the `command-shape/cli` check passing on 71 `cli` rows is
 reported as such rather than as a silent vacuous pass. See
 [09-KIT-LOCK.md](09-KIT-LOCK.md).
 
