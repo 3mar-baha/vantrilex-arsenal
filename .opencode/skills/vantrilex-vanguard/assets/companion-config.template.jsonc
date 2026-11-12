@@ -10,49 +10,56 @@
   // on tokens and buffer only. There is deliberately NO `instructions`
   // array: the V2 runtime auto-loads AGENTS.md and AGENTS.md alone, so an
   // instructions array would be a second, inert source of directives.
-  // Vantrilex Arsenal plugin entry (W-29).
-  // Measured 2026-11-11: the npm registry returns 404 for both
-  // "@3mar-baha/vantrilex-arsenal" and "vantrilex-arsenal", and the V2
-  // runtime skips a path to a single file (local plugin entries must be
-  // directories; see https://opencode.ai/v2/docs/plugins/). The in-tree
-  // plugin lives at .opencode/plugin/arsenal.ts — a file, not a package.
-  // The value below is therefore the dispatch brief's placeholder, UNVERIFIED
-  // as an installable coordinate: it is not claimed to install and is not a
-  // working Arsenal install. Replace it with a verified package or a local
-  // plugin directory once one exists, and record the verification then.
-  // Note: the live config schema (https://opencode.ai/config.json, top-level
-  // additionalProperties: false) names this key `plugins` (plural) and marks
-  // singular `plugin` deprecated; the W-29 brief pinned the singular key, so
-  // the spelling is flagged to the Guide for arbitration, not silently
-  // swapped here.
-  "plugin": [
-    "@3mar-baha/vantrilex-arsenal"
+  // Vantrilex Arsenal plugin entry (W-29, corrected 2026-11-12).
+  // No published npm coordinate exists for this plugin: the npm registry
+  // returns 404 for both "@3mar-baha/vantrilex-arsenal" and
+  // "vantrilex-arsenal" (measured 2026-11-11). The Arsenal ships as an
+  // in-tree plugin whose entry point is `.opencode/plugin/arsenal.ts`
+  // (a file, its own kind of distribution: the tree). Configured local
+  // paths must be DIRECTORIES — a path to a single `.ts` file is skipped
+  // (see https://opencode.ai/v2/docs/plugins/, checked 2026-11-12).
+  // The example below therefore names this repo's plugin DIRECTORY,
+  // relative to the config file that carries it; relative paths resolve
+  // from the config file containing the entry. This is an example, not a
+  // verified install: no target-project install using this exact value
+  // has been executed and verified from this lane, and the in-tree file
+  // remains the shipped artifact until one is.
+  // The live config schema (https://opencode.ai/config.json, fetched
+  // 2026-11-12; top-level additionalProperties: false) names this key
+  // `plugins` (plural) and marks singular `plugin` deprecated; the F-28
+  // final-fix lane renames it accordingly.
+  "plugins": [
+    "./.opencode/plugin"
   ],
-  // W-29: MCP servers, config-first.
+  // W-29: MCP servers, config-first (renamed 2026-11-12 per the live schema).
   // Filled by scripts/emit-mcp-config.mjs from .opencode/equip.manifest.json
   // (the mcp/ tokens) + registry/catalog.json. Every entry is D54-gated at
   // emit time: version_pin required, plus a resolvable package
-  // (install_cmd → stdio) or a `remoteUrl` field (→ sse). Anything else is
+  // (install_cmd → local) or a `remoteUrl` field (→ remote). Anything else is
   // named on stdout and REFUSED, never silently skipped.
-  // Commented example — placeholder, not a claim that this host wires it
-  // (this is the exact entry the W-29 emitter wrote for this repo's
-  // selection on 2026-11-11):
+  // Commented example — the exact shape the emitter writes today for this
+  // repo's selection (2026-11-12; the tracked `.opencode/opencode.json`
+  // still carries the pre-rename `mcpServers` form until the re-emission
+  // commit lands):
   //   "memory": {
-  //     "type": "stdio",
-  //     "command": "npx",
-  //     "args": ["-y", "@modelcontextprotocol/server-memory"],
-  //     "env": []
+  //     "type": "local",
+  //     "command": ["npx", "-y", "@modelcontextprotocol/server-memory"]
   //   }
   // Entries appear only for selected MCPs that clear the pin+command bar;
-  // measured 2026-11-11: 1 of 10 (memory, pin 1.0.0), and none of the 10 is
-  // countable under full D54 (no transport field, no health-check record).
-  // Like `plugin`, this key (`mcpServers`) is NOT in the live V2 schema,
-  // which spells MCP as `mcp.servers.<name>` ({type: "local", command:
-  // string[]} | {type: "remote", url}) under an additionalProperties:false
-  // top level; the W-29 brief pinned `mcpServers`, so the Guide owns the
-  // rename ruling. Left exactly as briefed.
-  "mcpServers": {
-    // placeholder — intentionally empty; the W-29 emitter fills this block
+  // measured 2026-11-12: 8 of 14 (gmail, notion, context7, github,
+  // sequential-thinking, firecrawl, browserbase, memory); 6 refused
+  // (deepwiki, mem0-memory-mcp, discord, figma-context-mcp, slack,
+  // subhatta123-twilize).
+  // The live V2 schema (https://opencode.ai/config.json, fetched
+  // 2026-11-12) spells MCP as `mcp.servers.<name>` —
+  // `Mcp.LocalConfigEncoded` { type: "local", command: string[] } |
+  // `Mcp.RemoteConfigEncoded` { type: "remote", url } — under a
+  // top-level additionalProperties: false; the F-28 final-fix lane
+  // renamed the emitter and this template accordingly.
+  "mcp": {
+    "servers": {
+      // placeholder — intentionally empty; the W-29 emitter fills this block
+    }
   },
   "default_agent": "blazar",
   "agents": {

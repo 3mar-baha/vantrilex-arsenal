@@ -5,7 +5,7 @@
  * Reads `.opencode/equip.manifest.json` (the `mcp/` tokens, live, across all
  * phases; never a hardcoded list) plus `registry/catalog.json` (the `kind:
  * "mcp"` rows) and writes `.opencode/opencode.json` with a top-level
- * `mcpServers` block.
+ * `mcp.servers.<name>` block.
  *
  * For each selected MCP the catalog row is looked up for:
  *   - `version_pin`                      (required, D54 criterion 1)
@@ -27,14 +27,27 @@
  *     field is set. Anything else (including `streamable-http`) is refused
  *     rather than typed with an invented value. No catalog row carries
  *     `remoteUrl` today.
+ *
+ * Entry shapes follow the live OpenCode config schema
+ * (https://opencode.ai/config.json, fetched 2026-11-12; top-level
+ * additionalProperties: false): `Mcp.LocalConfigEncoded` spells a local
+ * server `{type: "local", command: string[]}`; `Mcp.RemoteConfigEncoded`
+ * spells a remote server `{type: "remote", url: string}`. The singular
+ * `plugin` key is deprecated in the same schema in favour of `plugins`.
  *   - `evidence.source_proof.target` is provenance evidence and is NEVER
  *     promoted to a remote entry: promoting it would invent a transport and
  *     skip the pin law.
  *   - the full D54 test additionally requires a stated transport (criterion
  *     3) and a passing recorded health check (criterion 4). Measured
- *     2026-11-11: no catalog row carries `transport` or any health-check
- *     record, so 0 of the selected MCPs are countable under full D54. An
- *     emission under the W-29 bar is recorded with that caveat, never as
+ *     2026-11-12: 12 of the 14 selected MCP rows carry a non-null
+ *     `transport` (only `mem0-memory-mcp` and `discord` carry null) and 9
+ *     carry a passing recorded health check (`deepwiki`, `notion`,
+ *     `context7`, `github`, `sequential-thinking`, `firecrawl`,
+ *     `browserbase`, `figma-context-mcp`, `memory`); 3 carry `fail`
+ *     (`gmail`, `slack`, `subhatta123-twilize`) and 2 carry no health
+ *     record (`mem0-memory-mcp`, `discord`). Whether any of that makes a
+ *     row countable is the gate's call, never this script's; an emission
+ *     under the W-29 bar is recorded with that caveat, never as
  *     "D54-countable".
  *
  * Usage:
@@ -180,7 +193,7 @@ for (const { token, id, phase, suspended } of selected) {
     if (reasons.length === 0) {
       if (remoteUrl && !installCmd) {
         if (transport === "sse") {
-          entry = { type: "sse", url: remoteUrl };
+          entry = { type: "remote", url: remoteUrl };
         } else {
           reasons.push(`remoteUrl set but transport is ${JSON.stringify(transport)} — refusing to type the entry without inventing a transport`);
         }
@@ -192,9 +205,9 @@ for (const { token, id, phase, suspended } of selected) {
           if (parts.length === 0) {
             reasons.push("install_cmd could not be tokenized into a command");
           } else {
-            entry = { type: "stdio", command: parts[0], args: parts.slice(1), env: [] };
+            entry = { type: "local", command: [parts[0], ...parts.slice(1)] };
             if (!transport) {
-              assumption = "transport null in registry — inferred stdio from a command-line install_cmd (assumption recorded, never asserted as stated)";
+              assumption = "transport null in registry — inferred local (stdio) transport from a command-line install_cmd (assumption recorded, never asserted as stated)";
             }
           }
         }
@@ -209,9 +222,9 @@ for (const { token, id, phase, suspended } of selected) {
 
   if (entry) {
     emitted[id] = entry;
-    console.log(`  EMIT    mcpServers.${id} = ${JSON.stringify(entry)}`);
+    console.log(`  EMIT    mcp.servers.${id} = ${JSON.stringify(entry)}`);
     console.log(`          ${pin ? `pin ${pin}` : "pin null"}; ${assumption ?? "transport " + transport}; ${healthNote}`);
-    console.log("          W-29 pin+command bar only — NOT countable under full D54; the health-check criterion is unrecorded for every selected MCP");
+    console.log("          W-29 pin+command bar only — never asserted countable under full D54; countability is the gate's call");
   } else {
     refused.push({ id, reasons });
     console.log(`  REFUSED ${id} — ${reasons.join("; ")}`);
@@ -234,12 +247,14 @@ if (refused.length > 0) {
   }
   console.log("");
 }
-console.log("note: evidence.source_proof targets and repo coordinates are provenance, not wiring;");
+console.log("note: no emission above is promoted from provenance;");
 console.log("      no evidence URL was promoted to a remote entry anywhere above.");
-console.log("note: no catalog row carries `transport` or a health-check record (measured 2026-11-11);");
-console.log("      0 of the selected MCPs are countable under full D54.");
+console.log("note: measured 2026-11-12, 12 of 14 selected MCP rows carry a non-null transport");
+console.log("      and 9 carry a passing recorded health check; countability is the gate's call.");
+console.log("note: entries follow the live config schema (https://opencode.ai/config.json):");
+console.log("      local = {type: \"local\", command: string[]}; remote = {type: \"remote\", url}.");
 
-const serialized = JSON.stringify({ mcpServers: emitted }, null, 2) + "\n";
+const serialized = JSON.stringify({ mcp: { servers: emitted } }, null, 2) + "\n";
 if (fs.existsSync(OUT_PATH)) {
   const current = fs.readFileSync(OUT_PATH, "utf8");
   if (current === serialized) {
@@ -249,5 +264,5 @@ if (fs.existsSync(OUT_PATH)) {
   fail(`.opencode/opencode.json exists and differs from the emission — refusing to overwrite an owner file (delete it explicitly to re-emit)`);
 }
 fs.writeFileSync(OUT_PATH, serialized);
-console.log(`written: ${path.relative(ROOT, OUT_PATH)} (top-level mcpServers; ${Object.keys(emitted).length} entr${Object.keys(emitted).length === 1 ? "y" : "ies"}; an empty {} is correct when every selected MCP is refused)`);
+console.log(`written: ${path.relative(ROOT, OUT_PATH)} (top-level mcp.servers; ${Object.keys(emitted).length} entr${Object.keys(emitted).length === 1 ? "y" : "ies"}; an empty {} is correct when every selected MCP is refused)`);
 process.exit(0);
