@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-11-12",
+  "recorded_by": "FINAL FIX F-21",
+  "source": "docs/priority-backfill-2026-11-11.md (W-19, commit 6d02f6a, 2026-11-11 16:28:21 +0300)",
+  "overrides": [
+    {
+      "id": "vantrilex-prime",
+      "priority": 10,
+      "override": "top_level_10",
+      "reason": "W-19 override list, verbatim from docs/priority-backfill-2026-11-11.md: 'The four top-level skills → priority 10 (top_level_10): vantrilex-prime, vantrilex-vanguard, vantrilex-doctrine, vantrilex-workflow-forge. Fired 4 times (all four were raw 8).' Row: raw 8 → final 10."
+    },
+    {
+      "id": "vantrilex-vanguard",
+      "priority": 10,
+      "override": "top_level_10",
+      "reason": "W-19 override list, verbatim from docs/priority-backfill-2026-11-11.md: 'The four top-level skills → priority 10 (top_level_10): vantrilex-prime, vantrilex-vanguard, vantrilex-doctrine, vantrilex-workflow-forge. Fired 4 times (all four were raw 8).' Row: raw 8 → final 10."
+    },
+    {
+      "id": "vantrilex-doctrine",
+      "priority": 10,
+      "override": "top_level_10",
+      "reason": "W-19 override list, verbatim from docs/priority-backfill-2026-11-11.md: 'The four top-level skills → priority 10 (top_level_10): vantrilex-prime, vantrilex-vanguard, vantrilex-doctrine, vantrilex-workflow-forge. Fired 4 times (all four were raw 8).' Row: raw 8 → final 10."
+    },
+    {
+      "id": "vantrilex-workflow-forge",
+      "priority": 10,
+      "override": "top_level_10",
+      "reason": "W-19 override list, verbatim from docs/priority-backfill-2026-11-11.md: 'The four top-level skills → priority 10 (top_level_10): vantrilex-prime, vantrilex-vanguard, vantrilex-doctrine, vantrilex-workflow-forge. Fired 4 times (all four were raw 8).' Row: raw 8 → final 10."
+    }
+  ],
+  "disabled_terms": [
+    {
+      "term": "load-proof",
+      "reason": "W-30 landed after W-19 (16:15–17:15 timetable slot, commit 19:07); formula has no term; adding one re-opens a published score — recorded by FINAL FIX F-21, 2026-11-12; owner may direct the re-score"
+    }
+  ]
+}

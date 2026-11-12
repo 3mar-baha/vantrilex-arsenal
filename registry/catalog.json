@@ -18689,11 +18689,20 @@
         }
       },
       "default_selected": false,
-      "priority": null,
-      "priority_source": null,
-      "priority_set_at": null,
+      "priority": 8,
+      "priority_source": "derived",
+      "priority_set_at": "2026-11-12",
       "priority_per_role": null,
-      "usage_signals": null,
+      "usage_signals": {
+        "formula": "w19-v1",
+        "signals": {
+          "class": "+1",
+          "when_to_use": "+2",
+          "version_pin": "+0",
+          "install_cmd_null": "-0"
+        },
+        "pinned_at": "2026-11-12"
+      },
       "transport": null,
       "remoteUrl": null,
       "health_check": null

@@ -114,3 +114,43 @@ tagged `formula: "w19-v1"`; every unscored row carries a `reason`.
 
 Every command block above was executed as written; the outputs shown are the
 real outputs. No block in this document is illustrative.
+
+## Update — 2026-11-12 (FINAL FIX F-21, append-only)
+
+Appended by the 2026-11-12 final-fix lane; the sections above are unchanged.
+
+- `curl-patterns` re-scored **8** under the recorded `w19-v1` formula,
+  recomputed in-session from the row's own features: base 5 + `class:
+  loadable` (+1) + `when_to_use` set (+2) + `version_pin` null (+0) +
+  `install_cmd_null` not applicable — `class` is `loadable`, so −0. Raw 8,
+  clamped to 8; tier `conditional` (no `core_min_8`); id is not a top-level
+  skill (no `top_level_10`). Row now carries `priority: 8`,
+  `priority_source: "derived"`, `priority_set_at: "2026-11-12"`,
+  `usage_signals: {formula: "w19-v1", signals: {class: "+1", when_to_use:
+  "+2", version_pin: "+0", install_cmd_null: "-0"}, pinned_at: "2026-11-12"}`.
+  Note: `priority_source` is `"derived"`, not the literal `"w19-v1"` named in
+  the F-21 brief — the v5/v6 record schema restricts `priority_source` to
+  `["derived", "asserted", "unscored", null]`, and `usage_signals.formula`
+  carries the `w19-v1` label instead; a `"w19-v1"` value would fail
+  `verify-registry` schema-conformance.
+- Priority-null count after this landing: **354** (measured; the W-19
+  histogram's 339 applied to the 1,488-row tree; the 15 F-16 rows are
+  null-priority and `curl-patterns` moved null → 8: 339 + 15 = 354).
+  The dispatch's expectation of "339" is stale by the F-16 additions and is
+  recorded here as measured instead of asserted.
+- The W-19 histogram above is **not** rewritten; scored total is now 1,150
+  (was 1,149) as reported by `verify-priority-source` after the re-score.
+- `scripts/score-priority.overrides.json` was created carrying the four
+  `top_level_10` overrides documented in §Override list verbatim (see the
+  file; each row carries a `reason` quoted from this document) and one
+  `disabled_terms` entry: `load-proof` — disabled because W-30 (load-proof
+  existence gate, commit `ffa3d73`, 2026-11-11 19:07:18 +0300) landed after
+  W-19 (commit `6d02f6a`, 2026-11-11 16:28:21 +0300); the `w19-v1` formula
+  has no load-proof term and adding one would re-open a published score.
+  Recorded by FINAL FIX F-21, 2026-11-12; the owner may direct the re-score.
+  The scorer has no documented flag or override mechanism for a load-proof
+  term, so no term was added.
+- `registry/data/skills.jsonl` — one row changed (`curl-patterns`).
+  `registry/catalog.json` — regenerated (`skill changed 1`).
+  `--check` exit 0 after the regeneration. `verify-priority-source` exit 0
+  (1,150 scored, 0 violations).
