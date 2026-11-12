@@ -19,10 +19,13 @@ is maintained by hand in the same shape. Numbers D3 and D4 are absent from
 the ratified list and are left vacant rather than filled. D13 through D22
 are also absent: the log moved from D12 (2026-10-04) straight to D23
 (2026-11-05) as the first post-audit wave decisions were recorded, so
-those slots were never allocated. The log therefore carries 34
-D-numbered entries (D1, D2, D5-D12, D23-D46) rather than a contiguous
-D1-D46; no renumbering is performed and the gaps are left vacant by
-design.
+those slots were never allocated. Correction 2026-11-12: the log therefore
+carries **73 D-numbered entries** (D1, D2, D5-D12, D23-D85), not a
+contiguous D1-D85; 3 of the 76 lines beginning `## D` in this file are the
+non-numbered entries titled “Design variations…”, “Documentation-only
+consistency sweep…” and “Documentation census…” (2026-10-04 wave, before
+D-numbering), not missing D-numbers. No renumbering is performed and the
+gaps are left vacant by design.
 
 ## D1 — Public repository
 
