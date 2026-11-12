@@ -8432,7 +8432,7 @@
       "evidence": {
         "load_proof": {
           "surface": "https://github.com/mattpocock/skills",
-          "method": "surface-exists",
+          "method": "upstream-repo-resolution",
           "checked_at": "2026-11-11"
         },
         "command_registry": {
@@ -14082,7 +14082,7 @@
       "evidence": {
         "load_proof": {
           "surface": "https://github.com/mattpocock/skills",
-          "method": "surface-exists",
+          "method": "upstream-repo-resolution",
           "checked_at": "2026-11-11"
         },
         "command_registry": {
@@ -20264,7 +20264,7 @@
       "evidence": {
         "load_proof": {
           "surface": "https://github.com/Leonxlnx/taste-skill",
-          "method": "surface-exists",
+          "method": "upstream-repo-resolution",
           "checked_at": "2026-11-11"
         },
         "command_registry": {
@@ -28992,7 +28992,7 @@
       "evidence": {
         "load_proof": {
           "surface": "https://github.com/vercel-labs/skills",
-          "method": "surface-exists",
+          "method": "upstream-repo-resolution",
           "checked_at": "2026-11-11"
         },
         "command_registry": {
@@ -68685,7 +68685,7 @@
       "evidence": {
         "load_proof": {
           "surface": "https://github.com/Leonxlnx/taste-skill",
-          "method": "surface-exists",
+          "method": "upstream-repo-resolution",
           "checked_at": "2026-11-11"
         },
         "command_registry": {

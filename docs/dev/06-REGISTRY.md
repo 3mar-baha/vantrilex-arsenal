@@ -60,8 +60,11 @@ Three proof shapes, each a dated observation:
 - `source_proof` carries `target`, `path`, `method` (`repo-resolves` or
   `file-resolves`) and `checked_at`.
 - `load_proof` carries `surface`, `method` (`surface-exists`,
-  `callback-wired`, `server-bin`, `frontmatter-valid`, or
-  `file-copy-target`) and `checked_at`.
+  `callback-wired`, `server-bin`, `frontmatter-valid`,
+  `file-copy-target`, or `upstream-repo-resolution`) and `checked_at`.
+  `upstream-repo-resolution` names a load_proof whose surface is the https URL
+  of the upstream source repository rather than a shipped path; it asserts
+  resolution of that URL, never an installed file.
 - `command_registry` carries `command`, `registry` (one of fifteen named
   families, from `npm` to `file-copy`) and `checked_at`. The command must equal
   the record's `install_cmd`; a reference to a different command proves nothing.

@@ -302,9 +302,10 @@
             "callback-wired",
             "server-bin",
             "frontmatter-valid",
-            "file-copy-target"
+            "file-copy-target",
+            "upstream-repo-resolution"
           ],
-          "description": "Which of the existing proofs produced the evidence. 'surface-exists' is the shipped-file or folder check. 'callback-wired' is the hook-to-exported-callback pair in .opencode/plugin/arsenal.ts. 'server-bin' is the package executable check an MCP server needs. 'frontmatter-valid' is the agent frontmatter, name and mode check. 'file-copy-target' is the cp source-and-destination check for file-copy kinds. These five are the proof mechanisms the verifier already implements; the vocabulary adds no new one."
+          "description": "Which of the existing proofs produced the evidence. 'surface-exists' is the shipped-file or folder check. 'callback-wired' is the hook-to-exported-callback pair in .opencode/plugin/arsenal.ts. 'server-bin' is the package executable check an MCP server needs. 'frontmatter-valid' is the agent frontmatter, name and mode check. 'file-copy-target' is the cp source-and-destination check for file-copy kinds. 'upstream-repo-resolution' is the upstream repository resolution proof for a load_proof whose surface is the https URL of the source repository rather than a shipped path. These six are the proof mechanisms; the vocabulary adds no new verification route."
         },
         "checked_at": {
           "type": "string",
