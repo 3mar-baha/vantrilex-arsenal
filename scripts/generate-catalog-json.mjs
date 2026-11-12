@@ -934,12 +934,25 @@ function lintSafeTableLine(line) {
 
 export function renderMarkdownDocument(parsed) {
   const out = [];
-  const { lines, sections } = parsed;
+  const { lines, sections, records } = parsed;
+  // The Summary block is rendered, never hand-maintained: the counts are the
+  // parsed row set itself, so the line cannot drift from the table again.
+  const totalComponents = records.length;
+  const defaultSelected = records.filter((r) => r.default_selected).length;
   let i = 0;
   while (i < lines.length) {
     const section = sections.find((s) => s.headingLine === i + 1);
     if (!section) {
-      out.push(lines[i]);
+      const line = lines[i];
+      const totalMatch = /^(- \*\*Total components:\*\* )\d+$/u.exec(line);
+      const defaultsMatch = /^(- \*\*Default-selected:\*\* )\d+$/u.exec(line);
+      if (totalMatch) {
+        out.push(`${totalMatch[1]}${totalComponents}`);
+      } else if (defaultsMatch) {
+        out.push(`${defaultsMatch[1]}${defaultSelected}`);
+      } else {
+        out.push(line);
+      }
       i += 1;
       continue;
     }
