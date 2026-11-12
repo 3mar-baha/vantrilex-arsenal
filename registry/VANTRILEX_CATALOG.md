@@ -2458,7 +2458,7 @@ Consolidated reference of every system component with its folder path.
 | 7 | long-running-process-guard ✅ | Guard long-running dev servers and watchers so their logs stay reachable |  | `` |
 | 8 | task-dispatcher | Classify each user message into one of the five Vanguard task scenarios |  | `` |
 
-## Agents (304 — 1 default-selected)
+## Agents (305 — 1 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -2766,6 +2766,7 @@ Consolidated reference of every system component with its folder path.
 | 302 | vantrilex | The supreme Vantrilex seat, titled Zenith, above the three leaders: distributes missions, arbitrates leader outputs, and… | 3mar-baha/vantrilex-arsenal | `` |
 | 303 | vantrilex-skill-finder | Use when upstream skills must be found, polished, and shipped into the catalog… | 3mar-baha/vantrilex-arsenal | `` |
 | 304 | vantrilex-skill-agent-maker | Use when a task-named brief demands a new or repaired skill or agent forged, gated, and shipped with retained… | 3mar-baha/vantrilex-arsenal | `` |
+| 305 | vantrilex-facet | Use when a task needs one of three intervention degrees (cautious asks often, balanced for daily work, long without intervention), so the same thinking runs… | 3mar-baha/vantrilex-arsenal | `` |
 
 ## Formatting (13 — 0 default-selected)
 
@@ -3012,7 +3013,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2926
+- **Total components:** 2927
 - **Default-selected:** 13
 
 ---
