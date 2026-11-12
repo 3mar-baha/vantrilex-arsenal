@@ -90,3 +90,31 @@ the claim against a landed artifact. Claims recorded with `brief-named` or
 minimum. The trace, once produced, is local to the clone that produced it
 (`.opencode/dispatch-log/` is not committed), and the verifier prints its
 verdict from exactly that file.
+
+## Real-task verification (2026-11-12, FINAL FIX endgame)
+
+A real task trace now exists in the tree: `.opencode/dispatch-log/finalfix-ws6-installs-2026-11-12.jsonl`
+(the WS6 network-install lane — a real dispatch of `vantrilex-implementer`, verified
+by the coordinating leader: folders landed, `skills-lock.json` delta landed, gates
+re-run by the coordinator on the landed bytes).
+
+Verifier-confirmed (marked by the coordinating leader after reading the lane report
+and re-verifying artifacts): `vs-asterism-muster`, `ponytail`, `verification-loop`,
+`documentation-as-tests`. MCPs used by the lane: none (network installs; no MCP
+calls). Command and verbatim output:
+
+```console
+node scripts/verify-minimums.mjs --task finalfix-ws6-installs-2026-11-12
+task_id:      finalfix-ws6-installs-2026-11-12
+rank:         asterism
+skills:       4 verifier-confirmed (min 5, D48)
+mcps:         0 verifier-confirmed (min 2, D48)
+sources:      brief-named=0, receipt-claimed=0, verifier-confirmed=4
+event_count:  4
+REJECTED — shortfall: skills 4/5 verifier-confirmed (deficit 1); mcps 0/2 verifier-confirmed (deficit 2)
+```
+
+Exit code: **1**. The minimum is NOT declared met by any self-report; this is the
+first time the (c) checker examined a real task, and the verdict is REJECTED with
+named deficits. No token was invented, upgraded, or back-filled to reach APPROVED.
+The `.opencode/dispatch-log/` directory is no longer empty for a real task.
