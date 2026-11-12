@@ -31068,9 +31068,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/grill-me/SKILL.md",
+          "surface": ".agents/skills/grill-me/SKILL.md",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx skills add mattpocock/skills --skill grill-me -a opencode -y",
@@ -59610,9 +59610,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/ponytail-audit/SKILL.md",
+          "surface": ".agents/skills/ponytail-audit/SKILL.md",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx skills add dietrichgebert/ponytail --skill ponytail-audit -a opencode -y",
@@ -59818,9 +59818,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/ponytail-review/SKILL.md",
+          "surface": ".agents/skills/ponytail-review/SKILL.md",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx skills add dietrichgebert/ponytail --skill ponytail-review -a opencode -y",
@@ -66800,9 +66800,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/skill-creator/SKILL.md",
+          "surface": ".agents/skills/skill-creator/SKILL.md",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx skills add anthropics/skills --skill skill-creator -a opencode -y",
@@ -68897,9 +68897,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/tdd/SKILL.md",
+          "surface": ".agents/skills/tdd/SKILL.md",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx skills add mattpocock/skills --skill tdd -a opencode -y",
@@ -75142,9 +75142,9 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": ".opencode/skills/wayfinder/SKILL.md",
+          "surface": ".agents/skills/wayfinder/SKILL.md",
           "method": "surface-exists",
-          "checked_at": "2026-10-22"
+          "checked_at": "2026-11-12"
         },
         "command_registry": {
           "command": "npx skills add mattpocock/skills --skill wayfinder -a opencode -y",
