@@ -9,4 +9,3 @@
 **Tags:** cybersecurity, skill
 
 **Raw URL:** https://raw.githubusercontent.com/mukul975/Anthropic-Cybersecurity-Skills/main/skills/analyzing-apt-group-with-mitre-navigator/SKILL.md
-
