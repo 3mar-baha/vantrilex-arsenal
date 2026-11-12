@@ -1649,10 +1649,24 @@ const loadProofExistenceReason = (entry) => {
   return entry.kind + "/" + entry.id + ": load_proof surface " + JSON.stringify(surface) + " resolves nowhere offline (no install_cmd package, no registry/ file, no .opencode/skills/ folder, no .opencode/agents/ file, no .opencode/plugin/ #anchor, no root tsconfig.json, no .agents/skills/ folder)";
 };
 
-const checkLoadProofExistence = (components) => {
+/**
+ * load-proof/existence (no network). Hybrid scope (owner ruling 2026-11-12 (ج)):
+ * gates ONLY scope-S rows — the selected tokens (equip.manifest.json phases,
+ * passed in as scopeIds) unioned with every row carrying default_selected=true
+ * (added by the caller). Scope-S failures FAIL the gate with the row ids.
+ * The catalog-only mass (non-URL surfaces that resolve nowhere and are neither
+ * selected nor default) is reported as one line, never gated and never printed
+ * in full unless the caller passes --list-catalog-only. Rows whose surface is
+ * missing or not a string are judged by the shape legs, not here. An http(s)
+ * surface is out of scope (source_proof territory).
+ */
+const checkLoadProofExistence = (components, scopeIds) => {
   const failures = [];
+  const catalogOnly = [];
   let checked = 0;
   let urls = 0;
+  let scopeChecked = 0;
+  const listCatalogOnly = process.argv.includes("--list-catalog-only");
   for (const entry of components) {
     const evidence = entry !== null && typeof entry === "object" ? entry.evidence : null;
     const loadProof = evidence !== null && typeof evidence === "object" ? evidence.load_proof : null;
@@ -1660,20 +1674,28 @@ const checkLoadProofExistence = (components) => {
     if (typeof surface !== "string") continue;
     if (/^https?:\/\//i.test(surface)) { urls += 1; continue; }
     checked += 1;
+    const inScope = scopeIds.has(entry.kind + "/" + entry.id);
+    if (inScope) scopeChecked += 1;
     const reason = loadProofExistenceReason(entry);
-    if (reason !== null) failures.push(reason);
+    if (reason !== null) {
+      if (inScope) failures.push(reason);
+      else catalogOnly.push(entry.kind + "/" + entry.id);
+    }
   }
+  const massLine = "catalog-only mass: " + catalogOnly.length + " non-URL surface(s) with no local resolution (reported, not gated — owner ruling 2026-11-12 (ج))";
+  const massIds = listCatalogOnly && catalogOnly.length > 0 ? "; catalog-only unresolved ids: " + catalogOnly.sort().join(", ") : "";
   if (failures.length > 0) {
     return {
       status: "FAIL",
       detail:
-        failures.length + " of " + checked + " non-URL load_proof surface(s) resolve nowhere offline (failing rows: " +
-        failures.map((failure) => failure.split(":")[0]).join(", ") + ")"
+        "scope-S FAIL: " + failures.length + " of " + scopeChecked + " selected/default non-URL load_proof surface(s) resolve nowhere offline (failing rows: " +
+        failures.map((failure) => failure.split(":")[0]).join(", ") + "); " + massLine + massIds
     };
   }
   return {
     status: "PASS",
-    detail: checked + " non-URL load_proof surface(s) resolve (install_cmd package, registry/ file, or .opencode/skills/ folder); " + urls + " URL surface(s) out of scope; 0 unresolved"
+    detail:
+      "scope-S: " + scopeChecked + " selected/default non-URL surface(s) resolve (of " + checked + " non-URL surfaces checked; " + urls + " URL surface(s) out of scope); " + massLine + massIds
   };
 };
 
@@ -2240,6 +2262,13 @@ const main = () => {
     );
   }
 
+  // F-04 (hybrid scope, owner ruling 2026-11-12 (ج)): gate selected ∪
+  // default-selected, report the catalog-only mass.
+  const scopeIds = new Set(selectedTokens);
+  for (const entry of components) {
+    if (entry !== null && typeof entry === "object" && entry.default_selected === true) scopeIds.add(entry.kind + "/" + entry.id);
+  }
+
   // P8: the selected ids survive the catalog-only derivation into phase sets.
   let phaseSets = null;
   if (selection === null) {
@@ -2323,7 +2352,7 @@ const main = () => {
   recordResult("command-shape/skills-upstream", checkSkillsUpstream(components));
   recordResult("candidates/schema", checkCandidates());
   recordResult("evidence/ttl", checkEvidenceTtl(components));
-  recordResult("load-proof/existence", checkLoadProofExistence(components));
+  recordResult("load-proof/existence", checkLoadProofExistence(components, scopeIds));
   recordResult("pin-coverage/installable", checkPinCoverage(components));
   if (selection === null) {
     for (const check of ["command-shape/mcp-npm", "agent-hygiene", "selection/top-level-skills"]) {
