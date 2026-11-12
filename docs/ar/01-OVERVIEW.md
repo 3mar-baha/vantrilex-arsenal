@@ -71,7 +71,8 @@ Vantrilex Arsenal إضافة OpenCode قابلة للمشاركة إلى جان�
 عند 13 مكوّنًا محدَّدًا افتراضيًا و1,221 أمر تثبيت متحقَّقًا منه، مغنًى من 16
 ملفًا جانبيًا يدمجها المولِّد (agents، وbenchmarks، وcli، وdatasets، وdesign،
 وformatting، وhooks، وlsp، وmcp، وplugins، وpolicies، وprompts، وskills،
-وtemplates، وthemes، وworkflows). ومكوّنات Tier-1 — مكوّنات Python والواجهة وتدفّق الفريق
+وtemplates، وthemes، وworkflows؛ ملف `superseded-by.jsonl` المضاف في F-30
+للتوثيق تحليليًا وليس نوعًا جانبيًا). ومكوّنات Tier-1 — مكوّنات Python والواجهة وتدفّق الفريق
 ونظام التصميم — يضيفها Vanguard فقط حين يتطلبها المشروع. وحدّ الـ8 لخوادم
 MCP وقاعدة تحديد النطاق بالمرحلة التي تُبقي الطقم ميسور الكلفة موثَّقان في
 [09-KIT-LOCK.md](09-KIT-LOCK.md).

@@ -123,11 +123,13 @@ A contributor reads for landing changes:
 
 - Counts are honest and checkable: 2,925 live catalog records plus 40
   candidates, 39 records with tier `core` including Prime, Vanguard, and
-  Doctrine, 13 default-selected components, and 16 merged sidecars. Every live
+  Doctrine, 13 default-selected components, and 16 merged kind sidecars. Every live
   row is `verified` under its declared class. See [01-OVERVIEW.md](01-OVERVIEW.md).
   Corrected 2026-11-12 (F-26 census sweep): the 2,889/20 figures were stale
   (the catalog grew to 2,925 with the F-16 rows; the catalog Summary is now
-  generator-computed); sidecar count 16 and candidates 40 re-verified against
+  generator-computed); sidecar count 16 (the 16 merged kind sidecars; a
+  seventeenth `*.jsonl` — `superseded-by.jsonl`, F-30, 2026-11-12 — is
+  annotations data, not a kind sidecar) and candidates 40 re-verified against
   `registry/data/*.jsonl` and `registry/candidates/*.jsonl` on 2026-11-12.
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.

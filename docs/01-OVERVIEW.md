@@ -73,10 +73,12 @@ is `verified` under its declared evidence class — there is no carried
 `unverified` state in v5/v6. `registry/catalog.json` carries 2,925 live records
 (39 tier `core`, 270 tier `conditional`, the remainder untiered and never
 injected) beside 40 candidates in `registry/candidates/`. The catalog recount
-stands at 13 default-selected components, enriched from 16 sidecars merged by
-the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
+stands at 13 default-selected components, enriched from the 16 kind sidecars
+merged by the generator (a seventeenth `*.jsonl` — `superseded-by.jsonl`,
+F-30, 2026-11-12 — is annotations data, not a kind sidecar)
+(agents, benchmarks, cli, datasets, design, formatting, hooks,
 lsp, mcp, plugins, policies, prompts, skills, templates, themes, workflows).
-A sidecar is a `*.jsonl` file directly in `registry/data/`; `overlaps.yaml` is a relations map, not a sidecar. The count is 16; the audit 17 is the directory-entry count (16+1), not a sidecar count.
+A sidecar is a `*.jsonl` file directly in `registry/data/`; `overlaps.yaml` is a relations map, not a sidecar, and the F-30 `superseded-by.jsonl` (2026-11-12) is annotations data, not a kind sidecar. The count is 16 kind sidecars (the generator's merge set); the directory now holds 17 `*.jsonl` files including the F-30 annotations file. (The historical "audit 17" note below was the directory-entry count of 16+1 and is superseded by this correction.)
 Tier-1 components — Python, UI, team-flow, and design-system components — are
 added by Vanguard only when the project requires them. The 8-MCP cap and the
 phase-scoping rule that keep the kit affordable are documented in
