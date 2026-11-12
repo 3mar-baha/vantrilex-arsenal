@@ -184,7 +184,9 @@ paraphrase a gate name into a synonym the author cannot grep:
   before new wording is coined.
 - Translation — `babel-bridge` for kit terminology across the EN/AR
   boundary.
-- Execution — the `filesystem` MCP for the reads the dispatch allows.
+- Execution — the host read/edit tools plus bash coreutils for the reads
+  the dispatch allows (the `filesystem` MCP was re-tiered to conditional
+  and unselected in W-27/D67; the host is the replacement, no row exists).
 - Gap-closure instruments — the ar-en glossary, the bidi lint step,
   and the pinned md-to-pdf pipeline where the brief names them
   (`RESEARCH-03.md` R0d Scribe row).

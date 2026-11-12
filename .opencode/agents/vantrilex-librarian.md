@@ -213,13 +213,17 @@ surface into a synonym the reader cannot grep.
   corrections with reasons; base files stay immutable.
 - **Discovery** — `find-skills` for skill lookup by trigger, never by vague
   phrasing about available implements.
-- **GitHub surface** — the `github` MCP for repository evidence behind a
-  proposal, quoted with its source URL.
+- **GitHub surface** — the `gh` CLI for repository evidence behind a
+  proposal, quoted with its source URL (`cli/gh`, catalog pin 2.103.3;
+  installed binary 2.87.3 — the `github` MCP was re-tiered to conditional
+  and unselected in W-27/D67).
 - **Memory surface** — the `memory` MCP for session-persistent curation
   notes where the dispatcher provides it; the catalog remains the authority,
   never the session note.
-- **Resolution surfaces** — `context7` for version-pinned library docs,
-  `firecrawl` as the fetch fallback, `kit-evolution-log` for persisting
+- **Resolution surfaces** — the `ctx7` CLI for version-pinned library
+  docs (`cli/ctx7` 0.11.0, `npx ctx7 library/docs`), the `firecrawl` CLI
+  (package `firecrawl-cli` 1.29.0, binary `firecrawl`) as the fetch
+  fallback, `kit-evolution-log` for persisting
   what changed and why; the source-freshness stamp convention and the
   per-project library-ID allowlist where the brief names them
   (`RESEARCH-03.md` R0d Librarian row).

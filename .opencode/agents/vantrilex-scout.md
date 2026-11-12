@@ -137,7 +137,9 @@ sentence is.
 - External documentation goes through the `ctx7` CLI
   (`npx ctx7 library/docs`), the `firecrawl` CLI
   (package `firecrawl-cli`), and the `gh` CLI. Remote pages go
-  through `curl`. Reasoning structure goes through sequential-thinking.
+  through `curl`. Reasoning structure goes through the structured-prose
+  scaffold (the `sequential-thinking` MCP was dropped in W-28/D68 in
+  favour of prose in the brief).
   Navigation signals go through typescript-lsp, queries only, never a
   server you started yourself.
 - Ponytail does not apply to this node. Ponytail governs generation

@@ -200,7 +200,8 @@ You resolve kit questions through named surfaces only:
 - Expectations (by name): `tdd-workflow` for test-first expectations,
   `time-capsule-test` for clock-reading tests, `documentation-as-tests`
   for executing documented examples before trusting them, and
-  `sequential-thinking` for the verification chain
+  the structured-prose verification chain (the `sequential-thinking` MCP
+  was dropped in W-28/D68; this seat's chain is prose)
   (`RESEARCH-03.md` R0d Verifier row).
 - MCPs (by name): the `playwright` MCP row in `registry/catalog.json` where the
   brief names it, plus the verifier-gate-smoke benchmark as exit gate;

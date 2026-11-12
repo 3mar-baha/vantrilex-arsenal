@@ -224,7 +224,9 @@ name into a synonym the author cannot grep.
   that hand-edits any of them is high minimum.
 - **Review instruments** — the `code-review` skill (Standards-versus-Spec
   split run as parallel subagents), the `red-team` skill for the
-  adversarial pass, and the `github` MCP for posting findings; the
+  adversarial pass, and the `gh` CLI for posting findings (`cli/gh`,
+  catalog pin 2.103.3; installed binary 2.87.3 — the `github` MCP was
+  re-tiered to conditional and unselected in W-27/D67); the
   diff-size budget rule and the registry Fowler-smell checklist where
   the lane has landed them (`RESEARCH-03.md` R0d Reviewer row).
 

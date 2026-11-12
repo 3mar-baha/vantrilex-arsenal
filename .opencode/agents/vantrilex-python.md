@@ -126,7 +126,10 @@ as a CLI component rather than living as one-off project code.
 - Consult RAG 05 failure-modes (`registry/rag/05-failure-modes.json`) for
   the parked and failed mechanisms relevant to the task, so you do not
   rebuild a mechanism the kit has already ruled out.
-- Plan through `sequential-thinking`, pin docs through `context7`, persist
+- Plan through the reasoning scaffold prose (the `sequential-thinking` MCP
+  was dropped in W-28/D68 in favour of structured prose in the brief), pin
+  docs through the `ctx7` CLI (`cli/ctx7` 0.11.0, `npx ctx7 library/docs`),
+  persist
   through the `memory` MCP, and guard new behaviour with `tdd-workflow`
   red-green-refactor (`RESEARCH-03.md` R0d Python row). Honor the
   project's ruff plus pytest pins and the venv-aware exec guard where
