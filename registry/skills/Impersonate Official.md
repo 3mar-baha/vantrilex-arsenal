@@ -9,4 +9,3 @@
 **Tags:** cybersecurity, skill
 
 **Raw URL:** https://raw.githubusercontent.com/mukul975/Anthropic-Cybersecurity-Skills/main/skills/implementing-soar-playbook-for-phishing/SKILL.md
-
