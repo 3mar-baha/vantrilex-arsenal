@@ -3,7 +3,7 @@
   "generated_by": "scripts/generate-catalog-json.mjs",
   "catalog_version": 6,
   "counts": {
-    "skill": 1489,
+    "skill": 1504,
     "mcp": 910,
     "plugin": 11,
     "hook": 8,
@@ -19,7 +19,7 @@
     "benchmark": 1,
     "workflow": 1,
     "design.md": 84,
-    "total": 2910
+    "total": 2925
   },
   "components": [
     {
@@ -13014,6 +13014,44 @@
         },
         "pinned_at": "2026-11-11"
       },
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "circuit-breaker-guard",
+      "name": "circuit-breaker-guard",
+      "kind": "skill",
+      "description": "Use when the same defect has survived three consecutive failed fix attempts — it enforces the 3-strike circuit breaker by tracking strikes per defect id, halting all execution, and emitting a Diagnostic Incident Report instead of a blind fourth attempt.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "circuit-breaker"
+      ],
+      "when_to_use": null,
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/circuit-breaker-guard/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
       "transport": null,
       "remoteUrl": null,
       "health_check": null
@@ -30209,6 +30247,44 @@
       "health_check": null
     },
     {
+      "id": "github-release-packager",
+      "name": "github-release-packager",
+      "kind": "skill",
+      "description": "Use when cutting a release — governs the release lane end to end by requiring the Clean Code, Test and Docs second-pass guards, deriving the semantic version from conventional commits, refusing to publish from a dirty worktree or a missing changelog entry, tagging, publishing with gh release, and verifying from a fresh clone.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "release"
+      ],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/github-release-packager/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
       "id": "gke-basics",
       "name": "gke-basics",
       "kind": "skill",
@@ -30304,6 +30380,44 @@
         "pinned_at": "2026-11-11",
         "reason": "no discriminating signal: not loadable, no install_cmd metadata, when_to_use absent, version_pin absent, no installability contradiction; tier is not core; id is not a top-level skill"
       },
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "goal-discipline",
+      "name": "goal-discipline",
+      "kind": "skill",
+      "description": "Use when a long task needs a single checkable completion condition held across turns, so the session runs to evidence instead of to the next manual continue.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "goal"
+      ],
+      "when_to_use": null,
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/goal-discipline/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
       "transport": null,
       "remoteUrl": null,
       "health_check": null
@@ -62689,6 +62803,44 @@
       "health_check": null
     },
     {
+      "id": "relay-protocol",
+      "name": "relay-protocol",
+      "kind": "skill",
+      "description": "Use when relaying status, verification, or approval traffic between opencode and vanbu through the shared Notion relay-queue, so every poll, send, triage, timeout, and capsule-security step follows one fixed protocol.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "relay"
+      ],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/relay-protocol/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
       "id": "relaying-ntlm-for-adcs-esc8",
       "name": "relaying-ntlm-for-adcs-esc8",
       "kind": "skill",
@@ -72598,6 +72750,45 @@
       "health_check": null
     },
     {
+      "id": "vantrilex-deep-understand",
+      "name": "vantrilex-deep-understand",
+      "kind": "skill",
+      "description": "Use when an AI agent must understand the Arsenal, orienting from the dev index first and deep-diving per area on demand without writing anything.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "orientation",
+        "arsenal"
+      ],
+      "when_to_use": null,
+      "phase": "on-demand",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vantrilex-deep-understand/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
       "id": "vantrilex-design-variations",
       "name": "vantrilex-design-variations",
       "kind": "skill",
@@ -72692,6 +72883,123 @@
           "top_level_10"
         ]
       },
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vantrilex-intake-fetch",
+      "name": "vantrilex-intake-fetch",
+      "kind": "skill",
+      "description": "Use when an intake batch needs fetching from its approved origin — pulls the named batch and examines its provenance and integrity with an examination record before any scan or triage step.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "intake",
+        "fetch"
+      ],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vantrilex-intake-fetch/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vantrilex-intake-send",
+      "name": "vantrilex-intake-send",
+      "kind": "skill",
+      "description": "Use when a clean examined batch needs staging toward the admit node — stages scan-clean batches SEND-only into pending admission with sign-off gating, zero receive paths, and human sign-off before admission.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "intake",
+        "send"
+      ],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vantrilex-intake-send/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vantrilex-intake-triage",
+      "name": "vantrilex-intake-triage",
+      "kind": "skill",
+      "description": "Use when an intake batch needs classifying and routing before any improve or stage step — routes each Crucible batch through scan-first triage, quarantine decisions, and handoff.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "intake",
+        "triage"
+      ],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vantrilex-intake-triage/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
       "transport": null,
       "remoteUrl": null,
       "health_check": null
@@ -74090,6 +74398,84 @@
       "health_check": null
     },
     {
+      "id": "vs-circuit-breaker-guard",
+      "name": "vs-circuit-breaker-guard",
+      "kind": "skill",
+      "description": "Use when the same defect has survived three consecutive failed fix attempts on the Blazar seat — it enforces the 3-strike circuit breaker by tracking strikes per defect id, halting all execution, and emitting a Diagnostic Incident Report instead of a blind fourth attempt.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "blazar",
+        "circuit-breaker"
+      ],
+      "when_to_use": null,
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-circuit-breaker-guard/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vs-github-release-packager",
+      "name": "vs-github-release-packager",
+      "kind": "skill",
+      "description": "Use when cutting a release from the Blazar seat — governs the release lane end to end by requiring the Clean Code, Test and Docs second-pass guards, deriving the semantic version from conventional commits, refusing to publish from a dirty worktree or a missing changelog entry, tagging, publishing with gh release, and verifying from a fresh clone.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "blazar",
+        "release"
+      ],
+      "when_to_use": null,
+      "phase": "operate",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-github-release-packager/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
       "id": "vs-golden-equipment",
       "name": "vs-golden-equipment",
       "kind": "skill",
@@ -74138,6 +74524,85 @@
       "health_check": null
     },
     {
+      "id": "vs-ponytail",
+      "name": "vs-ponytail",
+      "kind": "skill",
+      "description": "Use when a code-executing agent on the Blazar seat starts a coding task, gates a diff, or surveys repo health, so the ponytail trio routes each job to its variant with the dual guardrail verdict attached.",
+      "source": "dietrichgebert/ponytail",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "blazar",
+        "ponytail"
+      ],
+      "when_to_use": null,
+      "phase": "build",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-ponytail/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vs-preflight-system-doctor",
+      "name": "vs-preflight-system-doctor",
+      "kind": "skill",
+      "description": "Use when entering the Blazar build phase or before any mutating or long-running work — validates environment, runtimes, configuration and workspace health with a Node-only PASS/FAIL/SKIPPED table, prints remediation commands, and blocks execution on critical failures.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "blazar",
+        "preflight",
+        "verification"
+      ],
+      "when_to_use": null,
+      "phase": "build",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-preflight-system-doctor/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
       "id": "vs-pu-probe-craft",
       "name": "vs-pu-probe-craft",
       "kind": "skill",
@@ -74181,6 +74646,46 @@
         },
         "pinned_at": "2026-11-11"
       },
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vs-session-context-primer",
+      "name": "vs-session-context-primer",
+      "kind": "skill",
+      "description": "Use when a session starts or context is lost to compaction — rebuilds the working context in about ten seconds from the AI constitution, project summary, git state and circuit-breaker ledger, and emits a single anchor block (single home: session-context-primer).",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "blazar",
+        "session",
+        "context"
+      ],
+      "when_to_use": null,
+      "phase": "docs",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-session-context-primer/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
       "transport": null,
       "remoteUrl": null,
       "health_check": null
@@ -74277,6 +74782,86 @@
         },
         "pinned_at": "2026-11-11"
       },
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vs-vantrilex-vanguard",
+      "name": "vs-vantrilex-vanguard",
+      "kind": "skill",
+      "description": "Equips a project on demand from the Blazar seat — use when the owner says equip this project or set up this repo, surveying resources and installing plus verifying the kit before writing docs.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "blazar",
+        "scout",
+        "provisioning"
+      ],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "core",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-vantrilex-vanguard/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
+      "transport": null,
+      "remoteUrl": null,
+      "health_check": null
+    },
+    {
+      "id": "vs-vantrilex-workflow-forge",
+      "name": "vs-vantrilex-workflow-forge",
+      "kind": "skill",
+      "description": "Authors the standing methodology for each task from the Blazar seat — use when a new task starts, before execution begins, so the workflow is fixed before the first dispatch.",
+      "source": "3mar-baha/vantrilex-arsenal",
+      "origin": null,
+      "install_cmd": null,
+      "version_pin": null,
+      "category": null,
+      "tags": [
+        "skill",
+        "blazar",
+        "scout",
+        "methodology"
+      ],
+      "when_to_use": null,
+      "phase": "scout",
+      "tier": "conditional",
+      "verify_cmd": null,
+      "cost_note": "light",
+      "verification": "verified",
+      "class": "loadable",
+      "evidence": {
+        "load_proof": {
+          "surface": ".opencode/skills/vs-vantrilex-workflow-forge/SKILL.md",
+          "method": "surface-exists",
+          "checked_at": "2026-11-12"
+        }
+      },
+      "default_selected": false,
+      "priority": null,
+      "priority_source": null,
+      "priority_set_at": null,
+      "priority_per_role": null,
+      "usage_signals": null,
       "transport": null,
       "remoteUrl": null,
       "health_check": null

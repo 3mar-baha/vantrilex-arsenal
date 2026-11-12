@@ -4,7 +4,7 @@ Consolidated reference of every system component with its folder path.
 
 **✅ = DEFAULT-SELECTED** — included in Vantrilex provisioning automatically.
 
-## Skills (1489 — 7 default-selected)
+## Skills (1504 — 7 default-selected)
 
 | # | Name | Description | Source | Install |
 |---|------|-------------|--------|--------|
@@ -1497,6 +1497,21 @@ Consolidated reference of every system component with its folder path.
 | 1487 | vs-asterism-muster | Use when a Vantrilex side agent (vantrilex-*) must open a task, to compile the per-task complement — at least 5 skills and 2 countable MCPs per task per D48… | 3mar-baha/vantrilex-arsenal |  |
 | 1488 | skill-maker | Use when a repeated job needs a reusable skill, so stop improvising the procedure and forge it through small evals before the next run. | 3mar-baha/vantrilex-arsenal |  |
 | 1489 | curl-patterns | Use when calling OpenRouter, Brave Search, or Exa over plain HTTPS in one stateless request — the shared curl patterns that replaced the three REST-over-HTTPS MCPs. | 3mar-baha/vantrilex-arsenal |  |
+| 1490 | circuit-breaker-guard | Use when the same defect has survived three consecutive failed fix attempts — it enforces the 3-strike circuit breaker by tracking strikes per defect id… | 3mar-baha/vantrilex-arsenal |  |
+| 1491 | github-release-packager | Use when cutting a release — governs the release lane end to end by requiring the Clean Code, Test and Docs second-pass guards, deriving the semantic… | 3mar-baha/vantrilex-arsenal |  |
+| 1492 | goal-discipline | Use when a long task needs a single checkable completion condition held across turns, so the session runs to evidence instead of to the next manual… | 3mar-baha/vantrilex-arsenal |  |
+| 1493 | relay-protocol | Use when relaying status, verification, or approval traffic between opencode and vanbu through the shared Notion relay-queue, so every poll, send, triage… | 3mar-baha/vantrilex-arsenal |  |
+| 1494 | vantrilex-deep-understand | Use when an AI agent must understand the Arsenal, orienting from the dev index first and deep-diving per area on demand without writing anything. | 3mar-baha/vantrilex-arsenal |  |
+| 1495 | vantrilex-intake-fetch | Use when an intake batch needs fetching from its approved origin — pulls the named batch and examines its provenance and integrity with an examination… | 3mar-baha/vantrilex-arsenal |  |
+| 1496 | vantrilex-intake-send | Use when a clean examined batch needs staging toward the admit node — stages scan-clean batches SEND-only into pending admission with sign-off gating, zero… | 3mar-baha/vantrilex-arsenal |  |
+| 1497 | vantrilex-intake-triage | Use when an intake batch needs classifying and routing before any improve or stage step — routes each Crucible batch through scan-first triage, quarantine… | 3mar-baha/vantrilex-arsenal |  |
+| 1498 | vs-circuit-breaker-guard | Use when the same defect has survived three consecutive failed fix attempts on the Blazar seat — it enforces the 3-strike circuit breaker by tracking… | 3mar-baha/vantrilex-arsenal |  |
+| 1499 | vs-github-release-packager | Use when cutting a release from the Blazar seat — governs the release lane end to end by requiring the Clean Code, Test and Docs second-pass guards… | 3mar-baha/vantrilex-arsenal |  |
+| 1500 | vs-ponytail | Use when a code-executing agent on the Blazar seat starts a coding task, gates a diff, or surveys repo health, so the ponytail trio routes each job to its… | dietrichgebert/ponytail |  |
+| 1501 | vs-preflight-system-doctor | Use when entering the Blazar build phase or before any mutating or long-running work — validates environment, runtimes, configuration and workspace health… | 3mar-baha/vantrilex-arsenal |  |
+| 1502 | vs-session-context-primer | Use when a session starts or context is lost to compaction — rebuilds the working context in about ten seconds from the AI constitution, project summary… | 3mar-baha/vantrilex-arsenal |  |
+| 1503 | vs-vantrilex-vanguard | Equips a project on demand from the Blazar seat — use when the owner says equip this project or set up this repo, surveying resources and installing plus… | 3mar-baha/vantrilex-arsenal |  |
+| 1504 | vs-vantrilex-workflow-forge | Authors the standing methodology for each task from the Blazar seat — use when a new task starts, before execution begins, so the workflow is fixed before the… | 3mar-baha/vantrilex-arsenal |  |
 
 ## MCP Servers (910 — 1 default-selected)
 
@@ -2996,7 +3011,7 @@ Consolidated reference of every system component with its folder path.
 
 ## Summary
 
-- **Total components:** 2846
+- **Total components:** 2925
 - **Default-selected:** 13
 
 ---
