@@ -2,13 +2,17 @@
 
 This index maps the documentation set for the Vantrilex Arsenal repository
 itself: the OpenCode plugin plus the component registry. The numbered series
-runs `00` through `21` — 22 files — and the `docs/` tree holds 98 markdown
-files in all, recounted this run (`find docs -name '*.md' | wc -l` = 98): the top
-level (24: the 22 numbered files plus `0.9.33-depth3-spec.md` and
-`0.9.75-depth4-spec.md`), the Arabic mirror set (`ar/`, 8 files), the
-developer set (`dev/`, 10 files), the spec inputs (`spec/`, 11 files across
+runs `00` through `22` — 24 files (the two `09-*` files) — and the `docs/` tree
+holds 112 markdown files in all, recounted 2026-11-12 (2026-11-11: 98 markdown
+files; re-measured 2026-11-12 with a recursive count): the top
+level (31: the 24 numbered files plus the seven non-numbered `0.9.33-depth3-spec.md`,
+`0.9.75-depth4-spec.md`, `0.9.78-three-facet-trials.md`,
+`0.9.83-readiness-2026-11-11.md`, `0.9.84-baseline-2026-11-12.md`,
+`polish-batches-2026-11-11.md` and `priority-backfill-2026-11-11.md`), the Arabic
+mirror set (`ar/`, 8 files), the
+developer set (`dev/`, 16 files), the spec inputs (`spec/`, 11 files across
 `spec/`, `spec/post87/`, and `spec/v87/`), and the archive
-(`99-archive/`, 45 files). It does not document any target project.
+(`99-archive/`, 46 files). It does not document any target project.
 Target-project documentation is a separate, runtime-generated set (file count
 [UNVERIFIED] per MFT-061; described by reference in [04-VANGUARD.md](04-VANGUARD.md));
 nothing in this set duplicates it.
@@ -22,15 +26,15 @@ their counts are stated here so the total stays honest:
 
 | Subtree | Markdown files | Covered by this index |
 |---|---|---|
-| `docs/` (top level) | 24 | Yes — the file map below lists the numbered series; the two depth specs are named above |
+| `docs/` (top level) | 31 | Yes — the file map below lists the numbered series; the seven non-numbered files are named above |
 | `docs/ar/` | 8 | Yes — mirror set, paired with the English series |
-| `docs/dev/` | 10 | Yes — developer notes, indexed in `dev/00-INDEX.md` |
+| `docs/dev/` | 16 | Yes — developer notes, indexed in `dev/00-INDEX.md` |
 | `docs/dev/post87/` | 0 | Not applicable — directory absent on disk; v8.7 work lives under `spec/` |
 | `docs/dev/v87/` | 0 | Not applicable — directory absent on disk; v8.7 work lives under `spec/` |
 | `docs/spec/` | 3 | Yes — the two authoritative inputs plus `0.9.5-EVAL-HARNESS.md` |
 | `docs/spec/post87/` | 1 | Named here only (`BLUEPRINT.md`); provenance, read-only |
 | `docs/spec/v87/` | 7 | Named here only; provenance, read-only |
-| `docs/99-archive/` | 45 | Counted here only; provenance, not linked entry by entry |
+| `docs/99-archive/` | 46 | Counted here only; provenance, not linked entry by entry |
 | `docs/assets/` | 0 | Not applicable — holds charts and tables, no markdown |
 
 `0.9.33-depth3-spec.md` (top level): draft-unlanded spec for the depth-3
@@ -64,6 +68,7 @@ provenance: read them, never rewrite them.
 | [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md) | What a catalog v2 record carries, and what each field means |
 | [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md) | How the catalog mirror and indexes are generated, and the merge rules |
 | [08-VERIFICATION.md](08-VERIFICATION.md) | Which gates must pass before any change is called done |
+| [09-CATALOG-SELECTION.md](09-CATALOG-SELECTION.md) | What the catalog holds and how the selection is scoped per phase |
 | [09-KIT-LOCK.md](09-KIT-LOCK.md) | What the catalog records, and how the selection is scoped per phase |
 | [10-ROLE-MODEL.md](10-ROLE-MODEL.md) | Who decides what: Leader, Guide, Implementer |
 | [11-WORKTREES.md](11-WORKTREES.md) | How parallel work is isolated, one concern per worktree |
@@ -77,6 +82,7 @@ provenance: read them, never rewrite them.
 | [19-HARNESS-MATRIX.md](19-HARNESS-MATRIX.md) | Which harness is supported today and which are named-but-future, with no adapter promised |
 | [20-WAKE-OVERRIDE.md](20-WAKE-OVERRIDE.md) | What the WAKE-REQUEST channel and OVERRIDE event logging are, and how far their enforcement reaches |
 | [21-PONYTAIL-COMPLIANCE.md](21-PONYTAIL-COMPLIANCE.md) | What the build-lane ponytail compliance machinery requires: the dispatch line, the report trailer, and the Verifier and Reviewer checklists |
+| [22-UPGRADE.md](22-UPGRADE.md) | The manual delete-old-install-latest upgrade procedure (renamed from `docs/UPGRADE.md` 2026-11-12, F-36) |
 | [spec/VANTRILEX_KIT_SPEC.md](spec/VANTRILEX_KIT_SPEC.md) | Provenance, read-only: naming, the specified Tier-0 set, catalog v2, the transplant manifest |
 | [spec/VANTRILEX_SKILLS_SPEC.md](spec/VANTRILEX_SKILLS_SPEC.md) | Provenance, read-only: Vanguard in Part A, Doctrine in Part B, the phase map, the 28-file target-project set |
 
@@ -115,11 +121,24 @@ A contributor reads for landing changes:
 
 ## Conventions used across the set
 
-- Counts are honest and checkable: 2,889 live catalog records plus 40
+- Counts are honest and checkable: 2,925 live catalog records plus 40
   candidates, 39 records with tier `core` including Prime, Vanguard, and
-  Doctrine, 20 default-selected components, and 16 merged sidecars. Every live
+  Doctrine, 13 default-selected components, and 16 merged sidecars. Every live
   row is `verified` under its declared class. See [01-OVERVIEW.md](01-OVERVIEW.md).
+  Corrected 2026-11-12 (F-26 census sweep): the 2,889/20 figures were stale
+  (the catalog grew to 2,925 with the F-16 rows; the catalog Summary is now
+  generator-computed); sidecar count 16 and candidates 40 re-verified against
+  `registry/data/*.jsonl` and `registry/candidates/*.jsonl` on 2026-11-12.
 - Every fenced command exists in this repository or in the CI workflows that
   run against it. No command is invented for illustration.
 - Every relative link resolves to a file that exists. The `spec/` inputs are
   linked for provenance, not for editing.
+
+> **2026-11-12 (F-26 census sweep):** this index was re-audited against the
+> tree at `1b03ac7`. Re-measured and corrected above: `docs/` total markdown
+> files 98 → 112; top level 24 → 31; `docs/dev/` 10 → 16; `docs/99-archive/`
+> 45 → 46; the numbered series is `00`–`22`, 24 files (the two `09-*` files
+> plus the 2026-11-12 F-36 rename of `UPGRADE.md` to `22-UPGRADE.md`); catalog
+> records 2,889 → 2,925; default-selected 20 → 13. The `09-CATALOG-SELECTION.md`
+> and `22-UPGRADE.md` rows were added to the file map, which had drifted from
+> the numbered series on disk. `docs/ar/00-INDEX.md` carries the same audit.

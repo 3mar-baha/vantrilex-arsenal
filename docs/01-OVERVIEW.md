@@ -13,7 +13,7 @@ contradicts them.
 | Part | Location | Role |
 |---|---|---|
 | Plugin | `.opencode/` | Shipped hooks-as-plugin callbacks, role agents, operator commands, transplanted skills |
-| Registry | `registry/` | The 2,910-row catalog: human-readable source plus machine mirror, with 40 candidates beside it |
+| Registry | `registry/` | The 2,925-row catalog: human-readable source plus machine mirror, with 40 candidates beside it |
 | Default kit | Tier-0 set in the catalog | What every project receives without questions asked |
 
 The kit specification is `spec/VANTRILEX_KIT_SPEC.md` (naming, the Tier-0 set
@@ -45,14 +45,17 @@ scout without inheriting the law.
 
 ## Tier-0 census, stated honestly
 
-The selection record at `.opencode/equip.manifest.json` carries 142 tokens,
-placed over the catalog and provisioned per phase (measured 2026-11-11;
-correction of the pre-2026-11-11 census, which read 145/7 hooks):
+The selection record at `.opencode/equip.manifest.json` carries 147 tokens,
+placed over the catalog and provisioned per phase (measured 2026-11-12;
+143 at the start of 2026-11-12 after the F-01 tally — then 147 after the
+SC-05/D77 Syzygy re-selection of the four build-phase MCP tokens, landed as
+`1a4e644`; correction of the 2026-11-11 census, which read 142, itself
+corrected from the 145/7-hooks pre-2026-11-11 figure):
 
 | Kind | Selected count | Contents |
 |---|---|---|
-| Skills | 26 | Vanguard, Prime, Doctrine, the three vs-* forcing skills, plus upstream and conditional Arsenal skills |
-| MCP servers | 10 | 1 core server (`mcp/memory`) plus 9 conditional; none suspended |
+| Skills | 27 | Vanguard, Prime, Doctrine, the three vs-* forcing skills, the F-01 `vs-zenith-team-control` scout token, plus upstream and conditional Arsenal skills |
+| MCP servers | 14 | 1 core server (`mcp/memory`) plus 13 conditional (4 re-selected for build per SC-05/D77, `061f2d9`/`1a4e644`); none suspended |
 | Plugins | 0 | No plugin selected; the 11 catalog plugin records stay as reference entries (all `verified`; none selected) |
 | Hooks | 8 | 6 core hooks (session-start, task-dispatcher, long-running-process-guard, persist-session-state-on-end, pre-compact, session-end) plus the 2 conditional TypeScript-check and Prettier-format hooks |
 | Agents | 25 | 6 core agents (aether, blazar, pulsar, vantrilex, vantrilex-architect, vantrilex-code-reviewer) plus 18 conditional placeable agents, plus 1 suspended (`agent/vantrilex-facet`, no catalog row yet — see D72) |
@@ -60,13 +63,15 @@ correction of the pre-2026-11-11 census, which read 145/7 hooks):
 | CLIs | 65 | 65 selected command-line tools, all tier `conditional`; the catalog carries 71, installed only where the build needs them |
 | Other kinds | 7 | prompts 1, templates 1, workflows 1, design records 1, benchmarks 1, datasets 1, policies 1 |
 
-The honest current count is 142 selected components: 28 tier `core` and 113
+The honest current count is 147 selected components: 28 tier `core` and 118
 tier `conditional`, with 1 token suspended — `agent/vantrilex-facet`, the
 facet seat (a local authoring with no catalog row yet, recorded in D72) —
-so 141 of the 142 resolve against live rows today. Every live catalog row
+so 146 of the 147 resolve against live rows today (measured 2026-11-12 at
+2026-11-12 HEAD; the 2026-11-11 census recorded 142 = 28 core + 113
+conditional + 1 suspended). Every live catalog row
 is `verified` under its declared evidence class — there is no carried
-`unverified` state in v5. `registry/catalog.json` carries 2,910 live records
-(37 tier `core`, 257 tier `conditional`, the remainder untiered and never
+`unverified` state in v5/v6. `registry/catalog.json` carries 2,925 live records
+(39 tier `core`, 270 tier `conditional`, the remainder untiered and never
 injected) beside 40 candidates in `registry/candidates/`. The catalog recount
 stands at 13 default-selected components, enriched from 16 sidecars merged by
 the generator (agents, benchmarks, cli, datasets, design, formatting, hooks,
@@ -94,7 +99,9 @@ docs-discipline guard remain on the V1 `server()` surface and are **inert under
 V2** (the plugin itself records that `session-start`, `pre-compact` and
 `session-end` have nowhere correct to land on the V2 surface yet). That gap is
 deliberate and unfinished, not a completed port, and it does
-not move the census: 142 selected components, 8 of them hooks. The
+not move the census: 147 selected components, 8 of them hooks (measured
+2026-11-12; the 2026-11-11 figure of 142 was corrected in the F-26 census
+sweep). The
 task-dispatcher hook is
 documented in [16-TASK-DISPATCH.md](16-TASK-DISPATCH.md).
 

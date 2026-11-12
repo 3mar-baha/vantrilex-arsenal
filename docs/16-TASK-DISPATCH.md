@@ -247,9 +247,11 @@ resolves every selected token), then record the resulting figures here.
 
 The migration to V2 changed which runtime surface registers this hook, not what
 the selection records. `task-dispatcher` is still `tier core` at `phase scout`,
-and the selection record now holds 142 components — 28 `core` plus 113
+and the selection record now holds 147 components — 28 `core` plus 118
 `conditional`, of which 1 (`agent/vantrilex-facet`) is suspended, of which 8 are
-hooks. A guard moving onto a different API is not a new
+hooks (corrected 2026-11-12, F-26: 143 at the 2026-11-12 F-01 tally, 147 after
+the SC-05/D77 Syzygy re-selection of four build-phase MCP tokens landed as
+`1a4e644`; the 2026-11-11 figure of 142/28/113 was stale). A guard moving onto a different API is not a new
 component, and nothing here may be read as one.
 
 ## Command → Agent → Skill routing map
@@ -276,6 +278,6 @@ component, and nothing here may be read as one.
 **Notes (2026-11-11):**
 
 - The V-Architect row carries no skill: no architect skill exists in the catalog (kind `skill`) or in `.opencode/skills/`. The cell reads `(none — no architect skill exists)` per the 2026-11-11 census repair; it names no invented id.
-- The census above is the measured reality of the selection record (`.opencode/equip.manifest.json`): 142 unique tokens — 28 `core` plus 113 `conditional`, of which 1 (`agent/vantrilex-facet`) is suspended — of which 8 are hooks; the catalog (`registry/catalog.json`) carries 2,910 records.
+- The census above is the measured reality of the selection record (`.opencode/equip.manifest.json`): 147 unique tokens — 28 `core` plus 118 `conditional`, of which 1 (`agent/vantrilex-facet`) is suspended — of which 8 are hooks; the catalog (`registry/catalog.json`) carries 2,925 records (corrected 2026-11-12, F-26; the 2026-11-11 census read 142 tokens / 2,910 records).
 - `/equip` routes the command to the Zenith seat (`vantrilex`) as the agent, with `vantrilex-vanguard` as the skill; the pre-2026-11-11 cell named the skill as the agent.
 - V-CATALOG and V-Technical-Writer route to `documentation-as-tests`; the pre-2026-11-11 cells named `documentation-lookup` and `article-writing`.
