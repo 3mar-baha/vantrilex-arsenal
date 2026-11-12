@@ -159,3 +159,9 @@ existing ledger rows were edited or removed.** The 10 pre-sweep `t2-v1` final-fi
 rows and the 12 clean ids each also carry a `t2-scan-v1` row (two rows per id for
 those ids, by design of the scan record). **Zero card bytes were changed to produce
 this record.**
+
+## CORRECTION 2026-11-12 — the f753461 restore was incomplete (found and fixed same-day)
+
+The revert commit f753461 restored cards to `6672e38`, which was itself a post-t2-b001 state: `ea8609a` (t2-b001) had already stripped 10 upstream cards BEFORE `6672e38` landed, so f753461 silently kept those 10 cards stripped and retained their 10 `t2-v1` ledger rows. The scan-and-record section below holding "zero card bytes modified" for the full F-08 story was accurate for the scan commit (ea6247d) only; the branch still carried t2-b001's byte strips until the correction below.
+
+Correction (2026-11-12, the follow-up commit): the 10 t2-b001 cards were restored to their `def01b2` bytes; the 10 `t2-v1` tier-2 ledger rows (`polished_by: vantrilex-implementer/tier2/final-fix`) were dropped; the 10 matching `t2-scan-v1` rows were re-hashed to the restored bytes and again carry the uniform hygiene defect. Ledger is now 1,506 rows. `git diff def01b2 -- registry/skills/` now shows ONLY new files (F-09 satellites) and the WS5-regenerated `_index.md` — zero modified upstream card bytes anywhere on the branch. Final figures: 1,458 cards carry the uniform trailing-newline artifact; exactly 2 are single-newline-clean (`registry/skills/_index.md`, `registry/skills/pre-mortem-row-1452.md`); `brev-etiquette.md` remains the one absolute-path STOP. The owner ruling (2026-11-12: REVERT the sweep; scan-and-record only; no upstream byte edits without a future named ruling) is now fully satisfied.
