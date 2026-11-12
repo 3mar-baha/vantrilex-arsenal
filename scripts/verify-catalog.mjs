@@ -1601,9 +1601,12 @@ export const checkEvidenceTtl = (components, today = new Date()) => {
  * load-proof/existence (no network). Returns null while the surface resolves
  * offline, and a per-row reason otherwise. The version-stripped surface must
  * appear verbatim in the row's own install_cmd, be a registry/ file that
- * exists, or name an .opencode/skills/<id>/ folder that exists; an http(s)
- * surface is out of scope (source_proof territory). Rows whose surface is
- * missing or not a string are judged by the shape legs, not here.
+ * exists, name an .opencode/skills/<id>/ folder that exists, an
+ * .opencode/agents/<name>.md file that exists, an .opencode/plugin/<name>.ts
+ * file that carries the #<anchor> the surface claims, a root tsconfig.json, or
+ * an .agents/skills/<id>/ folder that exists; an http(s) surface is out of
+ * scope (source_proof territory). Rows whose surface is missing or not a
+ * string are judged by the shape legs, not here.
  */
 const loadProofExistenceReason = (entry) => {
   const evidence = entry !== null && typeof entry === "object" ? entry.evidence : null;
@@ -1621,7 +1624,29 @@ const loadProofExistenceReason = (entry) => {
     const folder = path.join(SKILLS_DIR, skills[1]);
     if (fs.existsSync(folder) && fs.statSync(folder).isDirectory()) return null;
   }
-  return entry.kind + "/" + entry.id + ": load_proof surface " + JSON.stringify(surface) + " resolves nowhere offline (no install_cmd package, no registry/ file, no .opencode/skills/ folder)";
+  // F-05 offline buckets (2026-11-12, FINAL FIX): real local resolution
+  // surfaces, not relaxations — the row still proves what it claims.
+  const agent = surface.match(/^\.opencode\/agents\/([^/]+)\.md$/);
+  if (agent !== null) {
+    const file = path.join(ROOT, surface);
+    if (fs.existsSync(file) && fs.statSync(file).isFile()) return null;
+  }
+  if (surface.startsWith(".opencode/plugin/")) {
+    const hash = surface.indexOf("#");
+    const anchor = hash > 0 ? surface.slice(hash + 1) : "";
+    const file = hash > 0 ? path.join(ROOT, surface.slice(0, hash)) : null;
+    if (file !== null && anchor.length > 0 && fs.existsSync(file) && fs.statSync(file).isFile() && fs.readFileSync(file, "utf8").includes(anchor)) return null;
+  }
+  if (surface === "tsconfig.json") {
+    const file = path.join(ROOT, "tsconfig.json");
+    if (fs.existsSync(file) && fs.statSync(file).isFile()) return null;
+  }
+  const agentsSkills = surface.match(/^\.agents\/skills\/([^/]+)\//);
+  if (agentsSkills !== null) {
+    const folder = path.join(ROOT, ".agents", "skills", agentsSkills[1]);
+    if (fs.existsSync(folder) && fs.statSync(folder).isDirectory()) return null;
+  }
+  return entry.kind + "/" + entry.id + ": load_proof surface " + JSON.stringify(surface) + " resolves nowhere offline (no install_cmd package, no registry/ file, no .opencode/skills/ folder, no .opencode/agents/ file, no .opencode/plugin/ #anchor, no root tsconfig.json, no .agents/skills/ folder)";
 };
 
 const checkLoadProofExistence = (components) => {

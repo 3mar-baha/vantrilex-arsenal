@@ -123574,7 +123574,7 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": "curl.exe 8.23.0 (WinGet Links, cURL.cURL)",
+          "surface": "cURL.cURL@8.23.0",
           "method": "server-bin",
           "checked_at": "2026-11-11"
         },
@@ -123919,7 +123919,7 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": "firecrawl-cli@1.29.0 (bin: firecrawl)",
+          "surface": "firecrawl-cli@1.29.0",
           "method": "server-bin",
           "checked_at": "2026-11-11"
         },
@@ -124006,7 +124006,7 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": "gh.exe 2.87.3 (pre-existing at C:/Program Files/GitHub CLI/gh.exe; run 2026-11-11)",
+          "surface": "GitHub.cli@2.103.3",
           "method": "server-bin",
           "checked_at": "2026-11-11"
         },
@@ -125470,7 +125470,7 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": "stripe version 1.55.10",
+          "surface": "Stripe.StripeCli@1.55.10",
           "method": "server-bin",
           "checked_at": "2026-11-11"
         },
@@ -126117,7 +126117,7 @@
       "class": "installable",
       "evidence": {
         "load_proof": {
-          "surface": "rclone v1.76.0",
+          "surface": "Rclone.Rclone@1.76.0",
           "method": "server-bin",
           "checked_at": "2026-11-11"
         },
