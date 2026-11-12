@@ -88601,8 +88601,8 @@
       "description": "Allow LLMs to control a browser with Browserbase and Stagehand",
       "source": "browserbase/mcp-server-browserbase",
       "origin": null,
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y @browserbasehq/mcp",
+      "version_pin": "3.0.0",
       "category": null,
       "tags": [],
       "when_to_use": null,
@@ -88611,12 +88611,22 @@
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
-      "class": "upstream",
+      "class": "loadable",
       "evidence": {
         "source_proof": {
           "target": "browserbase/mcp-server-browserbase",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        },
+        "load_proof": {
+          "surface": "@browserbasehq/mcp",
+          "method": "server-bin",
+          "checked_at": "2026-11-12"
+        },
+        "command_registry": {
+          "command": "npx -y @browserbasehq/mcp",
+          "registry": "npm",
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -88625,9 +88635,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T12:56:44.262Z",
+        "method": "stdio-initialize",
+        "result": "pass",
+        "detail": "stdio probe pass: spawn npx -y @browserbasehq/mcp@3.0.0; initialize ok (server=Browserbase MCP Server 3.0.0, protocol=2024-11-05); tools/list ok, 6 tools; npm warns \"@browserbasehq/mcp@3.0.0: This package is no longer maintained.\" and env vars were unset (dummy-value warnings)"
+      }
     },
     {
       "id": "builditwithgk-repo-cartographer",
@@ -90328,9 +90343,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
-      "remoteUrl": null,
-      "health_check": null
+      "transport": "streamable-http",
+      "remoteUrl": "https://mcp.deepwiki.com/mcp",
+      "health_check": {
+        "checked_at": "2026-11-12T12:56:44.262Z",
+        "method": "streamable-http-initialize",
+        "result": "pass",
+        "detail": "POST https://mcp.deepwiki.com/mcp -> HTTP 200, content-type text/event-stream; SSE data line carries JSON-RPC result; serverInfo DeepWiki v4.0.2, protocol 2024-11-05"
+      }
     },
     {
       "id": "deficlow-hyperstore-mcp",
@@ -92463,8 +92483,8 @@
       "description": "MCP server to provide Figma layout information to AI coding agents like Cursor",
       "source": "GLips/Figma-Context-MCP",
       "origin": null,
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y figma-developer-mcp",
+      "version_pin": "0.13.2",
       "category": null,
       "tags": [],
       "when_to_use": null,
@@ -92473,12 +92493,22 @@
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
-      "class": "upstream",
+      "class": "loadable",
       "evidence": {
         "source_proof": {
           "target": "GLips/Figma-Context-MCP",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        },
+        "load_proof": {
+          "surface": "figma-developer-mcp",
+          "method": "server-bin",
+          "checked_at": "2026-11-12"
+        },
+        "command_registry": {
+          "command": "npx -y figma-developer-mcp",
+          "registry": "npm",
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -92487,9 +92517,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "streamable-http",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T13:01:46.333Z",
+        "method": "streamable-http-initialize",
+        "result": "pass",
+        "detail": "POST http://127.0.0.1:3333/mcp (local spawn of the documented default mode, no API key used, telemetry disabled) -> HTTP 200, content-type text/event-stream; SSE data line carries JSON-RPC result; serverInfo Figma MCP Server v0.13.2, protocol 2024-11-05. Note: --stdio mode requires FIGMA_API_KEY or FIGMA_OAUTH_TOKEN at startup and was probed separately, result fail (startup credential error, recorded in the commit message)."
+      }
     },
     {
       "id": "filesystem",
@@ -93650,10 +93685,10 @@
       "name": "gmail",
       "kind": "mcp",
       "description": "A Model Context Protocol (MCP) server for Gmail integration with auto authentication support",
-      "source": "GongRzhe/Gmail-MCP-Server",
+      "source": "gongrzhe/server-gmail-autoauth-mcp",
       "origin": null,
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y @gongrzhe/server-gmail-autoauth-mcp",
+      "version_pin": "1.1.11",
       "category": null,
       "tags": [],
       "when_to_use": null,
@@ -93662,12 +93697,22 @@
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
-      "class": "upstream",
+      "class": "loadable",
       "evidence": {
         "source_proof": {
           "target": "GongRzhe/Gmail-MCP-Server",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        },
+        "load_proof": {
+          "surface": "@gongrzhe/server-gmail-autoauth-mcp",
+          "method": "server-bin",
+          "checked_at": "2026-11-12"
+        },
+        "command_registry": {
+          "command": "npx -y @gongrzhe/server-gmail-autoauth-mcp",
+          "registry": "npm",
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -93676,9 +93721,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T12:56:44.262Z",
+        "method": "stdio-initialize",
+        "result": "fail",
+        "detail": "stdio probe fail: spawn exits code 1 after ~32s; stderr verbatim: \"Error: OAuth keys file not found. Please place gcp-oauth.keys.json in current directory or the user-profile .gmail-mcp folder\"; spawn npx -y @gongrzhe/server-gmail-autoauth-mcp@1.1.11"
+      }
     },
     {
       "id": "gofrantic-frantic-mcp",
@@ -99484,9 +99534,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T12:56:44.262Z",
+        "method": "stdio-initialize",
+        "result": "pass",
+        "detail": "stdio probe pass: spawn npx -y @modelcontextprotocol/server-memory@1.0.0; initialize ok (server=memory-server 1.0.0, protocol=2024-11-05); tools/list ok, 9 tools; stderr banner \"Knowledge Graph MCP Server running on stdio\""
+      }
     },
     {
       "id": "meridian-silkdev-meridian-mcp",
@@ -101732,10 +101787,10 @@
       "name": "notion",
       "kind": "mcp",
       "description": "Notion pages and databases.",
-      "source": null,
+      "source": "makenotion/notion-mcp-server",
       "origin": "modelcontextprotocol/servers",
-      "install_cmd": null,
-      "version_pin": null,
+      "install_cmd": "npx -y @notionhq/notion-mcp-server",
+      "version_pin": "2.6.1",
       "category": null,
       "tags": [
         "docs",
@@ -101747,12 +101802,22 @@
       "verify_cmd": null,
       "cost_note": null,
       "verification": "verified",
-      "class": "upstream",
+      "class": "loadable",
       "evidence": {
         "source_proof": {
           "target": "modelcontextprotocol/servers",
           "method": "repo-resolves",
           "checked_at": "2026-10-22"
+        },
+        "load_proof": {
+          "surface": "@notionhq/notion-mcp-server",
+          "method": "server-bin",
+          "checked_at": "2026-11-12"
+        },
+        "command_registry": {
+          "command": "npx -y @notionhq/notion-mcp-server",
+          "registry": "npm",
+          "checked_at": "2026-11-12"
         }
       },
       "default_selected": false,
@@ -101761,9 +101826,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T12:56:44.262Z",
+        "method": "stdio-initialize",
+        "result": "pass",
+        "detail": "stdio probe pass: spawn npx -y @notionhq/notion-mcp-server@2.6.1; initialize ok (server=Notion API v1.0.0, protocol=2024-11-05); tools/list ok, 24 tools"
+      }
     },
     {
       "id": "odd-innocent-den-archi-mcp",
@@ -105497,9 +105567,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "stdio",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T12:56:44.262Z",
+        "method": "stdio-initialize",
+        "result": "fail",
+        "detail": "stdio probe fail: npm deprecates @modelcontextprotocol/server-slack@2025.4.25 (\"Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.\"); spawn exits code 1 with stderr: \"Please set SLACK_BOT_TOKEN and SLACK_TEAM_ID environment variables\""
+      }
     },
     {
       "id": "slenderongithub-fix-protocol-mcp",
@@ -107242,9 +107317,14 @@
       "priority_set_at": null,
       "priority_per_role": null,
       "usage_signals": null,
-      "transport": null,
+      "transport": "streamable-http",
       "remoteUrl": null,
-      "health_check": null
+      "health_check": {
+        "checked_at": "2026-11-12T12:56:44.262Z",
+        "method": "streamable-http-initialize",
+        "result": "fail",
+        "detail": "POST https://server.smithery.ai/suddh123/twilize/mcp -> HTTP 401, content-type application/json; body verbatim: {\"error\":\"invalid_token\",\"error_description\":\"Missing Authorization header\"}"
+      }
     },
     {
       "id": "sukrutkrdg-x402-bazaar-mcp",

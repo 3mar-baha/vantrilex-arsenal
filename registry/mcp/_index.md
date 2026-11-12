@@ -15,22 +15,22 @@
 | Name | Kind | Tier | When to use | Install |
 |------|------|------|-------------|---------|
 | brave | mcp | conditional |  |  |
-| browserbase | mcp | conditional |  |  |
+| browserbase | mcp | conditional |  | `npx -y @browserbasehq/mcp` |
 | cloudflare | mcp | conditional |  |  |
 | context7 | mcp | conditional | When up-to-date library or framework docs are needed before using an API | `npx -y @upstash/context7-mcp` |
 | deepwiki | mcp | conditional |  |  |
 | discord | mcp | conditional |  |  |
 | exa | mcp | conditional |  |  |
 | fetch | mcp | conditional | When the agent must read a live URL the filesystem cannot reach |  |
-| figma-context-mcp | mcp | conditional |  |  |
+| figma-context-mcp | mcp | conditional |  | `npx -y figma-developer-mcp` |
 | filesystem | mcp | conditional | When scoped file read/write is needed inside the project | `npx -y @modelcontextprotocol/server-filesystem` |
 | firecrawl | mcp | conditional | When a page must be deeply scraped or extracted rather than merely fetc… | `npx -y firecrawl-mcp` |
 | github | mcp | conditional | When working with repos, issues, pull requests or releases | `npx -y @modelcontextprotocol/server-github` |
-| gmail | mcp | conditional |  |  |
+| gmail | mcp | conditional |  | `npx -y @gongrzhe/server-gmail-autoauth-mcp` |
 | googledrive | mcp | conditional |  |  |
 | mem0-memory-mcp | mcp | conditional |  |  |
 | neon | mcp | conditional |  |  |
-| notion | mcp | conditional |  |  |
+| notion | mcp | conditional |  | `npx -y @notionhq/notion-mcp-server` |
 | openrouter | mcp | conditional | When a $0.00 model matrix transport is needed for a subagent; it is a r… |  |
 | sequential-thinking | mcp | conditional | When a problem needs structured step-by-step reasoning | `npx -y @modelcontextprotocol/server-sequential-thinking` |
 | slack | mcp | conditional |  |  |
