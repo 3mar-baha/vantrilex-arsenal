@@ -40,7 +40,7 @@ When the catalog cannot be parsed at all, the schema check fails and the
 remaining checks report SKIPPED carrying the parse error as the reason.
 
 **Label check.** Check 2's PASS text now names
-`registry/schema/catalog-v4.schema.json`, which is the file the loader it
+`registry/schema/catalog-v6.schema.json`, which is the file the loader it
 imports actually reads. The v3 label drift recorded here before the v4
 migration is closed.
 
@@ -75,7 +75,7 @@ resolves. Nothing here reads a lockfile: the catalog rows are the inputs.
 
 The per-kind rows grow with the catalog's selectable kinds: a new kind adds a
 further shape row rather than a further check name pattern. New-kind onboarding
-is frozen until the P6 sign-off, so the set is stable while v4 settles.
+is frozen until the P6 sign-off, so the set is stable while v6 settles.
 
 Two failure paths exist ahead of these: an unreadable `catalog.json` fails
 `command-honesty/*` with the parse error, and a selection record without a

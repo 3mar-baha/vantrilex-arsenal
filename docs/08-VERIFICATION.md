@@ -19,7 +19,7 @@ node scripts/verify-registry.mjs
 | Check | What it proves |
 |---|---|
 | `utf8-validity` | The catalog Markdown decodes as strict UTF-8 with no malformed sequence |
-| `schema-conformance` | All 2889 records satisfy `registry/schema/catalog-v4.schema.json` |
+| `schema-conformance` | All 2889 records satisfy `registry/schema/catalog-v6.schema.json` |
 | `row-count-integrity` | Every section heading count and default-selected count matches the parse |
 | `install-command-invariant` | Every live row is `verified`, its class evidence is present, and every command names the registry that proved it |
 | `orphan-references` | All 45 id references across 56 overlap entries resolve |

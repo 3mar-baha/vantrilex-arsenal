@@ -295,7 +295,7 @@ would restore automatically when its row returns.
 
 ![Prior-census table of the kit by kind, not yet re-rendered; the live counts are in the prose above and below](docs/assets/tables/kit-census.svg)
 
-Under catalog v4 a live row is `verified` only when its declared class evidence
+Under catalog v6 a live row is `verified` only when its declared class evidence
 exists: source provenance for `upstream` and `data`, a load surface for
 `loadable`, and a real command plus the registry that proved it for
 `installable`. All 2,889 live rows meet that bar; there is no `unverified` state
@@ -378,7 +378,7 @@ vantrilex-arsenal/
 ├── registry/                     Data plane — the component catalog
 │   ├── VANTRILEX_CATALOG.md      Source of truth (generated table)
 │   ├── catalog.json              Generated machine mirror
-│   ├── schema/catalog-v4.schema.json   The record contract
+│   ├── schema/catalog-v6.schema.json   The record contract
 │   ├── data/                     Sixteen per-kind JSONL sidecars + overlaps.yaml
 │   ├── formatting/               Curated design-system documents + ATTRIBUTION.md
 │   └── {skills,mcp,plugins,hooks,agents,formatting,lsp,cli}/

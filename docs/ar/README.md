@@ -345,7 +345,7 @@ vantrilex-arsenal/
 ├── registry/                     مستوى البيانات — فهرس المكوّنات
 │   ├── VANTRILEX_CATALOG.md      مصدر الحقيقة (جدول مُولَّد)
 │   ├── catalog.json              النسخة الآلية المُولَّدة
-│   ├── schema/catalog-v4.schema.json   عقد السجلّ
+│   ├── schema/catalog-v6.schema.json   عقد السجلّ
 │   ├── data/                     16 ملفًا JSONL جانبيًا + overlaps.yaml
 │   ├── formatting/               مستندات أنظمة تصميم منتقاة + ATTRIBUTION.md
 │   └── {skills,mcp,plugins,hooks,agents,formatting,lsp,cli}/

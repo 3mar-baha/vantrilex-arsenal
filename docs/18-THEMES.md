@@ -211,5 +211,5 @@ real copy command, a parse verify command, and the `loadable` class evidence,
 then regenerate with `scripts/generate-catalog-json.mjs --markdown --indexes`
 and extend the mapping table and the atomic-switch map. Kinds themselves are a
 versioned mechanism: the general rule lives in the top-level `$comment` of
-`registry/schema/catalog-v4.schema.json`, and new-kind onboarding stays frozen
+`registry/schema/catalog-v6.schema.json`, and new-kind onboarding stays frozen
 until the P6 sign-off.

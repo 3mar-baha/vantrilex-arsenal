@@ -1,10 +1,10 @@
-# Registry Schema (Catalog v4)
+# Registry Schema (Catalog v6)
 
-Every component in the Vantrilex Registry is one catalog v4 record. A record
+Every component in the Vantrilex Registry is one catalog v6 record. A record
 starts as a row parsed out of `registry/VANTRILEX_CATALOG.md` and becomes
 authoritative once the matching `registry/data/*.jsonl` sidecar enriches it. The
 machine-enforced contract is
-`registry/schema/catalog-v4.schema.json`. This file explains the fields;
+`registry/schema/catalog-v6.schema.json`. This file explains the fields;
 [07-CATALOG-GENERATION.md](07-CATALOG-GENERATION.md) explains how records are
 built and merged, and `docs/dev/06-REGISTRY.md` carries the developer-level
 detail.
@@ -137,4 +137,4 @@ verification promises (see [15-DECISIONS.md](15-DECISIONS.md)).
 
 ## Catalog v5 (2026-11-11)
 
-A new published schema file, `registry/schema/catalog-v5.schema.json`, extends the v4 record contract (v4 itself is published and unedited) and is the contract the generator and verifiers now load. v5 adds exactly five optional, nullable fields to every record — `priority` (integer 1–10 or null: 10=must-load, 7–9=by default, 4–6=when task matches, 1–3=reference, null/5=unscored; role-relative overrides live in the muster selections, not the catalog), `priority_source` (`derived`|`asserted`|`unscored`|null), `priority_set_at` (ISO 8601 date or null), `usage_signals` (object or null; which signals fired and which formula version scored the row, so the derivation replays), and `transport` (`stdio`|`sse`|`streamable-http`|`remote-https`|null; the stated MCP transport, D54 criterion 3 as data) — plus a `$comment` paragraph carrying the D54 countable-MCP definition. Every non-null `priority` must carry `priority_source` and `priority_set_at`, and a derived priority lapses after 180 days (the `load_proof` window); the decision record is [15-DECISIONS.md](15-DECISIONS.md) D60. The five fields live in the JSONL sidecars and the generated mirror only; the Markdown table above keeps its five columns, no SKILL.md frontmatter carries `priority`, and the per-role catalog question together with the `remoteUrl` and health-check records is deferred to a v6 schema decision.
+A new published schema file, `registry/schema/catalog-v5.schema.json`, extends the v4 record contract (v4 itself is published and unedited) and was the contract the generator and verifiers loaded until 2026-11-12. v5 adds exactly five optional, nullable fields to every record — `priority` (integer 1–10 or null: 10=must-load, 7–9=by default, 4–6=when task matches, 1–3=reference, null/5=unscored; role-relative overrides live in the muster selections, not the catalog), `priority_source` (`derived`|`asserted`|`unscored`|null), `priority_set_at` (ISO 8601 date or null), `usage_signals` (object or null; which signals fired and which formula version scored the row, so the derivation replays), and `transport` (`stdio`|`sse`|`streamable-http`|`remote-https`|null; the stated MCP transport, D54 criterion 3 as data) — plus a `$comment` paragraph carrying the D54 countable-MCP definition. Every non-null `priority` must carry `priority_source` and `priority_set_at`, and a derived priority lapses after 180 days (the `load_proof` window); the decision record is [15-DECISIONS.md](15-DECISIONS.md) D60. The five fields live in the JSONL sidecars and the generated mirror only; the Markdown table above keeps its five columns, no SKILL.md frontmatter carries `priority`, and the per-role catalog question together with the `remoteUrl` and health-check records landed 2026-11-12 as `registry/schema/catalog-v6.schema.json` (D60 decision 4, FINAL FIX F-03): `remoteUrl`, `health_check`, and `priority_per_role`.

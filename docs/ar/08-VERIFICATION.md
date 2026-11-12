@@ -19,7 +19,7 @@ node scripts/verify-registry.mjs
 | الفحص | ما يثبته |
 |---|---|
 | `utf8-validity` | أن Markdown الفهرس يُفَك ترميزه UTF-8 صارمًا بلا تسلسل معطوب |
-| `schema-conformance` | أن السجلّات الـ2,889 تفي بـ `registry/schema/catalog-v4.schema.json` |
+| `schema-conformance` | أن السجلّات الـ2,889 تفي بـ `registry/schema/catalog-v6.schema.json` |
 | `row-count-integrity` | أن عدد كل عنوان قسم وعدد المحدَّد افتراضيًا يطابقان التحليل |
 | `install-command-invariant` | أن لا سجلّ يدّعي `verified` مع `install_cmd` فارغ |
 | `orphan-references` | أن مراجع المعرّفات الـ45 عبر مدخلات التداخل الـ56 تُحَل كلها |

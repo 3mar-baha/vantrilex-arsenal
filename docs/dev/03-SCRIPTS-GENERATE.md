@@ -46,7 +46,7 @@ category  tags  when_to_use  phase  tier  verify_cmd  cost_note
 verification  class  evidence  default_selected
 ```
 
-`id` and `class` are required by the v4 schema, and `evidence` carries the
+`id` and `class` are required by the v6 schema, and `evidence` carries the
 class's proof. A record without its class evidence fails validation and therefore
 never reaches the mirror — the candidate files under `registry/candidates/` are
 written by the migration and audit passes, not by this generator.
@@ -65,7 +65,7 @@ absent is not an error: the base values are used and the absence is logged.
 ## Validation
 
 Every generated record is validated against
-`registry/schema/catalog-v4.schema.json` before anything is written. The run
+`registry/schema/catalog-v6.schema.json` before anything is written. The run
 aborts listing the first twenty violations. This is what makes the class-evidence
 contract hold in the mirror as well as in the source.
 

@@ -6,8 +6,8 @@ and `registry/catalog.json`, the generated mirror. A fourth surface holds what
 the catalog refuses: `registry/candidates/<kind>.jsonl`, one file per kind that
 failed its class evidence.
 
-Catalog v4 is live. `catalog_version` is `4` in the mirror, and every live row
-is validated against `registry/schema/catalog-v4.schema.json`.
+Catalog v6 is live. `catalog_version` is `6` in the mirror, and every live row
+is validated against `registry/schema/catalog-v6.schema.json`.
 
 2026-10-22 — **New-kind onboarding stays FROZEN until the P6 sign-off**, which
 is the same event the v4 schema's own `$comment` names when it says onboarding
@@ -18,7 +18,7 @@ kinds keep gaining and losing records.
 
 ## The sixteen kinds
 
-| Kind | Component files | Sidecar | Admitted classes (v4) |
+| Kind | Component files | Sidecar | Admitted classes (v6) |
 |---|---|---|---|
 | `skill` | `registry/skills/` | `skills.jsonl` | `loadable`, `installable`, `upstream` |
 | `mcp` | `registry/mcp/` | `mcp.jsonl` | `loadable`, `upstream` |
@@ -119,17 +119,18 @@ enters through the generator like any other record.
 
 ## The version pointer
 
-`catalog_version` is `4`. Three schema files sit in `registry/schema/`:
+`catalog_version` is `6`. Three schema files sit in `registry/schema/`:
 
-- `catalog-v4.schema.json` — current; sixteen kinds, the class-evidence
-  contract, the candidate definition. It is the file the generator loads.
-- `catalog-v3.schema.json` — the previous version. Published history, never
-  edited in place, and no longer read by the generator.
-- `catalog-v2.schema.json` — the earliest version still on disk. Same rule:
-  history, not a live contract.
+- `catalog-v6.schema.json` — current; sixteen kinds, the class-evidence
+  contract, the candidate definition, the D60(4) v6 fields. It is the
+  file the generator loads.
+- `catalog-v5.schema.json` — the previous version. Published history, never
+  edited in place; the generator falls back to it only when v6 is absent.
+- `catalog-v4.schema.json` — published history, never edited in place, and no
+  longer read by the generator. (v2 and v3 live in `registry/schema/archive/`.)
 
 A new kind is added by publishing a **new** schema version file, never by
-editing a published version in place. The v4 file's own `$comment` lists
+editing a published version in place. The v6 file's own `$comment` lists
 exactly what a future kind touches: the new schema's `kind` enum plus its entry
 in the per-kind class mapping; `SCHEMA_PATH`, `KINDS`, `SECTION_KINDS`,
 `SECTION_LABELS`, `SIDECAR_FILES` and `INDEX_DIRS` in
@@ -369,7 +370,7 @@ check-by-check detail is in `02-SCRIPTS-VERIFY.md`.
 | `.opencode/audit/C2-P2-CLASSIFICATION.md` | The dry-run classification and the per-row evidence plan |
 | `.opencode/audit/C2-P4-MANIFEST-SUSPENSION.md` | The suspension act, its semantics, and the reversibility proof |
 | `.opencode/audit/MISSING-ADDRESS.md` | The standing, append-only address hunt |
-| `registry/schema/catalog-v4.schema.json` | The contract itself, including both validation roots |
+| `registry/schema/catalog-v6.schema.json` | The contract itself, including both validation roots |
 
 Audit records are history: they are appended to and cited, never rewritten.
 

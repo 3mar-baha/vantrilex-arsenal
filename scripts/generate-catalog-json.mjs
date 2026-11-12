@@ -10,7 +10,16 @@ const ROOT = dirname(dirname(SCRIPT_PATH));
 
 const CATALOG_MD = join(ROOT, 'registry', 'VANTRILEX_CATALOG.md');
 const CATALOG_JSON = join(ROOT, 'registry', 'catalog.json');
-const SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v5.schema.json');
+const V6_SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v6.schema.json');
+const V5_SCHEMA_PATH = join(ROOT, 'registry', 'schema', 'catalog-v5.schema.json');
+/*
+  v6 (D60 decision 4) extends v5; v5 stays published and unedited. The
+  generator validates against v6 when it ships and falls back to v5 so the
+  pre-v6 checkout still loads. RECORD_FIELDS carries the v6 fields, so the
+  loadSchema() field/properties consistency check demands v6 to pass.
+*/
+const SCHEMA_PATH = existsSync(V6_SCHEMA_PATH) ? V6_SCHEMA_PATH : V5_SCHEMA_PATH;
+const SCHEMA_VERSION = SCHEMA_PATH === V6_SCHEMA_PATH ? 6 : 5;
 const DATA_DIR = join(ROOT, 'registry', 'data');
 
 export const KINDS = ['skill', 'mcp', 'plugin', 'hook', 'agent', 'formatting', 'lsp', 'cli', 'theme', 'prompt', 'dataset', 'template', 'policy', 'benchmark', 'workflow', 'design.md'];
@@ -95,8 +104,11 @@ export const RECORD_FIELDS = [
   'priority',
   'priority_source',
   'priority_set_at',
+  'priority_per_role',
   'usage_signals',
   'transport',
+  'remoteUrl',
+  'health_check',
 ];
 
 const LINE_OF = new WeakMap();
@@ -362,8 +374,11 @@ export function parseCatalogMarkdown(text, { path = CATALOG_MD } = {}) {
         priority: null,
         priority_source: null,
         priority_set_at: null,
+        priority_per_role: null,
         usage_signals: null,
         transport: null,
+        remoteUrl: null,
+        health_check: null,
       };
 
       sectionRecords.push(record);
@@ -744,9 +759,9 @@ export function buildCatalog(records) {
   for (const record of components) counts[record.kind] += 1;
   counts.total = components.length;
   return {
-    $schema: './schema/catalog-v5.schema.json',
+    $schema: `./schema/catalog-v${SCHEMA_VERSION}.schema.json`,
     generated_by: 'scripts/generate-catalog-json.mjs',
-    catalog_version: 5,
+    catalog_version: SCHEMA_VERSION,
     counts,
     components,
   };

@@ -1663,11 +1663,11 @@ const checkCandidates = () => {
   try {
     schema = loadSchema();
   } catch (error) {
-    return { status: "FAIL", detail: "cannot load registry/schema/catalog-v5.schema.json: " + String(error.message) };
+    return { status: "FAIL", detail: "cannot load the record schema (registry/schema/catalog-v6.schema.json, or catalog-v5.schema.json fallback): " + String(error.message) };
   }
   const candidateDef = schema.$defs === undefined ? undefined : schema.$defs.candidate;
   if (candidateDef === undefined) {
-    return { status: "FAIL", detail: "registry/schema/catalog-v5.schema.json carries no $defs.candidate" };
+    return { status: "FAIL", detail: "the record schema (v6, or v5 fallback) carries no $defs.candidate" };
   }
   const candidateSchema = { ...candidateDef, $defs: schema.$defs };
   let files = [];

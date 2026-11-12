@@ -4,7 +4,7 @@
 hand-edited. The single command that builds them is the dependency-free Node
 module `scripts/generate-catalog-json.mjs`. It reads the Markdown source plus
 the sidecars, validates every record against
-`registry/schema/catalog-v4.schema.json`, and writes byte-deterministic
+`registry/schema/catalog-v6.schema.json`, and writes byte-deterministic
 output. This file documents its real flags and rules; the record contract it
 enforces is in [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md).
 
