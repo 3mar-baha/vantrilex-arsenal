@@ -1871,8 +1871,12 @@ const main = () => {
   // object (replayable scoring record); transport on an mcp row is null or
   // one of the four declared values. priority_source, priority_set_at and
   // the transport enum on non-mcp kinds are enforced by the schema, not
-  // duplicated here.
+  // duplicated here. FINAL FIX mated addition (a) (v6): priority_per_role mirrors the v5
+  // priority bound — null, or an object keyed only by zenith|syzygy|asterism
+  // with integer 0-10 values (unknown rank keys rejected, as the v6 schema's
+  // additionalProperties:false does there).
   const TRANSPORT_ENUM = new Set(["stdio", "sse", "streamable-http", "remote-https"]);
+  const RANK_KEYS = new Set(["zenith", "syzygy", "asterism"]);
   const priorityOutOfRange = components.filter(
     (entry) => entry.priority !== null && (!Number.isInteger(entry.priority) || entry.priority < 1 || entry.priority > 10)
   );
@@ -1882,17 +1886,29 @@ const main = () => {
   const transportBad = components.filter(
     (entry) => entry.kind === "mcp" && entry.transport !== null && !TRANSPORT_ENUM.has(entry.transport)
   );
+  const priorityPerRoleBad = components.filter((entry) => {
+    const ppr = entry.priority_per_role;
+    if (ppr === null || ppr === undefined) return false;
+    if (typeof ppr !== "object" || Array.isArray(ppr)) return true;
+    for (const key of Object.keys(ppr)) {
+      if (RANK_KEYS.has(key) === false) return true;
+      const value = ppr[key];
+      if (!Number.isInteger(value) || value < 0 || value > 10) return true;
+    }
+    return false;
+  });
   const v5FieldFailures = [
     ...priorityOutOfRange.map((entry) => entry.kind + "/" + entry.id + ": priority=" + JSON.stringify(entry.priority) + " (want null or integer 1-10)"),
     ...usageSignalsBad.map((entry) => entry.kind + "/" + entry.id + ": usage_signals is not null or an object"),
-    ...transportBad.map((entry) => entry.kind + "/" + entry.id + ": transport=" + JSON.stringify(entry.transport) + " (want null or stdio|sse|streamable-http|remote-https)")
+    ...transportBad.map((entry) => entry.kind + "/" + entry.id + ": transport=" + JSON.stringify(entry.transport) + " (want null or stdio|sse|streamable-http|remote-https)"),
+    ...priorityPerRoleBad.map((entry) => entry.kind + "/" + entry.id + ": priority_per_role=" + JSON.stringify(entry.priority_per_role) + " (want null, or an object keyed only by zenith|syzygy|asterism with integer 0-10 values)")
   ];
   record(
     "priority-contract/v5-bounds",
     v5FieldFailures.length === 0 ? "PASS" : "FAIL",
     v5FieldFailures.length === 0
       ? components.length +
-        " live rows carry priority null-or-integer-1-10, usage_signals null-or-object, mcp transport null-or-enum"
+        " live rows carry priority null-or-integer-1-10, usage_signals null-or-object, mcp transport null-or-enum, priority_per_role null-or-rank-keyed integers 0-10"
       : v5FieldFailures.length + " v5 field violation(s): " + samples(v5FieldFailures, (failure) => failure)
   );
 
@@ -2253,6 +2269,7 @@ const main = () => {
       if (ok === false) mcpFailures.push(bucket.spec.rank);
     }
     const uncountableUnion = [...new Set(uncountable)].sort();
+    // Note (catalog-v6, FINAL FIX mated addition (b), not a re-scope): with v6 the health-check leg IS now recorded on selected rows (health_check set on 7 of the 10 selected MCP rows; verify-priority-source separately enforces priority_source/priority_set_at), but this gate does not measure it.
     record(
       "min-mcps",
       mcpFailures.length === 0 ? "PASS" : "FAIL",
