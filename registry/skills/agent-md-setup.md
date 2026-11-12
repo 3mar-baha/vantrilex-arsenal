@@ -9,4 +9,3 @@
 **Tags:** ismail9k, skill
 
 **Raw URL:** https://raw.githubusercontent.com/ismail9k/skills/main/skills/agent-md-setup/SKILL.md
-
