@@ -23,7 +23,8 @@
       "skill/vantrilex-workflow-forge",
       "skill/vs-zenith-muster",
       "skill/vs-syzygy-muster",
-      "skill/vs-asterism-muster"
+      "skill/vs-asterism-muster",
+      "skill/vs-zenith-team-control"
     ],
     "docs": [
       "agent/vantrilex-librarian",
@@ -164,5 +165,5 @@
       "document": "docs/15-DECISIONS.md"
     }
   ],
-  "notes": "MFT-096 reconciliation 2026-11-05: suspended=[] (0). All 150 selected tokens resolve to live catalog rows; the 17 historical missing-address suspensions were re-admitted (15) or merged (context7-mcp->context7, reference-sequential->sequential-thinking, supabase->supabase-mcp, vercel->vercel-mcp, openrouter restored) across C2-READMIT/C2-READMIT-2, so no suspension stands. S2 will switch injection to catalogPhaseSets() and this record. SC-04 2026-11-11 (W-20): hook/session-end added to the operate phase; catalog row set to phase operate, tier core so the selection places; count 149 -> 150. W-32 2026-11-11: agent/vantrilex-facet selected under the scout phase and carried as a suspension — the facet seat (MFT-113) is a local authoring with no catalog row yet; registry admission is a kit-maintainer item, recorded in D72. Suspended tokens are held out of loadability/registers and phase-sets and reported, not deleted. Selected-token count 141 -> 142 with the facet added, suspended 0 -> 1 (W-27/W-28 MCP drops left the record at 141 before this change; the SC-04 figure of 150 above is stale)."
+  "notes": "MFT-096 reconciliation 2026-11-05: suspended=[] (0). All 150 selected tokens resolve to live catalog rows; the 17 historical missing-address suspensions were re-admitted (15) or merged (context7-mcp->context7, reference-sequential->sequential-thinking, supabase->supabase-mcp, vercel->vercel-mcp, openrouter restored) across C2-READMIT/C2-READMIT-2, so no suspension stands. S2 will switch injection to catalogPhaseSets() and this record. SC-04 2026-11-11 (W-20): hook/session-end added to the operate phase; catalog row set to phase operate, tier core so the selection places; count 149 -> 150. W-32 2026-11-11: agent/vantrilex-facet selected under the scout phase and carried as a suspension — the facet seat (MFT-113) is a local authoring with no catalog row yet; registry admission is a kit-maintainer item, recorded in D72. Suspended tokens are held out of loadability/registers and phase-sets and reported, not deleted. Selected-token count 141 -> 142 with the facet added, suspended 0 -> 1 (W-27/W-28 MCP drops left the record at 141 before this change; the SC-04 figure of 150 above is stale). F-01 final fix 2026-11-12: owner ruling 2026-11-12 -- gap filled: the Zenith team-lead control book (vs-zenith-team-control) is mandatory for the seat but counted toward no rank floor; added as a Zenith scout token; expected min-skills zenith 15/15."
 }
