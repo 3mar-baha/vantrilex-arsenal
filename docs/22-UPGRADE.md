@@ -1,3 +1,5 @@
+> **2026-11-12 (F-36):** renamed from `docs/UPGRADE.md` to `docs/22-UPGRADE.md` to satisfy the docs-discipline-guard's allow-list (the top-level `docs/` root is not an allowed directory; the numbered `docs/00-`–`27-` series is, per `.opencode/arsenal.json` `docsGuard.series`). Content is unchanged; the rename resolves the WARN recorded in D72 decision 4. References in the decision log and CHANGELOG are dated records and were not rewritten.
+
 # Delete the old install, install the latest — never upgrade in place
 
 This is the manual upgrade procedure for an existing Arsenal install. There is

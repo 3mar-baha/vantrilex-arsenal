@@ -48,7 +48,7 @@ from then on. The Node floor is 22 — not 20 — and the schema both sides must
 satisfy is now `registry/schema/catalog-v6.schema.json` (`catalog_version` is
 `6` in `registry/catalog.json`), documented in
 [06-REGISTRY-SCHEMA.md](06-REGISTRY-SCHEMA.md). Upgrading an existing install
-is a different procedure, documented in [UPGRADE.md](UPGRADE.md) — it is a
+is a different procedure, documented in [22-UPGRADE.md](22-UPGRADE.md) — it is a
 delete-old-install-latest procedure, never an in-place edit.
 
 ## Choosing a facet — an install-time choice
