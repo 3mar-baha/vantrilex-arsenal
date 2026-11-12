@@ -12,6 +12,24 @@ The runtime on this machine is OpenCode **V1, version 1.18.34**. Verified with
 registers fires through the V1 `server()` surface and nothing is inert. The
 gap this document describes is a *latent* gap: it bites on a V2 host, not here.
 
+> **Correction 2026-11-12 (FINAL FIX F-38).** The blocking-pair claims below
+> ("V2's `execute.before` has no throw-to-block channel", "aborting the call
+> does not [port]", "both become advisory") were **refuted by direct
+> observation on the actual V2 host**: on `opencode` **v2.0.27**, a plugin
+> `ctx.tool.hook("execute.before", …)` hook whose callback **throws aborts the
+> tool call** — the tool does not run (the canary file is not written; the host
+> reports the call failed with the thrown `Error` verbatim), and a
+> non-matching throw target leaves the call proceeding. 7/7 assertions passed,
+> twice, in the proof runs recorded in
+> `docs/dev/layer6-v2-host-proof-2026-11-12.md` (legs A/B, scratch project
+> under the OS temp dir). The types may still lack a declared failure
+> channel — the running binary implements one. Read the two legacy claims
+> below as superseded for the runtime claim, subject to the API-type claim
+> remaining as written: the type system still does not declare the channel.
+> Layer 6 (the `[vantrilex-ladder] BLOCK:` rung, wired at the head of the V2
+> `execute.before` adapter and the V1 hook) exists in the module, ships
+> disabled per D64 decision 3, and fires strictly below the rank minimum.
+
 | Host runtime | Which surface fires | Which surface is ignored |
 |---|---|---|
 | OpenCode V1 `>= 1.18.29` (this machine) | `server()` | `setup()` |
@@ -262,7 +280,9 @@ wrong about the *writability*.
 - `longRunningProcessGuard` reads the mutable `event.input` at
   `execute.before`. Its V1 blocking behaviour — throwing to abort the tool call —
   is **not** portable. V2's `execute.before` has no throw-to-block channel
-  declared in the promise API. The nearest declared mechanism is the effect-API
+  declared in the promise API. *(Corrected 2026-11-12: observed on v2.0.27 — a
+  throwing `execute.before` aborts the call; see the Correction banner at the
+  top.)* The nearest declared mechanism is the effect-API
   `Hooks<Spec, Failures>` in `dist/effect/registration.d.ts`, which types a
   per-hook failure channel — but the repo is on the promise API, so that is out
   of reach without a second module surface. The guard can still *write* its
@@ -275,7 +295,7 @@ wrong about the *writability*.
 | `sessionStart` | `experimental.chat.system.transform` | `ctx.session.hook("context", …)`, push `SystemPart` onto `event.system` | `@opencode/plugin` 2.0.26 `dist/promise/session.d.ts` lines 22, 29, 129; `@opencode/ai` `messages.d.ts` line 12 | **FOUND.** Portable with a per-call granularity change |
 | `preCompact` | `experimental.session.compacting` | `ctx.session.hook("compaction", …)`, set `event.result` / push onto `event.system` | same file, lines 36, 42, 131 | **FOUND.** Portable; more power than V1 |
 | `sessionEnd` | `event` | `ctx.event.subscribe(…)` | `@opencode/plugin` 2.0.26 `dist/promise/event.d.ts`: `EventDomain extends Pick<EventApi, "subscribe">`. `@opencode/schema@2.0.26` `session-event.d.ts` declares `"session.deleted"` (line 17 region), `"session.usage.recorded"`, and `"session.execution.succeeded"`/`"session.execution.interrupted"`; the literal `"session.idle"` is **not** declared | **FOUND with a rename.** `session.deleted` and the execution-terminal events are declared; the V1 `session.idle` literal is not. Port must remap the end detection |
-| `longRunningProcessGuard` | `tool.execute.before` (throws to block) | `ctx.tool.hook("execute.before", …)` — reads and writes `event.input`, **cannot throw to block** | `@opencode/plugin` 2.0.26 `dist/promise/tool.d.ts` line 30; V1 block path `arsenal.ts` line 1518 `throw new Error(guardBlockMessage(segments))`; V2 failure typing only in `dist/effect/registration.d.ts` | **PARTIAL.** Verdict writes in; aborting the call does not |
+| `longRunningProcessGuard` | `tool.execute.before` (throws to block) | `ctx.tool.hook("execute.before", …)` — reads and writes `event.input`, **cannot throw to block** *(corrected 2026-11-12: the v2.0.27 host aborts the call on throw; see the Correction banner at the top)* | `@opencode/plugin` 2.0.26 `dist/promise/tool.d.ts` line 30; V1 block path `arsenal.ts` line 1518 `throw new Error(guardBlockMessage(segments))`; V2 failure typing only in `dist/effect/registration.d.ts` | **PARTIAL.** Verdict writes in; aborting the call does not |
 | `typescriptCheck` | `tool.execute.after` (appends to `output.output`) | `ctx.tool.hook("execute.after", …)` branch on `status`, write `event.result.content` / `.metadata` | `tool.d.ts` lines 38-52; `@opencode/schema` `dist/tool.d.ts` `Result` | **FOUND.** Portable with a `string` → `Content` change |
 | `prettierFormat` | `tool.execute.after` (appends to `output.output`) | as above | as above | **FOUND.** Portable with a `string` → `Content` change |
 | `docsDisciplineGuard` | `tool.execute.before` (throws to block) | as `longRunningProcessGuard` | `arsenal.ts` line 1558 `throw new Error(guardDocsMessage(…))` | **PARTIAL.** Verdict writes in; blocking does not |
@@ -361,7 +381,10 @@ written. It is not "V2 has no equivalent surface". It is:
 
 - V2 landing sites exist for all seven, on the `session` and `tool` domains.
 - Two guards lose their blocking behaviour, which is a real regression and the
-  only substantive argument for keeping them on V1.
+  only substantive argument for keeping them on V1. *(Corrected 2026-11-12:
+  on the observed v2.0.27 host the V2 `execute.before` throw **does** abort
+  the call — see the Correction banner at the top. The remaining distinction
+  is that the promise API does not declare the channel in its types.)*
 - Nothing in this repository installs or type-checks against
   `@opencode/plugin` 2.x, so any port is written blind until the pin changes —
   and the pin is what made the "no equivalent" reading look correct.
