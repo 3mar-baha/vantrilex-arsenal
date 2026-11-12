@@ -3019,6 +3019,72 @@ const countMusterTokens = (text: string): { skills: number; mcps: number } => {
   return { skills, mcps }
 }
 
+/** D48 bright-line per-task minimums by rank (D48, recorded with the rank numbers by D61):
+ * Zenith >=15 skills / >=5 countable MCPs; Syzygy >=10 / >=4; Asterism >=5 / >=2. */
+const MUSTER_RANK_MINIMUMS: ReadonlyMap<string, { skills: number; mcps: number }> = new Map([
+  ["zenith", { skills: 15, mcps: 5 }],
+  ["syzygy", { skills: 10, mcps: 4 }],
+  ["asterism", { skills: 5, mcps: 2 }],
+])
+
+/** Inputs for the D64 warn rung: the calling rank and the measured counts per kind. */
+export type MusterWarnInput = { rank: string; skills: number; mcps: number }
+
+/**
+ * D64 residual (b): the "half the minimum" warn arithmetic, stated by the
+ * runtime that appends the line. The warn fires when a kind's confirmed count
+ * is strictly below half the rank minimum, defined as `count * 2 < min`
+ * (integer-exact; equivalent for integer counts to `count < ceil(min / 2)`,
+ * so no rounding function is involved). Rationale: strictly below half is
+ * under the line by more than the margin, and it matches "half the minimum"
+ * literally. The warn fires when EITHER kind is below half; at or above half
+ * for both kinds, no line is appended. Advisory only — nothing here refuses,
+ * blocks or gates a call; `block` is deferred by D64 decision 3.
+ */
+const belowHalfMinimum = (count: number, min: number): boolean =>
+  Number.isFinite(count) && Number.isFinite(min) && count * 2 < min
+
+/**
+ * D64 decision 1's warn staple line, verbatim with the placeholders
+ * substituted:
+ *   [muster] rank <rank> has used <n>/<N> required skills, <m>/<M> required MCPs
+ * Returns the staple when the rank is known and a kind is below half the
+ * minimum, else null. Never throws.
+ */
+export const musterWarnStaple = (input: MusterWarnInput): string | null => {
+  const min = MUSTER_RANK_MINIMUMS.get(input.rank)
+  if (min === undefined) return null
+  const skillsBelow = belowHalfMinimum(input.skills, min.skills)
+  const mcpsBelow = belowHalfMinimum(input.mcps, min.mcps)
+  if (!skillsBelow && !mcpsBelow) return null
+  return `[muster] rank ${input.rank} has used ${input.skills}/${min.skills} required skills, ${input.mcps}/${min.mcps} required MCPs`
+}
+
+/** Where the warn staple lands: `pendingWarnings` is drained into every tool result. */
+export type MusterWarnSink = { pendingWarnings: string[] }
+
+/**
+ * D64 residual (c): the code path that appends the warn staple line to the
+ * tool output at warn level. Pushes the staple into the same non-throwing
+ * channel every other advisory verdict uses — `pendingWarnings` — which the
+ * V2 `tool.execute.after` adapter (and the V1 `tool.execute.after` hook)
+ * appends to the tool output on the next call. Returns true when a staple was
+ * appended, false when the warn did not fire (rank unknown, both kinds at or
+ * above half, non-finite counts, or a malformed sink). Warn level only: it
+ * never refuses and never throws.
+ */
+export const appendMusterWarnStaple = (sink: MusterWarnSink, input: MusterWarnInput): boolean => {
+  try {
+    const staple = musterWarnStaple(input)
+    if (staple === null) return false
+    if (sink === null || typeof sink !== "object" || !Array.isArray(sink.pendingWarnings)) return false
+    sink.pendingWarnings.push(staple)
+    return true
+  } catch {
+    return false
+  }
+}
+
 type CompiledMuster = { rank: string; skill: string; text: string }
 
 /**
