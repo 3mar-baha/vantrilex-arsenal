@@ -168,18 +168,31 @@ MFT-064-DRAIN (probeDocsDedupSurvivesDrain, touched literal)   -> MFT-064-DRAIN 
 node scripts/verify-skills.mjs                                 -> 11/11 checks, VERDICT: PASS
 node scripts/generate-catalog-json.mjs --check                 -> exit 0 (untouched check — this lane
                                                                   wrote nothing into registry/)
-node scripts/run-battery.mjs                                   -> BATTERY: PASS — all 3 sections passed,
-                                                                  exit 0 (2026-11-12, at HEAD 21b3c58 +
-                                                                  this lane's two commits). Notably
-                                                                  verify-catalog.mjs exit 0 — the D61
-                                                                  expected red is gone on this branch as
-                                                                  of the concurrent lanes' landings; no
-                                                                  gate was edited or weakened by this
-                                                                  lane. verify-minimums PASS via the
-                                                                  D80 fixture, 15/15 scoped.
 ```
 
-`run-battery` output was captured before this document's commit and quotes the post-landing state; the full log is `%TEMP%\layer6-battery-output.txt`. (Battery deprecation warning DEP0190 about shell args is pre-existing host noise, not a failure.)
+`run-battery` was run three times during this lane, recorded honestly, because the branch HEAD moved under us (concurrent lanes, §6):
+
+```text
+Run 1 — working tree with this lane's two code commits, pre-commit (~HEAD 21b3c58):
+  BATTERY: PASS — all 3 sections passed. exit 0.
+  (verify-catalog.mjs exit 0 — the D61 expected red is gone on this branch as of
+  the concurrent lanes' D87/D89 landings; no gate was edited or weakened by this
+  lane. verify-minimums PASS via the D80 fixture; 15/15 scoped.)
+
+Run 2 — at this lane's doc commit be14685, after the concurrent lane landed
+  its e8e5e14 dispatch-log entry, whose docs/15-DECISIONS.md line 1198 then
+  carried a bare URL:
+  BATTERY: FAIL — 1/3 sections failed. exit 1.
+  FAIL markdownlint-cli "docs/*.md" — docs/15-DECISIONS.md:1198 MD034/no-bare-urls
+  ("https://github.com/modelcontex…"). NOT this lane's file (pathspec-verified; this
+  lane never wrote 15-DECISIONS.md); the verify-scripts sections PASS again.
+
+Run 3 — at HEAD 6856253, after the concurrent lane wrapped the URL (3391b83):
+  node --check 96/96 passed; markdownlint PASS (docs/*.md: 0 issues in 31 files);
+  verify scripts 15/15 scoped passed; BATTERY: PASS — all 3 sections. exit 0.
+```
+
+(Battery deprecation warning DEP0190 about shell args is pre-existing host noise, not a failure. Battery logs: `%TEMP%\layer6-battery-output.txt` run 1, `%TEMP%\layer6-battery-final.txt` run 2, `%TEMP%\layer6-battery-final2.txt` run 3.)
 
 ## 5. Commits
 
