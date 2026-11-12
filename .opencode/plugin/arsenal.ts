@@ -781,6 +781,14 @@ type SessionState = {
   digest: SmartDigest
 }
 
+/** Counts the block rung consumes — the provider type lives in §20d (Layer 6). */
+export type LadderCounts = { rank: string; confirmedSkills: number; confirmedMcps: number }
+export type LadderCountsProvider = (event: {
+  sessionID?: string
+  agent?: string
+  tool: string
+}) => LadderCounts | null | Promise<LadderCounts | null>
+
 type ArsenalContext = {
   rt: Runtime
   root: string
@@ -790,6 +798,15 @@ type ArsenalContext = {
   config: ArsenalConfig
   tscChain: Promise<void>
   pendingWarnings: string[]
+  /** Layer 6 (F-38): drained exactly like `pendingWarnings`; see §20d. */
+  pendingBlocks: string[]
+  /**
+   * Layer 6 (F-38): injection point for the per-task confirmed-count source.
+   * `null` by default and the only wired state ships with this change: tool
+   * events carry no task id (F-15), so no confirmed-count source exists on
+   * this surface. A future lane wires the D63 claim ledger behind this type.
+   */
+  ladderCountsProvider: LadderCountsProvider | null
   lastLogTarget: string | null
   /** One line per documented hook, from the setup-time capability probe. */
   capabilityLines: string[]
@@ -2680,6 +2697,8 @@ export const probeDocsDedupSurvivesDrain = async (): Promise<void> => {
     },
     tscChain: Promise.resolve(),
     pendingWarnings: [],
+    pendingBlocks: [],
+    ladderCountsProvider: null,
     lastLogTarget: null,
     capabilityLines: [],
     capabilitiesFlushed: false,
@@ -3111,6 +3130,158 @@ const compileMuster = (ctx: ArsenalContext, agent: string): CompiledMuster | nul
   } catch {
     return null
   }
+}
+
+/* ===========================================================================
+ * 20d. Ladder block rung (Layer 6; F-38) — D64 decision 3, OFF by default
+ * =========================================================================
+ *
+ * D64 decision 3 gates the `block` rung on 10 measured tasks showing the
+ * receipt is accurate and the warn rung fires correctly, recorded in a dated
+ * entry superseding D64. As of 2026-11-12 zero tasks are measured against
+ * that condition (F-38; D81/WS8), so the block rung SHIPS DISABLED: it
+ * activates only when BOTH (a) `VANTRILEX_LADDER_BLOCK` is truthy in the
+ * environment ("1" or "true", case-insensitive) AND (b) the owner's promotion
+ * ledger `LADDER_BLOCK_MEASURED_TASKS` — bumped only by a dated owner ruling
+ * in docs/15-DECISIONS.md — has reached `LADDER_BLOCK_REQUIRED_MEASURED`
+ * (10). With the promotion unrecorded, (a) alone never enables the throw.
+ *
+ * When enabled for the current task context, `tool.execute.before` throws an
+ * Error whose message begins `[vantrilex-ladder] BLOCK:` and names the
+ * deficit (rank, kind, confirmed count, minimum). The deficits compare the
+ * task's CONFIRMED counts against `MUSTER_RANK_MINIMUMS`, strictly BELOW the
+ * rank minimum (warn owns half; block owns the line). The confirmed-count
+ * source is an injection point — `ArsenalContext.ladderCountsProvider` —
+ * because tool events carry no task id (F-15 residual), so no confirmed-count
+ * source exists on this surface and none is fabricated. The shipped default
+ * is `null`; with no provider wired, with a provider that throws, with an
+ * unknown rank, or with non-finite or negative counts, the path fails OPEN —
+ * the ladder informs and never refuses on missing or malformed evidence,
+ * mirroring the warn rung's fail-open law.
+ *
+ * `pendingBlocks` is the `pendingWarnings` sibling and drains with the same
+ * semantics: appended (once) to every tool result by the V1 `tool.execute.after`
+ * hook and the V2 `tool.execute.after` adapter, then cleared. Because a
+ * blocked call itself never reaches an after-hook, the notice rides the NEXT
+ * tool result.
+ *
+ * The warn rung (D64 decision 1/2) is untouched. `PLUGIN_VERSION` is
+ * unchanged. The block path is demonstrated ONLY by
+ * `scripts/probe-layer6-block.mjs` (unit) and the live host probe
+ * `scripts/probe-layer6-host.mjs` against a scratch project; it is not
+ * active in production and promotes solely via the D64 decision 3 owner
+ * ruling.
+ * ========================================================================= */
+
+/** Environment flag opting in to the block rung. Never sufficient alone. */
+export const LADDER_BLOCK_ENV = "VANTRILEX_LADDER_BLOCK"
+/** D64 decision 3: 10 measured tasks recorded before any promotion. */
+export const LADDER_BLOCK_REQUIRED_MEASURED = 10
+/**
+ * The owner's promotion ledger for the D64 decision 3 condition — the number
+ * of measured tasks recorded against it. ZERO as of 2026-11-12 (F-38; not
+ * measured, not promoted; docs/15-DECISIONS.md carries no superseding ruling).
+ * Bumped only by a dated owner ruling recorded in docs/15-DECISIONS.md,
+ * never ad hoc and never by this lane.
+ */
+export const LADDER_BLOCK_MEASURED_TASKS = 0
+
+/** The one message every block verdict begins with (greppable). */
+export const LADDER_BLOCK_MESSAGE_PREFIX = "[vantrilex-ladder] BLOCK:"
+
+/** Pure gate: the environment flag AND the recorded promotion are both required. */
+export const ladderBlockEnabled = (
+  envValue: string | undefined,
+  measuredTasks: number = LADDER_BLOCK_MEASURED_TASKS,
+): boolean => {
+  const raw = (envValue ?? "").trim().toLowerCase()
+  const flag = raw === "1" || raw === "true"
+  return flag && Number.isFinite(measuredTasks) && measuredTasks >= LADDER_BLOCK_REQUIRED_MEASURED
+}
+
+export type LadderBlockDecision = { block: boolean; reason: string | null }
+
+/**
+ * The pure block decision. `enabled` is the gate (`ladderBlockEnabled`); the
+ * decision never reads the environment itself. Fail-open: unknown rank, and
+ * non-finite or negative counts, produce no block for the affected kind.
+ * At or above both minimums, silent.
+ */
+export const ladderBlockDecision = (input: {
+  rank: string
+  skills: number
+  mcps: number
+  enabled: boolean
+}): LadderBlockDecision => {
+  if (input.enabled !== true) return { block: false, reason: null }
+  const min = MUSTER_RANK_MINIMUMS.get(input.rank)
+  if (min === undefined) return { block: false, reason: null }
+  const deficits: string[] = []
+  const kinds: Array<{ kind: string; count: number; minimum: number }> = [
+    { kind: "skills", count: input.skills, minimum: min.skills },
+    { kind: "MCPs", count: input.mcps, minimum: min.mcps },
+  ]
+  for (const { kind, count, minimum } of kinds) {
+    if (!Number.isFinite(count) || count < 0) continue // malformed: fail-open for this kind
+    if (count < minimum) {
+      deficits.push(`rank ${input.rank} ${kind} ${count}/${minimum} (deficit ${minimum - count})`)
+    }
+  }
+  if (deficits.length === 0) return { block: false, reason: null }
+  return {
+    block: true,
+    reason: `${LADDER_BLOCK_MESSAGE_PREFIX} ${deficits.join("; ")} — D64 block rung (requires ${LADDER_BLOCK_ENV}=1 and a dated D64 decision 3 supersession recording >= ${LADDER_BLOCK_REQUIRED_MEASURED} measured tasks)`,
+  }
+}
+
+/** Where the block notice lands: `pendingBlocks`, drained like `pendingWarnings`. */
+export type LadderBlockSink = { pendingBlocks: string[] }
+
+export const appendLadderBlockNotice = (sink: LadderBlockSink, notice: string): boolean => {
+  try {
+    if (sink === null || typeof sink !== "object") return false
+    if (!Array.isArray(sink.pendingBlocks) || notice.length === 0) return false
+    sink.pendingBlocks.push(notice)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * The Layer 6 enforcement entry, called at the head of the `tool.execute.before`
+ * surfaces (V2 adapter and V1 hook), after the kill-switch check. Disabled by
+ * default. Absence of a counts provider is fail-open; a provider that throws
+ * or resolves null is fail-open; a verdict at or above both minimums is silent.
+ * A block throws an Error whose message begins `LADDER_BLOCK_MESSAGE_PREFIX`
+ * and carries the notice once into `pendingBlocks`.
+ */
+export const enforceLadderBlock = async (
+  arsenal: ArsenalContext,
+  event: { sessionID?: string; agent?: string; tool: string },
+): Promise<void> => {
+  const envValue = arsenal.rt?.proc?.env?.[LADDER_BLOCK_ENV]
+  if (!ladderBlockEnabled(envValue)) return
+  const provider = arsenal.ladderCountsProvider
+  if (typeof provider !== "function") return // no counts source wired (D63 decision 4): fail-open
+  let counts: LadderCounts | null = null
+  try {
+    counts = await provider(event)
+  } catch {
+    return // provider failure: fail-open
+  }
+  if (counts === null || typeof counts !== "object") return
+  const toCount = (value: unknown): number =>
+    typeof value === "number" && Number.isFinite(value) ? value : Number.NaN
+  const decision = ladderBlockDecision({
+    rank: typeof counts.rank === "string" ? counts.rank : "",
+    skills: toCount((counts as LadderCounts).confirmedSkills),
+    mcps: toCount((counts as LadderCounts).confirmedMcps),
+    enabled: true,
+  })
+  if (!decision.block || decision.reason === null) return
+  appendLadderBlockNotice(arsenal, decision.reason)
+  throw new Error(decision.reason)
 }
 
 /* ===========================================================================
@@ -3875,6 +4046,8 @@ const createContext = (
   config: readConfig(rt, root),
   tscChain: Promise.resolve(),
   pendingWarnings: [],
+  pendingBlocks: [],
+  ladderCountsProvider: null,
   lastLogTarget: null,
   capabilityLines: [],
   capabilitiesFlushed: false,
@@ -3905,6 +4078,14 @@ export const v2ToolBefore = async (arsenal: ArsenalContext, event: V2ToolBeforeE
   const sessionId =
     typeof event?.sessionID === "string" && event.sessionID.length > 0 ? event.sessionID : "anonymous"
   const callId = typeof event?.id === "string" && event.id.length > 0 ? event.id : "v2-before"
+  // Layer 6 (§20d): the block rung fires before any state is recorded — a
+  // refused call touched nothing. Disabled unless the owner promoted the
+  // ladder (D64 decision 3); fail-open without a counts provider.
+  await enforceLadderBlock(arsenal, {
+    sessionID: sessionId,
+    agent: seatAgentName(event?.agent) ?? undefined,
+    tool: toolName,
+  })
   rememberSessionAgent(arsenal, sessionId, seatAgentName(event?.agent))
   recordTouchedFiles(arsenal, sessionId, candidatePathsFrom(arsenal.root, event?.input))
   await diffSizeGuard(arsenal, sessionId, toolName)
@@ -3972,6 +4153,12 @@ const v2ToolAfter = async (arsenal: ArsenalContext, event: V2ToolAfterEvent): Pr
   if (arsenal.pendingWarnings.length > 0) {
     shim.output = `${shim.output}\n${arsenal.pendingWarnings.join("\n")}`
     arsenal.pendingWarnings = []
+  }
+  // Layer 6 (§20d): same drain semantics as pendingWarnings; a blocked call
+  // never reaches this adapter, so its notice rides this result instead.
+  if (arsenal.pendingBlocks.length > 0) {
+    shim.output = `${shim.output}\n${arsenal.pendingBlocks.join("\n")}`
+    arsenal.pendingBlocks = []
   }
   const input: ToolExecuteAfterInput = {
     tool: toolName,
@@ -4361,6 +4548,12 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       toolOutput: ToolExecuteBeforeOutput,
     ): Promise<void> => {
       if (killSwitchReason(ctx) !== null) return
+      // Layer 6 (§20d): same disabled-by-default block rung as the V2 surface;
+      // V1 events carry no agent field, so only the session id is passed.
+      await enforceLadderBlock(ctx, {
+        sessionID: toolInput?.sessionID,
+        tool: typeof toolInput?.tool === "string" ? toolInput.tool : "",
+      })
       recordTouchedFiles(ctx, toolInput.sessionID, candidatePathsFrom(root, toolOutput?.args))
       await diffSizeGuard(ctx, toolInput.sessionID, toolInput.tool)
       await longRunningProcessGuard(ctx, toolInput, toolOutput)
@@ -4376,6 +4569,12 @@ const server: Plugin = async (input: PluginInput): Promise<Hooks> => {
       if (ctx.pendingWarnings.length > 0 && typeof toolOutput?.output === "string") {
         toolOutput.output = `${toolOutput.output}\n${ctx.pendingWarnings.join("\n")}`
         ctx.pendingWarnings = []
+      }
+      // Layer 6 (§20d): same drain semantics as pendingWarnings; a blocked call
+      // never reaches this hook, so its notice rides this result instead.
+      if (ctx.pendingBlocks.length > 0 && typeof toolOutput?.output === "string") {
+        toolOutput.output = `${toolOutput.output}\n${ctx.pendingBlocks.join("\n")}`
+        ctx.pendingBlocks = []
       }
       await typescriptCheck(ctx, toolInput, toolOutput)
       await prettierFormat(ctx, toolInput, toolOutput)
