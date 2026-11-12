@@ -9,3 +9,4 @@
 **Tags:** cybersecurity, skill
 
 **Raw URL:** https://raw.githubusercontent.com/mukul975/Anthropic-Cybersecurity-Skills/main/skills/extracting-credentials-from-memory-dump/SKILL.md
+

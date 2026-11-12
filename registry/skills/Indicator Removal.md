@@ -9,3 +9,4 @@
 **Tags:** cybersecurity, skill
 
 **Raw URL:** https://raw.githubusercontent.com/mukul975/Anthropic-Cybersecurity-Skills/main/skills/deploying-decoy-files-for-ransomware-detection/SKILL.md
+

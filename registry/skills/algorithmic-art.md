@@ -9,3 +9,4 @@
 **Tags:** anthropic, skill
 
 **Raw URL:** https://raw.githubusercontent.com/anthropics/skills/main/skills/algorithmic-art/SKILL.md
+
