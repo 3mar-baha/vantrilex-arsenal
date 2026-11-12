@@ -9,4 +9,3 @@
 **Tags:** anthropic, skill
 
 **Raw URL:** https://raw.githubusercontent.com/anthropics/skills/main/skills/academy-guide/SKILL.md
-
