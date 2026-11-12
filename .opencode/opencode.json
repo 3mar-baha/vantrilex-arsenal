@@ -1,13 +1,70 @@
 {
-  "mcpServers": {
-    "memory": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ],
-      "env": []
+  "mcp": {
+    "servers": {
+      "gmail": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@gongrzhe/server-gmail-autoauth-mcp"
+        ]
+      },
+      "notion": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@notionhq/notion-mcp-server"
+        ]
+      },
+      "context7": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@upstash/context7-mcp"
+        ]
+      },
+      "github": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@modelcontextprotocol/server-github"
+        ]
+      },
+      "sequential-thinking": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@modelcontextprotocol/server-sequential-thinking"
+        ]
+      },
+      "firecrawl": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "firecrawl-mcp"
+        ]
+      },
+      "browserbase": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@browserbasehq/mcp"
+        ]
+      },
+      "memory": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@modelcontextprotocol/server-memory"
+        ]
+      }
     }
   }
 }
